@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Landing View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="LandingViewController" customModule="stonks" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PYj-uY-WuM">
+                                <rect key="frame" x="0.0" y="20" width="375" height="315"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o04-TD-ZIM">
+                                <rect key="frame" x="137" y="343" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.041231204330133588" green="0.8405377538071066" blue="0.51635856384142975" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Get Quote">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="getQuoteButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tBO-2z-uRV"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="PYj-uY-WuM" secondAttribute="trailing" id="2s1-l1-1vJ"/>
+                            <constraint firstItem="o04-TD-ZIM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="137" id="9Em-n3-Knx"/>
+                            <constraint firstItem="PYj-uY-WuM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="BGl-NJ-cuQ"/>
+                            <constraint firstItem="o04-TD-ZIM" firstAttribute="top" secondItem="PYj-uY-WuM" secondAttribute="bottom" constant="8" symbolic="YES" id="DH9-tJ-7TB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="PYj-uY-WuM" secondAttribute="bottom" constant="332" id="Pnn-j5-Snk"/>
+                            <constraint firstItem="o04-TD-ZIM" firstAttribute="centerX" secondItem="PYj-uY-WuM" secondAttribute="centerX" id="Wtr-pa-dkc"/>
+                            <constraint firstItem="PYj-uY-WuM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="iAQ-c4-lGs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="140" y="132.68365817091455"/>
+        </scene>
+    </scenes>
+</document>

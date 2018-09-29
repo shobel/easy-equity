@@ -1,0 +1,20 @@
+PODS:
+  - EasyToast (2.0.2)
+  - SwiftyJSON (4.0.0)
+
+DEPENDENCIES:
+  - EasyToast
+  - SwiftyJSON (~> 4.0)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - EasyToast
+    - SwiftyJSON
+
+SPEC CHECKSUMS:
+  EasyToast: 2844de2158fe8d2313c6de81b5a858a909d82532
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+
+PODFILE CHECKSUM: 24362569991a571483a97fa71573aaaa1034f45d
+
+COCOAPODS: 1.5.0
