@@ -64,8 +64,10 @@ class IEXTrading: StockDataAPI {
         sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
             if let data = data {
                 let json = JSON(data)
-                for (index,subJson):(String, JSON) in json {
-                    print(json[index]["quote"]["latestPrice"].double)
+                var currentPrices:[String:Double] = [:]
+                for (index,_):(String, JSON) in json {
+                    
+                    print(json[index]["quote"]["latestPrice"].double!)
                 }
             }
         })

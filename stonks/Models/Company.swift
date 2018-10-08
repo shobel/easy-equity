@@ -12,12 +12,12 @@ class Company: Equatable{
 
     public var ticker:String
     public var fullName:String
-    public var currentPrice:Float?
-    public var priceChange:Float?
-    public var percentChange:Float?
+    public var currentPrice:Double?
+    public var priceChange:Double?
+    public var percentChange:Double?
     public var daysToER:Int?
-    public var dailyData:[Date:Float]?
-    public var minuteData:[String:Float]?
+    public var dailyData:[Date:Double]?
+    public var minuteData:[String:Double]?
     
     init(ticker: String, fullName: String){
         self.ticker = ticker

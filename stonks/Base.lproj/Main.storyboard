@@ -162,7 +162,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tcj-sE-v6c" userLabel="Subtitle">
-                                                            <rect key="frame" x="10" y="29.5" width="84" height="11"/>
+                                                            <rect key="frame" x="10" y="29.5" width="42.5" height="11"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -176,7 +176,7 @@
                                                         <constraint firstAttribute="height" constant="50" id="Xtu-MA-ygh"/>
                                                         <constraint firstItem="L0c-9f-sXd" firstAttribute="leading" secondItem="wC2-lh-58d" secondAttribute="leading" constant="10" id="bIT-bz-XYY"/>
                                                         <constraint firstItem="L0c-9f-sXd" firstAttribute="centerY" secondItem="wC2-lh-58d" secondAttribute="centerY" constant="-8" id="ggu-sf-QlE"/>
-                                                        <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="tcj-sE-v6c" secondAttribute="trailing" id="uv2-sy-jpz"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tcj-sE-v6c" secondAttribute="trailing" constant="-20" id="uv2-sy-jpz"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23d" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rd8-4b-ycn" userLabel="DaysToER">
@@ -295,9 +295,6 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <segue destination="59B-LH-ktd" kind="show" identifier="SearchToWatch" id="JhZ-mG-jxP"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -320,6 +317,5 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="iIz-QY-7LX"/>
-        <segue reference="JhZ-mG-jxP"/>
     </inferredMetricsTieBreakers>
 </document>

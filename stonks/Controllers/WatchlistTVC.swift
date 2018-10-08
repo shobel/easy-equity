@@ -18,6 +18,7 @@ class WatchlistTVC: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        self.tableView.reloadData()
         if !Dataholder.watchList.isEmpty {
             watchlistUpdater = WatchlistUpdater()
             watchlistUpdater!.startTask()

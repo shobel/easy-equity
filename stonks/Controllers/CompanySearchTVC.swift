@@ -86,6 +86,7 @@ class CompanySearchTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         Dataholder.addToWatchList(company: searchResults[indexPath.row])
+        self.dismiss(animated: true, completion: nil)
     }
 
     /*
