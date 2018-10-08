@@ -6,6 +6,7 @@ target 'stonks' do
   use_frameworks!
 
   # Pods for BusinessSearch
+  pod "SkeletonView"
   pod 'EasyToast'
   pod 'SwiftyJSON', '~> 4.0'
 end

@@ -10,5 +10,62 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "CompanySearchTVC.searchBar(_:textDidChange:):CompanySearchTVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "searchResults">
+            </PersistentString>
+            <PersistentString
+               value = "Dataholder.allTickers">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in IEXTrading.listCompanies(completionHandler:):IEXTrading.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "print(json)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CompanySearchTVC.searchBarCancelButtonClicked(_:):CompanySearchTVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.navigationController">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in IEXTrading.getQuotes(tickers:):IEXTrading.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "json[&quot;FB&quot;][&quot;quote&quot;][&quot;latestPrice&quot;].double">
+            </PersistentString>
+            <PersistentString
+               value = "json[0]">
+            </PersistentString>
+            <PersistentString
+               value = "json.rawDictionary">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CompanySearchTVC.tableView(_:numberOfRowsInSection:):CompanySearchTVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "searchResults">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WatchlistTVC.prepare(for:sender:):WatchlistTVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "StockAPIManager.shared">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

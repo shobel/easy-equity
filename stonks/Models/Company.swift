@@ -8,13 +8,24 @@
 
 import Foundation
 
-class Company{
+class Company: Equatable{
+
+    public var ticker:String
+    public var fullName:String
+    public var currentPrice:Float?
+    public var priceChange:Float?
+    public var percentChange:Float?
+    public var daysToER:Int?
+    public var dailyData:[Date:Float]?
+    public var minuteData:[String:Float]?
     
-    private var ticker:String
-    private var dailyData:[Date:Float]?
-    private var minuteData:[String:Float]?
-    
-    init(ticker: String){
+    init(ticker: String, fullName: String){
         self.ticker = ticker
+        self.fullName = fullName
     }
+    
+    static func == (lhs: Company, rhs: Company) -> Bool {
+        return lhs.ticker == rhs.ticker
+    }
+    
 }

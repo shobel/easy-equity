@@ -10,16 +10,14 @@ import Foundation
 
 class StockDataAPI: StockDataApiProtocol {
     
-    public func getChart(timeInterval: Constants.TimeIntervals) {}
-    
-    public func getQuote() {}
-    
+    func getChart(timeInterval: Constants.TimeIntervals) {}
+    func getQuote(ticker: String) {}
+    func getQuotes(tickers: [String]) {}
     func getCompanyData() {}
-    
     func getEarningsData() {}
-    
     func getNews() {}
-    
     func getCompanyLogo() {}
-
+    func listCompanies() {}
+    //func listCompanies(completionHandler: @escaping ()->Void) {}
+    
 }

@@ -1,27 +1,19 @@
 //
-//  LandingViewController.swift
+//  CompanyDetailsVC.swift
 //  stonks
 //
-//  Created by Samuel Hobel on 9/27/18.
+//  Created by Samuel Hobel on 9/28/18.
 //  Copyright © 2018 Samuel Hobel. All rights reserved.
 //
 
 import UIKit
 
-class LandingViewController: UIViewController {
-    
-    var apiManager:StockAPIManager = StockAPIManager.shared
-    var dataFetcher: StockDataAPI!
-    var currentTicker = ""
-    
+class CompanyDetailsVC: UIViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        dataFetcher = apiManager.getStockDataAPI()
-    }
-    
-    @IBAction func getQuoteButtonPressed(_ sender: Any) {
-        dataFetcher.getChart(timeInterval: Constants.TimeIntervals.day)
+
+        // Do any additional setup after loading the view.
     }
     
     /*

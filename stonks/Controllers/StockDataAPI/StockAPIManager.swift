@@ -11,9 +11,9 @@ import Foundation
 class StockAPIManager {
     
     public static let shared = StockAPIManager()
-    public static var stockDataAPI = StockDataApiTypes.IEXTrading
-    public var stockDataApiInstance: StockDataAPI!
-    public var currentTicker: String = "FB"
+    private static var stockDataAPI = StockDataApiTypes.IEXTrading
+    private var stockDataApiInstance: StockDataAPI!
+    private var currentTicker: String = "FB"
 
     public enum StockDataApiTypes {
         case IEXTrading
@@ -22,7 +22,14 @@ class StockAPIManager {
     private init(){}
     
     public func getStockDataAPI() -> StockDataAPI {
-        return StockDataApiFactory.getStockDataApi()
+        if stockDataApiInstance != nil{
+            return stockDataApiInstance
+        } else {
+            switch (StockAPIManager.stockDataAPI) {
+            case StockAPIManager.StockDataApiTypes.IEXTrading:
+                return IEXTrading()
+            }
+        }
     }
     
     public func getCurrentTicker() -> String {
