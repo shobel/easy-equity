@@ -9,10 +9,9 @@
 import Foundation
 
 class StockDataAPI: StockDataApiProtocol {
-    
     func getChart(timeInterval: Constants.TimeIntervals) {}
     func getQuote(ticker: String) {}
-    func getQuotes(tickers: [String]) {}
+    func getQuotes(tickers: [String], completionHandler: @escaping ([Quote])->Void) {}
     func getCompanyData() {}
     func getEarningsData() {}
     func getNews() {}

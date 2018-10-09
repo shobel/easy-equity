@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1C545211216AA4B90064239E /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545210216AA4B90064239E /* GradientButton.swift */; };
 		1C545213216AF6400064239E /* WatchlistUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545212216AF6400064239E /* WatchlistUpdater.swift */; };
+		1C545215216C31950064239E /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545214216C31950064239E /* Quote.swift */; };
 		1C7B9830215B32D500C75014 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B982F215B32D500C75014 /* AppDelegate.swift */; };
 		1C7B9835215B32D500C75014 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C7B9833215B32D500C75014 /* Main.storyboard */; };
 		1C7B9837215B32D700C75014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C7B9836215B32D700C75014 /* Assets.xcassets */; };
@@ -51,6 +52,7 @@
 		0D22008E39AAFEDD72A5E77D /* Pods-stonks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stonks.release.xcconfig"; path = "Pods/Target Support Files/Pods-stonks/Pods-stonks.release.xcconfig"; sourceTree = "<group>"; };
 		1C545210216AA4B90064239E /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		1C545212216AF6400064239E /* WatchlistUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistUpdater.swift; sourceTree = "<group>"; };
+		1C545214216C31950064239E /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
 		1C7B982C215B32D500C75014 /* stonks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stonks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7B982F215B32D500C75014 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C7B9834215B32D500C75014 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -166,7 +168,7 @@
 				1C7B9860215DDFBC00C75014 /* Company.swift */,
 				1C7B9862215DE1A800C75014 /* Constants.swift */,
 				1C7B9878215F071E00C75014 /* Candle.swift */,
-				1C7B98852161949A00C75014 /* Dataholder.swift */,
+				1C545214216C31950064239E /* Quote.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -183,6 +185,7 @@
 		1C7B985F215DDF5400C75014 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1C7B98852161949A00C75014 /* Dataholder.swift */,
 				1C7B98872161CC2F00C75014 /* CompanySearchTVC.swift */,
 				1C7B987D215F29E300C75014 /* CompanyDetailsVC.swift */,
 				1C7B9883215F401200C75014 /* WatchlistTVC.swift */,
@@ -411,6 +414,7 @@
 				1C7B986D215EAE8800C75014 /* IEXTrading.swift in Sources */,
 				1C7B9877215EEDE100C75014 /* StockAPIManager.swift in Sources */,
 				1C7B9879215F071E00C75014 /* Candle.swift in Sources */,
+				1C545215216C31950064239E /* Quote.swift in Sources */,
 				1C7B98882161CC2F00C75014 /* CompanySearchTVC.swift in Sources */,
 				1C7B9830215B32D500C75014 /* AppDelegate.swift in Sources */,
 				1C545213216AF6400064239E /* WatchlistUpdater.swift in Sources */,

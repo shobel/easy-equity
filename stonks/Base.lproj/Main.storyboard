@@ -34,6 +34,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" red="0.91764705879999997" green="0.0" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="59B-LH-ktd" kind="relationship" relationship="viewControllers" id="1fZ-sJ-Ys1"/>
@@ -179,12 +180,24 @@
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tcj-sE-v6c" secondAttribute="trailing" constant="-20" id="uv2-sy-jpz"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23d" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rd8-4b-ycn" userLabel="DaysToER">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ae7-8r-2yD">
                                                     <rect key="frame" x="94" y="0.0" width="93.5" height="50"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.036305642921553791" green="0.76669574873096447" blue="0.47864035130361376" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23d" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rd8-4b-ycn" userLabel="DaysToER">
+                                                            <rect key="frame" x="10" y="0.0" width="83.5" height="50"/>
+                                                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                                            <color key="textColor" red="0.036305642921553791" green="0.76669574873096447" blue="0.47864035130361376" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="Rd8-4b-ycn" firstAttribute="leading" secondItem="ae7-8r-2yD" secondAttribute="leading" constant="10" id="QBQ-Ed-fqv"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Rd8-4b-ycn" secondAttribute="trailing" id="eBy-Lb-VUQ"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Rd8-4b-ycn" secondAttribute="bottom" id="jGz-IX-RAm"/>
+                                                        <constraint firstItem="Rd8-4b-ycn" firstAttribute="top" secondItem="ae7-8r-2yD" secondAttribute="top" id="rnj-7Q-8ui"/>
+                                                    </constraints>
+                                                </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="2003.76" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQm-b3-3kH" userLabel="CurrentPrice">
                                                     <rect key="frame" x="187.5" y="0.0" width="94" height="50"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -194,14 +207,14 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="ZM3-jM-A7t">
                                                     <rect key="frame" x="281.5" y="0.0" width="93.5" height="50"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="0.72%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8aA-NK-9Nu" userLabel="PercentChange">
-                                                            <rect key="frame" x="0.0" y="0.0" width="64" height="50"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="-0.72%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8aA-NK-9Nu" userLabel="PercentChange">
+                                                            <rect key="frame" x="0.0" y="0.0" width="63" height="50"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" text="13.2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6M-ee-QaL" userLabel="PriceChange">
-                                                            <rect key="frame" x="64" y="0.0" width="29.5" height="50"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" text="-13.2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6M-ee-QaL" userLabel="PriceChange">
+                                                            <rect key="frame" x="63" y="0.0" width="30.5" height="50"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>

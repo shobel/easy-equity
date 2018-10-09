@@ -11,12 +11,20 @@ import Foundation
 protocol StockDataApiProtocol {
     
     func getChart(timeInterval: Constants.TimeIntervals)
+    
     func getQuote(ticker: String)
-    func getQuotes(tickers: [String])
+    
+    //Takes a list of tickers and a callback function that takes a dictionary of tickers and prices
+    func getQuotes(tickers: [String], completionHandler: @escaping ([Quote])->Void)
+    
     func getCompanyData()
+    
     func getEarningsData()
+    
     func getNews()
+    
     func getCompanyLogo()
+    
     func listCompanies()
     //func listCompanies(completionHandler: @escaping ()->Void)
 }

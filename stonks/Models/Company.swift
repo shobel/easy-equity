@@ -12,9 +12,7 @@ class Company: Equatable{
 
     public var ticker:String
     public var fullName:String
-    public var currentPrice:Double?
-    public var priceChange:Double?
-    public var percentChange:Double?
+    public var quote:Quote?
     public var daysToER:Int?
     public var dailyData:[Date:Double]?
     public var minuteData:[String:Double]?

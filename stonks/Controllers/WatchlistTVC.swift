@@ -20,11 +20,17 @@ class WatchlistTVC: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         self.tableView.reloadData()
         if !Dataholder.watchList.isEmpty {
-            watchlistUpdater = WatchlistUpdater()
+            watchlistUpdater = WatchlistUpdater(caller: self)
             watchlistUpdater!.startTask()
         }
     }
 
+    public func update(){
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -37,12 +43,14 @@ class WatchlistTVC: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "watchListCell", for: indexPath) as! WatchlistTVCell
 
         let company = Dataholder.watchList[indexPath.row]
-        cell.ticker.text = company.ticker
-        cell.fullName.text = company.fullName
-        cell.currentPrice.text = String(format: "%.2f", Double.random(in: 1 ..< 2000)) //"\(company.currentPrice)"
-        cell.priceChange.text = String(format: "%.2f", Double.random(in: 1 ..< 20)) //"\(company.priceChange)"
-        cell.percentChange.text = String(format: "%.2f", Double.random(in: 1 ..< 20)) + "%" //"\(company.percentChange)"
-        cell.daysToER.text = "\(Int.random(in: 1 ..< 30))d"
+        cell.displayData(company: company)
+//        cell.ticker.text = company.ticker
+//        cell.fullName.text = company.fullName
+//        cell.currentPrice.text = String(format: "%.2f", company.quote?.latestPrice ?? "--")
+//        cell.priceChange.text = String(format: "%.2f", company.quote?.change ?? "--")
+//        cell.percentChange.text = String(format: "%.2f", company.quote?.changePercent ?? "--") + "%"
+//
+//        cell.daysToER.text = "\(Int.random(in: 1 ..< 30))d"
         return cell
     }
 

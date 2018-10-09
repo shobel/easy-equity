@@ -17,6 +17,11 @@ class Dataholder {
         Company(ticker: "MSFT", fullName: "Microsoft Corporation")
     ]
     
+    public static func updateWatchlistPriceInfo(quotes: [String: Double]){
+        
+        
+    }
+    
     public static func addToWatchList(company: Company) {
         if !watchList.contains(company){
             watchList.append(company)

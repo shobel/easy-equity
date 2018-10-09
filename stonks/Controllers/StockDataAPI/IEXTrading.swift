@@ -55,7 +55,7 @@ class IEXTrading: StockDataAPI {
         })
     }
     
-    override func getQuotes(tickers: [String]) {
+    override func getQuotes(tickers: [String], completionHandler: @escaping ([Quote])->Void){
         let params: [String:String] = [
             "symbols": tickers.joined(separator: ","),
             "types": "quote"
@@ -64,11 +64,19 @@ class IEXTrading: StockDataAPI {
         sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
             if let data = data {
                 let json = JSON(data)
-                var currentPrices:[String:Double] = [:]
-                for (index,_):(String, JSON) in json {
-                    
-                    print(json[index]["quote"]["latestPrice"].double!)
+                var quotes:[Quote] = []
+                for (ticker,_):(String, JSON) in json {
+                    let quote = Quote(
+                        symbol: json[ticker]["quote"]["symbol"].string!,
+                        latestPrice:json[ticker]["quote"]["latestPrice"].double!,
+                        previousClose: json[ticker]["quote"]["previousClose"].double!,
+                        change: json[ticker]["quote"]["change"].double!,
+                        changePercent: (json[ticker]["quote"]["changePercent"].double!)*100
+                    )
+                    quotes.append(quote)
+                    //print(json[ticker]["quote"]["latestPrice"].double!)
                 }
+                completionHandler(quotes)
             }
         })
         
