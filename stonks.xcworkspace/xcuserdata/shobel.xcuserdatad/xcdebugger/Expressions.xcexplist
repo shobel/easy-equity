@@ -30,6 +30,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "StockDetailsVC.chartValueSelected(_:entry:highlight:):StockDetailsVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "e.close">
+            </PersistentString>
+            <PersistentString
+               value = "markerView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CompanySearchTVC.searchBarCancelButtonClicked(_:):CompanySearchTVC.swift">
          <PersistentStrings>
             <PersistentString
