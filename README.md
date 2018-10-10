@@ -11,8 +11,9 @@
    + Target prices
 3. Get daily recommended actions about your portfolio based on a variety of indicators
    + Following and breaking trendlines
+   + Supports and resistances (coming down from previous ATH or breaking above it)
    + Gap-filling
-   + 200-day EMA proximity
+   + 20/50/100/200-day EMA proximity
    + Earnings date proximity
    + Dividend payout
    + RSI and deviation from normal trading ranges

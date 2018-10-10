@@ -12,7 +12,7 @@ class GradientButton: UIButton {
 
     override func draw(_ rect: CGRect) {
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [Constants.c2.cgColor, Constants.c1.cgColor]
+        gradientLayer.colors = [Constants.purple.cgColor, Constants.darkPink.cgColor]
         gradientLayer.frame = self.bounds
         gradientLayer.locations = [0.0, 0.8]
         gradientLayer.startPoint = CGPoint.zero

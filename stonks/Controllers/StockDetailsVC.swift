@@ -12,7 +12,8 @@ import Charts
 class StockDetailsVC: DemoBaseViewController {
 
     @IBOutlet weak var chartView: CandleStickChartView!
-    @IBOutlet weak var markerView: MarkerView!
+    @IBOutlet weak var candlePricesWrapper: UIView!
+    @IBOutlet weak var candlePricesView: CandlePricesView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,11 +44,12 @@ class StockDetailsVC: DemoBaseViewController {
         chartView.maxVisibleCount = 200
         chartView.pinchZoomEnabled = false
         chartView.doubleTapToZoomEnabled = false
+        chartView.autoScaleMinMaxEnabled = true
         
         chartView.leftAxis.labelFont = UIFont(name: "HelveticaNeue-Light", size: 10)!
         chartView.leftAxis.spaceTop = 0.3
         chartView.leftAxis.spaceBottom = 0.3
-        chartView.leftAxis.axisMinimum = 0
+        //chartView.leftAxis.axisMinimum = 0
         chartView.leftAxis.drawGridLinesEnabled = false
         
         chartView.rightAxis.enabled = false
@@ -65,7 +67,7 @@ class StockDetailsVC: DemoBaseViewController {
             return
         }
         
-        self.setDataCount(Int(30), range: UInt32(100))
+        self.setDataCount(Int(60), range: UInt32(100))
     }
     
     func setDataCount(_ count: Int, range: UInt32) {
@@ -87,12 +89,12 @@ class StockDetailsVC: DemoBaseViewController {
         set1.drawIconsEnabled = false
         set1.shadowColor = .darkGray
         set1.shadowWidth = 0.7
-        set1.decreasingColor = Constants.red
+        set1.decreasingColor = Constants.darkPink
         set1.decreasingFilled = true
         set1.increasingColor = Constants.green
         set1.increasingFilled = true
         set1.neutralColor = .blue
-        set1.highlightColor = Constants.c1
+        set1.highlightColor = Constants.darkPink
         set1.highlightLineWidth = 2
         set1.drawHorizontalHighlightIndicatorEnabled = false
         
@@ -120,9 +122,21 @@ class StockDetailsVC: DemoBaseViewController {
     
     override func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         let e = entry as! CandleChartDataEntry
-        markerView?.valueLabel.text = "\(e.close)"
-        markerView?.center = CGPoint(x: highlight.xPx, y:16.0)
-        markerView?.isHidden = false
+        candlePricesView.highLabel.text = "HIGH:\(e.high)"
+        candlePricesView.lowLabel.text = "LOW:\(e.low)"
+        candlePricesView.openLabel.text = "OPEN:\(e.open)"
+        candlePricesView.closeLabel.text = "CLOSE:\(e.close)"
+        //let x = highlight.xPx.rounded()
+        //candlePricesView = CGPoint(x: x, y:16.0)
+        candlePricesWrapper.isHidden = false
+    }
+    
+    override func chartValueNothingSelected(_ chartView: ChartViewBase) {
+        candlePricesWrapper.isHidden = true
+    }
+    
+    @IBAction func backButtonPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     /*

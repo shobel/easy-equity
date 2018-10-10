@@ -13,8 +13,7 @@ class WatchlistTVCell: UITableViewCell {
     @IBOutlet weak var ticker: UILabel!
     @IBOutlet weak var fullName: UILabel!
     @IBOutlet weak var currentPrice: UILabel!
-    @IBOutlet weak var priceChange: UILabel!
-    @IBOutlet weak var percentChange: UILabel!
+    @IBOutlet weak var priceChange: ColoredPercentLabel!
     @IBOutlet weak var daysToER: UILabel!
     
     override func awakeFromNib() {
@@ -30,24 +29,7 @@ class WatchlistTVCell: UITableViewCell {
         fullName.text = company.fullName
         
         currentPrice.text = String(format: "%.2f", company.quote?.latestPrice ?? "--")
-        
-        priceChange.text = String(format: "%.2f", company.quote?.change ?? "--")
-        priceChange.textColor = setColor(value: company.quote?.change)
-        
-        percentChange.text = String(format: "%.2f", company.quote?.changePercent ?? "--") + "%"
-        percentChange.textColor = setColor(value: company.quote?.changePercent)
-        
+        priceChange.setPriceChange(percent: company.quote?.changePercent ?? 0.0)
         daysToER.text = "\(Int.random(in: 1 ..< 30))d"
-    }
-
-    private func setColor(value: Double?) -> UIColor{
-        if value == nil {
-            return UIColor.black
-        }
-        
-        if value! < 0 {
-            return Constants.red
-        }
-        return Constants.green
     }
 }
