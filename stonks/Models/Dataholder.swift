@@ -14,7 +14,11 @@ class Dataholder {
     public static var watchList : [Company] = [
         Company(ticker: "FB", fullName: "Facebook"),
         Company(ticker: "AMZN", fullName: "Amazon.com, Inc."),
-        Company(ticker: "MSFT", fullName: "Microsoft Corporation")
+        Company(ticker: "MSFT", fullName: "Microsoft Corporation"),
+        Company(ticker: "MU", fullName: "Micron Technology"),
+        Company(ticker: "V", fullName: "Visa Inc."),
+        Company(ticker: "ATVI", fullName: "Activision Blizzard Inc"),
+        Company(ticker: "TSLA", fullName: "Tesla Inc.")
     ]
     
     public static func updateWatchlistPriceInfo(quotes: [String: Double]){

@@ -36,7 +36,15 @@
                value = "e.close">
             </PersistentString>
             <PersistentString
-               value = "markerView">
+               value = "markerView.center">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ColoredLabel.draw(_:):ColoredLabel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.text">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
