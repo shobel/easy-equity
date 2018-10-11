@@ -25,7 +25,6 @@
 		1C7B9871215EB09000C75014 /* StockDataApiProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B9870215EB09000C75014 /* StockDataApiProtocol.swift */; };
 		1C7B9877215EEDE100C75014 /* StockAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B9876215EEDE100C75014 /* StockAPIManager.swift */; };
 		1C7B9879215F071E00C75014 /* Candle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B9878215F071E00C75014 /* Candle.swift */; };
-		1C7B987E215F29E300C75014 /* CompanyDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B987D215F29E300C75014 /* CompanyDetailsVC.swift */; };
 		1C7B9880215F396200C75014 /* WatchlistTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B987F215F396200C75014 /* WatchlistTVCell.swift */; };
 		1C7B9884215F401200C75014 /* WatchlistTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B9883215F401200C75014 /* WatchlistTVC.swift */; };
 		1C7B98862161949A00C75014 /* Dataholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B98852161949A00C75014 /* Dataholder.swift */; };
@@ -34,6 +33,8 @@
 		1CD11942216DD73C000AE02E /* PriceVolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11941216DD73C000AE02E /* PriceVolumeView.swift */; };
 		1CD11944216DD886000AE02E /* ColoredPercentLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11943216DD886000AE02E /* ColoredPercentLabel.swift */; };
 		1CD11946216DE401000AE02E /* ColoredPricePercentLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11945216DE401000AE02E /* ColoredPricePercentLabel.swift */; };
+		1CD11948216EAD2E000AE02E /* RatingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11947216EAD2E000AE02E /* RatingLabel.swift */; };
+		1CD1194A216F35C3000AE02E /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11949216F35C3000AE02E /* MarkerView.swift */; };
 		3190B5951A804D1D76815360 /* Pods_stonks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 851E076FA06779BF9AEB98FC /* Pods_stonks.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,7 +81,6 @@
 		1C7B9870215EB09000C75014 /* StockDataApiProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDataApiProtocol.swift; sourceTree = "<group>"; };
 		1C7B9876215EEDE100C75014 /* StockAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockAPIManager.swift; sourceTree = "<group>"; };
 		1C7B9878215F071E00C75014 /* Candle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candle.swift; sourceTree = "<group>"; };
-		1C7B987D215F29E300C75014 /* CompanyDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetailsVC.swift; sourceTree = "<group>"; };
 		1C7B987F215F396200C75014 /* WatchlistTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTVCell.swift; sourceTree = "<group>"; };
 		1C7B9883215F401200C75014 /* WatchlistTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTVC.swift; sourceTree = "<group>"; };
 		1C7B98852161949A00C75014 /* Dataholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataholder.swift; sourceTree = "<group>"; };
@@ -89,6 +89,8 @@
 		1CD11941216DD73C000AE02E /* PriceVolumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceVolumeView.swift; sourceTree = "<group>"; };
 		1CD11943216DD886000AE02E /* ColoredPercentLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredPercentLabel.swift; sourceTree = "<group>"; };
 		1CD11945216DE401000AE02E /* ColoredPricePercentLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredPricePercentLabel.swift; sourceTree = "<group>"; };
+		1CD11947216EAD2E000AE02E /* RatingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingLabel.swift; sourceTree = "<group>"; };
+		1CD11949216F35C3000AE02E /* MarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
 		5265415BD1DB5B226DB13419 /* Pods-stonks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stonks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-stonks/Pods-stonks.debug.xcconfig"; sourceTree = "<group>"; };
 		851E076FA06779BF9AEB98FC /* Pods_stonks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_stonks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -195,6 +197,8 @@
 				1CD11941216DD73C000AE02E /* PriceVolumeView.swift */,
 				1CD11943216DD886000AE02E /* ColoredPercentLabel.swift */,
 				1CD11945216DE401000AE02E /* ColoredPricePercentLabel.swift */,
+				1CD11947216EAD2E000AE02E /* RatingLabel.swift */,
+				1CD11949216F35C3000AE02E /* MarkerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -203,7 +207,6 @@
 			isa = PBXGroup;
 			children = (
 				1C7B98872161CC2F00C75014 /* CompanySearchTVC.swift */,
-				1C7B987D215F29E300C75014 /* CompanyDetailsVC.swift */,
 				1C7B9883215F401200C75014 /* WatchlistTVC.swift */,
 				1C545212216AF6400064239E /* WatchlistUpdater.swift */,
 				1C183F90216D59F90042F52C /* StockDetailsVC.swift */,
@@ -440,8 +443,8 @@
 				1C7B98882161CC2F00C75014 /* CompanySearchTVC.swift in Sources */,
 				1C7B9830215B32D500C75014 /* AppDelegate.swift in Sources */,
 				1C545213216AF6400064239E /* WatchlistUpdater.swift in Sources */,
-				1C7B987E215F29E300C75014 /* CompanyDetailsVC.swift in Sources */,
 				1CD11946216DE401000AE02E /* ColoredPricePercentLabel.swift in Sources */,
+				1CD11948216EAD2E000AE02E /* RatingLabel.swift in Sources */,
 				1C545211216AA4B90064239E /* GradientButton.swift in Sources */,
 				1CD11944216DD886000AE02E /* ColoredPercentLabel.swift in Sources */,
 				1C7B9861215DDFBC00C75014 /* Company.swift in Sources */,
@@ -449,6 +452,7 @@
 				1CD11942216DD73C000AE02E /* PriceVolumeView.swift in Sources */,
 				1C7B98862161949A00C75014 /* Dataholder.swift in Sources */,
 				1C7B9884215F401200C75014 /* WatchlistTVC.swift in Sources */,
+				1CD1194A216F35C3000AE02E /* MarkerView.swift in Sources */,
 				1CD11940216DC394000AE02E /* CandlePricesView.swift in Sources */,
 				1C7B9867215DE9D000C75014 /* StockDataAPI.swift in Sources */,
 				1C7B9871215EB09000C75014 /* StockDataApiProtocol.swift in Sources */,

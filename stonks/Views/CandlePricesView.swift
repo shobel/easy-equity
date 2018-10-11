@@ -10,6 +10,7 @@ import UIKit
 
 class CandlePricesView: UIStackView {
 
+    @IBOutlet var volumeLabel: UILabel!
     @IBOutlet var highLabel: UILabel!
     @IBOutlet var lowLabel: UILabel!
     @IBOutlet var openLabel: UILabel!

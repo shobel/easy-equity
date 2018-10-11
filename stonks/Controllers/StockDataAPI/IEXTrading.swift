@@ -48,7 +48,7 @@ class IEXTrading: StockDataAPI {
                 let json = JSON(data)
                 var candle:Candle
                 for i in 0..<json.count{
-                    candle = Candle(high: json[i]["high"].float!, low: json[i]["low"].float!, open: json[i]["open"].float!, close: json[i]["close"].float!)
+                    candle = Candle(date: json[i]["date"].string!, volume: json[i]["volume"].double!, high: json[i]["high"].double!, low: json[i]["low"].double!, open: json[i]["open"].double!, close: json[i]["close"].double!)
                 }
                 print(json)
             }
@@ -71,7 +71,13 @@ class IEXTrading: StockDataAPI {
                         latestPrice:json[ticker]["quote"]["latestPrice"].double!,
                         previousClose: json[ticker]["quote"]["previousClose"].double!,
                         change: json[ticker]["quote"]["change"].double!,
-                        changePercent: (json[ticker]["quote"]["changePercent"].double!)*100
+                        changePercent: (json[ticker]["quote"]["changePercent"].double!)*100,
+                        latestSource: json[ticker]["quote"]["latestSource"].string!,
+                        extendedPrice: json[ticker]["quote"]["extendedPrice"].double!,
+                        extendedChangePercent: (json[ticker]["quote"]["extendedChangePercent"].double!)*100,
+                        sector: json[ticker]["quote"]["sector"].string!,
+                        marketCap: json[ticker]["quote"]["marketCap"].double!,
+                        ytdChange: (json[ticker]["quote"]["ytdChange"].double!)*100
                     )
                     quotes.append(quote)
                     //print(json[ticker]["quote"]["latestPrice"].double!)

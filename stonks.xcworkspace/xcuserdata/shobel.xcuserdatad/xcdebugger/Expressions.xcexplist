@@ -33,10 +33,10 @@
          contextName = "StockDetailsVC.chartValueSelected(_:entry:highlight:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "e.close">
+               value = "markerView.bounds.width">
             </PersistentString>
             <PersistentString
-               value = "markerView.center">
+               value = "chartView.bounds.width">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -57,6 +57,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "RatingLabel.commonInit():RatingLabel.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in IEXTrading.getQuotes(tickers:):IEXTrading.swift">
          <PersistentStrings>
             <PersistentString
@@ -67,6 +70,14 @@
             </PersistentString>
             <PersistentString
                value = "json.rawDictionary">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WatchlistTVC.viewDidLoad():WatchlistTVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.refreshControl">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

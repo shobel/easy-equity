@@ -15,6 +15,13 @@ class WatchlistTVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.refreshControl = UIRefreshControl()
+        let customView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        customView.image = UIImage(named: "back")
+        self.refreshControl!.
+        self.refreshControl!.addSubview(customView)
+        self.refreshControl!.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,13 +51,6 @@ class WatchlistTVC: UITableViewController {
 
         let company = Dataholder.watchList[indexPath.row]
         cell.displayData(company: company)
-//        cell.ticker.text = company.ticker
-//        cell.fullName.text = company.fullName
-//        cell.currentPrice.text = String(format: "%.2f", company.quote?.latestPrice ?? "--")
-//        cell.priceChange.text = String(format: "%.2f", company.quote?.change ?? "--")
-//        cell.percentChange.text = String(format: "%.2f", company.quote?.changePercent ?? "--") + "%"
-//
-//        cell.daysToER.text = "\(Int.random(in: 1 ..< 30))d"
         return cell
     }
 
@@ -83,5 +83,10 @@ class WatchlistTVC: UITableViewController {
      return true
      }
      */
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
 
 }
