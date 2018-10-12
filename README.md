@@ -8,7 +8,7 @@
 2. See stock charts and other important data
    + Earnings date
    + News
-   + Target prices
+   + Target prices and analyst info from tipranks
 3. Get daily recommended actions about your portfolio based on a variety of indicators
    + Following and breaking trendlines
    + Supports and resistances (coming down from previous ATH or breaking above it)
