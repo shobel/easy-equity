@@ -13,15 +13,39 @@ class WatchlistTVC: UITableViewController {
     @IBOutlet weak var addTickerButton: UIButton!
     private var watchlistUpdater: WatchlistUpdater?
     
+    var refreshLoadingView : UIView!
+    var goatView : UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //setupRefreshControl()
+    }
+    
+    func setupRefreshControl() {
+        // Programmatically inserting a UIRefreshControl
         self.refreshControl = UIRefreshControl()
-        let customView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        customView.image = UIImage(named: "back")
-        self.refreshControl!.
-        self.refreshControl!.addSubview(customView)
-        self.refreshControl!.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        
+        // Setup the loading view, which will hold the moving graphics
+        self.refreshLoadingView = UIView(frame: self.refreshControl!.bounds)
+        self.refreshLoadingView.backgroundColor = UIColor.red
+    
+        // Create the graphic image views
+        self.goatView = UIImageView(image: UIImage(named: "goat-loader.gif"))
+        
+        // Add the graphics to the loading view
+        self.refreshLoadingView.addSubview(self.goatView)
+        
+        // Clip so the graphics don't stick out
+        self.refreshLoadingView.clipsToBounds = true;
+        
+        // Hide the original spinner icon
+        self.refreshControl!.tintColor = UIColor.clear
+        
+        // Add the loading and colors views to our refresh control
+        self.refreshControl!.addSubview(self.refreshLoadingView)
+        
+        // When activated, invoke our refresh function
+        self.refreshControl!.addTarget(self, action: #selector(handleRefresh), for: UIControl.Event.valueChanged)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -84,9 +108,9 @@ class WatchlistTVC: UITableViewController {
      }
      */
     
-    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+    @objc func handleRefresh() {
         self.tableView.reloadData()
-        refreshControl.endRefreshing()
+        self.refreshControl!.endRefreshing()
     }
 
 }

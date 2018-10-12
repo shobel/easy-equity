@@ -36,18 +36,8 @@ class WatchlistTVCell: UITableViewCell {
         priceChange.setPriceChange(percent: company.quote?.changePercent ?? 0.0)
         
         daysToEarnings.text = "\(Int.random(in: 1 ..< 30))d"
-        var buy = Int.random(in: 1 ..< 130)
-        if buy > 100 {
-            buy = 100
-        }
-        var hold = 0
-        var sell = 0
-        if buy < 99 {
-            hold = Int.random(in: 1 ..< (100 - buy))
-            sell = 100 - buy - hold
-        }
-        buyRating.setRatingColor(buy: Double(buy), hold: Double(hold), sell: Double(sell))
-        //buyRating.text = "\(buy)" + " \(hold)" + " \(sell)"
-        buyRating.text = "\(buy)"
+        let score = ((Double.random(in: 0.0...10.0)*10).rounded())/10
+        buyRating.setRatingColor(score: score)
+        buyRating.text = "\(score)"
     }
 }

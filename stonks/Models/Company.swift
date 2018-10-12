@@ -16,6 +16,8 @@ class Company: Equatable{
     public var daysToER:Int?
     public var dailyData:[Date:Double]?
     public var minuteData:[String:Double]?
+    private var analystRating:AnalystRating?
+    
     
     init(ticker: String, fullName: String){
         self.ticker = ticker

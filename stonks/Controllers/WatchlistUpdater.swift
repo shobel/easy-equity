@@ -20,7 +20,7 @@ class WatchlistUpdater {
     
     public func startTask(){
         if updateWatchlistTimer == nil {
-            updateWatchlistTimer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+            updateWatchlistTimer = Timer.scheduledTimer(timeInterval: 15.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
             updateWatchlistTimer?.fire()
         }
     }
