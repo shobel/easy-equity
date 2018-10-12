@@ -35,6 +35,7 @@
 		1CD11946216DE401000AE02E /* ColoredPricePercentLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11945216DE401000AE02E /* ColoredPricePercentLabel.swift */; };
 		1CD11948216EAD2E000AE02E /* RatingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11947216EAD2E000AE02E /* RatingLabel.swift */; };
 		1CD1194A216F35C3000AE02E /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11949216F35C3000AE02E /* MarkerView.swift */; };
+		1CFFAA0B2170337400D3E768 /* AnalystRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFFAA0A2170337400D3E768 /* AnalystRating.swift */; };
 		3190B5951A804D1D76815360 /* Pods_stonks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 851E076FA06779BF9AEB98FC /* Pods_stonks.framework */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +92,7 @@
 		1CD11945216DE401000AE02E /* ColoredPricePercentLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredPricePercentLabel.swift; sourceTree = "<group>"; };
 		1CD11947216EAD2E000AE02E /* RatingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingLabel.swift; sourceTree = "<group>"; };
 		1CD11949216F35C3000AE02E /* MarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
+		1CFFAA0A2170337400D3E768 /* AnalystRating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalystRating.swift; sourceTree = "<group>"; };
 		5265415BD1DB5B226DB13419 /* Pods-stonks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stonks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-stonks/Pods-stonks.debug.xcconfig"; sourceTree = "<group>"; };
 		851E076FA06779BF9AEB98FC /* Pods_stonks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_stonks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -179,6 +181,7 @@
 		1C7B985D215DDF4400C75014 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1CFFAA0A2170337400D3E768 /* AnalystRating.swift */,
 				1C7B98852161949A00C75014 /* Dataholder.swift */,
 				1C7B9860215DDFBC00C75014 /* Company.swift */,
 				1C7B9862215DE1A800C75014 /* Constants.swift */,
@@ -448,6 +451,7 @@
 				1C545211216AA4B90064239E /* GradientButton.swift in Sources */,
 				1CD11944216DD886000AE02E /* ColoredPercentLabel.swift in Sources */,
 				1C7B9861215DDFBC00C75014 /* Company.swift in Sources */,
+				1CFFAA0B2170337400D3E768 /* AnalystRating.swift in Sources */,
 				1C7B9863215DE1A800C75014 /* Constants.swift in Sources */,
 				1CD11942216DD73C000AE02E /* PriceVolumeView.swift in Sources */,
 				1C7B98862161949A00C75014 /* Dataholder.swift in Sources */,
