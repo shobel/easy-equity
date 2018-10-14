@@ -14,13 +14,15 @@ class StockDetailsVC: DemoBaseViewController {
     @IBOutlet weak var chartView: CandleStickChartView!
     @IBOutlet weak var candlePricesWrapper: UIView!
     @IBOutlet weak var candlePricesView: CandlePricesView!
+    @IBOutlet weak var markerView: MarkerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        load()
+        //StockAPIManager.shared.getStockDataAPI().
+        loadChart()
     }
     
-    func load(){
+    func loadChart(){
         
         self.title = "Candle Stick Chart"
         self.options = [.toggleValues,
@@ -122,17 +124,36 @@ class StockDetailsVC: DemoBaseViewController {
     
     override func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         let e = entry as! CandleChartDataEntry
+        candlePricesView.volumeLabel.text = "VOL:17.68k"
         candlePricesView.highLabel.text = "HIGH:\(e.high)"
         candlePricesView.lowLabel.text = "LOW:\(e.low)"
         candlePricesView.openLabel.text = "OPEN:\(e.open)"
         candlePricesView.closeLabel.text = "CLOSE:\(e.close)"
-        //let x = highlight.xPx.rounded()
-        //candlePricesView = CGPoint(x: x, y:16.0)
         candlePricesWrapper.isHidden = false
+        
+        //let graphPoint = chartView.getMarkerPosition(highlight: highlight)
+        // Adding top marker
+        let currentDateTime = Date()
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        formatter.dateStyle = .none
+        let time = formatter.string(from: currentDateTime)
+        markerView.dateLabel.text = "\(time)"
+        var x = highlight.xPx.rounded()
+        if x+(markerView.bounds.width/2) > chartView.bounds.width {
+            x = chartView.bounds.width - (markerView.bounds.width/2)
+        }
+        if x-(markerView.bounds.width/2) < 0 {
+            x = (markerView.bounds.width/2)
+        }
+        markerView.center = CGPoint(x: x, y:10.0)
+        markerView.isHidden = false
+        
     }
     
     override func chartValueNothingSelected(_ chartView: ChartViewBase) {
         candlePricesWrapper.isHidden = true
+        markerView.isHidden = true
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {

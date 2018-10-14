@@ -20,20 +20,25 @@
 		1C7B9850215B32D700C75014 /* stonksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B984F215B32D700C75014 /* stonksUITests.swift */; };
 		1C7B9861215DDFBC00C75014 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B9860215DDFBC00C75014 /* Company.swift */; };
 		1C7B9863215DE1A800C75014 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B9862215DE1A800C75014 /* Constants.swift */; };
-		1C7B9867215DE9D000C75014 /* StockDataAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B9866215DE9D000C75014 /* StockDataAPI.swift */; };
 		1C7B986D215EAE8800C75014 /* IEXTrading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B986C215EAE8800C75014 /* IEXTrading.swift */; };
 		1C7B9871215EB09000C75014 /* StockDataApiProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B9870215EB09000C75014 /* StockDataApiProtocol.swift */; };
 		1C7B9877215EEDE100C75014 /* StockAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B9876215EEDE100C75014 /* StockAPIManager.swift */; };
 		1C7B9879215F071E00C75014 /* Candle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B9878215F071E00C75014 /* Candle.swift */; };
-		1C7B987E215F29E300C75014 /* CompanyDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B987D215F29E300C75014 /* CompanyDetailsVC.swift */; };
 		1C7B9880215F396200C75014 /* WatchlistTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B987F215F396200C75014 /* WatchlistTVCell.swift */; };
 		1C7B9884215F401200C75014 /* WatchlistTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B9883215F401200C75014 /* WatchlistTVC.swift */; };
 		1C7B98862161949A00C75014 /* Dataholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B98852161949A00C75014 /* Dataholder.swift */; };
 		1C7B98882161CC2F00C75014 /* CompanySearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B98872161CC2F00C75014 /* CompanySearchTVC.swift */; };
+		1CB257212172BBB6008E3D4D /* FinvizAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB257202172BBB6008E3D4D /* FinvizAPI.swift */; };
+		1CB257252172C292008E3D4D /* WatchlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB257242172C292008E3D4D /* WatchlistManager.swift */; };
+		1CB257272173A234008E3D4D /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB257262173A234008E3D4D /* HTTPRequest.swift */; };
+		1CB257292173B8A5008E3D4D /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB257282173B8A5008E3D4D /* Configuration.swift */; };
 		1CD11940216DC394000AE02E /* CandlePricesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD1193F216DC394000AE02E /* CandlePricesView.swift */; };
 		1CD11942216DD73C000AE02E /* PriceVolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11941216DD73C000AE02E /* PriceVolumeView.swift */; };
-		1CD11944216DD886000AE02E /* ColoredPercentLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11943216DD886000AE02E /* ColoredPercentLabel.swift */; };
+		1CD11944216DD886000AE02E /* ColoredValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11943216DD886000AE02E /* ColoredValueLabel.swift */; };
 		1CD11946216DE401000AE02E /* ColoredPricePercentLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11945216DE401000AE02E /* ColoredPricePercentLabel.swift */; };
+		1CD11948216EAD2E000AE02E /* RatingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11947216EAD2E000AE02E /* RatingLabel.swift */; };
+		1CD1194A216F35C3000AE02E /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11949216F35C3000AE02E /* MarkerView.swift */; };
+		1CFFAA0B2170337400D3E768 /* AnalystsRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFFAA0A2170337400D3E768 /* AnalystsRating.swift */; };
 		3190B5951A804D1D76815360 /* Pods_stonks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 851E076FA06779BF9AEB98FC /* Pods_stonks.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,20 +80,25 @@
 		1C7B9851215B32D700C75014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C7B9860215DDFBC00C75014 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		1C7B9862215DE1A800C75014 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		1C7B9866215DE9D000C75014 /* StockDataAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDataAPI.swift; sourceTree = "<group>"; };
 		1C7B986C215EAE8800C75014 /* IEXTrading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IEXTrading.swift; sourceTree = "<group>"; };
 		1C7B9870215EB09000C75014 /* StockDataApiProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDataApiProtocol.swift; sourceTree = "<group>"; };
 		1C7B9876215EEDE100C75014 /* StockAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockAPIManager.swift; sourceTree = "<group>"; };
 		1C7B9878215F071E00C75014 /* Candle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candle.swift; sourceTree = "<group>"; };
-		1C7B987D215F29E300C75014 /* CompanyDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetailsVC.swift; sourceTree = "<group>"; };
 		1C7B987F215F396200C75014 /* WatchlistTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTVCell.swift; sourceTree = "<group>"; };
 		1C7B9883215F401200C75014 /* WatchlistTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTVC.swift; sourceTree = "<group>"; };
 		1C7B98852161949A00C75014 /* Dataholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataholder.swift; sourceTree = "<group>"; };
 		1C7B98872161CC2F00C75014 /* CompanySearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanySearchTVC.swift; sourceTree = "<group>"; };
+		1CB257202172BBB6008E3D4D /* FinvizAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinvizAPI.swift; sourceTree = "<group>"; };
+		1CB257242172C292008E3D4D /* WatchlistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistManager.swift; sourceTree = "<group>"; };
+		1CB257262173A234008E3D4D /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
+		1CB257282173B8A5008E3D4D /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		1CD1193F216DC394000AE02E /* CandlePricesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandlePricesView.swift; sourceTree = "<group>"; };
 		1CD11941216DD73C000AE02E /* PriceVolumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceVolumeView.swift; sourceTree = "<group>"; };
-		1CD11943216DD886000AE02E /* ColoredPercentLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredPercentLabel.swift; sourceTree = "<group>"; };
+		1CD11943216DD886000AE02E /* ColoredValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredValueLabel.swift; sourceTree = "<group>"; };
 		1CD11945216DE401000AE02E /* ColoredPricePercentLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredPricePercentLabel.swift; sourceTree = "<group>"; };
+		1CD11947216EAD2E000AE02E /* RatingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingLabel.swift; sourceTree = "<group>"; };
+		1CD11949216F35C3000AE02E /* MarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
+		1CFFAA0A2170337400D3E768 /* AnalystsRating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalystsRating.swift; sourceTree = "<group>"; };
 		5265415BD1DB5B226DB13419 /* Pods-stonks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stonks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-stonks/Pods-stonks.debug.xcconfig"; sourceTree = "<group>"; };
 		851E076FA06779BF9AEB98FC /* Pods_stonks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_stonks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -144,8 +154,10 @@
 		1C7B982E215B32D500C75014 /* stonks */ = {
 			isa = PBXGroup;
 			children = (
+				1CB257222172C17B008E3D4D /* APIs */,
 				1C7B985F215DDF5400C75014 /* Controllers */,
 				1C7B985E215DDF4B00C75014 /* Views */,
+				1CB257232172C258008E3D4D /* Services */,
 				1C7B985D215DDF4400C75014 /* Models */,
 				1C7B982F215B32D500C75014 /* AppDelegate.swift */,
 				1C7B9833215B32D500C75014 /* Main.storyboard */,
@@ -177,11 +189,13 @@
 		1C7B985D215DDF4400C75014 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1CFFAA0A2170337400D3E768 /* AnalystsRating.swift */,
 				1C7B98852161949A00C75014 /* Dataholder.swift */,
 				1C7B9860215DDFBC00C75014 /* Company.swift */,
 				1C7B9862215DE1A800C75014 /* Constants.swift */,
 				1C7B9878215F071E00C75014 /* Candle.swift */,
 				1C545214216C31950064239E /* Quote.swift */,
+				1CB257282173B8A5008E3D4D /* Configuration.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -193,8 +207,10 @@
 				1C545210216AA4B90064239E /* GradientButton.swift */,
 				1CD1193F216DC394000AE02E /* CandlePricesView.swift */,
 				1CD11941216DD73C000AE02E /* PriceVolumeView.swift */,
-				1CD11943216DD886000AE02E /* ColoredPercentLabel.swift */,
+				1CD11943216DD886000AE02E /* ColoredValueLabel.swift */,
 				1CD11945216DE401000AE02E /* ColoredPricePercentLabel.swift */,
+				1CD11947216EAD2E000AE02E /* RatingLabel.swift */,
+				1CD11949216F35C3000AE02E /* MarkerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -203,33 +219,32 @@
 			isa = PBXGroup;
 			children = (
 				1C7B98872161CC2F00C75014 /* CompanySearchTVC.swift */,
-				1C7B987D215F29E300C75014 /* CompanyDetailsVC.swift */,
 				1C7B9883215F401200C75014 /* WatchlistTVC.swift */,
-				1C545212216AF6400064239E /* WatchlistUpdater.swift */,
 				1C183F90216D59F90042F52C /* StockDetailsVC.swift */,
 				1C183F92216D5D2A0042F52C /* DemoBaseViewController.swift */,
-				1C7B988B216321A900C75014 /* Protocols */,
-				1C7B987A215F218B00C75014 /* StockDataAPI */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		1C7B987A215F218B00C75014 /* StockDataAPI */ = {
-			isa = PBXGroup;
-			children = (
-				1C7B986C215EAE8800C75014 /* IEXTrading.swift */,
-				1C7B9866215DE9D000C75014 /* StockDataAPI.swift */,
-				1C7B9876215EEDE100C75014 /* StockAPIManager.swift */,
-			);
-			path = StockDataAPI;
-			sourceTree = "<group>";
-		};
-		1C7B988B216321A900C75014 /* Protocols */ = {
+		1CB257222172C17B008E3D4D /* APIs */ = {
 			isa = PBXGroup;
 			children = (
 				1C7B9870215EB09000C75014 /* StockDataApiProtocol.swift */,
+				1C7B986C215EAE8800C75014 /* IEXTrading.swift */,
+				1CB257202172BBB6008E3D4D /* FinvizAPI.swift */,
+				1CB257262173A234008E3D4D /* HTTPRequest.swift */,
 			);
-			path = Protocols;
+			path = APIs;
+			sourceTree = "<group>";
+		};
+		1CB257232172C258008E3D4D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1C7B9876215EEDE100C75014 /* StockAPIManager.swift */,
+				1C545212216AF6400064239E /* WatchlistUpdater.swift */,
+				1CB257242172C292008E3D4D /* WatchlistManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		80DF6D6C08FD7E107EC125CB /* Pods */ = {
@@ -436,21 +451,26 @@
 				1C7B9879215F071E00C75014 /* Candle.swift in Sources */,
 				1C545215216C31950064239E /* Quote.swift in Sources */,
 				1C183F91216D59F90042F52C /* StockDetailsVC.swift in Sources */,
+				1CB257272173A234008E3D4D /* HTTPRequest.swift in Sources */,
 				1C183F93216D5D2A0042F52C /* DemoBaseViewController.swift in Sources */,
 				1C7B98882161CC2F00C75014 /* CompanySearchTVC.swift in Sources */,
 				1C7B9830215B32D500C75014 /* AppDelegate.swift in Sources */,
+				1CB257212172BBB6008E3D4D /* FinvizAPI.swift in Sources */,
 				1C545213216AF6400064239E /* WatchlistUpdater.swift in Sources */,
-				1C7B987E215F29E300C75014 /* CompanyDetailsVC.swift in Sources */,
 				1CD11946216DE401000AE02E /* ColoredPricePercentLabel.swift in Sources */,
+				1CD11948216EAD2E000AE02E /* RatingLabel.swift in Sources */,
 				1C545211216AA4B90064239E /* GradientButton.swift in Sources */,
-				1CD11944216DD886000AE02E /* ColoredPercentLabel.swift in Sources */,
+				1CD11944216DD886000AE02E /* ColoredValueLabel.swift in Sources */,
 				1C7B9861215DDFBC00C75014 /* Company.swift in Sources */,
+				1CFFAA0B2170337400D3E768 /* AnalystsRating.swift in Sources */,
 				1C7B9863215DE1A800C75014 /* Constants.swift in Sources */,
 				1CD11942216DD73C000AE02E /* PriceVolumeView.swift in Sources */,
+				1CB257252172C292008E3D4D /* WatchlistManager.swift in Sources */,
+				1CB257292173B8A5008E3D4D /* Configuration.swift in Sources */,
 				1C7B98862161949A00C75014 /* Dataholder.swift in Sources */,
 				1C7B9884215F401200C75014 /* WatchlistTVC.swift in Sources */,
+				1CD1194A216F35C3000AE02E /* MarkerView.swift in Sources */,
 				1CD11940216DC394000AE02E /* CandlePricesView.swift in Sources */,
-				1C7B9867215DE9D000C75014 /* StockDataAPI.swift in Sources */,
 				1C7B9871215EB09000C75014 /* StockDataApiProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

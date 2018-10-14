@@ -10,12 +10,16 @@ import Foundation
 
 class Candle {
     
-    private var high: Float
-    private var low: Float
-    private var open: Float
-    private var close: Float
+    private var date: String
+    private var volume: Double
+    private var high: Double
+    private var low: Double
+    private var open: Double
+    private var close: Double
     
-    init(high: Float, low: Float, open: Float, close: Float) {
+    init(date:String, volume:Double, high:Double, low:Double, open:Double, close:Double) {
+        self.date = date
+        self.volume = volume
         self.high = high
         self.low = low
         self.open = open

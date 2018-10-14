@@ -3,23 +3,15 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "closure #1 in IEXTrading.getChart(timeInterval:):IEXTrading.swift">
+         contextName = "ColoredLabel.draw(_:):ColoredLabel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "json.count">
+               value = "self.text">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CompanySearchTVC.searchBar(_:textDidChange:):CompanySearchTVC.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "searchResults">
-            </PersistentString>
-            <PersistentString
-               value = "Dataholder.allTickers">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "RatingLabel.commonInit():RatingLabel.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in IEXTrading.listCompanies(completionHandler:):IEXTrading.swift">
@@ -30,29 +22,40 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "StockDetailsVC.chartValueSelected(_:entry:highlight:):StockDetailsVC.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "e.close">
-            </PersistentString>
-            <PersistentString
-               value = "markerView.center">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ColoredLabel.draw(_:):ColoredLabel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.text">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "CompanySearchTVC.searchBarCancelButtonClicked(_:):CompanySearchTVC.swift">
          <PersistentStrings>
             <PersistentString
                value = "self.navigationController">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WatchlistTVC.prepare(for:sender:):WatchlistTVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "StockAPIManager.shared">
+            </PersistentString>
+            <PersistentString
+               value = "segue.destination">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "StockDetailsVC.chartValueSelected(_:entry:highlight:):StockDetailsVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "markerView.bounds.width">
+            </PersistentString>
+            <PersistentString
+               value = "chartView.bounds.width">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WatchlistTVC.setupRefreshControl():WatchlistTVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Bundle.main.path(forResource: &quot;goat-loader&quot;, withExtension: nil)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -71,6 +74,33 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "CompanySearchTVC.searchBar(_:textDidChange:):CompanySearchTVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "searchResults">
+            </PersistentString>
+            <PersistentString
+               value = "Dataholder.allTickers">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CompanySearchTVC.tableView(_:didSelectRowAt:):CompanySearchTVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Dataholder.watchlistManager">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WatchlistTVC.viewDidLoad():WatchlistTVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.refreshControl">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CompanySearchTVC.tableView(_:numberOfRowsInSection:):CompanySearchTVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -79,10 +109,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "WatchlistTVC.prepare(for:sender:):WatchlistTVC.swift">
+         contextName = "closure #1 in IEXTrading.getChart(timeInterval:):IEXTrading.swift">
          <PersistentStrings>
             <PersistentString
-               value = "StockAPIManager.shared">
+               value = "json.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

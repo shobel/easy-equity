@@ -9,9 +9,8 @@
 import Foundation
 import SwiftyJSON
 
-//override stockdataapiprotocol functions
-class IEXTrading: StockDataAPI {
-    
+class IEXTrading: HTTPRequest, StockDataApiProtocol {
+
     private var stockURL = "https://api.iextrading.com/1.0/stock/"
     private var batchURL = "https://api.iextrading.com/1.0/stock/market/batch?"
     private var listURL = "https://api.iextrading.com/1.0/ref-data/symbols"
@@ -39,8 +38,10 @@ class IEXTrading: StockDataAPI {
         Constants.TimeIntervals.five_year: "5y"
     ]
     
-    override func getChart(timeInterval: Constants.TimeIntervals) {
-        let params:[String] = [stockURL, StockAPIManager.shared.getCurrentTicker(), queries.chart, timeFrames[timeInterval]!]
+    
+    
+    func getChart(timeInterval: Constants.TimeIntervals) {
+        let params:[String] = [stockURL, StockAPIManager.shared.currentTicker, queries.chart, timeFrames[timeInterval]!]
         let queryURL = params.joined(separator: "/")
         
         sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
@@ -48,14 +49,14 @@ class IEXTrading: StockDataAPI {
                 let json = JSON(data)
                 var candle:Candle
                 for i in 0..<json.count{
-                    candle = Candle(high: json[i]["high"].float!, low: json[i]["low"].float!, open: json[i]["open"].float!, close: json[i]["close"].float!)
+                    candle = Candle(date: json[i]["date"].string!, volume: json[i]["volume"].double!, high: json[i]["high"].double!, low: json[i]["low"].double!, open: json[i]["open"].double!, close: json[i]["close"].double!)
                 }
                 print(json)
             }
         })
     }
     
-    override func getQuotes(tickers: [String], completionHandler: @escaping ([Quote])->Void){
+    func getQuotes(tickers: [String], completionHandler: @escaping ([Quote])->Void){
         let params: [String:String] = [
             "symbols": tickers.joined(separator: ","),
             "types": "quote"
@@ -71,7 +72,13 @@ class IEXTrading: StockDataAPI {
                         latestPrice:json[ticker]["quote"]["latestPrice"].double!,
                         previousClose: json[ticker]["quote"]["previousClose"].double!,
                         change: json[ticker]["quote"]["change"].double!,
-                        changePercent: (json[ticker]["quote"]["changePercent"].double!)*100
+                        changePercent: (json[ticker]["quote"]["changePercent"].double!)*100,
+                        latestSource: json[ticker]["quote"]["latestSource"].string!,
+                        extendedPrice: json[ticker]["quote"]["extendedPrice"].double!,
+                        extendedChangePercent: (json[ticker]["quote"]["extendedChangePercent"].double!)*100,
+                        sector: json[ticker]["quote"]["sector"].string!,
+                        marketCap: json[ticker]["quote"]["marketCap"].double!,
+                        ytdChange: (json[ticker]["quote"]["ytdChange"].double!)*100
                     )
                     quotes.append(quote)
                     //print(json[ticker]["quote"]["latestPrice"].double!)
@@ -82,7 +89,7 @@ class IEXTrading: StockDataAPI {
         
     }
     
-    override func listCompanies() {
+    func listCompanies() {
         sendQuery(queryURL: listURL, completionHandler: { (data, response, error) -> Void in
             if let data = data {
                 let json = JSON(data)
@@ -97,27 +104,23 @@ class IEXTrading: StockDataAPI {
         })
     }
     
-    private func sendQuery(queryURL: String, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void){
-        let sharedSession = URLSession.shared
-        
-        if let url = URL(string: queryURL) {
-            let request = URLRequest(url: url)
-            let dataTask = sharedSession.dataTask(with: request, completionHandler: completionHandler)
-            dataTask.resume()
-        }
+    func getQuote(ticker: String) {
+        //
     }
     
-    private func buildQuery(url: String, params: [String:String]) -> String {
-        var paramString = ""
-        var counter = 0
-        for (key, value) in params {
-            if counter == 0 {
-                paramString += key + "=" + value
-            } else {
-                paramString += "&" + key + "=" + value
-            }
-            counter+=1
-        }
-        return url + paramString
+    func getCompanyData() {
+        //
+    }
+    
+    func getEarningsData() {
+        //
+    }
+    
+    func getNews() {
+        //
+    }
+    
+    func getCompanyLogo() {
+        //
     }
 }
