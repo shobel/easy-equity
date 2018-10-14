@@ -12,10 +12,16 @@ class FinvizAPI: HTTPRequest {
     
     private var baseURL = "https://finviz.com/quote.ashx?t="
     
-    
     public func getAnalystsRatings(forTickers: [String], completionHandler: @escaping ([String:AnalystsRating])->Void) {
-        let dict = randomRatings(forTickers: forTickers)
-        completionHandler(dict)
+        //let dict = randomRatings(forTickers: forTickers)
+        for t in forTickers{
+            let query = baseURL + t
+            sendQuery(queryURL: query, completionHandler: { (data, response, error) in
+                let responseString = String(data: data!, encoding: .utf8)
+                print(responseString)
+            })
+        }
+        //completionHandler(dict)
     }
     
     private func randomRatings(forTickers: [String]) -> [String:AnalystsRating] {
