@@ -18,10 +18,11 @@ class StockDetailsVC: DemoBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        load()
+        //StockAPIManager.shared.getStockDataAPI().
+        loadChart()
     }
     
-    func load(){
+    func loadChart(){
         
         self.title = "Candle Stick Chart"
         self.options = [.toggleValues,

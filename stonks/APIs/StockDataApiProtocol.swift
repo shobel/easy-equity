@@ -17,6 +17,7 @@ protocol StockDataApiProtocol {
     //Takes a list of tickers and a callback function that takes a dictionary of tickers and prices
     func getQuotes(tickers: [String], completionHandler: @escaping ([Quote])->Void)
     
+    //endpoints: logo, company, news, key stats, dividends, earnings, financials
     func getCompanyData()
     
     func getEarningsData()

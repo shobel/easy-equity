@@ -12,47 +12,43 @@ class WatchlistTVC: UITableViewController {
 
     @IBOutlet weak var addTickerButton: UIButton!
     private var watchlistUpdater: WatchlistUpdater?
+    private var analystRatingAPI:FinvizAPI!
     
-    var refreshLoadingView : UIView!
-    var goatView : UIImageView!
+    private var watchlistManager:WatchlistManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //setupRefreshControl()
-    }
-    
-    func setupRefreshControl() {
-        // Programmatically inserting a UIRefreshControl
+        
+        watchlistManager = Dataholder.watchlistManager
+        
+        analystRatingAPI = FinvizAPI()
+        analystRatingAPI.getAnalystsRatings(forTickers: watchlistManager.getTickers(), completionHandler: handleAnalystsRatings)
+        
+        tableView.separatorInset = UIEdgeInsets.zero
         self.refreshControl = UIRefreshControl()
-        
-        // Setup the loading view, which will hold the moving graphics
-        self.refreshLoadingView = UIView(frame: self.refreshControl!.bounds)
-        self.refreshLoadingView.backgroundColor = UIColor.red
-    
-        // Create the graphic image views
-        self.goatView = UIImageView(image: UIImage(named: "goat-loader.gif"))
-        
-        // Add the graphics to the loading view
-        self.refreshLoadingView.addSubview(self.goatView)
-        
-        // Clip so the graphics don't stick out
-        self.refreshLoadingView.clipsToBounds = true;
-        
-        // Hide the original spinner icon
-        self.refreshControl!.tintColor = UIColor.clear
-        
-        // Add the loading and colors views to our refresh control
-        self.refreshControl!.addSubview(self.refreshLoadingView)
-        
-        // When activated, invoke our refresh function
         self.refreshControl!.addTarget(self, action: #selector(handleRefresh), for: UIControl.Event.valueChanged)
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        updateEarningsAndRatings()
         self.tableView.reloadData()
-        if !Dataholder.watchList.isEmpty {
+        if !watchlistManager.getWatchlist().isEmpty {
             watchlistUpdater = WatchlistUpdater(caller: self)
             watchlistUpdater!.startTask()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        watchlistUpdater?.stopTask()
+    }
+    
+    private func updateEarningsAndRatings(){
+
+    }
+    
+    private func handleAnalystsRatings(ratings: [String:AnalystsRating]){
+        for rating in ratings {
+            
         }
     }
 
@@ -62,35 +58,45 @@ class WatchlistTVC: UITableViewController {
         }
     }
     
+    
+    /*
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    }
+    */
+    
+    @objc func handleRefresh() {
+        self.tableView.reloadData()
+        self.refreshControl!.endRefreshing()
+    }
+}
+
+/* TableView functions */
+extension WatchlistTVC {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Dataholder.watchList.count
+        return watchlistManager.getWatchlist().count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "watchListCell", for: indexPath) as! WatchlistTVCell
-
-        let company = Dataholder.watchList[indexPath.row]
+        
+        let company = watchlistManager.getWatchlist()[indexPath.row]
         cell.displayData(company: company)
         return cell
     }
-
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            Dataholder.removeFromWatchList(index: indexPath.row)
+            Dataholder.watchlistManager.removeCompany(index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        watchlistUpdater?.stopTask()
     }
     
     /*
@@ -107,10 +113,4 @@ class WatchlistTVC: UITableViewController {
      return true
      }
      */
-    
-    @objc func handleRefresh() {
-        self.tableView.reloadData()
-        self.refreshControl!.endRefreshing()
-    }
-
 }

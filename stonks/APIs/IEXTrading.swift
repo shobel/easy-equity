@@ -9,9 +9,8 @@
 import Foundation
 import SwiftyJSON
 
-//override stockdataapiprotocol functions
-class IEXTrading: StockDataAPI {
-    
+class IEXTrading: HTTPRequest, StockDataApiProtocol {
+
     private var stockURL = "https://api.iextrading.com/1.0/stock/"
     private var batchURL = "https://api.iextrading.com/1.0/stock/market/batch?"
     private var listURL = "https://api.iextrading.com/1.0/ref-data/symbols"
@@ -39,8 +38,10 @@ class IEXTrading: StockDataAPI {
         Constants.TimeIntervals.five_year: "5y"
     ]
     
-    override func getChart(timeInterval: Constants.TimeIntervals) {
-        let params:[String] = [stockURL, StockAPIManager.shared.getCurrentTicker(), queries.chart, timeFrames[timeInterval]!]
+    
+    
+    func getChart(timeInterval: Constants.TimeIntervals) {
+        let params:[String] = [stockURL, StockAPIManager.shared.currentTicker, queries.chart, timeFrames[timeInterval]!]
         let queryURL = params.joined(separator: "/")
         
         sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
@@ -55,7 +56,7 @@ class IEXTrading: StockDataAPI {
         })
     }
     
-    override func getQuotes(tickers: [String], completionHandler: @escaping ([Quote])->Void){
+    func getQuotes(tickers: [String], completionHandler: @escaping ([Quote])->Void){
         let params: [String:String] = [
             "symbols": tickers.joined(separator: ","),
             "types": "quote"
@@ -88,7 +89,7 @@ class IEXTrading: StockDataAPI {
         
     }
     
-    override func listCompanies() {
+    func listCompanies() {
         sendQuery(queryURL: listURL, completionHandler: { (data, response, error) -> Void in
             if let data = data {
                 let json = JSON(data)
@@ -103,27 +104,23 @@ class IEXTrading: StockDataAPI {
         })
     }
     
-    private func sendQuery(queryURL: String, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void){
-        let sharedSession = URLSession.shared
-        
-        if let url = URL(string: queryURL) {
-            let request = URLRequest(url: url)
-            let dataTask = sharedSession.dataTask(with: request, completionHandler: completionHandler)
-            dataTask.resume()
-        }
+    func getQuote(ticker: String) {
+        //
     }
     
-    private func buildQuery(url: String, params: [String:String]) -> String {
-        var paramString = ""
-        var counter = 0
-        for (key, value) in params {
-            if counter == 0 {
-                paramString += key + "=" + value
-            } else {
-                paramString += "&" + key + "=" + value
-            }
-            counter+=1
-        }
-        return url + paramString
+    func getCompanyData() {
+        //
+    }
+    
+    func getEarningsData() {
+        //
+    }
+    
+    func getNews() {
+        //
+    }
+    
+    func getCompanyLogo() {
+        //
     }
 }

@@ -1,5 +1,5 @@
 //
-//  AnalystRating.swift
+//  AnalystsRating.swift
 //  stonks
 //
 //  Created by Samuel Hobel on 10/11/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct AnalystRating {
+struct AnalystsRating {
     
     var overallScore:Double {
         return (buyPercent + holdPercent*0.5)/10.0
@@ -17,4 +17,5 @@ struct AnalystRating {
     var holdPercent:Double
     var sellPercent:Double
     
+    var targetPrice: Double
 }
