@@ -12,7 +12,7 @@ class WatchlistTVC: UITableViewController {
 
     @IBOutlet weak var addTickerButton: UIButton!
     private var watchlistUpdater: WatchlistUpdater?
-    private var analystRatingAPI:FinvizAPI!
+    private var finvizAPI:FinvizAPI!
     
     private var watchlistManager:WatchlistManager!
     
@@ -21,16 +21,21 @@ class WatchlistTVC: UITableViewController {
         
         watchlistManager = Dataholder.watchlistManager
         
-        analystRatingAPI = FinvizAPI()
-        analystRatingAPI.getAnalystsRatings(forTickers: watchlistManager.getTickers(), completionHandler: handleAnalystsRatings)
+        finvizAPI = FinvizAPI()
+        finvizAPI.getData(forTickers: watchlistManager.getTickers(companiesOnly: true), completionHandler: handleFinvizResponse)
         
         tableView.separatorInset = UIEdgeInsets.zero
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.addTarget(self, action: #selector(handleRefresh), for: UIControl.Event.valueChanged)
     }
     
+    /* helps the rating score colors stick better when moving from other views to this one */
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
-        updateEarningsAndRatings()
+        updateFinvizData()
         self.tableView.reloadData()
         if !watchlistManager.getWatchlist().isEmpty {
             watchlistUpdater = WatchlistUpdater(caller: self)
@@ -42,14 +47,45 @@ class WatchlistTVC: UITableViewController {
         watchlistUpdater?.stopTask()
     }
     
-    private func updateEarningsAndRatings(){
-
+    private func updateFinvizData(){
+        var tickers:[String] = []
+        for c in watchlistManager.getWatchlist(){
+            if c.analystsRating == nil && c.isCompany{
+                tickers.append(c.ticker)
+            }
+        }
+        if !tickers.isEmpty {
+            finvizAPI.getData(forTickers: tickers, completionHandler: handleFinvizResponse)
+        }
     }
     
-    private func handleAnalystsRatings(ratings: [String:AnalystsRating]){
-        for rating in ratings {
-            
+    private func handleFinvizResponse(data: [String:[String:Any?]]){
+        for c in watchlistManager.getWatchlist(){
+            if let ticker = data.keys.first {
+                if ticker == c.ticker {
+                    c.analystsRating = data[ticker]!["ratings"] as? AnalystsRating
+                    
+                    let earningsDateString = data[ticker]!["Earnings"] as? String
+                    let erArray = earningsDateString?.components(separatedBy: .whitespaces)
+                    let time = erArray![2]
+                    
+                    let today = Date()
+                    let calendar = Calendar.current
+                    let year = calendar.component(.year, from: today)
+                    
+                    let earningsDate = erArray![0] + " " + erArray![1] + " " + String(year)
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "MMM dd yyyy"
+                    dateFormatter.timeZone = TimeZone(abbreviation: "EST")
+                    guard let date = dateFormatter.date(from: earningsDate) else {
+                        fatalError()
+                    }
+                    c.earningsDate = date
+                    break
+                }
+            }
         }
+        update()
     }
 
     public func update(){

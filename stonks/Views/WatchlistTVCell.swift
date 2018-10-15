@@ -35,10 +35,19 @@ class WatchlistTVCell: UITableViewCell {
         currentPrice.text = String(format: "%.2f", company.quote?.latestPrice ?? "--")
         percentChange.setValue(value: company.quote?.changePercent ?? 0.0, isPercent: true)
         
-        daysToEarnings.text = "\(Int.random(in: 1 ..< 30))d"
-        let score = ((Double.random(in: 0.0...10.0)*10).rounded())/10
-        buyRating.setRatingColor(score: score)
-        buyRating.text = "\(score)"
+        if company.daysToER < 0 {
+            daysToEarnings.text = ""
+        } else {
+            daysToEarnings.text = String(company.daysToER) + "d"
+        }
+        
+        if let score = company.analystsRating?.overallScore {
+            buyRating.setRatingColor(score: score)
+            buyRating.text = String(format: "%.1f", score)
+        } else {
+            buyRating.setRatingColor(score: -1)
+            buyRating.text = ""
+        }
         
         if let quote = company.quote {
             if quote.latestSource == "IEX real time price" {

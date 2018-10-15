@@ -94,8 +94,11 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
             if let data = data {
                 let json = JSON(data)
                 for i in 0..<json.count{
-                    if json[i]["type"].string! == self.stockTypes.common || json[i]["type"].string! == self.stockTypes.exchangeTraded {
-                        let company = Company(ticker: json[i]["symbol"].string!, fullName: json[i]["name"].string!)
+                    if json[i]["type"].string! == self.stockTypes.common {
+                        let company = Company(ticker: json[i]["symbol"].string!, fullName: json[i]["name"].string!, isCompany: true)
+                        Dataholder.allTickers.append(company)
+                    } else if json[i]["type"].string! == self.stockTypes.exchangeTraded {
+                        let company = Company(ticker: json[i]["symbol"].string!, fullName: json[i]["name"].string!, isCompany: false)
                         Dataholder.allTickers.append(company)
                     }
                 }

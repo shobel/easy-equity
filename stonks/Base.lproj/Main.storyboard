@@ -595,8 +595,9 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uey-VK-H6S" userLabel="RatingView">
                                                             <rect key="frame" x="0.0" y="0.0" width="93.5" height="50"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8.8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c81-Nc-0og" userLabel="Buy" customClass="RatingLabel" customModule="stonks" customModuleProvider="target">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c81-Nc-0og" userLabel="Buy" customClass="RatingLabel" customModule="stonks" customModuleProvider="target">
                                                                     <rect key="frame" x="31.5" y="10" width="30" height="30"/>
+                                                                    <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="30" id="TRc-XG-S8k"/>
                                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="XmJ-63-eBd"/>
