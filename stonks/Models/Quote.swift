@@ -15,7 +15,7 @@ struct Quote {
     var previousClose:Double //227.99
     var change:Double //-3.7
     var changePercent:Double //-0.01623 *NOT A PERCENT - NEED TO x100
-    var latestSource:String //"latestSource":"Close",
+    var isLive:Bool //"latestSource":"Close",
     var extendedPrice:Double //"extendedPrice":224.54
     var extendedChangePercent:Double //"extendedChangePercent":0.00111
     var sector:String //"sector":"Technology"

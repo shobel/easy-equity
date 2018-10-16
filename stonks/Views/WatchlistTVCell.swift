@@ -50,7 +50,7 @@ class WatchlistTVCell: UITableViewCell {
         }
         
         if let quote = company.quote {
-            if quote.latestSource == "IEX real time price" {
+            if quote.isLive {
                 afterPriceChange.isHidden = true
                 afterPercentChange.isHidden = true
             } else {

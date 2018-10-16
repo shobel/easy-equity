@@ -13,6 +13,9 @@ class Company: Equatable{
     public var isCompany:Bool //is either company or fund
     public var ticker:String
     public var fullName:String
+    public var ceo:String?
+    public var description:String?
+    public var logo:String?
     public var quote:Quote?
     public var earningsDate:Date?
     public var dailyData:[Date:Double]?

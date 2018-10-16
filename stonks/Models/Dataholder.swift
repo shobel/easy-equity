@@ -13,9 +13,4 @@ class Dataholder {
     public static var allTickers: [Company] = []
     public static var watchlistManager: WatchlistManager = WatchlistManager()
     
-    public static func updateWatchlistPriceInfo(quotes: [String: Double]){
-        
-        
-    }
-    
 }

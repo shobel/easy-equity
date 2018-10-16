@@ -10,7 +10,7 @@ import Foundation
 
 class Candle {
     
-    private var date: String
+    private var datetime: String
     private var volume: Double
     private var high: Double
     private var low: Double
@@ -18,7 +18,7 @@ class Candle {
     private var close: Double
     
     init(date:String, volume:Double, high:Double, low:Double, open:Double, close:Double) {
-        self.date = date
+        self.datetime = date
         self.volume = volume
         self.high = high
         self.low = low

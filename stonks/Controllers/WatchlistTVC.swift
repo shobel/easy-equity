@@ -135,6 +135,10 @@ extension WatchlistTVC {
         }
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        watchlistManager.selectedCompany = watchlistManager.getWatchlist()[indexPath.row]
+    }
+    
     /*
      // Override to support rearranging the table view.
      override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {

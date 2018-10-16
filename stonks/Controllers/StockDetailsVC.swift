@@ -11,15 +11,62 @@ import Charts
 
 class StockDetailsVC: DemoBaseViewController {
 
+    @IBOutlet weak var stockDetailsNavView: StockDetailsNavView!
     @IBOutlet weak var chartView: CandleStickChartView!
     @IBOutlet weak var candlePricesWrapper: UIView!
     @IBOutlet weak var candlePricesView: CandlePricesView!
     @IBOutlet weak var markerView: MarkerView!
     
+    private var company:Company!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //StockAPIManager.shared.getStockDataAPI().
+        
+        stockDetailsNavView.logo.layer.cornerRadius = (stockDetailsNavView.logo.frame.width)/2
+        stockDetailsNavView.logo.layer.masksToBounds = true
+        
+        company = Dataholder.watchlistManager.selectedCompany
+        stockDetailsNavView.ticker.text = company.ticker
+        stockDetailsNavView.name.text = company.fullName
+        
+        StockAPIManager.shared.stockDataApiInstance.getCompanyData(ticker: company.ticker, completionHandler: handleCompanyData)
+        StockAPIManager.shared.stockDataApiInstance.getChart(ticker: company.ticker, timeInterval: .day, completionHandler: handleChart)
+        
+        /*
+         We have a custom nav panel and so the default one goes on the bottom for some reason
+        and then our tab bar at the bottom gets darker
+         */
+        self.navigationController?.view.backgroundColor = UIColor.white
         loadChart()
+    }
+    
+    //handles the description, ceo, and logo
+    private func handleCompanyData(_ data:[String:String]){
+        let url = URL(string: data["logo"]!)
+        let data = try? Data(contentsOf: url!)
+        
+        if let imageData = data {
+            updateUI {
+                self.stockDetailsNavView.logo.contentMode = .scaleAspectFit
+                self.stockDetailsNavView.logo.image = UIImage(data: imageData)
+            }
+        }
+        
+//        if let filePath = Bundle.main.url(forResource: data["logo"], withExtension: "png"), let image = UIImage() {
+//            stockDetailsNavView.logo.contentMode = .scaleAspectFit
+//            stockDetailsNavView.logo.image = image
+//        }
+    }
+    
+    private func handleChart(_ chartData:[Candle]){
+        
+    
+    }
+    
+    public func updateUI(function: @escaping ()->Void){
+        DispatchQueue.main.async {
+            function()
+        }
     }
     
     func loadChart(){
@@ -157,7 +204,7 @@ class StockDetailsVC: DemoBaseViewController {
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     /*

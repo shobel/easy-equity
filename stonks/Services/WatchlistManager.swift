@@ -11,11 +11,10 @@ import Foundation
 class WatchlistManager {
     
     private var watchlist:[Company]
+    public var selectedCompany:Company?
     
     init(){
         watchlist = [
-            //Company(ticker: "SPY", fullName: "S&P500"),
-            //Company(ticker: "QQQ", fullName: "Powershares Tech Sector ETF"),
             Company(ticker: "FB", fullName: "Facebook", isCompany: true),
             Company(ticker: "AMZN", fullName: "Amazon.com, Inc.", isCompany: true),
             Company(ticker: "MSFT", fullName: "Microsoft Corporation", isCompany: true),
@@ -31,7 +30,7 @@ class WatchlistManager {
     public func getWatchlist() -> [Company] {
         return watchlist
     }
-    
+
     public func addCompany(company: Company){
         if !watchlist.contains(company) {
             watchlist.append(company)
