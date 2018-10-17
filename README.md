@@ -20,3 +20,5 @@
    + 3-day rule reminder after large price movements
    + Special events such as increased volatility at end of a month/quarter, January effect, end of year sell-off of     underperforming stocks
 
+### Design
+<img src="screenshots/Watchlist_ss.png" width="250"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="screenshots/Details_ss.png" width="250"/>
