@@ -11,15 +11,58 @@ import Charts
 
 class StockDetailsVC: DemoBaseViewController {
 
+    @IBOutlet weak var stockDetailsNavView: StockDetailsNavView!
     @IBOutlet weak var chartView: CandleStickChartView!
     @IBOutlet weak var candlePricesWrapper: UIView!
     @IBOutlet weak var candlePricesView: CandlePricesView!
     @IBOutlet weak var markerView: MarkerView!
     
+    private var company:Company!
+    private var chartData:[Candle] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //StockAPIManager.shared.getStockDataAPI().
+        
+        stockDetailsNavView.logo.layer.cornerRadius = (stockDetailsNavView.logo.frame.width)/2
+        stockDetailsNavView.logo.layer.masksToBounds = true
+        
+        company = Dataholder.watchlistManager.selectedCompany
+        stockDetailsNavView.ticker.text = company.ticker
+        stockDetailsNavView.name.text = company.fullName
+        
+        StockAPIManager.shared.stockDataApiInstance.getCompanyData(ticker: company.ticker, completionHandler: handleCompanyData)
+        StockAPIManager.shared.stockDataApiInstance.getChart(ticker: company.ticker, timeInterval: .day, completionHandler: handleChart)
+        
+        /*
+         We have a custom nav panel and so the default one goes on the bottom for some reason
+        and then our tab bar at the bottom gets darker
+         */
+        self.navigationController?.view.backgroundColor = UIColor.white
         loadChart()
+    }
+    
+    //handles the description, ceo, and logo
+    private func handleCompanyData(_ data:[String:String]){
+        let url = URL(string: data["logo"]!)
+        let data = try? Data(contentsOf: url!)
+        
+        if let imageData = data {
+            updateUI {
+                self.stockDetailsNavView.logo.contentMode = .scaleAspectFit
+                self.stockDetailsNavView.logo.image = UIImage(data: imageData)
+            }
+        }
+    }
+    
+    private func handleChart(_ chartData:[Candle]){
+        self.chartData = chartData
+        updateChartData()
+    }
+    
+    public func updateUI(function: @escaping ()->Void){
+        DispatchQueue.main.async {
+            function()
+        }
     }
     
     func loadChart(){
@@ -44,7 +87,7 @@ class StockDetailsVC: DemoBaseViewController {
         chartView.dragEnabled = false
         chartView.setScaleEnabled(true)
         chartView.maxVisibleCount = 200
-        chartView.pinchZoomEnabled = false
+        chartView.pinchZoomEnabled = true
         chartView.doubleTapToZoomEnabled = false
         chartView.autoScaleMinMaxEnabled = true
         
@@ -69,7 +112,77 @@ class StockDetailsVC: DemoBaseViewController {
             return
         }
         
-        self.setDataCount(Int(60), range: UInt32(100))
+        //self.setDataCount(Int(60), range: UInt32(100))
+        if (!chartData.isEmpty) {
+            setData(chartData: chartData)
+        }
+    }
+    
+    func setData(chartData:[Candle]){
+        var dataSet:[Candle] = []
+        var counter = 0
+        var high = 0.0, low = 0.0, open = 0.0, close = 0.0, volume = 0.0
+        var date:String = ""
+        for candle in chartData {
+            counter += 1
+            if counter == 1 {
+                high = candle.high
+                low = candle.low
+                open = candle.open
+                close = candle.close
+                volume = candle.volume
+                date = candle.datetime
+            } else {
+                volume += candle.volume
+                if candle.high > high {
+                    high = candle.high
+                }
+                if candle.low < low {
+                    low = candle.low
+                }
+                if counter == 10 {
+                    let candle = Candle(date: date, volume: volume, high: high, low: low, open: open, close: candle.close)
+                    dataSet.append(candle)
+                    counter = 0
+                    volume = 0.0
+                }
+            }
+        }
+        
+        self.chartData = dataSet
+        
+        let yVals1 = dataSet.enumerated().map { (index: Int, candle:Candle) -> CandleChartDataEntry in
+            let high = candle.high
+            let low = candle.low
+            let open = candle.open
+            let close = candle.close
+
+            return CandleChartDataEntry(x: Double(index), shadowH: high, shadowL: low, open: open, close: close)
+        }
+        
+        let set1 = CandleChartDataSet(values: yVals1, label: "Data Set")
+        set1.axisDependency = .left
+        set1.setColor(UIColor(white: 80/255, alpha: 1))
+        set1.drawIconsEnabled = false
+        set1.shadowColor = .darkGray
+        set1.shadowWidth = 0.7
+        set1.decreasingColor = Constants.darkPink
+        set1.decreasingFilled = true
+        set1.increasingColor = Constants.green
+        set1.increasingFilled = true
+        set1.neutralColor = .blue
+        set1.highlightColor = Constants.darkPink
+        set1.highlightLineWidth = 2
+        set1.drawHorizontalHighlightIndicatorEnabled = false
+        
+        let data = CandleChartData(dataSet: set1)
+        DispatchQueue.main.async {
+            self.chartView.data = data
+            self.chartView.candleData?.setDrawValues(false)
+            //self.chartView.notifyDataSetChanged()
+            //self.chartView.data?.notifyDataChanged()
+            //self.chartView.setNeedsDisplay()
+        }
     }
     
     func setDataCount(_ count: Int, range: UInt32) {
@@ -124,7 +237,9 @@ class StockDetailsVC: DemoBaseViewController {
     
     override func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         let e = entry as! CandleChartDataEntry
-        candlePricesView.volumeLabel.text = "VOL:17.68k"
+        let candle = self.chartData[Int(e.x)]
+        let volumeString = formatNumber(num: candle.volume)
+        candlePricesView.volumeLabel.text = "VOL:" + volumeString
         candlePricesView.highLabel.text = "HIGH:\(e.high)"
         candlePricesView.lowLabel.text = "LOW:\(e.low)"
         candlePricesView.openLabel.text = "OPEN:\(e.open)"
@@ -133,12 +248,7 @@ class StockDetailsVC: DemoBaseViewController {
         
         //let graphPoint = chartView.getMarkerPosition(highlight: highlight)
         // Adding top marker
-        let currentDateTime = Date()
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        formatter.dateStyle = .none
-        let time = formatter.string(from: currentDateTime)
-        markerView.dateLabel.text = "\(time)"
+        markerView.dateLabel.text = "\(candle.datetime)"
         var x = highlight.xPx.rounded()
         if x+(markerView.bounds.width/2) > chartView.bounds.width {
             x = chartView.bounds.width - (markerView.bounds.width/2)
@@ -157,7 +267,14 @@ class StockDetailsVC: DemoBaseViewController {
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func formatNumber(num:Double) -> String {
+        if num > 999 {
+            return String(num/100) + "K"
+        }
+        return String(num)
     }
     
     /*

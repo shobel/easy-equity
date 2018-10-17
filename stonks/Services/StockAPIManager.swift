@@ -11,13 +11,13 @@ import Foundation
 class StockAPIManager {
     
     public static let shared = StockAPIManager()
-    public  var stockDataApiInstance: StockDataApiProtocol {
+    
+    public var stockDataApiInstance: StockDataApiProtocol {
         switch (Configuration.stockDataResource) {
         case Configuration.StockDataApiTypes.IEXTrading:
             return IEXTrading()
         }
     }
-    public var currentTicker: String = "FB"
     
     private init(){}
     

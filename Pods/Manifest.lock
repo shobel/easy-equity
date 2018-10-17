@@ -4,12 +4,14 @@ PODS:
   - Charts/Core (3.2.1)
   - EasyToast (2.0.2)
   - SkeletonView (1.1.1)
+  - SwiftSoup (1.7.4)
   - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
   - Charts
   - EasyToast
   - SkeletonView
+  - SwiftSoup
   - SwiftyJSON
 
 SPEC REPOS:
@@ -17,14 +19,16 @@ SPEC REPOS:
     - Charts
     - EasyToast
     - SkeletonView
+    - SwiftSoup
     - SwiftyJSON
 
 SPEC CHECKSUMS:
   Charts: f122fb70b19847fa5817d018b77d6c5a2296ab25
   EasyToast: 2844de2158fe8d2313c6de81b5a858a909d82532
   SkeletonView: 041053e904504e7d8db83df166e599be75659fe1
+  SwiftSoup: 92f5b348c131aed8af04f4326db1579ab19fa08c
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: e78c3b812ced86f2358229255d609b9d4f622cc2
+PODFILE CHECKSUM: c485b1c0310a5c5e7cb3d8090fff336c0d082266
 
 COCOAPODS: 1.5.0

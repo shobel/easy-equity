@@ -38,26 +38,55 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
         Constants.TimeIntervals.five_year: "5y"
     ]
     
+    //iexendpoints: logo and company
+    func getCompanyData(ticker: String, completionHandler: @escaping ([String:String])->Void) {
+        var returnDict:[String:String] = [:]
+        let params = [
+            "symbols": ticker,
+            "types": "logo,company"
+        ]
+        let queryURL = buildQuery(url: batchURL, params: params)
+        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
+            if let data = data {
+                let json = JSON(data)
+                returnDict["description"] = json[ticker]["company"]["description"].string!
+                returnDict["ceo"] = json[ticker]["company"]["CEO"].string!
+                returnDict["logo"] = json[ticker]["logo"]["url"].string!
+                //print(json)
+                completionHandler(returnDict)
+            }
+        })
+
+    }
     
-    
-    func getChart(timeInterval: Constants.TimeIntervals) {
-        let params:[String] = [stockURL, StockAPIManager.shared.currentTicker, queries.chart, timeFrames[timeInterval]!]
+    func getChart(ticker: String, timeInterval: Constants.TimeIntervals, completionHandler: @escaping ([Candle])->Void) {
+        let params:[String] = [stockURL, ticker, queries.chart, timeFrames[timeInterval]!]
         let queryURL = params.joined(separator: "/")
         
         sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
             if let data = data {
                 let json = JSON(data)
+                var candles:[Candle] = []
                 var candle:Candle
                 for i in 0..<json.count{
-                    candle = Candle(date: json[i]["date"].string!, volume: json[i]["volume"].double!, high: json[i]["high"].double!, low: json[i]["low"].double!, open: json[i]["open"].double!, close: json[i]["close"].double!)
+                    if let date = json[i]["label"].string,
+                    let volume = json[i]["volume"].double,
+                    let high = json[i]["high"].double,
+                    let low = json[i]["low"].double,
+                    let open = json[i]["open"].double,
+                    let close = json[i]["close"].double {
+                        candle = Candle(date: date, volume: volume, high: high, low: low, open: open, close: close)
+                        candles.append(candle)
+                    }
                 }
-                print(json)
+                //print(json)
+                completionHandler(candles)
             }
         })
     }
     
     func getQuotes(tickers: [String], completionHandler: @escaping ([Quote])->Void){
-        let params: [String:String] = [
+        let params = [
             "symbols": tickers.joined(separator: ","),
             "types": "quote"
         ]
@@ -67,13 +96,20 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
                 let json = JSON(data)
                 var quotes:[Quote] = []
                 for (ticker,_):(String, JSON) in json {
+                    let iexLatestSource = json[ticker]["quote"]["latestSource"].string
+                    var isLive = false
+                    if iexLatestSource != nil {
+                        if iexLatestSource == "IEX real time price" {
+                            isLive = true
+                        }
+                    }
                     let quote = Quote(
                         symbol: json[ticker]["quote"]["symbol"].string!,
                         latestPrice:json[ticker]["quote"]["latestPrice"].double!,
                         previousClose: json[ticker]["quote"]["previousClose"].double!,
                         change: json[ticker]["quote"]["change"].double!,
                         changePercent: (json[ticker]["quote"]["changePercent"].double!)*100,
-                        latestSource: json[ticker]["quote"]["latestSource"].string!,
+                        isLive: isLive,
                         extendedPrice: json[ticker]["quote"]["extendedPrice"].double!,
                         extendedChangePercent: (json[ticker]["quote"]["extendedChangePercent"].double!)*100,
                         sector: json[ticker]["quote"]["sector"].string!,
@@ -94,8 +130,11 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
             if let data = data {
                 let json = JSON(data)
                 for i in 0..<json.count{
-                    if json[i]["type"].string! == self.stockTypes.common || json[i]["type"].string! == self.stockTypes.exchangeTraded {
-                        let company = Company(ticker: json[i]["symbol"].string!, fullName: json[i]["name"].string!)
+                    if json[i]["type"].string! == self.stockTypes.common {
+                        let company = Company(ticker: json[i]["symbol"].string!, fullName: json[i]["name"].string!, isCompany: true)
+                        Dataholder.allTickers.append(company)
+                    } else if json[i]["type"].string! == self.stockTypes.exchangeTraded {
+                        let company = Company(ticker: json[i]["symbol"].string!, fullName: json[i]["name"].string!, isCompany: false)
                         Dataholder.allTickers.append(company)
                     }
                 }
@@ -104,11 +143,11 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
         })
     }
     
-    func getQuote(ticker: String) {
+    func getFinancialsAndStats() {
         //
     }
     
-    func getCompanyData() {
+    func getQuote(ticker: String) {
         //
     }
     

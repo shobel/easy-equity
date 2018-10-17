@@ -10,4 +10,5 @@ target 'stonks' do
   pod "SkeletonView"
   pod 'EasyToast'
   pod 'SwiftyJSON'
+  pod 'SwiftSoup'
 end

@@ -42,8 +42,12 @@ class RatingLabel: UILabel {
     }
     
     public func setRatingColor(score: Double){
-        let scoreIndex = Int(score.rounded())
-        self.layer.backgroundColor = colors[scoreIndex].cgColor
+        if (score == -1){
+            self.backgroundColor = UIColor(red: 245.0/255.0, green: 245.0/255.0, blue: 245.0/255.0, alpha: 1.0)
+        } else {
+            let scoreIndex = Int(score.rounded())
+            self.backgroundColor = colors[scoreIndex]
+        }
     }
     
     /*

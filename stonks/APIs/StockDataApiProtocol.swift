@@ -10,21 +10,31 @@ import Foundation
 
 protocol StockDataApiProtocol {
     
-    func getChart(timeInterval: Constants.TimeIntervals)
+    //iexendpoints: charts
+    //Takes a time interval and callback that will take an array of candles
+    //Candle object contains the datetime
+    func getChart(ticker:String, timeInterval: Constants.TimeIntervals, completionHandler: @escaping ([Candle])->Void)
     
     func getQuote(ticker: String)
     
-    //Takes a list of tickers and a callback function that takes a dictionary of tickers and prices
+    //iexendpointsL quote
+    //Takes a list of tickers and a callback function that takes an array of quotes
+    //Quote object contains the ticker
     func getQuotes(tickers: [String], completionHandler: @escaping ([Quote])->Void)
     
-    //endpoints: logo, company, news, key stats, dividends, earnings, financials
-    func getCompanyData()
+    //iexendpoints: logo, company
+    //takes the ticker of interest and callback that takes the dictionary returned
+    //dictionary should contain logo, description, and ceo
+    func getCompanyData(ticker: String, completionHandler: @escaping ([String:String])->Void)
     
+    //iexendpoints: keystats, financials, dividends
+    func getFinancialsAndStats()
+    
+    //iexendpoints: earnings
     func getEarningsData()
     
+    //iexendpoints: news
     func getNews()
-    
-    func getCompanyLogo()
     
     func listCompanies()
     //func listCompanies(completionHandler: @escaping ()->Void)

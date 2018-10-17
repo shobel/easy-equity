@@ -12,12 +12,12 @@ import UIKit
 class WatchlistUpdater {
     
     var updateWatchlistTimer:Timer?
-    var caller: WatchlistTVC
+    var caller: WatchlistVC
     
     var watchlistManager: WatchlistManager!
     var watchlist: [Company]!
     
-    public init(caller: WatchlistTVC){
+    public init(caller: WatchlistVC){
         self.caller = caller
         self.watchlistManager = Dataholder.watchlistManager
         self.watchlist = watchlistManager.getWatchlist()

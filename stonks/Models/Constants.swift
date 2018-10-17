@@ -34,4 +34,43 @@ struct Constants{
     
     public static var lightGreen = UIColor(red: 115.0/255.0, green: 255.0/255.0, blue: 180.0/255.0, alpha: 1.0)
     public static var lightOrange = UIColor(red: 255.0/255.0, green: 240.0/255.0, blue: 183.0/255.0, alpha: 1.0)
+    
+    /* FINVIZ ratings */
+    enum FinvizRatingCategory {
+        case buy, weakBuy, hold, weakSell, sell
+    }
+    
+    static var finvizKeywordsDict: [String:FinvizRatingCategory] = [
+        "Buy": .buy,
+        "Strong Buy": .buy,
+        "Top Pick": .buy,
+        "Positive": .buy,
+        "Weak Buy": .weakBuy,
+        "Moderate Buy": .weakBuy,
+        "Outperform": .weakBuy,
+        "Sector Outperform": .weakBuy,
+        "Market Outperform": .weakBuy,
+        "Overweight": .weakBuy,
+        "Accumulate": .weakBuy,
+        "Hold": .hold,
+        "Neutral": .hold,
+        "Market Perform": .hold,
+        "Mkt Perform": .hold,
+        "Peer Perform": .hold,
+        "In line": .hold,
+        "Sector Weight": .hold,
+        "Equal Weight": .hold,
+        "Weak Sell": .weakSell,
+        "Moderate Sell": .weakSell,
+        "Underweight": .weakSell,
+        "Sector Underperform": .weakSell,
+        "Market Underperform": .weakSell,
+        "Underperform": .weakSell,
+        "Reduce": .weakSell,
+        "Negative": .sell,
+        "Sell": .sell,
+        "Strong Sell": .sell
+    ]
+    /* END FINVIZ */
+    
 }
