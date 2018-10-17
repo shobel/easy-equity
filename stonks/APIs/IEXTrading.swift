@@ -59,18 +59,28 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
 
     }
     
-    func getChart(ticker: String, timeInterval: Constants.TimeIntervals, completionHandler: ([Candle])->Void) {
+    func getChart(ticker: String, timeInterval: Constants.TimeIntervals, completionHandler: @escaping ([Candle])->Void) {
         let params:[String] = [stockURL, ticker, queries.chart, timeFrames[timeInterval]!]
         let queryURL = params.joined(separator: "/")
         
         sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
             if let data = data {
                 let json = JSON(data)
+                var candles:[Candle] = []
                 var candle:Candle
                 for i in 0..<json.count{
-                    //candle = Candle(date: json[i]["date"].string!, volume: json[i]["volume"].double!, high: json[i]["high"].double!, low: json[i]["low"].double!, open: json[i]["open"].double!, close: json[i]["close"].double!)
+                    if let date = json[i]["label"].string,
+                    let volume = json[i]["volume"].double,
+                    let high = json[i]["high"].double,
+                    let low = json[i]["low"].double,
+                    let open = json[i]["open"].double,
+                    let close = json[i]["close"].double {
+                        candle = Candle(date: date, volume: volume, high: high, low: low, open: open, close: close)
+                        candles.append(candle)
+                    }
                 }
                 //print(json)
+                completionHandler(candles)
             }
         })
     }

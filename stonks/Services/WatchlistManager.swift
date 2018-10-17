@@ -15,13 +15,17 @@ class WatchlistManager {
     
     init(){
         watchlist = [
-            Company(ticker: "FB", fullName: "Facebook", isCompany: true),
+            Company(ticker: "AAPL", fullName: "Apple Inc.", isCompany: true),
+            Company(ticker: "FB", fullName: "Facebook, Inc.", isCompany: true),
             Company(ticker: "AMZN", fullName: "Amazon.com, Inc.", isCompany: true),
             Company(ticker: "MSFT", fullName: "Microsoft Corporation", isCompany: true),
             Company(ticker: "MU", fullName: "Micron Technology", isCompany: true),
             Company(ticker: "V", fullName: "Visa Inc.", isCompany: true),
             Company(ticker: "ATVI", fullName: "Activision Blizzard Inc", isCompany: true),
             Company(ticker: "TSLA", fullName: "Tesla Inc.", isCompany: true),
+            Company(ticker: "NVDA", fullName: "NVIDIA Corporation", isCompany: true),
+            Company(ticker: "AMD", fullName: "Advanced Micro Devices, Inc.", isCompany: true),
+            Company(ticker: "SQ", fullName: "Square Inc", isCompany: true),
             Company(ticker: "SPY", fullName: "SPDR S&P 500 ETF Trust", isCompany: false),
             Company(ticker: "QQQ", fullName: "PowerShares QQQ Trust", isCompany: false)
         ]

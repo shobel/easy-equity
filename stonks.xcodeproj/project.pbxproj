@@ -34,7 +34,7 @@
 		1CB257292173B8A5008E3D4D /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB257282173B8A5008E3D4D /* Configuration.swift */; };
 		1CB2572B21765C3A008E3D4D /* StockDetailsNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB2572A21765C3A008E3D4D /* StockDetailsNavView.swift */; };
 		1CD11940216DC394000AE02E /* CandlePricesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD1193F216DC394000AE02E /* CandlePricesView.swift */; };
-		1CD11942216DD73C000AE02E /* PriceVolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11941216DD73C000AE02E /* PriceVolumeView.swift */; };
+		1CD11942216DD73C000AE02E /* StockDetailsSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11941216DD73C000AE02E /* StockDetailsSummaryView.swift */; };
 		1CD11944216DD886000AE02E /* ColoredValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11943216DD886000AE02E /* ColoredValueLabel.swift */; };
 		1CD11946216DE401000AE02E /* ColoredPricePercentLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11945216DE401000AE02E /* ColoredPricePercentLabel.swift */; };
 		1CD11948216EAD2E000AE02E /* RatingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11947216EAD2E000AE02E /* RatingLabel.swift */; };
@@ -95,7 +95,7 @@
 		1CB257282173B8A5008E3D4D /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		1CB2572A21765C3A008E3D4D /* StockDetailsNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailsNavView.swift; sourceTree = "<group>"; };
 		1CD1193F216DC394000AE02E /* CandlePricesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandlePricesView.swift; sourceTree = "<group>"; };
-		1CD11941216DD73C000AE02E /* PriceVolumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceVolumeView.swift; sourceTree = "<group>"; };
+		1CD11941216DD73C000AE02E /* StockDetailsSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailsSummaryView.swift; sourceTree = "<group>"; };
 		1CD11943216DD886000AE02E /* ColoredValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredValueLabel.swift; sourceTree = "<group>"; };
 		1CD11945216DE401000AE02E /* ColoredPricePercentLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredPricePercentLabel.swift; sourceTree = "<group>"; };
 		1CD11947216EAD2E000AE02E /* RatingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingLabel.swift; sourceTree = "<group>"; };
@@ -208,12 +208,12 @@
 				1C7B987F215F396200C75014 /* WatchlistTVCell.swift */,
 				1C545210216AA4B90064239E /* GradientButton.swift */,
 				1CD1193F216DC394000AE02E /* CandlePricesView.swift */,
-				1CD11941216DD73C000AE02E /* PriceVolumeView.swift */,
 				1CD11943216DD886000AE02E /* ColoredValueLabel.swift */,
 				1CD11945216DE401000AE02E /* ColoredPricePercentLabel.swift */,
 				1CD11947216EAD2E000AE02E /* RatingLabel.swift */,
 				1CD11949216F35C3000AE02E /* MarkerView.swift */,
 				1CB2572A21765C3A008E3D4D /* StockDetailsNavView.swift */,
+				1CD11941216DD73C000AE02E /* StockDetailsSummaryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -469,7 +469,7 @@
 				1C7B9861215DDFBC00C75014 /* Company.swift in Sources */,
 				1CFFAA0B2170337400D3E768 /* AnalystsRating.swift in Sources */,
 				1C7B9863215DE1A800C75014 /* Constants.swift in Sources */,
-				1CD11942216DD73C000AE02E /* PriceVolumeView.swift in Sources */,
+				1CD11942216DD73C000AE02E /* StockDetailsSummaryView.swift in Sources */,
 				1CB257252172C292008E3D4D /* WatchlistManager.swift in Sources */,
 				1CB257292173B8A5008E3D4D /* Configuration.swift in Sources */,
 				1CB2572B21765C3A008E3D4D /* StockDetailsNavView.swift in Sources */,

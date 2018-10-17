@@ -11,6 +11,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in IEXTrading.getChart(ticker:timeInterval:completionHandler:):IEXTrading.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "json[i]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in FinvizAPI.getAnalystsRatings(forTickers:completionHandler:):FinvizAPI.swift">
          <PersistentStrings>
             <PersistentString
