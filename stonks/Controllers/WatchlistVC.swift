@@ -8,9 +8,10 @@
 
 import UIKit
 
-class WatchlistTVC: UITableViewController {
-
+class WatchlistVC: UIViewController {
+    
     @IBOutlet weak var addTickerButton: UIButton!
+    @IBOutlet weak var tableView: UITableView!
     private var watchlistUpdater: WatchlistUpdater?
     private var finvizAPI:FinvizAPI!
     
@@ -24,9 +25,11 @@ class WatchlistTVC: UITableViewController {
         finvizAPI = FinvizAPI()
         finvizAPI.getData(forTickers: watchlistManager.getTickers(companiesOnly: true), completionHandler: handleFinvizResponse)
         
-        tableView.separatorInset = UIEdgeInsets.zero
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl!.addTarget(self, action: #selector(handleRefresh), for: UIControl.Event.valueChanged)
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.separatorInset = UIEdgeInsets.zero
+        self.tableView.refreshControl = UIRefreshControl()
+        self.tableView.refreshControl!.addTarget(self, action: #selector(handleRefresh), for: UIControl.Event.valueChanged)
     }
     
     /* helps the rating score colors stick better when moving from other views to this one */
@@ -87,7 +90,7 @@ class WatchlistTVC: UITableViewController {
         }
         update()
     }
-
+    
     public func update(){
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -96,27 +99,27 @@ class WatchlistTVC: UITableViewController {
     
     
     /*
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    }
-    */
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     }
+     */
     
     @objc func handleRefresh() {
         self.tableView.reloadData()
-        self.refreshControl!.endRefreshing()
+        self.tableView.refreshControl!.endRefreshing()
     }
 }
 
 /* TableView functions */
-extension WatchlistTVC {
-    override func numberOfSections(in tableView: UITableView) -> Int {
+extension WatchlistVC: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return watchlistManager.getWatchlist().count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "watchListCell", for: indexPath) as! WatchlistTVCell
         
         let company = watchlistManager.getWatchlist()[indexPath.row]
@@ -124,31 +127,29 @@ extension WatchlistTVC {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             Dataholder.watchlistManager.removeCompany(index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         watchlistManager.selectedCompany = watchlistManager.getWatchlist()[indexPath.row]
     }
     
     /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+    func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
      
      }
      */
     
     /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
      // Return false if you do not want the item to be re-orderable.
      return true
      }
