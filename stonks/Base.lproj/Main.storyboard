@@ -703,6 +703,25 @@
                                     <constraint firstItem="WtE-AY-mTt" firstAttribute="top" secondItem="dPH-Qg-t9f" secondAttribute="top" id="mcV-VS-5Qd"/>
                                 </constraints>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="acR-CB-LBl" userLabel="Everything Else">
+                                <rect key="frame" x="0.0" y="430" width="375" height="188"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Company details, News, and Key statistics go here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8E-DD-a0l" userLabel="Everything Else">
+                                        <rect key="frame" x="37.5" y="73.5" width="300" height="41"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="mAf-hM-oue"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="G8E-DD-a0l" firstAttribute="centerX" secondItem="acR-CB-LBl" secondAttribute="centerX" id="842-MO-5pc"/>
+                                    <constraint firstItem="G8E-DD-a0l" firstAttribute="centerY" secondItem="acR-CB-LBl" secondAttribute="centerY" id="ks4-6X-5jb"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -712,14 +731,18 @@
                             <constraint firstItem="o8F-1I-xRa" firstAttribute="leading" secondItem="bvo-nF-PIO" secondAttribute="leading" id="Nba-ip-VyV"/>
                             <constraint firstItem="9EV-Zd-SxD" firstAttribute="leading" secondItem="bvo-nF-PIO" secondAttribute="leading" id="QHs-Jb-Kwv"/>
                             <constraint firstItem="9EV-Zd-SxD" firstAttribute="top" secondItem="bvo-nF-PIO" secondAttribute="top" id="VI2-Ok-2tX"/>
+                            <constraint firstItem="bvo-nF-PIO" firstAttribute="trailing" secondItem="acR-CB-LBl" secondAttribute="trailing" id="aB7-2j-BJI"/>
                             <constraint firstItem="dPH-Qg-t9f" firstAttribute="trailing" secondItem="bvo-nF-PIO" secondAttribute="trailing" id="fCz-SZ-i0e"/>
+                            <constraint firstItem="acR-CB-LBl" firstAttribute="leading" secondItem="bvo-nF-PIO" secondAttribute="leading" id="ggb-MW-5GF"/>
                             <constraint firstItem="iWi-Ft-mpG" firstAttribute="trailing" secondItem="bvo-nF-PIO" secondAttribute="trailing" id="l8l-Tq-D6J"/>
+                            <constraint firstItem="acR-CB-LBl" firstAttribute="top" secondItem="dPH-Qg-t9f" secondAttribute="bottom" id="lpl-T0-9O1"/>
                             <constraint firstItem="iWi-Ft-mpG" firstAttribute="leading" secondItem="bvo-nF-PIO" secondAttribute="leading" id="oZk-oi-tte"/>
                             <constraint firstItem="er5-5D-Zjd" firstAttribute="leading" secondItem="bvo-nF-PIO" secondAttribute="leading" id="q3O-V3-114"/>
                             <constraint firstItem="er5-5D-Zjd" firstAttribute="top" secondItem="iWi-Ft-mpG" secondAttribute="bottom" id="qfr-5n-Mqz"/>
                             <constraint firstItem="dPH-Qg-t9f" firstAttribute="leading" secondItem="bvo-nF-PIO" secondAttribute="leading" id="rZD-Kj-k48"/>
                             <constraint firstItem="iWi-Ft-mpG" firstAttribute="top" secondItem="9EV-Zd-SxD" secondAttribute="bottom" id="wbf-h5-TUx"/>
                             <constraint firstItem="o8F-1I-xRa" firstAttribute="trailing" secondItem="bvo-nF-PIO" secondAttribute="trailing" id="wji-0D-GEU"/>
+                            <constraint firstItem="bvo-nF-PIO" firstAttribute="bottom" secondItem="acR-CB-LBl" secondAttribute="bottom" id="zRT-Bv-ekl"/>
                             <constraint firstItem="9EV-Zd-SxD" firstAttribute="trailing" secondItem="bvo-nF-PIO" secondAttribute="trailing" id="zbK-HU-39y"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bvo-nF-PIO"/>
