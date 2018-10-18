@@ -160,9 +160,9 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="94" height="50"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="FB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qv3-dK-R7K" userLabel="Title">
-                                                                    <rect key="frame" x="10" y="6.5" width="21.5" height="21.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                                    <nil key="textColor"/>
+                                                                    <rect key="frame" x="10" y="6.5" width="22" height="21.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                                    <color key="textColor" red="0.24610697910000001" green="0.24610697910000001" blue="0.24610697910000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rtu-Kh-hLP" userLabel="Subtitle">
@@ -172,7 +172,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20d" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFD-kk-pxG" userLabel="ER">
-                                                                    <rect key="frame" x="39.5" y="10" width="22.5" height="14.5"/>
+                                                                    <rect key="frame" x="40" y="10" width="22.5" height="14.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                     <color key="textColor" red="0.036305642919999999" green="0.76669574870000001" blue="0.47864035129999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -311,9 +311,9 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AMZN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WoZ-HE-ulO">
-                                        <rect key="frame" x="159" y="8" width="57.5" height="24"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <nil key="textColor"/>
+                                        <rect key="frame" x="158" y="8" width="59" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <color key="textColor" red="0.24610697905424284" green="0.24610697905424284" blue="0.24610697905424284" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amazon.com, Inc." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9T4-qt-tVW" userLabel="Amazon.com, Inc.">
@@ -625,6 +625,7 @@
                                                 </connections>
                                             </view>
                                         </subviews>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="zKF-r2-7Yn" firstAttribute="trailing" secondItem="pOO-wd-YKI" secondAttribute="trailingMargin" id="QiP-Lj-fd9"/>
                                             <constraint firstItem="zKF-r2-7Yn" firstAttribute="top" secondItem="pOO-wd-YKI" secondAttribute="top" id="bPy-W5-AAG"/>
@@ -632,6 +633,7 @@
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="pOO-wd-YKI" firstAttribute="leading" secondItem="o8F-1I-xRa" secondAttribute="leading" id="ORF-z9-9jN"/>
                                     <constraint firstItem="pOO-wd-YKI" firstAttribute="top" secondItem="o8F-1I-xRa" secondAttribute="top" id="QWA-rs-Zhz"/>
@@ -639,6 +641,9 @@
                                     <constraint firstAttribute="height" constant="220" id="gv4-GK-uFz"/>
                                     <constraint firstAttribute="trailing" secondItem="pOO-wd-YKI" secondAttribute="trailing" id="r1t-SN-uiP"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="QOJ-ca-U8P" appends="YES" id="VXE-Re-vMx"/>
+                                </connections>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dPH-Qg-t9f" userLabel="ChartTimeView">
                                 <rect key="frame" x="0.0" y="395" width="375" height="35"/>
@@ -707,10 +712,7 @@
                                 <rect key="frame" x="0.0" y="430" width="375" height="188"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Company details, News, and Key statistics go here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8E-DD-a0l" userLabel="Everything Else">
-                                        <rect key="frame" x="37.5" y="73.5" width="300" height="41"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="300" id="mAf-hM-oue"/>
-                                        </constraints>
+                                        <rect key="frame" x="50" y="73.5" width="275" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -719,6 +721,7 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="G8E-DD-a0l" firstAttribute="centerX" secondItem="acR-CB-LBl" secondAttribute="centerX" id="842-MO-5pc"/>
+                                    <constraint firstAttribute="trailing" secondItem="G8E-DD-a0l" secondAttribute="trailing" constant="50" id="VRO-8T-ejm"/>
                                     <constraint firstItem="G8E-DD-a0l" firstAttribute="centerY" secondItem="acR-CB-LBl" secondAttribute="centerY" id="ks4-6X-5jb"/>
                                 </constraints>
                             </view>
@@ -752,10 +755,17 @@
                         <outlet property="candlePricesWrapper" destination="er5-5D-Zjd" id="76U-mb-oTK"/>
                         <outlet property="chartView" destination="pOO-wd-YKI" id="S6b-uI-clJ"/>
                         <outlet property="markerView" destination="zKF-r2-7Yn" id="C4R-5K-fBV"/>
+                        <outlet property="panGestureRecognizer" destination="QOJ-ca-U8P" id="vTG-od-zgS"/>
+                        <outlet property="priceDetailsView" destination="iWi-Ft-mpG" id="v1F-MG-Odz"/>
                         <outlet property="stockDetailsNavView" destination="9EV-Zd-SxD" id="amx-JP-jtZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iM5-9t-RLi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="QOJ-ca-U8P">
+                    <connections>
+                        <action selector="handlePan:" destination="VCE-f9-Qth" id="Jqd-xh-QTM"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="895.20000000000005" y="-111.0944527736132"/>
         </scene>
