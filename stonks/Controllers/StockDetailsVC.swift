@@ -12,17 +12,21 @@ import Charts
 class StockDetailsVC: DemoBaseViewController {
 
     @IBOutlet weak var stockDetailsNavView: StockDetailsNavView!
+    @IBOutlet weak var priceDetailsView: StockDetailsSummaryView!
     @IBOutlet weak var chartView: CandleStickChartView!
     @IBOutlet weak var candlePricesWrapper: UIView!
     @IBOutlet weak var candlePricesView: CandlePricesView!
     @IBOutlet weak var markerView: MarkerView!
+    @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
     
     private var company:Company!
     private var chartData:[Candle] = []
+    private var feedbackGenerator: UISelectionFeedbackGenerator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        feedbackGenerator = UISelectionFeedbackGenerator()
         stockDetailsNavView.logo.layer.cornerRadius = (stockDetailsNavView.logo.frame.width)/2
         stockDetailsNavView.logo.layer.masksToBounds = true
         
@@ -66,8 +70,6 @@ class StockDetailsVC: DemoBaseViewController {
     }
     
     func loadChart(){
-        
-        self.title = "Candle Stick Chart"
         self.options = [.toggleValues,
                         .toggleIcons,
                         .toggleHighlight,
@@ -84,7 +86,7 @@ class StockDetailsVC: DemoBaseViewController {
         chartView.delegate = self
         chartView.chartDescription?.enabled = false
         chartView.legend.enabled = false
-        chartView.dragEnabled = false
+        chartView.dragEnabled = true
         chartView.setScaleEnabled(true)
         chartView.maxVisibleCount = 200
         chartView.pinchZoomEnabled = true
@@ -92,8 +94,8 @@ class StockDetailsVC: DemoBaseViewController {
         chartView.autoScaleMinMaxEnabled = true
         
         chartView.leftAxis.labelFont = UIFont(name: "HelveticaNeue-Light", size: 10)!
-        chartView.leftAxis.spaceTop = 0.3
-        chartView.leftAxis.spaceBottom = 0.3
+        chartView.leftAxis.spaceTop = 0.1
+        chartView.leftAxis.spaceBottom = 0.1
         //chartView.leftAxis.axisMinimum = 0
         chartView.leftAxis.drawGridLinesEnabled = false
         
@@ -121,7 +123,7 @@ class StockDetailsVC: DemoBaseViewController {
     func setData(chartData:[Candle]){
         var dataSet:[Candle] = []
         var counter = 0
-        var high = 0.0, low = 0.0, open = 0.0, close = 0.0, volume = 0.0
+        var high = 0.0, low = 0.0, open = 0.0, volume = 0.0
         var date:String = ""
         for candle in chartData {
             counter += 1
@@ -129,7 +131,6 @@ class StockDetailsVC: DemoBaseViewController {
                 high = candle.high
                 low = candle.low
                 open = candle.open
-                close = candle.close
                 volume = candle.volume
                 date = candle.datetime
             } else {
@@ -246,7 +247,6 @@ class StockDetailsVC: DemoBaseViewController {
         candlePricesView.closeLabel.text = "CLOSE:\(e.close)"
         candlePricesWrapper.isHidden = false
         
-        //let graphPoint = chartView.getMarkerPosition(highlight: highlight)
         // Adding top marker
         markerView.dateLabel.text = "\(candle.datetime)"
         var x = highlight.xPx.rounded()
@@ -259,6 +259,8 @@ class StockDetailsVC: DemoBaseViewController {
         markerView.center = CGPoint(x: x, y:10.0)
         markerView.isHidden = false
         
+        priceDetailsView.priceLabel.text = "\(candle.close)"
+        feedbackGenerator.selectionChanged()
     }
     
     override func chartValueNothingSelected(_ chartView: ChartViewBase) {
@@ -276,6 +278,22 @@ class StockDetailsVC: DemoBaseViewController {
         }
         return String(num)
     }
+    
+    //leaving this pangesturerecognizer in case we want to add a draw function on the chart
+    @IBAction func handlePan(_ sender: Any) {
+//        if panGestureRecognizer.state == .began || panGestureRecognizer.state == .changed {
+//
+//            let location = panGestureRecognizer.location(in: self.chartView)
+//            let translation = panGestureRecognizer.translation(in: self.chartView)
+//
+//            let dotPath = UIBezierPath(ovalIn: CGRect(origin: location, size: CGSize(width: 5, height: 5)))
+//            let layer = CAShapeLayer()
+//            layer.path = dotPath.cgPath
+//            layer.strokeColor = UIColor.blue.cgColor
+//            chartView.layer.addSublayer(layer)
+//        }
+    }
+    
     
     /*
     // MARK: - Navigation
