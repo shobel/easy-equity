@@ -18,14 +18,18 @@ class StockDetailsVC: DemoBaseViewController {
     @IBOutlet weak var candlePricesView: CandlePricesView!
     @IBOutlet weak var markerView: MarkerView!
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
+    @IBOutlet weak var chartTypeButton: UIButton!
     
     private var company:Company!
     private var chartData:[Candle] = []
     private var feedbackGenerator: UISelectionFeedbackGenerator!
     
+    private var candleMode = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        chartTypeButton.imageView!.contentMode = UIView.ContentMode.scaleAspectFit
         feedbackGenerator = UISelectionFeedbackGenerator()
         stockDetailsNavView.logo.layer.cornerRadius = (stockDetailsNavView.logo.frame.width)/2
         stockDetailsNavView.logo.layer.masksToBounds = true
@@ -277,6 +281,15 @@ class StockDetailsVC: DemoBaseViewController {
             return String(num/100) + "K"
         }
         return String(num)
+    }
+    
+    @IBAction func chartModeButtonPressed(_ sender: Any) {
+        if candleMode {
+            chartTypeButton.setImage(UIImage(named: "candlebar.png"), for: .normal)
+        } else {
+            chartTypeButton.setImage(UIImage(named: "linechart.png"), for: .normal)
+        }
+        candleMode = !candleMode
     }
     
     //leaving this pangesturerecognizer in case we want to add a draw function on the chart

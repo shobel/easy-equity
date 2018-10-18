@@ -342,13 +342,26 @@
                                             <constraint firstAttribute="height" constant="40" id="Q83-hw-ZJm"/>
                                         </constraints>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="toU-gr-3hd" userLabel="ChartTypeButton">
+                                        <rect key="frame" x="330" y="7.5" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="DhD-ye-fGa"/>
+                                            <constraint firstAttribute="width" constant="35" id="gYh-XX-L6o"/>
+                                        </constraints>
+                                        <state key="normal" image="linechart"/>
+                                        <connections>
+                                            <action selector="chartModeButtonPressed:" destination="VCE-f9-Qth" eventType="touchUpInside" id="ows-cn-ASO"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Uu7-vC-BVu" firstAttribute="centerY" secondItem="9EV-Zd-SxD" secondAttribute="centerY" id="1mK-Kd-7U2"/>
                                     <constraint firstItem="Uu7-vC-BVu" firstAttribute="leading" secondItem="9EV-Zd-SxD" secondAttribute="leading" constant="8" id="5JV-Zz-YCM"/>
+                                    <constraint firstItem="toU-gr-3hd" firstAttribute="centerY" secondItem="9EV-Zd-SxD" secondAttribute="centerY" id="6bw-DW-PAE"/>
                                     <constraint firstItem="9T4-qt-tVW" firstAttribute="leading" secondItem="31y-ln-1uK" secondAttribute="trailing" constant="15" id="CG4-e9-FYV"/>
                                     <constraint firstItem="WoZ-HE-ulO" firstAttribute="centerX" secondItem="9EV-Zd-SxD" secondAttribute="centerX" id="Cgt-FZ-I86"/>
+                                    <constraint firstAttribute="trailing" secondItem="toU-gr-3hd" secondAttribute="trailing" constant="10" id="UL4-c7-rR9"/>
                                     <constraint firstItem="9T4-qt-tVW" firstAttribute="centerX" secondItem="WoZ-HE-ulO" secondAttribute="centerX" id="bEY-1P-vNo"/>
                                     <constraint firstAttribute="height" constant="50" id="jz2-ln-wf9"/>
                                     <constraint firstItem="31y-ln-1uK" firstAttribute="centerY" secondItem="WoZ-HE-ulO" secondAttribute="centerY" constant="5" id="uJU-gj-kMH"/>
@@ -753,6 +766,7 @@
                     <connections>
                         <outlet property="candlePricesView" destination="TGD-Wh-xar" id="xnB-RB-1sT"/>
                         <outlet property="candlePricesWrapper" destination="er5-5D-Zjd" id="76U-mb-oTK"/>
+                        <outlet property="chartTypeButton" destination="toU-gr-3hd" id="aYw-oL-Qrr"/>
                         <outlet property="chartView" destination="pOO-wd-YKI" id="S6b-uI-clJ"/>
                         <outlet property="markerView" destination="zKF-r2-7Yn" id="C4R-5K-fBV"/>
                         <outlet property="panGestureRecognizer" destination="QOJ-ca-U8P" id="vTG-od-zgS"/>
@@ -871,6 +885,7 @@
     </scenes>
     <resources>
         <image name="back" width="32" height="32"/>
+        <image name="linechart" width="378" height="242"/>
         <image name="reminders2" width="32" height="32"/>
         <image name="watchlist2" width="32" height="32"/>
     </resources>
