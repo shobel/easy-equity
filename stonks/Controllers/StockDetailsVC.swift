@@ -22,9 +22,12 @@ class StockDetailsVC: DemoBaseViewController {
     
     private var company:Company!
     private var chartData:[Candle] = []
+    var chartFormatter:ChartFormatter!
+
     private var feedbackGenerator: UISelectionFeedbackGenerator!
-    
     private var candleMode = true
+    private var timeInterval: Constants.TimeIntervals!
+    private var timeButtons:[UIButton]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +42,19 @@ class StockDetailsVC: DemoBaseViewController {
         stockDetailsNavView.name.text = company.fullName
         
         StockAPIManager.shared.stockDataApiInstance.getCompanyData(ticker: company.ticker, completionHandler: handleCompanyData)
-        StockAPIManager.shared.stockDataApiInstance.getChart(ticker: company.ticker, timeInterval: .day, completionHandler: handleChart)
+        StockAPIManager.shared.stockDataApiInstance.getChart(ticker: company.ticker, timeInterval: .day, completionHandler: handleDayChartData)
+        StockAPIManager.shared.stockDataApiInstance.getChart(ticker: company.ticker, timeInterval: .five_year, completionHandler: handleFullChartData)
+        
+        timeButtons = [button1D, button1M, button3M, button6M, button1Y, button5Y]
         
         /*
          We have a custom nav panel and so the default one goes on the bottom for some reason
         and then our tab bar at the bottom gets darker
          */
         self.navigationController?.view.backgroundColor = UIColor.white
+        
+        chartFormatter = ChartFormatter()
+        timeInterval = Constants.TimeIntervals.day
         loadChart()
     }
     
@@ -62,9 +71,14 @@ class StockDetailsVC: DemoBaseViewController {
         }
     }
     
-    private func handleChart(_ chartData:[Candle]){
-        self.chartData = chartData
+    private func handleDayChartData(_ chartData:[Candle]){
+        company.minuteData = chartData
+        self.chartData = company.minuteData!
         updateChartData()
+    }
+    
+    private func handleFullChartData(_ chartData:[Candle]){
+        company.dailyData = chartData
     }
     
     public func updateUI(function: @escaping ()->Void){
@@ -108,6 +122,11 @@ class StockDetailsVC: DemoBaseViewController {
         chartView.xAxis.labelPosition = .bottom
         chartView.xAxis.labelFont = UIFont(name: "HelveticaNeue-Light", size: 10)!
         chartView.xAxis.drawGridLinesEnabled = false
+        
+        let xaxis:XAxis = XAxis()
+        xaxis.valueFormatter = chartFormatter
+        chartView.xAxis.valueFormatter = xaxis.valueFormatter
+        
         updateChartData()
 
     }
@@ -125,43 +144,19 @@ class StockDetailsVC: DemoBaseViewController {
     }
     
     func setData(chartData:[Candle]){
-        var dataSet:[Candle] = []
-        var counter = 0
-        var high = 0.0, low = 0.0, open = 0.0, volume = 0.0
-        var date:String = ""
-        for candle in chartData {
-            counter += 1
-            if counter == 1 {
-                high = candle.high
-                low = candle.low
-                open = candle.open
-                volume = candle.volume
-                date = candle.datetime
-            } else {
-                volume += candle.volume
-                if candle.high > high {
-                    high = candle.high
-                }
-                if candle.low < low {
-                    low = candle.low
-                }
-                if counter == 10 {
-                    let candle = Candle(date: date, volume: volume, high: high, low: low, open: open, close: candle.close)
-                    dataSet.append(candle)
-                    counter = 0
-                    volume = 0.0
-                }
-            }
+        var dataSet = chartData
+        if timeInterval == Constants.TimeIntervals.day {
+            dataSet = shrinkMinuteDataToTenMinutes(chartData)
         }
         
         self.chartData = dataSet
-        
+        chartFormatter.resetXAxisLabels()
         let yVals1 = dataSet.enumerated().map { (index: Int, candle:Candle) -> CandleChartDataEntry in
             let high = candle.high
             let low = candle.low
             let open = candle.open
             let close = candle.close
-
+            chartFormatter.addXAxisLable(candle.datetime)
             return CandleChartDataEntry(x: Double(index), shadowH: high, shadowL: low, open: open, close: close)
         }
         
@@ -188,39 +183,6 @@ class StockDetailsVC: DemoBaseViewController {
             //self.chartView.data?.notifyDataChanged()
             //self.chartView.setNeedsDisplay()
         }
-    }
-    
-    func setDataCount(_ count: Int, range: UInt32) {
-        let yVals1 = (0..<count).map { (i) -> CandleChartDataEntry in
-            let mult = range + 1
-            let val = Double(arc4random_uniform(40) + mult)
-            let high = Double(arc4random_uniform(9) + 8)
-            let low = Double(arc4random_uniform(9) + 8)
-            let open = Double(arc4random_uniform(6) + 1)
-            let close = Double(arc4random_uniform(6) + 1)
-            let even = i % 2 == 0
-            
-            return CandleChartDataEntry(x: Double(i), shadowH: val + high, shadowL: val - low, open: even ? val + open : val - open, close: even ? val - close : val + close, icon: nil)
-        }
-        
-        let set1 = CandleChartDataSet(values: yVals1, label: "Data Set")
-        set1.axisDependency = .left
-        set1.setColor(UIColor(white: 80/255, alpha: 1))
-        set1.drawIconsEnabled = false
-        set1.shadowColor = .darkGray
-        set1.shadowWidth = 0.7
-        set1.decreasingColor = Constants.darkPink
-        set1.decreasingFilled = true
-        set1.increasingColor = Constants.green
-        set1.increasingFilled = true
-        set1.neutralColor = .blue
-        set1.highlightColor = Constants.darkPink
-        set1.highlightLineWidth = 2
-        set1.drawHorizontalHighlightIndicatorEnabled = false
-        
-        let data = CandleChartData(dataSet: set1)
-        chartView.data = data
-        chartView.candleData?.setDrawValues(false)
     }
     
     override func optionTapped(_ option: Option) {
@@ -267,13 +229,57 @@ class StockDetailsVC: DemoBaseViewController {
         feedbackGenerator.selectionChanged()
     }
     
+    private func moveMarkerView(_ xPos: CGFloat){
+        var x:CGFloat = 0.0
+        if xPos + (markerView.bounds.width/2) > chartView.bounds.width {
+            x = chartView.bounds.width - (markerView.bounds.width/2)
+        }
+        if xPos - (markerView.bounds.width/2) < 0 {
+            x = (markerView.bounds.width/2)
+        }
+        markerView.center = CGPoint(x: x, y:10.0)
+    }
+    
     override func chartValueNothingSelected(_ chartView: ChartViewBase) {
         candlePricesWrapper.isHidden = true
         markerView.isHidden = true
+        self.chartView.highlightValue(nil)
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func shrinkMinuteDataToTenMinutes(_ chartData: [Candle]) -> [Candle]{
+        var dataSet:[Candle] = []
+        var counter = 0
+        var high = 0.0, low = 0.0, open = 0.0, volume = 0.0
+        var date:String = ""
+        for candle in chartData {
+            counter += 1
+            if counter == 1 {
+                high = candle.high
+                low = candle.low
+                open = candle.open
+                volume = candle.volume
+                date = candle.datetime
+            } else {
+                volume += candle.volume
+                if candle.high > high {
+                    high = candle.high
+                }
+                if candle.low < low {
+                    low = candle.low
+                }
+                if counter == 10 {
+                    let candle = Candle(date: date, volume: volume, high: high, low: low, open: open, close: candle.close)
+                    dataSet.append(candle)
+                    counter = 0
+                    volume = 0.0
+                }
+            }
+        }
+        return dataSet
     }
     
     func formatNumber(num:Double) -> String {
@@ -317,5 +323,59 @@ class StockDetailsVC: DemoBaseViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    @IBOutlet weak var button1D: UIButton!
+    @IBOutlet weak var button1M: UIButton!
+    @IBOutlet weak var button3M: UIButton!
+    @IBOutlet weak var button6M: UIButton!
+    @IBOutlet weak var button1Y: UIButton!
+    @IBOutlet weak var button5Y: UIButton!
+    
+    @IBAction func OneDayButtonPressed(_ sender: Any) {
+        self.chartData = company.minuteData!
+        self.timeInterval = Constants.TimeIntervals.day
+        self.timeButtonPressed(sender as! UIButton)
+    }
+    
+    @IBAction func OneMonthButtonPressed(_ sender: Any) {
+        self.chartData = company.getDailyData(25)
+        self.timeInterval = Constants.TimeIntervals.one_month
+        self.timeButtonPressed(sender as! UIButton)
+    }
+    
+    @IBAction func ThreeMonthsButtonPressed(_ sender: Any) {
+        self.chartData = company.getDailyData(75)
+        self.timeInterval = Constants.TimeIntervals.three_month
+        self.timeButtonPressed(sender as! UIButton)
+    }
+    
+    @IBAction func SixMonthsButtonPressed(_ sender: Any) {
+        self.chartData = company.getDailyData(150)
+        self.timeInterval = Constants.TimeIntervals.six_month
+        self.timeButtonPressed(sender as! UIButton)
+    }
+    
+    @IBAction func OneYearButtonPressed(_ sender: Any) {
+        self.chartData = company.getDailyData(300)
+        self.timeInterval = Constants.TimeIntervals.one_year
+        self.timeButtonPressed(sender as! UIButton)
+    }
+    
+    @IBAction func FiveYearButtonPressed(_ sender: Any) {
+        self.chartData = company.getDailyData(1500)
+        self.timeInterval = Constants.TimeIntervals.five_year
+        self.timeButtonPressed(sender as! UIButton)
+    }
+    
+    private func timeButtonPressed(_ button: UIButton){
+        self.chartValueNothingSelected(self.chartView)
+        for timeButton in timeButtons {
+            if timeButton == button {
+                timeButton.backgroundColor = Constants.darkGrey
+            } else {
+                timeButton.backgroundColor = Constants.darkPink
+            }
+        }
+        self.updateChartData()
+    }
 }

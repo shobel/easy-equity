@@ -667,6 +667,9 @@
                                         <state key="normal" title="1D">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="OneDayButtonPressed:" destination="VCE-f9-Qth" eventType="touchUpInside" id="uvE-ep-KYw"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WtE-AY-mTt">
                                         <rect key="frame" x="62.5" y="0.0" width="62.5" height="35"/>
@@ -674,6 +677,9 @@
                                         <state key="normal" title="1M">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="OneMonthButtonPressed:" destination="VCE-f9-Qth" eventType="touchUpInside" id="ml1-ko-D2r"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SeB-Sh-y7a">
                                         <rect key="frame" x="125" y="0.0" width="62.5" height="35"/>
@@ -681,6 +687,9 @@
                                         <state key="normal" title="3M">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="ThreeMonthsButtonPressed:" destination="VCE-f9-Qth" eventType="touchUpInside" id="ed4-Lb-hU3"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dME-g2-wN8">
                                         <rect key="frame" x="187.5" y="0.0" width="62.5" height="35"/>
@@ -688,6 +697,9 @@
                                         <state key="normal" title="6M">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="SixMonthsButtonPressed:" destination="VCE-f9-Qth" eventType="touchUpInside" id="RP5-r4-5br"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LwG-5W-Zg1">
                                         <rect key="frame" x="250" y="0.0" width="62.5" height="35"/>
@@ -695,6 +707,9 @@
                                         <state key="normal" title="1Y">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="OneYearButtonPressed:" destination="VCE-f9-Qth" eventType="touchUpInside" id="Eoi-Ms-2xi"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dgK-Y5-VMa">
                                         <rect key="frame" x="312.5" y="0.0" width="62.5" height="35"/>
@@ -702,6 +717,9 @@
                                         <state key="normal" title="5Y">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="FiveYearButtonPressed:" destination="VCE-f9-Qth" eventType="touchUpInside" id="d2U-Xk-cdz"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -764,6 +782,12 @@
                         <viewLayoutGuide key="safeArea" id="bvo-nF-PIO"/>
                     </view>
                     <connections>
+                        <outlet property="button1D" destination="R0b-UA-Jmx" id="eRv-en-bgL"/>
+                        <outlet property="button1M" destination="WtE-AY-mTt" id="z7N-Rg-rzM"/>
+                        <outlet property="button1Y" destination="LwG-5W-Zg1" id="lti-I4-xcu"/>
+                        <outlet property="button3M" destination="SeB-Sh-y7a" id="QqP-n0-ywI"/>
+                        <outlet property="button5Y" destination="dgK-Y5-VMa" id="uaw-Rm-9Cx"/>
+                        <outlet property="button6M" destination="dME-g2-wN8" id="y5h-nK-YHk"/>
                         <outlet property="candlePricesView" destination="TGD-Wh-xar" id="xnB-RB-1sT"/>
                         <outlet property="candlePricesWrapper" destination="er5-5D-Zjd" id="76U-mb-oTK"/>
                         <outlet property="chartTypeButton" destination="toU-gr-3hd" id="aYw-oL-Qrr"/>

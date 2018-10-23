@@ -75,7 +75,8 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
                     let low = json[i]["low"].double,
                     let open = json[i]["open"].double,
                     let close = json[i]["close"].double {
-                        candle = Candle(date: date, volume: volume, high: high, low: low, open: open, close: close)
+                        let dateString = self.formatDate(date)
+                        candle = Candle(date: dateString, volume: volume, high: high, low: low, open: open, close: close)
                         candles.append(candle)
                     }
                 }
@@ -161,5 +162,17 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
     
     func getCompanyLogo() {
         //
+    }
+    
+    private func formatDate(_ dateString:String) -> String {
+        if dateString.contains("AM") || dateString.contains("PM") || !dateString.contains(","){
+            return dateString
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd, yy"
+        dateFormatter.timeZone = TimeZone(identifier: "EST") // set locale to reliable US_POSIX
+        let date = dateFormatter.date(from:dateString)!
+        dateFormatter.dateFormat = "MM/dd/yy"
+        return dateFormatter.string(from: date)
     }
 }
