@@ -18,8 +18,8 @@ class Company: Equatable{
     public var logo:String?
     public var quote:Quote?
     public var earningsDate:Date?
-    public var dailyData:[Date:Double]?
-    public var minuteData:[String:Double]?
+    public var dailyData:[Candle]? //daily candles
+    public var minuteData:[Candle]? //minute candles
     public var analystsRating:AnalystsRating?
     
     public var daysToER:Int {
@@ -41,6 +41,13 @@ class Company: Equatable{
     
     static func == (lhs: Company, rhs: Company) -> Bool {
         return lhs.ticker == rhs.ticker
+    }
+    
+    public func getDailyData(_ numDays: Int) -> [Candle]{
+        if let data = dailyData {
+            return Array(data.suffix(numDays))
+        }
+        return []
     }
     
 }

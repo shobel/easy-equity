@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "ChartFormatter.stringForValue(_:axis:):ChartFormatter.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "xAxisLabels">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CompanySearchTVC.tableView(_:didSelectRowAt:):CompanySearchTVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -15,6 +23,14 @@
          <PersistentStrings>
             <PersistentString
                value = "json[i]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "StockDetailsVC.OneMonthButtonPressed(_:):StockDetailsVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sender as! UIButton">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -125,6 +141,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "StockDetailsVC.chartModeButtonPressed(_:):StockDetailsVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "chartTypeButton.image">
+            </PersistentString>
+            <PersistentString
+               value = "chartTypeButton.imageView?.image">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CompanySearchTVC.tableView(_:numberOfRowsInSection:):CompanySearchTVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -137,6 +164,17 @@
          <PersistentStrings>
             <PersistentString
                value = "cell.text()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "IEXTrading.formatDate(_:):IEXTrading.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dateFormatter.string(from: date)">
+            </PersistentString>
+            <PersistentString
+               value = "dateFormatter.dateFormat">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

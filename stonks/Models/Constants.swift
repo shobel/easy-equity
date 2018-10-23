@@ -34,6 +34,7 @@ struct Constants{
     
     public static var lightGreen = UIColor(red: 115.0/255.0, green: 255.0/255.0, blue: 180.0/255.0, alpha: 1.0)
     public static var lightOrange = UIColor(red: 255.0/255.0, green: 240.0/255.0, blue: 183.0/255.0, alpha: 1.0)
+    public static var darkGrey = UIColor(red: 67.0/255.0, green: 67.0/255.0, blue: 67.0/255.0, alpha: 1.0)
     
     /* FINVIZ ratings */
     enum FinvizRatingCategory {
