@@ -46,6 +46,8 @@ class StockDetailsVC: DemoBaseViewController {
         StockAPIManager.shared.stockDataApiInstance.getChart(ticker: company.ticker, timeInterval: .five_year, completionHandler: handleFullChartData)
         
         timeButtons = [button1D, button1M, button3M, button6M, button1Y, button5Y]
+        button1D.backgroundColor = UIColor.white
+        button1D.setTitleColor(Constants.darkGrey, for: .normal)
         
         /*
          We have a custom nav panel and so the default one goes on the bottom for some reason
@@ -371,9 +373,11 @@ class StockDetailsVC: DemoBaseViewController {
         self.chartValueNothingSelected(self.chartView)
         for timeButton in timeButtons {
             if timeButton == button {
-                timeButton.backgroundColor = Constants.darkGrey
+                timeButton.backgroundColor = UIColor.white
+                timeButton.setTitleColor(Constants.darkGrey, for: .normal)
             } else {
                 timeButton.backgroundColor = Constants.darkPink
+                timeButton.setTitleColor(UIColor.white, for: .normal)
             }
         }
         self.updateChartData()
