@@ -14,10 +14,11 @@
    + Supports and resistances (coming down from previous ATH or breaking above it)
    + Gap-filling
    + 20/50/100/200-day EMA proximity
-   + Earnings date proximity
+   + Earnings date proximity (mostly for selling covered calls)
    + Dividend payout
    + RSI and deviation from normal trading ranges
    + 3-day rule reminder after large price movements
+   + The Thursday rule
    + Special events such as increased volatility at end of a month/quarter, January effect, end of year sell-off of     underperforming stocks
 
 ### Design
