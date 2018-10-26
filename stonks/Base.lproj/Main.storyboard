@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MjW-nF-n5S">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5my-EP-K4K">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -611,7 +611,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o8F-1I-xRa" userLabel="ChartViewWrapper">
-                                <rect key="frame" x="0.0" y="175" width="375" height="220"/>
+                                <rect key="frame" x="0.0" y="175" width="375" height="250"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pOO-wd-YKI" userLabel="ChartView" customClass="CandleStickChartView" customModule="Charts">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
@@ -640,18 +640,28 @@
                                         </subviews>
                                         <gestureRecognizers/>
                                         <constraints>
+                                            <constraint firstAttribute="height" constant="210" id="NmZ-ed-0uo"/>
                                             <constraint firstItem="zKF-r2-7Yn" firstAttribute="trailing" secondItem="pOO-wd-YKI" secondAttribute="trailingMargin" id="QiP-Lj-fd9"/>
                                             <constraint firstItem="zKF-r2-7Yn" firstAttribute="top" secondItem="pOO-wd-YKI" secondAttribute="top" id="bPy-W5-AAG"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ysc-NL-86B" userLabel="VolumeView">
+                                        <rect key="frame" x="0.0" y="210" width="375" height="40"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="xiw-wo-TNS"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
+                                    <constraint firstItem="ysc-NL-86B" firstAttribute="leading" secondItem="o8F-1I-xRa" secondAttribute="leading" id="5tn-h1-kGr"/>
                                     <constraint firstItem="pOO-wd-YKI" firstAttribute="leading" secondItem="o8F-1I-xRa" secondAttribute="leading" id="ORF-z9-9jN"/>
                                     <constraint firstItem="pOO-wd-YKI" firstAttribute="top" secondItem="o8F-1I-xRa" secondAttribute="top" id="QWA-rs-Zhz"/>
-                                    <constraint firstAttribute="bottom" secondItem="pOO-wd-YKI" secondAttribute="bottom" constant="10" id="fnI-Lq-3ef"/>
-                                    <constraint firstAttribute="height" constant="220" id="gv4-GK-uFz"/>
+                                    <constraint firstAttribute="trailing" secondItem="ysc-NL-86B" secondAttribute="trailing" id="VxB-iE-Kzi"/>
+                                    <constraint firstItem="ysc-NL-86B" firstAttribute="top" secondItem="pOO-wd-YKI" secondAttribute="bottom" id="ces-ZQ-Doo"/>
+                                    <constraint firstAttribute="height" constant="250" id="gv4-GK-uFz"/>
                                     <constraint firstAttribute="trailing" secondItem="pOO-wd-YKI" secondAttribute="trailing" id="r1t-SN-uiP"/>
                                 </constraints>
                                 <connections>
@@ -659,7 +669,7 @@
                                 </connections>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dPH-Qg-t9f" userLabel="ChartTimeView">
-                                <rect key="frame" x="0.0" y="395" width="375" height="35"/>
+                                <rect key="frame" x="0.0" y="425" width="375" height="35"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0b-UA-Jmx">
                                         <rect key="frame" x="0.0" y="0.0" width="62.5" height="35"/>
@@ -740,10 +750,10 @@
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="acR-CB-LBl" userLabel="Everything Else">
-                                <rect key="frame" x="0.0" y="430" width="375" height="188"/>
+                                <rect key="frame" x="0.0" y="460" width="375" height="158"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Company details, News, and Key statistics go here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8E-DD-a0l" userLabel="Everything Else">
-                                        <rect key="frame" x="50" y="73.5" width="275" height="41"/>
+                                        <rect key="frame" x="50" y="58.5" width="275" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -806,6 +816,62 @@
                 </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="895.20000000000005" y="-111.0944527736132"/>
+        </scene>
+        <!--LaunchVC-->
+        <scene sceneID="dU3-o1-h9t">
+            <objects>
+                <viewController id="5my-EP-K4K" customClass="LaunchVC" customModule="stonks" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VD3-zq-YNV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sheep_logo" translatesAutoresizingMaskIntoConstraints="NO" id="S6b-Lw-GdP">
+                                <rect key="frame" x="87.5" y="183.5" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="1Dw-eD-l61"/>
+                                    <constraint firstAttribute="width" constant="200" id="ve1-A9-icL"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Black Sheep" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nNC-6p-rN2">
+                                <rect key="frame" x="96" y="391" width="183.5" height="37"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="30"/>
+                                <color key="textColor" red="0.24610697910000001" green="0.24610697910000001" blue="0.24610697910000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="stray from the herd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNm-BY-9BH" userLabel="stray from the herd">
+                                <rect key="frame" x="116.5" y="426" width="142" height="18"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="15"/>
+                                <color key="textColor" red="0.24610697910000001" green="0.24610697910000001" blue="0.24610697910000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4hw-uD-NvV">
+                                <rect key="frame" x="30" y="620" width="315" height="2"/>
+                                <color key="progressTintColor" red="0.91644194160000003" green="0.0" blue="0.45135772270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </progressView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="TNm-BY-9BH" firstAttribute="centerX" secondItem="VD3-zq-YNV" secondAttribute="centerX" id="2MH-GY-sdX"/>
+                            <constraint firstItem="S6b-Lw-GdP" firstAttribute="centerY" secondItem="VD3-zq-YNV" secondAttribute="centerY" constant="-50" id="7F6-7k-pLc"/>
+                            <constraint firstItem="TNm-BY-9BH" firstAttribute="top" secondItem="nNC-6p-rN2" secondAttribute="bottom" constant="-2" id="7G1-s4-a2w"/>
+                            <constraint firstItem="nNC-6p-rN2" firstAttribute="centerX" secondItem="VD3-zq-YNV" secondAttribute="centerX" id="Gq7-FW-dh5"/>
+                            <constraint firstItem="4hw-uD-NvV" firstAttribute="leading" secondItem="Fnv-vm-7gx" secondAttribute="leading" constant="30" id="JfA-CR-ADN"/>
+                            <constraint firstItem="S6b-Lw-GdP" firstAttribute="centerX" secondItem="VD3-zq-YNV" secondAttribute="centerX" id="LWr-IW-RV8"/>
+                            <constraint firstItem="Fnv-vm-7gx" firstAttribute="trailing" secondItem="4hw-uD-NvV" secondAttribute="trailing" constant="30" id="NWG-qO-zH9"/>
+                            <constraint firstItem="Fnv-vm-7gx" firstAttribute="bottom" secondItem="4hw-uD-NvV" secondAttribute="bottom" constant="45" id="Nf8-pO-c7G"/>
+                            <constraint firstItem="4hw-uD-NvV" firstAttribute="centerX" secondItem="VD3-zq-YNV" secondAttribute="centerX" id="WH4-0S-pYp"/>
+                            <constraint firstItem="nNC-6p-rN2" firstAttribute="top" secondItem="S6b-Lw-GdP" secondAttribute="bottom" constant="7.5" id="tek-fe-6r8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Fnv-vm-7gx"/>
+                    </view>
+                    <connections>
+                        <outlet property="progressBar" destination="4hw-uD-NvV" id="Xn7-1v-GR9"/>
+                        <segue destination="MjW-nF-n5S" kind="show" identifier="toTabBar" id="21Y-Mt-K0l"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NpE-gT-CLM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3180" y="19"/>
         </scene>
         <!--Landing-->
         <scene sceneID="PyU-oq-eb0">
@@ -911,6 +977,7 @@
         <image name="back" width="32" height="32"/>
         <image name="linechart" width="378" height="242"/>
         <image name="reminders2" width="32" height="32"/>
+        <image name="sheep_logo" width="1064" height="1064"/>
         <image name="watchlist2" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>

@@ -51,6 +51,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in FinvizAPI.getData(forTickers:completionHandler:):FinvizAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "queryURL">
+            </PersistentString>
+            <PersistentString
+               value = "rating">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in IEXTrading.getQuotes(tickers:completionHandler:):IEXTrading.swift">
          <PersistentStrings>
             <PersistentString
@@ -61,17 +72,6 @@
             </PersistentString>
             <PersistentString
                value = "json[ticker][&quot;quote&quot;][&quot;latestTime&quot;].string!">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in FinvizAPI.getData(forTickers:completionHandler:):FinvizAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "queryURL">
-            </PersistentString>
-            <PersistentString
-               value = "rating">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -175,6 +175,17 @@
             </PersistentString>
             <PersistentString
                value = "dateFormatter.dateFormat">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AppDelegate.application(_:didFinishLaunchingWithOptions:):AppDelegate.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.numUpdated">
+            </PersistentString>
+            <PersistentString
+               value = "self.watchListSize">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
