@@ -11,6 +11,7 @@
 		1C183F93216D5D2A0042F52C /* DemoBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C183F92216D5D2A0042F52C /* DemoBaseViewController.swift */; };
 		1C2AC8622177B9A400469941 /* WatchlistVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2AC8612177B9A400469941 /* WatchlistVC.swift */; };
 		1C2AC864217FB01D00469941 /* ChartFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2AC863217FB01D00469941 /* ChartFormatter.swift */; };
+		1C2AC8682183D7C500469941 /* LaunchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2AC8672183D7C500469941 /* LaunchVC.swift */; };
 		1C545211216AA4B90064239E /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545210216AA4B90064239E /* GradientButton.swift */; };
 		1C545213216AF6400064239E /* WatchlistUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545212216AF6400064239E /* WatchlistUpdater.swift */; };
 		1C545215216C31950064239E /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545214216C31950064239E /* Quote.swift */; };
@@ -67,6 +68,7 @@
 		1C183F92216D5D2A0042F52C /* DemoBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoBaseViewController.swift; sourceTree = "<group>"; };
 		1C2AC8612177B9A400469941 /* WatchlistVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistVC.swift; sourceTree = "<group>"; };
 		1C2AC863217FB01D00469941 /* ChartFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartFormatter.swift; sourceTree = "<group>"; };
+		1C2AC8672183D7C500469941 /* LaunchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchVC.swift; sourceTree = "<group>"; };
 		1C545210216AA4B90064239E /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		1C545212216AF6400064239E /* WatchlistUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistUpdater.swift; sourceTree = "<group>"; };
 		1C545214216C31950064239E /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				1C183F90216D59F90042F52C /* StockDetailsVC.swift */,
 				1C183F92216D5D2A0042F52C /* DemoBaseViewController.swift */,
 				1C2AC863217FB01D00469941 /* ChartFormatter.swift */,
+				1C2AC8672183D7C500469941 /* LaunchVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				1CB257252172C292008E3D4D /* WatchlistManager.swift in Sources */,
 				1CB257292173B8A5008E3D4D /* Configuration.swift in Sources */,
 				1CB2572B21765C3A008E3D4D /* StockDetailsNavView.swift in Sources */,
+				1C2AC8682183D7C500469941 /* LaunchVC.swift in Sources */,
 				1C7B98862161949A00C75014 /* Dataholder.swift in Sources */,
 				1C2AC8622177B9A400469941 /* WatchlistVC.swift in Sources */,
 				1CD1194A216F35C3000AE02E /* MarkerView.swift in Sources */,

@@ -23,7 +23,7 @@ class WatchlistVC: UIViewController {
         watchlistManager = Dataholder.watchlistManager
         
         finvizAPI = FinvizAPI()
-        finvizAPI.getData(forTickers: watchlistManager.getTickers(companiesOnly: true), completionHandler: handleFinvizResponse)
+//        finvizAPI.getData(forTickers: watchlistManager.getTickers(companiesOnly: true), completionHandler: handleFinvizResponse)
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
