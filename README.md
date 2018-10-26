@@ -24,7 +24,9 @@
    + Recommended long term collar strategy for everything on your watchlist
  4. Consider adding an information page about proper investing mindset
    + preservation of wealth above all
+   + importance of big early contributions and saving maximum amount of money
    + optimal risk/reward setups (1:4 ratios)
+   + simulator??
 
 ### Design
 <img src="screenshots/Watchlist_ss.png" width="250"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="screenshots/Details_ss.png" width="250"/>
