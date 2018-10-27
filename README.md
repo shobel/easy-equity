@@ -22,7 +22,7 @@
    + 3-day rule reminder after large price movements
    + The Thursday rule
    + Special events such as increased volatility at end of a month/quarter, January effect, end of year sell-off of     underperforming stocks
-   + Recommended long term collar strategy for everything on your watchlist
+   + Collars with optimal risk/reward ratios using analyst price targets: user can add a trade and be notified if/when the trade should be closed
 4. Consider adding an information page about proper investing mindset
    + preservation of wealth above all
    + importance of big early contributions and saving maximum amount of money
