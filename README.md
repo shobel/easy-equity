@@ -1,6 +1,6 @@
 # easy-equity
 
---in progress--
+--in development--
 
 ### Features of the project
 
