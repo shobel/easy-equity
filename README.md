@@ -23,6 +23,7 @@
    + The Thursday rule
    + Special events such as increased volatility at end of a month/quarter, January effect, end of year sell-off of     underperforming stocks
    + Collars with optimal risk/reward ratios using analyst price targets: user can add a trade and be notified if/when the trade should be closed
+         + trade finding involves considering the smallest amount of money that could be used to execute the trade (cost of 100 shares - premium of sell 1 call + cost of buy 1 put) and that amount can be scaled up (x2, x3, x4, etc) as much as needed
 4. Consider adding an information page about proper investing mindset
    + preservation of wealth above all
    + importance of big early contributions and saving maximum amount of money
