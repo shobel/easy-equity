@@ -70,7 +70,7 @@ class WatchlistVC: UIViewController {
                     
                     let earningsDateString = data[ticker]!["Earnings"] as? String
                     let erArray = earningsDateString?.components(separatedBy: .whitespaces)
-                    let time = erArray![2]
+                    //let time = erArray![2]
                     
                     let today = Date()
                     let calendar = Calendar.current

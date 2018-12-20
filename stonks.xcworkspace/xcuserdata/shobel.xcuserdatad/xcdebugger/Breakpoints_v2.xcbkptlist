@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "stonks/APIs/IEXTrading.swift"
-            timestampString = "562286049.7469521"
+            timestampString = "567027317.559042"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "getQuotes(tickers:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "stonks/APIs/IEXTrading.swift"
-            timestampString = "562286049.747099"
+            timestampString = "567027317.55913"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
             landmarkName = "formatDate(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "stonks/Controllers/StockDetailsVC.swift"
-            timestampString = "562286049.7471631"
+            timestampString = "567027317.559191"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "373"
-            endingLineNumber = "373"
+            startingLineNumber = "399"
+            endingLineNumber = "399"
             landmarkName = "timeButtonPressed(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,13 +90,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "stonks/Controllers/LaunchVC.swift"
-            timestampString = "562306457.138376"
+            timestampString = "567022977.8652509"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "79"
             endingLineNumber = "79"
-            landmarkName = "LaunchVC"
-            landmarkType = "3">
+            landmarkName = "handleFinvizResponse(data:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

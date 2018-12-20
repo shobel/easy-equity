@@ -14,13 +14,19 @@ class StockDetailsVC: DemoBaseViewController {
     @IBOutlet weak var stockDetailsNavView: StockDetailsNavView!
     @IBOutlet weak var priceDetailsView: StockDetailsSummaryView!
     @IBOutlet weak var chartView: CandleStickChartView!
+    @IBOutlet weak var volumeView: BarChartView!
     @IBOutlet weak var candlePricesWrapper: UIView!
     @IBOutlet weak var candlePricesView: CandlePricesView!
     @IBOutlet weak var markerView: MarkerView!
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
     @IBOutlet weak var chartTypeButton: UIButton!
     
+    @IBOutlet weak var datetime: UILabel!
+    @IBOutlet weak var ytdChange: ColoredValueLabel!
+    @IBOutlet weak var yrHighValue: ColoredValueLabel!
+    
     private var company:Company!
+    private var latestQuote:Quote!
     private var chartData:[Candle] = []
     var chartFormatter:ChartFormatter!
 
@@ -32,32 +38,51 @@ class StockDetailsVC: DemoBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /* We have a custom nav panel and so the default one goes on the bottom for some reason
+         and then our tab bar at the bottom gets darker */
+        self.navigationController?.view.backgroundColor = UIColor.white
+        
         chartTypeButton.imageView!.contentMode = UIView.ContentMode.scaleAspectFit
         feedbackGenerator = UISelectionFeedbackGenerator()
+        
+        //setup general stock and price information
+        company = Dataholder.watchlistManager.selectedCompany
+        
         stockDetailsNavView.logo.layer.cornerRadius = (stockDetailsNavView.logo.frame.width)/2
         stockDetailsNavView.logo.layer.masksToBounds = true
-        
-        company = Dataholder.watchlistManager.selectedCompany
         stockDetailsNavView.ticker.text = company.ticker
         stockDetailsNavView.name.text = company.fullName
         
+        latestQuote = company.quote
+        setPrice(price: latestQuote.latestPrice, selected: false)
+        datetime.text = latestQuote.latestTime
+        ytdChange.setValue(value: latestQuote.ytdChange, isPercent: true)
+        yrHighValue.setValue(value: latestQuote.getYrHighChangePercent(), isPercent: true)
+        
+        //start information retrieval processes
         StockAPIManager.shared.stockDataApiInstance.getCompanyData(ticker: company.ticker, completionHandler: handleCompanyData)
         StockAPIManager.shared.stockDataApiInstance.getChart(ticker: company.ticker, timeInterval: .day, completionHandler: handleDayChartData)
         StockAPIManager.shared.stockDataApiInstance.getChart(ticker: company.ticker, timeInterval: .five_year, completionHandler: handleFullChartData)
         
+        //setup chart
         timeButtons = [button1D, button1M, button3M, button6M, button1Y, button5Y]
         button1D.backgroundColor = UIColor.white
         button1D.setTitleColor(Constants.darkGrey, for: .normal)
-        
-        /*
-         We have a custom nav panel and so the default one goes on the bottom for some reason
-        and then our tab bar at the bottom gets darker
-         */
-        self.navigationController?.view.backgroundColor = UIColor.white
-        
         chartFormatter = ChartFormatter()
         timeInterval = Constants.TimeIntervals.day
         loadChart()
+    }
+    
+    private func setPrice(price: Double, selected: Bool){
+        priceDetailsView.priceLabel.text = String(format: "%.2f", price)
+        
+        if selected {
+            let priceChange = latestQuote.latestPrice - price
+            let percentChange = ((price - latestQuote.latestPrice) / price)*100
+            priceDetailsView.priceChangeAndPercent.setPriceChange(price: priceChange, percent: percentChange)
+        } else {
+            priceDetailsView.priceChangeAndPercent.setPriceChange(price: latestQuote.change, percent: latestQuote.changePercent)
+        }
     }
     
     //handles the description, ceo, and logo
@@ -208,11 +233,11 @@ class StockDetailsVC: DemoBaseViewController {
         let e = entry as! CandleChartDataEntry
         let candle = self.chartData[Int(e.x)]
         let volumeString = formatNumber(num: candle.volume)
-        candlePricesView.volumeLabel.text = "VOL:" + volumeString
-        candlePricesView.highLabel.text = "HIGH:\(e.high)"
-        candlePricesView.lowLabel.text = "LOW:\(e.low)"
-        candlePricesView.openLabel.text = "OPEN:\(e.open)"
-        candlePricesView.closeLabel.text = "CLOSE:\(e.close)"
+        candlePricesView.volumeLabel.text = "VOL: " + volumeString
+        candlePricesView.highLabel.text = "HIGH: " + String(format: "%.2f", e.high)
+        candlePricesView.lowLabel.text = "LOW: " + String(format: "%.2f", e.low)
+        candlePricesView.openLabel.text = "OPEN: " + String(format: "%.2f", e.open)
+        candlePricesView.closeLabel.text = "CLOSE: " + String(format: "%.2f", e.close)
         candlePricesWrapper.isHidden = false
         
         // Adding top marker
@@ -227,7 +252,7 @@ class StockDetailsVC: DemoBaseViewController {
         markerView.center = CGPoint(x: x, y:10.0)
         markerView.isHidden = false
         
-        priceDetailsView.priceLabel.text = "\(candle.close)"
+        setPrice(price: candle.close, selected: true)
         feedbackGenerator.selectionChanged()
     }
     
@@ -246,6 +271,8 @@ class StockDetailsVC: DemoBaseViewController {
         candlePricesWrapper.isHidden = true
         markerView.isHidden = true
         self.chartView.highlightValue(nil)
+        
+        setPrice(price: latestQuote.latestPrice, selected: false)
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {

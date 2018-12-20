@@ -14,8 +14,7 @@ class StockDetailsSummaryView: UIStackView {
     @IBOutlet var priceChangeAndPercent: ColoredPricePercentLabel!
     @IBOutlet var ahPriceChangeAndPercent: ColoredPricePercentLabel!
     
-    @IBOutlet var sectorLabel: UILabel!
-    @IBOutlet var mktCapLabel: UILabel!
+    @IBOutlet var dateTimeLabel: UILabel!
     @IBOutlet var ytdChange: UILabel!
     @IBOutlet var yrHighChange: UILabel!
     /*
