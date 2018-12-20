@@ -107,6 +107,7 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
                     let quote = Quote(
                         symbol: json[ticker]["quote"]["symbol"].string!,
                         latestPrice:json[ticker]["quote"]["latestPrice"].double!,
+                        latestTime: json[ticker]["quote"]["latestTime"].string!,
                         previousClose: json[ticker]["quote"]["previousClose"].double!,
                         change: json[ticker]["quote"]["change"].double!,
                         changePercent: (json[ticker]["quote"]["changePercent"].double!)*100,
@@ -115,7 +116,8 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
                         extendedChangePercent: (json[ticker]["quote"]["extendedChangePercent"].double!)*100,
                         sector: json[ticker]["quote"]["sector"].string!,
                         marketCap: json[ticker]["quote"]["marketCap"].double!,
-                        ytdChange: (json[ticker]["quote"]["ytdChange"].double!)*100
+                        ytdChange: (json[ticker]["quote"]["ytdChange"].double!)*100,
+                        yrHigh: json[ticker]["quote"]["week52High"].double!
                     )
                     quotes.append(quote)
                     //print(json[ticker]["quote"]["latestPrice"].double!)

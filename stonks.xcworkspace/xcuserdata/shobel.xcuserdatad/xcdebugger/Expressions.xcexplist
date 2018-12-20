@@ -27,6 +27,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "StockDetailsVC.viewDidLoad():StockDetailsVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "company">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "StockDetailsVC.OneMonthButtonPressed(_:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString

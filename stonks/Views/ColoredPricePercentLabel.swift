@@ -26,7 +26,7 @@ class ColoredPricePercentLabel: UILabel {
         if change! > 0.0 {
             sign = "+"
         }
-        return sign + String(format: "%.2f", change!) + " (" + String(format: "%.2f", changePercent!) + ")%"
+        return sign + String(format: "%.2f", change!) + " (" + String(format: "%.2f", changePercent!) + "%)"
     }
     
     private func getColor(value: Double?) -> UIColor{

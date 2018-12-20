@@ -11,7 +11,9 @@ import Foundation
 struct Quote {
     
     var symbol:String // "AAPL"
+    
     var latestPrice:Double //224.29
+    var latestTime:String //"latestTime":"October 5, 2018",
     var previousClose:Double //227.99
     var change:Double //-3.7
     var changePercent:Double //-0.01623 *NOT A PERCENT - NEED TO x100
@@ -21,6 +23,11 @@ struct Quote {
     var sector:String //"sector":"Technology"
     var marketCap:Double //"marketCap":1083304102540
     var ytdChange:Double //"ytdChange":0.3007662925165673
+    var yrHigh:Double //"week52High":233.47
+    
+    public func getYrHighChangePercent() -> Double {
+        return ((self.latestPrice - self.yrHigh) / (self.yrHigh))*100.0
+    }
     
     //"companyName":"Apple Inc.",
     //"primaryExchange":"Nasdaq Global Select",
@@ -38,7 +45,5 @@ struct Quote {
     //"extendedPriceTime":1538773180262,
     //"avgTotalVolume":33426843,
     //"peRatio":20.33,
-    //"week52High":233.47,
     //"week52Low":150.24,
-    //"ytdChange":0.3007662925165673
 }
