@@ -29,8 +29,13 @@ class WatchlistManager {
             Company(ticker: "SPY", fullName: "SPDR S&P 500 ETF Trust", isCompany: false),
             Company(ticker: "QQQ", fullName: "PowerShares QQQ Trust", isCompany: false)
         ]
+        sortWatchlist()
     }
     
+    public func sortWatchlist(){
+        watchlist.sort()
+    }
+
     public func getWatchlist() -> [Company] {
         return watchlist
     }

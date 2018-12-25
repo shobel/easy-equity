@@ -297,6 +297,10 @@ class DemoBaseViewController: UIViewController, ChartViewDelegate {
     func chartTranslated(_ chartView: ChartViewBase, dX: CGFloat, dY: CGFloat) {
         
     }
+    
+    func panGestureEnded(_ chartView: ChartViewBase) {
+        NSLog("panGestureEnded");
+    }
 }
 
 extension DemoBaseViewController: UITableViewDelegate, UITableViewDataSource {

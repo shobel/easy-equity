@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Company: Equatable{
+class Company: Equatable, Comparable {
 
     public var isCompany:Bool //is either company or fund
     public var ticker:String
@@ -39,15 +39,22 @@ class Company: Equatable{
         self.isCompany = isCompany
     }
     
-    static func == (lhs: Company, rhs: Company) -> Bool {
-        return lhs.ticker == rhs.ticker
-    }
-    
     public func getDailyData(_ numDays: Int) -> [Candle]{
         if let data = dailyData {
             return Array(data.suffix(numDays))
         }
         return []
+    }
+    
+    static func == (lhs: Company, rhs: Company) -> Bool {
+        return lhs.ticker == rhs.ticker
+    }
+    
+    static func < (lhs: Company, rhs: Company) -> Bool {
+        if let leftVal = lhs.quote?.changePercent, let rightVal = rhs.quote?.changePercent {
+            return leftVal > rightVal
+        }
+        return false
     }
     
 }

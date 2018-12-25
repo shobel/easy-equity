@@ -18,26 +18,33 @@ class StockDetailsVC: DemoBaseViewController {
     @IBOutlet weak var candlePricesWrapper: UIView!
     @IBOutlet weak var candlePricesView: CandlePricesView!
     @IBOutlet weak var markerView: MarkerView!
-    @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
     @IBOutlet weak var chartTypeButton: UIButton!
+    
+    @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
     
     @IBOutlet weak var datetime: UILabel!
     @IBOutlet weak var ytdChange: ColoredValueLabel!
     @IBOutlet weak var yrHighValue: ColoredValueLabel!
     
+    @IBOutlet weak var pageControl: UIPageControl!
+    
     private var company:Company!
     private var latestQuote:Quote!
     private var chartData:[Candle] = []
-    var chartFormatter:ChartFormatter!
+    private var priceChartFormatter:PriceChartFormatter!
+    private var volumeChartFormatter:VolumeChartFormatter!
 
     private var feedbackGenerator: UISelectionFeedbackGenerator!
     private var candleMode = true
-    private var timeInterval: Constants.TimeIntervals!
+    private var timeInterval = Constants.TimeIntervals.day
     private var timeButtons:[UIButton]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let pageVC: StatsNewsPageViewController = self.children.first as! StatsNewsPageViewController
+        pageVC.pageDelegate = self
+        volumeView.delegate = self
         /* We have a custom nav panel and so the default one goes on the bottom for some reason
          and then our tab bar at the bottom gets darker */
         self.navigationController?.view.backgroundColor = UIColor.white
@@ -47,42 +54,53 @@ class StockDetailsVC: DemoBaseViewController {
         
         //setup general stock and price information
         company = Dataholder.watchlistManager.selectedCompany
-        
         stockDetailsNavView.logo.layer.cornerRadius = (stockDetailsNavView.logo.frame.width)/2
         stockDetailsNavView.logo.layer.masksToBounds = true
         stockDetailsNavView.ticker.text = company.ticker
         stockDetailsNavView.name.text = company.fullName
         
         latestQuote = company.quote
-        setPrice(price: latestQuote.latestPrice, selected: false)
-        datetime.text = latestQuote.latestTime
-        ytdChange.setValue(value: latestQuote.ytdChange, isPercent: true)
-        yrHighValue.setValue(value: latestQuote.getYrHighChangePercent(), isPercent: true)
+        //setup price info that will need to be updated each time quote is retreived
+        setTopBarValues(startPrice: 0.0, endPrice: latestQuote.latestPrice, selected: false)
         
         //start information retrieval processes
         StockAPIManager.shared.stockDataApiInstance.getCompanyData(ticker: company.ticker, completionHandler: handleCompanyData)
         StockAPIManager.shared.stockDataApiInstance.getChart(ticker: company.ticker, timeInterval: .day, completionHandler: handleDayChartData)
         StockAPIManager.shared.stockDataApiInstance.getChart(ticker: company.ticker, timeInterval: .five_year, completionHandler: handleFullChartData)
         
-        //setup chart
+        //setup chart buttons
         timeButtons = [button1D, button1M, button3M, button6M, button1Y, button5Y]
         button1D.backgroundColor = UIColor.white
         button1D.setTitleColor(Constants.darkGrey, for: .normal)
-        chartFormatter = ChartFormatter()
+        priceChartFormatter = PriceChartFormatter()
+        volumeChartFormatter = VolumeChartFormatter()
         timeInterval = Constants.TimeIntervals.day
-        loadChart()
+        
+        //load charts
+        loadPriceChart()
+        loadVolumeChart()
+        updateChartData()
     }
     
-    private func setPrice(price: Double, selected: Bool){
-        priceDetailsView.priceLabel.text = String(format: "%.2f", price)
+    //when receving new quote, call this to update top bar values
+    private func setTopBarValues(startPrice: Double, endPrice: Double, selected: Bool){
+        priceDetailsView.priceLabel.text = String(format: "%.2f", endPrice)
         
-        if selected {
-            let priceChange = latestQuote.latestPrice - price
-            let percentChange = ((price - latestQuote.latestPrice) / price)*100
-            priceDetailsView.priceChangeAndPercent.setPriceChange(price: priceChange, percent: percentChange)
-        } else {
+        if timeInterval == Constants.TimeIntervals.day && !selected {
             priceDetailsView.priceChangeAndPercent.setPriceChange(price: latestQuote.change, percent: latestQuote.changePercent)
+        } else {
+            let priceChange = endPrice - startPrice
+            let percentChange = (priceChange / startPrice)*100
+            priceDetailsView.priceChangeAndPercent.setPriceChange(price: priceChange, percent: percentChange)
         }
+        
+        if latestQuote.latestTime.contains(":"){
+            datetime.text = latestQuote.latestTime + " ET"
+        } else {
+            datetime.text = latestQuote.latestTime
+        }
+        ytdChange.setValue(value: latestQuote.ytdChange, isPercent: true)
+        yrHighValue.setValue(value: latestQuote.getYrHighChangePercent(), isPercent: true)
     }
     
     //handles the description, ceo, and logo
@@ -114,7 +132,7 @@ class StockDetailsVC: DemoBaseViewController {
         }
     }
     
-    func loadChart(){
+    func loadPriceChart(){
         self.options = [.toggleValues,
                         .toggleIcons,
                         .toggleHighlight,
@@ -149,13 +167,31 @@ class StockDetailsVC: DemoBaseViewController {
         chartView.xAxis.labelPosition = .bottom
         chartView.xAxis.labelFont = UIFont(name: "HelveticaNeue-Light", size: 10)!
         chartView.xAxis.drawGridLinesEnabled = false
+        chartView.xAxis.valueFormatter = priceChartFormatter
+    }
+    
+    private func loadVolumeChart(){
+        volumeView.delegate = self
+        volumeView.chartDescription?.enabled = false
+        volumeView.legend.enabled = false
+        volumeView.highlightPerTapEnabled = false
+        volumeView.dragEnabled = false
+        volumeView.setScaleEnabled(true)
+        volumeView.maxVisibleCount = 200
+        volumeView.pinchZoomEnabled = false
+        volumeView.doubleTapToZoomEnabled = false
+        volumeView.autoScaleMinMaxEnabled = true
         
-        let xaxis:XAxis = XAxis()
-        xaxis.valueFormatter = chartFormatter
-        chartView.xAxis.valueFormatter = xaxis.valueFormatter
-        
-        updateChartData()
-
+        volumeView.leftAxis.drawGridLinesEnabled = false
+        volumeView.rightAxis.enabled = false
+        //volumeView.leftAxis.enabled = false
+        volumeView.xAxis.enabled = false
+        volumeView.xAxis.drawGridLinesEnabled = false
+        volumeView.leftAxis.labelFont = UIFont(name: "HelveticaNeue-Light", size: 10)!
+        volumeView.leftAxis.drawBottomYLabelEntryEnabled = false
+        volumeView.leftAxis.drawZeroLineEnabled = false
+        volumeView.leftAxis.setLabelCount(1, force: true)
+        volumeView.leftAxis.valueFormatter = volumeChartFormatter
     }
     
     override func updateChartData() {
@@ -164,30 +200,27 @@ class StockDetailsVC: DemoBaseViewController {
             return
         }
         
-        //self.setDataCount(Int(60), range: UInt32(100))
         if (!chartData.isEmpty) {
-            setData(chartData: chartData)
+            setChartsData(chartData: chartData)
         }
     }
     
-    func setData(chartData:[Candle]){
-        var dataSet = chartData
+    func setChartsData(chartData:[Candle]){
+        self.chartData = chartData
         if timeInterval == Constants.TimeIntervals.day {
-            dataSet = shrinkMinuteDataToTenMinutes(chartData)
+            self.chartData = shrinkMinuteDataToTenMinutes(chartData)
         }
         
-        self.chartData = dataSet
-        chartFormatter.resetXAxisLabels()
-        let yVals1 = dataSet.enumerated().map { (index: Int, candle:Candle) -> CandleChartDataEntry in
+        priceChartFormatter.resetXAxisLabels()
+        let yVals1 = self.chartData.enumerated().map { (index: Int, candle:Candle) -> CandleChartDataEntry in
             let high = candle.high
             let low = candle.low
             let open = candle.open
             let close = candle.close
-            chartFormatter.addXAxisLable(candle.datetime)
+            priceChartFormatter.addXAxisLabel(candle.datetime)
             return CandleChartDataEntry(x: Double(index), shadowH: high, shadowL: low, open: open, close: close)
         }
-        
-        let set1 = CandleChartDataSet(values: yVals1, label: "Data Set")
+        let set1 = CandleChartDataSet(values: yVals1, label: "Price")
         set1.axisDependency = .left
         set1.setColor(UIColor(white: 80/255, alpha: 1))
         set1.drawIconsEnabled = false
@@ -202,13 +235,22 @@ class StockDetailsVC: DemoBaseViewController {
         set1.highlightLineWidth = 2
         set1.drawHorizontalHighlightIndicatorEnabled = false
         
-        let data = CandleChartData(dataSet: set1)
+        volumeChartFormatter.resetAxisLabels()
+        let yVals2 = self.chartData.enumerated().map { (index: Int, candle:Candle) -> BarChartDataEntry in
+            volumeChartFormatter.addAxisLabel(candle.volume)
+            return BarChartDataEntry(x: Double(index), y: candle.volume)
+        }
+        let set2 = BarChartDataSet(values: yVals2, label: "Volume")
+        set2.setColor(Constants.purple)
+        
+        let priceData = CandleChartData(dataSet: set1)
+        let volumeData = BarChartData(dataSet: set2)
         DispatchQueue.main.async {
-            self.chartView.data = data
+            self.chartView.data = priceData
             self.chartView.candleData?.setDrawValues(false)
-            //self.chartView.notifyDataSetChanged()
-            //self.chartView.data?.notifyDataChanged()
-            //self.chartView.setNeedsDisplay()
+        
+            self.volumeView.data = volumeData
+            self.volumeView.data?.setDrawValues(false)
         }
     }
     
@@ -232,7 +274,7 @@ class StockDetailsVC: DemoBaseViewController {
     override func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         let e = entry as! CandleChartDataEntry
         let candle = self.chartData[Int(e.x)]
-        let volumeString = formatNumber(num: candle.volume)
+        let volumeString = NumberFormatter.formatNumber(num: candle.volume)
         candlePricesView.volumeLabel.text = "VOL: " + volumeString
         candlePricesView.highLabel.text = "HIGH: " + String(format: "%.2f", e.high)
         candlePricesView.lowLabel.text = "LOW: " + String(format: "%.2f", e.low)
@@ -252,7 +294,7 @@ class StockDetailsVC: DemoBaseViewController {
         markerView.center = CGPoint(x: x, y:10.0)
         markerView.isHidden = false
         
-        setPrice(price: candle.close, selected: true)
+        setTopBarValues(startPrice: chartData[0].close, endPrice: candle.close, selected: true)
         feedbackGenerator.selectionChanged()
     }
     
@@ -270,15 +312,15 @@ class StockDetailsVC: DemoBaseViewController {
     override func chartValueNothingSelected(_ chartView: ChartViewBase) {
         candlePricesWrapper.isHidden = true
         markerView.isHidden = true
-        self.chartView.highlightValue(nil)
-        
-        setPrice(price: latestQuote.latestPrice, selected: false)
+        chartView.highlightValue(nil)
+        setTopBarValues(startPrice: chartData[0].close, endPrice: latestQuote.latestPrice, selected: false)
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
+    //CANDLE: combines 1-minute candles into 10-minute candles
     private func shrinkMinuteDataToTenMinutes(_ chartData: [Candle]) -> [Candle]{
         var dataSet:[Candle] = []
         var counter = 0
@@ -311,13 +353,6 @@ class StockDetailsVC: DemoBaseViewController {
         return dataSet
     }
     
-    func formatNumber(num:Double) -> String {
-        if num > 999 {
-            return String(num/100) + "K"
-        }
-        return String(num)
-    }
-    
     @IBAction func chartModeButtonPressed(_ sender: Any) {
         if candleMode {
             chartTypeButton.setImage(UIImage(named: "candlebar.png"), for: .normal)
@@ -325,6 +360,10 @@ class StockDetailsVC: DemoBaseViewController {
             chartTypeButton.setImage(UIImage(named: "linechart.png"), for: .normal)
         }
         candleMode = !candleMode
+    }
+    
+    override func panGestureEnded(_ chartView: ChartViewBase) {
+        self.chartValueNothingSelected(chartView)
     }
     
     //leaving this pangesturerecognizer in case we want to add a draw function on the chart
@@ -341,6 +380,7 @@ class StockDetailsVC: DemoBaseViewController {
 //            chartView.layer.addSublayer(layer)
 //        }
     }
+    
     
     
     /*
@@ -361,43 +401,37 @@ class StockDetailsVC: DemoBaseViewController {
     @IBOutlet weak var button5Y: UIButton!
     
     @IBAction func OneDayButtonPressed(_ sender: Any) {
-        self.chartData = company.minuteData!
-        self.timeInterval = Constants.TimeIntervals.day
-        self.timeButtonPressed(sender as! UIButton)
+        self.timeButtonPressed(sender as! UIButton, chartData: company.minuteData!, timeInterval: Constants.TimeIntervals.day)
     }
     
     @IBAction func OneMonthButtonPressed(_ sender: Any) {
-        self.chartData = company.getDailyData(25)
-        self.timeInterval = Constants.TimeIntervals.one_month
-        self.timeButtonPressed(sender as! UIButton)
+        self.timeButtonPressed(sender as! UIButton, chartData: company.getDailyData(25), timeInterval: Constants.TimeIntervals.one_month)
     }
     
     @IBAction func ThreeMonthsButtonPressed(_ sender: Any) {
-        self.chartData = company.getDailyData(75)
-        self.timeInterval = Constants.TimeIntervals.three_month
-        self.timeButtonPressed(sender as! UIButton)
+        self.timeButtonPressed(sender as! UIButton, chartData: company.getDailyData(75), timeInterval: Constants.TimeIntervals.three_month)
     }
     
     @IBAction func SixMonthsButtonPressed(_ sender: Any) {
-        self.chartData = company.getDailyData(150)
-        self.timeInterval = Constants.TimeIntervals.six_month
-        self.timeButtonPressed(sender as! UIButton)
+        self.timeButtonPressed(sender as! UIButton, chartData: company.getDailyData(150), timeInterval: Constants.TimeIntervals.six_month)
     }
     
     @IBAction func OneYearButtonPressed(_ sender: Any) {
-        self.chartData = company.getDailyData(300)
-        self.timeInterval = Constants.TimeIntervals.one_year
-        self.timeButtonPressed(sender as! UIButton)
+        self.timeButtonPressed(sender as! UIButton, chartData: company.getDailyData(300), timeInterval: Constants.TimeIntervals.one_year)
     }
     
     @IBAction func FiveYearButtonPressed(_ sender: Any) {
         self.chartData = company.getDailyData(1500)
         self.timeInterval = Constants.TimeIntervals.five_year
-        self.timeButtonPressed(sender as! UIButton)
+        self.timeButtonPressed(sender as! UIButton, chartData: company.getDailyData(1500), timeInterval: Constants.TimeIntervals.five_year)
     }
     
-    private func timeButtonPressed(_ button: UIButton){
-        self.chartValueNothingSelected(self.chartView)
+    private func timeButtonPressed(_ button: UIButton, chartData: [Candle], timeInterval: Constants.TimeIntervals){
+        
+        self.chartData = chartData
+        self.timeInterval = timeInterval
+        setTopBarValues(startPrice: chartData[0].close, endPrice: latestQuote.latestPrice, selected: false)
+        
         for timeButton in timeButtons {
             if timeButton == button {
                 timeButton.backgroundColor = UIColor.white
@@ -408,5 +442,16 @@ class StockDetailsVC: DemoBaseViewController {
             }
         }
         self.updateChartData()
+    }
+    
+}
+
+extension StockDetailsVC: StatsNewsPageViewControllerDelegate {
+    func pageViewController(pageViewController: UIPageViewController, didUpdatePageCount count: Int) {
+        pageControl.numberOfPages = count
+    }
+    
+    func pageViewController(pageViewController: StatsNewsPageViewController, didUpdatePageIndex index: Int) {
+        pageControl.currentPage = index
     }
 }

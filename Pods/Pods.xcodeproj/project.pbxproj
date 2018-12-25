@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,6 +27,7 @@
 		19307C91EB75F78D0B7B1106AF9304B3 /* SwiftyJSON-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 261BE0A0E8DCC1A5EB37BF0A38FB2960 /* SwiftyJSON-dummy.m */; };
 		199845545BF68A8557F73916A5D8FA50 /* ILineRadarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435ADD24979C6CBE9E7394BD6106C486 /* ILineRadarChartDataSet.swift */; };
 		1BE98FDAB70A4329399735C113FED246 /* CandleChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB77D0CE0DF525F2E88B975157BCF3 /* CandleChartData.swift */; };
+		1C6936BE21D020B200E3FDC9 /* CustomPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6936BD21D020B200E3FDC9 /* CustomPanGestureRecognizer.swift */; };
 		1C6B76861A821352B2F2BFC582840E4D /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201FCD6499F1C8A52B28981C3C6F82FD /* PieChartView.swift */; };
 		1EF16E17CB0557A5EB8B54656FA49543 /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C869EBC58F5D9BEB0BFFE00B88B7AC /* SkeletonView.swift */; };
 		217C1AC938BB809E11292627920E0342 /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7C94315BE0135EE84FD898FEB9298D /* UIView+Frame.swift */; };
@@ -316,6 +317,7 @@
 		1A4476511E7F1496A037534839DA7F6C /* Platform+Accessibility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Platform+Accessibility.swift"; path = "Source/Charts/Utils/Platform+Accessibility.swift"; sourceTree = "<group>"; };
 		1BC624A1C3D33986AB901CF91096D0DF /* SkeletonCollectionViewDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SkeletonCollectionViewDataSource.swift; path = Sources/Collections/SkeletonCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		1BCCF8593DCCAFC7F657396E964CB8FF /* ChartDataEntryBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartDataEntryBase.swift; path = Source/Charts/Data/Implementations/Standard/ChartDataEntryBase.swift; sourceTree = "<group>"; };
+		1C6936BD21D020B200E3FDC9 /* CustomPanGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPanGestureRecognizer.swift; path = ../CustomPanGestureRecognizer.swift; sourceTree = "<group>"; };
 		1C778FA85F6EE7FE6C55C2FA29C22654 /* PrepareForSkeletonProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PrepareForSkeletonProtocol.swift; path = Sources/Helpers/PrepareForSkeletonProtocol.swift; sourceTree = "<group>"; };
 		1F5E39AD803DE370B153A4FA1D559BE2 /* TokenQueue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TokenQueue.swift; path = Sources/TokenQueue.swift; sourceTree = "<group>"; };
 		1F9CD04F3A37244CAB0AD21F5EB7AE9B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -328,7 +330,7 @@
 		2B8DC2D6E200F408AB520027464B6EB4 /* Exception.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Exception.swift; path = Sources/Exception.swift; sourceTree = "<group>"; };
 		2BB1EB173B4B7331466D77591E9C80CF /* Legend.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Legend.swift; path = Source/Charts/Components/Legend.swift; sourceTree = "<group>"; };
 		2BD1174A5C3E999D22A9A9172CE0B9B4 /* Charts-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Charts-prefix.pch"; sourceTree = "<group>"; };
-		2D5FF47CB78CCABA3A14BCA08937D474 /* Pods_stonks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_stonks.framework; path = "Pods-stonks.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D5FF47CB78CCABA3A14BCA08937D474 /* Pods_stonks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_stonks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE9EA5C0B86335A1DD0B9881C6B9718 /* IMarker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IMarker.swift; path = Source/Charts/Components/IMarker.swift; sourceTree = "<group>"; };
 		315BD9914441D556D9873E3AA9B82DCE /* BarChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartView.swift; path = Source/Charts/Charts/BarChartView.swift; sourceTree = "<group>"; };
 		31F7B3979A3ED11D61A58B1EA8739174 /* CrossShapeRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrossShapeRenderer.swift; path = Source/Charts/Renderers/Scatter/CrossShapeRenderer.swift; sourceTree = "<group>"; };
@@ -342,7 +344,7 @@
 		3765EF5C9701BD0D149D0F5286AC00F7 /* EasyToast.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = EasyToast.xcconfig; sourceTree = "<group>"; };
 		397CB53D0FAA6149289700BA595B11F1 /* SkeletonAnimationBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SkeletonAnimationBuilder.swift; path = Sources/SkeletonAnimationBuilder.swift; sourceTree = "<group>"; };
 		3C12668A455A378FA0B61FE13F5948B5 /* BubbleChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BubbleChartRenderer.swift; path = Source/Charts/Renderers/BubbleChartRenderer.swift; sourceTree = "<group>"; };
-		3DFFA25FA711DB29D4F3012A766B7B38 /* EasyToast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = EasyToast.framework; path = EasyToast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DFFA25FA711DB29D4F3012A766B7B38 /* EasyToast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EasyToast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41C869EBC58F5D9BEB0BFFE00B88B7AC /* SkeletonView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SkeletonView.swift; path = Sources/SkeletonView.swift; sourceTree = "<group>"; };
 		4248A291075FDC0DB89CEB5E837E23C2 /* String.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = String.swift; path = Sources/String.swift; sourceTree = "<group>"; };
 		42FCE398BEC6B35342CC879FD817866C /* LineChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineChartRenderer.swift; path = Source/Charts/Renderers/LineChartRenderer.swift; sourceTree = "<group>"; };
@@ -358,7 +360,7 @@
 		4EFE13F95AD7451F877A1370CF2EE5B0 /* PieHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieHighlighter.swift; path = Source/Charts/Highlight/PieHighlighter.swift; sourceTree = "<group>"; };
 		5006D60A2A63AD2D6B1F5DBA47F36A7F /* SkeletonDefaultConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SkeletonDefaultConfig.swift; path = Sources/SkeletonDefaultConfig.swift; sourceTree = "<group>"; };
 		514535D41A088FBD5C325B4F87018B71 /* ToastContainerVC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ToastContainerVC.swift; path = EasyToast/Classes/ToastContainerVC.swift; sourceTree = "<group>"; };
-		524D4983B9459B98975877CDF03F4690 /* SwiftSoup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftSoup.framework; path = SwiftSoup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		524D4983B9459B98975877CDF03F4690 /* SwiftSoup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftSoup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5259CD5CCB83D64E5D54E8653880FD2D /* Pods-stonks-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-stonks-frameworks.sh"; sourceTree = "<group>"; };
 		529AF9193938FEE93E47787794E2BF61 /* Elements.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Elements.swift; path = Sources/Elements.swift; sourceTree = "<group>"; };
 		537824D8DE10F4A38341876558119744 /* Comment.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Comment.swift; path = Sources/Comment.swift; sourceTree = "<group>"; };
@@ -423,14 +425,14 @@
 		89E76A34AC739377A041311652495B68 /* ScatterChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScatterChartView.swift; path = Source/Charts/Charts/ScatterChartView.swift; sourceTree = "<group>"; };
 		8ADB77D0CE0DF525F2E88B975157BCF3 /* CandleChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CandleChartData.swift; path = Source/Charts/Data/Implementations/Standard/CandleChartData.swift; sourceTree = "<group>"; };
 		8B63AC0E93C9FB5EB935CCEA17266C7E /* BarChartDataEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartDataEntry.swift; path = Source/Charts/Data/Implementations/Standard/BarChartDataEntry.swift; sourceTree = "<group>"; };
-		8D59E83CFE123F60EE15AB1C8839DD0C /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftyJSON.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D59E83CFE123F60EE15AB1C8839DD0C /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DAEC2513BE0DB6723A8921D7C5638F7 /* ScatterChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScatterChartData.swift; path = Source/Charts/Data/Implementations/Standard/ScatterChartData.swift; sourceTree = "<group>"; };
 		8E37F799E7CE5055444D5A6C722C03C5 /* IFillFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IFillFormatter.swift; path = Source/Charts/Formatters/IFillFormatter.swift; sourceTree = "<group>"; };
 		8EB284A992E1700B208596AE1F66A81E /* ViewPortHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewPortHandler.swift; path = Source/Charts/Utils/ViewPortHandler.swift; sourceTree = "<group>"; };
 		8EBD356CE6A68473E59F2824D900C02B /* UIView+Toast.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+Toast.swift"; path = "EasyToast/Classes/UIView+Toast.swift"; sourceTree = "<group>"; };
 		9285C839158132D954530572EBDF7F94 /* ChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartData.swift; path = Source/Charts/Data/Implementations/Standard/ChartData.swift; sourceTree = "<group>"; };
 		9294049626AD1020BD0692BF06E9705B /* DataUtil.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataUtil.swift; path = Sources/DataUtil.swift; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		94CBF3CE188D240BAD75E2F8B5AEBE94 /* UnicodeScalar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UnicodeScalar.swift; path = Sources/UnicodeScalar.swift; sourceTree = "<group>"; };
 		9593925857C99DEE2D2105105702B3EE /* BubbleChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BubbleChartData.swift; path = Source/Charts/Data/Implementations/Standard/BubbleChartData.swift; sourceTree = "<group>"; };
 		978FC0B447310D8597E5305778D520A7 /* Node.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Node.swift; path = Sources/Node.swift; sourceTree = "<group>"; };
@@ -470,7 +472,7 @@
 		BABBA27476F4706A810C1A38B848DA08 /* SwiftSoup-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftSoup-prefix.pch"; sourceTree = "<group>"; };
 		BB7817E737432E9D45F7CF4ACB7058DD /* SkeletonView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SkeletonView-prefix.pch"; sourceTree = "<group>"; };
 		BBCE575CCE9B3105E60F87C51CAD7F4D /* LegendEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LegendEntry.swift; path = Source/Charts/Components/LegendEntry.swift; sourceTree = "<group>"; };
-		BBD0407050F79FBE5401C06A42CF0FCC /* SkeletonView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SkeletonView.framework; path = SkeletonView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBD0407050F79FBE5401C06A42CF0FCC /* SkeletonView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SkeletonView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE32053CB5804779E9741E28D2E71B06 /* Charts.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Charts.modulemap; sourceTree = "<group>"; };
 		BE3EA18DB340D0065AB6B454F87F8CB5 /* ChartDataRendererBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartDataRendererBase.swift; path = Source/Charts/Renderers/ChartDataRendererBase.swift; sourceTree = "<group>"; };
 		BFBD160A6561BE06EA2263DD1E20A457 /* IValueFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IValueFormatter.swift; path = Source/Charts/Formatters/IValueFormatter.swift; sourceTree = "<group>"; };
@@ -526,7 +528,7 @@
 		E664B8405CC9C88C7AAB8C96DDA5ADC7 /* ChartColorTemplates.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartColorTemplates.swift; path = Source/Charts/Utils/ChartColorTemplates.swift; sourceTree = "<group>"; };
 		E773933C8EF6A63EB6EDCC6BF64C0D2E /* CALayer+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CALayer+Extensions.swift"; path = "Sources/Extensions/CALayer+Extensions.swift"; sourceTree = "<group>"; };
 		E90869808BCA8367FAC575623A932A88 /* CandleStickChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CandleStickChartRenderer.swift; path = Source/Charts/Renderers/CandleStickChartRenderer.swift; sourceTree = "<group>"; };
-		E9A5AF9909ECB7163FFF6279488BB278 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Charts.framework; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9A5AF9909ECB7163FFF6279488BB278 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA010E157581B28D6E23C20019FEE640 /* Transformer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Transformer.swift; path = Source/Charts/Utils/Transformer.swift; sourceTree = "<group>"; };
 		EA1ADE23CA60A7E7845F7C54BDC2EFE3 /* Pods-stonks.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-stonks.modulemap"; sourceTree = "<group>"; };
 		EAD1968B8B3661B28D15CFF6EC4CACCD /* OrderedDictionary.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OrderedDictionary.swift; path = Sources/OrderedDictionary.swift; sourceTree = "<group>"; };
@@ -669,7 +671,6 @@
 				05DBB634BE6112518B871D8E4547CFF0 /* XmlTreeBuilder.swift */,
 				F4B8E53E0008B6A07AFDBE0B28A0260B /* Support Files */,
 			);
-			name = SwiftSoup;
 			path = SwiftSoup;
 			sourceTree = "<group>";
 		};
@@ -690,6 +691,7 @@
 		5050457A7CD6052C36ABE16DB7563B46 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				1C6936BD21D020B200E3FDC9 /* CustomPanGestureRecognizer.swift */,
 				6BC13ECD05B38D71D0B666B17219DEBE /* AnimatedMoveViewJob.swift */,
 				EFC015F1555942B7A0CFB8362FF36709 /* AnimatedViewPortJob.swift */,
 				EBDD878BCD82F5308C755049D5EBF546 /* AnimatedZoomViewJob.swift */,
@@ -857,7 +859,6 @@
 				12277FABEC641C854C148EC4F0B0BD38 /* UIView+UIApplicationDelegate.swift */,
 				C915049B71444091D52B517D841B3313 /* Support Files */,
 			);
-			name = SkeletonView;
 			path = SkeletonView;
 			sourceTree = "<group>";
 		};
@@ -867,7 +868,6 @@
 				5050457A7CD6052C36ABE16DB7563B46 /* Core */,
 				9E9398836B5CA09EB3B3671E0C5D5854 /* Support Files */,
 			);
-			name = Charts;
 			path = Charts;
 			sourceTree = "<group>";
 		};
@@ -953,7 +953,6 @@
 				8EBD356CE6A68473E59F2824D900C02B /* UIView+Toast.swift */,
 				9FD53738BBD4DE3F63A960739E9559FB /* Support Files */,
 			);
-			name = EasyToast;
 			path = EasyToast;
 			sourceTree = "<group>";
 		};
@@ -1025,7 +1024,6 @@
 				83DECC074B234299C51A8F72C8EE01E6 /* SwiftyJSON.swift */,
 				4DF9C9C49FCB57D5E577CFAEA04C7B83 /* Support Files */,
 			);
-			name = SwiftyJSON;
 			path = SwiftyJSON;
 			sourceTree = "<group>";
 		};
@@ -1466,6 +1464,7 @@
 				15755E802E7050CC8986B65EDEB32F48 /* RadarHighlighter.swift in Sources */,
 				B63A8B118F4CA5D6A03B84563BDB24B4 /* Range.swift in Sources */,
 				D694BE38FA9892729647D0C9A2C02798 /* Renderer.swift in Sources */,
+				1C6936BE21D020B200E3FDC9 /* CustomPanGestureRecognizer.swift in Sources */,
 				F20E5DBEDF44FB2A2E46563502D56BA7 /* ScatterChartData.swift in Sources */,
 				A25E1606CDB2AAE6B87091D2D649A56E /* ScatterChartDataProvider.swift in Sources */,
 				625EE47A38D3274324289589EB412679 /* ScatterChartDataSet.swift in Sources */,

@@ -85,12 +85,14 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     /// **default**: An instance of XAxisRenderer
     @objc open lazy var xAxisRenderer = XAxisRenderer(viewPortHandler: _viewPortHandler, xAxis: _xAxis, transformer: _leftAxisTransformer)
     
-    internal var _tapGestureRecognizer: NSUITapGestureRecognizer!
+    //internal var _tapGestureRecognizer: NSUITapGestureRecognizer!
+    //internal var _touchDownGestureRecognizer: UILongPressGestureRecognizer!
     internal var _doubleTapGestureRecognizer: NSUITapGestureRecognizer!
     #if !os(tvOS)
     internal var _pinchGestureRecognizer: NSUIPinchGestureRecognizer!
     #endif
-    internal var _panGestureRecognizer: NSUIPanGestureRecognizer!
+    //internal var _panGestureRecognizer: NSUIPanGestureRecognizer!
+    internal var _panGestureRecognizer: CustomPanGestureRecognizer!
     
     /// flag that indicates if a custom viewport offset has been set
     private var _customViewPortEnabled = false
@@ -119,14 +121,17 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         
         self.highlighter = ChartHighlighter(chart: self)
         
-        _tapGestureRecognizer = NSUITapGestureRecognizer(target: self, action: #selector(tapGestureRecognized(_:)))
+        //_tapGestureRecognizer = NSUITapGestureRecognizer(target: self, action: #selector(tapGestureRecognized(_:)))
+        //_touchDownGestureRecognizer = UILongPressGestureRecognizer(target:self, action: #selector(didTouchDown(_:)))
+        //_touchDownGestureRecognizer.minimumPressDuration = 0
         _doubleTapGestureRecognizer = NSUITapGestureRecognizer(target: self, action: #selector(doubleTapGestureRecognized(_:)))
         _doubleTapGestureRecognizer.nsuiNumberOfTapsRequired = 2
-        _panGestureRecognizer = NSUIPanGestureRecognizer(target: self, action: #selector(panGestureRecognized(_:)))
+        _panGestureRecognizer = CustomPanGestureRecognizer(target: self, action: #selector(panGestureRecognized(_:)))
         
         _panGestureRecognizer.delegate = self
         
-        self.addGestureRecognizer(_tapGestureRecognizer)
+        //self.addGestureRecognizer(_tapGestureRecognizer)
+        //self.addGestureRecognizer(_touchDownGestureRecognizer)
         self.addGestureRecognizer(_doubleTapGestureRecognizer)
         self.addGestureRecognizer(_panGestureRecognizer)
         
@@ -525,15 +530,8 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     private var _decelerationDisplayLink: NSUIDisplayLink!
     private var _decelerationVelocity = CGPoint()
     
-    @objc private func tapGestureRecognized(_ recognizer: NSUITapGestureRecognizer)
-    {
-        if _data === nil
-        {
-            return
-        }
-        
-        if recognizer.state == NSUIGestureRecognizerState.ended
-        {
+    @objc private func didTouchDown(_ recognizer: UILongPressGestureRecognizer){
+        if recognizer.state == .began {
             if !isHighLightPerTapEnabled { return }
             
             let h = getHighlightByTouchPoint(recognizer.location(in: self))
@@ -548,6 +546,35 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
                 lastHighlighted = h
                 highlightValue(h, callDelegate: true)
             }
+        }
+        
+        if recognizer.state == .changed
+        {
+            if !isHighLightPerTapEnabled { return }
+            
+            delegate?.panGestureEnded?(self)
+        }
+        
+        if recognizer.state == .ended
+        {
+            if !isHighLightPerTapEnabled { return }
+            
+            delegate?.panGestureEnded?(self)
+        }
+    }
+    
+    @objc private func tapGestureRecognized(_ recognizer: NSUITapGestureRecognizer)
+    {
+        if _data === nil
+        {
+            return
+        }
+        
+        if recognizer.state == NSUIGestureRecognizerState.ended
+        {
+            if !isHighLightPerTapEnabled { return }
+            
+            delegate?.panGestureEnded?(self)
         }
     }
     
@@ -785,6 +812,9 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             {
                 _outerScrollView?.nsuiIsScrollEnabled = true
                 _outerScrollView = nil
+            }
+            if let delegate = delegate {
+                delegate.panGestureEnded?(self)
             }
         }
     }

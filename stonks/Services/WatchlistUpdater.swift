@@ -48,6 +48,7 @@ class WatchlistUpdater {
                         }
                     }
                 }
+                self.watchlistManager.sortWatchlist()
                 self.caller.update()
             })
         }
