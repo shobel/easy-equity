@@ -117,9 +117,15 @@ class StockDetailsVC: DemoBaseViewController {
     }
     
     private func handleDayChartData(_ chartData:[Candle]){
-        company.minuteData = chartData
-        self.chartData = company.minuteData!
-        updateChartData()
+        if chartData.isEmpty {
+            let date = ""
+            //get most recent date from company.dailyData
+            StockAPIManager.shared.stockDataApiInstance.getChartForDate(ticker: company.ticker, date: date, completionHandler: handleDayChartData(_:))
+        } else {
+            company.minuteData = chartData
+            self.chartData = company.minuteData
+            updateChartData()
+        }
     }
     
     private func handleFullChartData(_ chartData:[Candle]){
@@ -152,7 +158,7 @@ class StockDetailsVC: DemoBaseViewController {
         chartView.dragEnabled = true
         chartView.setScaleEnabled(true)
         chartView.maxVisibleCount = 200
-        chartView.pinchZoomEnabled = true
+        chartView.pinchZoomEnabled = false
         chartView.doubleTapToZoomEnabled = false
         chartView.autoScaleMinMaxEnabled = true
         
@@ -401,7 +407,7 @@ class StockDetailsVC: DemoBaseViewController {
     @IBOutlet weak var button5Y: UIButton!
     
     @IBAction func OneDayButtonPressed(_ sender: Any) {
-        self.timeButtonPressed(sender as! UIButton, chartData: company.minuteData!, timeInterval: Constants.TimeIntervals.day)
+        self.timeButtonPressed(sender as! UIButton, chartData: company.minuteData, timeInterval: Constants.TimeIntervals.day)
     }
     
     @IBAction func OneMonthButtonPressed(_ sender: Any) {

@@ -86,6 +86,33 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
         })
     }
     
+    func getChartForDate(ticker: String, date: String, completionHandler: @escaping ([Candle]) -> Void) {
+        let params:[String] = [stockURL, ticker, queries.chart, "date", date]
+        let queryURL = params.joined(separator: "/")
+        
+        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
+            if let data = data {
+                let json = JSON(data)
+                var candles:[Candle] = []
+                var candle:Candle
+                for i in 0..<json.count{
+                    if let date = json[i]["label"].string,
+                        let volume = json[i]["volume"].double,
+                        let high = json[i]["high"].double,
+                        let low = json[i]["low"].double,
+                        let open = json[i]["open"].double,
+                        let close = json[i]["close"].double {
+                        let dateString = self.formatDate(date)
+                        candle = Candle(date: dateString, volume: volume, high: high, low: low, open: open, close: close)
+                        candles.append(candle)
+                    }
+                }
+                //print(json)
+                completionHandler(candles)
+            }
+        })
+    }
+    
     func getQuotes(tickers: [String], completionHandler: @escaping ([Quote])->Void){
         let params = [
             "symbols": tickers.joined(separator: ","),

@@ -12,7 +12,9 @@ class StatsNewsPageViewController: UIPageViewController {
     
     weak var pageDelegate: StatsNewsPageViewControllerDelegate?
     private(set) lazy var orderedViewControllers: [UIViewController] = {
-        return [self.newViewController(controllerId: "StatsVC"),
+        return [self.newViewController(controllerId: "InfoVC"),
+                self.newViewController(controllerId: "StatsVC"),
+                self.newViewController(controllerId: "FinVC"),
                 self.newViewController(controllerId: "NewsVC")]
     }()
     

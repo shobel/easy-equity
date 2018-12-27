@@ -15,6 +15,8 @@ protocol StockDataApiProtocol {
     //Candle object contains the datetime
     func getChart(ticker:String, timeInterval: Constants.TimeIntervals, completionHandler: @escaping ([Candle])->Void)
     
+    func getChartForDate(ticker: String, date: String, completionHandler: @escaping ([Candle])->Void)
+    
     func getQuote(ticker: String)
     
     //iexendpointsL quote
