@@ -1,15 +1,23 @@
 PODS:
-  - Charts (3.2.1):
-    - Charts/Core (= 3.2.1)
-  - Charts/Core (3.2.1)
+  - Charts (3.3.0):
+    - Charts/Core (= 3.3.0)
+  - Charts/Core (3.3.0)
   - EasyToast (2.0.2)
-  - SkeletonView (1.1.1)
-  - SwiftSoup (1.7.4)
-  - SwiftyJSON (4.0.0)
+  - MaterialActivityIndicator (0.0.5)
+  - ObjectMapper (3.5.1)
+  - Parchment (1.6.0)
+  - RSLoadingView (1.1.3)
+  - SkeletonView (1.8.1)
+  - SwiftSoup (2.2.0)
+  - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
   - Charts
   - EasyToast
+  - MaterialActivityIndicator
+  - ObjectMapper (~> 3.4)
+  - Parchment
+  - RSLoadingView
   - SkeletonView
   - SwiftSoup
   - SwiftyJSON
@@ -18,17 +26,25 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Charts
     - EasyToast
+    - MaterialActivityIndicator
+    - ObjectMapper
+    - Parchment
+    - RSLoadingView
     - SkeletonView
     - SwiftSoup
     - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Charts: f122fb70b19847fa5817d018b77d6c5a2296ab25
+  Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
   EasyToast: 2844de2158fe8d2313c6de81b5a858a909d82532
-  SkeletonView: 041053e904504e7d8db83df166e599be75659fe1
-  SwiftSoup: 92f5b348c131aed8af04f4326db1579ab19fa08c
-  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+  MaterialActivityIndicator: b730766b32e800964025c4036b2b5e33a1f043cf
+  ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
+  Parchment: d3a7b367c529fa6ef51aa43f5717a7ff36d4b1f5
+  RSLoadingView: c7749afdd455229643e8f34277d0695973a15b1a
+  SkeletonView: 9e4db6c1478bce9da695109dd0972bff7b6efe65
+  SwiftSoup: 230991361c5ba249d140161860a3864a28b63860
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: c485b1c0310a5c5e7cb3d8090fff336c0d082266
+PODFILE CHECKSUM: 74d29bfa1f55b197cc6ed2f43369cdb8d6a64257
 
 COCOAPODS: 1.5.0

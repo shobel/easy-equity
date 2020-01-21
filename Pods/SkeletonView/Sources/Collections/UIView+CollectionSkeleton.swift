@@ -11,13 +11,20 @@ import UIKit
 extension UIView {
     func addDummyDataSourceIfNeeded() {
         guard let collection = self as? CollectionSkeleton else { return }
+        status = .on
         collection.addDummyDataSource()
-        collection.disableScrolling()
+        collection.disableUserInteraction()
+    }
+    
+    func updateDummyDataSourceIfNeeded() {
+        guard let collection = self as? CollectionSkeleton else { return }
+        collection.updateDummyDataSource()
     }
     
     func removeDummyDataSourceIfNeeded(reloadAfter reload: Bool = true) {
         guard let collection = self as? CollectionSkeleton else { return }
+        status = .off
         collection.removeDummyDataSource(reloadAfter: reload)
-        collection.enableScrolling()
+        collection.enableUserInteraction()
     }
 }

@@ -8,12 +8,23 @@
 
 import Foundation
 import SwiftyJSON
-
+import ObjectMapper
 class IEXTrading: HTTPRequest, StockDataApiProtocol {
-
-    private var stockURL = "https://api.iextrading.com/1.0/stock/"
-    private var batchURL = "https://api.iextrading.com/1.0/stock/market/batch?"
-    private var listURL = "https://api.iextrading.com/1.0/ref-data/symbols"
+    
+    private var stockURL = "https://cloud.iexapis.com/stable/stock/" //prod
+    private var batchURL = "https://cloud.iexapis.com/stable/stock/market/batch?" //prod
+    private var listURL = "https://cloud.iexapis.com/stable/ref-data/symbols?" //prod
+    private var token = "pk_51788eed4b6041a785bee74fe45dc738" //prod
+    
+    public override init(){
+        super.init()
+        if Constants.demo {
+            self.stockURL = "https://sandbox.iexapis.com/stable/stock/" //dev
+            self.batchURL = "https://sandbox.iexapis.com/stable/stock/market/batch?" //dev
+            self.listURL = "https://sandbox.iexapis.com/stable/ref-data/symbols?" //dev
+            self.token = "Tpk_9d0624f076804597a3983357fec689d7" //dev
+        }
+    }
 
     private var queries = (
         chart: "chart",
@@ -35,62 +46,39 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
         Constants.TimeIntervals.three_month: "3m",
         Constants.TimeIntervals.six_month: "6m",
         Constants.TimeIntervals.one_year: "1y",
-        Constants.TimeIntervals.five_year: "5y"
+        Constants.TimeIntervals.five_year: "5y",
+        Constants.TimeIntervals.max: "max"
     ]
     
     //iexendpoints: logo and company
-    func getCompanyData(ticker: String, completionHandler: @escaping ([String:String])->Void) {
-        var returnDict:[String:String] = [:]
+    func getCompanyGeneralInfo(ticker: String, completionHandler: @escaping (GeneralInfo, String)->Void) {
         let params = [
             "symbols": ticker,
-            "types": "logo,company"
+            "types": "logo,company",
+            "token": token
         ]
         let queryURL = buildQuery(url: batchURL, params: params)
         sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
             if let data = data {
                 let json = JSON(data)
-                returnDict["description"] = json[ticker]["company"]["description"].string!
-                returnDict["ceo"] = json[ticker]["company"]["CEO"].string!
-                returnDict["logo"] = json[ticker]["logo"]["url"].string!
-                //print(json)
-                completionHandler(returnDict)
+                let JSONString:String = json[ticker]["company"].rawString()!
+                var generalInfo:GeneralInfo = GeneralInfo()
+                if let g = Mapper<GeneralInfo>().map(JSONString: JSONString){
+                    generalInfo = g
+                }
+                let logo = json[ticker]["logo"]["url"].string!
+                completionHandler(generalInfo, logo)
             }
         })
 
     }
     
-    func getChart(ticker: String, timeInterval: Constants.TimeIntervals, completionHandler: @escaping ([Candle])->Void) {
+    func getDailyChart(ticker: String, timeInterval: Constants.TimeIntervals, completionHandler: @escaping ([Candle]) -> Void) {
         let params:[String] = [stockURL, ticker, queries.chart, timeFrames[timeInterval]!]
         let queryURL = params.joined(separator: "/")
+        let finalQuery = buildQuery(url: queryURL + "?", params: ["token": token])
         
-        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
-            if let data = data {
-                let json = JSON(data)
-                var candles:[Candle] = []
-                var candle:Candle
-                for i in 0..<json.count{
-                    if let date = json[i]["label"].string,
-                    let volume = json[i]["volume"].double,
-                    let high = json[i]["high"].double,
-                    let low = json[i]["low"].double,
-                    let open = json[i]["open"].double,
-                    let close = json[i]["close"].double {
-                        let dateString = self.formatDate(date)
-                        candle = Candle(date: dateString, volume: volume, high: high, low: low, open: open, close: close)
-                        candles.append(candle)
-                    }
-                }
-                //print(json)
-                completionHandler(candles)
-            }
-        })
-    }
-    
-    func getChartForDate(ticker: String, date: String, completionHandler: @escaping ([Candle]) -> Void) {
-        let params:[String] = [stockURL, ticker, queries.chart, "date", date]
-        let queryURL = params.joined(separator: "/")
-        
-        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
+        sendQuery(queryURL: finalQuery, completionHandler: { (data, response, error) -> Void in
             if let data = data {
                 let json = JSON(data)
                 var candles:[Candle] = []
@@ -102,8 +90,8 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
                         let low = json[i]["low"].double,
                         let open = json[i]["open"].double,
                         let close = json[i]["close"].double {
-                        let dateString = self.formatDate(date)
-                        candle = Candle(date: dateString, volume: volume, high: high, low: low, open: open, close: close)
+                        let dateString = NumberFormatter.formatDate(date)
+                        candle = Candle(datetime: dateString, volume: volume, high: high, low: low, open: open, close: close)
                         candles.append(candle)
                     }
                 }
@@ -113,10 +101,53 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
         })
     }
     
+    func getWeeklyChart(ticker: String, timeInterval: Constants.TimeIntervals, completionHandler: @escaping ([Candle]) -> Void) {
+        
+    }
+    
+    func getMonthlyChart(ticker: String, timeInterval: Constants.TimeIntervals, completionHandler: @escaping ([Candle]) -> Void) {
+        
+    }
+    
+    func getChartForDate(ticker: String, date: String, completionHandler: @escaping ([Candle]) -> Void) {
+        var params:[String];
+        if (date == ""){
+            params = [stockURL, ticker, "intraday-prices"]
+        } else {
+            params = [stockURL, ticker, queries.chart, "date", date]
+        }
+        let queryURL = params.joined(separator: "/")
+        let finalQuery = buildQuery(url: queryURL + "?", params: ["token": token])
+        
+        sendQuery(queryURL: finalQuery, completionHandler: { (data, response, error) -> Void in
+            if let data = data {
+                let json = JSON(data)
+                var candles:[Candle] = []
+                var candle:Candle
+                for i in 0..<json.count{
+                    if let date = json[i]["label"].string,
+                        let volume = json[i]["volume"].double,
+                        let high = json[i]["high"].double,
+                        let low = json[i]["low"].double,
+                        let open = json[i]["open"].double,
+                        let close = json[i]["close"].double {
+                        let dateString = NumberFormatter.formatDate(date)
+                        candle = Candle(datetime: dateString, volume: volume, high: high, low: low, open: open, close: close)
+                        candles.append(candle)
+                    }
+                }
+                //print(json)
+                completionHandler(candles)
+            }
+        })
+    }
+    
+    
     func getQuotes(tickers: [String], completionHandler: @escaping ([Quote])->Void){
         let params = [
             "symbols": tickers.joined(separator: ","),
-            "types": "quote"
+            "types": "quote",
+            "token": token
         ]
         let queryURL = buildQuery(url: batchURL, params: params)
         sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
@@ -124,47 +155,30 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
                 let json = JSON(data)
                 var quotes:[Quote] = []
                 for (ticker,_):(String, JSON) in json {
-                    let iexLatestSource = json[ticker]["quote"]["latestSource"].string
-                    var isLive = false
-                    if iexLatestSource != nil {
-                        if iexLatestSource == "IEX real time price" {
-                            isLive = true
-                        }
+                    let JSONString:String = json[ticker]["quote"].rawString()!
+                    var quote:Quote = Quote()
+                    if let q = Mapper<Quote>().map(JSONString: JSONString){
+                        quote = q
                     }
-                    let quote = Quote(
-                        symbol: json[ticker]["quote"]["symbol"].string!,
-                        latestPrice:json[ticker]["quote"]["latestPrice"].double!,
-                        latestTime: json[ticker]["quote"]["latestTime"].string!,
-                        previousClose: json[ticker]["quote"]["previousClose"].double!,
-                        change: json[ticker]["quote"]["change"].double!,
-                        changePercent: (json[ticker]["quote"]["changePercent"].double!)*100,
-                        isLive: isLive,
-                        extendedPrice: json[ticker]["quote"]["extendedPrice"].double!,
-                        extendedChangePercent: (json[ticker]["quote"]["extendedChangePercent"].double!)*100,
-                        sector: json[ticker]["quote"]["sector"].string!,
-                        marketCap: json[ticker]["quote"]["marketCap"].double!,
-                        ytdChange: (json[ticker]["quote"]["ytdChange"].double!)*100,
-                        yrHigh: json[ticker]["quote"]["week52High"].double!
-                    )
                     quotes.append(quote)
-                    //print(json[ticker]["quote"]["latestPrice"].double!)
                 }
                 completionHandler(quotes)
             }
         })
-        
     }
     
     func listCompanies() {
-        sendQuery(queryURL: listURL, completionHandler: { (data, response, error) -> Void in
+        let params = ["token": token]
+        let queryURL = buildQuery(url: listURL, params: params)
+        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
             if let data = data {
                 let json = JSON(data)
                 for i in 0..<json.count{
                     if json[i]["type"].string! == self.stockTypes.common {
-                        let company = Company(ticker: json[i]["symbol"].string!, fullName: json[i]["name"].string!, isCompany: true)
+                        let company = Company(symbol: json[i]["symbol"].string!, fullName: json[i]["name"].string!, isCompany: true)
                         Dataholder.allTickers.append(company)
                     } else if json[i]["type"].string! == self.stockTypes.exchangeTraded {
-                        let company = Company(ticker: json[i]["symbol"].string!, fullName: json[i]["name"].string!, isCompany: false)
+                        let company = Company(symbol: json[i]["symbol"].string!, fullName: json[i]["name"].string!, isCompany: false)
                         Dataholder.allTickers.append(company)
                     }
                 }
@@ -173,35 +187,181 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
         })
     }
     
-    func getFinancialsAndStats() {
-        //
-    }
-    
     func getQuote(ticker: String) {
-        //
+        
     }
     
-    func getEarningsData() {
-        //
+    func getKeyStats(ticker: String, completionHandler: @escaping (KeyStats) -> Void) {
+        let params = [
+            "symbols": ticker,
+            "types": "stats",
+            "token": token
+        ]
+        let queryURL = buildQuery(url: batchURL, params: params)
+        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
+            if let data = data {
+                let json = JSON(data)
+                let JSONString:String = json[ticker]["stats"].rawString()!
+                var keystats:KeyStats = KeyStats()
+                if let s = Mapper<KeyStats>().map(JSONString: JSONString){
+                    keystats = s
+                }
+                completionHandler(keystats)
+            }
+        })
     }
     
-    func getNews() {
-        //
+    func getNews(ticker: String, completionHandler: @escaping ([News]) -> Void) {
+        let params = [
+            "symbols": ticker,
+            "types": "news",
+            "token": token
+        ]
+        let queryURL = buildQuery(url: batchURL, params: params)
+        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
+            if let data = data {
+                let json = JSON(data)
+                let jsonNews = json[ticker]["news"]
+                var newsList:[News] = []
+                for i in 0..<jsonNews.count{
+                    let JSONString:String = jsonNews[i].rawString()!
+                    if let n = Mapper<News>().map(JSONString: JSONString){
+                        newsList.append(n)
+                    }
+                }
+                completionHandler(newsList)
+            }
+        })
     }
     
-    func getCompanyLogo() {
-        //
+    func getAllData(ticker: String, completionHandler: @escaping (GeneralInfo, String, KeyStats, [News], PriceTarget, Earnings, Recommendations, AdvancedStats, Financials, Estimates) -> Void) {
+        
     }
     
-    private func formatDate(_ dateString:String) -> String {
-        if dateString.contains("AM") || dateString.contains("PM") || !dateString.contains(","){
-            return dateString
-        }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM dd, yy"
-        dateFormatter.timeZone = TimeZone(identifier: "EST") // set locale to reliable US_POSIX
-        let date = dateFormatter.date(from:dateString)!
-        dateFormatter.dateFormat = "MM/dd/yy"
-        return dateFormatter.string(from: date)
+    func getPriceTarget(ticker: String, completionHandler: @escaping (PriceTarget) -> Void) {
+        let params = [
+            "symbols": ticker,
+            "types": "price-target",
+            "token": token
+        ]
+        let queryURL = buildQuery(url: batchURL, params: params)
+        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
+            if let data = data {
+                let json = JSON(data)
+                let JSONString:String = json[ticker]["price-target"].rawString()!
+                var priceTarget:PriceTarget = PriceTarget()
+                if let p = Mapper<PriceTarget>().map(JSONString: JSONString){
+                    priceTarget = p
+                }
+                completionHandler(priceTarget)
+            }
+        })
+    }
+    
+    func getEarnings(ticker: String, completionHandler: @escaping ([Earnings]) -> Void) {
+        let params = [
+            "symbols": ticker,
+            "types": "earnings",
+            "last": "4",
+            "token": token
+        ]
+        let queryURL = buildQuery(url: batchURL, params: params)
+        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
+            if let data = data {
+                let json = JSON(data)
+                let jsonEarnings = json[ticker]["earnings"]["earnings"]
+                var earningsList:[Earnings] = []
+                for i in 0..<jsonEarnings.count{
+                    let JSONString:String = jsonEarnings[i].rawString()!
+                    if let e = Mapper<Earnings>().map(JSONString: JSONString){
+                        earningsList.append(e)
+                    }
+                }
+                completionHandler(earningsList)
+            }
+        })
+    }
+    
+    func getRecommendations(ticker: String, completionHandler: @escaping ([Recommendations]) -> Void) {
+        let params = [
+            "symbols": ticker,
+            "types": "recommendation-trends",
+            "token": token
+        ]
+        let queryURL = buildQuery(url: batchURL, params: params)
+        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
+            if let data = data {
+                let json = JSON(data)
+                let jsonRec = json[ticker]["recommendation-trends"]
+                var recommendations:[Recommendations] = []
+                for i in 0..<jsonRec.count{
+                    let JSONString:String = jsonRec[i].rawString()!
+                    if let r = Mapper<Recommendations>().map(JSONString: JSONString){
+                        recommendations.append(r)
+                    }
+                }
+                completionHandler(recommendations)
+            }
+        })
+    }
+    
+    func getAdvancedStats(ticker: String, completionHandler: @escaping (AdvancedStats) -> Void) {
+        let params = [
+            "symbols": ticker,
+            "types": "advanced-stats",
+            "token": token
+        ]
+        let queryURL = buildQuery(url: batchURL, params: params)
+        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
+            if let data = data {
+                let json = JSON(data)
+                let JSONString:String = json[ticker]["advanced-stats"].rawString()!
+                var advancedStats:AdvancedStats = AdvancedStats()
+                if let a = Mapper<AdvancedStats>().map(JSONString: JSONString){
+                    advancedStats = a
+                }
+                completionHandler(advancedStats)
+            }
+        })
+    }
+    
+    func getFinancials(ticker: String, completionHandler: @escaping (Financials) -> Void) {
+        let params = [
+            "symbols": ticker,
+            "types": "financials",
+            "token": token
+        ]
+        let queryURL = buildQuery(url: batchURL, params: params)
+        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
+            if let data = data {
+                let json = JSON(data)
+                let JSONString:String = json[ticker]["financials"]["financials"][0].rawString()!
+                var financials:Financials = Financials()
+                if let f = Mapper<Financials>().map(JSONString: JSONString){
+                    financials = f
+                }
+                completionHandler(financials)
+            }
+        })
+    }
+    
+    func getEstimates(ticker: String, completionHandler: @escaping (Estimates) -> Void) {
+        let params = [
+            "symbols": ticker,
+            "types": "estimates",
+            "token": token
+        ]
+        let queryURL = buildQuery(url: batchURL, params: params)
+        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
+            if let data = data {
+                let json = JSON(data)
+                let JSONString:String = json[ticker]["estimates"]["estimates"][0].rawString()!
+                var estimates:Estimates = Estimates()
+                if let e = Mapper<Estimates>().map(JSONString: JSONString){
+                    estimates = e
+                }
+                completionHandler(estimates)
+            }
+        })
     }
 }

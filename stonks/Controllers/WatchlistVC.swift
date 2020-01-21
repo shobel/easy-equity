@@ -8,7 +8,11 @@
 
 import UIKit
 
-class WatchlistVC: UIViewController {
+protocol Updateable {
+    func updateFromScheduledTask()
+}
+
+class WatchlistVC: UIViewController, Updateable {
     
     @IBOutlet weak var addTickerButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
@@ -38,7 +42,7 @@ class WatchlistVC: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        updateFinvizData()
+        //updateFinvizData()
         self.tableView.reloadData()
         if !watchlistManager.getWatchlist().isEmpty {
             watchlistUpdater = WatchlistUpdater(caller: self)
@@ -54,7 +58,7 @@ class WatchlistVC: UIViewController {
         var tickers:[String] = []
         for c in watchlistManager.getWatchlist(){
             if c.analystsRating == nil && c.isCompany{
-                tickers.append(c.ticker)
+                tickers.append(c.symbol)
             }
         }
         if !tickers.isEmpty {
@@ -65,7 +69,7 @@ class WatchlistVC: UIViewController {
     private func handleFinvizResponse(data: [String:[String:Any?]]){
         for c in watchlistManager.getWatchlist(){
             if let ticker = data.keys.first {
-                if ticker == c.ticker {
+                if ticker == c.symbol {
                     c.analystsRating = data[ticker]!["ratings"] as? AnalystsRating
                     
                     let earningsDateString = data[ticker]!["Earnings"] as? String
@@ -88,10 +92,10 @@ class WatchlistVC: UIViewController {
                 }
             }
         }
-        update()
+        updateFromScheduledTask()
     }
     
-    public func update(){
+    public func updateFromScheduledTask(){
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

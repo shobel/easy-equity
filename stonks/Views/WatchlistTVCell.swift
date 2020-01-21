@@ -29,7 +29,7 @@ class WatchlistTVCell: UITableViewCell {
     }
     
     public func displayData(company: Company){
-        ticker.text = company.ticker
+        ticker.text = company.symbol
         fullName.text = company.fullName
         
         currentPrice.text = String(format: "%.2f", company.quote?.latestPrice ?? "--")
@@ -50,18 +50,21 @@ class WatchlistTVCell: UITableViewCell {
         }
         
         if let quote = company.quote {
-            if quote.isLive {
+            if quote.isUSMarketOpen! {
                 afterPriceChange.isHidden = true
                 afterPercentChange.isHidden = true
-            } else {
+            } else if (quote.extendedPrice != nil && quote.extendedChangePercent != nil){
                 afterPriceChange.isHidden = false
                 afterPercentChange.isHidden = false
                 var prefix = "After:"
                 if isPremarket() {
                     prefix = "Pre:"
                 }
-                afterPriceChange.setValue(value: quote.extendedPrice - quote.latestPrice, isPercent: false, prefix: prefix)
-                afterPercentChange.setValue(value: quote.extendedChangePercent, isPercent: true, prefix: prefix)
+                afterPriceChange.setValue(value: quote.extendedPrice! - quote.latestPrice!, isPercent: false, prefix: prefix)
+                afterPercentChange.setValue(value: quote.extendedChangePercent!, isPercent: true, prefix: prefix)
+            } else {
+                afterPriceChange.isHidden = true
+                afterPercentChange.isHidden = true
             }
         }
     }

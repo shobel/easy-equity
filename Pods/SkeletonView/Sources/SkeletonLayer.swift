@@ -8,22 +8,6 @@
 
 import UIKit
 
-class SkeletonLayerFactory {
-    
-    func makeSkeletonLayer(withType type: SkeletonType, usingColors colors: [UIColor], andHolder holder: UIView) -> SkeletonLayer {
-        return SkeletonLayer(withType: type, usingColors: colors, andSkeletonHolder: holder)
-    }
-    
-    func makeMultilineLayer(withType type: SkeletonType, for index: Int, width: CGFloat) -> CALayer {
-        let spaceRequiredForEachLine = SkeletonDefaultConfig.multilineHeight + SkeletonDefaultConfig.multilineSpacing
-        let layer = type.layer
-        layer.anchorPoint = .zero
-        layer.name = CALayer.skeletonSubLayersName
-        layer.frame = CGRect(x: 0.0, y: CGFloat(index) * spaceRequiredForEachLine, width: width, height: SkeletonDefaultConfig.multilineHeight)
-        return layer
-    }
-}
-
 public typealias SkeletonLayerAnimation = (CALayer) -> CAAnimation
 
 public enum SkeletonType {
@@ -50,7 +34,6 @@ public enum SkeletonType {
 }
 
 struct SkeletonLayer {
-    
     private var maskLayer: CALayer
     private weak var holder: UIView?
     
@@ -62,7 +45,7 @@ struct SkeletonLayer {
         return maskLayer
     }
     
-    init(withType type: SkeletonType, usingColors colors: [UIColor], andSkeletonHolder holder: UIView) {
+    init(type: SkeletonType, colors: [UIColor], skeletonHolder holder: UIView) {
         self.holder = holder
         self.maskLayer = type.layer
         self.maskLayer.anchorPoint = .zero
@@ -71,21 +54,46 @@ struct SkeletonLayer {
         self.maskLayer.tint(withColors: colors)
     }
     
-    func removeLayer() {
-        maskLayer.removeFromSuperlayer()
+    func update(usingColors colors: [UIColor]) {
+        layoutIfNeeded()
+        maskLayer.tint(withColors: colors)
+    }
+
+    func layoutIfNeeded() {
+        if let bounds = holder?.maxBoundsEstimated {
+            maskLayer.bounds = bounds
+        }
+        updateMultilinesIfNeeded()
+    }
+    
+    func removeLayer(transition: SkeletonTransitionStyle, completion: (() -> Void)? = nil) {
+        switch transition {
+        case .none:
+            maskLayer.removeFromSuperlayer()
+            completion?()
+        case .crossDissolve(let duration):
+			maskLayer.setOpacity(from: 1, to: 0, duration: duration) {
+				self.maskLayer.removeFromSuperlayer()
+				completion?()
+			}
+        }
     }
     
     func addMultilinesIfNeeded() {
         guard let multiLineView = holder as? ContainsMultilineText else { return }
-        maskLayer.addMultilinesLayers(lines: multiLineView.numLines, type: type, lastLineFillPercent: multiLineView.lastLineFillingPercent)
+        maskLayer.addMultilinesLayers(lines: multiLineView.numLines, type: type, lastLineFillPercent: multiLineView.lastLineFillingPercent, multilineCornerRadius: multiLineView.multilineCornerRadius)
+    }
+
+    func updateMultilinesIfNeeded() {
+        guard let multiLineView = holder as? ContainsMultilineText else { return }
+        maskLayer.updateMultilinesLayers(lastLineFillPercent: multiLineView.lastLineFillingPercent)
     }
 }
 
 extension SkeletonLayer {
-
-    func start(_ anim: SkeletonLayerAnimation? = nil) {
+    func start(_ anim: SkeletonLayerAnimation? = nil, completion: (() -> Void)? = nil) {
         let animation = anim ?? type.layerAnimation
-        contentLayer.playAnimation(animation, key: "skeletonAnimation")
+        contentLayer.playAnimation(animation, key: "skeletonAnimation", completion: completion)
     }
     
     func stopAnimation() {
