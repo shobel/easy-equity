@@ -11,11 +11,13 @@ import Foundation
 class StockAPIManager {
     
     public static let shared = StockAPIManager()
+    private static let iex = IEXTrading()
+    private static let alpha = AlphaVantage()
     
     public var stockDataApiInstance: StockDataApiProtocol {
         switch (Configuration.stockDataResource) {
         case Configuration.StockDataApiTypes.IEXTrading:
-            return IEXTrading()
+            return StockAPIManager.iex
         }
     }
     

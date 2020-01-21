@@ -3,26 +3,48 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "ChartFormatter.stringForValue(_:axis:):ChartFormatter.swift">
+         contextName = "PriceChartFormatter.setActiveLabels(_:):PriceChartFormatter.swift">
+      </ContextState>
+      <ContextState
+         contextName = "StockDetailsVC.loadVolumeChart():StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "xAxisLabels">
+               value = "self.volumeChartFormatter">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CompanySearchTVC.tableView(_:didSelectRowAt:):CompanySearchTVC.swift">
+         contextName = "String.shortDateUS.getter:NumberFormatter.swift">
          <PersistentStrings>
             <PersistentString
-               value = "Dataholder.watchlistManager">
+               value = "shortDateUS.dateFormat">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in IEXTrading.getChart(ticker:timeInterval:completionHandler:):IEXTrading.swift">
+         contextName = "StockDetailsVC.handleNews(news:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "json[i]">
+               value = "self.newsVC">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "KeyStatsViewController.updateData():KeyStatsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "volume">
+            </PersistentString>
+            <PersistentString
+               value = "volume.setValue()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in IEXTrading.getEstimates(ticker:completionHandler:):IEXTrading.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "json[ticker][&quot;estimates&quot;][&quot;estimates&quot;][0].rawString()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -30,42 +52,44 @@
          contextName = "StockDetailsVC.viewDidLoad():StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "company">
+               value = "chartView.frame.size.height">
+            </PersistentString>
+            <PersistentString
+               value = "latestQuote">
+            </PersistentString>
+            <PersistentString
+               value = "self.view.frame.height">
+            </PersistentString>
+            <PersistentString
+               value = "chartViewWrapper.frame.height">
+            </PersistentString>
+            <PersistentString
+               value = "self.navigationController?.view.bounds.height">
+            </PersistentString>
+            <PersistentString
+               value = "scrollView.frame.height">
+            </PersistentString>
+            <PersistentString
+               value = "innerSroll.frame.height">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "StockDetailsVC.OneMonthButtonPressed(_:):StockDetailsVC.swift">
+         contextName = "static NumberFormatter.timeStringToMilitaryDate(_:):NumberFormatter.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sender as! UIButton">
+               value = "dateFormatter.date(from: timeString)!">
+            </PersistentString>
+            <PersistentString
+               value = "dateFormatter.timeZone">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in FinvizAPI.getAnalystsRatings(forTickers:completionHandler:):FinvizAPI.swift">
+         contextName = "closure #1 in IEXTrading.getEarnings(ticker:completionHandler:):IEXTrading.swift">
          <PersistentStrings>
             <PersistentString
-               value = "elements.first()">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "WatchlistTVC.handleFinvizResponse(data:):WatchlistTVC.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "data.keys.first">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in FinvizAPI.getData(forTickers:completionHandler:):FinvizAPI.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "queryURL">
-            </PersistentString>
-            <PersistentString
-               value = "rating">
+               value = "jsonEarnings.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -73,174 +97,151 @@
          contextName = "closure #1 in IEXTrading.getQuotes(tickers:completionHandler:):IEXTrading.swift">
          <PersistentStrings>
             <PersistentString
-               value = "json[ticker][&quot;quote&quot;][&quot;latestPrice&quot;].double!">
-            </PersistentString>
-            <PersistentString
-               value = "json[ticker][&quot;quote&quot;][&quot;symbol&quot;].string!">
-            </PersistentString>
-            <PersistentString
-               value = "json[ticker][&quot;quote&quot;][&quot;latestTime&quot;].string!">
+               value = "json[ticker][&quot;quote&quot;][&quot;symbol&quot;].rawString">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "WatchlistTVC.viewDidLoad():WatchlistTVC.swift">
+         contextName = "CustomCombinedChartView.updateChart():CustomCombinedChartView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in IEXTrading.getFinancials(ticker:completionHandler:):IEXTrading.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.refreshControl">
+               value = "json[ticker][&quot;financials&quot;]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in IEXTrading.getChart(timeInterval:):IEXTrading.swift">
+         contextName = "VolumeChartFormatter.addAxisLabel(_:):VolumeChartFormatter.swift">
          <PersistentStrings>
             <PersistentString
-               value = "json.count">
+               value = "self.axisLabels">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "Company.daysToER.getter:Company.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in IEXTrading.listCompanies(completionHandler:):IEXTrading.swift">
+         contextName = "closure #1 in IEXTrading.getCompanyGeneralInfo(ticker:completionHandler:):IEXTrading.swift">
          <PersistentStrings>
             <PersistentString
-               value = "print(json)">
+               value = "json[ticker][&quot;logo&quot;][&quot;url&quot;].string">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CompanySearchTVC.searchBarCancelButtonClicked(_:):CompanySearchTVC.swift">
+         contextName = "closure #1 in PredictionsViewController.updateData():PredictionsViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.navigationController">
+               value = "self.company.advancedStats">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "FinvizAPI.getRatings(doc:):FinvizAPI.swift">
+         contextName = "closure #1 in IEXTrading.getNews(ticker:completionHandler:):IEXTrading.swift">
          <PersistentStrings>
             <PersistentString
-               value = "t">
-            </PersistentString>
-            <PersistentString
-               value = "analystRating.overallScore">
+               value = "jsonNews.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "WatchlistTVC.setupRefreshControl():WatchlistTVC.swift">
+         contextName = "IEXTrading.listCompanies():IEXTrading.swift">
          <PersistentStrings>
             <PersistentString
-               value = "Bundle.main.path(forResource: &quot;goat-loader&quot;, withExtension: nil)">
+               value = "listURL">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "WatchlistTVC.prepare(for:sender:):WatchlistTVC.swift">
+         contextName = "Company.getQuarterlyData(_:):Company.swift">
          <PersistentStrings>
             <PersistentString
-               value = "StockAPIManager.shared">
+               value = "self.monthlyData">
             </PersistentString>
             <PersistentString
-               value = "segue.destination">
+               value = "self.dailyData">
+            </PersistentString>
+            <PersistentString
+               value = "candle.datettime?.split(separator: &quot;-&quot;)[1]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "StockDetailsVC.chartModeButtonPressed(_:):StockDetailsVC.swift">
+         contextName = "StockDetailsVC.TwentyYearButtonPressed(_:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "chartTypeButton.image">
-            </PersistentString>
-            <PersistentString
-               value = "chartTypeButton.imageView?.image">
+               value = "chartData">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CompanySearchTVC.tableView(_:numberOfRowsInSection:):CompanySearchTVC.swift">
+         contextName = "closure #1 in AlphaVantage.getDailyChart(ticker:timeInterval:completionHandler:):AlphaVantage.swift">
          <PersistentStrings>
             <PersistentString
-               value = "searchResults">
+               value = "dict[&quot;1. open&quot;].string">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "FinvizAPI.getKeyStats(doc:):FinvizAPI.swift">
+         contextName = "closure #4 in CustomCombinedChartView.updateChart():CustomCombinedChartView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "cell.text()">
+               value = "self.lineChartData">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "IEXTrading.formatDate(_:):IEXTrading.swift">
+         contextName = "PriceChartFormatter.stringForValue(_:axis:):PriceChartFormatter.swift">
          <PersistentStrings>
             <PersistentString
-               value = "dateFormatter.string(from: date)">
-            </PersistentString>
-            <PersistentString
-               value = "dateFormatter.dateFormat">
+               value = "xAxisLabels[Int(value)]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "AppDelegate.application(_:didFinishLaunchingWithOptions:):AppDelegate.swift">
+         contextName = "GeneralInfoViewController.updateData():GeneralInfoViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.numUpdated">
+               value = "Dataholder.watchlistManager">
             </PersistentString>
             <PersistentString
-               value = "self.watchListSize">
+               value = "self.company.generalInfo?.sector">
+            </PersistentString>
+            <PersistentString
+               value = "sector">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "PriceChartFormatter.addXAxisLabel(_:):PriceChartFormatter.swift">
       </ContextState>
       <ContextState
          contextName = "StockDetailsVC.chartValueSelected(_:entry:highlight:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "markerView.bounds.width">
-            </PersistentString>
-            <PersistentString
-               value = "chartView.bounds.width">
+               value = "chartData.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CompanySearchTVC.searchBar(_:textDidChange:):CompanySearchTVC.swift">
+         contextName = "Company.setMinuteData(_:):Company.swift">
          <PersistentStrings>
             <PersistentString
-               value = "searchResults">
+               value = "dateFormatter.date(from: entry.datetime!)">
             </PersistentString>
             <PersistentString
-               value = "Dataholder.allTickers">
+               value = "dataSet.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ColoredLabel.draw(_:):ColoredLabel.swift">
+         contextName = "VolumeChartFormatter.stringForValue(_:axis:):VolumeChartFormatter.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.text">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "RatingLabel.commonInit():RatingLabel.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in IEXTrading.getQuotes(tickers:):IEXTrading.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "json[&quot;FB&quot;][&quot;quote&quot;][&quot;latestPrice&quot;].double">
+               value = "axisLabels.max()">
             </PersistentString>
             <PersistentString
-               value = "json[0]">
-            </PersistentString>
-            <PersistentString
-               value = "json.rawDictionary">
+               value = "self.axisLabels">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

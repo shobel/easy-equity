@@ -29,13 +29,16 @@ class LaunchVC: UIViewController {
         
         watchlistManager = Dataholder.watchlistManager
         numTotal = 0
-        for c in watchlistManager.getWatchlist() {
-            if c.isCompany {
-                numTotal += 1
-            }
-        }
+//        for c in watchlistManager.getWatchlist() {
+//            if c.isCompany {
+//                numTotal += 1
+//            }
+//        }
+        
+        //added line below to perform segue
+        self.addProgress()
         finvizAPI = FinvizAPI()
-        finvizAPI.getData(forTickers: watchlistManager.getTickers(companiesOnly: true), completionHandler: handleFinvizResponse)
+        //finvizAPI.getData(forTickers: watchlistManager.getTickers(companiesOnly: true), completionHandler: handleFinvizResponse)
     }
     
     func addProgress(){
@@ -53,7 +56,7 @@ class LaunchVC: UIViewController {
     func handleFinvizResponse(data: [String:[String:Any?]]){
         for c in watchlistManager.getWatchlist(){
             if let ticker = data.keys.first {
-                if ticker == c.ticker {
+                if ticker == c.symbol {
                     c.analystsRating = data[ticker]!["ratings"] as? AnalystsRating
                     
                     let earningsDateString = data[ticker]!["Earnings"] as? String

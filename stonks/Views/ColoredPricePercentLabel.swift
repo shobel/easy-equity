@@ -42,7 +42,7 @@ class ColoredPricePercentLabel: UILabel {
     
     public func setPriceChange(price: Double, percent: Double){
         self.change = price
-        self.changePercent = abs(percent)
+        self.changePercent = abs(percent) * 100
         
         self.textColor = getColor(value: change)
         self.text = getFormattedString()

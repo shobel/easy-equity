@@ -10,18 +10,20 @@ import UIKit
 
 extension CALayer {
     @objc func tint(withColors colors: [UIColor]) {
-        recursiveSearch(inArray: skeletonSublayers,
-                        leafBlock: { backgroundColor = colors.first?.cgColor }) {
-                            $0.tint(withColors: colors)
+        skeletonSublayers.recursiveSearch(leafBlock: {
+            backgroundColor = colors.first?.cgColor
+        }) {
+            $0.tint(withColors: colors)
         }
     }
 }
 
 extension CAGradientLayer {
     override func tint(withColors colors: [UIColor]) {
-        recursiveSearch(inArray: skeletonSublayers,
-                        leafBlock: { self.colors = colors.map { $0.cgColor } }) {
-                            $0.tint(withColors: colors)
+        skeletonSublayers.recursiveSearch(leafBlock: {
+            self.colors = colors.map { $0.cgColor }
+        }) {
+            $0.tint(withColors: colors)
         }
     }
 }
@@ -29,29 +31,59 @@ extension CAGradientLayer {
 
 // MARK: Skeleton sublayers
 extension CALayer {
-    
     static let skeletonSubLayersName = "SkeletonSubLayersName"
 
     var skeletonSublayers: [CALayer] {
         return sublayers?.filter { $0.name == CALayer.skeletonSubLayersName } ?? [CALayer]()
     }
     
-    func addMultilinesLayers(lines: Int, type: SkeletonType, lastLineFillPercent: Int) {
+    func addMultilinesLayers(lines: Int, type: SkeletonType, lastLineFillPercent: Int, multilineCornerRadius: Int) {
         let numberOfSublayers = calculateNumLines(maxLines: lines)
-        for index in 0..<numberOfSublayers {
-            var width = bounds.width
-            
-            if index == numberOfSublayers-1 && numberOfSublayers != 1 {
-                width = width * CGFloat(lastLineFillPercent)/100;
+
+        let layerBuilder = SkeletonMultilineLayerBuilder()
+            .setSkeletonType(type)
+            .setCornerRadius(multilineCornerRadius)
+
+        (0..<numberOfSublayers).forEach { index in
+            var width = getLineWidth(index: index, numberOfSublayers: numberOfSublayers, lastLineFillPercent: lastLineFillPercent)
+            if index == numberOfSublayers - 1 && numberOfSublayers != 1 {
+                width = width * CGFloat(lastLineFillPercent) / 100;
             }
-            
-            let layer = SkeletonLayerFactory().makeMultilineLayer(withType: type, for: index, width: width)
-            addSublayer(layer)
+
+            if let layer = layerBuilder
+                .setIndex(index)
+                .setWidth(width)
+                .build() {
+                addSublayer(layer)
+            }
         }
     }
     
+    func updateMultilinesLayers(lastLineFillPercent: Int) {
+        let currentSkeletonSublayers = skeletonSublayers
+        let numberOfSublayers = currentSkeletonSublayers.count
+        for (index, layer) in currentSkeletonSublayers.enumerated() {
+            let width = getLineWidth(index: index, numberOfSublayers: numberOfSublayers, lastLineFillPercent: lastLineFillPercent)
+            layer.updateLayerFrame(for: index, width: width)
+        }
+    }
+
+    private func getLineWidth(index: Int, numberOfSublayers: Int, lastLineFillPercent: Int) -> CGFloat {
+        var width = bounds.width
+        if index == numberOfSublayers - 1 && numberOfSublayers != 1 {
+            width = width * CGFloat(lastLineFillPercent) / 100;
+        }
+
+        return width
+    }
+
+    func updateLayerFrame(for index: Int, width: CGFloat) {
+        let spaceRequiredForEachLine = SkeletonAppearance.default.multilineHeight + SkeletonAppearance.default.multilineSpacing
+        frame = CGRect(x: 0.0, y: CGFloat(index) * spaceRequiredForEachLine, width: width, height: SkeletonAppearance.default.multilineHeight)
+    }
+
     private func calculateNumLines(maxLines: Int) -> Int {
-        let spaceRequitedForEachLine = SkeletonDefaultConfig.multilineHeight + SkeletonDefaultConfig.multilineSpacing
+        let spaceRequitedForEachLine = SkeletonAppearance.default.multilineHeight + SkeletonAppearance.default.multilineSpacing
         var numberOfSublayers = Int(round(CGFloat(bounds.height)/CGFloat(spaceRequitedForEachLine)))
         if maxLines != 0,  maxLines <= numberOfSublayers { numberOfSublayers = maxLines }
         return numberOfSublayers
@@ -60,7 +92,6 @@ extension CALayer {
 
 // MARK: Animations
 public extension CALayer {
-
     var pulse: CAAnimation {
         let pulseAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.backgroundColor))
         pulseAnimation.fromValue = backgroundColor
@@ -86,21 +117,40 @@ public extension CALayer {
         animGroup.duration = 1.5
         animGroup.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
         animGroup.repeatCount = .infinity
-        
+    
         return animGroup
     }
     
-    func playAnimation(_ anim: SkeletonLayerAnimation, key: String) {
-        recursiveSearch(inArray: skeletonSublayers,
-                        leafBlock: { add(anim(self), forKey: key) }) {
-                            $0.playAnimation(anim, key: key)
+    func playAnimation(_ anim: SkeletonLayerAnimation, key: String, completion: (() -> Void)? = nil) {
+        skeletonSublayers.recursiveSearch(leafBlock: {
+            DispatchQueue.main.async { CATransaction.begin() }
+            DispatchQueue.main.async { CATransaction.setCompletionBlock(completion) }
+            add(anim(self), forKey: key)
+            DispatchQueue.main.async { CATransaction.commit() }
+        }) {
+            $0.playAnimation(anim, key: key, completion: completion)
         }
     }
     
     func stopAnimation(forKey key: String) {
-        recursiveSearch(inArray: skeletonSublayers,
-                        leafBlock: { removeAnimation(forKey: key) }) {
-                            $0.stopAnimation(forKey: key)
+        skeletonSublayers.recursiveSearch(leafBlock: {
+            removeAnimation(forKey: key)
+        }) {
+            $0.stopAnimation(forKey: key)
         }
     }
+}
+
+extension CALayer {
+	func setOpacity(from: Int, to: Int, duration: TimeInterval, completion: (() -> Void)?) {
+        DispatchQueue.main.async { CATransaction.begin() }
+		let animation = CABasicAnimation(keyPath: #keyPath(CALayer.opacity))
+		animation.fromValue = from
+		animation.toValue = to
+		animation.duration = duration
+		animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        DispatchQueue.main.async { CATransaction.setCompletionBlock(completion) }
+		add(animation, forKey: "setOpacityAnimation")
+        DispatchQueue.main.async { CATransaction.commit() }
+	}
 }

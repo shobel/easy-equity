@@ -63,7 +63,7 @@ class CompanySearchTVC: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "companySearchCell", for: indexPath)
 
         let company = searchResults[indexPath.row]
-        cell.textLabel?.text = searchResults[indexPath.row].ticker
+        cell.textLabel?.text = searchResults[indexPath.row].symbol
         cell.detailTextLabel?.text = company.fullName
 
         return cell
@@ -78,7 +78,7 @@ class CompanySearchTVC: UITableViewController {
             searchResults = []
         } else {
             searchResults = Dataholder.allTickers.filter {
-                $0.ticker.lowercased().starts(with: searchText.lowercased()) ||
+                $0.symbol.lowercased().starts(with: searchText.lowercased()) ||
                 $0.fullName.lowercased().starts(with: searchText.lowercased())
             }
         }
