@@ -123,7 +123,7 @@ class CustomCombinedChartView: CombinedChartView {
             return BarChartDataEntry(x: Double(index), y: candle.volume!)
         }
         let set2 = BarChartDataSet(entries: yVals2, label: "Volume")
-        set2.setColor(Constants.blue)
+        set2.setColor(Constants.orange)
         
         let candleCount = self.myCandleDataTenMin!.count
         if let x = self.myCandleDataTenMin {

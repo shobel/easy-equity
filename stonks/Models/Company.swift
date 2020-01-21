@@ -58,8 +58,8 @@ class Company: Equatable, Comparable {
         self.isCompany = isCompany
     }
     
-    //will fill in missing minutes as well
-    public func setMinuteData(_ dataSet: [Candle]) {
+    //will fill in missing minutes as needed
+    public func setMinuteData(_ dataSet: [Candle], open: Bool) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
         let startTime = "9:30 AM"
@@ -91,15 +91,17 @@ class Company: Equatable, Comparable {
             }
             prevCandle = entry
         }
-        let numToAdd = 391 - returnDataSet.count
-        let lastEntry = returnDataSet[returnDataSet.count - 1]
-        for x in 0..<numToAdd {
-            let prevDate = NumberFormatter.timeStringToDate(lastEntry.datetime!)
-            let calendar = Calendar.current
-            let newDate = calendar.date(byAdding: .minute, value: (x+1), to: prevDate)!
-            let newDateString = dateFormatter.string(from: newDate)
-            let newCandle = Candle(datetime: newDateString, volume: 0, high: lastEntry.close!, low: lastEntry.close!, open: lastEntry.close!, close: lastEntry.close!)
-            returnDataSet.append(newCandle)
+        if !open {
+            let numToAdd = 391 - returnDataSet.count
+            let lastEntry = returnDataSet[returnDataSet.count - 1]
+            for x in 0..<numToAdd {
+                let prevDate = NumberFormatter.timeStringToDate(lastEntry.datetime!)
+                let calendar = Calendar.current
+                let newDate = calendar.date(byAdding: .minute, value: (x+1), to: prevDate)!
+                let newDateString = dateFormatter.string(from: newDate)
+                let newCandle = Candle(datetime: newDateString, volume: 0, high: lastEntry.close!, low: lastEntry.close!, open: lastEntry.close!, close: lastEntry.close!)
+                returnDataSet.append(newCandle)
+            }
         }
         self.minuteData = returnDataSet
     }

@@ -11,8 +11,8 @@ import UIKit
 
 struct Constants{
 
-    public static var demo = true
-    public static var unlocked = false
+    public static var demo = false
+    public static var locked = true
     
     public static var restorationIDs = (details: "companyDetails", watchlist: "watchlist", search: "companySearch")
     
@@ -34,9 +34,10 @@ struct Constants{
     public static var purple = UIColor(red: 199.0/255.0, green: 0.0/255.0, blue: 172.0/255.0, alpha: 1.0)
     public static var green = UIColor(red: 9.0/255.0, green: 196.0/255.0, blue: 122.0/255.0, alpha: 1.0)
     public static var yellow = UIColor(red: 255.0/255.0, green: 202.0/255.0, blue: 39.0/255.0, alpha: 1.0)
-    public static var blue = UIColor(red: 30.0/255.0, green: 144.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+    public static var blue = UIColor(red: 0.0/255.0, green: 230.0/255.0, blue: 255.0/255.0, alpha: 1.0)
 
-    public static var lightGreen = UIColor(red: 115.0/255.0, green: 255.0/255.0, blue: 180.0/255.0, alpha: 1.0)
+    public static var lightGreen = UIColor(red: 115.0/255.0, green: 255.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+    public static var orange = UIColor(red: 255.0/255.0, green: 196.0/255.0, blue: 0.0/255.0, alpha: 1.0)
     public static var lightOrange = UIColor(red: 255.0/255.0, green: 240.0/255.0, blue: 183.0/255.0, alpha: 1.0)
     public static var darkGrey = UIColor(red: 67.0/255.0, green: 67.0/255.0, blue: 67.0/255.0, alpha: 1.0)
     

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol Updateable {
-    func updateFromScheduledTask()
+    func updateFromScheduledTask(_ data:Any?)
 }
 
 class WatchlistVC: UIViewController, Updateable {
@@ -92,10 +92,10 @@ class WatchlistVC: UIViewController, Updateable {
                 }
             }
         }
-        updateFromScheduledTask()
+        updateFromScheduledTask(nil)
     }
     
-    public func updateFromScheduledTask(){
+    public func updateFromScheduledTask(_ data:Any?){
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

@@ -68,9 +68,8 @@ class WatchlistUpdater: StockDataTask {
                     }
                 }
                 self.watchlistManager.sortWatchlist()
-                self.caller.updateFromScheduledTask()
+                self.caller.updateFromScheduledTask(nil)
             })
         }
     }
-    
 }

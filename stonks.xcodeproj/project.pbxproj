@@ -67,6 +67,7 @@
 		1CD11948216EAD2E000AE02E /* RatingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11947216EAD2E000AE02E /* RatingLabel.swift */; };
 		1CD1194A216F35C3000AE02E /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11949216F35C3000AE02E /* MarkerView.swift */; };
 		1CDA114C232B5C810028D00C /* FormattedNumberLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDA114B232B5C810028D00C /* FormattedNumberLabel.swift */; };
+		1CE755B823D7616900E77D6C /* StockUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE755B723D7616900E77D6C /* StockUpdater.swift */; };
 		1CFFAA0B2170337400D3E768 /* AnalystsRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFFAA0A2170337400D3E768 /* AnalystsRating.swift */; };
 		3190B5951A804D1D76815360 /* Pods_stonks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 851E076FA06779BF9AEB98FC /* Pods_stonks.framework */; };
 /* End PBXBuildFile section */
@@ -156,6 +157,7 @@
 		1CD11947216EAD2E000AE02E /* RatingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingLabel.swift; sourceTree = "<group>"; };
 		1CD11949216F35C3000AE02E /* MarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
 		1CDA114B232B5C810028D00C /* FormattedNumberLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormattedNumberLabel.swift; sourceTree = "<group>"; };
+		1CE755B723D7616900E77D6C /* StockUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockUpdater.swift; sourceTree = "<group>"; };
 		1CFFAA0A2170337400D3E768 /* AnalystsRating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalystsRating.swift; sourceTree = "<group>"; };
 		5265415BD1DB5B226DB13419 /* Pods-stonks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stonks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-stonks/Pods-stonks.debug.xcconfig"; sourceTree = "<group>"; };
 		851E076FA06779BF9AEB98FC /* Pods_stonks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_stonks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -346,6 +348,7 @@
 				1C7B9876215EEDE100C75014 /* StockAPIManager.swift */,
 				1C545212216AF6400064239E /* WatchlistUpdater.swift */,
 				1CB257242172C292008E3D4D /* WatchlistManager.swift */,
+				1CE755B723D7616900E77D6C /* StockUpdater.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 				1C6936B921CDCE9000E3FDC9 /* NumberFormatter.swift in Sources */,
 				1CD11946216DE401000AE02E /* ColoredPricePercentLabel.swift in Sources */,
 				1C6FF9852328E6FE005AE40D /* IconPagingCell.swift in Sources */,
+				1CE755B823D7616900E77D6C /* StockUpdater.swift in Sources */,
 				1CB3D618231D9A5600D6F57C /* Earnings.swift in Sources */,
 				1CD11948216EAD2E000AE02E /* RatingLabel.swift in Sources */,
 				1CB3D620231DBE5A00D6F57C /* PriceTarget.swift in Sources */,
@@ -799,7 +803,10 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\"",
 				);
 				INFOPLIST_FILE = stonks/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = shobel.stonks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -815,7 +822,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BDZT3U3R7D;
 				INFOPLIST_FILE = stonks/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = shobel.stonks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -831,7 +841,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BDZT3U3R7D;
 				INFOPLIST_FILE = stonksTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = shobel.stonksTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -848,7 +862,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BDZT3U3R7D;
 				INFOPLIST_FILE = stonksTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = shobel.stonksTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -864,7 +882,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BDZT3U3R7D;
 				INFOPLIST_FILE = stonksUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = shobel.stonksUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -880,7 +902,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BDZT3U3R7D;
 				INFOPLIST_FILE = stonksUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = shobel.stonksUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
