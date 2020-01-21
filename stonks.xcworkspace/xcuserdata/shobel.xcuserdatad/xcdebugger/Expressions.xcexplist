@@ -64,13 +64,13 @@
                value = "chartViewWrapper.frame.height">
             </PersistentString>
             <PersistentString
-               value = "self.navigationController?.view.bounds.height">
+               value = "innerSroll.frame.height">
             </PersistentString>
             <PersistentString
                value = "scrollView.frame.height">
             </PersistentString>
             <PersistentString
-               value = "innerSroll.frame.height">
+               value = "self.navigationController?.view.bounds.height">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -214,6 +214,14 @@
       </ContextState>
       <ContextState
          contextName = "PriceChartFormatter.addXAxisLabel(_:):PriceChartFormatter.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in IEXTrading.getDailyChart(ticker:timeInterval:completionHandler:):IEXTrading.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "json[i]">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "StockDetailsVC.chartValueSelected(_:entry:highlight:):StockDetailsVC.swift">

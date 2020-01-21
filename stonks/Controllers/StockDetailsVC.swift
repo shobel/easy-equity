@@ -12,7 +12,7 @@ import Parchment
 import MaterialActivityIndicator
 import RSLoadingView
 
-class StockDetailsVC: DemoBaseViewController {
+class StockDetailsVC: DemoBaseViewController, Updateable {
 
     @IBOutlet weak var stockDetailsNavView: StockDetailsNavView!
     @IBOutlet weak var priceDetailsView: StockDetailsSummaryView!
@@ -36,6 +36,7 @@ class StockDetailsVC: DemoBaseViewController {
     
     private var company:Company!
     private var latestQuote:Quote!
+    private var isMarketOpen:Bool = true
     private var priceChartFormatter:PriceChartFormatter!
     private var volumeChartFormatter:VolumeChartFormatter!
     
@@ -59,6 +60,8 @@ class StockDetailsVC: DemoBaseViewController {
     private var predictionsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PredictionsVC")
     private var companyVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "InfoVC")
     
+    private var stockUpdater:StockUpdater?
+    
     fileprivate let icons = [
         "stats",
         "news",
@@ -76,6 +79,9 @@ class StockDetailsVC: DemoBaseViewController {
         company = Dataholder.watchlistManager.selectedCompany
         //let pageVC: StatsNewsPageViewController = self.children.first as! StatsNewsPageViewController
         //pageVC.pageDelegate = self
+        
+        self.stockUpdater = StockUpdater(caller: self, ticker: company.symbol)
+        self.stockUpdater?.startTask()
         
         self.pageVCList = [
             self.keyStatsVC, self.newsVC, self.advancedStatsVC, self.financialsVC, self.earningsVC, self.predictionsVC, self.companyVC
@@ -137,7 +143,7 @@ class StockDetailsVC: DemoBaseViewController {
         
         //start information retrieval processes
         StockAPIManager.shared.stockDataApiInstance.getCompanyGeneralInfo(ticker: company.symbol, completionHandler: handleCompanyData)
-        //if Constants.unlocked {
+        if !Constants.locked {
             StockAPIManager.shared.stockDataApiInstance.getKeyStats(ticker: company.symbol, completionHandler: handleKeyStats)
             StockAPIManager.shared.stockDataApiInstance.getAdvancedStats(ticker: company.symbol, completionHandler: handleAdvancedStats)
             StockAPIManager.shared.stockDataApiInstance.getNews(ticker: company.symbol, completionHandler: handleNews)
@@ -146,13 +152,12 @@ class StockDetailsVC: DemoBaseViewController {
             StockAPIManager.shared.stockDataApiInstance.getFinancials(ticker: company.symbol, completionHandler: handleFinancials)
             StockAPIManager.shared.stockDataApiInstance.getEstimates(ticker: company.symbol, completionHandler: handleEstimates)
             StockAPIManager.shared.stockDataApiInstance.getEarnings(ticker: company.symbol, completionHandler: handleEarnings)
-        //}
+        }
         
         self.alphaVantage.getDailyChart(ticker: company.symbol, timeInterval: Constants.TimeIntervals.twenty_year, completionHandler: handleDailyChartData)
         self.alphaVantage.getWeeklyChart(ticker: company.symbol, timeInterval: Constants.TimeIntervals.twenty_year, completionHandler: handleWeeklyChartData)
         self.alphaVantage.getMonthlyChart(ticker: company.symbol, timeInterval: Constants.TimeIntervals.twenty_year, completionHandler: handleMonthlyChartData)
         
-        StockAPIManager.shared.stockDataApiInstance.getDailyChart(ticker: company.symbol, timeInterval: .day, completionHandler: handleDayChartData)
         //StockAPIManager.shared.stockDataApiInstance.getDailyChart(ticker: company.symbol, timeInterval: .max, completionHandler: handleFullChartData)
         
         //setup chart buttons
@@ -162,9 +167,19 @@ class StockDetailsVC: DemoBaseViewController {
         timeInterval = Constants.TimeIntervals.day
     }
     
+    func updateFromScheduledTask(_ data:Any?) {
+        let quotes = data as! [Quote]
+        if (quotes.count > 0){
+            let quote = quotes[0]
+            self.isMarketOpen = quote.isUSMarketOpen!
+            StockAPIManager.shared.stockDataApiInstance.getDailyChart(ticker: company.symbol, timeInterval: .day, completionHandler: handleDayChartData)
+        }
+    }
+    
     private func incrementLoadingProgress(){
         self.handlersDone+=1
-        if (self.handlersDone >= self.totalHandlers){
+        let total = Constants.locked ? self.totalHandlers - 8 : self.totalHandlers
+        if (self.handlersDone >= total){
             DispatchQueue.main.async {
                 print("hiding view")
                 self.loadingView.hide()
@@ -228,7 +243,7 @@ class StockDetailsVC: DemoBaseViewController {
             //get most recent date from company.dailyData
             StockAPIManager.shared.stockDataApiInstance.getChartForDate(ticker: company.symbol, date: date, completionHandler: handleDayChartData(_:))
         } else {
-            company.setMinuteData(chartData)
+            company.setMinuteData(chartData, open: self.isMarketOpen)
             self.chartView.setChartData(chartData: company.minuteData)
             print("\(self.handlersDone) day chart done")
             self.incrementLoadingProgress()
