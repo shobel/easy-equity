@@ -171,8 +171,15 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         let quotes = data as! [Quote]
         if (quotes.count > 0){
             let quote = quotes[0]
+            self.latestQuote = quote
+            DispatchQueue.main.async {
+                self.setTopBarValues(startPrice: 0.0, endPrice: self.latestQuote.latestPrice!, selected: false)
+            }
             self.isMarketOpen = quote.isUSMarketOpen!
             StockAPIManager.shared.stockDataApiInstance.getDailyChart(ticker: company.symbol, timeInterval: .day, completionHandler: handleDayChartData)
+            if !self.isMarketOpen {
+                self.stockUpdater?.stopTask()
+            }
         }
     }
     
@@ -244,7 +251,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             StockAPIManager.shared.stockDataApiInstance.getChartForDate(ticker: company.symbol, date: date, completionHandler: handleDayChartData(_:))
         } else {
             company.setMinuteData(chartData, open: self.isMarketOpen)
-            self.chartView.setChartData(chartData: company.minuteData)
+            if self.timeInterval == Constants.TimeIntervals.day {
+                self.chartView.setChartData(chartData: company.minuteData)
+            }
             print("\(self.handlersDone) day chart done")
             self.incrementLoadingProgress()
         }

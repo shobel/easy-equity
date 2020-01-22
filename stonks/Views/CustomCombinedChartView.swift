@@ -52,7 +52,7 @@ class CustomCombinedChartView: CombinedChartView {
         self.xAxis.drawGridLinesEnabled = false
         self.xAxis.valueFormatter = priceChartFormatter
         
-        self.drawOrder = [DrawOrder.line.rawValue, DrawOrder.candle.rawValue]
+        self.drawOrder = [DrawOrder.line.rawValue, DrawOrder.candle.rawValue]        
     }
     
     public func getChartData(candleMode:Bool) -> [Candle]{

@@ -23,7 +23,7 @@ class AlphaVantage: HTTPRequest, StockDataApiProtocol {
         let params = [
             "symbol": ticker,
             "function": daily,
-            "outputsize": "full",
+            "outputsize": "compact",
             "apikey": apikey
         ]
         let queryURL = buildQuery(url: url, params: params)
