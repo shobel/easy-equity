@@ -21,38 +21,81 @@ class CustomCombinedChartView: CombinedChartView {
     
     private var candleChartData:CandleChartData = CandleChartData()
     private var lineChartData:LineChartDataSet = LineChartDataSet()
+    private var previousCloseLine:ScatterChartDataSet = ScatterChartDataSet()
     private var volumeChartData:BarChartData = BarChartData()
     private var volumeChartDataTenMin:BarChartData = BarChartData()
     
+    private var dayEntryCount = 391
+    
     public func setup(delegate: StockDetailsVC, volumeView: BarChartView){
-        self.volumeView = volumeView
-        self.volumeChartFormatter = volumeView.leftAxis.valueFormatter as? VolumeChartFormatter
         self.delegate = delegate
         self.stockDetailsDelegate = delegate
+        
+        self.volumeView = volumeView
+        //self.volumeChartFormatter = volumeView.leftAxis.val as! VolumeChartFormatter
+        self.volumeView.rightAxis.valueFormatter = VolumeChartFormatter()
+        self.volumeChartFormatter = volumeView.rightAxis.valueFormatter as? VolumeChartFormatter
+        self.volumeView.rightAxis.labelCount = 1
+        self.volumeView.rightAxis.forceLabelsEnabled = true
+        self.volumeView.rightAxis.drawBottomYLabelEntryEnabled = false
+        self.volumeView.rightAxis.drawAxisLineEnabled = false
+        self.volumeView.rightAxis.enabled = true
+        self.volumeView.rightAxis.drawGridLinesEnabled = false
+        self.volumeView.rightAxis.labelPosition = .insideChart
+        self.volumeView.rightAxis.drawLabelsEnabled = true
+        self.volumeView.leftAxis.enabled = false
+        self.volumeView.drawBordersEnabled = false
+        self.volumeView.xAxis.enabled = false
+        self.volumeView.minOffset = 0
+        self.volumeView.extraTopOffset = 10
+        self.volumeView.extraLeftOffset = 8
+        self.volumeView.extraRightOffset = 8
+        self.volumeView.rightAxis.labelFont = UIFont(name: "Charter", size: 10)!
+        self.volumeView.rightAxis.labelTextColor = UIColor.gray
         
         self.chartDescription?.enabled = false
         self.legend.enabled = false
         self.dragEnabled = true
         self.setScaleEnabled(false)
-        self.maxVisibleCount = 200
         self.pinchZoomEnabled = false
         self.doubleTapToZoomEnabled = false
         self.autoScaleMinMaxEnabled = true
         
-        self.leftAxis.labelFont = UIFont(name: "HelveticaNeue-Light", size: 10)!
+        self.leftAxis.labelFont = UIFont(name: "Charter", size: 12)!
+        self.leftAxis.labelTextColor = UIColor.gray
         self.leftAxis.spaceTop = 0.1
         self.leftAxis.spaceBottom = 0.1
-        //candleChartView.leftAxis.axisMinimum = 0
         self.leftAxis.drawGridLinesEnabled = false
-        
+        self.leftAxis.labelPosition = .insideChart
+        self.leftAxis.drawAxisLineEnabled = false
+        self.leftAxis.labelCount = 2
+        self.leftAxis.forceLabelsEnabled = true
+        let numFormatter = PriceChartPriceFormatter()
+        self.leftAxis.valueFormatter = numFormatter
+        self.leftAxis.enabled = true
         self.rightAxis.enabled = false
+//        self.rightAxis.labelFont = UIFont(name: "Charter", size: 10)!
+//        self.rightAxis.valueFormatter = VolumeChartFormatter()
+//        self.volumeChartFormatter = self.rightAxis.valueFormatter as? VolumeChartFormatter
+//        self.rightAxis.labelCount = 1
+//        self.rightAxis.forceLabelsEnabled = true
+//        self.rightAxis.drawBottomYLabelEntryEnabled = false
+//        self.rightAxis.drawGridLinesEnabled = false
+//        self.rightAxis.drawAxisLineEnabled = false
+//        self.rightAxis.labelPosition = .insideChart
+//        self.rightAxis.axisMinimum = 0
+        self.xAxis.enabled = false
         
-        self.xAxis.labelPosition = .bottom
-        self.xAxis.labelFont = UIFont(name: "HelveticaNeue-Light", size: 10)!
-        self.xAxis.drawGridLinesEnabled = false
-        self.xAxis.valueFormatter = priceChartFormatter
-        
-        self.drawOrder = [DrawOrder.line.rawValue, DrawOrder.candle.rawValue]
+        self.drawOrder = [DrawOrder.scatter.rawValue, DrawOrder.bar.rawValue, DrawOrder.line.rawValue, DrawOrder.candle.rawValue]
+    }
+    
+    public func hideAxisLabels(){
+        self.leftAxis.drawLabelsEnabled = false
+        self.volumeView.rightAxis.drawLabelsEnabled = false
+    }
+    public func showAxisLabels(){
+        self.volumeView.rightAxis.drawLabelsEnabled = true
+        self.leftAxis.drawLabelsEnabled = true
     }
     
     public func getChartData(candleMode:Bool) -> [Candle]{
@@ -112,7 +155,12 @@ class CustomCombinedChartView: CombinedChartView {
         set1.drawValuesEnabled = false
         
         volumeChartFormatter.resetAxisLabels()
-
+        
+        let maxPrice = set1.yMax
+        let minPrice = set1.yMin
+        let range = maxPrice - minPrice
+        let volumeRange = maxPrice - (minPrice + (0.2*range))
+        
         //minute volume data
         let volumeCount = self.myCandleData!.count
         let yVals2 = self.myCandleData!.enumerated().map { (index: Int, candle:Candle) -> BarChartDataEntry in
@@ -122,20 +170,45 @@ class CustomCombinedChartView: CombinedChartView {
             }
             return BarChartDataEntry(x: Double(index), y: candle.volume!)
         }
-        let set2 = BarChartDataSet(entries: yVals2, label: "Volume")
+        var set2 = BarChartDataSet(entries: yVals2)
+        let volumeMax = set2.yMax
+        //transform yVals2 into values that fit into price chart
+        let transformedYVals = self.myCandleData!.enumerated().map { (index: Int, candle:Candle) -> BarChartDataEntry in
+            if day && (volumeCount < 391 && index == volumeCount-1) {
+                return BarChartDataEntry(x: Double(391), y: 0)
+            }
+            let volPercent = candle.volume! / volumeMax
+            let transformedVol = minPrice + (volPercent * volumeRange)
+            return BarChartDataEntry(x: Double(index), y: transformedVol)
+        }
+        set2 = BarChartDataSet(entries: transformedYVals)
+        set1.axisDependency = .right
         set2.setColor(Constants.orange)
         
         let candleCount = self.myCandleDataTenMin!.count
         if let x = self.myCandleDataTenMin {
             let yVals3 = x.enumerated().map { (index: Int, candle:Candle) -> BarChartDataEntry in
-                volumeChartFormatter.addAxisLabel(candle.volume!)
                 if day && (candleCount < 39 && index == candleCount-1) {
                     return BarChartDataEntry(x: Double(40), y: 0)
                 }
                 return BarChartDataEntry(x: Double(index), y: candle.volume!)
             }
-            let set3 = BarChartDataSet(entries: yVals3, label: "Volume")
-            set3.setColor(Constants.blue)
+            var set3 = BarChartDataSet(entries: yVals3)
+            let volumeMax2 = set3.yMax
+            
+            //transform yVals3 into values that fit into price chart
+            let transformedYVals2 = x.enumerated().map { (index: Int, candle:Candle) -> BarChartDataEntry in
+                if day && (volumeCount < 391 && index == volumeCount-1) {
+                    return BarChartDataEntry(x: Double(391), y: 0)
+                }
+                let volPercent = candle.volume! / volumeMax2
+                let transformedVol = minPrice + (volPercent * volumeRange)
+                return BarChartDataEntry(x: Double(index), y: transformedVol)
+            }
+            set3 = BarChartDataSet(entries: transformedYVals2)
+            set1.axisDependency = .right
+            set3.setColor(Constants.orange)
+            
             //10min volume
             self.volumeChartDataTenMin = BarChartData(dataSet: set3)
         }
@@ -151,6 +224,9 @@ class CustomCombinedChartView: CombinedChartView {
         
         DispatchQueue.main.async {
             let data = CombinedChartData()
+            var lineDataSets : [LineChartDataSet] = [LineChartDataSet]()
+            data.scatterData = ScatterChartData(dataSet: self.previousCloseLine)
+            //lineDataSets.append(self.previousCloseLine)
             if self.stockDetailsDelegate!.candleMode {
                 if self.stockDetailsDelegate?.timeInterval == Constants.TimeIntervals.day{
                     self.volumeView.data = self.volumeChartDataTenMin
@@ -160,16 +236,16 @@ class CustomCombinedChartView: CombinedChartView {
                 data.candleData = self.candleChartData
                 self.priceChartFormatter.setActiveLabels("candle")
             } else {
-                var lineDataSets : [LineChartDataSet] = [LineChartDataSet]()
                 lineDataSets.append(self.lineChartData)
                 if self.stockDetailsDelegate?.timeInterval == Constants.TimeIntervals.day {
                     lineDataSets.append(self.createSinglePointLineChartDataSet(index: 391, value: self.lineChartData.yMin))
                 }
-                let lineChartDatas:LineChartData = LineChartData(dataSets: lineDataSets)
-                data.lineData = lineChartDatas
                 self.volumeView.data = self.volumeChartData
                 self.priceChartFormatter.setActiveLabels("line")
             }
+            let lineChartDatas:LineChartData = LineChartData(dataSets: lineDataSets)
+            data.lineData = lineChartDatas
+            //data.barData = self.volumeChartData //for combining volume and price data
             self.volumeView.data?.setDrawValues(false)
             self.data = data
         }
@@ -177,13 +253,14 @@ class CustomCombinedChartView: CombinedChartView {
     
     func generateLineData() -> LineChartDataSet {
         var entries:[ChartDataEntry] = []
+        var prevCloseEntries:[ChartDataEntry] = []
         entries = (0..<self.myCandleData!.count).map { (i) -> ChartDataEntry in
             let y:Candle = self.myCandleData![i]
             priceChartFormatter.addXAxisLabelFull(y.datetime!)
             return ChartDataEntry(x: Double(i), y: y.close!)
         }
         
-        let set = LineChartDataSet(entries: entries, label: "Line DataSet")
+        let set = LineChartDataSet(entries: entries)
         set.setColor(Constants.darkPink)
         set.lineWidth = 2
         set.drawCirclesEnabled = false
@@ -201,12 +278,33 @@ class CustomCombinedChartView: CombinedChartView {
         set.mode = .cubicBezier
         set.drawValuesEnabled = false
         set.axisDependency = .left
-        set.highlightColor = Constants.darkPink
-        set.highlightLineWidth = 2
+        set.highlightColor = UIColor.gray
+        set.highlightLineWidth = 2        
         set.drawHorizontalHighlightIndicatorEnabled = false
         set.drawValuesEnabled = false
         
-        //return LineChartData(dataSet: set)
+        let previousCloseValue = self.stockDetailsDelegate?.latestQuote.previousClose! ?? 0.0
+        let maxVal = set.yMax
+        let minVal = set.yMin
+        if self.stockDetailsDelegate?.timeInterval == Constants.TimeIntervals.day && (previousCloseValue <= (1.02*maxVal) && previousCloseValue >= (0.98*minVal)) {
+            var counter = 0
+            for i in 0..<self.dayEntryCount{
+                if counter == 2 {
+                    counter = 0
+                    prevCloseEntries.append(ChartDataEntry(x: Double(i), y: previousCloseValue))
+                } else {
+                    prevCloseEntries.append(set.entries[i])
+                    counter+=1
+                }
+            }
+        }
+        let previousCloseSet = ScatterChartDataSet(entries: prevCloseEntries)
+        previousCloseSet.setColor(UIColor.darkGray)
+        previousCloseSet.setScatterShape(.circle)
+        previousCloseSet.scatterShapeSize = CGFloat(0.8)
+        previousCloseSet.highlightEnabled = false
+        self.previousCloseLine = previousCloseSet
+        
         return set
     }
     
@@ -272,6 +370,7 @@ class CustomCombinedChartView: CombinedChartView {
         }
         let lineChartDatas:LineChartData = LineChartData(dataSets: lineDataSets)
         data.lineData = lineChartDatas
+        data.scatterData = ScatterChartData(dataSet: self.previousCloseLine)
         self.data = data
         self.volumeView.data = self.volumeChartData
         self.volumeView.data?.setDrawValues(false)

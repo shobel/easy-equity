@@ -1,11 +1,12 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Charts" "${PODS_CONFIGURATION_BUILD_DIR}/EasyToast" "${PODS_CONFIGURATION_BUILD_DIR}/MaterialActivityIndicator" "${PODS_CONFIGURATION_BUILD_DIR}/ObjectMapper" "${PODS_CONFIGURATION_BUILD_DIR}/Parchment" "${PODS_CONFIGURATION_BUILD_DIR}/RSLoadingView" "${PODS_CONFIGURATION_BUILD_DIR}/SkeletonView" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftSoup" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Charts" "${PODS_CONFIGURATION_BUILD_DIR}/MaterialActivityIndicator" "${PODS_CONFIGURATION_BUILD_DIR}/ObjectMapper" "${PODS_CONFIGURATION_BUILD_DIR}/Parchment" "${PODS_CONFIGURATION_BUILD_DIR}/RSLoadingView" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftSoup" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Charts/Charts.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/MaterialActivityIndicator/MaterialActivityIndicator.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/ObjectMapper/ObjectMapper.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Parchment/Parchment.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RSLoadingView/RSLoadingView.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftSoup/SwiftSoup.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON/SwiftyJSON.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "${PODS_CONFIGURATION_BUILD_DIR}/Charts/Charts.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/EasyToast/EasyToast.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/MaterialActivityIndicator/MaterialActivityIndicator.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/ObjectMapper/ObjectMapper.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/Parchment/Parchment.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/RSLoadingView/RSLoadingView.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/SkeletonView/SkeletonView.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/SwiftSoup/SwiftSoup.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON/SwiftyJSON.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -framework "Charts" -framework "EasyToast" -framework "MaterialActivityIndicator" -framework "ObjectMapper" -framework "Parchment" -framework "RSLoadingView" -framework "SkeletonView" -framework "SwiftSoup" -framework "SwiftyJSON"
-OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
+OTHER_LDFLAGS = $(inherited) -framework "Charts" -framework "MaterialActivityIndicator" -framework "ObjectMapper" -framework "Parchment" -framework "RSLoadingView" -framework "SwiftSoup" -framework "SwiftyJSON" -framework "UIKit"
+OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
 PODS_ROOT = ${SRCROOT}/Pods
+USE_RECURSIVE_SCRIPT_INPUTS_IN_SCRIPT_PHASES = YES

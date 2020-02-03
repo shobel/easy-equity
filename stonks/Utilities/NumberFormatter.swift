@@ -55,10 +55,10 @@ class NumberFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
         var hours:Int = 0
-        var minutes:String = "00"
+        let minutes:String = "00"
         var amPM = "AM"
         if !timeString.contains(":") {
-            var split = timeString.split(separator: " ")
+            let split = timeString.split(separator: " ")
             hours = Int(split[0])!
             amPM = String(split[1])
             let finalTimeString = "\(hours):\(minutes) \(amPM)"

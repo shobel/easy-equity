@@ -105,7 +105,7 @@ class DemoBaseViewController: UIViewController, ChartViewDelegate {
     private func initialize() {
         self.edgesForExtendedLayout = []
     }
-    
+        
     func optionTapped(_ option: Option) {}
     
     func handleOption(_ option: Option, forChartView chartView: ChartViewBase) {

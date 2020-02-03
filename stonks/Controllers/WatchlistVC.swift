@@ -34,6 +34,9 @@ class WatchlistVC: UIViewController, Updateable {
         self.tableView.separatorInset = UIEdgeInsets.zero
         self.tableView.refreshControl = UIRefreshControl()
         self.tableView.refreshControl!.addTarget(self, action: #selector(handleRefresh), for: UIControl.Event.valueChanged)
+        
+        self.tableView.backgroundView = nil
+        self.tableView.backgroundColor = UIColor.white
     }
     
     /* helps the rating score colors stick better when moving from other views to this one */
@@ -101,10 +104,11 @@ class WatchlistVC: UIViewController, Updateable {
         }
     }
     
-    /*
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     }
-     */
+    
+//     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        print()
+//     }
+     
     
     @objc func handleRefresh() {
         self.tableView.reloadData()
@@ -143,6 +147,11 @@ extension WatchlistVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         watchlistManager.selectedCompany = watchlistManager.getWatchlist()[indexPath.row]
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        watchlistManager.selectedCompany = watchlistManager.getWatchlist()[indexPath.row]
+        return indexPath
     }
     
     /*

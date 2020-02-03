@@ -22,9 +22,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var candlePricesView: CandlePricesView!
     @IBOutlet weak var candleMarkerView: MarkerView!
     @IBOutlet weak var chartTypeButton: UIButton!
-    
-    @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
-    
+        
     @IBOutlet weak var datetime: UILabel!
     @IBOutlet weak var ytdChange: ColoredValueLabel!
     @IBOutlet weak var yrHighValue: ColoredValueLabel!
@@ -35,7 +33,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var chartViewWrapperHeightConstraint: NSLayoutConstraint!
     
     private var company:Company!
-    private var latestQuote:Quote!
+    public var latestQuote:Quote!
     private var isMarketOpen:Bool = true
     private var priceChartFormatter:PriceChartFormatter!
     private var volumeChartFormatter:VolumeChartFormatter!
@@ -134,6 +132,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         volumeChartFormatter = VolumeChartFormatter()
         loadVolumeChart() //volume chart has to be setup before main chart
         self.chartView.setup(delegate: self, volumeView: self.volumeView)
+        self.chartView.delegate = self
+
         
         //loading indicator setup
         self.loadingView.dimBackgroundColor = UIColor.black.withAlphaComponent(0.8)
@@ -165,14 +165,22 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         button1D.backgroundColor = UIColor.white
         button1D.setTitleColor(Constants.darkGrey, for: .normal)
         timeInterval = Constants.TimeIntervals.day
+        
     }
     
     func updateFromScheduledTask(_ data:Any?) {
         let quotes = data as! [Quote]
         if (quotes.count > 0){
             let quote = quotes[0]
+            self.latestQuote = quote
+            DispatchQueue.main.async {
+                self.setTopBarValues(startPrice: 0.0, endPrice: self.latestQuote.latestPrice!, selected: false)
+            }
             self.isMarketOpen = quote.isUSMarketOpen!
             StockAPIManager.shared.stockDataApiInstance.getDailyChart(ticker: company.symbol, timeInterval: .day, completionHandler: handleDayChartData)
+            if !self.isMarketOpen {
+                self.stockUpdater?.stopTask()
+            }
         }
     }
     
@@ -244,7 +252,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             StockAPIManager.shared.stockDataApiInstance.getChartForDate(ticker: company.symbol, date: date, completionHandler: handleDayChartData(_:))
         } else {
             company.setMinuteData(chartData, open: self.isMarketOpen)
-            self.chartView.setChartData(chartData: company.minuteData)
+            if self.timeInterval == Constants.TimeIntervals.day {
+                self.chartView.setChartData(chartData: company.minuteData)
+            }
             print("\(self.handlersDone) day chart done")
             self.incrementLoadingProgress()
         }
@@ -366,13 +376,15 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     }
     
     override func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        let cv = chartView as! CustomCombinedChartView
+        cv.hideAxisLabels()
         let chartData = self.chartView.getChartData(candleMode: self.candleMode)
         if (chartData.count <= Int(entry.x)){
             return
         }
         let candle = chartData[Int(entry.x)]
         let volumeString = NumberFormatter.formatNumber(num: candle.volume!)
-        candlePricesView.volumeLabel.text = "VOLUME: " + volumeString
+        candlePricesView.volumeLabel.text = "VOL: " + volumeString
         candlePricesView.highLabel.text = "HI: " + String(format: "%.2f", candle.high!)
         candlePricesView.lowLabel.text = "LO: " + String(format: "%.2f", candle.low!)
         candlePricesView.openLabel.text = "OPEN: " + String(format: "%.2f", candle.open!)
@@ -391,7 +403,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         candleMarkerView.center = CGPoint(x: x, y:10.0)
         candleMarkerView.isHidden = false
         
-        setTopBarValues(startPrice: chartData[0].close!, endPrice: candle.close!, selected: true)
+        setTopBarValues(startPrice: latestQuote.previousClose ?? chartData[0].close!, endPrice: candle.close!, selected: true)
         feedbackGenerator.selectionChanged()
     }
     
@@ -407,6 +419,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     }
     
     override func chartValueNothingSelected(_ chartView: ChartViewBase) {
+        let cv = chartView as! CustomCombinedChartView
+        cv.showAxisLabels()
         candlePricesWrapper.isHidden = true
         candleMarkerView.isHidden = true
         chartView.highlightValue(nil)
@@ -429,7 +443,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         }
     }
     
-    override func panGestureEnded(_ chartView: ChartViewBase) {
+    func chartViewDidEndPanning(_ chartView: ChartViewBase){
         self.chartValueNothingSelected(chartView)
     }
     

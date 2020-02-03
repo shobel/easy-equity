@@ -23,7 +23,7 @@ class AlphaVantage: HTTPRequest, StockDataApiProtocol {
         let params = [
             "symbol": ticker,
             "function": daily,
-            "outputsize": "full",
+            "outputsize": "compact",
             "apikey": apikey
         ]
         let queryURL = buildQuery(url: url, params: params)
@@ -79,7 +79,7 @@ class AlphaVantage: HTTPRequest, StockDataApiProtocol {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 
-                for (key,subJson):(String, JSON) in jsonCandles {
+                for (key,_):(String, JSON) in jsonCandles {
                     let dict = jsonCandles[key]
                     var open = Double(dict["1. open"].string!)!
                     var high = Double(dict["2. high"].string!)!
@@ -120,7 +120,7 @@ class AlphaVantage: HTTPRequest, StockDataApiProtocol {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 
-                for (key,subJson):(String, JSON) in jsonCandles {
+                for (key,_):(String, JSON) in jsonCandles {
                     let dict = jsonCandles[key]
                     var open = Double(dict["1. open"].string!)!
                     var high = Double(dict["2. high"].string!)!

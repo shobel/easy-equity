@@ -7,11 +7,9 @@ target 'stonks' do
 
   # Pods
   pod 'Charts'
-  pod "SkeletonView"
-  pod 'EasyToast'
   pod 'SwiftyJSON'
   pod 'SwiftSoup'
-  pod 'ObjectMapper', '~> 3.4'
+  pod 'ObjectMapper'
   pod 'Parchment'
   pod 'MaterialActivityIndicator'
   pod "RSLoadingView"
