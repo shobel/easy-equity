@@ -23,7 +23,7 @@ class FinvizAPI: HTTPRequest {
                 let htmlResponseString = String(data: data!, encoding: .utf8)
                 do {
                     let doc: Document = try SwiftSoup.parse(htmlResponseString!)
-                    var stats = self.getKeyStats(doc: doc)
+                    let stats = self.getKeyStats(doc: doc)
                     let rating = self.getRatings(doc: doc)
                     
                     if let tp = stats["Target Price"] {

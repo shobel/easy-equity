@@ -24,7 +24,7 @@ class LaunchVC: UIViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.modalPresentationStyle = .fullScreen
         StockAPIManager.shared.stockDataApiInstance.listCompanies()
         
         watchlistManager = Dataholder.watchlistManager
@@ -48,6 +48,7 @@ class LaunchVC: UIViewController {
             self.progressBar.setProgress(progress, animated: true)
             
             if self.numUpdated >= self.numTotal {
+                self.modalPresentationStyle = .fullScreen
                 self.performSegue(withIdentifier: "toTabBar", sender: self)
             }
         }
@@ -61,7 +62,7 @@ class LaunchVC: UIViewController {
                     
                     let earningsDateString = data[ticker]!["Earnings"] as? String
                     let erArray = earningsDateString?.components(separatedBy: .whitespaces)
-                    let time = erArray![2]
+                    _ = erArray![2]
                     
                     let today = Date()
                     let calendar = Calendar.current
