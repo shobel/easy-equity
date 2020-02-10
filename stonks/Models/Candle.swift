@@ -18,6 +18,11 @@ struct Candle: Mappable {
     public var open:Double?
     public var close:Double?
 
+    public var sma20:Double?
+    public var sma50:Double?
+    public var sma100:Double?
+    public var sma200:Double?
+    
     init(){}
     
     init(date:Date, datetime:String, volume:Double, high:Double, low:Double, open:Double, close:Double){

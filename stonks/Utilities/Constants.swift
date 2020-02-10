@@ -12,7 +12,7 @@ import UIKit
 struct Constants{
 
     public static var demo = false
-    public static var locked = true
+    public static var locked = false
     
     public static var restorationIDs = (details: "companyDetails", watchlist: "watchlist", search: "companySearch")
     
@@ -40,6 +40,11 @@ struct Constants{
     public static var orange = UIColor(red: 255.0/255.0, green: 196.0/255.0, blue: 0.0/255.0, alpha: 1.0)
     public static var lightOrange = UIColor(red: 255.0/255.0, green: 240.0/255.0, blue: 183.0/255.0, alpha: 1.0)
     public static var darkGrey = UIColor(red: 67.0/255.0, green: 67.0/255.0, blue: 67.0/255.0, alpha: 1.0)
+    
+    public static var fadedOrange = UIColor(red: 255.0/255.0, green: 196.0/255.0, blue: 0.0/255.0, alpha: 0.3)
+    public static var fadedPurple = UIColor(red: 199.0/255.0, green: 0.0/255.0, blue: 172.0/255.0, alpha: 0.3)
+    public static var fadedBlue = UIColor(red: 0.0/255.0, green: 230.0/255.0, blue: 255.0/255.0, alpha: 0.3)
+    public static var fadedGreen = UIColor(red: 9.0/255.0, green: 196.0/255.0, blue: 122.0/255.0, alpha: 0.3)
     
     /* FINVIZ ratings */
     enum FinvizRatingCategory {

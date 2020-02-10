@@ -17,6 +17,8 @@ class StockDetailsSummaryView: UIStackView {
     @IBOutlet var dateTimeLabel: UILabel!
     @IBOutlet var ytdChange: UILabel!
     @IBOutlet var yrHighChange: UILabel!
+    
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
