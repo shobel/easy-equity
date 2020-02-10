@@ -26,13 +26,15 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var datetime: UILabel!
     @IBOutlet weak var ytdChange: ColoredValueLabel!
     @IBOutlet weak var yrHighValue: ColoredValueLabel!
+    @IBOutlet weak var averageVolume: UILabel!
+    @IBOutlet weak var maxVolume: UILabel!
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var innerScroll: UIView!
     @IBOutlet weak var chartTimeView: UIStackView!
     @IBOutlet weak var chartViewWrapperHeightConstraint: NSLayoutConstraint!
     
-    private var company:Company!
+    public var company:Company!
     public var latestQuote:Quote!
     private var isMarketOpen:Bool = true
     private var priceChartFormatter:PriceChartFormatter!
@@ -47,7 +49,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     private let loadingView = RSLoadingView()
     private var handlersDone = 0
-    private var totalHandlers = 13
+    private var totalHandlers = 0
     
     private var pageVCList:[UIViewController] = []
     private var keyStatsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StatsVC")
@@ -144,20 +146,25 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         //start information retrieval processes
         StockAPIManager.shared.stockDataApiInstance.getCompanyGeneralInfo(ticker: company.symbol, completionHandler: handleCompanyData)
         if !Constants.locked {
-            StockAPIManager.shared.stockDataApiInstance.getKeyStats(ticker: company.symbol, completionHandler: handleKeyStats)
-            StockAPIManager.shared.stockDataApiInstance.getAdvancedStats(ticker: company.symbol, completionHandler: handleAdvancedStats)
-            StockAPIManager.shared.stockDataApiInstance.getNews(ticker: company.symbol, completionHandler: handleNews)
-            StockAPIManager.shared.stockDataApiInstance.getPriceTarget(ticker: company.symbol, completionHandler: handlePriceTarget)
-            StockAPIManager.shared.stockDataApiInstance.getRecommendations(ticker: company.symbol, completionHandler: handleRecommendations)
-            StockAPIManager.shared.stockDataApiInstance.getFinancials(ticker: company.symbol, completionHandler: handleFinancials)
-            StockAPIManager.shared.stockDataApiInstance.getEstimates(ticker: company.symbol, completionHandler: handleEstimates)
+//            StockAPIManager.shared.stockDataApiInstance.getKeyStats(ticker: company.symbol, completionHandler: handleKeyStats)
+//            StockAPIManager.shared.stockDataApiInstance.getAdvancedStats(ticker: company.symbol, completionHandler: handleAdvancedStats)
+//            StockAPIManager.shared.stockDataApiInstance.getNews(ticker: company.symbol, completionHandler: handleNews)
+//            StockAPIManager.shared.stockDataApiInstance.getPriceTarget(ticker: company.symbol, completionHandler: handlePriceTarget)
+//            StockAPIManager.shared.stockDataApiInstance.getRecommendations(ticker: company.symbol, completionHandler: handleRecommendations)
+//            StockAPIManager.shared.stockDataApiInstance.getFinancials(ticker: company.symbol, completionHandler: handleFinancials)
+//            StockAPIManager.shared.stockDataApiInstance.getEstimates(ticker: company.symbol, completionHandler: handleEstimates)
             StockAPIManager.shared.stockDataApiInstance.getEarnings(ticker: company.symbol, completionHandler: handleEarnings)
+            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "50", completionHandler: handleSMA50)
+            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "100", completionHandler: handleSMA100)
+            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "200", completionHandler: handleSMA200)
+            self.totalHandlers += 5
         }
         
         self.alphaVantage.getDailyChart(ticker: company.symbol, timeInterval: Constants.TimeIntervals.twenty_year, completionHandler: handleDailyChartData)
         self.alphaVantage.getWeeklyChart(ticker: company.symbol, timeInterval: Constants.TimeIntervals.twenty_year, completionHandler: handleWeeklyChartData)
         self.alphaVantage.getMonthlyChart(ticker: company.symbol, timeInterval: Constants.TimeIntervals.twenty_year, completionHandler: handleMonthlyChartData)
-        
+        self.totalHandlers += 3
+
         //StockAPIManager.shared.stockDataApiInstance.getDailyChart(ticker: company.symbol, timeInterval: .max, completionHandler: handleFullChartData)
         
         //setup chart buttons
@@ -186,10 +193,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     private func incrementLoadingProgress(){
         self.handlersDone+=1
-        let total = Constants.locked ? self.totalHandlers - 8 : self.totalHandlers
+        let total = self.totalHandlers
         if (self.handlersDone >= total){
+            self.company.addSmaToCandleSets(smaSet: self.company.sma50, key: "50")
+            self.company.addSmaToCandleSets(smaSet: self.company.sma100, key: "100")
+            self.company.addSmaToCandleSets(smaSet: self.company.sma200, key: "200")
             DispatchQueue.main.async {
-                print("hiding view")
                 self.loadingView.hide()
             }
         }
@@ -223,6 +232,49 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         }
         ytdChange.setValue(value: latestQuote.ytdChange!, isPercent: true)
         yrHighValue.setValue(value: latestQuote.getYrHighChangePercent(), isPercent: true)
+    }
+    
+    public func setVolumeValues(averageVolume:Double, maxVolume:Double){
+        DispatchQueue.main.async {
+            self.averageVolume.text = NumberFormatter.formatNumber(num: averageVolume)
+            self.maxVolume.text = NumberFormatter.formatNumber(num: maxVolume)
+        }
+    }
+    
+    private func handleSMA200(_ smaData:[DatedValue]){
+        if smaData.isEmpty {
+            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "20", completionHandler: handleSMA200)
+        } else {
+            self.company.sma200 = smaData.sorted{
+                guard let d1 = $0.date, let d2 = $1.date else { return false }
+                return d1 < d2
+            }
+            self.incrementLoadingProgress()
+        }
+    }
+    
+    private func handleSMA50(_ smaData:[DatedValue]){
+        if smaData.isEmpty {
+            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "50", completionHandler: handleSMA50)
+        } else {
+            self.company.sma50 = smaData.sorted{
+                guard let d1 = $0.date, let d2 = $1.date else { return false }
+                return d1 < d2
+            }
+            self.incrementLoadingProgress()
+        }
+    }
+    
+    private func handleSMA100(_ smaData:[DatedValue]){
+        if smaData.isEmpty {
+            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "100", completionHandler: handleSMA100)
+        } else {
+            self.company.sma100 = smaData.sorted{
+                guard let d1 = $0.date, let d2 = $1.date else { return false }
+                return d1 < d2
+            }
+            self.incrementLoadingProgress()
+        }
     }
     
     //handles the description, ceo, and logo
@@ -376,8 +428,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     }
     
     override func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        scrollView.isScrollEnabled = false
         let cv = chartView as! CustomCombinedChartView
-        cv.hideAxisLabels()
+        cv.hideAxisLabels(hideEarnings: self.timeInterval != Constants.TimeIntervals.day)
         let chartData = self.chartView.getChartData(candleMode: self.candleMode)
         if (chartData.count <= Int(entry.x)){
             return
@@ -419,8 +472,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     }
     
     override func chartValueNothingSelected(_ chartView: ChartViewBase) {
+        scrollView.isScrollEnabled = true
         let cv = chartView as! CustomCombinedChartView
-        cv.showAxisLabels()
+        cv.showAxisLabels(showEarnings: self.timeInterval != Constants.TimeIntervals.day)
         candlePricesWrapper.isHidden = true
         candleMarkerView.isHidden = true
         chartView.highlightValue(nil)
@@ -484,11 +538,11 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     }
     
     @IBAction func OneMonthButtonPressed(_ sender: Any) {
-        self.timeButtonPressed(sender as! UIButton, chartData: company.getDailyData(25), timeInterval: Constants.TimeIntervals.one_month)
+        self.timeButtonPressed(sender as! UIButton, chartData: company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
     }
     
     @IBAction func ThreeMonthsButtonPressed(_ sender: Any) {
-        self.timeButtonPressed(sender as! UIButton, chartData: company.getDailyData(75), timeInterval: Constants.TimeIntervals.three_month)
+        self.timeButtonPressed(sender as! UIButton, chartData: company.getDailyData(65), timeInterval: Constants.TimeIntervals.three_month)
     }
     
     @IBAction func TwentyYearButtonPressed(_ sender: Any) {
@@ -507,7 +561,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     private func timeButtonPressed(_ button: UIButton, chartData: [Candle], timeInterval: Constants.TimeIntervals){
         self.timeInterval = timeInterval
-        setTopBarValues(startPrice: chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
+        if chartData.count > 0 {
+            setTopBarValues(startPrice: chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
+        }
         
         for timeButton in timeButtons {
             if timeButton == button {

@@ -17,7 +17,35 @@ class AlphaVantage: HTTPRequest, StockDataApiProtocol {
     private var daily = "TIME_SERIES_DAILY_ADJUSTED" //Time Series (Daily)
     private var weekly = "TIME_SERIES_WEEKLY_ADJUSTED" //Weekly Time Series
     private var monthly = "TIME_SERIES_MONTHLY_ADJUSTED" //Monthly Time Series
-    private var args = "function=TIME_SERIES_MONTHLY&symbol=MSFT&apikey=ME69ZQ2B0AVF5QTP"
+        
+    func getMovingAverage(ticker: String, range: String, completionHandler: @escaping ([DatedValue]) -> Void) {
+        let params = [
+            "symbol": ticker,
+            "function": "sma",
+            "interval": "daily",
+            "time_period": range,
+            "series_type": "close",
+            "apikey": apikey
+        ]
+        let queryURL = buildQuery(url: url, params: params)
+        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
+            if let data = data {
+                let json = JSON(data)
+                let jsonSMAs = json["Technical Analysis: SMA"]
+                var smaList:[DatedValue] = []
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                for (key, val):(String, JSON) in jsonSMAs {
+                    let date = dateFormatter.date(from: key)!
+                    let datestring = key
+                    let sma = Double(val["SMA"].string!)!
+                    let datedValue = DatedValue(date: date, datestring: datestring, value: sma)
+                    smaList.append(datedValue)
+                }
+                completionHandler(smaList)
+            }
+        })
+    }
     
     func getDailyChart(ticker: String, timeInterval: Constants.TimeIntervals, completionHandler: @escaping ([Candle]) -> Void) {
         let params = [
@@ -59,7 +87,7 @@ class AlphaVantage: HTTPRequest, StockDataApiProtocol {
                 completionHandler(candleList)
             }
         })
-
+        
     }
     
     func getWeeklyChart(ticker: String, timeInterval: Constants.TimeIntervals, completionHandler: @escaping ([Candle]) -> Void) {

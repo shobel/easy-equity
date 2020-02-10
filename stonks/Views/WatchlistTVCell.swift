@@ -33,7 +33,7 @@ class WatchlistTVCell: UITableViewCell {
         fullName.text = company.fullName
         
         currentPrice.text = String(format: "%.2f", company.quote?.latestPrice ?? "--")
-        percentChange.setValue(value: company.quote?.changePercent ?? 0.0, isPercent: true)
+        percentChange.setValue(value: (company.quote?.changePercent ?? 0.0) * 100.0, isPercent: true)
         
         if company.daysToER < 0 {
             daysToEarnings.text = ""

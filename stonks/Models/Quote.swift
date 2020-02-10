@@ -48,7 +48,7 @@ struct Quote: Mappable {
     var ytdChange:Double? //"ytdChange":0.3007662925165673
     var lastTradeTime:Int? //1567799999401,
     var isUSMarketOpen:Bool? //false
-    
+        
     public func getYrHighChangePercent() -> Double {
         return ((self.latestPrice! - self.week52High!) / (self.week52High!))*100.0
     }
