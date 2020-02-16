@@ -12,8 +12,8 @@ class StockUpdater: StockDataTask {
     
     private var tickers:[String] = []
     
-    public init(caller: Updateable, ticker: String) {
-        super.init(caller: caller)
+    public init(caller: Updateable, ticker: String, timeInterval: Double) {
+        super.init(caller: caller, timeInterval: timeInterval)
         self.tickers.append(ticker)
     }
     

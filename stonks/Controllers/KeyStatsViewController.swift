@@ -55,24 +55,24 @@ class KeyStatsViewController: UIViewController, StatsVC {
                 if let x = self.company.keyStats?.float {
                     self.float.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
                 }
-                if let x = self.company.quote?.avgTotalVolume {
-                    self.volume.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let x = self.company.keyStats?.avg10Volume {
-                    self.volume10.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let x = self.company.keyStats?.avg30Volume {
-                    self.volume30.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let x = self.company.keyStats?.week52high {
-                    self.week52high.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let x = self.company.keyStats?.week52low {
-                    self.week52low.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let x = self.company.keyStats?.week52change {
-                    self.week52change.setValue(value: String(x), format: FormattedNumberLabel.Format.PERCENT)
-                }
+//                if let x = self.company.quote?.avgTotalVolume {
+//                    self.volume.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+//                }
+//                if let x = self.company.keyStats?.avg10Volume {
+//                    self.volume10.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+//                }
+//                if let x = self.company.keyStats?.avg30Volume {
+//                    self.volume30.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+//                }
+//                if let x = self.company.keyStats?.week52high {
+//                    self.week52high.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+//                }
+//                if let x = self.company.keyStats?.week52low {
+//                    self.week52low.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+//                }
+//                if let x = self.company.keyStats?.week52change {
+//                    self.week52change.setValue(value: String(x), format: FormattedNumberLabel.Format.PERCENT)
+//                }
             }
         }
     }

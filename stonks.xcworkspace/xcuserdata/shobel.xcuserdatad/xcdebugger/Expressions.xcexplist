@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "StockDetailsVC.handleCompanyData(_:logo:):StockDetailsVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "innerScroll.bounds.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "StockDetailsVC.TwentyYearButtonPressed(_:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -15,6 +23,17 @@
          <PersistentStrings>
             <PersistentString
                value = "self.axisLabels">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Company.addSmaToCandleSets(smaSet:key:):Company.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.monthlyData">
+            </PersistentString>
+            <PersistentString
+               value = "self.dailyData">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -93,6 +112,26 @@
       </ContextState>
       <ContextState
          contextName = "WatchlistVC.tableView(_:willSelectRowAt:):WatchlistVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in StockDetailsVC.handleCompanyData(_:logo:):StockDetailsVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.innerScroll.bounds.height">
+            </PersistentString>
+            <PersistentString
+               value = "self.companyVC.view.frame.size">
+            </PersistentString>
+            <PersistentString
+               value = "self.scrollView.frame.size">
+            </PersistentString>
+            <PersistentString
+               value = "self.innerScroll.frame.size.height">
+            </PersistentString>
+            <PersistentString
+               value = "self.companyVC.view.bounds">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "PriceChartFormatter.setActiveLabels(_:):PriceChartFormatter.swift">

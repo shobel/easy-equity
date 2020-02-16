@@ -48,7 +48,7 @@ class WatchlistVC: UIViewController, Updateable {
         //updateFinvizData()
         self.tableView.reloadData()
         if !watchlistManager.getWatchlist().isEmpty {
-            watchlistUpdater = WatchlistUpdater(caller: self)
+            watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: 10.0)
             watchlistUpdater!.startTask()
         }
     }
