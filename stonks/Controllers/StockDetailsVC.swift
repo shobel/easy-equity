@@ -17,12 +17,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var stockDetailsNavView: StockDetailsNavView!
     @IBOutlet weak var priceDetailsView: StockDetailsSummaryView!
     @IBOutlet weak var chartView: CustomCombinedChartView!
-    @IBOutlet weak var volumeView: BarChartView!
     @IBOutlet weak var candlePricesWrapper: UIView!
     @IBOutlet weak var candlePricesView: CandlePricesView!
     @IBOutlet weak var candleMarkerView: MarkerView!
     @IBOutlet weak var chartTypeButton: UIButton!
-        
+    @IBOutlet weak var contentView: UIView!
+    
     @IBOutlet weak var datetime: UILabel!
     @IBOutlet weak var ytdChange: ColoredValueLabel!
     @IBOutlet weak var yrHighValue: ColoredValueLabel!
@@ -32,7 +32,10 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var innerScroll: UIView!
     @IBOutlet weak var chartTimeView: UIStackView!
+    @IBOutlet weak var pagingView: UIView!
     @IBOutlet weak var chartViewWrapperHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var timeViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var pagingViewHeightConstraint: NSLayoutConstraint!
     
     public var company:Company!
     public var latestQuote:Quote!
@@ -53,18 +56,18 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     private var pageVCList:[UIViewController] = []
     private var keyStatsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StatsVC")
-    private var newsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewsVC")
+    private var newsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewsVC") as! NewsTableViewController
     private var earningsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "EarningsVC")
     private var financialsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FinVC")
     private var predictionsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PredictionsVC")
     private var companyVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "InfoVC")
     
     private var stockUpdater:StockUpdater?
+    private var pageVC: PagingViewController<IconItem>!
     
     fileprivate let icons = [
         "stats",
         "news",
-        "advanced",
         "financials",
         "earnings",
         "analysts",
@@ -73,6 +76,10 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.newsVC.tableView.delegate = self
+        self.newsVC.tableView.dataSource = self
+        
         updateChartHeight()
 
         company = Dataholder.watchlistManager.selectedCompany
@@ -86,33 +93,34 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             self.keyStatsVC, self.newsVC, self.financialsVC, self.earningsVC, self.predictionsVC, self.companyVC
         ]
         
-        let pageVC = PagingViewController<IconItem>()
+        pageVC = PagingViewController<IconItem>()
         pageVC.menuItemSource = .class(type: IconPagingCell.self)
         pageVC.menuHorizontalAlignment = .center
         pageVC.menuItemSize = .sizeToFit(minWidth: 60, height: 60)
         pageVC.menuBackgroundColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1)
         pageVC.indicatorColor = Constants.darkPink
         pageVC.dataSource = self
+        pageVC.delegate = self
         pageVC.select(pagingItem: IconItem(icon: icons[0], index: 0))
         
         self.addChild(pageVC)
-        self.scrollView.addSubview(pageVC.view)
+        self.pagingView.addSubview(pageVC.view)
         pageVC.didMove(toParent: self)
         pageVC.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            pageVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            pageVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            pageVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            pageVC.view.topAnchor.constraint(equalTo: chartTimeView.bottomAnchor)
+            pageVC.view.leadingAnchor.constraint(equalTo: pagingView.leadingAnchor),
+            pageVC.view.trailingAnchor.constraint(equalTo: pagingView.trailingAnchor),
+            //pageVC.view.bottomAnchor.constraint(equalTo: pagingView.bottomAnchor),
+            self.pagingView.bottomAnchor.constraint(equalTo: pageVC.view.bottomAnchor),
+            pageVC.view.topAnchor.constraint(equalTo: pagingView.topAnchor)
         ])
         pageVC.selectedFont = UIFont(name: "HelveticaNeue-Thin", size: 12.0)!
         pageVC.backgroundColor = UIColor.lightGray
         
-        volumeView.delegate = self
         /* We have a custom nav panel and so the default one goes on the bottom for some reason
          and then our tab bar at the bottom gets darker */
         self.navigationController?.view.backgroundColor = UIColor.white
-        
+
         chartTypeButton.imageView!.contentMode = UIView.ContentMode.scaleAspectFit
         feedbackGenerator = UISelectionFeedbackGenerator()
         
@@ -131,10 +139,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         //load charts
         setGlobalChartOptions()
         volumeChartFormatter = VolumeChartFormatter()
-        loadVolumeChart() //volume chart has to be setup before main chart
-        self.chartView.setup(delegate: self, volumeView: self.volumeView)
+        self.chartView.setup(delegate: self)
         self.chartView.delegate = self
-
         
         //loading indicator setup
         self.loadingView.dimBackgroundColor = UIColor.black.withAlphaComponent(0.8)
@@ -170,6 +176,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         button1D.backgroundColor = UIColor.white
         button1D.setTitleColor(Constants.darkGrey, for: .normal)
         timeInterval = Constants.TimeIntervals.day
+        
+        self.adjustContentHeight(vc: self.keyStatsVC)
         
     }
     
@@ -296,6 +304,13 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.incrementLoadingProgress()
     }
     
+    private func adjustContentHeight(vc: UIViewController){
+        DispatchQueue.main.async{
+            let statsVC = vc as! StatsVC
+            self.pagingViewHeightConstraint.constant = statsVC.getContentHeight() + 80
+        }
+    }
+    
     private func handleDayChartNoProgress(_ chartData:[Candle]){
         self.handleDayChartMain(chartData, updateProgress: false)
     }
@@ -383,30 +398,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
                         .toggleShadowColorSameAsCandle,
                         .toggleShowCandleBar,
                         .toggleData]
-    }
-    
-    private func loadVolumeChart(){
-        volumeView.delegate = self
-        volumeView.chartDescription?.enabled = false
-        volumeView.legend.enabled = false
-        volumeView.highlightPerTapEnabled = false
-        volumeView.dragEnabled = false
-        volumeView.setScaleEnabled(true)
-        volumeView.maxVisibleCount = 200
-        volumeView.pinchZoomEnabled = false
-        volumeView.doubleTapToZoomEnabled = false
-        volumeView.autoScaleMinMaxEnabled = true
-        
-        volumeView.leftAxis.drawGridLinesEnabled = false
-        volumeView.rightAxis.enabled = false
-        //volumeView.leftAxis.enabled = false
-        volumeView.xAxis.enabled = false
-        volumeView.xAxis.drawGridLinesEnabled = false
-        volumeView.leftAxis.labelFont = UIFont(name: "HelveticaNeue-Light", size: 10)!
-        volumeView.leftAxis.drawBottomYLabelEntryEnabled = false
-        volumeView.leftAxis.drawZeroLineEnabled = false
-        volumeView.leftAxis.setLabelCount(1, force: true)
-        volumeView.leftAxis.valueFormatter = volumeChartFormatter
     }
     
     override func updateChartData() {
@@ -651,6 +642,25 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.incrementLoadingProgress()
     }
     
+    //tableview delegate/datasource methods
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.newsVC.tableView.dequeueReusableCell(withIdentifier: "newscell") as! NewsTableViewCell
+        let news:News = (self.company.news?[indexPath.row])!
+        cell.heading.text = news.headline
+        cell.date.text = String(news.datetime!)
+        let url = URL(string: news.image!)
+        DispatchQueue.global().async {
+            let data = try? Data(contentsOf: url!)
+            DispatchQueue.main.async {
+                cell.newImage.image = UIImage(data: data!)
+            }
+        }
+        cell.source.text = news.source
+        cell.symbols.text = news.related
+        cell.paywall = news.hasPaywall!
+        return cell
+    }
+    
 }
 
 extension StockDetailsVC: PagingViewControllerDataSource {
@@ -665,5 +675,17 @@ extension StockDetailsVC: PagingViewControllerDataSource {
     
     func numberOfViewControllers<T>(in: PagingViewController<T>) -> Int {
         return self.pageVCList.count
+    }
+}
+
+extension StockDetailsVC: PagingViewControllerDelegate {
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, willScrollToItem pagingItem: T, startingViewController: UIViewController, destinationViewController: UIViewController) where T : PagingItem, T : Comparable, T : Hashable {
+        //self.adjustContentHeight(vc: destinationViewController)
+    }
+    
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+        if transitionSuccessful {
+            self.adjustContentHeight(vc: destinationViewController)
+        }
     }
 }

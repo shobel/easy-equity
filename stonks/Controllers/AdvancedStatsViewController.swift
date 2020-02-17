@@ -65,6 +65,9 @@ class AdvancedStatsViewController: UIViewController, StatsVC {
         }
     }
     
+    func getContentHeight() -> CGFloat {
+        return self.view.bounds.height
+    }
     
     /*
      // MARK: - Navigation

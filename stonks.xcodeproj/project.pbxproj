@@ -48,6 +48,8 @@
 		1C7B98882161CC2F00C75014 /* CompanySearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B98872161CC2F00C75014 /* CompanySearchTVC.swift */; };
 		1C9B952323E74F14004E95B1 /* PriceChartPriceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B952223E74F14004E95B1 /* PriceChartPriceFormatter.swift */; };
 		1C9B952523EE3958004E95B1 /* DatedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B952423EE3958004E95B1 /* DatedValue.swift */; };
+		1C9B95BC23FA204F004E95B1 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B95BB23FA204F004E95B1 /* NewsTableViewController.swift */; };
+		1C9B95BE23FA2075004E95B1 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B95BD23FA2075004E95B1 /* NewsTableViewCell.swift */; };
 		1CB257212172BBB6008E3D4D /* FinvizAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB257202172BBB6008E3D4D /* FinvizAPI.swift */; };
 		1CB257252172C292008E3D4D /* WatchlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB257242172C292008E3D4D /* WatchlistManager.swift */; };
 		1CB257272173A234008E3D4D /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB257262173A234008E3D4D /* HTTPRequest.swift */; };
@@ -140,6 +142,8 @@
 		1C7B98872161CC2F00C75014 /* CompanySearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanySearchTVC.swift; sourceTree = "<group>"; };
 		1C9B952223E74F14004E95B1 /* PriceChartPriceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceChartPriceFormatter.swift; sourceTree = "<group>"; };
 		1C9B952423EE3958004E95B1 /* DatedValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatedValue.swift; sourceTree = "<group>"; };
+		1C9B95BB23FA204F004E95B1 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
+		1C9B95BD23FA2075004E95B1 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		1CB257202172BBB6008E3D4D /* FinvizAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinvizAPI.swift; sourceTree = "<group>"; };
 		1CB257242172C292008E3D4D /* WatchlistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistManager.swift; sourceTree = "<group>"; };
 		1CB257262173A234008E3D4D /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
@@ -313,6 +317,7 @@
 				1C4EF3602329598D000299E6 /* InterpolateColor.swift */,
 				1CDA114B232B5C810028D00C /* FormattedNumberLabel.swift */,
 				1C0BC4DA232D83B9007C117F /* CustomCombinedChartView.swift */,
+				1C9B95BD23FA2075004E95B1 /* NewsTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -332,6 +337,7 @@
 				1C6FF97A23261617005AE40D /* EarningsViewController.swift */,
 				1C6FF97C23261C74005AE40D /* FinancialsViewController.swift */,
 				1C4EF363232AACAF000299E6 /* NewsViewController.swift */,
+				1C9B95BB23FA204F004E95B1 /* NewsTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -558,6 +564,7 @@
 				1CB3D622231DBF0E00D6F57C /* News.swift in Sources */,
 				1C7B9879215F071E00C75014 /* Candle.swift in Sources */,
 				1C545215216C31950064239E /* Quote.swift in Sources */,
+				1C9B95BC23FA204F004E95B1 /* NewsTableViewController.swift in Sources */,
 				1C183F91216D59F90042F52C /* StockDetailsVC.swift in Sources */,
 				1C6FF97D23261C74005AE40D /* FinancialsViewController.swift in Sources */,
 				1C0BC4DB232D83B9007C117F /* CustomCombinedChartView.swift in Sources */,
@@ -585,6 +592,7 @@
 				1CCA7E3D2313AB5E0033AC58 /* KeyStats.swift in Sources */,
 				1C6FF9772324BE23005AE40D /* AdvancedStats.swift in Sources */,
 				1C7B9861215DDFBC00C75014 /* Company.swift in Sources */,
+				1C9B95BE23FA2075004E95B1 /* NewsTableViewCell.swift in Sources */,
 				1CFFAA0B2170337400D3E768 /* AnalystsRating.swift in Sources */,
 				1C7B9863215DE1A800C75014 /* Constants.swift in Sources */,
 				1CD11942216DD73C000AE02E /* StockDetailsSummaryView.swift in Sources */,

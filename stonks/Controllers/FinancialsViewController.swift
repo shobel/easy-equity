@@ -7,12 +7,8 @@
 //
 
 import UIKit
-protocol StatsVC {
-    func updateData()
-}
 
 class FinancialsViewController: UIViewController, StatsVC {
-    
     
     @IBOutlet weak var reportDate: FormattedNumberLabel!
     @IBOutlet weak var netIncome: FormattedNumberLabel!
@@ -26,6 +22,7 @@ class FinancialsViewController: UIViewController, StatsVC {
     @IBOutlet weak var research: FormattedNumberLabel!
     @IBOutlet weak var opex: FormattedNumberLabel!
     @IBOutlet weak var se: FormattedNumberLabel!
+    @IBOutlet weak var contentView: UIView!
     
     private var company:Company!
     private var isLoaded = false
@@ -81,6 +78,9 @@ class FinancialsViewController: UIViewController, StatsVC {
         }
     }
     
+    func getContentHeight() -> CGFloat {
+        return self.contentView.bounds.height
+    }
     
     /*
      // MARK: - Navigation

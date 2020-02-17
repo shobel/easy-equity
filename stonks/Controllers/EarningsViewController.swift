@@ -9,7 +9,7 @@
 import UIKit
 
 class EarningsViewController: UIViewController, StatsVC {
-    
+
     @IBOutlet weak var dateE1: FormattedNumberLabel!
     @IBOutlet weak var epsE1: FormattedNumberLabel!
     @IBOutlet weak var consensusE1: FormattedNumberLabel!
@@ -26,6 +26,8 @@ class EarningsViewController: UIViewController, StatsVC {
     @IBOutlet weak var epsE4: FormattedNumberLabel!
     @IBOutlet weak var consensusE4: FormattedNumberLabel!
     @IBOutlet weak var numEstimatesE4: FormattedNumberLabel!
+    
+    @IBOutlet weak var contentView: UIView!
     
     private var company:Company!
     private var isLoaded = false
@@ -70,6 +72,10 @@ class EarningsViewController: UIViewController, StatsVC {
                 }
             }
         }
+    }
+    
+    func getContentHeight() -> CGFloat {
+        return self.contentView.bounds.height
     }
     
     

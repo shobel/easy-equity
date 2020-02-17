@@ -9,11 +9,13 @@
 import UIKit
 
 class GeneralInfoViewController: UIViewController, StatsVC {
-    
+
     @IBOutlet weak var sector: UILabel!
     @IBOutlet weak var industry: UILabel!
     @IBOutlet weak var exchange: UILabel!
     @IBOutlet weak var descrip: UILabel!
+    
+    @IBOutlet weak var contentView: UIView!
     
     private var company:Company!
     private var isLoaded = false
@@ -37,6 +39,9 @@ class GeneralInfoViewController: UIViewController, StatsVC {
         }
     }
     
+    func getContentHeight() -> CGFloat {
+        return self.contentView.bounds.height
+    }
     
     /*
      // MARK: - Navigation

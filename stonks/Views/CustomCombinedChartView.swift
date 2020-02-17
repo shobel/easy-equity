@@ -14,7 +14,6 @@ class CustomCombinedChartView: CombinedChartView {
     private var stockDetailsDelegate: StockDetailsVC?
     private var priceChartFormatter = PriceChartFormatter()
     private var volumeChartFormatter:VolumeChartFormatter!
-    private var volumeView:BarChartView!
     
     private var myCandleData:[Candle]?
     private var myCandleDataTenMin:[Candle]?
@@ -38,7 +37,7 @@ class CustomCombinedChartView: CombinedChartView {
     private var dayEntryCount = 391
     private var previousCloseValue = 0.0
     
-    public func setup(delegate: StockDetailsVC, volumeView: BarChartView){
+    public func setup(delegate: StockDetailsVC){
         self.delegate = delegate
         self.stockDetailsDelegate = delegate
         
@@ -241,8 +240,8 @@ class CustomCombinedChartView: CombinedChartView {
                 self.drawOrder = [DrawOrder.scatter.rawValue, DrawOrder.bar.rawValue, DrawOrder.line.rawValue, DrawOrder.candle.rawValue]
             } else {
                 self.drawOrder = [DrawOrder.bar.rawValue, DrawOrder.line.rawValue, DrawOrder.candle.rawValue, DrawOrder.scatter.rawValue]
-                self.leftAxis.axisMaximum =  (self.lineChartData.yMax + ((self.lineChartData.yMax - self.lineChartData.yMin) * 0.18))
             }
+            self.leftAxis.axisMaximum =  (self.lineChartData.yMax + ((self.lineChartData.yMax - self.lineChartData.yMin) * 0.18))
             if self.stockDetailsDelegate!.candleMode {
                 if day {
                     data.barData = self.volumeChartDataTenMin
@@ -278,7 +277,7 @@ class CustomCombinedChartView: CombinedChartView {
             self.rightAxis.axisMaximum = data.barData.yMax * 2
             self.rightAxis.axisMinimum = 0
             self.data = data
-            //self.notifyDataSetChanged()
+            self.notifyDataSetChanged()
         }
     }
     

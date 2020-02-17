@@ -7,7 +7,10 @@
 //
 
 import UIKit
-
+protocol StatsVC {
+    func updateData()
+    func getContentHeight() -> CGFloat
+}
 class KeyStatsViewController: UIViewController, StatsVC {
     
     @IBOutlet weak var marketCap: FormattedNumberLabel!
@@ -22,6 +25,7 @@ class KeyStatsViewController: UIViewController, StatsVC {
     @IBOutlet weak var week52high: FormattedNumberLabel!
     @IBOutlet weak var week52low: FormattedNumberLabel!
     @IBOutlet weak var week52change: FormattedNumberLabel!
+    @IBOutlet weak var contentView: UIView!
     
     private var company:Company!
     private var isLoaded = false
@@ -75,6 +79,10 @@ class KeyStatsViewController: UIViewController, StatsVC {
 //                }
             }
         }
+    }
+     
+    func getContentHeight() -> CGFloat {
+        return self.contentView.bounds.height
     }
     
     
