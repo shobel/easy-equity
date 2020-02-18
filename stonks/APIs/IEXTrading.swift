@@ -226,7 +226,9 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
                 for i in 0..<jsonNews.count{
                     let JSONString:String = jsonNews[i].rawString()!
                     if let n = Mapper<News>().map(JSONString: JSONString){
-                        newsList.append(n)
+                        if n.lang == "en" {
+                            newsList.append(n)
+                        }
                     }
                 }
                 completionHandler(newsList)

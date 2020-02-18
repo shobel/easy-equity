@@ -7,14 +7,16 @@
 //
 
 import UIKit
+import WebKit
 
-class NewsTableViewController: UITableViewController, StatsVC {
+class NewsTableViewController: UITableViewController, StatsVC, WKUIDelegate, WKNavigationDelegate {
 
     private var company:Company!
     private var isLoaded:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.isScrollEnabled = false
         self.isLoaded = true
         self.company = Dataholder.watchlistManager.selectedCompany!
         updateData()
@@ -25,30 +27,55 @@ class NewsTableViewController: UITableViewController, StatsVC {
     }
     
     func getContentHeight() -> CGFloat {
-        return self.view.bounds.height
+        return CGFloat((self.company.news?.count ?? 0) * 90)
     }
 
-    // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.company.news?.count ?? 0
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "newscell") as! NewsTableViewCell
+        let news:News = (self.company.news?[indexPath.row])!
+        cell.heading.text = news.headline
+        let date = Date(timeIntervalSince1970: Double(news.datetime! / 1000))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, yy"
+        let localDate = dateFormatter.string(from: date)
+        cell.date.text = localDate
+        let url = URL(string: news.image!)
+        DispatchQueue.global().async {
+            if let data = try? Data(contentsOf: url!) {
+                DispatchQueue.main.async {
+                    cell.newImage.image = UIImage(data: data)
+                }
+            }
+        }
+        cell.source.text = news.source
+        cell.symbols.text = news.related
+        cell.paywall = news.hasPaywall!
+        cell.url = news.url
         return cell
     }
-    */
+    
+    //In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! NewsTableViewCell
+        let dest = segue.destination as! NewsWebViewController
+        if let url = URL(string: cell.url!) {
+            DispatchQueue.main.async {
+                if let wv = dest.webView {
+                    wv.allowsBackForwardNavigationGestures = true
+                    wv.load(URLRequest(url: url))
+                }
+            }
+        }
+        
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -82,16 +109,6 @@ class NewsTableViewController: UITableViewController, StatsVC {
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the item to be re-orderable.
         return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
     */
 

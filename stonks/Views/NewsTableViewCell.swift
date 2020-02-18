@@ -17,11 +17,20 @@ class NewsTableViewCell: UITableViewCell {
     @IBOutlet weak var newImage: UIImageView!
     @IBOutlet weak var symbols: UILabel!
     
+    public var url:String?
     public var paywall = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        //self.layoutIfNeeded()
+        newImage.layer.cornerRadius = 10.0
+        //newImage.clipsToBounds = true
+        newImage.layer.masksToBounds = true
+        if self.paywall {
+            paywallIcon.isHidden = false
+        } else {
+            paywallIcon.isHidden = true
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

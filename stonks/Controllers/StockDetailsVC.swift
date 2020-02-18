@@ -27,7 +27,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var ytdChange: ColoredValueLabel!
     @IBOutlet weak var yrHighValue: ColoredValueLabel!
     @IBOutlet weak var averageVolume: UILabel!
-    @IBOutlet weak var maxVolume: UILabel!
+    @IBOutlet weak var totalVol: UILabel!
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var innerScroll: UIView!
@@ -76,9 +76,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.newsVC.tableView.delegate = self
-        self.newsVC.tableView.dataSource = self
         
         updateChartHeight()
 
@@ -145,16 +142,17 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         //loading indicator setup
         self.loadingView.dimBackgroundColor = UIColor.black.withAlphaComponent(0.8)
         self.loadingView.speedFactor = 1.5
+        self.loadingView.spreadingFactor = 0.0
         self.loadingView.sizeInContainer = CGSize(width: 100, height: 100)
         self.loadingView.showOnKeyWindow()
         
         //start information retrieval processes
-        self.totalHandlers = 5
+        self.totalHandlers = 6
         StockAPIManager.shared.stockDataApiInstance.getCompanyGeneralInfo(ticker: company.symbol, completionHandler: handleCompanyData)
         if !Constants.locked {
 //            StockAPIManager.shared.stockDataApiInstance.getKeyStats(ticker: company.symbol, completionHandler: handleKeyStats)
 //            StockAPIManager.shared.stockDataApiInstance.getAdvancedStats(ticker: company.symbol, completionHandler: handleAdvancedStats)
-//            StockAPIManager.shared.stockDataApiInstance.getNews(ticker: company.symbol, completionHandler: handleNews)
+            StockAPIManager.shared.stockDataApiInstance.getNews(ticker: company.symbol, completionHandler: handleNews)
 //            StockAPIManager.shared.stockDataApiInstance.getPriceTarget(ticker: company.symbol, completionHandler: handlePriceTarget)
 //            StockAPIManager.shared.stockDataApiInstance.getRecommendations(ticker: company.symbol, completionHandler: handleRecommendations)
 //            StockAPIManager.shared.stockDataApiInstance.getFinancials(ticker: company.symbol, completionHandler: handleFinancials)
@@ -241,10 +239,10 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         yrHighValue.setValue(value: latestQuote.getYrHighChangePercent(), isPercent: true)
     }
     
-    public func setVolumeValues(averageVolume:Double, maxVolume:Double){
+    public func setVolumeValues(averageVolume:Double, totalVol:Double){
         DispatchQueue.main.async {
             self.averageVolume.text = NumberFormatter.formatNumber(num: averageVolume)
-            self.maxVolume.text = NumberFormatter.formatNumber(num: maxVolume)
+            self.totalVol.text = NumberFormatter.formatNumber(num: totalVol)
         }
     }
     
@@ -588,7 +586,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     private func handleNews(news: [News]){
         self.company.news = news
-        let x = self.newsVC as! StatsVC
+        let x = self.newsVC
         x.updateData()
         print("\(self.handlersDone) news done")
         self.incrementLoadingProgress()
@@ -640,25 +638,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         x.updateData()
         print("\(self.handlersDone) earnings done")
         self.incrementLoadingProgress()
-    }
-    
-    //tableview delegate/datasource methods
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.newsVC.tableView.dequeueReusableCell(withIdentifier: "newscell") as! NewsTableViewCell
-        let news:News = (self.company.news?[indexPath.row])!
-        cell.heading.text = news.headline
-        cell.date.text = String(news.datetime!)
-        let url = URL(string: news.image!)
-        DispatchQueue.global().async {
-            let data = try? Data(contentsOf: url!)
-            DispatchQueue.main.async {
-                cell.newImage.image = UIImage(data: data!)
-            }
-        }
-        cell.source.text = news.source
-        cell.symbols.text = news.related
-        cell.paywall = news.hasPaywall!
-        return cell
     }
     
 }

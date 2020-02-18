@@ -54,6 +54,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "FinancialsViewController.getContentHeight():FinancialsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.contentView.bounds.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "WatchlistTVCell.displayData(company:):WatchlistTVCell.swift">
          <PersistentStrings>
             <PersistentString
@@ -64,14 +72,6 @@
             </PersistentString>
             <PersistentString
                value = "company.quote?.changePercent ?? 0.0 * 100.0">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "FinancialsViewController.getContentHeight():FinancialsViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.contentView.bounds.height">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -106,9 +106,6 @@
          contextName = "Company.addSmaToCandleSets():Company.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.monthlyData[monthlyPointer].date!.description">
-            </PersistentString>
-            <PersistentString
                value = "sma.date!.description">
             </PersistentString>
             <PersistentString
@@ -116,6 +113,9 @@
             </PersistentString>
             <PersistentString
                value = "self.monthlyData[monthlyPointer].date!.compare(sma.date!)">
+            </PersistentString>
+            <PersistentString
+               value = "self.monthlyData[monthlyPointer].date!.description">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -264,9 +264,6 @@
          contextName = "closure #1 in StockDetailsVC.adjustContentHeight(vc:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
-            </PersistentString>
-            <PersistentString
                value = "self.contentView.bounds.height">
             </PersistentString>
             <PersistentString
@@ -276,10 +273,13 @@
                value = "vcHeight">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
+               value = "statsVC.getContentHeight()">
             </PersistentString>
             <PersistentString
-               value = "statsVC.getContentHeight()">
+               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
+            </PersistentString>
+            <PersistentString
+               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -361,6 +361,20 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "NewsTableViewController.tableView(_:cellForRowAt:):NewsTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Date(timeIntervalSince1970: news.datetime!)">
+            </PersistentString>
+            <PersistentString
+               value = "dateFormatter.string(from: date)">
+            </PersistentString>
+            <PersistentString
+               value = "dateFormatter.dateFormat = &quot;MMM d, yyyy&quot;">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "PriceChartFormatter.stringForValue(_:axis:):PriceChartFormatter.swift">
          <PersistentStrings>
             <PersistentString
@@ -412,6 +426,26 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "NewsTableViewController.prepare(for:sender:):NewsTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "URLRequest(url: url)">
+            </PersistentString>
+            <PersistentString
+               value = "dest.webView">
+            </PersistentString>
+            <PersistentString
+               value = "segue.destination.webView">
+            </PersistentString>
+            <PersistentString
+               value = "cell.url">
+            </PersistentString>
+            <PersistentString
+               value = "dest.view">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in IEXTrading.getCompanyGeneralInfo(ticker:completionHandler:):IEXTrading.swift">
          <PersistentStrings>
             <PersistentString
@@ -450,10 +484,10 @@
          contextName = "closure #2 in StockDetailsVC.handleCompanyData(_:logo:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.contentViewHeightConstraint.multiplier">
+               value = "self.contentViewHeightConstraint.constant">
             </PersistentString>
             <PersistentString
-               value = "self.contentViewHeightConstraint.constant">
+               value = "self.contentViewHeightConstraint.multiplier">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -473,6 +507,9 @@
       </ContextState>
       <ContextState
          contextName = "PriceChartFormatter.addXAxisLabel(_:):PriceChartFormatter.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in NewsTableViewController.tableView(_:cellForRowAt:):NewsTableViewController.swift">
       </ContextState>
       <ContextState
          contextName = "WatchlistVC.tableView(_:willSelectRowAt:):WatchlistVC.swift">
