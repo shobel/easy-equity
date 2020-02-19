@@ -26,8 +26,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var datetime: UILabel!
     @IBOutlet weak var ytdChange: ColoredValueLabel!
     @IBOutlet weak var yrHighValue: ColoredValueLabel!
-    @IBOutlet weak var averageVolume: UILabel!
     @IBOutlet weak var totalVol: UILabel!
+    @IBOutlet weak var volChangeLabel: ColoredValueLabel!
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var innerScroll: UIView!
@@ -184,7 +184,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         if (quotes.count > 0){
             let quote = quotes[0]
             self.latestQuote = quote
-            print(quote.iexRealtimePrice)
+            self.setVolumeValues(averageVolume: Double(quote.avgTotalVolume ?? 0), totalVol: Double(quote.latestVolume ?? 0))
             DispatchQueue.main.async {
                 self.setTopBarValues(startPrice: 0.0, endPrice: self.latestQuote.latestPrice!, selected: false)
             }
@@ -241,8 +241,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     public func setVolumeValues(averageVolume:Double, totalVol:Double){
         DispatchQueue.main.async {
-            self.averageVolume.text = NumberFormatter.formatNumber(num: averageVolume)
             self.totalVol.text = NumberFormatter.formatNumber(num: totalVol)
+            let change = ((totalVol - averageVolume) / averageVolume)*100
+            self.volChangeLabel.setValue(value: change, isPercent: true)
         }
     }
     

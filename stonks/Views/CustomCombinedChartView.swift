@@ -29,10 +29,7 @@ class CustomCombinedChartView: CombinedChartView {
     private var sma20:LineChartDataSet = LineChartDataSet()
     private var sma50:LineChartDataSet = LineChartDataSet()
     private var sma100:LineChartDataSet = LineChartDataSet()
-    
-    private var avgVol:Double = 0.0
-    private var avgVol10Min:Double = 0.0
-    private var totalVol:Double = 0.0
+
     private var dayEntryCount = 391
     private var previousCloseValue = 0.0
     
@@ -56,6 +53,7 @@ class CustomCombinedChartView: CombinedChartView {
         self.leftAxis.labelCount = 2
         self.leftAxis.yOffset = -5
         self.leftAxis.forceLabelsEnabled = true
+        
         let numFormatter = PriceChartPriceFormatter()
         self.leftAxis.valueFormatter = numFormatter
         self.leftAxis.enabled = true
@@ -116,7 +114,6 @@ class CustomCombinedChartView: CombinedChartView {
         var sma200Entries:[ChartDataEntry] = []
         var earningsEntries:[ChartDataEntry] = []
         var entryCount = self.myCandleData!.count
-        var volumeTotal = 0.0
         var counter = 0
 
         let dateformatter = DateFormatter()
@@ -129,7 +126,6 @@ class CustomCombinedChartView: CombinedChartView {
             let open = candle.open!
             let close = candle.close!
             let volume = candle.volume!
-            volumeTotal += candle.volume!
             
             //TODO: move this code to server - each candle should say whether it is an earnings date
             if !day && candle.date != nil, let earnings = self.stockDetailsDelegate?.company.earnings {
@@ -156,8 +152,7 @@ class CustomCombinedChartView: CombinedChartView {
             }
             prevCandle = candle
         }
-        self.avgVol = volumeTotal / Double(self.myCandleData!.count)
-        self.totalVol = volumeTotal
+
         let candleSet = CandleChartDataSet(entries: candleEntries)
         self.setUpCandleChart(set: candleSet)
         self.candleChartData = CandleChartData(dataSet: candleSet)
@@ -191,7 +186,6 @@ class CustomCombinedChartView: CombinedChartView {
             }
             prevClose10MinEntries.append(ChartDataEntry(x: Double(i), y: previousCloseValue))
         }
-        self.avgVol10Min = volumeTotal / Double(self.myCandleDataTenMin!.count)
         let candleSet10min = CandleChartDataSet(entries: candle10minEntries)
         self.setUpCandleChart(set: candleSet10min)
         self.candleChartDataTenMin = CandleChartData(dataSet: candleSet10min)
@@ -224,7 +218,6 @@ class CustomCombinedChartView: CombinedChartView {
         
         DispatchQueue.main.async {
             let day = self.stockDetailsDelegate?.timeInterval == Constants.TimeIntervals.day
-            self.sendVolumeStats()
             let data = CombinedChartData()
             var lineDataSets: [LineChartDataSet] = [LineChartDataSet]()
             if day{
@@ -299,14 +292,6 @@ class CustomCombinedChartView: CombinedChartView {
             return true
         }
         return false
-    }
-    
-    private func sendVolumeStats(){
-        if self.stockDetailsDelegate!.candleMode && self.stockDetailsDelegate?.timeInterval == Constants.TimeIntervals.day {
-            self.stockDetailsDelegate?.setVolumeValues(averageVolume: self.avgVol10Min, totalVol: self.totalVol)
-        } else {
-            self.stockDetailsDelegate?.setVolumeValues(averageVolume: self.avgVol, totalVol: self.totalVol)
-        }
     }
     
     private func setUpCandleChart(set: CandleChartDataSet){

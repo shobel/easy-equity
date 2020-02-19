@@ -267,19 +267,19 @@
                value = "self.contentView.bounds.height">
             </PersistentString>
             <PersistentString
-               value = "self.pagingView.bounds.height">
-            </PersistentString>
-            <PersistentString
                value = "vcHeight">
             </PersistentString>
             <PersistentString
-               value = "statsVC.getContentHeight()">
+               value = "self.pagingView.bounds.height">
+            </PersistentString>
+            <PersistentString
+               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
             </PersistentString>
             <PersistentString
                value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
+               value = "statsVC.getContentHeight()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -364,13 +364,13 @@
          contextName = "NewsTableViewController.tableView(_:cellForRowAt:):NewsTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "Date(timeIntervalSince1970: news.datetime!)">
-            </PersistentString>
-            <PersistentString
                value = "dateFormatter.string(from: date)">
             </PersistentString>
             <PersistentString
                value = "dateFormatter.dateFormat = &quot;MMM d, yyyy&quot;">
+            </PersistentString>
+            <PersistentString
+               value = "Date(timeIntervalSince1970: news.datetime!)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -418,14 +418,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "StockDetailsVC.handleCompanyData(_:logo:):StockDetailsVC.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "innerScroll.bounds.height">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "NewsTableViewController.prepare(for:sender:):NewsTableViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -446,6 +438,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "StockDetailsVC.handleCompanyData(_:logo:):StockDetailsVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "innerScroll.bounds.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in IEXTrading.getCompanyGeneralInfo(ticker:completionHandler:):IEXTrading.swift">
          <PersistentStrings>
             <PersistentString
@@ -457,7 +457,7 @@
          contextName = "CustomCombinedChartView.updateChart():CustomCombinedChartView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "dateformatter.string(from: candle.date!)">
+               value = "self.myCandleData!.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -484,10 +484,10 @@
          contextName = "closure #2 in StockDetailsVC.handleCompanyData(_:logo:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.contentViewHeightConstraint.constant">
+               value = "self.contentViewHeightConstraint.multiplier">
             </PersistentString>
             <PersistentString
-               value = "self.contentViewHeightConstraint.multiplier">
+               value = "self.contentViewHeightConstraint.constant">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

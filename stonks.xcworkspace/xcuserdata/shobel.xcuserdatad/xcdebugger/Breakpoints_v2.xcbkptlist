@@ -132,8 +132,8 @@
             filePath = "stonks/Views/CustomCombinedChartView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
             landmarkName = "updateChart()"
             landmarkType = "7">
          </BreakpointContent>
@@ -148,10 +148,10 @@
             filePath = "stonks/Views/CustomCombinedChartView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "440"
-            endingLineNumber = "440"
-            landmarkName = "showLineChart()"
-            landmarkType = "7">
+            startingLineNumber = "441"
+            endingLineNumber = "441"
+            landmarkName = "CustomCombinedChartView"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -325,8 +325,8 @@
             filePath = "stonks/Views/CustomCombinedChartView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
             landmarkName = "addEarningsInfo(dateformatter:candle:prevCandle:earnings:)"
             landmarkType = "7">
          </BreakpointContent>
