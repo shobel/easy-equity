@@ -27,7 +27,8 @@ class WatchlistManager {
             Company(symbol: "AMD", fullName: "Advanced Micro Devices, Inc.", isCompany: true),
             Company(symbol: "SQ", fullName: "Square Inc", isCompany: true),
             Company(symbol: "SPY", fullName: "SPDR S&P 500 ETF Trust", isCompany: false),
-            Company(symbol: "QQQ", fullName: "PowerShares QQQ Trust", isCompany: false)
+            Company(symbol: "QQQ", fullName: "PowerShares QQQ Trust", isCompany: false),
+            Company(symbol: "SPCE", fullName: "Virgin Galactic", isCompany: true)
         ]
         sortWatchlist()
     }

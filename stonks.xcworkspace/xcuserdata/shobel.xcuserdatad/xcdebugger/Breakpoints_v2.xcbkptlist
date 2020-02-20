@@ -373,9 +373,25 @@
             filePath = "stonks/Controllers/StockDetailsVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "308"
-            endingLineNumber = "308"
+            startingLineNumber = "321"
+            endingLineNumber = "321"
             landmarkName = "adjustContentHeight(vc:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E37D9532-5A43-49E1-97FE-032A43C23C4B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "stonks/Controllers/StockDetailsVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
+            landmarkName = "handleAllData(generalInfo:logo:keystats:news:priceTarget:earnings:recommendations:advancedStats:financials:estimates:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

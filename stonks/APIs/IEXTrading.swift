@@ -236,8 +236,82 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
         })
     }
     
-    func getAllData(ticker: String, completionHandler: @escaping (GeneralInfo, String, KeyStats, [News], PriceTarget, Earnings, Recommendations, AdvancedStats, Financials, Estimates) -> Void) {
-        
+    func getAllData(ticker: String, completionHandler: @escaping (GeneralInfo, String, KeyStats, [News], PriceTarget, [Earnings], [Recommendations], AdvancedStats, Financials, Estimates) -> Void) {
+        let params = [
+            "symbols": ticker,
+            "types": "logo,company,stats,news,price-target,recommendation-trends,earnings,advanced-stats,financials,estimates",
+            "last": "20", //this last works for news and all periodical data so it needs to be high
+            "token": token
+        ]
+        let queryURL = buildQuery(url: batchURL, params: params)
+        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
+            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+              return
+            }
+            if let data = data {
+                let json = JSON(data)
+                let jsonPt:String = json[ticker]["price-target"].rawString()!
+                let jsonEarnings = json[ticker]["earnings"]["earnings"]
+                let jsonRec = json[ticker]["recommendation-trends"]
+                let jsonAs:String = json[ticker]["advanced-stats"].rawString()!
+                let jsonFinancials:String = json[ticker]["financials"]["financials"][0].rawString()!
+                let jsonEstimates:String = json[ticker]["estimates"]["estimates"][0].rawString()!
+                let jsonNews = json[ticker]["news"]
+                let jsonStats:String = json[ticker]["stats"].rawString()!
+                let jsonInfo:String = json[ticker]["company"].rawString()!
+                let logo = json[ticker]["logo"]["url"].string!
+
+                var priceTarget:PriceTarget = PriceTarget()
+                var earningsList:[Earnings] = []
+                var recommendations:[Recommendations] = []
+                var advancedStats:AdvancedStats = AdvancedStats()
+                var financials:Financials = Financials()
+                var estimates:Estimates = Estimates()
+                var newsList:[News] = []
+                var keystats:KeyStats = KeyStats()
+                var generalInfo:GeneralInfo = GeneralInfo()
+
+                if let p = Mapper<PriceTarget>().map(JSONString: jsonPt){
+                    priceTarget = p
+                }
+                for i in 0..<jsonEarnings.count{
+                    let s:String = jsonEarnings[i].rawString()!
+                    if let e = Mapper<Earnings>().map(JSONString: s){
+                        earningsList.append(e)
+                    }
+                }
+                for i in 0..<jsonRec.count{
+                    let s:String = jsonRec[i].rawString()!
+                    if let r = Mapper<Recommendations>().map(JSONString: s){
+                        recommendations.append(r)
+                    }
+                }
+                if let a = Mapper<AdvancedStats>().map(JSONString: jsonAs){
+                    advancedStats = a
+                }
+                if let f = Mapper<Financials>().map(JSONString: jsonFinancials){
+                    financials = f
+                }
+                if let e = Mapper<Estimates>().map(JSONString: jsonEstimates){
+                    estimates = e
+                }
+                for i in 0..<jsonNews.count{
+                    let s:String = jsonNews[i].rawString()!
+                    if let n = Mapper<News>().map(JSONString: s){
+                        if n.lang == "en" {
+                            newsList.append(n)
+                        }
+                    }
+                }
+                if let s = Mapper<KeyStats>().map(JSONString: jsonStats){
+                    keystats = s
+                }
+                if let g = Mapper<GeneralInfo>().map(JSONString: jsonInfo){
+                    generalInfo = g
+                }
+                completionHandler(generalInfo, logo, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, financials, estimates)
+            }
+        })
     }
     
     func getPriceTarget(ticker: String, completionHandler: @escaping (PriceTarget) -> Void) {
@@ -269,6 +343,9 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
         ]
         let queryURL = buildQuery(url: batchURL, params: params)
         sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
+            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+              return
+            }
             if let data = data {
                 let json = JSON(data)
                 let jsonEarnings = json[ticker]["earnings"]["earnings"]
@@ -315,6 +392,10 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
         ]
         let queryURL = buildQuery(url: batchURL, params: params)
         sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
+            guard let httpResponse = response as? HTTPURLResponse,
+                      (200...299).contains(httpResponse.statusCode) else {
+              return
+            }
             if let data = data {
                 let json = JSON(data)
                 let JSONString:String = json[ticker]["advanced-stats"].rawString()!
@@ -355,6 +436,10 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
         ]
         let queryURL = buildQuery(url: batchURL, params: params)
         sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
+            guard let httpResponse = response as? HTTPURLResponse,
+                      (200...299).contains(httpResponse.statusCode) else {
+              return
+            }
             if let data = data {
                 let json = JSON(data)
                 let JSONString:String = json[ticker]["estimates"]["estimates"][0].rawString()!
@@ -366,4 +451,5 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
             }
         })
     }
+    
 }

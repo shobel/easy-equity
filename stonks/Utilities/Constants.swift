@@ -11,7 +11,7 @@ import UIKit
 
 struct Constants{
 
-    public static var demo = false
+    public static var demo = true
     public static var locked = false
     
     public static var restorationIDs = (details: "companyDetails", watchlist: "watchlist", search: "companySearch")
@@ -30,6 +30,7 @@ struct Constants{
     ]
     public static var veryLightGrey = UIColor(red: 230.0/255.0, green: 230.0/255.0, blue: 230.0/255.0, alpha: 1.0)
     public static var darkPink = UIColor(red: 234.0/255.0, green: 0.0/255.0, blue: 97.0/255.0, alpha: 1.0)
+    public static var fadedDarkPink = UIColor(red: 234.0/255.0, green: 0.0/255.0, blue: 97.0/255.0, alpha: 0.2)
     public static var lightPink = UIColor(red: 255.0/255.0, green: 140.0/255.0, blue: 173.0/255.0, alpha: 1.0)
     public static var purple = UIColor(red: 199.0/255.0, green: 0.0/255.0, blue: 172.0/255.0, alpha: 1.0)
     public static var green = UIColor(red: 9.0/255.0, green: 196.0/255.0, blue: 122.0/255.0, alpha: 1.0)

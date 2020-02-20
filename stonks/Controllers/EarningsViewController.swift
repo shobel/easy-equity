@@ -10,6 +10,7 @@ import UIKit
 
 class EarningsViewController: UIViewController, StatsVC {
 
+    @IBOutlet weak var epsChart: EPSChart!
     @IBOutlet weak var dateE1: FormattedNumberLabel!
     @IBOutlet weak var epsE1: FormattedNumberLabel!
     @IBOutlet weak var consensusE1: FormattedNumberLabel!
@@ -43,6 +44,7 @@ class EarningsViewController: UIViewController, StatsVC {
         self.company = Dataholder.watchlistManager.selectedCompany!
         if (isLoaded){
             DispatchQueue.main.async {
+                self.epsChart.setup(company: self.company)
                 if let earnings = self.company.earnings {
                     var counter = 1
                     for e in earnings{

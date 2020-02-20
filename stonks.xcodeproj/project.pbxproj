@@ -64,6 +64,8 @@
 		1CCA7E392313853F0033AC58 /* PredictionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA7E382313853F0033AC58 /* PredictionsViewController.swift */; };
 		1CCA7E3B2313A8E80033AC58 /* GeneralInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA7E3A2313A8E80033AC58 /* GeneralInfo.swift */; };
 		1CCA7E3D2313AB5E0033AC58 /* KeyStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA7E3C2313AB5E0033AC58 /* KeyStats.swift */; };
+		1CCBE58623FDBAD300E57D49 /* EPSChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCBE58523FDBAD300E57D49 /* EPSChart.swift */; };
+		1CCBE58823FE720600E57D49 /* PEChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCBE58723FE720600E57D49 /* PEChart.swift */; };
 		1CD11940216DC394000AE02E /* CandlePricesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD1193F216DC394000AE02E /* CandlePricesView.swift */; };
 		1CD11942216DD73C000AE02E /* StockDetailsSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11941216DD73C000AE02E /* StockDetailsSummaryView.swift */; };
 		1CD11944216DD886000AE02E /* ColoredValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11943216DD886000AE02E /* ColoredValueLabel.swift */; };
@@ -159,6 +161,8 @@
 		1CCA7E382313853F0033AC58 /* PredictionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionsViewController.swift; sourceTree = "<group>"; };
 		1CCA7E3A2313A8E80033AC58 /* GeneralInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfo.swift; sourceTree = "<group>"; };
 		1CCA7E3C2313AB5E0033AC58 /* KeyStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyStats.swift; sourceTree = "<group>"; };
+		1CCBE58523FDBAD300E57D49 /* EPSChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPSChart.swift; sourceTree = "<group>"; };
+		1CCBE58723FE720600E57D49 /* PEChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PEChart.swift; sourceTree = "<group>"; };
 		1CD1193F216DC394000AE02E /* CandlePricesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandlePricesView.swift; sourceTree = "<group>"; };
 		1CD11941216DD73C000AE02E /* StockDetailsSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailsSummaryView.swift; sourceTree = "<group>"; };
 		1CD11943216DD886000AE02E /* ColoredValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredValueLabel.swift; sourceTree = "<group>"; };
@@ -306,6 +310,7 @@
 		1C7B985E215DDF4B00C75014 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1CCBE58423FDBA9500E57D49 /* Charts */,
 				1C6FF9842328E6FE005AE40D /* IconPagingCell.swift */,
 				1C7B987F215F396200C75014 /* WatchlistTVCell.swift */,
 				1C545210216AA4B90064239E /* GradientButton.swift */,
@@ -318,7 +323,6 @@
 				1CD11941216DD73C000AE02E /* StockDetailsSummaryView.swift */,
 				1C4EF3602329598D000299E6 /* InterpolateColor.swift */,
 				1CDA114B232B5C810028D00C /* FormattedNumberLabel.swift */,
-				1C0BC4DA232D83B9007C117F /* CustomCombinedChartView.swift */,
 				1C9B95BD23FA2075004E95B1 /* NewsTableViewCell.swift */,
 			);
 			path = Views;
@@ -366,6 +370,16 @@
 				1CE755B723D7616900E77D6C /* StockUpdater.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		1CCBE58423FDBA9500E57D49 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				1C0BC4DA232D83B9007C117F /* CustomCombinedChartView.swift */,
+				1CCBE58523FDBAD300E57D49 /* EPSChart.swift */,
+				1CCBE58723FE720600E57D49 /* PEChart.swift */,
+			);
+			path = Charts;
 			sourceTree = "<group>";
 		};
 		80DF6D6C08FD7E107EC125CB /* Pods */ = {
@@ -577,6 +591,7 @@
 				1C6936B721CDC72200E3FDC9 /* VolumeChartFormatter.swift in Sources */,
 				1C183F93216D5D2A0042F52C /* DemoBaseViewController.swift in Sources */,
 				1C7B98882161CC2F00C75014 /* CompanySearchTVC.swift in Sources */,
+				1CCBE58623FDBAD300E57D49 /* EPSChart.swift in Sources */,
 				1C7B9830215B32D500C75014 /* AppDelegate.swift in Sources */,
 				1CB257212172BBB6008E3D4D /* FinvizAPI.swift in Sources */,
 				1C545213216AF6400064239E /* WatchlistUpdater.swift in Sources */,
@@ -605,6 +620,7 @@
 				1C72349C230CF43200319D7F /* KeyStatsViewController.swift in Sources */,
 				1CB257292173B8A5008E3D4D /* Configuration.swift in Sources */,
 				1CB2572B21765C3A008E3D4D /* StockDetailsNavView.swift in Sources */,
+				1CCBE58823FE720600E57D49 /* PEChart.swift in Sources */,
 				1C2AC8682183D7C500469941 /* LaunchVC.swift in Sources */,
 				1CCA7E392313853F0033AC58 /* PredictionsViewController.swift in Sources */,
 				1C7B98862161949A00C75014 /* Dataholder.swift in Sources */,

@@ -147,17 +147,18 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.loadingView.showOnKeyWindow()
         
         //start information retrieval processes
-        self.totalHandlers = 6
-        StockAPIManager.shared.stockDataApiInstance.getCompanyGeneralInfo(ticker: company.symbol, completionHandler: handleCompanyData)
+        self.totalHandlers = 4
+//        StockAPIManager.shared.stockDataApiInstance.getCompanyGeneralInfo(ticker: company.symbol, completionHandler: handleCompanyData)
         if !Constants.locked {
 //            StockAPIManager.shared.stockDataApiInstance.getKeyStats(ticker: company.symbol, completionHandler: handleKeyStats)
 //            StockAPIManager.shared.stockDataApiInstance.getAdvancedStats(ticker: company.symbol, completionHandler: handleAdvancedStats)
-            StockAPIManager.shared.stockDataApiInstance.getNews(ticker: company.symbol, completionHandler: handleNews)
+//            StockAPIManager.shared.stockDataApiInstance.getNews(ticker: company.symbol, completionHandler: handleNews)
 //            StockAPIManager.shared.stockDataApiInstance.getPriceTarget(ticker: company.symbol, completionHandler: handlePriceTarget)
 //            StockAPIManager.shared.stockDataApiInstance.getRecommendations(ticker: company.symbol, completionHandler: handleRecommendations)
 //            StockAPIManager.shared.stockDataApiInstance.getFinancials(ticker: company.symbol, completionHandler: handleFinancials)
 //            StockAPIManager.shared.stockDataApiInstance.getEstimates(ticker: company.symbol, completionHandler: handleEstimates)
-            StockAPIManager.shared.stockDataApiInstance.getEarnings(ticker: company.symbol, completionHandler: handleEarnings)
+//            StockAPIManager.shared.stockDataApiInstance.getEarnings(ticker: company.symbol, completionHandler: handleEarnings)
+            StockAPIManager.shared.stockDataApiInstance.getAllData(ticker: company.symbol, completionHandler: handleAllData)
 //            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "50", completionHandler: handleSMA50)
 //            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "100", completionHandler: handleSMA100)
 //            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "200", completionHandler: handleSMA200)
@@ -245,6 +246,18 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             let change = ((totalVol - averageVolume) / averageVolume)*100
             self.volChangeLabel.setValue(value: change, isPercent: true)
         }
+    }
+    
+    private func handleAllData(generalInfo: GeneralInfo, logo: String, keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: [Recommendations], advancedStats: AdvancedStats, financials: Financials, estimates: Estimates){
+        self.handleCompanyData(generalInfo, logo: logo)
+        self.handleKeyStats(keyStats: keystats)
+        self.handleNews(news: news)
+        self.handlePriceTarget(priceTarget: priceTarget)
+        self.handleEarnings(earnings: earnings)
+        self.handleRecommendations(recommendations: recommendations)
+        self.handleAdvancedStats(advancedStats: advancedStats)
+        self.handleFinancials(financials: financials)
+        self.handleEstimates(estimates: estimates)
     }
     
     private func handleSMA200(_ smaData:[DatedValue]){
