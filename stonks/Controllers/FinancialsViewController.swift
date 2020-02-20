@@ -7,14 +7,9 @@
 //
 
 import UIKit
-protocol StatsVC {
-    func updateData()
-}
 
 class FinancialsViewController: UIViewController, StatsVC {
     
-    
-    @IBOutlet weak var reportDate: FormattedNumberLabel!
     @IBOutlet weak var netIncome: FormattedNumberLabel!
     @IBOutlet weak var cashFlow: FormattedNumberLabel!
     @IBOutlet weak var totalCash: FormattedNumberLabel!
@@ -26,6 +21,7 @@ class FinancialsViewController: UIViewController, StatsVC {
     @IBOutlet weak var research: FormattedNumberLabel!
     @IBOutlet weak var opex: FormattedNumberLabel!
     @IBOutlet weak var se: FormattedNumberLabel!
+    @IBOutlet weak var contentView: UIView!
     
     private var company:Company!
     private var isLoaded = false
@@ -41,9 +37,6 @@ class FinancialsViewController: UIViewController, StatsVC {
         self.company = Dataholder.watchlistManager.selectedCompany!
         if (isLoaded){
             DispatchQueue.main.async {
-                if let rd = self.company.financials?.reportDate {
-                    self.reportDate.setValue(value: rd, format: FormattedNumberLabel.Format.DATE)
-                }
                 if let ni = self.company.financials?.netIncome {
                     self.netIncome.setValue(value: String(ni), format: FormattedNumberLabel.Format.NUMBER)
                 }
@@ -81,6 +74,9 @@ class FinancialsViewController: UIViewController, StatsVC {
         }
     }
     
+    func getContentHeight() -> CGFloat {
+        return self.contentView.bounds.height
+    }
     
     /*
      // MARK: - Navigation

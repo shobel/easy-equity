@@ -23,6 +23,8 @@ class PredictionsViewController: UIViewController, StatsVC {
     @IBOutlet weak var numHolds: FormattedNumberLabel!
     @IBOutlet weak var numSells: FormattedNumberLabel!
     
+    @IBOutlet weak var contentView: UIView!
+    
     private var company:Company!
     private var isLoaded = false
     
@@ -83,6 +85,10 @@ class PredictionsViewController: UIViewController, StatsVC {
                 }
             }
         }
+    }
+    
+    func getContentHeight() -> CGFloat {
+        return self.contentView.bounds.height
     }
     
     

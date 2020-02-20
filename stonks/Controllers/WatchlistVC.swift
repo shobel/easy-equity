@@ -29,6 +29,11 @@ class WatchlistVC: UIViewController, Updateable {
         finvizAPI = FinvizAPI()
 //        finvizAPI.getData(forTickers: watchlistManager.getTickers(companiesOnly: true), completionHandler: handleFinvizResponse)
         
+        self.addTickerButton.layer.shadowColor = UIColor.black.cgColor
+        self.addTickerButton.layer.shadowOpacity = 0.7
+        self.addTickerButton.layer.shadowOffset = .zero
+        self.addTickerButton.layer.shadowRadius = 3
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.separatorInset = UIEdgeInsets.zero
@@ -48,7 +53,7 @@ class WatchlistVC: UIViewController, Updateable {
         //updateFinvizData()
         self.tableView.reloadData()
         if !watchlistManager.getWatchlist().isEmpty {
-            watchlistUpdater = WatchlistUpdater(caller: self)
+            watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: 10.0)
             watchlistUpdater!.startTask()
         }
     }

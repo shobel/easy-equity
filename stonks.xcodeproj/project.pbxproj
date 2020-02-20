@@ -48,6 +48,8 @@
 		1C7B98882161CC2F00C75014 /* CompanySearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B98872161CC2F00C75014 /* CompanySearchTVC.swift */; };
 		1C9B952323E74F14004E95B1 /* PriceChartPriceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B952223E74F14004E95B1 /* PriceChartPriceFormatter.swift */; };
 		1C9B952523EE3958004E95B1 /* DatedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B952423EE3958004E95B1 /* DatedValue.swift */; };
+		1C9B95BC23FA204F004E95B1 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B95BB23FA204F004E95B1 /* NewsTableViewController.swift */; };
+		1C9B95BE23FA2075004E95B1 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B95BD23FA2075004E95B1 /* NewsTableViewCell.swift */; };
 		1CB257212172BBB6008E3D4D /* FinvizAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB257202172BBB6008E3D4D /* FinvizAPI.swift */; };
 		1CB257252172C292008E3D4D /* WatchlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB257242172C292008E3D4D /* WatchlistManager.swift */; };
 		1CB257272173A234008E3D4D /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB257262173A234008E3D4D /* HTTPRequest.swift */; };
@@ -62,6 +64,8 @@
 		1CCA7E392313853F0033AC58 /* PredictionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA7E382313853F0033AC58 /* PredictionsViewController.swift */; };
 		1CCA7E3B2313A8E80033AC58 /* GeneralInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA7E3A2313A8E80033AC58 /* GeneralInfo.swift */; };
 		1CCA7E3D2313AB5E0033AC58 /* KeyStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA7E3C2313AB5E0033AC58 /* KeyStats.swift */; };
+		1CCBE58623FDBAD300E57D49 /* EPSChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCBE58523FDBAD300E57D49 /* EPSChart.swift */; };
+		1CCBE58823FE720600E57D49 /* PEChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCBE58723FE720600E57D49 /* PEChart.swift */; };
 		1CD11940216DC394000AE02E /* CandlePricesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD1193F216DC394000AE02E /* CandlePricesView.swift */; };
 		1CD11942216DD73C000AE02E /* StockDetailsSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11941216DD73C000AE02E /* StockDetailsSummaryView.swift */; };
 		1CD11944216DD886000AE02E /* ColoredValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11943216DD886000AE02E /* ColoredValueLabel.swift */; };
@@ -70,6 +74,7 @@
 		1CD1194A216F35C3000AE02E /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD11949216F35C3000AE02E /* MarkerView.swift */; };
 		1CDA114C232B5C810028D00C /* FormattedNumberLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDA114B232B5C810028D00C /* FormattedNumberLabel.swift */; };
 		1CE755B823D7616900E77D6C /* StockUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE755B723D7616900E77D6C /* StockUpdater.swift */; };
+		1CFE633D23FB665E00F81758 /* NewsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFE633C23FB665E00F81758 /* NewsWebViewController.swift */; };
 		1CFFAA0B2170337400D3E768 /* AnalystsRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFFAA0A2170337400D3E768 /* AnalystsRating.swift */; };
 		3190B5951A804D1D76815360 /* Pods_stonks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 851E076FA06779BF9AEB98FC /* Pods_stonks.framework */; };
 /* End PBXBuildFile section */
@@ -140,6 +145,8 @@
 		1C7B98872161CC2F00C75014 /* CompanySearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanySearchTVC.swift; sourceTree = "<group>"; };
 		1C9B952223E74F14004E95B1 /* PriceChartPriceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceChartPriceFormatter.swift; sourceTree = "<group>"; };
 		1C9B952423EE3958004E95B1 /* DatedValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatedValue.swift; sourceTree = "<group>"; };
+		1C9B95BB23FA204F004E95B1 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
+		1C9B95BD23FA2075004E95B1 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		1CB257202172BBB6008E3D4D /* FinvizAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinvizAPI.swift; sourceTree = "<group>"; };
 		1CB257242172C292008E3D4D /* WatchlistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistManager.swift; sourceTree = "<group>"; };
 		1CB257262173A234008E3D4D /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
@@ -154,6 +161,8 @@
 		1CCA7E382313853F0033AC58 /* PredictionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionsViewController.swift; sourceTree = "<group>"; };
 		1CCA7E3A2313A8E80033AC58 /* GeneralInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfo.swift; sourceTree = "<group>"; };
 		1CCA7E3C2313AB5E0033AC58 /* KeyStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyStats.swift; sourceTree = "<group>"; };
+		1CCBE58523FDBAD300E57D49 /* EPSChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPSChart.swift; sourceTree = "<group>"; };
+		1CCBE58723FE720600E57D49 /* PEChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PEChart.swift; sourceTree = "<group>"; };
 		1CD1193F216DC394000AE02E /* CandlePricesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandlePricesView.swift; sourceTree = "<group>"; };
 		1CD11941216DD73C000AE02E /* StockDetailsSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailsSummaryView.swift; sourceTree = "<group>"; };
 		1CD11943216DD886000AE02E /* ColoredValueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredValueLabel.swift; sourceTree = "<group>"; };
@@ -162,6 +171,7 @@
 		1CD11949216F35C3000AE02E /* MarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
 		1CDA114B232B5C810028D00C /* FormattedNumberLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormattedNumberLabel.swift; sourceTree = "<group>"; };
 		1CE755B723D7616900E77D6C /* StockUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockUpdater.swift; sourceTree = "<group>"; };
+		1CFE633C23FB665E00F81758 /* NewsWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWebViewController.swift; sourceTree = "<group>"; };
 		1CFFAA0A2170337400D3E768 /* AnalystsRating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalystsRating.swift; sourceTree = "<group>"; };
 		5265415BD1DB5B226DB13419 /* Pods-stonks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stonks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-stonks/Pods-stonks.debug.xcconfig"; sourceTree = "<group>"; };
 		851E076FA06779BF9AEB98FC /* Pods_stonks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_stonks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -300,6 +310,7 @@
 		1C7B985E215DDF4B00C75014 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1CCBE58423FDBA9500E57D49 /* Charts */,
 				1C6FF9842328E6FE005AE40D /* IconPagingCell.swift */,
 				1C7B987F215F396200C75014 /* WatchlistTVCell.swift */,
 				1C545210216AA4B90064239E /* GradientButton.swift */,
@@ -312,7 +323,7 @@
 				1CD11941216DD73C000AE02E /* StockDetailsSummaryView.swift */,
 				1C4EF3602329598D000299E6 /* InterpolateColor.swift */,
 				1CDA114B232B5C810028D00C /* FormattedNumberLabel.swift */,
-				1C0BC4DA232D83B9007C117F /* CustomCombinedChartView.swift */,
+				1C9B95BD23FA2075004E95B1 /* NewsTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -332,6 +343,8 @@
 				1C6FF97A23261617005AE40D /* EarningsViewController.swift */,
 				1C6FF97C23261C74005AE40D /* FinancialsViewController.swift */,
 				1C4EF363232AACAF000299E6 /* NewsViewController.swift */,
+				1C9B95BB23FA204F004E95B1 /* NewsTableViewController.swift */,
+				1CFE633C23FB665E00F81758 /* NewsWebViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -357,6 +370,16 @@
 				1CE755B723D7616900E77D6C /* StockUpdater.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		1CCBE58423FDBA9500E57D49 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				1C0BC4DA232D83B9007C117F /* CustomCombinedChartView.swift */,
+				1CCBE58523FDBAD300E57D49 /* EPSChart.swift */,
+				1CCBE58723FE720600E57D49 /* PEChart.swift */,
+			);
+			path = Charts;
 			sourceTree = "<group>";
 		};
 		80DF6D6C08FD7E107EC125CB /* Pods */ = {
@@ -558,6 +581,7 @@
 				1CB3D622231DBF0E00D6F57C /* News.swift in Sources */,
 				1C7B9879215F071E00C75014 /* Candle.swift in Sources */,
 				1C545215216C31950064239E /* Quote.swift in Sources */,
+				1C9B95BC23FA204F004E95B1 /* NewsTableViewController.swift in Sources */,
 				1C183F91216D59F90042F52C /* StockDetailsVC.swift in Sources */,
 				1C6FF97D23261C74005AE40D /* FinancialsViewController.swift in Sources */,
 				1C0BC4DB232D83B9007C117F /* CustomCombinedChartView.swift in Sources */,
@@ -567,6 +591,7 @@
 				1C6936B721CDC72200E3FDC9 /* VolumeChartFormatter.swift in Sources */,
 				1C183F93216D5D2A0042F52C /* DemoBaseViewController.swift in Sources */,
 				1C7B98882161CC2F00C75014 /* CompanySearchTVC.swift in Sources */,
+				1CCBE58623FDBAD300E57D49 /* EPSChart.swift in Sources */,
 				1C7B9830215B32D500C75014 /* AppDelegate.swift in Sources */,
 				1CB257212172BBB6008E3D4D /* FinvizAPI.swift in Sources */,
 				1C545213216AF6400064239E /* WatchlistUpdater.swift in Sources */,
@@ -585,6 +610,7 @@
 				1CCA7E3D2313AB5E0033AC58 /* KeyStats.swift in Sources */,
 				1C6FF9772324BE23005AE40D /* AdvancedStats.swift in Sources */,
 				1C7B9861215DDFBC00C75014 /* Company.swift in Sources */,
+				1C9B95BE23FA2075004E95B1 /* NewsTableViewCell.swift in Sources */,
 				1CFFAA0B2170337400D3E768 /* AnalystsRating.swift in Sources */,
 				1C7B9863215DE1A800C75014 /* Constants.swift in Sources */,
 				1CD11942216DD73C000AE02E /* StockDetailsSummaryView.swift in Sources */,
@@ -594,6 +620,7 @@
 				1C72349C230CF43200319D7F /* KeyStatsViewController.swift in Sources */,
 				1CB257292173B8A5008E3D4D /* Configuration.swift in Sources */,
 				1CB2572B21765C3A008E3D4D /* StockDetailsNavView.swift in Sources */,
+				1CCBE58823FE720600E57D49 /* PEChart.swift in Sources */,
 				1C2AC8682183D7C500469941 /* LaunchVC.swift in Sources */,
 				1CCA7E392313853F0033AC58 /* PredictionsViewController.swift in Sources */,
 				1C7B98862161949A00C75014 /* Dataholder.swift in Sources */,
@@ -606,6 +633,7 @@
 				1C4EF3612329598D000299E6 /* InterpolateColor.swift in Sources */,
 				1CD11940216DC394000AE02E /* CandlePricesView.swift in Sources */,
 				1CDA114C232B5C810028D00C /* FormattedNumberLabel.swift in Sources */,
+				1CFE633D23FB665E00F81758 /* NewsWebViewController.swift in Sources */,
 				1C6FF97B23261617005AE40D /* EarningsViewController.swift in Sources */,
 				1C2AC864217FB01D00469941 /* PriceChartFormatter.swift in Sources */,
 				1C7B9871215EB09000C75014 /* StockDataApiProtocol.swift in Sources */,
@@ -794,6 +822,7 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\"",
 				);
 				INFOPLIST_FILE = stonks/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -813,6 +842,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BDZT3U3R7D;
 				INFOPLIST_FILE = stonks/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -17,22 +17,25 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var stockDetailsNavView: StockDetailsNavView!
     @IBOutlet weak var priceDetailsView: StockDetailsSummaryView!
     @IBOutlet weak var chartView: CustomCombinedChartView!
-    @IBOutlet weak var volumeView: BarChartView!
     @IBOutlet weak var candlePricesWrapper: UIView!
     @IBOutlet weak var candlePricesView: CandlePricesView!
     @IBOutlet weak var candleMarkerView: MarkerView!
     @IBOutlet weak var chartTypeButton: UIButton!
-        
+    @IBOutlet weak var contentView: UIView!
+    
     @IBOutlet weak var datetime: UILabel!
     @IBOutlet weak var ytdChange: ColoredValueLabel!
     @IBOutlet weak var yrHighValue: ColoredValueLabel!
-    @IBOutlet weak var averageVolume: UILabel!
-    @IBOutlet weak var maxVolume: UILabel!
+    @IBOutlet weak var totalVol: UILabel!
+    @IBOutlet weak var volChangeLabel: ColoredValueLabel!
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var innerScroll: UIView!
     @IBOutlet weak var chartTimeView: UIStackView!
+    @IBOutlet weak var pagingView: UIView!
     @IBOutlet weak var chartViewWrapperHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var timeViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var pagingViewHeightConstraint: NSLayoutConstraint!
     
     public var company:Company!
     public var latestQuote:Quote!
@@ -53,19 +56,18 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     private var pageVCList:[UIViewController] = []
     private var keyStatsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StatsVC")
-    private var advancedStatsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AdvancedVC")
-    private var newsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewsVC")
+    private var newsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewsVC") as! NewsTableViewController
     private var earningsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "EarningsVC")
     private var financialsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FinVC")
     private var predictionsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PredictionsVC")
     private var companyVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "InfoVC")
     
     private var stockUpdater:StockUpdater?
+    private var pageVC: PagingViewController<IconItem>!
     
     fileprivate let icons = [
         "stats",
         "news",
-        "advanced",
         "financials",
         "earnings",
         "analysts",
@@ -74,46 +76,48 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         updateChartHeight()
 
         company = Dataholder.watchlistManager.selectedCompany
         //let pageVC: StatsNewsPageViewController = self.children.first as! StatsNewsPageViewController
         //pageVC.pageDelegate = self
         
-        self.stockUpdater = StockUpdater(caller: self, ticker: company.symbol)
+        self.stockUpdater = StockUpdater(caller: self, ticker: company.symbol, timeInterval: 10.0)
         self.stockUpdater?.startTask()
         
         self.pageVCList = [
-            self.keyStatsVC, self.newsVC, self.advancedStatsVC, self.financialsVC, self.earningsVC, self.predictionsVC, self.companyVC
+            self.keyStatsVC, self.newsVC, self.financialsVC, self.earningsVC, self.predictionsVC, self.companyVC
         ]
         
-        let pageVC = PagingViewController<IconItem>()
+        pageVC = PagingViewController<IconItem>()
         pageVC.menuItemSource = .class(type: IconPagingCell.self)
         pageVC.menuHorizontalAlignment = .center
         pageVC.menuItemSize = .sizeToFit(minWidth: 60, height: 60)
         pageVC.menuBackgroundColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1)
         pageVC.indicatorColor = Constants.darkPink
         pageVC.dataSource = self
+        pageVC.delegate = self
         pageVC.select(pagingItem: IconItem(icon: icons[0], index: 0))
         
         self.addChild(pageVC)
-        self.scrollView.addSubview(pageVC.view)
+        self.pagingView.addSubview(pageVC.view)
         pageVC.didMove(toParent: self)
         pageVC.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            pageVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            pageVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            pageVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            pageVC.view.topAnchor.constraint(equalTo: chartTimeView.bottomAnchor)
+            pageVC.view.leadingAnchor.constraint(equalTo: pagingView.leadingAnchor),
+            pageVC.view.trailingAnchor.constraint(equalTo: pagingView.trailingAnchor),
+            //pageVC.view.bottomAnchor.constraint(equalTo: pagingView.bottomAnchor),
+            self.pagingView.bottomAnchor.constraint(equalTo: pageVC.view.bottomAnchor),
+            pageVC.view.topAnchor.constraint(equalTo: pagingView.topAnchor)
         ])
         pageVC.selectedFont = UIFont(name: "HelveticaNeue-Thin", size: 12.0)!
         pageVC.backgroundColor = UIColor.lightGray
         
-        volumeView.delegate = self
         /* We have a custom nav panel and so the default one goes on the bottom for some reason
          and then our tab bar at the bottom gets darker */
         self.navigationController?.view.backgroundColor = UIColor.white
-        
+
         chartTypeButton.imageView!.contentMode = UIView.ContentMode.scaleAspectFit
         feedbackGenerator = UISelectionFeedbackGenerator()
         
@@ -132,19 +136,19 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         //load charts
         setGlobalChartOptions()
         volumeChartFormatter = VolumeChartFormatter()
-        loadVolumeChart() //volume chart has to be setup before main chart
-        self.chartView.setup(delegate: self, volumeView: self.volumeView)
+        self.chartView.setup(delegate: self)
         self.chartView.delegate = self
-
         
         //loading indicator setup
         self.loadingView.dimBackgroundColor = UIColor.black.withAlphaComponent(0.8)
         self.loadingView.speedFactor = 1.5
+        self.loadingView.spreadingFactor = 0.0
         self.loadingView.sizeInContainer = CGSize(width: 100, height: 100)
         self.loadingView.showOnKeyWindow()
         
         //start information retrieval processes
-        StockAPIManager.shared.stockDataApiInstance.getCompanyGeneralInfo(ticker: company.symbol, completionHandler: handleCompanyData)
+        self.totalHandlers = 4
+//        StockAPIManager.shared.stockDataApiInstance.getCompanyGeneralInfo(ticker: company.symbol, completionHandler: handleCompanyData)
         if !Constants.locked {
 //            StockAPIManager.shared.stockDataApiInstance.getKeyStats(ticker: company.symbol, completionHandler: handleKeyStats)
 //            StockAPIManager.shared.stockDataApiInstance.getAdvancedStats(ticker: company.symbol, completionHandler: handleAdvancedStats)
@@ -153,17 +157,16 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
 //            StockAPIManager.shared.stockDataApiInstance.getRecommendations(ticker: company.symbol, completionHandler: handleRecommendations)
 //            StockAPIManager.shared.stockDataApiInstance.getFinancials(ticker: company.symbol, completionHandler: handleFinancials)
 //            StockAPIManager.shared.stockDataApiInstance.getEstimates(ticker: company.symbol, completionHandler: handleEstimates)
-            StockAPIManager.shared.stockDataApiInstance.getEarnings(ticker: company.symbol, completionHandler: handleEarnings)
-            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "50", completionHandler: handleSMA50)
-            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "100", completionHandler: handleSMA100)
-            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "200", completionHandler: handleSMA200)
-            self.totalHandlers += 5
+//            StockAPIManager.shared.stockDataApiInstance.getEarnings(ticker: company.symbol, completionHandler: handleEarnings)
+            StockAPIManager.shared.stockDataApiInstance.getAllData(ticker: company.symbol, completionHandler: handleAllData)
+//            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "50", completionHandler: handleSMA50)
+//            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "100", completionHandler: handleSMA100)
+//            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "200", completionHandler: handleSMA200)
         }
         
         self.alphaVantage.getDailyChart(ticker: company.symbol, timeInterval: Constants.TimeIntervals.twenty_year, completionHandler: handleDailyChartData)
         self.alphaVantage.getWeeklyChart(ticker: company.symbol, timeInterval: Constants.TimeIntervals.twenty_year, completionHandler: handleWeeklyChartData)
         self.alphaVantage.getMonthlyChart(ticker: company.symbol, timeInterval: Constants.TimeIntervals.twenty_year, completionHandler: handleMonthlyChartData)
-        self.totalHandlers += 3
 
         //StockAPIManager.shared.stockDataApiInstance.getDailyChart(ticker: company.symbol, timeInterval: .max, completionHandler: handleFullChartData)
         
@@ -173,6 +176,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         button1D.setTitleColor(Constants.darkGrey, for: .normal)
         timeInterval = Constants.TimeIntervals.day
         
+        self.adjustContentHeight(vc: self.keyStatsVC)
+        
     }
     
     func updateFromScheduledTask(_ data:Any?) {
@@ -180,11 +185,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         if (quotes.count > 0){
             let quote = quotes[0]
             self.latestQuote = quote
+            self.setVolumeValues(averageVolume: Double(quote.avgTotalVolume ?? 0), totalVol: Double(quote.latestVolume ?? 0))
             DispatchQueue.main.async {
                 self.setTopBarValues(startPrice: 0.0, endPrice: self.latestQuote.latestPrice!, selected: false)
             }
             self.isMarketOpen = quote.isUSMarketOpen!
-            StockAPIManager.shared.stockDataApiInstance.getDailyChart(ticker: company.symbol, timeInterval: .day, completionHandler: handleDayChartData)
+            StockAPIManager.shared.stockDataApiInstance.getDailyChart(ticker: company.symbol, timeInterval: .day, completionHandler: handleDayChartNoProgress)
             if !self.isMarketOpen {
                 self.stockUpdater?.stopTask()
             }
@@ -234,11 +240,24 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         yrHighValue.setValue(value: latestQuote.getYrHighChangePercent(), isPercent: true)
     }
     
-    public func setVolumeValues(averageVolume:Double, maxVolume:Double){
+    public func setVolumeValues(averageVolume:Double, totalVol:Double){
         DispatchQueue.main.async {
-            self.averageVolume.text = NumberFormatter.formatNumber(num: averageVolume)
-            self.maxVolume.text = NumberFormatter.formatNumber(num: maxVolume)
+            self.totalVol.text = NumberFormatter.formatNumber(num: totalVol)
+            let change = ((totalVol - averageVolume) / averageVolume)*100
+            self.volChangeLabel.setValue(value: change, isPercent: true)
         }
+    }
+    
+    private func handleAllData(generalInfo: GeneralInfo, logo: String, keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: [Recommendations], advancedStats: AdvancedStats, financials: Financials, estimates: Estimates){
+        self.handleCompanyData(generalInfo, logo: logo)
+        self.handleKeyStats(keyStats: keystats)
+        self.handleNews(news: news)
+        self.handlePriceTarget(priceTarget: priceTarget)
+        self.handleEarnings(earnings: earnings)
+        self.handleRecommendations(recommendations: recommendations)
+        self.handleAdvancedStats(advancedStats: advancedStats)
+        self.handleFinancials(financials: financials)
+        self.handleEstimates(estimates: estimates)
     }
     
     private func handleSMA200(_ smaData:[DatedValue]){
@@ -297,10 +316,24 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.incrementLoadingProgress()
     }
     
+    private func adjustContentHeight(vc: UIViewController){
+        DispatchQueue.main.async{
+            let statsVC = vc as! StatsVC
+            self.pagingViewHeightConstraint.constant = statsVC.getContentHeight() + 80
+        }
+    }
+    
+    private func handleDayChartNoProgress(_ chartData:[Candle]){
+        self.handleDayChartMain(chartData, updateProgress: false)
+    }
+    
     private func handleDayChartData(_ chartData:[Candle]){
+        self.handleDayChartMain(chartData, updateProgress: true)
+    }
+    
+    private func handleDayChartMain(_ chartData:[Candle], updateProgress: Bool){
         if chartData.isEmpty {
             let date = ""
-            //get most recent date from company.dailyData
             StockAPIManager.shared.stockDataApiInstance.getChartForDate(ticker: company.symbol, date: date, completionHandler: handleDayChartData(_:))
         } else {
             company.setMinuteData(chartData, open: self.isMarketOpen)
@@ -308,13 +341,15 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
                 self.chartView.setChartData(chartData: company.minuteData)
             }
             print("\(self.handlersDone) day chart done")
-            self.incrementLoadingProgress()
+            if updateProgress {
+                self.incrementLoadingProgress()
+            }
         }
     }
 
     private func handleDailyChartData(_ chartData:[Candle]){
         if chartData.isEmpty {
-            self.alphaVantage.getDailyChart(ticker: self.company.symbol, timeInterval: Constants.TimeIntervals.twenty_year, completionHandler: handleDayChartData)
+            self.alphaVantage.getDailyChart(ticker: self.company.symbol, timeInterval: Constants.TimeIntervals.twenty_year, completionHandler: handleDailyChartData)
         } else {
             company.dailyData = chartData.sorted{
                 guard let d1 = $0.date, let d2 = $1.date else { return false }
@@ -375,30 +410,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
                         .toggleShadowColorSameAsCandle,
                         .toggleShowCandleBar,
                         .toggleData]
-    }
-    
-    private func loadVolumeChart(){
-        volumeView.delegate = self
-        volumeView.chartDescription?.enabled = false
-        volumeView.legend.enabled = false
-        volumeView.highlightPerTapEnabled = false
-        volumeView.dragEnabled = false
-        volumeView.setScaleEnabled(true)
-        volumeView.maxVisibleCount = 200
-        volumeView.pinchZoomEnabled = false
-        volumeView.doubleTapToZoomEnabled = false
-        volumeView.autoScaleMinMaxEnabled = true
-        
-        volumeView.leftAxis.drawGridLinesEnabled = false
-        volumeView.rightAxis.enabled = false
-        //volumeView.leftAxis.enabled = false
-        volumeView.xAxis.enabled = false
-        volumeView.xAxis.drawGridLinesEnabled = false
-        volumeView.leftAxis.labelFont = UIFont(name: "HelveticaNeue-Light", size: 10)!
-        volumeView.leftAxis.drawBottomYLabelEntryEnabled = false
-        volumeView.leftAxis.drawZeroLineEnabled = false
-        volumeView.leftAxis.setLabelCount(1, force: true)
-        volumeView.leftAxis.valueFormatter = volumeChartFormatter
     }
     
     override func updateChartData() {
@@ -589,7 +600,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     private func handleNews(news: [News]){
         self.company.news = news
-        let x = self.newsVC as! StatsVC
+        let x = self.newsVC
         x.updateData()
         print("\(self.handlersDone) news done")
         self.incrementLoadingProgress()
@@ -597,7 +608,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     private func handleAdvancedStats(advancedStats: AdvancedStats){
         self.company.advancedStats = advancedStats
-        let x = self.advancedStatsVC as! StatsVC
+        let x = self.keyStatsVC as! StatsVC
         x.updateData()
         print("\(self.handlersDone) advanced done")
         self.incrementLoadingProgress()
@@ -657,5 +668,17 @@ extension StockDetailsVC: PagingViewControllerDataSource {
     
     func numberOfViewControllers<T>(in: PagingViewController<T>) -> Int {
         return self.pageVCList.count
+    }
+}
+
+extension StockDetailsVC: PagingViewControllerDelegate {
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, willScrollToItem pagingItem: T, startingViewController: UIViewController, destinationViewController: UIViewController) where T : PagingItem, T : Comparable, T : Hashable {
+        //self.adjustContentHeight(vc: destinationViewController)
+    }
+    
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+        if transitionSuccessful {
+            self.adjustContentHeight(vc: destinationViewController)
+        }
     }
 }

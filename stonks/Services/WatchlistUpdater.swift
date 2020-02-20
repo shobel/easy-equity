@@ -19,14 +19,16 @@ class StockDataTask: RepeatingUpdate {
     
     var timer:Timer?
     var caller: Updateable!
+    var timeInterval: Double = 30.0
     
-    public init(caller: Updateable){
+    public init(caller: Updateable, timeInterval: Double){
         self.caller = caller
+        self.timeInterval = timeInterval
     }
     
     public func startTask() {
         if timer == nil {
-            timer = Timer.scheduledTimer(timeInterval: 15.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: self.timeInterval, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
             timer?.fire()
         }
     }
@@ -50,8 +52,8 @@ class WatchlistUpdater: StockDataTask {
     var watchlistManager: WatchlistManager!
     var watchlist: [Company]!
     
-    public override init(caller: Updateable){
-        super.init(caller: caller)
+    public override init(caller: Updateable, timeInterval: Double){
+        super.init(caller: caller, timeInterval: timeInterval)
         self.watchlistManager = Dataholder.watchlistManager
         self.watchlist = watchlistManager.getWatchlist()
     }
