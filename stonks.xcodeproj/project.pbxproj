@@ -24,6 +24,8 @@
 		1C6936BC21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6936BB21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift */; };
 		1C6936C021D1CFB300E3FDC9 /* StatsNewsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6936BF21D1CFB300E3FDC9 /* StatsNewsPageViewController.swift */; };
 		1C6B5F1C24015015008E2C22 /* CandleUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6B5F1B24015015008E2C22 /* CandleUtility.swift */; };
+		1C6B5F1E24025F55008E2C22 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6B5F1D24025F55008E2C22 /* CardView.swift */; };
+		1C6B5F2024026A7E008E2C22 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6B5F1F24026A7E008E2C22 /* ShadowView.swift */; };
 		1C6FF9772324BE23005AE40D /* AdvancedStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6FF9762324BE23005AE40D /* AdvancedStats.swift */; };
 		1C6FF9792325F974005AE40D /* AdvancedStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6FF9782325F974005AE40D /* AdvancedStatsViewController.swift */; };
 		1C6FF97B23261617005AE40D /* EarningsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6FF97A23261617005AE40D /* EarningsViewController.swift */; };
@@ -116,6 +118,8 @@
 		1C6936BB21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchdownGestureRecognizer.swift; sourceTree = "<group>"; };
 		1C6936BF21D1CFB300E3FDC9 /* StatsNewsPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsNewsPageViewController.swift; sourceTree = "<group>"; };
 		1C6B5F1B24015015008E2C22 /* CandleUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleUtility.swift; sourceTree = "<group>"; };
+		1C6B5F1D24025F55008E2C22 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		1C6B5F1F24026A7E008E2C22 /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		1C6FF9762324BE23005AE40D /* AdvancedStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedStats.swift; sourceTree = "<group>"; };
 		1C6FF9782325F974005AE40D /* AdvancedStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedStatsViewController.swift; sourceTree = "<group>"; };
 		1C6FF97A23261617005AE40D /* EarningsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsViewController.swift; sourceTree = "<group>"; };
@@ -327,6 +331,8 @@
 				1C4EF3602329598D000299E6 /* InterpolateColor.swift */,
 				1CDA114B232B5C810028D00C /* FormattedNumberLabel.swift */,
 				1C9B95BD23FA2075004E95B1 /* NewsTableViewCell.swift */,
+				1C6B5F1D24025F55008E2C22 /* CardView.swift */,
+				1C6B5F1F24026A7E008E2C22 /* ShadowView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -627,6 +633,7 @@
 				1CCBE58823FE720600E57D49 /* PEChart.swift in Sources */,
 				1C2AC8682183D7C500469941 /* LaunchVC.swift in Sources */,
 				1CCA7E392313853F0033AC58 /* PredictionsViewController.swift in Sources */,
+				1C6B5F2024026A7E008E2C22 /* ShadowView.swift in Sources */,
 				1C7B98862161949A00C75014 /* Dataholder.swift in Sources */,
 				1CB3D61A231DA0A400D6F57C /* Estimates.swift in Sources */,
 				1C2AC8622177B9A400469941 /* WatchlistVC.swift in Sources */,
@@ -640,6 +647,7 @@
 				1CFE633D23FB665E00F81758 /* NewsWebViewController.swift in Sources */,
 				1C6FF97B23261617005AE40D /* EarningsViewController.swift in Sources */,
 				1C2AC864217FB01D00469941 /* PriceChartFormatter.swift in Sources */,
+				1C6B5F1E24025F55008E2C22 /* CardView.swift in Sources */,
 				1C7B9871215EB09000C75014 /* StockDataApiProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
