@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,7 +14,44 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bullfrog_circle" translatesAutoresizingMaskIntoConstraints="NO" id="Pzu-Rg-A68">
+                                <rect key="frame" x="-352.5" y="146" width="1080" height="225"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="225" id="II2-S5-BTi"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bullfrog_text" translatesAutoresizingMaskIntoConstraints="NO" id="aCW-16-ndA">
+                                <rect key="frame" x="112.5" y="366" width="150" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="UNN-Lr-wCd"/>
+                                    <constraint firstAttribute="height" constant="70" id="Upr-jC-nQu"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hop to the top" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IbC-9e-jpg" userLabel="stray from the herd">
+                                <rect key="frame" x="138" y="418" width="99" height="18"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="15"/>
+                                <color key="textColor" red="0.24610697910000001" green="0.24610697910000001" blue="0.24610697910000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XrV-Gq-zZ3">
+                                <rect key="frame" x="30" y="620" width="315" height="2"/>
+                                <color key="progressTintColor" red="0.91644194160000003" green="0.0" blue="0.45135772270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </progressView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="aCW-16-ndA" firstAttribute="top" secondItem="Pzu-Rg-A68" secondAttribute="bottom" constant="-5" id="6rp-Be-rxL"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="XrV-Gq-zZ3" secondAttribute="bottom" constant="45" id="C1I-bo-pSZ"/>
+                            <constraint firstItem="XrV-Gq-zZ3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="E50-3d-4KN"/>
+                            <constraint firstItem="IbC-9e-jpg" firstAttribute="top" secondItem="aCW-16-ndA" secondAttribute="bottom" constant="-18" id="EEf-7u-rGS"/>
+                            <constraint firstItem="XrV-Gq-zZ3" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="EYS-1k-piS"/>
+                            <constraint firstItem="Pzu-Rg-A68" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-75" id="FRc-GJ-mZs"/>
+                            <constraint firstItem="Pzu-Rg-A68" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="HAG-Eb-0fP"/>
+                            <constraint firstItem="aCW-16-ndA" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Q8v-bC-ORR"/>
+                            <constraint firstItem="IbC-9e-jpg" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="TOR-wE-P5L"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="XrV-Gq-zZ3" secondAttribute="trailing" constant="30" id="q2e-G8-tlH"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
@@ -26,4 +60,8 @@
             <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bullfrog_circle" width="1080" height="1080"/>
+        <image name="bullfrog_text" width="349" height="95"/>
+    </resources>
 </document>

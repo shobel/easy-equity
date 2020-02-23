@@ -147,7 +147,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.loadingView.showOnKeyWindow()
         
         //start information retrieval processes
-        self.totalHandlers = 4
+        self.totalHandlers = 12
 //        StockAPIManager.shared.stockDataApiInstance.getCompanyGeneralInfo(ticker: company.symbol, completionHandler: handleCompanyData)
         if !Constants.locked {
 //            StockAPIManager.shared.stockDataApiInstance.getKeyStats(ticker: company.symbol, completionHandler: handleKeyStats)
