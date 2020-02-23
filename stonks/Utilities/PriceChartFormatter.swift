@@ -3,7 +3,7 @@ import Charts
 
 class PriceChartFormatter: NSObject, IAxisValueFormatter {
     
-    private var xAxisLabels:[String] = []
+    public var xAxisLabels:[String] = []
     
     public func resetXAxisLabels(){
         xAxisLabels.removeAll()

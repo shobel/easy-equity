@@ -11,9 +11,9 @@ import Charts
 
 class PEChart: CombinedChartView {
 
-    private var peDataSet:LineChartDataSet = LineChartDataSet()
+    private var peDataSets:[ScatterChartDataSet] = []
     private var formatter:PriceChartFormatter = PriceChartFormatter()
-
+    
     public func setup(company:Company){
         self.delegate = delegate
         
@@ -47,48 +47,68 @@ class PEChart: CombinedChartView {
     
     private func setChartData(company:Company){
         if company.earnings != nil {
-            var actualEarningsEntries:[ChartDataEntry] = []
-            var expectedEarningsEntries:[ChartDataEntry] = []
-            var estimatesEntries:[BarChartDataEntry] = []
-            var epsTTMEntries:[ChartDataEntry] = []
+            var peEntries:[ChartDataEntry] = []
             var pastEarnings:[Double] = []
             let reversedEarnings = Array(company.earnings!.reversed())
-            for i in 0..<reversedEarnings.count {
+            for i in 0..<reversedEarnings.count{
                 let e = reversedEarnings[i]
-                actualEarningsEntries.append(ChartDataEntry(x: Double(i), y: e.actualEPS!))
-                expectedEarningsEntries.append(ChartDataEntry(x: Double(i), y: e.consensusEPS!))
-                estimatesEntries.append(BarChartDataEntry(x: Double(i), y: Double(e.numberOfEstimates!)))
-                pastEarnings.append(e.yearAgo!)
+                if i < reversedEarnings.count - 1{
+                    pastEarnings.append(e.yearAgo!)
+                }
                 self.formatter.addXAxisLabel(e.fiscalPeriod!)
             }
+            
             for i in 0...reversedEarnings.count {
                 if i < company.earnings!.count {
-                    let e = company.earnings![i]
+                    let e = reversedEarnings[i]
                     pastEarnings.append(e.actualEPS!)
+                    var sum = 0.0
+                    for j in (i+1)..<(i+5) {
+                        sum += pastEarnings[j]
+                    }
+                    var found = false
+                    for k in stride(from: company.weeklyData.count-1, to: 0, by: -1) {
+                        let candle = company.weeklyData[k]
+                        if (CandleUtility.earningsIsInCandleDate(date: candle.date!, prevDate: nil, earnings: [e], timeInterval: Constants.TimeIntervals.one_year) != nil) {
+                            peEntries.append(ChartDataEntry(x: Double(i), y: candle.close!/sum))
+                            found = true
+                            break
+                        }
+                    }
+                    if !found {
+                        print("couldnt find candle for \(e.EPSReportDate)")
+                    }
                 }
-
+            }
+            var forwardPeEntries:[ChartDataEntry] = []
+            var label = "Future"
+            var fwdPe = 0.0
+            if let est = company.estimates {
+                label = est.fiscalPeriod!
                 var sum = 0.0
-                for j in i..<(i+4) {
-                    sum += pastEarnings[j]
+                for i in stride(from: pastEarnings.count - 1, to: 0, by: -1) {
+                    sum += pastEarnings[i]
                 }
-                let ttm = sum / 5
-                epsTTMEntries.append(ChartDataEntry(x: Double(i), y: ttm))
+                sum += est.consensusEPS!
+                fwdPe = company.quote!.close! / sum
             }
-            
-            if let est = company.estimates{
-                expectedEarningsEntries.append(ChartDataEntry(x: Double(company.earnings!.count), y: est.consensusEPS ?? 0.0))
-                estimatesEntries.append(BarChartDataEntry(x: Double(company.earnings!.count), y: Double(est.numberOfEstimates ?? 0)))
-                self.formatter.addXAxisLabel(est.fiscalPeriod!)
+            if let fpe = company.advancedStats?.forwardPERatio {
+                fwdPe = fpe
             }
-            
-            let epsTTMDataSet = LineChartDataSet(entries: epsTTMEntries)
-            self.configureLineDataSet(set: epsTTMDataSet)
-            
-            //self.peDataSet.append()
+            forwardPeEntries.append(ChartDataEntry(x: Double(reversedEarnings.count), y: fwdPe))
+            self.formatter.addXAxisLabel(label)
+
+            let peDataSet = ScatterChartDataSet(entries: peEntries)
+            self.configureScatterDataSet(set: peDataSet, color: Constants.blue)
+            let forwardPeSet = ScatterChartDataSet(entries: forwardPeEntries)
+            self.configureScatterDataSet(set: forwardPeSet, color: Constants.fadedBlue)
+            forwardPeSet.drawValuesEnabled = true
+            self.peDataSets.append(peDataSet)
+            self.peDataSets.append(forwardPeSet)
             
             DispatchQueue.main.async {
                 let data = CombinedChartData()
-                //data.scatterData = ScatterChartData(dataSets: self.earningsDataSets)
+                data.scatterData = ScatterChartData(dataSets: self.peDataSets)
                 //data.lineData = LineChartData(dataSets: self.epsTTM)
                 //data.barData = BarChartData(dataSets: self.numEstimates)
                 //data.barData.barWidth = 0.1

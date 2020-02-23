@@ -233,7 +233,7 @@ class Company: Equatable, Comparable {
                     low = candle.low!
                 }
                 if counter == groupBy {
-                    let candle = Candle(datetime: date, volume: volume, high: high, low: low, open: open, close: candle.close!)
+                    let candle = Candle(date: candle.date!, datetime: date, volume: volume, high: high, low: low, open: open, close: candle.close!)
                     dataSet.append(candle)
                     counter = 0
                     volume = 0.0

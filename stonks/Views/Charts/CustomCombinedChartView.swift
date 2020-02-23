@@ -116,8 +116,6 @@ class CustomCombinedChartView: CombinedChartView {
         var entryCount = self.myCandleData!.count
         var counter = 0
 
-        let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "yyyy-MM-dd"
         var prevCandle:Candle = Candle()
         for i in 0..<self.myCandleData!.count{
             let candle:Candle = self.myCandleData![i]
@@ -128,8 +126,9 @@ class CustomCombinedChartView: CombinedChartView {
             let volume = candle.volume!
             
             //TODO: move this code to server - each candle should say whether it is an earnings date
-            if !day && candle.date != nil, let earnings = self.stockDetailsDelegate?.company.earnings {
-                if self.addEarningsInfo(dateformatter: dateformatter, candle: candle, prevCandle: prevCandle, earnings: earnings) {
+            if !day && candle.date != nil && self.stockDetailsDelegate!.timeInterval != Constants.TimeIntervals.twenty_year, var earnings = self.stockDetailsDelegate?.company.earnings {
+                if let foundEarnings = CandleUtility.earningsIsInCandleDate(date: candle.date!, prevDate: prevCandle.date, earnings: earnings, timeInterval: self.stockDetailsDelegate!.timeInterval) {
+                    earnings = earnings.filter( {$0.EPSReportDate != foundEarnings.EPSReportDate})
                     earningsEntries.append(ChartDataEntry(x: Double(i), y: close))
                 }
             }
@@ -263,25 +262,6 @@ class CustomCombinedChartView: CombinedChartView {
             self.data = data
             self.notifyDataSetChanged()
         }
-    }
-    
-    private func addEarningsInfo(dateformatter: DateFormatter, candle: Candle, prevCandle: Candle, earnings: [Earnings]) -> Bool{
-        let formattedDate = dateformatter.string(from: candle.date!)
-        for e in earnings {
-            if e.EPSReportDate == formattedDate {
-                return true
-            }
-        }
-        if prevCandle.date != nil {
-            for e in earnings {
-                let compCurrCandle = dateformatter.date(from: e.EPSReportDate!)?.compare(candle.date!)
-                let compPrevCandle = dateformatter.date(from: e.EPSReportDate!)?.compare(prevCandle.date!)
-                if compCurrCandle!.rawValue == -1 && compPrevCandle!.rawValue == 1 {
-                    return true
-                }
-            }
-        }
-        return false
     }
     
     private func shouldShowPreviousLine() -> Bool {

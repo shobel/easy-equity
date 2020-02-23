@@ -17,11 +17,13 @@ struct Earnings: Mappable {
     public var announceTime:String? //"AMC",
     public var numberOfEstimates:Int? //34,
     public var EPSSurpriseDollar:Double? //0.1,
-    public var EPSReportDate:String? //"2019-04-30",
+    public var EPSReportDate:String? //"2019-04-30", yyy-MM-dd
     public var fiscalPeriod:String? //"Q1 2019",
     public var fiscalEndDate:String? //"2019-03-31",
     public var yearAgo:Double? //2.73,
     public var yearAgoChangePercent:Double? //-0.0989
+    
+    private var dateFormat:String = "yyyy-MM-dd"
     
     init(){}
     init?(map: Map) {}
@@ -36,5 +38,20 @@ struct Earnings: Mappable {
         fiscalPeriod <- map["fiscalPeriod"]
         yearAgo <- map["yearAgo"]
         yearAgoChangePercent <- map["yearAgoChangePercent"]
+    }
+    
+    public func getDate() -> Date? {
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = self.dateFormat
+        if let epsReportDate = self.EPSReportDate {
+            return dateformatter.date(from: epsReportDate)
+        }
+        return nil
+    }
+    
+    public func getDateString(from: Date) -> String {
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = self.dateFormat
+        return dateformatter.string(from: from)
     }
 }
