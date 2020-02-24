@@ -189,22 +189,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "61809C1C-BA84-49C5-9D34-E328F9184A68"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/Charts/Source/Charts/Renderers/ScatterChartRenderer.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
-            landmarkName = "drawDataSet(context:dataSet:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "3DBAEDBF-D3F4-4AC7-A465-EC7844401468"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -277,9 +261,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "getContentHeight()"
-            landmarkType = "7">
+            endingLineNumber = "85">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -317,16 +299,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5AD9A880-F868-441E-8FC6-527FA5396128"
+            uuid = "32D95182-8E47-4B66-AA15-5DDBBE205E3B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "stonks/Views/Charts/PEChart.swift"
+            filePath = "stonks/Utilities/CandleUtility.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
-            landmarkName = "setChartData(company:)"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "earningsIsInCandleDate(date:prevDate:earnings:timeInterval:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

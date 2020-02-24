@@ -12,24 +12,14 @@ class EarningsViewController: UIViewController, StatsVC {
 
     @IBOutlet weak var epsChart: EPSChart!
     @IBOutlet weak var peChart: PEChart!
-    @IBOutlet weak var dateE1: FormattedNumberLabel!
-    @IBOutlet weak var epsE1: FormattedNumberLabel!
-    @IBOutlet weak var consensusE1: FormattedNumberLabel!
-    @IBOutlet weak var numEstimatesE1: FormattedNumberLabel!
-    @IBOutlet weak var dateE2: FormattedNumberLabel!
-    @IBOutlet weak var epsE2: FormattedNumberLabel!
-    @IBOutlet weak var consensusE2: FormattedNumberLabel!
-    @IBOutlet weak var numEstimatesE2: FormattedNumberLabel!
-    @IBOutlet weak var dateE3: FormattedNumberLabel!
-    @IBOutlet weak var epsE3: FormattedNumberLabel!
-    @IBOutlet weak var consensusE3: FormattedNumberLabel!
-    @IBOutlet weak var numEstimatesE3: FormattedNumberLabel!
-    @IBOutlet weak var dateE4: FormattedNumberLabel!
-    @IBOutlet weak var epsE4: FormattedNumberLabel!
-    @IBOutlet weak var consensusE4: FormattedNumberLabel!
-    @IBOutlet weak var numEstimatesE4: FormattedNumberLabel!
-    
     @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var peFwdValue: UILabel!
+    @IBOutlet weak var peValue: UILabel!
+    @IBOutlet weak var eps: UILabel!
+    @IBOutlet weak var epsDate: UILabel!
+    @IBOutlet weak var estEps: UILabel!
+    @IBOutlet weak var estEpsDate: UILabel!
+    @IBOutlet weak var avg: UILabel!
     
     private var company:Company!
     private var isLoaded = false
@@ -45,10 +35,23 @@ class EarningsViewController: UIViewController, StatsVC {
         self.company = Dataholder.watchlistManager.selectedCompany!
         if (isLoaded){
             DispatchQueue.main.async {
-                self.epsChart.setup(company: self.company)
-                self.peChart.setup(company: self.company)
+                self.epsChart.setup(company: self.company, earningsDelegate: self)
+                self.peChart.setup(company: self.company, delegate: self)
             }
         }
+    }
+    
+    public func updatePELegendValues(pe: String, peFwd: String){
+        self.peFwdValue.text = peFwd
+        self.peValue.text = pe
+    }
+    
+    public func updateEPSLegendValues(eps: String, epsDate: String, epsFwd: String, epsFwdDate: String, avg: String){
+        self.eps.text = eps
+        self.epsDate.text = epsDate
+        self.estEpsDate.text = epsFwdDate
+        self.estEps.text = epsFwd
+        self.avg.text = avg
     }
     
     func getContentHeight() -> CGFloat {

@@ -13,9 +13,10 @@ class PEChart: CombinedChartView {
 
     private var peDataSets:[ScatterChartDataSet] = []
     private var formatter:PriceChartFormatter = PriceChartFormatter()
+    private var earningsDelegate: EarningsViewController!
     
-    public func setup(company:Company){
-        self.delegate = delegate
+    public func setup(company:Company, delegate: EarningsViewController){
+        self.earningsDelegate = delegate
         
         self.chartDescription?.enabled = false
         self.legend.enabled = false
@@ -30,7 +31,6 @@ class PEChart: CombinedChartView {
         self.leftAxis.drawGridLinesEnabled = false
         self.leftAxis.labelPosition = .outsideChart
         self.leftAxis.drawAxisLineEnabled = false
-        self.leftAxis.enabled = true
         self.rightAxis.enabled = false
         
         self.xAxis.enabled = true
@@ -52,7 +52,7 @@ class PEChart: CombinedChartView {
             let reversedEarnings = Array(company.earnings!.reversed())
             for i in 0..<reversedEarnings.count{
                 let e = reversedEarnings[i]
-                if i < reversedEarnings.count - 1{
+                if (reversedEarnings.count == 5 && i < reversedEarnings.count - 1) || reversedEarnings.count < 5{
                     pastEarnings.append(e.yearAgo!)
                 }
                 self.formatter.addXAxisLabel(e.fiscalPeriod!)
@@ -69,7 +69,8 @@ class PEChart: CombinedChartView {
                     var found = false
                     for k in stride(from: company.weeklyData.count-1, to: 0, by: -1) {
                         let candle = company.weeklyData[k]
-                        if (CandleUtility.earningsIsInCandleDate(date: candle.date!, prevDate: nil, earnings: [e], timeInterval: Constants.TimeIntervals.one_year) != nil) {
+                        let compValue = candle.date!.compare(e.getDate()!).rawValue
+                        if compValue == 1 || compValue == 0 {
                             peEntries.append(ChartDataEntry(x: Double(i), y: candle.close!/sum))
                             found = true
                             break
@@ -95,6 +96,7 @@ class PEChart: CombinedChartView {
             if let fpe = company.advancedStats?.forwardPERatio {
                 fwdPe = fpe
             }
+            self.earningsDelegate.updatePELegendValues(pe: String(Int(peEntries[peEntries.count-1].y)), peFwd: String(Int(fwdPe)))
             forwardPeEntries.append(ChartDataEntry(x: Double(reversedEarnings.count), y: fwdPe))
             self.formatter.addXAxisLabel(label)
 
@@ -102,7 +104,6 @@ class PEChart: CombinedChartView {
             self.configureScatterDataSet(set: peDataSet, color: Constants.blue)
             let forwardPeSet = ScatterChartDataSet(entries: forwardPeEntries)
             self.configureScatterDataSet(set: forwardPeSet, color: Constants.fadedBlue)
-            forwardPeSet.drawValuesEnabled = true
             self.peDataSets.append(peDataSet)
             self.peDataSets.append(forwardPeSet)
             
@@ -114,6 +115,7 @@ class PEChart: CombinedChartView {
                 //data.barData.barWidth = 0.1
                 //self.rightAxis.axisMaximum = data.barData.yMax * 2
                 self.xAxis.axisMaximum = data.xMax + 0.5
+                self.leftAxis.axisMaximum = data.yMax * 1.1
                 self.data = data
                 self.notifyDataSetChanged()
                 
@@ -127,21 +129,7 @@ class PEChart: CombinedChartView {
         set.setColor(color)
         set.scatterShapeSize = CGFloat(20)
         set.highlightEnabled = false
-        set.drawValuesEnabled = false
-    }
-    
-    private func configureBarDataSet(set: BarChartDataSet){
-        set.axisDependency = .right
-        set.setColor(Constants.fadedOrange)
-        set.highlightEnabled = false
-        set.drawValuesEnabled = false
-    }
-    
-    private func configureLineDataSet(set: LineChartDataSet){
-        set.setColor(UIColor.lightGray)
-        set.drawCirclesEnabled = false
-        set.highlightEnabled = false
-        set.drawValuesEnabled = false
+        set.drawValuesEnabled = true
     }
 
 }

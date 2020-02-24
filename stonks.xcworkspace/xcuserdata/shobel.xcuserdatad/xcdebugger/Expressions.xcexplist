@@ -27,6 +27,20 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "DataRenderer.isDrawingValuesAllowed(dataProvider:):ChartDataRendererBase.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "data.entryCount">
+            </PersistentString>
+            <PersistentString
+               value = "dataProvider?.maxVisibleCount">
+            </PersistentString>
+            <PersistentString
+               value = "viewPortHandler.scaleX">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in IEXTrading.getEarnings(ticker:completionHandler:):IEXTrading.swift">
          <PersistentStrings>
             <PersistentString
@@ -76,16 +90,24 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "static CandleUtility.earningsIsInCandleDate(date:prevDate:earnings:timeInterval:):CandleUtility.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "date.description">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "EPSChart.setChartData(company:):EPSChart.swift">
          <PersistentStrings>
             <PersistentString
-               value = "company.earnings">
+               value = "company.estimates">
             </PersistentString>
             <PersistentString
                value = "UIImage(named: &quot;earnings_with_line&quot;)">
             </PersistentString>
             <PersistentString
-               value = "company.estimates">
+               value = "company.earnings">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -273,6 +295,20 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in PEChart.setChartData(company:):PEChart.swift">
+      </ContextState>
+      <ContextState
+         contextName = "LineScatterCandleRadarRenderer.drawHighlightLines(context:point:set:):LineScatterCandleRadarRenderer.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewPortHandler.contentTop + point.y - 50">
+            </PersistentString>
+            <PersistentString
+               value = "viewPortHandler.contentTop">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CustomCombinedChartView.showCandleChart():CustomCombinedChartView.swift">
          <PersistentStrings>
             <PersistentString
@@ -302,20 +338,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LineScatterCandleRadarRenderer.drawHighlightLines(context:point:set:):LineScatterCandleRadarRenderer.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "viewPortHandler.contentTop + point.y - 50">
-            </PersistentString>
-            <PersistentString
-               value = "viewPortHandler.contentTop">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in CustomCombinedChartView.updateChart():CustomCombinedChartView.swift">
-      </ContextState>
-      <ContextState
          contextName = "closure #1 in StockDetailsVC.adjustContentHeight(vc:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -328,13 +350,13 @@
                value = "self.pagingView.bounds.height">
             </PersistentString>
             <PersistentString
-               value = "statsVC.getContentHeight()">
+               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
             </PersistentString>
             <PersistentString
                value = "self.pageVC.pageViewController.scrollView.contentSize.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
+               value = "statsVC.getContentHeight()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -416,20 +438,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "NewsTableViewController.tableView(_:cellForRowAt:):NewsTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "dateFormatter.string(from: date)">
-            </PersistentString>
-            <PersistentString
-               value = "Date(timeIntervalSince1970: news.datetime!)">
-            </PersistentString>
-            <PersistentString
-               value = "dateFormatter.dateFormat = &quot;MMM d, yyyy&quot;">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "PEChart.setChartData(company:):PEChart.swift">
          <PersistentStrings>
             <PersistentString
@@ -444,13 +452,43 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in PEChart.setChartData(company:):PEChart.swift">
+         contextName = "NewsTableViewController.tableView(_:cellForRowAt:):NewsTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dateFormatter.string(from: date)">
+            </PersistentString>
+            <PersistentString
+               value = "dateFormatter.dateFormat = &quot;MMM d, yyyy&quot;">
+            </PersistentString>
+            <PersistentString
+               value = "Date(timeIntervalSince1970: news.datetime!)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in CustomCombinedChartView.updateChart():CustomCombinedChartView.swift">
       </ContextState>
       <ContextState
          contextName = "PriceChartFormatter.stringForValue(_:axis:):PriceChartFormatter.swift">
          <PersistentStrings>
             <PersistentString
                value = "xAxisLabels[Int(value)]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LineChartRenderer.drawValues(context:):LineChartRenderer.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "isDrawingValuesAllowed(dataProvider: dataProvider)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ScatterChartRenderer.drawValues(context:):ScatterChartRenderer.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "icon.size">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -529,7 +567,10 @@
          contextName = "CustomCombinedChartView.updateChart():CustomCombinedChartView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.stockDetailsDelegate!.timeInterval">
+               value = "candleDate.description">
+            </PersistentString>
+            <PersistentString
+               value = "self.myCandleData![i].date!.description">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -556,10 +597,10 @@
          contextName = "closure #2 in StockDetailsVC.handleCompanyData(_:logo:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.contentViewHeightConstraint.constant">
+               value = "self.contentViewHeightConstraint.multiplier">
             </PersistentString>
             <PersistentString
-               value = "self.contentViewHeightConstraint.multiplier">
+               value = "self.contentViewHeightConstraint.constant">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
