@@ -19,6 +19,7 @@
 		1C545211216AA4B90064239E /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545210216AA4B90064239E /* GradientButton.swift */; };
 		1C545213216AF6400064239E /* WatchlistUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545212216AF6400064239E /* WatchlistUpdater.swift */; };
 		1C545215216C31950064239E /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545214216C31950064239E /* Quote.swift */; };
+		1C5B96192404FDFD00E63316 /* GeneralUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5B96182404FDFD00E63316 /* GeneralUtility.swift */; };
 		1C6936B721CDC72200E3FDC9 /* VolumeChartFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6936B621CDC72200E3FDC9 /* VolumeChartFormatter.swift */; };
 		1C6936B921CDCE9000E3FDC9 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6936B821CDCE9000E3FDC9 /* NumberFormatter.swift */; };
 		1C6936BC21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6936BB21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift */; };
@@ -113,6 +114,7 @@
 		1C545210216AA4B90064239E /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		1C545212216AF6400064239E /* WatchlistUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistUpdater.swift; sourceTree = "<group>"; };
 		1C545214216C31950064239E /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
+		1C5B96182404FDFD00E63316 /* GeneralUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralUtility.swift; sourceTree = "<group>"; };
 		1C6936B621CDC72200E3FDC9 /* VolumeChartFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeChartFormatter.swift; sourceTree = "<group>"; };
 		1C6936B821CDCE9000E3FDC9 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
 		1C6936BB21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchdownGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				1C6936BB21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift */,
 				1C9B952223E74F14004E95B1 /* PriceChartPriceFormatter.swift */,
 				1C6B5F1B24015015008E2C22 /* CandleUtility.swift */,
+				1C5B96182404FDFD00E63316 /* GeneralUtility.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -631,6 +634,7 @@
 				1CB257292173B8A5008E3D4D /* Configuration.swift in Sources */,
 				1CB2572B21765C3A008E3D4D /* StockDetailsNavView.swift in Sources */,
 				1CCBE58823FE720600E57D49 /* PEChart.swift in Sources */,
+				1C5B96192404FDFD00E63316 /* GeneralUtility.swift in Sources */,
 				1C2AC8682183D7C500469941 /* LaunchVC.swift in Sources */,
 				1CCA7E392313853F0033AC58 /* PredictionsViewController.swift in Sources */,
 				1C6B5F2024026A7E008E2C22 /* ShadowView.swift in Sources */,

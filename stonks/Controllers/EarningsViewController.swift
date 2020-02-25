@@ -21,6 +21,10 @@ class EarningsViewController: UIViewController, StatsVC {
     @IBOutlet weak var estEpsDate: UILabel!
     @IBOutlet weak var avg: UILabel!
     
+    @IBOutlet weak var nextEarningsDate: UILabel!
+    @IBOutlet weak var nextEarningsQuarter: UILabel!
+    @IBOutlet weak var nextEarningsDaysLeft: UILabel!
+    
     private var company:Company!
     private var isLoaded = false
     
@@ -37,6 +41,17 @@ class EarningsViewController: UIViewController, StatsVC {
             DispatchQueue.main.async {
                 self.epsChart.setup(company: self.company, earningsDelegate: self)
                 self.peChart.setup(company: self.company, delegate: self)
+                if let est = self.company.estimates {
+                    self.nextEarningsQuarter.text = est.fiscalPeriod
+                    if let estDate = est.getDate() {
+                        let dateformatter = DateFormatter()
+                        dateformatter.dateFormat = "MMM d, yyyy"
+                        self.nextEarningsDate.text = dateformatter.string(from: estDate)
+                        self.nextEarningsDaysLeft.text = "\(GeneralUtility.daysUntil(date: estDate)) days"
+                    } else {
+                        self.nextEarningsDaysLeft.text = ""
+                    }
+                }
             }
         }
     }

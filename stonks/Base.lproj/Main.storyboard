@@ -101,7 +101,7 @@
         <!--Watchlist-->
         <scene sceneID="4UD-KL-NwV">
             <objects>
-                <viewController title="Watchlist" id="2Qv-vA-eQy" customClass="WatchlistVC" customModule="stonks" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Watchlist" id="2Qv-vA-eQy" customClass="WatchlistVC" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KdZ-Qy-6y3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -133,7 +133,7 @@
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="xj6-b4-9v7"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jIE-zZ-msG" userLabel="AddTicker" customClass="GradientButton" customModule="stonks" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jIE-zZ-msG" userLabel="AddTicker" customClass="GradientButton" customModule="Bullfrog" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="40" width="375" height="40"/>
                                 <color key="backgroundColor" red="0.91764705879999997" green="0.0" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -206,7 +206,7 @@
                                 <color key="separatorColor" red="0.89996508080000004" green="0.9063819541" blue="0.92563257379999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="watchListCell" rowHeight="50" id="X3N-vF-qqs" customClass="WatchlistTVCell" customModule="stonks" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="watchListCell" rowHeight="50" id="X3N-vF-qqs" customClass="WatchlistTVCell" customModule="Bullfrog" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X3N-vF-qqs" id="SaX-TD-YGr">
@@ -258,7 +258,7 @@
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fax-7a-qZy" userLabel="RatingView">
                                                                     <rect key="frame" x="0.0" y="0.0" width="93.5" height="50"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6c-Zt-DEI" userLabel="Buy" customClass="RatingLabel" customModule="stonks" customModuleProvider="target">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6c-Zt-DEI" userLabel="Buy" customClass="RatingLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                             <rect key="frame" x="31.5" y="10" width="30" height="30"/>
                                                                             <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
@@ -291,7 +291,7 @@
                                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="After: 2002.76" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uQN-k9-FRC" userLabel="AHPrice" customClass="ColoredValueLabel" customModule="stonks" customModuleProvider="target">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="After: 2002.76" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uQN-k9-FRC" userLabel="AHPrice" customClass="ColoredValueLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                             <rect key="frame" x="11.5" y="18" width="70.5" height="32"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -316,14 +316,14 @@
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-17" translatesAutoresizingMaskIntoConstraints="NO" id="VnO-2x-Cls" userLabel="ChangeStackView">
                                                                     <rect key="frame" x="0.0" y="0.0" width="93.5" height="50"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="+1.72%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ff6-Io-5F0" userLabel="PriceChange" customClass="ColoredValueLabel" customModule="stonks" customModuleProvider="target">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="+1.72%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ff6-Io-5F0" userLabel="PriceChange" customClass="ColoredValueLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="93.5" height="33.5"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="-6.67%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZRm-YO-NZU" userLabel="AHPercent" customClass="ColoredValueLabel" customModule="stonks" customModuleProvider="target">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="-6.67%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZRm-YO-NZU" userLabel="AHPercent" customClass="ColoredValueLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="16.5" width="93.5" height="33.5"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -402,12 +402,12 @@
         <!--Stock DetailsVC-->
         <scene sceneID="0Kx-wS-zT4">
             <objects>
-                <viewController storyboardIdentifier="StockDetails" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VCE-f9-Qth" customClass="StockDetailsVC" customModule="stonks" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StockDetails" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VCE-f9-Qth" customClass="StockDetailsVC" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ua2-Xz-tAi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9EV-Zd-SxD" userLabel="NavigationView" customClass="StockDetailsNavView" customModule="stonks" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9EV-Zd-SxD" userLabel="NavigationView" customClass="StockDetailsNavView" customModule="Bullfrog" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AMZN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WoZ-HE-ulO">
@@ -461,7 +461,7 @@
                                     <outlet property="ticker" destination="WoZ-HE-ulO" id="UAs-Uw-7LU"/>
                                 </connections>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="iWi-Ft-mpG" userLabel="PriceStackView" customClass="StockDetailsSummaryView" customModule="stonks" customModuleProvider="target">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="iWi-Ft-mpG" userLabel="PriceStackView" customClass="StockDetailsSummaryView" customModule="Bullfrog" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="375" height="80"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8gT-AB-0Xc" userLabel="PriceView">
@@ -480,13 +480,13 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Qbf-oZ-xtA">
                                                 <rect key="frame" x="0.0" y="45" width="187.5" height="30"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="+0.83 (1.78%)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nfb-Xq-3We" userLabel="Change" customClass="ColoredPricePercentLabel" customModule="stonks" customModuleProvider="target">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="+0.83 (1.78%)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nfb-Xq-3We" userLabel="Change" customClass="ColoredPricePercentLabel" customModule="Bullfrog" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="30"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.036305642919999999" green="0.76669574870000001" blue="0.47864035129999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AH: -16.78 (-12.56%)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uad-7u-FxM" userLabel="AH" customClass="ColoredPricePercentLabel" customModule="stonks" customModuleProvider="target">
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AH: -16.78 (-12.56%)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uad-7u-FxM" userLabel="AH" customClass="ColoredPricePercentLabel" customModule="Bullfrog" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="0.0"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <color key="textColor" red="0.91644194160000003" green="0.0" blue="0.3790128478" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -537,7 +537,7 @@
                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-0.03%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eif-G6-on1" userLabel="YTDValue" customClass="ColoredValueLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-0.03%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eif-G6-on1" userLabel="YTDValue" customClass="ColoredValueLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="97.5" y="4.5" width="41.5" height="14.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
@@ -560,7 +560,7 @@
                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-36.2%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m5d-rz-6nf" userLabel="YRHighValue" customClass="ColoredValueLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-36.2%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m5d-rz-6nf" userLabel="YRHighValue" customClass="ColoredValueLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="97.5" y="4.5" width="41.5" height="14.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
@@ -590,7 +590,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="(56%)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I7P-eg-nGz" userLabel="Vol Change" customClass="ColoredValueLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="(56%)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I7P-eg-nGz" userLabel="Vol Change" customClass="ColoredValueLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="119.5" y="6.5" width="24" height="10"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                                                 <nil key="textColor"/>
@@ -649,7 +649,7 @@
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="er5-5D-Zjd" userLabel="CandlePricesViewWrapper">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="25"/>
                                                         <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="TGD-Wh-xar" userLabel="CandlePriceView" customClass="CandlePricesView" customModule="stonks" customModuleProvider="target">
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="TGD-Wh-xar" userLabel="CandlePriceView" customClass="CandlePricesView" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="10" y="0.0" width="355" height="25"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Volume" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCJ-R2-thf" userLabel="Volume Label">
@@ -704,10 +704,10 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o8F-1I-xRa" userLabel="ChartViewWrapper">
                                                         <rect key="frame" x="0.0" y="25" width="375" height="213.5"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pOO-wd-YKI" userLabel="CombinedChartVIew" customClass="CustomCombinedChartView" customModule="stonks" customModuleProvider="target">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pOO-wd-YKI" userLabel="CombinedChartVIew" customClass="CustomCombinedChartView" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="213.5"/>
                                                                 <subviews>
-                                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zKF-r2-7Yn" userLabel="MarkerView" customClass="MarkerView" customModule="stonks" customModuleProvider="target">
+                                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zKF-r2-7Yn" userLabel="MarkerView" customClass="MarkerView" customModule="Bullfrog" customModuleProvider="target">
                                                                         <rect key="frame" x="287" y="0.0" width="80" height="20"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:30AM ET" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bqt-mV-UCr" userLabel="DateLabel">
@@ -933,7 +933,7 @@
         <!--KEY STATS-->
         <scene sceneID="B7O-c3-K0q">
             <objects>
-                <viewController storyboardIdentifier="StatsVC" title="KEY STATS" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dmv-Sj-RyS" customClass="KeyStatsViewController" customModule="stonks" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StatsVC" title="KEY STATS" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dmv-Sj-RyS" customClass="KeyStatsViewController" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" restorationIdentifier="StatsVC" id="y3l-bD-8Sb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -965,7 +965,7 @@
                                                                 <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3tI-Vp-gRF" userLabel="MarketCapLabel" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3tI-Vp-gRF" userLabel="MarketCapLabel" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="11" width="94" height="33.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -992,7 +992,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2g6-AP-dEe" userLabel="EV" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2g6-AP-dEe" userLabel="EV" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="11" width="93.5" height="33.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1019,7 +1019,7 @@
                                                                 <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qsi-yL-mYc" userLabel="DividendValue" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qsi-yL-mYc" userLabel="DividendValue" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="11" width="94" height="33.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1046,7 +1046,7 @@
                                                                 <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alf-fm-d8X" userLabel="Next Dividend" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alf-fm-d8X" userLabel="Next Dividend" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="11" width="93.5" height="33.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1078,7 +1078,7 @@
                                                                 <color key="textColor" red="0.41529187817258884" green="0.41529187817258884" blue="0.41529187817258884" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fI9-Iu-qSh" userLabel="EPS" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fI9-Iu-qSh" userLabel="EPS" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="11" width="94" height="33"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1105,7 +1105,7 @@
                                                                 <color key="textColor" red="0.41529187817258884" green="0.41529187817258884" blue="0.41529187817258884" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LNu-7m-q5Z" userLabel="PEValue" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LNu-7m-q5Z" userLabel="PEValue" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="11" width="93.5" height="33"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1132,7 +1132,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9My-Bd-u85" userLabel="P/E FWD" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9My-Bd-u85" userLabel="P/E FWD" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="11" width="94" height="33"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1159,7 +1159,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TQY-Ly-DBa" userLabel="PEG RATIO" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TQY-Ly-DBa" userLabel="PEG RATIO" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="11" width="93.5" height="33"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1191,7 +1191,7 @@
                                                                 <color key="textColor" red="0.41529187817258884" green="0.41529187817258884" blue="0.41529187817258884" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xi2-NY-KWd" userLabel="float" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xi2-NY-KWd" userLabel="float" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="11" width="94" height="33.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1218,7 +1218,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NAf-ig-Hjb" userLabel="SHARES OUT" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NAf-ig-Hjb" userLabel="SHARES OUT" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="11" width="93.5" height="33.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1245,7 +1245,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w74-uR-len" userLabel="PRICE TO BOOK" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w74-uR-len" userLabel="PRICE TO BOOK" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="11" width="94" height="33.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1272,7 +1272,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mX-Z3-XKr" userLabel="PRICE TO SALES" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mX-Z3-XKr" userLabel="PRICE TO SALES" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="11" width="93.5" height="33.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1304,7 +1304,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZBW-xe-vLQ" userLabel="REV/SHARE" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZBW-xe-vLQ" userLabel="REV/SHARE" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="11" width="94" height="33"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1331,7 +1331,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="quO-65-dLa" userLabel="DEBT TO EQUITY" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="quO-65-dLa" userLabel="DEBT TO EQUITY" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="11" width="93.5" height="33"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1358,7 +1358,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3G-Nv-YDw" userLabel="EV/REV" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3G-Nv-YDw" userLabel="EV/REV" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="11" width="94" height="33"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1385,7 +1385,7 @@
                                                                 <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZf-7K-QC5" userLabel="BetaValue" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZf-7K-QC5" userLabel="BetaValue" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="11" width="93.5" height="33"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1455,13 +1455,13 @@
         <!--EARNINGS-->
         <scene sceneID="lQr-Ca-JBa">
             <objects>
-                <viewController storyboardIdentifier="EarningsVC" title="EARNINGS" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6na-uJ-UWp" customClass="EarningsViewController" customModule="stonks" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EarningsVC" title="EARNINGS" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6na-uJ-UWp" customClass="EarningsViewController" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PyR-7a-bRn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wqs-sc-0iC">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="674"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="664"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jpl-No-NEZ">
                                         <rect key="frame" x="0.0" y="5" width="375" height="30"/>
@@ -1481,7 +1481,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mze-sl-6Hu" userLabel="Shadow View" customClass="ShadowView" customModule="Bullfrog">
-                                        <rect key="frame" x="20" y="153" width="335" height="253"/>
+                                        <rect key="frame" x="20" y="143" width="335" height="253"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3fb-n2-Tue" customClass="CardView" customModule="Bullfrog">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="253"/>
@@ -1579,10 +1579,12 @@
                                                         <constraints>
                                                             <constraint firstItem="YeR-lj-Wgi" firstAttribute="leading" secondItem="Qus-cY-Sqe" secondAttribute="trailing" constant="25" id="2fe-xD-slt"/>
                                                             <constraint firstItem="TTf-tq-bp4" firstAttribute="leading" secondItem="Lu1-Kj-7lm" secondAttribute="leading" constant="10" id="ATx-ZX-eaR"/>
+                                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZD3-c5-VGo" secondAttribute="trailing" constant="20" symbolic="YES" id="AfO-Zj-D8C"/>
                                                             <constraint firstItem="ZD3-c5-VGo" firstAttribute="centerY" secondItem="08R-T2-c2u" secondAttribute="centerY" constant="1" id="CHA-hp-emz"/>
                                                             <constraint firstItem="YeR-lj-Wgi" firstAttribute="centerY" secondItem="Lu1-Kj-7lm" secondAttribute="centerY" constant="-10" id="Fn8-21-q8d"/>
                                                             <constraint firstItem="Qus-cY-Sqe" firstAttribute="centerY" secondItem="Lu1-Kj-7lm" secondAttribute="centerY" constant="-10" id="G08-9S-ph4"/>
                                                             <constraint firstItem="M8g-52-gSp" firstAttribute="centerY" secondItem="Lu1-Kj-7lm" secondAttribute="centerY" constant="-10" id="J3S-My-oPG"/>
+                                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4mS-UH-Z6a" secondAttribute="trailing" constant="20" symbolic="YES" id="KTu-cR-oVE"/>
                                                             <constraint firstItem="ZD3-c5-VGo" firstAttribute="leading" secondItem="08R-T2-c2u" secondAttribute="trailing" constant="5" id="LKz-4l-Ge3"/>
                                                             <constraint firstAttribute="height" constant="50" id="Q7I-el-32i"/>
                                                             <constraint firstItem="M8g-52-gSp" firstAttribute="leading" secondItem="TTf-tq-bp4" secondAttribute="trailing" constant="5" id="Qhi-ts-2xj"/>
@@ -1628,7 +1630,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2jT-vd-dgw" customClass="ShadowView" customModule="Bullfrog">
-                                        <rect key="frame" x="20" y="416" width="335" height="258"/>
+                                        <rect key="frame" x="20" y="406" width="335" height="258"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YTa-uj-BZq" customClass="CardView" customModule="Bullfrog">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="258"/>
@@ -1733,16 +1735,62 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K4x-cI-7eq" customClass="ShadowView" customModule="Bullfrog">
-                                        <rect key="frame" x="20" y="43" width="335" height="100"/>
+                                        <rect key="frame" x="20" y="43" width="335" height="90"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KZe-sb-rIC" customClass="CardView" customModule="Bullfrog">
-                                                <rect key="frame" x="0.0" y="0.0" width="335" height="100"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="335" height="90"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next Earnings Report" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IKC-L2-FL5">
+                                                        <rect key="frame" x="98.5" y="5" width="138.5" height="18"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar_money" translatesAutoresizingMaskIntoConstraints="NO" id="ZRc-lG-jtW">
+                                                        <rect key="frame" x="0.0" y="31" width="82" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="AEE-p2-HkZ"/>
+                                                            <constraint firstAttribute="width" constant="82" id="NgY-Ip-6vX"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jan 15 2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQq-Kb-7SG">
+                                                        <rect key="frame" x="82" y="33" width="94.5" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Q1 2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S04-Cz-AVd">
+                                                        <rect key="frame" x="84" y="59" width="58.5" height="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120 days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vf3-yD-wq6">
+                                                        <rect key="frame" x="220" y="41.5" width="95" height="29"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                        <color key="textColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="S04-Cz-AVd" firstAttribute="leading" secondItem="ZQq-Kb-7SG" secondAttribute="leading" constant="2" id="6jg-eI-eyg"/>
+                                                    <constraint firstItem="ZRc-lG-jtW" firstAttribute="top" secondItem="IKC-L2-FL5" secondAttribute="bottom" constant="8" id="AYb-g6-ern"/>
+                                                    <constraint firstItem="IKC-L2-FL5" firstAttribute="top" secondItem="KZe-sb-rIC" secondAttribute="top" constant="5" id="Ell-og-965"/>
+                                                    <constraint firstAttribute="trailing" secondItem="vf3-yD-wq6" secondAttribute="trailing" constant="20" id="KoN-RO-hay"/>
+                                                    <constraint firstItem="S04-Cz-AVd" firstAttribute="top" secondItem="ZQq-Kb-7SG" secondAttribute="bottom" constant="5" id="Lb1-xM-Tsq"/>
+                                                    <constraint firstItem="vf3-yD-wq6" firstAttribute="centerY" secondItem="ZRc-lG-jtW" secondAttribute="centerY" id="Nqq-Rn-mwq"/>
+                                                    <constraint firstItem="IKC-L2-FL5" firstAttribute="centerX" secondItem="KZe-sb-rIC" secondAttribute="centerX" id="be5-6Y-NPg"/>
+                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZQq-Kb-7SG" secondAttribute="trailing" constant="20" symbolic="YES" id="js2-4M-PJa"/>
+                                                    <constraint firstItem="ZQq-Kb-7SG" firstAttribute="leading" secondItem="ZRc-lG-jtW" secondAttribute="trailing" id="n2o-b0-PPi"/>
+                                                    <constraint firstItem="ZRc-lG-jtW" firstAttribute="leading" secondItem="KZe-sb-rIC" secondAttribute="leading" id="pHM-Cx-6LP"/>
+                                                    <constraint firstItem="ZQq-Kb-7SG" firstAttribute="top" secondItem="IKC-L2-FL5" secondAttribute="bottom" constant="10" id="ypI-MH-Ghu"/>
+                                                </constraints>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="2D9-tJ-V5g"/>
+                                            <constraint firstAttribute="height" constant="90" id="2D9-tJ-V5g"/>
                                             <constraint firstItem="KZe-sb-rIC" firstAttribute="leading" secondItem="K4x-cI-7eq" secondAttribute="leading" id="5Hr-ig-ueN"/>
                                             <constraint firstAttribute="trailing" secondItem="KZe-sb-rIC" secondAttribute="trailing" id="Y39-SX-Fl1"/>
                                             <constraint firstAttribute="bottom" secondItem="KZe-sb-rIC" secondAttribute="bottom" id="gGM-FP-3I1"/>
@@ -1784,6 +1832,9 @@
                         <outlet property="epsDate" destination="4mS-UH-Z6a" id="9Ad-vv-QKB"/>
                         <outlet property="estEps" destination="08R-T2-c2u" id="6YR-Sn-okz"/>
                         <outlet property="estEpsDate" destination="ZD3-c5-VGo" id="NhI-TN-7Cx"/>
+                        <outlet property="nextEarningsDate" destination="ZQq-Kb-7SG" id="PVU-P3-Suk"/>
+                        <outlet property="nextEarningsDaysLeft" destination="vf3-yD-wq6" id="8wz-7D-yWh"/>
+                        <outlet property="nextEarningsQuarter" destination="S04-Cz-AVd" id="the-Co-bqk"/>
                         <outlet property="peChart" destination="tdy-Km-cSd" id="0e7-Os-Qxo"/>
                         <outlet property="peFwdValue" destination="beV-Gx-Vmr" id="LtP-xe-2HM"/>
                         <outlet property="peValue" destination="DMc-5w-lIi" id="FmG-l5-i8W"/>
@@ -1796,7 +1847,7 @@
         <!--FINANCIALS-->
         <scene sceneID="yqe-4O-8h8">
             <objects>
-                <viewController storyboardIdentifier="FinVC" title="FINANCIALS" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0KJ-G2-X1t" customClass="FinancialsViewController" customModule="stonks" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FinVC" title="FINANCIALS" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0KJ-G2-X1t" customClass="FinancialsViewController" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qed-4S-z4f">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1828,7 +1879,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqF-uW-cI7" userLabel="NET INCOME" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqF-uW-cI7" userLabel="NET INCOME" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="21" width="125" height="14.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1855,7 +1906,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9VA-NE-qdv" userLabel="PROFITMARGIN" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9VA-NE-qdv" userLabel="PROFITMARGIN" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="19" width="125" height="16.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1882,7 +1933,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4tM-En-J8i" userLabel="CASH FLOW" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4tM-En-J8i" userLabel="CASH FLOW" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="19" width="125" height="16.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1914,7 +1965,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dpy-kX-4iq" userLabel="TotalCashValue" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dpy-kX-4iq" userLabel="TotalCashValue" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="19" width="125" height="16.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1941,7 +1992,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYa-UY-iqi" userLabel="CASH CHANGE" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYa-UY-iqi" userLabel="CASH CHANGE" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="21" width="125" height="14.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1968,7 +2019,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OMX-71-noC" userLabel="DEBT" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OMX-71-noC" userLabel="DEBT" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="19" width="125" height="16.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2000,7 +2051,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0vl-Lv-1EK" userLabel="REVENUE" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0vl-Lv-1EK" userLabel="REVENUE" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="19" width="125" height="16.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2027,7 +2078,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8m-zo-0qo" userLabel="ASSETS" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8m-zo-0qo" userLabel="ASSETS" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="21" width="125" height="14.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2054,7 +2105,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YtB-V3-bdQ" userLabel="LIABILITIES" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YtB-V3-bdQ" userLabel="LIABILITIES" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="21" width="125" height="14.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2086,7 +2137,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ho1-rR-c1w" userLabel="R&amp;D" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ho1-rR-c1w" userLabel="R&amp;D" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="21" width="125" height="14.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2113,7 +2164,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBo-LJ-ped" userLabel="OP EXPENSES" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBo-LJ-ped" userLabel="OP EXPENSES" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="21" width="125" height="14.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2140,7 +2191,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOk-jI-gIn" userLabel="SE" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOk-jI-gIn" userLabel="SE" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="21" width="125" height="14.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2205,7 +2256,7 @@
         <!--NEWS-->
         <scene sceneID="nJa-BK-UsI">
             <objects>
-                <tableViewController storyboardIdentifier="NewsVC" title="NEWS" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AY8-kX-rSx" customClass="NewsTableViewController" customModule="stonks" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="NewsVC" title="NEWS" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AY8-kX-rSx" customClass="NewsTableViewController" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="g9R-qe-WUN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2228,7 +2279,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="newscell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="newscell" id="Go2-T8-1hr" customClass="NewsTableViewCell" customModule="stonks" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="newscell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="newscell" id="Go2-T8-1hr" customClass="NewsTableViewCell" customModule="Bullfrog" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="47" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Go2-T8-1hr" id="Mwp-yj-Yr4">
@@ -2332,7 +2383,7 @@
         <!--News Web View Controller-->
         <scene sceneID="lTU-Yb-Iuw">
             <objects>
-                <viewController id="weI-Pn-kCh" customClass="NewsWebViewController" customModule="stonks" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="weI-Pn-kCh" customClass="NewsWebViewController" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hdf-dX-jOI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2400,7 +2451,7 @@
         <!--LaunchVC-->
         <scene sceneID="dU3-o1-h9t">
             <objects>
-                <viewController id="5my-EP-K4K" customClass="LaunchVC" customModule="stonks" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="5my-EP-K4K" customClass="LaunchVC" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VD3-zq-YNV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2482,7 +2533,7 @@
         <!--Company SearchTVC-->
         <scene sceneID="jcZ-8Q-9Nr">
             <objects>
-                <tableViewController storyboardIdentifier="companySearch" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3Y2-3m-KY2" customClass="CompanySearchTVC" customModule="stonks" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="companySearch" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3Y2-3m-KY2" customClass="CompanySearchTVC" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="HJD-GC-nOF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2563,7 +2614,7 @@
         <!--COMPANY-->
         <scene sceneID="owV-aF-pY2">
             <objects>
-                <viewController storyboardIdentifier="InfoVC" title="COMPANY" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EUw-DO-jwS" customClass="GeneralInfoViewController" customModule="stonks" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InfoVC" title="COMPANY" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EUw-DO-jwS" customClass="GeneralInfoViewController" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="66M-rf-433">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2717,7 +2768,7 @@
         <!--ANALYST PREDICTIONS-->
         <scene sceneID="OzK-fL-OBA">
             <objects>
-                <viewController storyboardIdentifier="PredictionsVC" title="ANALYST PREDICTIONS" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mff-xY-YUG" customClass="PredictionsViewController" customModule="stonks" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PredictionsVC" title="ANALYST PREDICTIONS" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mff-xY-YUG" customClass="PredictionsViewController" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8ZH-Ra-Kej">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2749,7 +2800,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p45-He-EQ6" userLabel="priceTargetValue" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p45-He-EQ6" userLabel="priceTargetValue" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="21" width="125" height="50"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2776,7 +2827,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X1t-CH-MO4" userLabel="numEstimatesValue" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X1t-CH-MO4" userLabel="numEstimatesValue" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="21" width="125" height="50"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2803,7 +2854,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TiM-e0-2nu" userLabel="UpdateDateValue" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TiM-e0-2nu" userLabel="UpdateDateValue" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="21" width="125" height="50"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2835,7 +2886,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpd-1f-IaK" userLabel="BuyValue" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpd-1f-IaK" userLabel="BuyValue" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="21" width="125" height="50"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2862,7 +2913,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3sb-Rw-etx" userLabel="holdValue" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3sb-Rw-etx" userLabel="holdValue" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="21" width="125" height="50"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2889,7 +2940,7 @@
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mtV-g6-Ero" userLabel="SellValue" customClass="FormattedNumberLabel" customModule="stonks" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mtV-g6-Ero" userLabel="SellValue" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="21" width="125" height="50"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2954,6 +3005,7 @@
         <image name="bullfrog_circle" width="1080" height="1080"/>
         <image name="bullfrog_text" width="349" height="95"/>
         <image name="calendar" width="32.5" height="32.5"/>
+        <image name="calendar_money" width="37.5" height="37.5"/>
         <image name="candlebar_white" width="487" height="475"/>
         <image name="close" width="512" height="512"/>
         <image name="dollar_sign" width="175" height="175"/>
