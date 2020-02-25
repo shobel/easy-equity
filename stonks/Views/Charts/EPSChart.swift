@@ -162,7 +162,7 @@ class EPSChart: CombinedChartView {
         set.setColor(UIColor.lightGray)
         set.drawCirclesEnabled = false
         set.highlightEnabled = false
-        set.drawValuesEnabled = true
+        set.drawValuesEnabled = false
     }
 
 }
