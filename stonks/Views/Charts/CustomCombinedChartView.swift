@@ -44,6 +44,7 @@ class CustomCombinedChartView: CombinedChartView {
         self.pinchZoomEnabled = false
         self.doubleTapToZoomEnabled = false
         self.autoScaleMinMaxEnabled = true
+        self.maxVisibleCount = 500
         
         self.leftAxis.labelFont = UIFont(name: "Charter", size: 12)!
         self.leftAxis.labelTextColor = UIColor.gray
@@ -66,15 +67,9 @@ class CustomCombinedChartView: CombinedChartView {
     
     public func hideAxisLabels(hideEarnings: Bool){
         self.leftAxis.drawLabelsEnabled = false
-        if hideEarnings, let chartData = self.data as? CombinedChartData {
-            chartData.scatterData = nil
-        }
     }
     public func showAxisLabels(showEarnings: Bool){
         self.leftAxis.drawLabelsEnabled = true
-        if showEarnings, let chartData = self.data as? CombinedChartData {
-            chartData.scatterData = self.earningsData
-        }
     }
     
     public func getChartData(candleMode:Bool) -> [Candle]{
@@ -117,6 +112,18 @@ class CustomCombinedChartView: CombinedChartView {
         var counter = 0
 
         var prevCandle:Candle = Candle()
+        let earnings = self.stockDetailsDelegate?.company.earnings
+        var earningsIndex = 0
+        if earnings != nil {
+            for eIndex in stride(from: earnings!.count - 1, through: 0, by: -1) {
+                if let candleDate = self.myCandleData![0].date {
+                    if earnings![eIndex].getDate()!.compare(candleDate) == .orderedDescending || earnings![eIndex].getDate()!.compare(candleDate) == .orderedSame {
+                        earningsIndex = eIndex
+                        break
+                    }
+                }
+            }
+        }
         for i in 0..<self.myCandleData!.count{
             let candle:Candle = self.myCandleData![i]
             let high = candle.high!
@@ -126,10 +133,10 @@ class CustomCombinedChartView: CombinedChartView {
             let volume = candle.volume!
             
             //TODO: move this code to server - each candle should say whether it is an earnings date
-            if !day && candle.date != nil && self.stockDetailsDelegate!.timeInterval != Constants.TimeIntervals.twenty_year, var earnings = self.stockDetailsDelegate?.company.earnings {
-                if let foundEarnings = CandleUtility.earningsIsInCandleDate(date: candle.date!, prevDate: prevCandle.date, earnings: earnings, timeInterval: self.stockDetailsDelegate!.timeInterval) {
-                    earnings = earnings.filter( {$0.EPSReportDate != foundEarnings.EPSReportDate})
-                    earningsEntries.append(ChartDataEntry(x: Double(i), y: close))
+            if earningsIndex >= 0 && !day && candle.date != nil && self.stockDetailsDelegate!.timeInterval != Constants.TimeIntervals.twenty_year && self.stockDetailsDelegate!.timeInterval != Constants.TimeIntervals.five_year {
+                if candle.date!.compare(earnings![earningsIndex].getDate()!) == .orderedDescending || candle.date!.compare(earnings![earningsIndex].getDate()!) == .orderedSame {
+                    earningsEntries.append(ChartDataEntry(x: Double(i), y: close, icon: UIImage(named: "earnings_with_line_small")))
+                         earningsIndex -= 1
                 }
             }
   
@@ -207,12 +214,14 @@ class CustomCombinedChartView: CombinedChartView {
         self.previousCloseLineTenMin = ScatterChartData(dataSet: previousCloseSet10min)
         
         let earningsSet = ScatterChartDataSet(entries: earningsEntries)
-        let earningsData = ScatterChartData(dataSet: earningsSet)
-        earningsSet.setColor(UIColor.gray)
-        earningsSet.setScatterShape(.triangle)
+        earningsSet.setColor(UIColor.clear)
+        earningsSet.setScatterShape(.square)
         earningsSet.scatterShapeSize = CGFloat(8)
         earningsSet.highlightEnabled = false
         earningsSet.drawIconsEnabled = true
+        earningsSet.drawValuesEnabled = false
+        earningsSet.iconsOffset = CGPoint(x: 0, y: -12)
+        let earningsData = ScatterChartData(dataSet: earningsSet)
         self.earningsData = earningsData
         
         DispatchQueue.main.async {
@@ -276,7 +285,7 @@ class CustomCombinedChartView: CombinedChartView {
     
     private func setUpCandleChart(set: CandleChartDataSet){
         set.axisDependency = .left
-        set.setColor(UIColor.white)
+        //set.setColor(UIColor.white)
         set.drawIconsEnabled = true
         set.shadowColor = .darkGray
         set.shadowWidth = 0.7
@@ -313,7 +322,6 @@ class CustomCombinedChartView: CombinedChartView {
         set.drawValuesEnabled = false
         set.axisDependency = .left
         set.highlightEnabled = false
-        set.drawValuesEnabled = false
     }
     
     private func setUpLineChart(set: LineChartDataSet){
@@ -321,7 +329,6 @@ class CustomCombinedChartView: CombinedChartView {
         set.lineWidth = 2
         set.drawCirclesEnabled = false
         set.mode = .cubicBezier
-        set.drawValuesEnabled = false
         set.axisDependency = .left
         set.highlightColor = UIColor.gray
         set.highlightLineWidth = 2
@@ -373,50 +380,10 @@ class CustomCombinedChartView: CombinedChartView {
     
     public func showCandleChart(){
         self.updateChart()
-//        let day = self.stockDetailsDelegate?.timeInterval == Constants.TimeIntervals.day
-//        self.sendVolumeStats()
-//        //self.data?.dataSets = []
-//
-//        let data = CombinedChartData()
-//
-//        if day{
-//            data.barData = self.volumeChartDataTenMin
-//            data.candleData = self.candleChartDataTenMin
-//            if self.shouldShowPreviousLine() {
-//                data.scatterData = self.previousCloseLineTenMin
-//            }
-//        } else {
-//            data.barData = self.volumeChartData
-//            data.candleData = self.candleChartData
-//            if self.shouldShowPreviousLine() {
-//                data.scatterData = self.previousCloseLine
-//            }
-//        }
-//        self.data = data
-//        self.notifyDataSetChanged()
     }
     
     public func showLineChart(){
         self.updateChart()
-//        let day = self.stockDetailsDelegate?.timeInterval == Constants.TimeIntervals.day
-//        self.sendVolumeStats()
-//        self.data?.dataSets = []
-//        let data = CombinedChartData()
-//
-//        if self.shouldShowPreviousLine() {
-//            data.scatterData = self.previousCloseLine
-//        }
-//
-//        var lineDataSets : [LineChartDataSet] = [LineChartDataSet]()
-//        lineDataSets.append(self.lineChartData)
-//        if self.stockDetailsDelegate?.timeInterval == Constants.TimeIntervals.day {
-//            lineDataSets.append(self.createSinglePointLineChartDataSet(index: 391, value: self.lineChartData.yMin))
-//        }
-//        let lineChartDatas:LineChartData = LineChartData(dataSets: lineDataSets)
-//        data.lineData = lineChartDatas
-//        data.barData = self.volumeChartData
-//        self.data = data
-//        self.notifyDataSetChanged()
     }
     
     private func createSinglePointLineChartDataSet(index: Double, value: Double) -> LineChartDataSet{

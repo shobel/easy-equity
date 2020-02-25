@@ -27,4 +27,13 @@ struct Estimates: Mappable {
         fiscalEndDate <- map["fiscalEndDate"]
         reportDate <- map["reportDate"]
     }
+    
+    public func getDate() -> Date? {
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "yyyy-MM-dd"
+        if let rd = self.reportDate {
+            return dateformatter.date(from: rd)
+        }
+        return nil
+    }
 }

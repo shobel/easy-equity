@@ -15,9 +15,11 @@ class EPSChart: CombinedChartView {
     private var numEstimates:[BarChartDataSet] = []
     private var epsTTM:[LineChartDataSet] = []
     private var formatter:PriceChartFormatter = PriceChartFormatter()
+    private var earningsDelegate: EarningsViewController!
 
-    public func setup(company:Company){
+    public func setup(company:Company, earningsDelegate: EarningsViewController){
         self.delegate = delegate
+        self.earningsDelegate = earningsDelegate
         
         self.chartDescription?.enabled = false
         self.legend.enabled = false
@@ -73,15 +75,43 @@ class EPSChart: CombinedChartView {
                 for j in i..<(i+4) {
                     sum += pastEarnings[j]
                 }
-                let ttm = sum / 5
+                let ttm = sum / 4
                 epsTTMEntries.append(ChartDataEntry(x: Double(i), y: ttm))
             }
             
+            var fwdLabelValue = "-"
+            var fwdEpsDate = ""
             if let est = company.estimates{
-                expectedEarningsEntries.append(ChartDataEntry(x: Double(company.earnings!.count), y: est.consensusEPS ?? 0.0))
-                estimatesEntries.append(BarChartDataEntry(x: Double(company.earnings!.count), y: Double(est.numberOfEstimates ?? 0)))
-                self.formatter.addXAxisLabel(est.fiscalPeriod!)
+                //only add forward EPS to the chart if we dont already have it, meaning it's lagging behind from a passed earnings reports
+                var isForward = true
+                for i in 0..<reversedEarnings.count {
+                    if est.fiscalPeriod == reversedEarnings[i].fiscalPeriod {
+                        isForward = false
+                    }
+                }
+                if isForward {
+                    if est.consensusEPS != nil && est.fiscalPeriod != nil{
+                        fwdLabelValue = String(est.consensusEPS!)
+                        fwdEpsDate = est.fiscalPeriod!
+                        expectedEarningsEntries.append(ChartDataEntry(x: Double(company.earnings!.count), y: est.consensusEPS!))
+                        estimatesEntries.append(BarChartDataEntry(x: Double(company.earnings!.count), y: Double(est.numberOfEstimates ?? 0)))
+                        self.formatter.addXAxisLabel(est.fiscalPeriod!)
+                    }
+                }
             }
+            
+            var actualEpsLabel = "-"
+            var epsDate = ""
+            if actualEarningsEntries.count > 0 && self.formatter.xAxisLabels.count >= actualEarningsEntries.count{
+                actualEpsLabel = String(format: "%.2f", actualEarningsEntries[actualEarningsEntries.count - 1].y)
+                epsDate = self.formatter.xAxisLabels[actualEarningsEntries.count - 1]
+                //reversedEarnings[reversedEarnings.count - 1].EPSReportDate!
+            }
+            var avgLabelValue = "-"
+            if epsTTMEntries.count > 0{
+                avgLabelValue = String(format: "%.2f", epsTTMEntries[epsTTMEntries.count - 1].y)
+            }
+            earningsDelegate.updateEPSLegendValues(eps: actualEpsLabel, epsDate: epsDate, epsFwd: fwdLabelValue, epsFwdDate: fwdEpsDate, avg: avgLabelValue)
             
             let actualEarningsDataSet = ScatterChartDataSet(entries: actualEarningsEntries)
             self.configureScatterDataSet(set: actualEarningsDataSet, color: Constants.darkPink)
@@ -132,7 +162,7 @@ class EPSChart: CombinedChartView {
         set.setColor(UIColor.lightGray)
         set.drawCirclesEnabled = false
         set.highlightEnabled = false
-        set.drawValuesEnabled = false
+        set.drawValuesEnabled = true
     }
 
 }

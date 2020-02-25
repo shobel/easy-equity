@@ -10,15 +10,9 @@ import UIKit
 
 class PredictionsViewController: UIViewController, StatsVC {
     
-    @IBOutlet weak var pe: FormattedNumberLabel!
-    @IBOutlet weak var peFwd: FormattedNumberLabel!
-    @IBOutlet weak var peg: FormattedNumberLabel!
     @IBOutlet weak var priceTarget: FormattedNumberLabel!
     @IBOutlet weak var numEstimatesPT: FormattedNumberLabel!
     @IBOutlet weak var datePT: FormattedNumberLabel!
-    @IBOutlet weak var epsForecast: FormattedNumberLabel!
-    @IBOutlet weak var numEstimatesEPS: FormattedNumberLabel!
-    @IBOutlet weak var dateEPS: FormattedNumberLabel!
     @IBOutlet weak var numBuys: FormattedNumberLabel!
     @IBOutlet weak var numHolds: FormattedNumberLabel!
     @IBOutlet weak var numSells: FormattedNumberLabel!
@@ -56,15 +50,6 @@ class PredictionsViewController: UIViewController, StatsVC {
                 self.numHolds.setValue(value: String(numHold), format: FormattedNumberLabel.Format.NUMBER)
                 self.numSells.setValue(value: String(numSell), format: FormattedNumberLabel.Format.NUMBER)
             
-                if let x = self.company.keyStats?.peRatio {
-                    self.pe.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let x = self.company.advancedStats?.forwardPERatio {
-                    self.peFwd.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let x = self.company.advancedStats?.pegRatio {
-                    self.peg.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
-                }
                 if let x = self.company.priceTarget?.priceTargetAverage {
                     self.priceTarget.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
                 }
@@ -73,15 +58,6 @@ class PredictionsViewController: UIViewController, StatsVC {
                 }
                 if let x = self.company.priceTarget?.updatedDate {
                     self.datePT.setValue(value: String(x), format: FormattedNumberLabel.Format.DATE)
-                }
-                if let x = self.company.estimates?.consensusEPS {
-                    self.epsForecast.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let x = self.company.estimates?.numberOfEstimates {
-                    self.numEstimatesEPS.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let x = self.company.estimates?.fiscalPeriod {
-                    self.dateEPS.text = x
                 }
             }
         }

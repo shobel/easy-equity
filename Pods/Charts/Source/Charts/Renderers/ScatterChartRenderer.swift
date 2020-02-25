@@ -96,13 +96,8 @@ open class ScatterChartRenderer: LineScatterCandleRadarRenderer
                     continue
                 }
                 
-                if let x = renderer as? TriangleShapeRenderer {
-                    //renderer.renderShape(context: context, dataSet: dataSet, viewPortHandler: viewPortHandler, point: point, color: dataSet.color(atIndex: j))
-                    let image = UIImage(named: "earnings_with_line")
-                    image?.draw(in: CGRect(x: point.x - 8, y: point.y - 26, width: 15, height: 25))
-                } else {
-                    renderer.renderShape(context: context, dataSet: dataSet, viewPortHandler: viewPortHandler, point: point, color: dataSet.color(atIndex: j))
-                }
+                renderer.renderShape(context: context, dataSet: dataSet, viewPortHandler: viewPortHandler, point: point, color: dataSet.color(atIndex: j))
+
             }
             
             context.restoreGState()
