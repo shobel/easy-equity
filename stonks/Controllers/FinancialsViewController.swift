@@ -75,7 +75,10 @@ class FinancialsViewController: UIViewController, StatsVC {
     }
     
     func getContentHeight() -> CGFloat {
-        return self.contentView.bounds.height
+        if isLoaded {
+            return self.contentView.bounds.height
+        }
+        return 0.0
     }
     
     /*

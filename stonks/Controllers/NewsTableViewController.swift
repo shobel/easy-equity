@@ -27,7 +27,10 @@ class NewsTableViewController: UITableViewController, StatsVC, WKUIDelegate, WKN
     }
     
     func getContentHeight() -> CGFloat {
-        return CGFloat((self.company.news?.count ?? 0) * 90)
+        if isLoaded {
+            return CGFloat((self.company.news?.count ?? 0) * 90)
+        }
+        return 0.0
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

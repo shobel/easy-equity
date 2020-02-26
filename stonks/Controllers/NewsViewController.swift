@@ -12,9 +12,11 @@ class NewsViewController: UIViewController, StatsVC {
 
     private var company:Company!
     @IBOutlet weak var contentView: UIView!
+    private var isLoaded:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        isLoaded = true
         company = Dataholder.watchlistManager.selectedCompany
     }
     
@@ -23,7 +25,10 @@ class NewsViewController: UIViewController, StatsVC {
     }
     
     func getContentHeight() -> CGFloat {
-        return self.contentView.bounds.height
+        if isLoaded {
+            return self.contentView.bounds.height
+        }
+        return 0.0
     }
 
     /*
