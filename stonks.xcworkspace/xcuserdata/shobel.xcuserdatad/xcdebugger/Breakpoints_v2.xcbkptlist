@@ -253,20 +253,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "54B9B1BF-693D-43AC-BF22-D9559AC6F768"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "stonks/Controllers/KeyStatsViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "FD6BBB87-846E-4039-B257-E76CDE80E046"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -290,8 +276,8 @@
             filePath = "stonks/Controllers/StockDetailsVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "321"
-            endingLineNumber = "321"
+            startingLineNumber = "319"
+            endingLineNumber = "319"
             landmarkName = "adjustContentHeight(vc:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -309,6 +295,22 @@
             startingLineNumber = "14"
             endingLineNumber = "14"
             landmarkName = "earningsIsInCandleDate(date:prevDate:earnings:timeInterval:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CE78426E-7AFA-4888-B00F-9EF360A9E218"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "stonks/Controllers/StockDetailsVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

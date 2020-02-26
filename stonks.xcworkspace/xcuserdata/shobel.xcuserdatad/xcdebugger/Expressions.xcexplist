@@ -364,7 +364,7 @@
          contextName = "KeyStatsViewController.getContentHeight():KeyStatsViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.contentView.bounds.height">
+               value = "self.contentView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -522,6 +522,9 @@
       <ContextState
          contextName = "StockDetailsVC.viewDidLoad():StockDetailsVC.swift">
          <PersistentStrings>
+            <PersistentString
+               value = "self.keyStatsVC.contentView">
+            </PersistentString>
             <PersistentString
                value = "self.contentView.bottomAnchor.constraint">
             </PersistentString>

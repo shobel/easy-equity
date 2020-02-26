@@ -66,7 +66,10 @@ class AdvancedStatsViewController: UIViewController, StatsVC {
     }
     
     func getContentHeight() -> CGFloat {
-        return self.view.bounds.height
+        if isLoaded {
+            return self.view.bounds.height
+        }
+        return 0.0
     }
     
     /*

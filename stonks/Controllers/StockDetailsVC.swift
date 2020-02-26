@@ -10,7 +10,6 @@ import UIKit
 import Charts
 import Parchment
 import MaterialActivityIndicator
-import RSLoadingView
 
 class StockDetailsVC: DemoBaseViewController, Updateable {
 
@@ -37,6 +36,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var timeViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pagingViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var loaderView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     public var company:Company!
     public var latestQuote:Quote!
     private var isMarketOpen:Bool = true
@@ -50,7 +52,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     private var alphaVantage = AlphaVantage()
     
-    private let loadingView = RSLoadingView()
     private var handlersDone = 0
     private var totalHandlers = 0
     
@@ -139,12 +140,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.chartView.setup(delegate: self)
         self.chartView.delegate = self
         
-        //loading indicator setup
-        self.loadingView.dimBackgroundColor = UIColor.black.withAlphaComponent(0.8)
-        self.loadingView.speedFactor = 1.5
-        self.loadingView.spreadingFactor = 0.0
-        self.loadingView.sizeInContainer = CGSize(width: 100, height: 100)
-        self.loadingView.showOnKeyWindow()
+        //loader indicator setup
+        self.loaderView.isHidden = false
+        self.activityIndicator.startAnimating()
         
         //start information retrieval processes
         self.totalHandlers = 12
@@ -201,11 +199,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.handlersDone+=1
         let total = self.totalHandlers
         if (self.handlersDone >= total){
+            self.adjustContentHeight(vc: self.keyStatsVC)
             self.company.addSmaToCandleSets(smaSet: self.company.sma50, key: "50")
             self.company.addSmaToCandleSets(smaSet: self.company.sma100, key: "100")
             self.company.addSmaToCandleSets(smaSet: self.company.sma200, key: "200")
             DispatchQueue.main.async {
-                self.loadingView.hide()
+                self.loaderView.isHidden = true
             }
         }
     }
@@ -494,7 +493,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func chartModeButtonPressed(_ sender: Any) {
