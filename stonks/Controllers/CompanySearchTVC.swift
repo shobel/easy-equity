@@ -29,7 +29,7 @@ class CompanySearchTVC: UITableViewController {
         
         searchBar.autocapitalizationType = .none
         searchBar.delegate = self
-        activityIndicatorView = UIActivityIndicatorView(style: .gray)
+        activityIndicatorView = UIActivityIndicatorView(style: .large)
     }
     
     override func viewDidAppear(_ animated: Bool) {
