@@ -158,8 +158,8 @@
          <BreakpointContent
             uuid = "C5C05AD8-76DB-482E-807E-AC678CD8750F"
             shouldBeEnabled = "No"
-            ignoreCount = "0"
             condition = "quote.symbol == &quot;TSLA&quot;"
+            ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "stonks/Views/WatchlistTVCell.swift"
             startingColumnNumber = "9223372036854775807"

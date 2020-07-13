@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>321643594787-tamp07g3uo20dhvleai51v3meud86ces.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.321643594787-tamp07g3uo20dhvleai51v3meud86ces</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAzGfH9z8wHfi6jxo63-N3usa_ZR4fE9rI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>321643594787</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>shobel.stonks</string>
+	<key>PROJECT_ID</key>
+	<string>stockapp-server-4ff79</string>
+	<key>STORAGE_BUCKET</key>
+	<string>stockapp-server-4ff79.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:321643594787:ios:e25c369219171f825fdd96</string>
+	<key>DATABASE_URL</key>
+	<string>https://stockapp-server-4ff79.firebaseio.com</string>
+</dict>
+</plist>

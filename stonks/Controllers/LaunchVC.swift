@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import FirebaseUI
 
-class LaunchVC: UIViewController {
+class LaunchVC: UIViewController, FUIAuthDelegate {
 
     private var finvizAPI:FinvizAPI!
     private var watchlistManager:WatchlistManager!
     private var numTotal:Int!
     private var numUpdated = 0
+    
+    private var authUI:FUIAuth?
     
     @IBOutlet weak var progressBar: UIProgressView!
     
@@ -24,7 +27,6 @@ class LaunchVC: UIViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.modalPresentationStyle = .fullScreen
         StockAPIManager.shared.stockDataApiInstance.listCompanies()
         
         watchlistManager = Dataholder.watchlistManager
@@ -48,8 +50,8 @@ class LaunchVC: UIViewController {
             self.progressBar.setProgress(progress, animated: true)
             
             if self.numUpdated >= self.numTotal {
-                self.modalPresentationStyle = .fullScreen
-                self.performSegue(withIdentifier: "toTabBar", sender: self)
+                self.performSegue(withIdentifier: "toAuth", sender: self)
+                //self.launchAuth()
             }
         }
     }
@@ -81,6 +83,39 @@ class LaunchVC: UIViewController {
             }
         }
         self.addProgress()
+    }
+    
+    func launchAuth(){
+        self.authUI = FUIAuth.defaultAuthUI()
+        guard self.authUI != nil else {
+            return
+        }
+                
+        self.authUI!.delegate = self
+                
+//        let actionCodeSettings = ActionCodeSettings()
+//        actionCodeSettings.url = URL(string: "https://example.appspot.com")
+//        actionCodeSettings.handleCodeInApp = true
+//        actionCodeSettings.setAndroidPackageName("com.firebase.example", installIfNotAvailable: false, minimumVersion: "12")
+//        let emailProvider = FUIEmailAuth(authAuthUI: FUIAuth.defaultAuthUI()!,
+//                            signInMethod: EmailLinkAuthSignInMethod,
+//                            forceSameDevice: false,
+//                            allowNewEmailAccounts: true,
+//                            actionCodeSetting: actionCodeSettings)
+//
+//        let providers: [FUIAuthProvider] = [emailProvider]
+//        self.authUI!.providers = providers
+                
+        let authViewController = self.authUI!.authViewController()
+        self.present(authViewController, animated: true, completion: nil)
+    }
+    
+    func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?) {
+        guard error == nil else {
+            return
+        }
+        let userId = authDataResult?.user.uid
+        self.performSegue(withIdentifier: "toHome", sender: self)
     }
     
     /*

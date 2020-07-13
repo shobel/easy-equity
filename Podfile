@@ -5,6 +5,8 @@ target 'stonks' do
   use_frameworks!
 
   # Pods
+  pod 'Firebase/Core'
+  pod 'FirebaseUI/Auth'
   pod 'Charts'
   pod 'SwiftyJSON'
   pod 'SwiftSoup'
@@ -12,4 +14,6 @@ target 'stonks' do
   pod 'Parchment'
   pod 'MaterialActivityIndicator'
   pod "RSLoadingView"
+
+  pod "VisualEffectView"
 end
