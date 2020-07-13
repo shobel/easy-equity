@@ -9,15 +9,13 @@
 import UIKit
 import FirebaseUI
 
-class LaunchVC: UIViewController, FUIAuthDelegate {
+class LaunchVC: UIViewController {
 
     private var finvizAPI:FinvizAPI!
     private var watchlistManager:WatchlistManager!
     private var numTotal:Int!
     private var numUpdated = 0
-    
-    private var authUI:FUIAuth?
-    
+        
     @IBOutlet weak var progressBar: UIProgressView!
     
     /*  This method is initiating the async call to get all stocks
@@ -83,39 +81,6 @@ class LaunchVC: UIViewController, FUIAuthDelegate {
             }
         }
         self.addProgress()
-    }
-    
-    func launchAuth(){
-        self.authUI = FUIAuth.defaultAuthUI()
-        guard self.authUI != nil else {
-            return
-        }
-                
-        self.authUI!.delegate = self
-                
-//        let actionCodeSettings = ActionCodeSettings()
-//        actionCodeSettings.url = URL(string: "https://example.appspot.com")
-//        actionCodeSettings.handleCodeInApp = true
-//        actionCodeSettings.setAndroidPackageName("com.firebase.example", installIfNotAvailable: false, minimumVersion: "12")
-//        let emailProvider = FUIEmailAuth(authAuthUI: FUIAuth.defaultAuthUI()!,
-//                            signInMethod: EmailLinkAuthSignInMethod,
-//                            forceSameDevice: false,
-//                            allowNewEmailAccounts: true,
-//                            actionCodeSetting: actionCodeSettings)
-//
-//        let providers: [FUIAuthProvider] = [emailProvider]
-//        self.authUI!.providers = providers
-                
-        let authViewController = self.authUI!.authViewController()
-        self.present(authViewController, animated: true, completion: nil)
-    }
-    
-    func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?) {
-        guard error == nil else {
-            return
-        }
-        let userId = authDataResult?.user.uid
-        self.performSegue(withIdentifier: "toHome", sender: self)
     }
     
     /*

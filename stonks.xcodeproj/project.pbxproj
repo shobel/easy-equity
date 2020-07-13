@@ -22,6 +22,8 @@
 		1C5B96192404FDFD00E63316 /* GeneralUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5B96182404FDFD00E63316 /* GeneralUtility.swift */; };
 		1C62FDD624BC144D00BABDCB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDD524BC144D00BABDCB /* LoginViewController.swift */; };
 		1C62FDD924BC14D900BABDCB /* frog-on-a-log.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C62FDD824BC14D900BABDCB /* frog-on-a-log.mp4 */; };
+		1C62FDDB24BC4B6F00BABDCB /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDDA24BC4B6F00BABDCB /* SignupViewController.swift */; };
+		1C62FDDD24BC4B9B00BABDCB /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDDC24BC4B9B00BABDCB /* AuthViewController.swift */; };
 		1C6936B721CDC72200E3FDC9 /* VolumeChartFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6936B621CDC72200E3FDC9 /* VolumeChartFormatter.swift */; };
 		1C6936B921CDCE9000E3FDC9 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6936B821CDCE9000E3FDC9 /* NumberFormatter.swift */; };
 		1C6936BC21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6936BB21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift */; };
@@ -120,6 +122,8 @@
 		1C5B96182404FDFD00E63316 /* GeneralUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralUtility.swift; sourceTree = "<group>"; };
 		1C62FDD524BC144D00BABDCB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1C62FDD824BC14D900BABDCB /* frog-on-a-log.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "frog-on-a-log.mp4"; sourceTree = "<group>"; };
+		1C62FDDA24BC4B6F00BABDCB /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		1C62FDDC24BC4B9B00BABDCB /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		1C6936B621CDC72200E3FDC9 /* VolumeChartFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeChartFormatter.swift; sourceTree = "<group>"; };
 		1C6936B821CDCE9000E3FDC9 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
 		1C6936BB21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchdownGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -374,6 +378,8 @@
 				1C9B95BB23FA204F004E95B1 /* NewsTableViewController.swift */,
 				1CFE633C23FB665E00F81758 /* NewsWebViewController.swift */,
 				1C62FDD524BC144D00BABDCB /* LoginViewController.swift */,
+				1C62FDDA24BC4B6F00BABDCB /* SignupViewController.swift */,
+				1C62FDDC24BC4B9B00BABDCB /* AuthViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -640,10 +646,12 @@
 				1CB257272173A234008E3D4D /* HTTPRequest.swift in Sources */,
 				1C9B952523EE3958004E95B1 /* DatedValue.swift in Sources */,
 				1C6936B721CDC72200E3FDC9 /* VolumeChartFormatter.swift in Sources */,
+				1C62FDDD24BC4B9B00BABDCB /* AuthViewController.swift in Sources */,
 				1C183F93216D5D2A0042F52C /* DemoBaseViewController.swift in Sources */,
 				1C7B98882161CC2F00C75014 /* CompanySearchTVC.swift in Sources */,
 				1CCBE58623FDBAD300E57D49 /* EPSChart.swift in Sources */,
 				1C7B9830215B32D500C75014 /* AppDelegate.swift in Sources */,
+				1C62FDDB24BC4B6F00BABDCB /* SignupViewController.swift in Sources */,
 				1CB257212172BBB6008E3D4D /* FinvizAPI.swift in Sources */,
 				1C545213216AF6400064239E /* WatchlistUpdater.swift in Sources */,
 				1C9B952323E74F14004E95B1 /* PriceChartPriceFormatter.swift in Sources */,
