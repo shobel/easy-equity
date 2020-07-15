@@ -312,6 +312,7 @@ class CustomCombinedChartView: CombinedChartView {
         previousCloseSet.setScatterShape(.circle)
         previousCloseSet.scatterShapeSize = CGFloat(0.8)
         previousCloseSet.highlightEnabled = false
+        previousCloseSet.drawValuesEnabled = false
     }
     
     private func setUpSmaLine(set: LineChartDataSet, color: UIColor){

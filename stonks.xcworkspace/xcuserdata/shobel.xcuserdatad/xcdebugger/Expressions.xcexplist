@@ -30,10 +30,13 @@
          contextName = "DataRenderer.isDrawingValuesAllowed(dataProvider:):ChartDataRendererBase.swift">
          <PersistentStrings>
             <PersistentString
-               value = "data.entryCount">
+               value = "dataProvider?.maxVisibleCount">
             </PersistentString>
             <PersistentString
-               value = "dataProvider?.maxVisibleCount">
+               value = "Int(CGFloat(dataProvider?.maxVisibleCount ?? 0) * viewPortHandler.scaleX)">
+            </PersistentString>
+            <PersistentString
+               value = "data.entryCount">
             </PersistentString>
             <PersistentString
                value = "viewPortHandler.scaleX">
@@ -224,6 +227,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in LoginViewController.loginButtonClicked(_:):LoginViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "err.localizedDescription">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "Company.addSmaToCandleSets(smaSet:key:):Company.swift">
          <PersistentStrings>
             <PersistentString
@@ -253,6 +264,14 @@
          <PersistentStrings>
             <PersistentString
                value = "jsonNews.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "EmailVerificationViewController.sendResetCodeButtonTapped(_:):EmailVerificationViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Bundle.main.bundleIdentifier!">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -477,10 +496,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "LaunchVC.launchAuth():LaunchVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.authUI">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "LineChartRenderer.drawValues(context:):LineChartRenderer.swift">
          <PersistentStrings>
             <PersistentString
-               value = "isDrawingValuesAllowed(dataProvider: dataProvider)">
+               value = "dataSet.isDrawValuesEnabled">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -509,17 +536,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "StockDetailsVC.pagingViewController&lt;A&gt;(_:willScrollToItem:startingViewController:destinationViewController:):StockDetailsVC.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "destinationViewController.view.frame.height">
-            </PersistentString>
-            <PersistentString
-               value = "pagingItem">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "StockDetailsVC.viewDidLoad():StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -527,6 +543,17 @@
             </PersistentString>
             <PersistentString
                value = "self.contentView.bottomAnchor.constraint">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "StockDetailsVC.pagingViewController&lt;A&gt;(_:willScrollToItem:startingViewController:destinationViewController:):StockDetailsVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "destinationViewController.view.frame.height">
+            </PersistentString>
+            <PersistentString
+               value = "pagingItem">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -574,6 +601,17 @@
             </PersistentString>
             <PersistentString
                value = "self.myCandleData![i].date!.description">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in EmailVerificationViewController.sendResetCodeButtonTapped(_:):EmailVerificationViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "error.debugDescription">
+            </PersistentString>
+            <PersistentString
+               value = "error?.localizedDescription">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

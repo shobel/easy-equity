@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseUI
 
 class LaunchVC: UIViewController {
 
@@ -14,7 +15,7 @@ class LaunchVC: UIViewController {
     private var watchlistManager:WatchlistManager!
     private var numTotal:Int!
     private var numUpdated = 0
-    
+        
     @IBOutlet weak var progressBar: UIProgressView!
     
     /*  This method is initiating the async call to get all stocks
@@ -24,7 +25,6 @@ class LaunchVC: UIViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.modalPresentationStyle = .fullScreen
         StockAPIManager.shared.stockDataApiInstance.listCompanies()
         
         watchlistManager = Dataholder.watchlistManager
@@ -48,8 +48,8 @@ class LaunchVC: UIViewController {
             self.progressBar.setProgress(progress, animated: true)
             
             if self.numUpdated >= self.numTotal {
-                self.modalPresentationStyle = .fullScreen
-                self.performSegue(withIdentifier: "toTabBar", sender: self)
+                self.performSegue(withIdentifier: "toAuth", sender: self)
+                //self.launchAuth()
             }
         }
     }
