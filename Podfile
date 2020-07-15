@@ -5,15 +5,26 @@ target 'stonks' do
   use_frameworks!
 
   # Pods
+  # DB
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Firestore'
   pod 'Firebase/Core'
   pod 'FirebaseUI/Auth'
+
+  # Essential UI
   pod 'Charts'
+
+  # Utilities
   pod 'SwiftyJSON'
   pod 'SwiftSoup'
   pod 'ObjectMapper'
+
+  # Flashy UI
   pod 'Parchment'
   pod 'MaterialActivityIndicator'
   pod "RSLoadingView"
-
+  pod 'TransitionButton'
   pod "VisualEffectView"
+  pod 'SwiftEntryKit', '1.2.3'
+
 end
