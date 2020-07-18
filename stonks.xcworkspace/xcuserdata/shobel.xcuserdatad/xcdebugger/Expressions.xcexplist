@@ -55,6 +55,17 @@
          contextName = "ScatterChartRenderer.drawDataSet(context:dataSet:):ScatterChartRenderer.swift">
       </ContextState>
       <ContextState
+         contextName = "HTTPRequest.httpPostQuery(queryURL:token:body:completionHandler:):HTTPRequest.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Data(query.utf8)">
+            </PersistentString>
+            <PersistentString
+               value = "JSONSerialization.data(withJSONObject: body)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "StockDetailsVC.setTopBarValues(startPrice:endPrice:selected:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -93,21 +104,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "static CandleUtility.earningsIsInCandleDate(date:prevDate:earnings:timeInterval:):CandleUtility.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "date.description">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "EPSChart.setChartData(company:):EPSChart.swift">
          <PersistentStrings>
             <PersistentString
-               value = "company.estimates">
+               value = "UIImage(named: &quot;earnings_with_line&quot;)">
             </PersistentString>
             <PersistentString
-               value = "UIImage(named: &quot;earnings_with_line&quot;)">
+               value = "company.estimates">
             </PersistentString>
             <PersistentString
                value = "company.earnings">
@@ -123,10 +126,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "StockDetailsVC.handleNews(news:):StockDetailsVC.swift">
+         contextName = "static CandleUtility.earningsIsInCandleDate(date:prevDate:earnings:timeInterval:):CandleUtility.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.newsVC">
+               value = "date.description">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -159,13 +162,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "StockDetailsVC.handleEstimates(estimates:):StockDetailsVC.swift">
+         contextName = "StockDetailsVC.handleNews(news:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "Dataholder.watchlistManager.selectedCompany">
-            </PersistentString>
-            <PersistentString
-               value = "self.company">
+               value = "self.newsVC">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -182,6 +182,17 @@
          <PersistentStrings>
             <PersistentString
                value = "dateFormatter.string(from: candleList[0].date!)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "StockDetailsVC.handleEstimates(estimates:):StockDetailsVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Dataholder.watchlistManager.selectedCompany">
+            </PersistentString>
+            <PersistentString
+               value = "self.company">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -369,10 +380,10 @@
                value = "self.pagingView.bounds.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
+               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
+               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
             </PersistentString>
             <PersistentString
                value = "statsVC.getContentHeight()">
@@ -406,6 +417,14 @@
          <PersistentStrings>
             <PersistentString
                value = "chartData">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in MyRestAPI.getRequest(queryURL:completion:):MyRestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "httpResponse.statusCode">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -485,9 +504,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #2 in CustomCombinedChartView.updateChart():CustomCombinedChartView.swift">
-      </ContextState>
-      <ContextState
          contextName = "PriceChartFormatter.stringForValue(_:axis:):PriceChartFormatter.swift">
          <PersistentStrings>
             <PersistentString
@@ -510,6 +526,9 @@
                value = "dataSet.isDrawValuesEnabled">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in CustomCombinedChartView.updateChart():CustomCombinedChartView.swift">
       </ContextState>
       <ContextState
          contextName = "ScatterChartRenderer.drawValues(context:):ScatterChartRenderer.swift">

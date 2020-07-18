@@ -340,6 +340,15 @@ PODS:
   - nanopb/encode (1.30905.0)
   - ObjectMapper (3.5.1)
   - Parchment (1.7.0)
+  - PromiseKit (6.13.1):
+    - PromiseKit/CorePromise (= 6.13.1)
+    - PromiseKit/Foundation (= 6.13.1)
+    - PromiseKit/UIKit (= 6.13.1)
+  - PromiseKit/CorePromise (6.13.1)
+  - PromiseKit/Foundation (6.13.1):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.13.1):
+    - PromiseKit/CorePromise
   - PromisesObjC (1.2.9)
   - QuickLayout (3.0.0)
   - RSLoadingView (1.1.3)
@@ -359,6 +368,7 @@ DEPENDENCIES:
   - MaterialActivityIndicator
   - ObjectMapper
   - Parchment
+  - PromiseKit
   - RSLoadingView
   - SwiftEntryKit (= 1.2.3)
   - SwiftSoup
@@ -391,6 +401,7 @@ SPEC REPOS:
     - nanopb
     - ObjectMapper
     - Parchment
+    - PromiseKit
     - PromisesObjC
     - QuickLayout
     - RSLoadingView
@@ -424,6 +435,7 @@ SPEC CHECKSUMS:
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
   Parchment: cae686f73685d16742cec9c19239b7578a15f0f5
+  PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   QuickLayout: 07b45a72b10083fee3f095990cfed1c1e7b27f0a
   RSLoadingView: c7749afdd455229643e8f34277d0695973a15b1a
@@ -433,6 +445,6 @@ SPEC CHECKSUMS:
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
   VisualEffectView: 8c05bdc77490d84aabfa9fd17b1ffd6476da0e2c
 
-PODFILE CHECKSUM: 3651d4e33285dd8772fb27b616df69ce08316496
+PODFILE CHECKSUM: fdc6188ff8dc51e0230e21fcf61df01d6a13ac42
 
 COCOAPODS: 1.9.3

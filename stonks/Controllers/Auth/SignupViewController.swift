@@ -18,8 +18,11 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var registerButton: TransitionButton!
     @IBOutlet weak var errorLabel: UILabel!
     
+    private var restAPI:MyRestAPI!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.restAPI = NetworkManager.getMyRestApi()
         emailInput.attributedPlaceholder = NSAttributedString(string: "email address", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         passwordInput.attributedPlaceholder = NSAttributedString(string: "password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         self.emailInput.becomeFirstResponder()
@@ -40,13 +43,14 @@ class SignupViewController: UIViewController {
                     self.showError(err.localizedDescription)
                     self.registerButton.stopAnimation(animationStyle: .shake, completion: nil)
                 } else {
-                    result?.user.sendEmailVerification(completion: { (error) in
-                        //
-                    })
-                    self.hideError()
-                    self.registerButton.stopAnimation(animationStyle: .expand, completion: {
-                        self.performSegue(withIdentifier: "toHome", sender: self)
-                    })
+                    self.restAPI.createUser(id: Auth.auth().currentUser!.uid, email: self.emailInput.text!) { (JSON) in
+                        DispatchQueue.main.async {
+                            self.hideError()
+                            self.registerButton.stopAnimation(animationStyle: .expand, completion: {
+                                self.performSegue(withIdentifier: "toHome", sender: self)
+                            })
+                        }
+                    }
                 }
             }
         }

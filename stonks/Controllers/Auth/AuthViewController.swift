@@ -26,6 +26,12 @@ class AuthViewController: UIViewController {
         createAccountButton.layer.cornerRadius = 25
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if (Constants.demo){
+            //performSegue(withIdentifier: "toHome", sender: self)
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         //setBackground()
         //applyBlur()

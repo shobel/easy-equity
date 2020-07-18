@@ -13,10 +13,11 @@ class StockAPIManager {
     public static let shared = StockAPIManager()
     private static let iex = IEXTrading()
     private static let alpha = AlphaVantage()
+    private static let myRestAPI = MyRestAPI()
     
     public var stockDataApiInstance: StockDataApiProtocol {
         switch (Configuration.stockDataResource) {
-        case Configuration.StockDataApiTypes.IEXTrading:
+        case .IEXTrading:
             return StockAPIManager.iex
         }
     }

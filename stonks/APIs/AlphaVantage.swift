@@ -11,7 +11,7 @@ import SwiftyJSON
 import ObjectMapper
 class AlphaVantage: HTTPRequest, StockDataApiProtocol {
     
-    private var url = "https://www.alphavantage.co/query?"
+    private var url = "https://www.alphavantage.co/query"
     private var apikey = "ME69ZQ2B0AVF5QTP"
     
     private var daily = "TIME_SERIES_DAILY_ADJUSTED" //Time Series (Daily)

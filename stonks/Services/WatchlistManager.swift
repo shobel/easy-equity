@@ -44,6 +44,7 @@ class WatchlistManager {
     public func addCompany(company: Company){
         if !watchlist.contains(company) {
             watchlist.append(company)
+            NetworkManager.getMyRestApi().
         }
     }
     

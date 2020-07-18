@@ -2553,11 +2553,12 @@
                         <outlet property="loginButton" destination="XjK-V1-jW7" id="AAQ-6p-Oa7"/>
                         <segue destination="I6p-8M-QdG" kind="presentation" identifier="toSignUp" id="zON-ow-xU8"/>
                         <segue destination="0fQ-fa-TPq" kind="presentation" identifier="toLogin" id="sPq-yJ-U2V"/>
+                        <segue destination="MjW-nF-n5S" kind="presentation" identifier="toHome" modalPresentationStyle="fullScreen" id="ueo-lW-qx1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YCL-i8-kzv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4009" y="-34"/>
+            <point key="canvasLocation" x="-4073" y="-36"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="PRq-7v-5Ic">
@@ -3293,7 +3294,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="2ci-KS-VSS"/>
-        <segue reference="9OR-D8-lbL"/>
+        <segue reference="ueo-lW-qx1"/>
         <segue reference="sPq-yJ-U2V"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -13,7 +13,7 @@ struct AlertDisplay {
     
     static var dimmedLightBackground = UIColor(white: 100.0/255.0, alpha: 0.5)
     
-    public static func sentEmailPopup(_ callback: @escaping () -> Void){
+    public static func showPopup(title:String, description:String, buttonText:String, image:UIImage, callback: @escaping () -> Void){
         var attributes:EKAttributes = EKAttributes.init()
         attributes.position = .center
         attributes.hapticFeedbackType = .success
@@ -71,7 +71,7 @@ struct AlertDisplay {
         
         themeImage = EKPopUpMessage.ThemeImage(
             image: EKProperty.ImageContent(
-                image: UIImage(named: "mail")!,
+                image: image,
                 displayMode: .inferred,
                 size: CGSize(width: 60, height: 60),
                 tint: .none,
@@ -80,7 +80,7 @@ struct AlertDisplay {
         )
         
         let title = EKProperty.LabelContent(
-            text: "Password Reset Email Sent",
+            text: title,
             style: EKProperty.LabelStyle.init(
                 font: UIFont(name: "HelveticaNeue-Medium", size: CGFloat(24))!,
                 color: EKColor(light: Constants.darkPink, dark: Constants.darkPink),
@@ -89,7 +89,7 @@ struct AlertDisplay {
             )
         )
         let description = EKProperty.LabelContent(
-            text: "Follow the instructions sent to your email to reset your password.",
+            text: description,
             style: .init(
                 font: UIFont(name: "HelveticaNeue-Medium", size: CGFloat(16))!,
                 color: EKColor(light: .darkGray, dark: .darkGray),
@@ -99,7 +99,7 @@ struct AlertDisplay {
         )
         let button = EKProperty.ButtonContent(
             label: .init(
-                text: "Got it",
+                text: buttonText,
                 style: .init(
                     font: UIFont(name: "HelveticaNeue-Medium", size: CGFloat(16))!,
                     color: EKColor(light: .darkGray, dark: .darkGray),
