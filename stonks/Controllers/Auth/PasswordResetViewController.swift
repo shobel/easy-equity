@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import TransitionButton
 
-class EmailVerificationViewController: UIViewController {
+class PasswordResetViewController: UIViewController {
 
     @IBOutlet weak var emailInput: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
@@ -44,9 +44,9 @@ class EmailVerificationViewController: UIViewController {
                     }
                 } else {
                     self.sendResetCodeButton.stopAnimation()
-                    AlertDisplay.sentEmailPopup {
+                    AlertDisplay.showPopup(title: "Password Reset Email Sent", description: "Follow the instructions sent to your email to reset your password", buttonText: "Got it", image: UIImage(named: "mail")!, callback: {
                         self.dismiss(animated: true, completion: nil)
-                    }
+                    })
                 }
             }
         }

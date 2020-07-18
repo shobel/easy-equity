@@ -19,8 +19,11 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: TransitionButton!
     @IBOutlet weak var errorLabel: UILabel!
     
+    private var restAPI:MyRestAPI!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.restAPI = NetworkManager.getMyRestApi()
         emailInput.attributedPlaceholder = NSAttributedString(string: "email address", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         passwordInput.attributedPlaceholder = NSAttributedString(string: "password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         self.emailInput.becomeFirstResponder()

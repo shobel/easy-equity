@@ -15,6 +15,7 @@ target 'stonks' do
   pod 'Charts'
 
   # Utilities
+  pod 'PromiseKit'
   pod 'SwiftyJSON'
   pod 'SwiftSoup'
   pod 'ObjectMapper'

@@ -24,6 +24,11 @@ class WatchlistVC: UIViewController, Updateable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //just for subscription review screenshot
+//        AlertDisplay.showPopup(title: "Purchase Subscription", description: "Want to get access to better analytical tools? Purchase a monthly subscription to get access to lots of additional features!", buttonText: "Purchase", image: UIImage(named: "upgrade")!, callback: {
+//               self.dismiss(animated: true, completion: nil)
+//           })
+        
         watchlistManager = Dataholder.watchlistManager
         
         finvizAPI = FinvizAPI()

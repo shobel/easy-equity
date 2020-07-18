@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C0A006124C2A7230030E1E4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0A006024C2A7230030E1E4 /* NetworkManager.swift */; };
 		1C0BC4DB232D83B9007C117F /* CustomCombinedChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0BC4DA232D83B9007C117F /* CustomCombinedChartView.swift */; };
 		1C0BC4DD2331F144007C117F /* AlphaVantage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0BC4DC2331F144007C117F /* AlphaVantage.swift */; };
 		1C183F91216D59F90042F52C /* StockDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C183F90216D59F90042F52C /* StockDetailsVC.swift */; };
@@ -25,9 +26,8 @@
 		1C62FDDB24BC4B6F00BABDCB /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDDA24BC4B6F00BABDCB /* SignupViewController.swift */; };
 		1C62FDDD24BC4B9B00BABDCB /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDDC24BC4B9B00BABDCB /* AuthViewController.swift */; };
 		1C62FDE224BD698C00BABDCB /* AlertDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDE124BD698C00BABDCB /* AlertDisplay.swift */; };
-		1C62FDE524BD7E2A00BABDCB /* VerificationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDE424BD7E2A00BABDCB /* VerificationCodeViewController.swift */; };
-		1C62FDE724BD7E3400BABDCB /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDE624BD7E3400BABDCB /* ResetPasswordViewController.swift */; };
-		1C62FDE924BD814D00BABDCB /* EmailVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDE824BD814D00BABDCB /* EmailVerificationViewController.swift */; };
+		1C62FDE924BD814D00BABDCB /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDE824BD814D00BABDCB /* PasswordResetViewController.swift */; };
+		1C62FDF224C0C0E100BABDCB /* MyRestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDF124C0C0E100BABDCB /* MyRestAPI.swift */; };
 		1C6936B721CDC72200E3FDC9 /* VolumeChartFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6936B621CDC72200E3FDC9 /* VolumeChartFormatter.swift */; };
 		1C6936B921CDCE9000E3FDC9 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6936B821CDCE9000E3FDC9 /* NumberFormatter.swift */; };
 		1C6936BC21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6936BB21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift */; };
@@ -111,6 +111,7 @@
 
 /* Begin PBXFileReference section */
 		0D22008E39AAFEDD72A5E77D /* Pods-stonks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stonks.release.xcconfig"; path = "Pods/Target Support Files/Pods-stonks/Pods-stonks.release.xcconfig"; sourceTree = "<group>"; };
+		1C0A006024C2A7230030E1E4 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		1C0BC4DA232D83B9007C117F /* CustomCombinedChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCombinedChartView.swift; sourceTree = "<group>"; };
 		1C0BC4DC2331F144007C117F /* AlphaVantage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphaVantage.swift; sourceTree = "<group>"; };
 		1C183F90216D59F90042F52C /* StockDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailsVC.swift; sourceTree = "<group>"; };
@@ -129,9 +130,8 @@
 		1C62FDDA24BC4B6F00BABDCB /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		1C62FDDC24BC4B9B00BABDCB /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		1C62FDE124BD698C00BABDCB /* AlertDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDisplay.swift; sourceTree = "<group>"; };
-		1C62FDE424BD7E2A00BABDCB /* VerificationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewController.swift; sourceTree = "<group>"; };
-		1C62FDE624BD7E3400BABDCB /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
-		1C62FDE824BD814D00BABDCB /* EmailVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationViewController.swift; sourceTree = "<group>"; };
+		1C62FDE824BD814D00BABDCB /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
+		1C62FDF124C0C0E100BABDCB /* MyRestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRestAPI.swift; sourceTree = "<group>"; };
 		1C6936B621CDC72200E3FDC9 /* VolumeChartFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeChartFormatter.swift; sourceTree = "<group>"; };
 		1C6936B821CDCE9000E3FDC9 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
 		1C6936BB21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchdownGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -251,9 +251,7 @@
 				1C62FDD524BC144D00BABDCB /* LoginViewController.swift */,
 				1C62FDDA24BC4B6F00BABDCB /* SignupViewController.swift */,
 				1C62FDDC24BC4B9B00BABDCB /* AuthViewController.swift */,
-				1C62FDE424BD7E2A00BABDCB /* VerificationCodeViewController.swift */,
-				1C62FDE624BD7E3400BABDCB /* ResetPasswordViewController.swift */,
-				1C62FDE824BD814D00BABDCB /* EmailVerificationViewController.swift */,
+				1C62FDE824BD814D00BABDCB /* PasswordResetViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -412,6 +410,7 @@
 				1CB257202172BBB6008E3D4D /* FinvizAPI.swift */,
 				1CB257262173A234008E3D4D /* HTTPRequest.swift */,
 				1C0BC4DC2331F144007C117F /* AlphaVantage.swift */,
+				1C62FDF124C0C0E100BABDCB /* MyRestAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -423,6 +422,7 @@
 				1C545212216AF6400064239E /* WatchlistUpdater.swift */,
 				1CB257242172C292008E3D4D /* WatchlistManager.swift */,
 				1CE755B723D7616900E77D6C /* StockUpdater.swift */,
+				1C0A006024C2A7230030E1E4 /* NetworkManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -657,7 +657,6 @@
 				1CB3D622231DBF0E00D6F57C /* News.swift in Sources */,
 				1C7B9879215F071E00C75014 /* Candle.swift in Sources */,
 				1C6B5F1C24015015008E2C22 /* CandleUtility.swift in Sources */,
-				1C62FDE724BD7E3400BABDCB /* ResetPasswordViewController.swift in Sources */,
 				1C545215216C31950064239E /* Quote.swift in Sources */,
 				1C9B95BC23FA204F004E95B1 /* NewsTableViewController.swift in Sources */,
 				1C183F91216D59F90042F52C /* StockDetailsVC.swift in Sources */,
@@ -669,11 +668,11 @@
 				1C6936B721CDC72200E3FDC9 /* VolumeChartFormatter.swift in Sources */,
 				1C62FDDD24BC4B9B00BABDCB /* AuthViewController.swift in Sources */,
 				1C62FDE224BD698C00BABDCB /* AlertDisplay.swift in Sources */,
+				1C62FDF224C0C0E100BABDCB /* MyRestAPI.swift in Sources */,
 				1C183F93216D5D2A0042F52C /* DemoBaseViewController.swift in Sources */,
-				1C62FDE524BD7E2A00BABDCB /* VerificationCodeViewController.swift in Sources */,
 				1C7B98882161CC2F00C75014 /* CompanySearchTVC.swift in Sources */,
 				1CCBE58623FDBAD300E57D49 /* EPSChart.swift in Sources */,
-				1C62FDE924BD814D00BABDCB /* EmailVerificationViewController.swift in Sources */,
+				1C62FDE924BD814D00BABDCB /* PasswordResetViewController.swift in Sources */,
 				1C7B9830215B32D500C75014 /* AppDelegate.swift in Sources */,
 				1C62FDDB24BC4B6F00BABDCB /* SignupViewController.swift in Sources */,
 				1CB257212172BBB6008E3D4D /* FinvizAPI.swift in Sources */,
@@ -721,6 +720,7 @@
 				1CFE633D23FB665E00F81758 /* NewsWebViewController.swift in Sources */,
 				1C6FF97B23261617005AE40D /* EarningsViewController.swift in Sources */,
 				1C2AC864217FB01D00469941 /* PriceChartFormatter.swift in Sources */,
+				1C0A006124C2A7230030E1E4 /* NetworkManager.swift in Sources */,
 				1C6B5F1E24025F55008E2C22 /* CardView.swift in Sources */,
 				1C7B9871215EB09000C75014 /* StockDataApiProtocol.swift in Sources */,
 			);
