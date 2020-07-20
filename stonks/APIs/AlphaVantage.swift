@@ -188,7 +188,7 @@ class AlphaVantage: HTTPRequest, StockDataApiProtocol {
         
     }
     
-    func listCompanies() {
+    func listCompanies(completionHandler: @escaping () -> Void) {
         
     }
     

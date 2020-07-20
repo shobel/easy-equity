@@ -33,8 +33,7 @@ protocol StockDataApiProtocol {
     //dictionary should contain logo, description, and ceo
     func getCompanyGeneralInfo(ticker: String, completionHandler: @escaping (GeneralInfo, String)->Void)
     
-    func listCompanies()
-    //func listCompanies(completionHandler: @escaping ()->Void)
+    func listCompanies(completionHandler: @escaping ()->Void)
     
     //iexendpoints: stats
     func getKeyStats(ticker: String, completionHandler: @escaping (KeyStats)->Void)

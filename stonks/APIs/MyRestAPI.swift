@@ -62,7 +62,7 @@ class MyRestAPI: HTTPRequest {
                             self.httpGetQuery(queryURL: queryURL, token: self.token) { (data2, response2, error2) -> Void in
                                 if let httpResponse2 = response2 as? HTTPURLResponse {
                                     if httpResponse2.statusCode == 200 {
-                                        completion(JSON(data!))
+                                        completion(JSON(data2!))
                                     }
                                 }
                             }

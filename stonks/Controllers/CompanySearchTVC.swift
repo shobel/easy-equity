@@ -34,10 +34,9 @@ class CompanySearchTVC: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         if Dataholder.allTickers.isEmpty {
-            //StockAPIManager.shared.getStockDataAPI().listCompanies(completionHandler: handleListCompanies)
-            
-            //tableView.backgroundView = activityIndicatorView
-            //activityIndicatorView.startAnimating()
+            StockAPIManager.shared.stockDataApiInstance.listCompanies(completionHandler: handleListCompanies)
+            tableView.backgroundView = activityIndicatorView
+            activityIndicatorView.startAnimating()
         }
     }
     

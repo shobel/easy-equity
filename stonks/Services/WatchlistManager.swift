@@ -44,12 +44,18 @@ class WatchlistManager {
     public func addCompany(company: Company){
         if !watchlist.contains(company) {
             watchlist.append(company)
-            NetworkManager.getMyRestApi().
+            NetworkManager.getMyRestApi().addToWatchlist(symbol: company.symbol) { (JSON) in
+                print(JSON)
+            }
         }
     }
     
     public func removeCompany(index: Int){
+        let company = watchlist[index]
         watchlist.remove(at: index)
+        NetworkManager.getMyRestApi().removeFromWatchlist(symbol: company.symbol) { (JSON) in
+            print(JSON)
+        }
     }
     
     public func getTickers(companiesOnly:Bool = false) -> [String] {
