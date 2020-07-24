@@ -44,6 +44,9 @@
 		1C72349A230CF34500319D7F /* GeneralInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C723499230CF34500319D7F /* GeneralInfoViewController.swift */; };
 		1C72349C230CF43200319D7F /* KeyStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72349B230CF43200319D7F /* KeyStatsViewController.swift */; };
 		1C72F90A24CA4FFD00EC59F6 /* UserAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F90924CA4FFD00EC59F6 /* UserAccountViewController.swift */; };
+		1C72F90C24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F90B24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift */; };
+		1C72F91024CA76C400EC59F6 /* SimpleQuote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F90F24CA76C400EC59F6 /* SimpleQuote.swift */; };
+		1C72F91224CA788200EC59F6 /* Top10List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F91124CA788200EC59F6 /* Top10List.swift */; };
 		1C7B9830215B32D500C75014 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B982F215B32D500C75014 /* AppDelegate.swift */; };
 		1C7B9835215B32D500C75014 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C7B9833215B32D500C75014 /* Main.storyboard */; };
 		1C7B9837215B32D700C75014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C7B9836215B32D700C75014 /* Assets.xcassets */; };
@@ -150,6 +153,9 @@
 		1C723499230CF34500319D7F /* GeneralInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoViewController.swift; sourceTree = "<group>"; };
 		1C72349B230CF43200319D7F /* KeyStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyStatsViewController.swift; sourceTree = "<group>"; };
 		1C72F90924CA4FFD00EC59F6 /* UserAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountViewController.swift; sourceTree = "<group>"; };
+		1C72F90B24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top10CollectionViewCell.swift; sourceTree = "<group>"; };
+		1C72F90F24CA76C400EC59F6 /* SimpleQuote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleQuote.swift; sourceTree = "<group>"; };
+		1C72F91124CA788200EC59F6 /* Top10List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top10List.swift; sourceTree = "<group>"; };
 		1C7B982C215B32D500C75014 /* Bullfrog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bullfrog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7B982F215B32D500C75014 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C7B9834215B32D500C75014 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -357,6 +363,8 @@
 				1C6FF9762324BE23005AE40D /* AdvancedStats.swift */,
 				1C6FF9822328E26B005AE40D /* IconItem.swift */,
 				1C9B952423EE3958004E95B1 /* DatedValue.swift */,
+				1C72F90F24CA76C400EC59F6 /* SimpleQuote.swift */,
+				1C72F91124CA788200EC59F6 /* Top10List.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -381,6 +389,7 @@
 				1C6B5F1D24025F55008E2C22 /* CardView.swift */,
 				1C6B5F1F24026A7E008E2C22 /* ShadowView.swift */,
 				1C8DD1BF24C8DF9800333C90 /* CompanySearchTableViewCell.swift */,
+				1C72F90B24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -664,6 +673,7 @@
 				1C7B9879215F071E00C75014 /* Candle.swift in Sources */,
 				1C6B5F1C24015015008E2C22 /* CandleUtility.swift in Sources */,
 				1C545215216C31950064239E /* Quote.swift in Sources */,
+				1C72F91224CA788200EC59F6 /* Top10List.swift in Sources */,
 				1C9B95BC23FA204F004E95B1 /* NewsTableViewController.swift in Sources */,
 				1C183F91216D59F90042F52C /* StockDetailsVC.swift in Sources */,
 				1C6FF97D23261C74005AE40D /* FinancialsViewController.swift in Sources */,
@@ -690,6 +700,7 @@
 				1C6FF9852328E6FE005AE40D /* IconPagingCell.swift in Sources */,
 				1CE755B823D7616900E77D6C /* StockUpdater.swift in Sources */,
 				1CB3D618231D9A5600D6F57C /* Earnings.swift in Sources */,
+				1C72F91024CA76C400EC59F6 /* SimpleQuote.swift in Sources */,
 				1CD11948216EAD2E000AE02E /* RatingLabel.swift in Sources */,
 				1CB3D620231DBE5A00D6F57C /* PriceTarget.swift in Sources */,
 				1C545211216AA4B90064239E /* GradientButton.swift in Sources */,
@@ -709,6 +720,7 @@
 				1C72349C230CF43200319D7F /* KeyStatsViewController.swift in Sources */,
 				1CB257292173B8A5008E3D4D /* Configuration.swift in Sources */,
 				1CB2572B21765C3A008E3D4D /* StockDetailsNavView.swift in Sources */,
+				1C72F90C24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift in Sources */,
 				1CCBE58823FE720600E57D49 /* PEChart.swift in Sources */,
 				1C5B96192404FDFD00E63316 /* GeneralUtility.swift in Sources */,
 				1C2AC8682183D7C500469941 /* LaunchVC.swift in Sources */,

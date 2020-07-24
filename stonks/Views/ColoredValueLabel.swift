@@ -33,7 +33,7 @@ class ColoredValueLabel: UILabel {
         return prefix + " " + sign + String(format: "%.2f", changeValue) + suffix
     }
     
-    private func getColor(value: Double?) -> UIColor{
+    public func getColor(value: Double?) -> UIColor{
         if value == nil {
             return UIColor.black
         }

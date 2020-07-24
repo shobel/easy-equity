@@ -18,15 +18,37 @@ extension CompanySearchVC: UISearchBarDelegate {
     }
 }
 
+extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        10//top10s.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "top10cell", for: indexPath) as! Top10CollectionViewCell
+        return cell;
+    }
+    
+}
+
 class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var marketView: UIView!
+    @IBOutlet weak var top10CollectionView: UICollectionView!
+    
     public var searchResults:[Company] = []
     public var activityIndicatorView: UIActivityIndicatorView!
+    public var top10s:[Top10List] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        top10CollectionView.delegate = self
+        top10CollectionView.dataSource = self
+        tableView.isHidden = true
+        marketView.isHidden = false
         
         tableView.tableFooterView = UIView(frame: .zero)
         searchBar.autocapitalizationType = .none
