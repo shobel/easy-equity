@@ -15,6 +15,7 @@ class MyRestAPI: HTTPRequest {
     
     private var apiurl = "http://localhost:3000/api"
     private var userEndpoint = "/user"
+    private var stockEndpoint = "/stocks"
     private var token:String = ""
     
     public override init(){
@@ -36,6 +37,20 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
+    public func getWatchlistForCurrentUser(completionHandler: @escaping ()->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/watchlist", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            var companies:[Company] = []
+            let json = JSON(data)
+            for i in 0..<json.count{
+                let company = Company(symbol: json[i]["symbol"].string!, fullName: json[i]["companyName"].string!, isCompany: json[i]["isCompany"].bool!)
+                companies.append(company)
+            }
+            Dataholder.watchlistManager.setWatchlist(companies)
+            completionHandler()
+        }
+    }
+    
     public func addToWatchlist(symbol:String, completionHandler: @escaping (JSON)->Void){
         let queryURL = buildQuery(url: apiurl + userEndpoint + "/watchlist/add/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
@@ -49,6 +64,19 @@ class MyRestAPI: HTTPRequest {
             completionHandler(data)
         }
     }
+    
+    public func listCompanies(completionHandler: @escaping ()->Void){
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/companies", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            for i in 0..<json.count{
+                let company = Company(symbol: json[i]["symbol"].string!, fullName: json[i]["companyName"].string!, isCompany: json[i]["isCompany"].bool!)
+                Dataholder.allTickers.append(company)
+            }
+            completionHandler()
+        }
+    }
+    
     
     private func getRequest(queryURL:String, completion: @escaping (JSON) -> Void) {
         httpGetQuery(queryURL: queryURL, token: self.token) { (data, response, error) -> Void in

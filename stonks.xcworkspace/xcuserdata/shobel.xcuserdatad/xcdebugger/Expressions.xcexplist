@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "StockDetailsVC.handleDailyChartData(_:):StockDetailsVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "company.dailyData">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "StockDetailsVC.loadVolumeChart():StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -107,10 +115,10 @@
          contextName = "EPSChart.setChartData(company:):EPSChart.swift">
          <PersistentStrings>
             <PersistentString
-               value = "UIImage(named: &quot;earnings_with_line&quot;)">
+               value = "company.estimates">
             </PersistentString>
             <PersistentString
-               value = "company.estimates">
+               value = "UIImage(named: &quot;earnings_with_line&quot;)">
             </PersistentString>
             <PersistentString
                value = "company.earnings">
@@ -211,6 +219,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "WatchlistVC.tableView(_:numberOfRowsInSection:):WatchlistVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "watchlistManager">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "EarningsViewController.updateData():EarningsViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -218,6 +234,14 @@
             </PersistentString>
             <PersistentString
                value = "self.epsE4">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MyRestAPI.getRequest(queryURL:completion:):MyRestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.token">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -248,6 +272,9 @@
       <ContextState
          contextName = "closure #1 in LoginViewController.loginButtonClicked(_:):LoginViewController.swift">
          <PersistentStrings>
+            <PersistentString
+               value = "Auth.auth().currentUser!.uid">
+            </PersistentString>
             <PersistentString
                value = "err.localizedDescription">
             </PersistentString>
@@ -388,10 +415,10 @@
                value = "self.pagingView.bounds.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
+               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
+               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
             </PersistentString>
             <PersistentString
                value = "statsVC.getContentHeight()">
@@ -436,6 +463,9 @@
             </PersistentString>
             <PersistentString
                value = "JSON(data!)">
+            </PersistentString>
+            <PersistentString
+               value = "Auth.auth().currentUser">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -574,6 +604,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "WatchlistManager.removeCompany(company:completion:):WatchlistManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.watchlist.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "StockDetailsVC.viewDidLoad():StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -622,6 +660,9 @@
                value = "innerScroll.bounds.height">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CompanySearchTableViewCell.watchlistButtonTapped(_:):CompanySearchTableViewCell.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in IEXTrading.getCompanyGeneralInfo(ticker:completionHandler:):IEXTrading.swift">
@@ -764,10 +805,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "StockDetailsVC.handleDailyChartData(_:):StockDetailsVC.swift">
+         contextName = "closure #1 in MyRestAPI.listCompanies(completionHandler:):MyRestAPI.swift">
          <PersistentStrings>
             <PersistentString
-               value = "company.dailyData">
+               value = "json[0]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

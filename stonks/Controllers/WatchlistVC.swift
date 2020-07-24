@@ -24,12 +24,8 @@ class WatchlistVC: UIViewController, Updateable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //just for subscription review screenshot
-//        AlertDisplay.showPopup(title: "Purchase Subscription", description: "Want to get access to better analytical tools? Purchase a monthly subscription to get access to lots of additional features!", buttonText: "Purchase", image: UIImage(named: "upgrade")!, callback: {
-//               self.dismiss(animated: true, completion: nil)
-//           })
-        
-        watchlistManager = Dataholder.watchlistManager
+        self.watchlistManager = Dataholder.watchlistManager
+        self.loadWatchlist()
         
         finvizAPI = FinvizAPI()
 //        finvizAPI.getData(forTickers: watchlistManager.getTickers(companiesOnly: true), completionHandler: handleFinvizResponse)
@@ -65,6 +61,14 @@ class WatchlistVC: UIViewController, Updateable {
     
     override func viewWillDisappear(_ animated: Bool) {
         watchlistUpdater?.stopTask()
+    }
+    
+    private func loadWatchlist(){
+        NetworkManager.getMyRestApi().getWatchlistForCurrentUser() {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
     
     private func updateFinvizData(){
@@ -114,12 +118,10 @@ class WatchlistVC: UIViewController, Updateable {
         }
     }
     
-    
 //     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        print()
 //     }
      
-    
     @objc func handleRefresh() {
         self.tableView.reloadData()
         self.tableView.refreshControl!.endRefreshing()
@@ -150,8 +152,11 @@ extension WatchlistVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            Dataholder.watchlistManager.removeCompany(index: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            Dataholder.watchlistManager.removeCompanyByIndex(index: indexPath.row){
+                DispatchQueue.main.async {
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+            }
         }
     }
     

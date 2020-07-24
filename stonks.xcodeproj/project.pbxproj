@@ -43,6 +43,7 @@
 		1C6FF9852328E6FE005AE40D /* IconPagingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6FF9842328E6FE005AE40D /* IconPagingCell.swift */; };
 		1C72349A230CF34500319D7F /* GeneralInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C723499230CF34500319D7F /* GeneralInfoViewController.swift */; };
 		1C72349C230CF43200319D7F /* KeyStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72349B230CF43200319D7F /* KeyStatsViewController.swift */; };
+		1C72F90A24CA4FFD00EC59F6 /* UserAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F90924CA4FFD00EC59F6 /* UserAccountViewController.swift */; };
 		1C7B9830215B32D500C75014 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B982F215B32D500C75014 /* AppDelegate.swift */; };
 		1C7B9835215B32D500C75014 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C7B9833215B32D500C75014 /* Main.storyboard */; };
 		1C7B9837215B32D700C75014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C7B9836215B32D700C75014 /* Assets.xcassets */; };
@@ -57,8 +58,9 @@
 		1C7B9879215F071E00C75014 /* Candle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B9878215F071E00C75014 /* Candle.swift */; };
 		1C7B9880215F396200C75014 /* WatchlistTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B987F215F396200C75014 /* WatchlistTVCell.swift */; };
 		1C7B98862161949A00C75014 /* Dataholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B98852161949A00C75014 /* Dataholder.swift */; };
-		1C7B98882161CC2F00C75014 /* CompanySearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B98872161CC2F00C75014 /* CompanySearchTVC.swift */; };
+		1C7B98882161CC2F00C75014 /* CompanySearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B98872161CC2F00C75014 /* CompanySearchVC.swift */; };
 		1C87391124BB90BC006B80AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C87391024BB90BC006B80AD /* GoogleService-Info.plist */; };
+		1C8DD1C024C8DF9800333C90 /* CompanySearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8DD1BF24C8DF9800333C90 /* CompanySearchTableViewCell.swift */; };
 		1C9B952323E74F14004E95B1 /* PriceChartPriceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B952223E74F14004E95B1 /* PriceChartPriceFormatter.swift */; };
 		1C9B952523EE3958004E95B1 /* DatedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B952423EE3958004E95B1 /* DatedValue.swift */; };
 		1C9B95BC23FA204F004E95B1 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B95BB23FA204F004E95B1 /* NewsTableViewController.swift */; };
@@ -147,6 +149,7 @@
 		1C6FF9842328E6FE005AE40D /* IconPagingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconPagingCell.swift; sourceTree = "<group>"; };
 		1C723499230CF34500319D7F /* GeneralInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoViewController.swift; sourceTree = "<group>"; };
 		1C72349B230CF43200319D7F /* KeyStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyStatsViewController.swift; sourceTree = "<group>"; };
+		1C72F90924CA4FFD00EC59F6 /* UserAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountViewController.swift; sourceTree = "<group>"; };
 		1C7B982C215B32D500C75014 /* Bullfrog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bullfrog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7B982F215B32D500C75014 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C7B9834215B32D500C75014 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -167,8 +170,9 @@
 		1C7B9878215F071E00C75014 /* Candle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candle.swift; sourceTree = "<group>"; };
 		1C7B987F215F396200C75014 /* WatchlistTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTVCell.swift; sourceTree = "<group>"; };
 		1C7B98852161949A00C75014 /* Dataholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataholder.swift; sourceTree = "<group>"; };
-		1C7B98872161CC2F00C75014 /* CompanySearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanySearchTVC.swift; sourceTree = "<group>"; };
+		1C7B98872161CC2F00C75014 /* CompanySearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanySearchVC.swift; sourceTree = "<group>"; };
 		1C87391024BB90BC006B80AD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1C8DD1BF24C8DF9800333C90 /* CompanySearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanySearchTableViewCell.swift; sourceTree = "<group>"; };
 		1C9B952223E74F14004E95B1 /* PriceChartPriceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceChartPriceFormatter.swift; sourceTree = "<group>"; };
 		1C9B952423EE3958004E95B1 /* DatedValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatedValue.swift; sourceTree = "<group>"; };
 		1C9B95BB23FA204F004E95B1 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
@@ -376,6 +380,7 @@
 				1C9B95BD23FA2075004E95B1 /* NewsTableViewCell.swift */,
 				1C6B5F1D24025F55008E2C22 /* CardView.swift */,
 				1C6B5F1F24026A7E008E2C22 /* ShadowView.swift */,
+				1C8DD1BF24C8DF9800333C90 /* CompanySearchTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -384,7 +389,7 @@
 			isa = PBXGroup;
 			children = (
 				1C62FDE324BD7E0700BABDCB /* Auth */,
-				1C7B98872161CC2F00C75014 /* CompanySearchTVC.swift */,
+				1C7B98872161CC2F00C75014 /* CompanySearchVC.swift */,
 				1C2AC8612177B9A400469941 /* WatchlistVC.swift */,
 				1C183F90216D59F90042F52C /* StockDetailsVC.swift */,
 				1C183F92216D5D2A0042F52C /* DemoBaseViewController.swift */,
@@ -398,6 +403,7 @@
 				1C4EF363232AACAF000299E6 /* NewsViewController.swift */,
 				1C9B95BB23FA204F004E95B1 /* NewsTableViewController.swift */,
 				1CFE633C23FB665E00F81758 /* NewsWebViewController.swift */,
+				1C72F90924CA4FFD00EC59F6 /* UserAccountViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -662,6 +668,7 @@
 				1C183F91216D59F90042F52C /* StockDetailsVC.swift in Sources */,
 				1C6FF97D23261C74005AE40D /* FinancialsViewController.swift in Sources */,
 				1C0BC4DB232D83B9007C117F /* CustomCombinedChartView.swift in Sources */,
+				1C8DD1C024C8DF9800333C90 /* CompanySearchTableViewCell.swift in Sources */,
 				1C6936C021D1CFB300E3FDC9 /* StatsNewsPageViewController.swift in Sources */,
 				1CB257272173A234008E3D4D /* HTTPRequest.swift in Sources */,
 				1C9B952523EE3958004E95B1 /* DatedValue.swift in Sources */,
@@ -670,7 +677,7 @@
 				1C62FDE224BD698C00BABDCB /* AlertDisplay.swift in Sources */,
 				1C62FDF224C0C0E100BABDCB /* MyRestAPI.swift in Sources */,
 				1C183F93216D5D2A0042F52C /* DemoBaseViewController.swift in Sources */,
-				1C7B98882161CC2F00C75014 /* CompanySearchTVC.swift in Sources */,
+				1C7B98882161CC2F00C75014 /* CompanySearchVC.swift in Sources */,
 				1CCBE58623FDBAD300E57D49 /* EPSChart.swift in Sources */,
 				1C62FDE924BD814D00BABDCB /* PasswordResetViewController.swift in Sources */,
 				1C7B9830215B32D500C75014 /* AppDelegate.swift in Sources */,
@@ -716,6 +723,7 @@
 				1C6FF9792325F974005AE40D /* AdvancedStatsViewController.swift in Sources */,
 				1C4EF3612329598D000299E6 /* InterpolateColor.swift in Sources */,
 				1CD11940216DC394000AE02E /* CandlePricesView.swift in Sources */,
+				1C72F90A24CA4FFD00EC59F6 /* UserAccountViewController.swift in Sources */,
 				1CDA114C232B5C810028D00C /* FormattedNumberLabel.swift in Sources */,
 				1CFE633D23FB665E00F81758 /* NewsWebViewController.swift in Sources */,
 				1C6FF97B23261617005AE40D /* EarningsViewController.swift in Sources */,
