@@ -9,6 +9,7 @@
 import UIKit
 import AVKit
 import VisualEffectView
+import Firebase
 
 class AuthViewController: UIViewController {
 
@@ -27,8 +28,8 @@ class AuthViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if (Constants.demo){
-            //performSegue(withIdentifier: "toHome", sender: self)
+        if Auth.auth().currentUser != nil {
+            performSegue(withIdentifier: "toHome", sender: self)
         }
     }
     

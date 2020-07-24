@@ -254,7 +254,7 @@ class Company: Equatable, Comparable {
     }
     
     static func == (lhs: Company, rhs: Company) -> Bool {
-        return lhs.generalInfo?.symbol == rhs.generalInfo?.symbol
+        return lhs.symbol == rhs.symbol
     }
     
     static func < (lhs: Company, rhs: Company) -> Bool {

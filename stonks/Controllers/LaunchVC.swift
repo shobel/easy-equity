@@ -24,9 +24,7 @@ class LaunchVC: UIViewController {
      TODO: This should only happen the first time you launch the app because it is just to avoid seeing empty ratings. When saving and retrieving local data is implemented, we can skip this loading step show the old ratings until they are updated in the next view
      */
     override func viewDidLoad() {
-        super.viewDidLoad()
-        StockAPIManager.shared.stockDataApiInstance.listCompanies()
-        
+        super.viewDidLoad()        
         watchlistManager = Dataholder.watchlistManager
         numTotal = 0
 //        for c in watchlistManager.getWatchlist() {

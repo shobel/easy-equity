@@ -167,7 +167,7 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
         })
     }
     
-    func listCompanies() {
+    func listCompanies(completionHandler: @escaping () -> Void) {
         let params = ["token": token]
         let queryURL = buildQuery(url: listURL, params: params)
         sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
@@ -182,7 +182,7 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
                         Dataholder.allTickers.append(company)
                     }
                 }
-                //print(json)
+                completionHandler()
             }
         })
     }
