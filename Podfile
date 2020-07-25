@@ -15,7 +15,6 @@ target 'stonks' do
   pod 'Charts'
 
   # Utilities
-  pod 'PromiseKit'
   pod 'SwiftyJSON'
   pod 'SwiftSoup'
   pod 'ObjectMapper'
@@ -23,9 +22,9 @@ target 'stonks' do
   # Flashy UI
   pod 'Parchment'
   pod 'MaterialActivityIndicator'
-  pod "RSLoadingView"
+  pod 'RSLoadingView'
   pod 'TransitionButton'
-  pod "VisualEffectView"
-  pod 'SwiftEntryKit', '1.2.3'
+  pod 'VisualEffectView'
+  pod 'XLActionController'
 
 end

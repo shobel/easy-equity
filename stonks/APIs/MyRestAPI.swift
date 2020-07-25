@@ -16,6 +16,7 @@ class MyRestAPI: HTTPRequest {
     private var apiurl = "http://localhost:3000/api"
     private var userEndpoint = "/user"
     private var stockEndpoint = "/stocks"
+    private var marketEndpoint = "/market"
     private var token:String = ""
     
     public override init(){
@@ -74,6 +75,42 @@ class MyRestAPI: HTTPRequest {
                 Dataholder.allTickers.append(company)
             }
             completionHandler()
+        }
+    }
+    
+    public func getTop10s(completionHandler: @escaping (Top10s)->Void){
+        let queryURL = buildQuery(url: apiurl + marketEndpoint + "/top10", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            let keys:[String] = ["gainers", "losers", "mostactive"]
+            var top10s:Top10s = Top10s(gainers: [], losers: [], mostactive: [])
+            for key in keys {
+                var quotes:[SimpleQuote] = []
+                let jsonList = json[key]
+                for i in 0..<jsonList.count{
+                    let simpleQuote =  SimpleQuote(symbol: jsonList[i]["symbol"].string!, latestPrice: jsonList[i]["latestPrice"].double!, changePercent: jsonList[i]["changePercent"].double!, change: jsonList[i]["change"].double!, volume: jsonList[i]["latestVolume"].double!)
+                     quotes.append(simpleQuote)
+                 }
+                top10s.setList(key: key, quotes: quotes)
+            }
+            completionHandler(top10s)
+        }
+    }
+    
+    public func getMarketNews(completionHandler: @escaping ([News])->Void){
+        let queryURL = buildQuery(url: apiurl + marketEndpoint + "/news", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var newsList:[News] = []
+            for i in 0..<json.count{
+                let JSONString:String = json[i].rawString()!
+                if let n = Mapper<News>().map(JSONString: JSONString){
+                    if n.lang == "en" {
+                        newsList.append(n)
+                    }
+                }
+            }
+            completionHandler(newsList)
         }
     }
     

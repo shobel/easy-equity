@@ -44,9 +44,10 @@ class PasswordResetViewController: UIViewController {
                     }
                 } else {
                     self.sendResetCodeButton.stopAnimation()
-                    AlertDisplay.showPopup(title: "Password Reset Email Sent", description: "Follow the instructions sent to your email to reset your password", buttonText: "Got it", image: UIImage(named: "mail")!, callback: {
-                        self.dismiss(animated: true, completion: nil)
-                    })
+                    //SAM-TODO implement the below code with bulletin board
+//                    AlertDisplay.showPopup(title: "Password Reset Email Sent", description: "Follow the instructions sent to your email to reset your password", buttonText: "Got it", image: UIImage(named: "mail")!, callback: {
+//                        self.dismiss(animated: true, completion: nil)
+//                    })
                 }
             }
         }

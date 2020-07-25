@@ -64,7 +64,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     private var companyVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "InfoVC")
     
     private var stockUpdater:StockUpdater?
-    private var pageVC: PagingViewController<IconItem>!
+    private var pageVC: PagingViewController!
     
     fileprivate let icons = [
         "stats",
@@ -91,8 +91,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             self.keyStatsVC, self.newsVC, self.financialsVC, self.earningsVC, self.predictionsVC, self.companyVC
         ]
         
-        pageVC = PagingViewController<IconItem>()
-        pageVC.menuItemSource = .class(type: IconPagingCell.self)
+        pageVC = PagingViewController()
+        pageVC.register(IconPagingCell.self, for: IconItem.self)
         pageVC.menuHorizontalAlignment = .center
         pageVC.menuItemSize = .sizeToFit(minWidth: 60, height: 60)
         pageVC.menuBackgroundColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1)
@@ -657,25 +657,25 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
 
 extension StockDetailsVC: PagingViewControllerDataSource {
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, viewControllerForIndex index: Int) -> UIViewController {
+    func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
         return self.pageVCList[index]
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemForIndex index: Int) -> T {
-        return IconItem(icon: icons[index], index: index) as! T
+    func pagingViewController(_ pagingViewController: PagingViewController, pagingItemAt index: Int) -> PagingItem {
+        return IconItem(icon: icons[index], index: index)
     }
     
-    func numberOfViewControllers<T>(in: PagingViewController<T>) -> Int {
+    func numberOfViewControllers(in: PagingViewController) -> Int {
         return self.pageVCList.count
     }
 }
 
 extension StockDetailsVC: PagingViewControllerDelegate {
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, willScrollToItem pagingItem: T, startingViewController: UIViewController, destinationViewController: UIViewController) where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_: PagingViewController, willScrollToItem pagingItem: PagingItem, startingViewController: UIViewController, destinationViewController: UIViewController) {
         //self.adjustContentHeight(vc: destinationViewController)
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) {
         if transitionSuccessful {
             self.adjustContentHeight(vc: destinationViewController)
         }
