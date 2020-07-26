@@ -44,10 +44,10 @@ class PasswordResetViewController: UIViewController {
                     }
                 } else {
                     self.sendResetCodeButton.stopAnimation()
-                    //SAM-TODO implement the below code with bulletin board
-//                    AlertDisplay.showPopup(title: "Password Reset Email Sent", description: "Follow the instructions sent to your email to reset your password", buttonText: "Got it", image: UIImage(named: "mail")!, callback: {
-//                        self.dismiss(animated: true, completion: nil)
-//                    })
+                    let alert = AlertDisplay.createAlertWithConfirmButton(title: "Password Reset Email Sent", message: "Follow the instructions sent to your email to reset your password", buttonText: "Got it") { (UIAlertAction) in
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    self.present(alert, animated: true, completion: nil)
                 }
             }
         }
@@ -62,11 +62,10 @@ class PasswordResetViewController: UIViewController {
         self.errorLabel.isHidden = true
     }
     
+    /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //let dest = segue.destination as! LoginViewController
-        //dest.email = self.emailInput.text
     }
-    
+    */
 
 }

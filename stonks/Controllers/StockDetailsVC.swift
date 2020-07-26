@@ -23,10 +23,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var contentView: UIView!
     
     @IBOutlet weak var datetime: UILabel!
-    @IBOutlet weak var ytdChange: ColoredValueLabel!
-    @IBOutlet weak var yrHighValue: ColoredValueLabel!
     @IBOutlet weak var totalVol: UILabel!
-    @IBOutlet weak var volChangeLabel: ColoredValueLabel!
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var innerScroll: UIView!
@@ -118,10 +115,17 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         
         /* We have a custom nav panel and so the default one goes on the bottom for some reason
          and then our tab bar at the bottom gets darker */
-        self.navigationController?.view.backgroundColor = UIColor.white
+        //self.navigationController?.view.backgroundColor = UIColor.white
 
         chartTypeButton.imageView!.contentMode = UIView.ContentMode.scaleAspectFit
         feedbackGenerator = UISelectionFeedbackGenerator()
+        
+        //watchlist button
+        if Dataholder.watchlistManager.getWatchlist().contains(company){
+            self.addedToWatchlist(true)
+        } else {
+            self.addedToWatchlist(false)
+        }
         
         //setup general stock and price information
         stockDetailsNavView.logo.layer.cornerRadius = (stockDetailsNavView.logo.frame.width)/2
@@ -220,7 +224,36 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     }
     
     @IBAction func watchlistButtonTapped(_ sender: Any) {
+        self.hideLoader(false)
+        if (Dataholder.watchlistManager.getWatchlist().contains(self.company)) {
+            Dataholder.watchlistManager.removeCompany(company: self.company){
+                self.addedToWatchlist(false)
+                self.hideLoader(true)
+            }
+        } else {
+            Dataholder.watchlistManager.addCompany(company: self.company){
+                self.addedToWatchlist(true)
+                self.hideLoader(true)
+            }
+        }
+    }
     
+    public func hideLoader(_ hide:Bool){
+        DispatchQueue.main.async {
+            self.loaderView.isHidden = hide
+        }
+    }
+    
+    public func addedToWatchlist(_ added:Bool) {
+        DispatchQueue.main.async {
+            if added {
+                self.watchlistButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
+                self.watchlistButton.tintColor = Constants.darkPink
+            } else {
+                self.watchlistButton.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
+                self.watchlistButton.tintColor = Constants.darkGrey
+            }
+        }
     }
     
     
@@ -241,15 +274,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         } else {
             datetime.text = latestQuote.latestTime
         }
-        ytdChange.setValue(value: latestQuote.ytdChange!, isPercent: true)
-        yrHighValue.setValue(value: latestQuote.getYrHighChangePercent(), isPercent: true)
     }
     
+    //SAM-TODO remove average volume argument and encorporate low volume into analysis as a negative trait
     public func setVolumeValues(averageVolume:Double, totalVol:Double){
         DispatchQueue.main.async {
-            self.totalVol.text = NumberFormatter.formatNumber(num: totalVol)
-            let change = ((totalVol - averageVolume) / averageVolume)*100
-            self.volChangeLabel.setValue(value: change, isPercent: true)
+            self.totalVol.text = String("VOLUME \(NumberFormatter.formatNumber(num: totalVol))")
         }
     }
     
@@ -499,7 +529,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func chartModeButtonPressed(_ sender: Any) {
