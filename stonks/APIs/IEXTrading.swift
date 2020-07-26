@@ -168,23 +168,7 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
     }
     
     func listCompanies(completionHandler: @escaping () -> Void) {
-        let params = ["token": token]
-        let queryURL = buildQuery(url: listURL, params: params)
-        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
-            if let data = data {
-                let json = JSON(data)
-                for i in 0..<json.count{
-                    if json[i]["type"].string! == self.stockTypes.common {
-                        let company = Company(symbol: json[i]["symbol"].string!, fullName: json[i]["name"].string!, isCompany: true)
-                        Dataholder.allTickers.append(company)
-                    } else if json[i]["type"].string! == self.stockTypes.exchangeTraded {
-                        let company = Company(symbol: json[i]["symbol"].string!, fullName: json[i]["name"].string!, isCompany: false)
-                        Dataholder.allTickers.append(company)
-                    }
-                }
-                completionHandler()
-            }
-        })
+        
     }
     
     func getQuote(ticker: String) {

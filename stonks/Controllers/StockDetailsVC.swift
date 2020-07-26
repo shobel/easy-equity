@@ -37,6 +37,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var pagingViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var loaderView: UIView!
+    @IBOutlet weak var watchlistButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     public var company:Company!
@@ -80,7 +81,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         
         updateChartHeight()
 
-        company = Dataholder.watchlistManager.selectedCompany
+        company = Dataholder.selectedCompany
         //let pageVC: StatsNewsPageViewController = self.children.first as! StatsNewsPageViewController
         //pageVC.pageDelegate = self
         
@@ -217,6 +218,11 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             self.view.layoutIfNeeded()
         }  
     }
+    
+    @IBAction func watchlistButtonTapped(_ sender: Any) {
+    
+    }
+    
     
     //when receving new quote, call this to update top bar values
     private func setTopBarValues(startPrice: Double, endPrice: Double, selected: Bool){

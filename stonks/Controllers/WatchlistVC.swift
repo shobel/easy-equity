@@ -74,7 +74,7 @@ class WatchlistVC: UIViewController, Updateable {
     private func updateFinvizData(){
         var tickers:[String] = []
         for c in watchlistManager.getWatchlist(){
-            if c.analystsRating == nil && c.isCompany{
+            if c.analystsRating == nil && c.getIsCompany(){
                 tickers.append(c.symbol)
             }
         }
@@ -161,11 +161,11 @@ extension WatchlistVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        watchlistManager.selectedCompany = watchlistManager.getWatchlist()[indexPath.row]
+        Dataholder.selectedCompany = watchlistManager.getWatchlist()[indexPath.row]
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        watchlistManager.selectedCompany = watchlistManager.getWatchlist()[indexPath.row]
+        Dataholder.selectedCompany = watchlistManager.getWatchlist()[indexPath.row]
         return indexPath
     }
     

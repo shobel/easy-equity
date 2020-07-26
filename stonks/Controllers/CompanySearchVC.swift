@@ -27,12 +27,12 @@ extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "top10cell", for: indexPath) as! Top10CollectionViewCell
-        let list = currentTop10List[indexPath.row]
-        cell.symbolLabel.text = list.symbol
-        cell.changePercentLabel.setValue(value: list.changePercent, isPercent: true)
-        cell.latestPriceLabel.text = String("$\(list.latestPrice)")
-        cell.latestPriceLabel.textColor = cell.changePercentLabel.getColor(value: list.changePercent)
-        
+        let item = currentTop10List[indexPath.row]
+        cell.symbolLabel.text = item.symbol
+        cell.changePercentLabel.setValue(value: item.changePercent, isPercent: true)
+        cell.latestPriceLabel.text = String("$\(item.latestPrice)")
+        cell.latestPriceLabel.textColor = cell.changePercentLabel.getColor(value: item.changePercent)
+        self.buttonCompanyDict[cell.segueButton] = Company(symbol: item.symbol, fullName: item.companyName)
         return cell;
     }
     
@@ -54,6 +54,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     public var top10s:Top10s?
     public var currentTop10List:[SimpleQuote] = []
     public var marketNews:[News] = []
+    private var buttonCompanyDict:[UIButton:Company] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +85,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         NetworkManager.getMyRestApi().getMarketNews(completionHandler: handleMarketNews)
         if Dataholder.allTickers.isEmpty {
             self.loadingStarted()
-            NetworkManager.getMyRestApi().listCompanies(completionHandler: self.loadingFinished)
+            NetworkManager.getMyRestApi().listCompanies(completionHandler: handleListCompanies)
         }
     }
     
@@ -106,6 +107,11 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             self.top10CollectionView.reloadData()
         }))
         present(actionController, animated: true, completion: nil)
+    }
+    
+    private func handleListCompanies(_ companies:[Company]) {
+        Dataholder.allTickers = companies
+        self.loadingFinished()
     }
     
     private func handleMarketNews(_ news: [News]){
@@ -208,42 +214,46 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 $0.fullName.lowercased().starts(with: searchText.lowercased())
             }
         }
+        if searchResults.count > 0 {
+            self.marketView.isHidden = true
+            self.tableView.isHidden = false
+        } else {
+            self.marketView.isHidden = false
+            self.tableView.isHidden = true
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if !(tableView is MarketNewsTableView) {
-            Dataholder.watchlistManager.selectedCompany = searchResults[indexPath.row]
+            Dataholder.selectedCompany = searchResults[indexPath.row]
         } else {
             let marketNewsItem:News = self.marketNews[indexPath.row]
             let url = URL(string: marketNewsItem.url!)
             let config = SFSafariViewController.Configuration()
             config.entersReaderIfAvailable = true
-            let vc = SFSafariViewController(url: url ?? (URL(string: "https://www.google.com"))!, configuration: config)
+            var vc = SFSafariViewController(url: URL(string: "https://www.google.com")!)
+            if (marketNewsItem.url?.starts(with: "http"))! {
+                vc = SFSafariViewController(url: url!, configuration: config)
+            }
             present(vc, animated: true)
         }
     }
 
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if !(tableView is MarketNewsTableView) {
-            Dataholder.watchlistManager.selectedCompany = searchResults[indexPath.row]
+            Dataholder.selectedCompany = searchResults[indexPath.row]
         }
         return indexPath
     }
 
-    /*
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let cell = sender as! MarketNewsTableViewCell
-        let dest = segue.destination as! MarketNewsWebViewController
-        if let url = URL(string: "https://www.google.com"){
-        //if let url = URL(string: cell.url!) {
-            DispatchQueue.main.async {
-                if let wv = dest.webview {
-                    wv.allowsBackForwardNavigationGestures = true
-                    wv.load(URLRequest(url: url))
-                }
-            }
+        if let button = sender as? UIButton {
+            let company = self.buttonCompanyDict[button]!
+            Dataholder.selectedCompany = company
         }
+
     }
-    */
+    
 
 }

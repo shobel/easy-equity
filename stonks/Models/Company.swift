@@ -10,10 +10,10 @@ import Foundation
 
 class Company: Equatable, Comparable {
 
-    public var isCompany:Bool //is either company or fund
     public var symbol:String
     public var fullName:String
     
+    public var isCompany:Bool? //is either company or etf
     public var logo:String?
     public var generalInfo:GeneralInfo?
     public var keyStats:KeyStats?
@@ -55,10 +55,13 @@ class Company: Equatable, Comparable {
         return -1
     }
     
-    init(symbol:String, fullName:String, isCompany: Bool){
+    init(symbol:String, fullName:String){
         self.symbol = symbol
         self.fullName = fullName
-        self.isCompany = isCompany
+    }
+    
+    public func getIsCompany() -> Bool {
+        return self.isCompany ?? false
     }
     
     //will fill in missing minutes as needed

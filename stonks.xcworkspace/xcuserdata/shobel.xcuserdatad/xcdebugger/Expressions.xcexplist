@@ -58,10 +58,10 @@
          contextName = "closure #1 in LoginViewController.loginButtonClicked(_:):LoginViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "err.localizedDescription">
+               value = "Auth.auth().currentUser!.uid">
             </PersistentString>
             <PersistentString
-               value = "Auth.auth().currentUser!.uid">
+               value = "err.localizedDescription">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -227,13 +227,13 @@
          contextName = "EPSChart.setChartData(company:):EPSChart.swift">
          <PersistentStrings>
             <PersistentString
-               value = "company.earnings">
+               value = "UIImage(named: &quot;earnings_with_line&quot;)">
             </PersistentString>
             <PersistentString
                value = "company.estimates">
             </PersistentString>
             <PersistentString
-               value = "UIImage(named: &quot;earnings_with_line&quot;)">
+               value = "company.earnings">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -301,13 +301,13 @@
                value = "self.pagingView.bounds.height">
             </PersistentString>
             <PersistentString
-               value = "statsVC.getContentHeight()">
+               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
             </PersistentString>
             <PersistentString
                value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
+               value = "statsVC.getContentHeight()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -456,10 +456,10 @@
          contextName = "closure #2 in StockDetailsVC.handleCompanyData(_:logo:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.contentViewHeightConstraint.constant">
+               value = "self.contentViewHeightConstraint.multiplier">
             </PersistentString>
             <PersistentString
-               value = "self.contentViewHeightConstraint.multiplier">
+               value = "self.contentViewHeightConstraint.constant">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -567,6 +567,17 @@
             </PersistentString>
             <PersistentString
                value = "viewPortHandler.contentTop">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CompanySearchVC.tableView(_:didSelectRowAt:):CompanySearchVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "marketNewsItem.url">
+            </PersistentString>
+            <PersistentString
+               value = "url! == nil">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -732,6 +743,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "CompanySearchVC.prepare(for:sender:):CompanySearchVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sender as! UIButton">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in IEXTrading.getNews(ticker:completionHandler:):IEXTrading.swift">
          <PersistentStrings>
             <PersistentString
@@ -816,10 +835,10 @@
                value = "dateFormatter.string(from: date)">
             </PersistentString>
             <PersistentString
-               value = "Date(timeIntervalSince1970: news.datetime!)">
+               value = "dateFormatter.dateFormat = &quot;MMM d, yyyy&quot;">
             </PersistentString>
             <PersistentString
-               value = "dateFormatter.dateFormat = &quot;MMM d, yyyy&quot;">
+               value = "Date(timeIntervalSince1970: news.datetime!)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

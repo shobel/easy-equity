@@ -10,6 +10,7 @@ import Foundation
 
 struct SimpleQuote {
     var symbol:String
+    var companyName:String
     var latestPrice:Double
     var changePercent:Double
     var change:Double
