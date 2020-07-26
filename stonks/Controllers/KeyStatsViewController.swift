@@ -39,12 +39,12 @@ class KeyStatsViewController: UIViewController, StatsVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.isLoaded = true
-        self.company = Dataholder.watchlistManager.selectedCompany!
+        self.company = Dataholder.selectedCompany!
         updateData()
     }
     
     func updateData() {
-        self.company = Dataholder.watchlistManager.selectedCompany!
+        self.company = Dataholder.selectedCompany!
         if (isLoaded){
             DispatchQueue.main.async {
                 if let x = self.company.keyStats?.marketcap {

@@ -44,7 +44,7 @@ class MyRestAPI: HTTPRequest {
             var companies:[Company] = []
             let json = JSON(data)
             for i in 0..<json.count{
-                let company = Company(symbol: json[i]["symbol"].string!, fullName: json[i]["companyName"].string!, isCompany: json[i]["isCompany"].bool!)
+                let company = Company(symbol: json[i]["symbol"].string!, fullName: json[i]["companyName"].string!)
                 companies.append(company)
             }
             Dataholder.watchlistManager.setWatchlist(companies)
@@ -66,15 +66,16 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func listCompanies(completionHandler: @escaping ()->Void){
+    public func listCompanies(completionHandler: @escaping ([Company])->Void){
         let queryURL = buildQuery(url: apiurl + stockEndpoint + "/companies", params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
+            var companies:[Company] = []
             for i in 0..<json.count{
-                let company = Company(symbol: json[i]["symbol"].string!, fullName: json[i]["companyName"].string!, isCompany: json[i]["isCompany"].bool!)
-                Dataholder.allTickers.append(company)
+                let company = Company(symbol: json[i]["symbol"].string!, fullName: json[i]["companyName"].string!)
+                companies.append(company)
             }
-            completionHandler()
+            completionHandler(companies)
         }
     }
     
@@ -88,7 +89,7 @@ class MyRestAPI: HTTPRequest {
                 var quotes:[SimpleQuote] = []
                 let jsonList = json[key]
                 for i in 0..<jsonList.count{
-                    let simpleQuote =  SimpleQuote(symbol: jsonList[i]["symbol"].string!, latestPrice: jsonList[i]["latestPrice"].double!, changePercent: jsonList[i]["changePercent"].double!, change: jsonList[i]["change"].double!, volume: jsonList[i]["latestVolume"].double!)
+                    let simpleQuote =  SimpleQuote(symbol: jsonList[i]["symbol"].string!, companyName: jsonList[i]["companyName"].string!, latestPrice: jsonList[i]["latestPrice"].double!, changePercent: jsonList[i]["changePercent"].double!, change: jsonList[i]["change"].double!, volume: jsonList[i]["latestVolume"].double!)
                      quotes.append(simpleQuote)
                  }
                 top10s.setList(key: key, quotes: quotes)
@@ -133,6 +134,8 @@ class MyRestAPI: HTTPRequest {
                             }
                         }
                     }
+                } else if httpResponse.statusCode == 429 {
+                    print("Rate limit reached")
                 } else if error == nil && data !=  nil {
                     completion(JSON(data!))
                 }

@@ -77,6 +77,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "WatchlistVC.viewDidLoad():WatchlistVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.navigationController">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CustomCombinedChartView.updateChart():CustomCombinedChartView.swift">
          <PersistentStrings>
             <PersistentString
@@ -172,6 +180,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "WatchlistVC.viewDidAppear(_:):WatchlistVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.navigationViewController">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ScatterChartRenderer.drawValues(context:):ScatterChartRenderer.swift">
          <PersistentStrings>
             <PersistentString
@@ -230,10 +246,10 @@
                value = "company.earnings">
             </PersistentString>
             <PersistentString
-               value = "company.estimates">
+               value = "UIImage(named: &quot;earnings_with_line&quot;)">
             </PersistentString>
             <PersistentString
-               value = "UIImage(named: &quot;earnings_with_line&quot;)">
+               value = "company.estimates">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -304,10 +320,10 @@
                value = "statsVC.getContentHeight()">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
+               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
+               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -442,6 +458,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "AuthViewController.viewDidAppear(_:):AuthViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.navigationController">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CustomCombinedChartView.generateLineData():CustomCombinedChartView.swift">
          <PersistentStrings>
             <PersistentString
@@ -567,6 +591,17 @@
             </PersistentString>
             <PersistentString
                value = "viewPortHandler.contentTop">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CompanySearchVC.tableView(_:didSelectRowAt:):CompanySearchVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "marketNewsItem.url">
+            </PersistentString>
+            <PersistentString
+               value = "url! == nil">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -728,6 +763,14 @@
          <PersistentStrings>
             <PersistentString
                value = "self.token">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CompanySearchVC.prepare(for:sender:):CompanySearchVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sender as! UIButton">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

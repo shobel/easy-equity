@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import WebKit
+import SafariServices
 
-class NewsTableViewController: UITableViewController, StatsVC, WKUIDelegate, WKNavigationDelegate {
+class NewsTableViewController: UITableViewController, StatsVC {
 
     private var company:Company!
     private var isLoaded:Bool = false
@@ -18,12 +18,12 @@ class NewsTableViewController: UITableViewController, StatsVC, WKUIDelegate, WKN
         super.viewDidLoad()
         self.tableView.isScrollEnabled = false
         self.isLoaded = true
-        self.company = Dataholder.watchlistManager.selectedCompany!
+        self.company = Dataholder.selectedCompany!
         updateData()
     }
     
     func updateData() {
-        self.company = Dataholder.watchlistManager.selectedCompany!
+        self.company = Dataholder.selectedCompany!
     }
     
     func getContentHeight() -> CGFloat {
@@ -65,21 +65,21 @@ class NewsTableViewController: UITableViewController, StatsVC, WKUIDelegate, WKN
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let newsItem:News = (self.company?.news![indexPath.row])!
+        let url = URL(string: newsItem.url!)
+        let config = SFSafariViewController.Configuration()
+        config.entersReaderIfAvailable = true
+        let vc = SFSafariViewController(url: url ?? (URL(string: "https://www.google.com"))!, configuration: config)
+        present(vc, animated: true)
+    }
+    
+    /*
     //In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let cell = sender as! NewsTableViewCell
-        let dest = segue.destination as! NewsWebViewController
-        if let url = URL(string: cell.url!) {
-            DispatchQueue.main.async {
-                if let wv = dest.webView {
-                    wv.allowsBackForwardNavigationGestures = true
-                    wv.load(URLRequest(url: url))
-                }
-            }
-        }
         
     }
-
+    */
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

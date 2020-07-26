@@ -17,7 +17,7 @@ class NewsViewController: UIViewController, StatsVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         isLoaded = true
-        company = Dataholder.watchlistManager.selectedCompany
+        company = Dataholder.selectedCompany
     }
     
     func updateData() {

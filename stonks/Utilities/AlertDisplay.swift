@@ -7,8 +7,13 @@
 //
 
 import Foundation
+import UIKit
 
 struct AlertDisplay {
     
-    
+    public static func createAlertWithConfirmButton(title:String, message:String, buttonText:String, handler: @escaping (UIAlertAction) -> Void) -> UIAlertController {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: handler))
+        return alert
+    }
 }

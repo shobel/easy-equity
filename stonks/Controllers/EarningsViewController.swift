@@ -31,12 +31,12 @@ class EarningsViewController: UIViewController, StatsVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.isLoaded = true
-        self.company = Dataholder.watchlistManager.selectedCompany!
+        self.company = Dataholder.selectedCompany!
         updateData()
     }
     
     func updateData() {
-        self.company = Dataholder.watchlistManager.selectedCompany!
+        self.company = Dataholder.selectedCompany!
         if (isLoaded){
             DispatchQueue.main.async {
                 self.epsChart.setup(company: self.company, earningsDelegate: self)

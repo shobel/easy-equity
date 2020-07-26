@@ -11,7 +11,6 @@ import Foundation
 class WatchlistManager {
     
     private var watchlist:[Company]
-    public var selectedCompany:Company?
     
     init(){
         watchlist = [
@@ -82,7 +81,7 @@ class WatchlistManager {
     public func getTickers(companiesOnly:Bool = false) -> [String] {
         var tickers:[String] = []
         for c in watchlist {
-            if ((companiesOnly && c.isCompany) || !companiesOnly){
+            if ((companiesOnly && c.getIsCompany()) || !companiesOnly){
                 tickers.append(c.symbol)
             }
         }

@@ -24,13 +24,13 @@ class PredictionsViewController: UIViewController, StatsVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.company = Dataholder.watchlistManager.selectedCompany!
+        self.company = Dataholder.selectedCompany!
         self.isLoaded = true
         updateData();
     }
     
     func updateData() {
-        self.company = Dataholder.watchlistManager.selectedCompany!
+        self.company = Dataholder.selectedCompany!
         if (isLoaded){
             DispatchQueue.main.async {
                 var numBuy = 0
