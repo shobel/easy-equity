@@ -499,7 +499,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         if x-(candleMarkerView.bounds.width/2) < 0 {
             x = (candleMarkerView.bounds.width/2)
         }
-        candleMarkerView.center = CGPoint(x: x, y:10.0)
+        candleMarkerView.center = CGPoint(x: x, y:0.0)
         candleMarkerView.isHidden = false
         
         setTopBarValues(startPrice: latestQuote.previousClose ?? chartData[0].close!, endPrice: candle.close!, selected: true)

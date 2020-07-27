@@ -628,6 +628,9 @@
          contextName = "StockDetailsVC.incrementLoadingProgress():StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
+               value = "self.company">
+            </PersistentString>
+            <PersistentString
                value = "self.handlersDone">
             </PersistentString>
          </PersistentStrings>

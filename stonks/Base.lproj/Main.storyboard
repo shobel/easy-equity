@@ -617,7 +617,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="213.5"/>
                                                                 <subviews>
                                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zKF-r2-7Yn" userLabel="MarkerView" customClass="MarkerView" customModule="Bullfrog" customModuleProvider="target">
-                                                                        <rect key="frame" x="287" y="0.0" width="80" height="20"/>
+                                                                        <rect key="frame" x="287" y="-10" width="80" height="20"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:30AM ET" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bqt-mV-UCr" userLabel="DateLabel">
                                                                                 <rect key="frame" x="4.5" y="3" width="71.5" height="14.5"/>
@@ -641,7 +641,7 @@
                                                                 <gestureRecognizers/>
                                                                 <constraints>
                                                                     <constraint firstItem="zKF-r2-7Yn" firstAttribute="trailing" secondItem="pOO-wd-YKI" secondAttribute="trailingMargin" id="QiP-Lj-fd9"/>
-                                                                    <constraint firstItem="zKF-r2-7Yn" firstAttribute="top" secondItem="pOO-wd-YKI" secondAttribute="top" id="bPy-W5-AAG"/>
+                                                                    <constraint firstItem="zKF-r2-7Yn" firstAttribute="top" secondItem="pOO-wd-YKI" secondAttribute="top" constant="-10" id="bPy-W5-AAG"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
