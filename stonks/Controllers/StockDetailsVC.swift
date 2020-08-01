@@ -36,6 +36,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var loaderView: UIView!
     @IBOutlet weak var watchlistButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var slider52w: UISlider!
     
     public var company:Company!
     public var latestQuote:Quote!
@@ -77,10 +78,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         super.viewDidLoad()
         
         updateChartHeight()
-
         company = Dataholder.selectedCompany
-        //let pageVC: StatsNewsPageViewController = self.children.first as! StatsNewsPageViewController
-        //pageVC.pageDelegate = self
+//        let pageVC: StatsNewsPageViewController = self.children.first as! StatsNewsPageViewController
+//        pageVC.pageDelegate = self
         
         self.stockUpdater = StockUpdater(caller: self, ticker: company.symbol, timeInterval: 10.0)
         self.stockUpdater?.startTask()
@@ -132,6 +132,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         stockDetailsNavView.logo.layer.masksToBounds = true
         stockDetailsNavView.ticker.text = company.symbol
         stockDetailsNavView.name.text = company.fullName
+        
+        let rangeImage:UIImage? = UIImage(systemName: "circle.fill")
+//        slider52w.maximumTrackTintColor = Constants.darkGrey
+//        slider52w.minimumTrackTintColor = Constants.darkGrey
+        slider52w.setThumbImage(rangeImage, for: .normal)
+        slider52w.tintColor = Constants.darkPink
         
         latestQuote = company.quote
         //setup price info that will need to be updated each time quote is retreived
@@ -279,7 +285,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     //SAM-TODO remove average volume argument and encorporate low volume into analysis as a negative trait
     public func setVolumeValues(averageVolume:Double, totalVol:Double){
         DispatchQueue.main.async {
-            self.totalVol.text = String("VOLUME \(NumberFormatter.formatNumber(num: totalVol))")
+            self.totalVol.text = String("Volume: \(NumberFormatter.formatNumber(num: totalVol))")
         }
     }
     

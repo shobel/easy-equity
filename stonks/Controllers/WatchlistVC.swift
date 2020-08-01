@@ -23,7 +23,6 @@ class WatchlistVC: UIViewController, Updateable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let vcs = self.navigationController?.viewControllers
         self.watchlistManager = Dataholder.watchlistManager
         self.loadWatchlist()
         

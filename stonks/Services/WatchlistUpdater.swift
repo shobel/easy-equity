@@ -61,7 +61,7 @@ class WatchlistUpdater: StockDataTask {
     @objc override func update(){
         DispatchQueue.global(qos: .background).async {
             let tickers = self.watchlistManager.getTickers()
-            StockAPIManager.shared.stockDataApiInstance.getQuotes(tickers: tickers, completionHandler: { (quotes: [Quote])->Void in
+            NetworkManager.getMyRestApi().getQuotes(symbols: tickers, completionHandler: { (quotes: [Quote])->Void in
                 for c in self.watchlist {
                     for q in quotes {
                         if (c.symbol == q.symbol) {
