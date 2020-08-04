@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol Updateable {
-    func updateFromScheduledTask(_ data:Any?)
-}
-
 class WatchlistVC: UIViewController, Updateable {
     
     @IBOutlet weak var addTickerButton: UIButton!
@@ -23,7 +19,6 @@ class WatchlistVC: UIViewController, Updateable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let vcs = self.navigationController?.viewControllers
         self.watchlistManager = Dataholder.watchlistManager
         self.loadWatchlist()
         
@@ -53,10 +48,6 @@ class WatchlistVC: UIViewController, Updateable {
     override func viewDidAppear(_ animated: Bool) {
         //updateFinvizData()
         self.tableView.reloadData()
-        if !watchlistManager.getWatchlist().isEmpty {
-            watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: 10.0)
-            watchlistUpdater!.startTask()
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -66,6 +57,10 @@ class WatchlistVC: UIViewController, Updateable {
     private func loadWatchlist(){
         NetworkManager.getMyRestApi().getWatchlistForCurrentUser() {
             DispatchQueue.main.async {
+                if !self.watchlistManager.getWatchlist().isEmpty {
+                    self.watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: 10.0)
+                    self.watchlistUpdater!.startTask()
+                }
                 self.tableView.reloadData()
             }
         }

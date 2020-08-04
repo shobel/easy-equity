@@ -79,6 +79,62 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
+    public func getQuote(symbol:String, completionHandler: @escaping (Quote)->Void){
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/quote", params: ["symbol":symbol])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var quote:Quote = Quote()
+            if let q = Mapper<Quote>().map(JSONString: json.string!){
+                quote = q
+            }
+            completionHandler(quote)
+        }
+    }
+    
+    public func getQuoteAndIntradayChart(symbol:String, minutes:Int, completionHandler: @escaping (Quote, [Candle])->Void){
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/charts/quote-and-intraday/" + symbol,
+                                  params: ["minutes": String(minutes)])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var quote:Quote = Quote()
+            if let q = Mapper<Quote>().map(JSONString: json["quote"].rawString()!){
+                quote = q
+            }
+            var candles:[Candle] = []
+            let jsonCandleList = json["intradayChart"]
+            for i in 0..<jsonCandleList.count{
+                let jsoncandle = jsonCandleList[i]
+                var candle = Candle()
+                candle.close = jsoncandle["close"].double
+                candle.open = jsoncandle["open"].double!
+                candle.high = jsoncandle["high"].double!
+                candle.low = jsoncandle["low"].double!
+                candle.volume = jsoncandle["marketVolume"].double!
+                candle.datetime = jsoncandle["label"].string!
+                candle.label = jsoncandle["label"].string!
+                candles.append(candle)
+            }
+            completionHandler(quote, candles)
+        }
+    }
+    
+    public func getQuotes(symbols:[String], completionHandler: @escaping ([Quote])->Void){
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/quotes", params: ["symbols":symbols.joined(separator: ",")])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var quotes:[Quote] = []
+            for (symbol,_):(String, JSON) in json {
+                let JSONString:String = json[symbol].rawString()!
+                var quote:Quote = Quote()
+                if let q = Mapper<Quote>().map(JSONString: JSONString){
+                    quote = q
+                }
+                quotes.append(quote)
+            }
+            completionHandler(quotes)
+        }
+    }
+    
     public func getTop10s(completionHandler: @escaping (Top10s)->Void){
         let queryURL = buildQuery(url: apiurl + marketEndpoint + "/top10", params: [:])
         self.getRequest(queryURL: queryURL) { (data) in

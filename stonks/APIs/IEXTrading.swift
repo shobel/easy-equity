@@ -11,7 +11,7 @@ import SwiftyJSON
 import ObjectMapper
 class IEXTrading: HTTPRequest, StockDataApiProtocol {
     
-    private var stockURL = "https://cloud.iexapis.com/stable/stock/" //prod
+    private var stockURL = "https://cloud.iexapis.com/stable/stock" //prod
     private var batchURL = "https://cloud.iexapis.com/stable/stock/market/batch" //prod
     private var listURL = "https://cloud.iexapis.com/stable/ref-data/symbols" //prod
     private var token = "pk_51788eed4b6041a785bee74fe45dc738" //prod
@@ -19,7 +19,7 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
     public override init(){
         super.init()
         if Constants.demo {
-            self.stockURL = "https://sandbox.iexapis.com/stable/stock/" //dev
+            self.stockURL = "https://sandbox.iexapis.com/stable/stock" //dev
             self.batchURL = "https://sandbox.iexapis.com/stable/stock/market/batch" //dev
             self.listURL = "https://sandbox.iexapis.com/stable/ref-data/symbols" //dev
             self.token = "Tpk_9d0624f076804597a3983357fec689d7" //dev
@@ -76,7 +76,7 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
     func getDailyChart(ticker: String, timeInterval: Constants.TimeIntervals, completionHandler: @escaping ([Candle]) -> Void) {
         let params:[String] = [stockURL, ticker, queries.chart, timeFrames[timeInterval]!]
         let queryURL = params.joined(separator: "/")
-        let finalQuery = buildQuery(url: queryURL + "?", params: ["token": token])
+        let finalQuery = buildQuery(url: queryURL, params: ["token": token])
         
         sendQuery(queryURL: finalQuery, completionHandler: { (data, response, error) -> Void in
             if let data = data {

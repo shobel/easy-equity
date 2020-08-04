@@ -21,7 +21,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var candleMarkerView: MarkerView!
     @IBOutlet weak var chartTypeButton: UIButton!
     @IBOutlet weak var contentView: UIView!
-    
+    @IBOutlet weak var totalDateAndVolumeView: UIView!
     @IBOutlet weak var datetime: UILabel!
     @IBOutlet weak var totalVol: UILabel!
     
@@ -36,6 +36,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var loaderView: UIView!
     @IBOutlet weak var watchlistButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var slider52w: UISlider!
+    @IBOutlet weak var sliderMin: UILabel!
+    @IBOutlet weak var sliderMax: UILabel!
     
     public var company:Company!
     public var latestQuote:Quote!
@@ -77,12 +80,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         super.viewDidLoad()
         
         updateChartHeight()
-
         company = Dataholder.selectedCompany
-        //let pageVC: StatsNewsPageViewController = self.children.first as! StatsNewsPageViewController
-        //pageVC.pageDelegate = self
+//        let pageVC: StatsNewsPageViewController = self.children.first as! StatsNewsPageViewController
+//        pageVC.pageDelegate = self
         
-        self.stockUpdater = StockUpdater(caller: self, ticker: company.symbol, timeInterval: 10.0)
+        //fetch new intraday chart values once per minute
+        self.stockUpdater = StockUpdater(caller: self, company: company, timeInterval: 60.0)
         self.stockUpdater?.startTask()
         
         self.pageVCList = [
@@ -132,6 +135,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         stockDetailsNavView.logo.layer.masksToBounds = true
         stockDetailsNavView.ticker.text = company.symbol
         stockDetailsNavView.name.text = company.fullName
+        
+        let rangeImage:UIImage? = UIImage(systemName: "circle.fill")
+//        slider52w.maximumTrackTintColor = Constants.darkGrey
+//        slider52w.minimumTrackTintColor = Constants.darkGrey
+        slider52w.setThumbImage(rangeImage, for: .normal)
+        slider52w.tintColor = Constants.darkPink
         
         latestQuote = company.quote
         //setup price info that will need to be updated each time quote is retreived
@@ -184,20 +193,30 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     }
     
     func updateFromScheduledTask(_ data:Any?) {
-        let quotes = data as! [Quote]
-        if (quotes.count > 0){
-            let quote = quotes[0]
-            self.latestQuote = quote
-            self.setVolumeValues(averageVolume: Double(quote.avgTotalVolume ?? 0), totalVol: Double(quote.latestVolume ?? 0))
-            DispatchQueue.main.async {
-                self.setTopBarValues(startPrice: 0.0, endPrice: self.latestQuote.latestPrice!, selected: false)
-            }
-            self.isMarketOpen = quote.isUSMarketOpen!
-            StockAPIManager.shared.stockDataApiInstance.getDailyChart(ticker: company.symbol, timeInterval: .day, completionHandler: handleDayChartNoProgress)
-            if !self.isMarketOpen {
-                self.stockUpdater?.stopTask()
-            }
+        guard let data = data as? QuoteAndIntradayChart else {
+            return
         }
+        let quote = data.quote
+        let intradayChart = data.intradayChart
+        self.isMarketOpen = quote.isUSMarketOpen!
+        self.latestQuote = quote
+        DispatchQueue.main.async {
+            self.setVolumeValues(averageVolume: Double(quote.avgTotalVolume ?? 0), totalVol: Double(quote.latestVolume ?? 0))
+            self.setTopBarValues(startPrice: 0.0, endPrice: self.latestQuote.latestPrice!, selected: false)
+            self.set52wSlider(quote: quote, price: quote.latestPrice!)
+        }
+        self.handleDayChartNoProgress(intradayChart)
+        if !self.isMarketOpen {
+            self.stockUpdater?.stopTask()
+        }
+    }
+    
+    private func set52wSlider(quote:Quote, price:Double){
+        let numerator = price - quote.week52Low!
+        let denominator = quote.week52High! - quote.week52Low!
+        self.slider52w.value = Float(numerator / denominator)
+        self.sliderMin.text = String(quote.week52Low!)
+        self.sliderMax.text = String(quote.week52High!)
     }
     
     private func incrementLoadingProgress(){
@@ -276,11 +295,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         }
     }
     
-    //SAM-TODO remove average volume argument and encorporate low volume into analysis as a negative trait
+    //SAM-TODO remove average volume argument and encorporate low/high volume into analysis
     public func setVolumeValues(averageVolume:Double, totalVol:Double){
-        DispatchQueue.main.async {
-            self.totalVol.text = String("VOLUME \(NumberFormatter.formatNumber(num: totalVol))")
-        }
+        self.totalVol.text = String("TOTAL VOLUME: \(NumberFormatter.formatNumber(num: totalVol))")
     }
     
     private func handleAllData(generalInfo: GeneralInfo, logo: String, keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: [Recommendations], advancedStats: AdvancedStats, financials: Financials, estimates: Estimates){
@@ -489,6 +506,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         candlePricesView.openLabel.text = "OPEN: " + String(format: "%.2f", candle.open!)
         candlePricesView.closeLabel.text = "CLOSE: " + String(format: "%.2f", candle.close!)
         candlePricesWrapper.isHidden = false
+        totalDateAndVolumeView.isHidden = true
         
         // Adding top marker
         candleMarkerView.dateLabel.text = "\(candle.datetime!)"
@@ -499,10 +517,11 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         if x-(candleMarkerView.bounds.width/2) < 0 {
             x = (candleMarkerView.bounds.width/2)
         }
-        candleMarkerView.center = CGPoint(x: x, y:10.0)
+        candleMarkerView.center = CGPoint(x: x, y:0.0)
         candleMarkerView.isHidden = false
         
         setTopBarValues(startPrice: latestQuote.previousClose ?? chartData[0].close!, endPrice: candle.close!, selected: true)
+        set52wSlider(quote: self.latestQuote, price: candle.close!)
         feedbackGenerator.selectionChanged()
     }
     
@@ -523,6 +542,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         cv.showAxisLabels(showEarnings: self.timeInterval != Constants.TimeIntervals.day)
         candlePricesWrapper.isHidden = true
         candleMarkerView.isHidden = true
+        totalDateAndVolumeView.isHidden = false
         chartView.highlightValue(nil)
         let chartData = self.chartView.getChartData(candleMode: self.candleMode)
         setTopBarValues(startPrice: chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
