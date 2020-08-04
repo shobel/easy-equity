@@ -8,20 +8,28 @@
 
 import Foundation
 
+struct QuoteAndIntradayChart {
+    var quote:Quote
+    var intradayChart:[Candle]
+    
+}
+
+//used by stockdetailsvc to constantly update latest quote and intraday chart
 class StockUpdater: StockDataTask {
     
-    private var tickers:[String] = []
+    private var company:Company!
     
-    public init(caller: Updateable, ticker: String, timeInterval: Double) {
+    public init(caller: Updateable, company: Company, timeInterval: Double) {
         super.init(caller: caller, timeInterval: timeInterval)
-        self.tickers.append(ticker)
+        self.company = company
     }
     
     @objc override func update(){
         DispatchQueue.global(qos: .background).async {
-            StockAPIManager.shared.stockDataApiInstance.getQuotes(tickers: self.tickers, completionHandler: { (quotes: [Quote])->Void in
-                self.caller.updateFromScheduledTask(quotes)
-            })
+            NetworkManager.getMyRestApi().getQuoteAndIntradayChart(symbol: self.company.symbol, minutes: self.company.minuteData.count) { (quote, candles) in
+                let quoteAndIntradayChart = QuoteAndIntradayChart(quote: quote, intradayChart: candles)
+                self.caller.updateFromScheduledTask(quoteAndIntradayChart)
+            }
         }
     }
     

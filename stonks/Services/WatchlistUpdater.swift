@@ -15,6 +15,10 @@ protocol RepeatingUpdate {
     func update()
 }
 
+protocol Updateable {
+    func updateFromScheduledTask(_ data:Any?)
+}
+
 class StockDataTask: RepeatingUpdate {
     
     var timer:Timer?

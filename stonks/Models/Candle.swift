@@ -12,6 +12,7 @@ struct Candle: Mappable {
     
     public var date:Date? //for sorting
     public var datetime:String?
+    public var label:String?
     public var volume:Double?
     public var high:Double?
     public var low:Double?
@@ -22,6 +23,7 @@ struct Candle: Mappable {
     public var sma50:Double?
     public var sma100:Double?
     public var sma200:Double?
+    public var earnings:Bool?
     
     init(){}
     
