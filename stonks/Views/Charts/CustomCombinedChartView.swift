@@ -29,6 +29,7 @@ class CustomCombinedChartView: CombinedChartView {
     private var sma20:LineChartDataSet = LineChartDataSet()
     private var sma50:LineChartDataSet = LineChartDataSet()
     private var sma100:LineChartDataSet = LineChartDataSet()
+    private var sma200:LineChartDataSet = LineChartDataSet()
 
     private var dayEntryCount = 391
     private var previousCloseValue = 0.0
@@ -104,6 +105,7 @@ class CustomCombinedChartView: CombinedChartView {
         var volume10minEntries:[BarChartDataEntry] = []
         var prevCloseEntries:[ChartDataEntry] = []
         var prevClose10MinEntries:[ChartDataEntry] = []
+        var sma20Entries:[ChartDataEntry] = []
         var sma50Entries:[ChartDataEntry] = []
         var sma100Entries:[ChartDataEntry] = []
         var sma200Entries:[ChartDataEntry] = []
@@ -141,6 +143,7 @@ class CustomCombinedChartView: CombinedChartView {
             }
   
             candleEntries.append(CandleChartDataEntry(x: Double(i), shadowH: high, shadowL: low, open: open, close: close))
+            sma20Entries.append(ChartDataEntry(x: Double(i), y: candle.sma20 ?? close))
             sma50Entries.append(ChartDataEntry(x: Double(i), y: candle.sma50 ?? close))
             sma100Entries.append(ChartDataEntry(x: Double(i), y: candle.sma100 ?? close))
             sma200Entries.append(ChartDataEntry(x: Double(i), y: candle.sma200 ?? close))
@@ -163,6 +166,9 @@ class CustomCombinedChartView: CombinedChartView {
         self.setUpCandleChart(set: candleSet)
         self.candleChartData = CandleChartData(dataSet: candleSet)
 
+        let sma20Set = LineChartDataSet(entries: sma20Entries)
+        self.sma20 = sma20Set
+        self.setUpSmaLine(set: sma20Set, color: Constants.fadedOrange)
         let sma50Set = LineChartDataSet(entries: sma50Entries)
         self.sma50 = sma50Set
         self.setUpSmaLine(set: sma50Set, color: Constants.fadedBlue)
@@ -170,7 +176,7 @@ class CustomCombinedChartView: CombinedChartView {
         self.sma100 = sma100Set
         self.setUpSmaLine(set: sma100Set, color: Constants.fadedPurple)
         let sma200Set = LineChartDataSet(entries: sma200Entries)
-        self.sma20 = sma200Set
+        self.sma200 = sma200Set
         self.setUpSmaLine(set: sma200Set, color: Constants.fadedGreen)
         
         if self.stockDetailsDelegate!.candleMode{

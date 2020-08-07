@@ -66,6 +66,7 @@ class Company: Equatable, Comparable {
     
     //will fill in missing minutes as needed
     public func setMinuteData(_ dataSet: [Candle], open: Bool) {
+        //fill in missing chart values
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
         let startTime = "9:30 AM"
@@ -97,8 +98,8 @@ class Company: Equatable, Comparable {
             }
             prevCandle = entry
         }
-        if !open {
-            let numToAdd = 391 - returnDataSet.count
+        if !open && returnDataSet.count > 0 {
+            let numToAdd = 390 - returnDataSet.count
             let lastEntry = returnDataSet[returnDataSet.count - 1]
             for x in 0..<numToAdd {
                 let prevDate = NumberFormatter.timeStringToDate(lastEntry.datetime!)
@@ -130,7 +131,7 @@ class Company: Equatable, Comparable {
         for index in 0..<quarterlyData.count {
             let candle = quarterlyData[index]
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy"
+            dateFormatter.dateFormat = "YYYY-MM-dd"
             let date = dateFormatter.date(from: candle.datetime!)!
             dateFormatter.dateFormat = "yy"
             let year = dateFormatter.string(from: date)
@@ -236,8 +237,8 @@ class Company: Equatable, Comparable {
                     low = candle.low!
                 }
                 if counter == groupBy {
-                    let candle = Candle(date: candle.date!, datetime: date, volume: volume, high: high, low: low, open: open, close: candle.close!)
-                    dataSet.append(candle)
+                    let newCandle = Candle(datetime: date, volume: volume, high: high, low: low, open: open, close: candle.close!)
+                    dataSet.append(newCandle)
                     counter = 0
                     volume = 0.0
                 }

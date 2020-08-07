@@ -19,6 +19,10 @@ class MyRestAPI: HTTPRequest {
     private var marketEndpoint = "/market"
     private var token:String = ""
     
+    public enum ChartTimeFrames : String {
+        case daily, weekly, monthly
+    }
+    
     public override init(){
         super.init()
     }
@@ -91,9 +95,8 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func getQuoteAndIntradayChart(symbol:String, minutes:Int, completionHandler: @escaping (Quote, [Candle])->Void){
-        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/charts/quote-and-intraday/" + symbol,
-                                  params: ["minutes": String(minutes)])
+    public func getQuoteAndIntradayChart(symbol:String, completionHandler: @escaping (Quote, [Candle])->Void){
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/charts/quote-and-intraday/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
             var quote:Quote = Quote()
@@ -105,16 +108,33 @@ class MyRestAPI: HTTPRequest {
             for i in 0..<jsonCandleList.count{
                 let jsoncandle = jsonCandleList[i]
                 var candle = Candle()
-                candle.close = jsoncandle["close"].double
-                candle.open = jsoncandle["open"].double!
-                candle.high = jsoncandle["high"].double!
-                candle.low = jsoncandle["low"].double!
-                candle.volume = jsoncandle["marketVolume"].double!
-                candle.datetime = jsoncandle["label"].string!
-                candle.label = jsoncandle["label"].string!
+                candle.close = jsoncandle["close"].double ?? 0
+                candle.open = jsoncandle["open"].double ?? 0
+                candle.high = jsoncandle["high"].double ?? 0
+                candle.low = jsoncandle["low"].double ?? 0
+                candle.volume = jsoncandle["marketVolume"].double ?? 0
+                candle.datetime = jsoncandle["label"].string ?? ""
+                candle.dateLabel = jsoncandle["date"].string ?? ""
                 candles.append(candle)
             }
             completionHandler(quote, candles)
+        }
+    }
+    
+    public func getNonIntradayChart(symbol:String, timeframe:ChartTimeFrames, completionHandler: @escaping ([Candle])->Void){
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/charts/" + timeframe.rawValue + "/" + symbol, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var candles:[Candle] = []
+            for i in 0..<json.count{
+                let jsoncandle = json[i]
+                candles.append(Candle.createNonIntradayCandleFromJson(jsoncandle: jsoncandle))
+            }
+            if candles[0].datetime! > candles[candles.count - 1].datetime! {
+                completionHandler(candles.reversed())
+            } else {
+                completionHandler(candles)
+            }
         }
     }
     
