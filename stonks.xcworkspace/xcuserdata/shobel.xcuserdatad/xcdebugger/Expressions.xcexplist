@@ -869,6 +869,14 @@
          contextName = "StockDetailsVC.updateFromScheduledTask(_:):StockDetailsVC.swift">
       </ContextState>
       <ContextState
+         contextName = "NewsTableViewController.tableView(_:didSelectRowAt:):NewsTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "u.checkPromisedItemIsReachable()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in StockUpdater.update():StockUpdater.swift">
          <PersistentStrings>
             <PersistentString

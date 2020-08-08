@@ -7,6 +7,6 @@ class PriceChartPriceFormatter: IAxisValueFormatter {
         if (value < 0){
             return "0"
         }
-        return String(Int(ceil(value)))
+        return String(format: "%.2f", Float(value))
     }
 }

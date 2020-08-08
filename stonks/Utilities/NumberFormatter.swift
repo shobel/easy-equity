@@ -46,6 +46,13 @@ class NumberFormatter {
         return dateFormatter.string(from: date)
     }
     
+    static func formatDateToYearMonthDayDashesString(_ date:Date) -> String{
+        let today = Date()
+        let formatter1 = DateFormatter()
+        formatter1.dateFormat = "YYYY-MM-dd"
+        return formatter1.string(from: today)
+    }
+    
     static func formatPercent(value:String) -> String{
         return String(format: "%.2f", Double(value)! * 100) + "%"
     }

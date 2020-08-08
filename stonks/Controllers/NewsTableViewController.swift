@@ -70,8 +70,25 @@ class NewsTableViewController: UITableViewController, StatsVC {
         let url = URL(string: newsItem.url!)
         let config = SFSafariViewController.Configuration()
         config.entersReaderIfAvailable = true
-        let vc = SFSafariViewController(url: url ?? (URL(string: "https://www.google.com"))!, configuration: config)
-        present(vc, animated: true)
+        do {
+            let reachable = try url?.checkPromisedItemIsReachable()
+            if (reachable!){
+                let vc = SFSafariViewController(url: url!, configuration: config)
+                present(vc, animated: true)
+            } else {
+                let alert = AlertDisplay.createAlertWithConfirmButton(title: "Error", message: "URL is not reachable", buttonText: "OK") { (action) in
+                    print("News URL is not reachable: " + newsItem.url!)
+                    self.dismiss(animated: true, completion: nil)
+                }
+                self.present(alert, animated: true, completion: nil)
+            }
+        } catch {
+            let alert = AlertDisplay.createAlertWithConfirmButton(title: "Error", message: "URL is invalid", buttonText: "OK") { (action) in
+                print("cannot open URL " + newsItem.url!)
+                self.dismiss(animated: true, completion: nil)
+            }
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     /*

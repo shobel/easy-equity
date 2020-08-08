@@ -34,20 +34,20 @@ struct Constants{
     public static var lightPink = UIColor(red: 255.0/255.0, green: 140.0/255.0, blue: 173.0/255.0, alpha: 1.0)
     public static var purple = UIColor(red: 199.0/255.0, green: 0.0/255.0, blue: 172.0/255.0, alpha: 1.0)
     public static var green = UIColor(red: 9.0/255.0, green: 196.0/255.0, blue: 122.0/255.0, alpha: 1.0)
-    public static var yellow = UIColor(red: 255.0/255.0, green: 202.0/255.0, blue: 39.0/255.0, alpha: 1.0)
+    public static var yellow = UIColor(red: 255.0/255.0, green: 200.0/255.0, blue: 40.0/255.0, alpha: 1.0)
     public static var blue = UIColor(red: 0.0/255.0, green: 160.0/255.0, blue: 255.0/255.0, alpha: 1.0)
 
     public static var teal = UIColor(red: 120.0/255.0, green: 255.0/255.0, blue: 180.0/255.0, alpha: 1.0)
     public static var lightGreen = UIColor(red: 115.0/255.0, green: 255.0/255.0, blue: 0.0/255.0, alpha: 1.0)
-    public static var orange = UIColor(red: 255.0/255.0, green: 196.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+    public static var orange = UIColor(red: 255.0/255.0, green: 150.0/255.0, blue: 0.0/255.0, alpha: 1.0)
     public static var lightOrange = UIColor(red: 255.0/255.0, green: 240.0/255.0, blue: 183.0/255.0, alpha: 1.0)
     public static var darkGrey = UIColor(red: 67.0/255.0, green: 67.0/255.0, blue: 67.0/255.0, alpha: 1.0)
     public static var darkerGrey = UIColor(red: 31.0/255.0, green: 33.0/255.0, blue: 36.0/255.0, alpha: 1.0)
 
-    public static var fadedOrange = UIColor(red: 255.0/255.0, green: 196.0/255.0, blue: 0.0/255.0, alpha: 0.3)
-    public static var fadedPurple = UIColor(red: 199.0/255.0, green: 0.0/255.0, blue: 172.0/255.0, alpha: 0.3)
-    public static var fadedBlue = UIColor(red: 0.0/255.0, green: 160.0/255.0, blue: 255.0/255.0, alpha: 0.3)
-    public static var fadedGreen = UIColor(red: 9.0/255.0, green: 196.0/255.0, blue: 122.0/255.0, alpha: 0.3)
+    public static var fadedOrange = UIColor(red: 255.0/255.0, green: 150.0/255.0, blue: 0.0/255.0, alpha: 0.5)
+    public static var fadedPurple = UIColor(red: 150.0/255.0, green: 0.0/255.0, blue: 175.0/255.0, alpha: 0.5)
+    public static var fadedBlue = UIColor(red: 0.0/255.0, green: 50.0/255.0, blue: 255.0/255.0, alpha: 0.5)
+    public static var fadedTeal = UIColor(red: 50.0/255.0, green: 200.0/255.0, blue: 150.0/255.0, alpha: 0.5)
     
     /* FINVIZ ratings */
     enum FinvizRatingCategory {
