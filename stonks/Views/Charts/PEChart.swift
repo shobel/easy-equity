@@ -118,9 +118,7 @@ class PEChart: CombinedChartView {
                 self.leftAxis.axisMaximum = data.yMax * 1.1
                 self.data = data
                 self.notifyDataSetChanged()
-                
             }
-            
         }
     }
     

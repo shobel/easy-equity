@@ -45,6 +45,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var sma50: UILabel!
     @IBOutlet weak var sma100: UILabel!
     @IBOutlet weak var sma200: UILabel!
+    @IBOutlet weak var toggleSmasButton: UIButton!
+    
+    public var showSmas:Bool = false
     
     public var company:Company!
     public var latestQuote:Quote!
@@ -445,28 +448,30 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         candlePricesView.openLabel.text = "OPEN: " + String(format: "%.2f", candle.open!)
         candlePricesView.closeLabel.text = "CLOSE: " + String(format: "%.2f", candle.close!)
         candlePricesWrapper.isHidden = false
-        if let sma20val = candle.sma20 {
-            sma20.text = "MA20:\(String(format: "%.2f", sma20val))"
-        } else {
-            sma20.text = ""
+        
+        if self.showSmas {
+            if let sma20val = candle.sma20 {
+                sma20.text = "MA20:\(String(format: "%.2f", sma20val))"
+            } else {
+                sma20.text = ""
+            }
+            if let sma50val = candle.sma50 {
+                sma50.text = "MA50:\(String(format: "%.2f", sma50val))"
+            } else {
+                sma50.text = ""
+            }
+            if let sma100val = candle.sma100 {
+                sma100.text = "MA100:\(String(format: "%.2f", sma100val))"
+            } else {
+                sma100.text = ""
+            }
+            if let sma200val = candle.sma200 {
+                sma200.text = "MA200:\(String(format: "%.2f", sma200val))"
+            } else {
+                sma200.text = ""
+            }
+            smastack.isHidden = false
         }
-        if let sma50val = candle.sma50 {
-            sma50.text = "MA50:\(String(format: "%.2f", sma50val))"
-        } else {
-            sma50.text = ""
-        }
-        if let sma100val = candle.sma100 {
-            sma100.text = "MA100:\(String(format: "%.2f", sma100val))"
-        } else {
-            sma100.text = ""
-        }
-        if let sma200val = candle.sma200 {
-            sma200.text = "MA200:\(String(format: "%.2f", sma200val))"
-        } else {
-            sma200.text = ""
-        }
-
-        smastack.isHidden = false
         totalDateAndVolumeView.isHidden = true
         
         // Adding top marker
@@ -481,7 +486,11 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         candleMarkerView.center = CGPoint(x: x, y:0.0)
         candleMarkerView.isHidden = false
         
-        setTopBarValues(startPrice: latestQuote.previousClose ?? chartData[0].close!, endPrice: candle.close!, selected: true)
+        if self.timeInterval == Constants.TimeIntervals.day {
+            setTopBarValues(startPrice: latestQuote.previousClose ?? chartData[0].close!, endPrice: candle.close!, selected: true)
+        } else {
+            setTopBarValues(startPrice: chartData[0].close!, endPrice: candle.close!, selected: true)
+        }
         set52wSlider(quote: self.latestQuote, price: candle.close!)
         feedbackGenerator.selectionChanged()
     }
@@ -517,12 +526,42 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBAction func chartModeButtonPressed(_ sender: Any) {
         candleMode = !candleMode
         if !candleMode {
-            self.optionTapped(.toggleShowCandleBar)
             chartTypeButton.setImage(UIImage(named: "candlebar_white.png"), for: .normal)
+            if self.timeInterval == Constants.TimeIntervals.one_year {
+                NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
+                    self.company.dailyData = candles
+                    DispatchQueue.main.async {
+                        self.hideLoader(true)
+                        self.chartView.setChartData(chartData: self.company.getDailyData(260))
+                    }
+                }
+            } else {
+                self.optionTapped(.toggleShowCandleBar)
+            }
         } else {
-            self.optionTapped(.toggleShowCandleBar)
             chartTypeButton.setImage(UIImage(named: "linechart_white.png"), for: .normal)
+            if self.timeInterval == Constants.TimeIntervals.one_year {
+                NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.weekly) { (candles) in
+                    self.company.weeklyData = candles
+                    DispatchQueue.main.async {
+                        self.hideLoader(true)
+                        self.chartView.setChartData(chartData: self.company.getWeeklyData(52))
+                    }
+                }
+            } else {
+                self.optionTapped(.toggleShowCandleBar)
+            }
         }
+    }
+    
+    @IBAction func toggleSmasButtonTapped(_ sender: Any) {
+        self.showSmas = !showSmas
+        if showSmas {
+            self.toggleSmasButton.tintColor = Constants.darkPink
+        } else {
+            self.toggleSmasButton.tintColor = Constants.darkGrey
+        }
+        self.chartView.updateChart()
     }
     
     func chartViewDidEndPanning(_ chartView: ChartViewBase){
@@ -600,11 +639,21 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     @IBAction func OneYearButtonPressed(_ sender: Any) {
         self.hideLoader(false)
-        NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
-            self.company.dailyData = candles
-            DispatchQueue.main.async {
-                self.hideLoader(true)
-                self.timeButtonPressed(sender as! UIButton, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_year)
+        if self.candleMode {
+            NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.weekly) { (candles) in
+                self.company.weeklyData = candles
+                DispatchQueue.main.async {
+                    self.hideLoader(true)
+                    self.timeButtonPressed(sender as! UIButton, chartData: self.company.getWeeklyData(52), timeInterval: Constants.TimeIntervals.one_year)
+                }
+            }
+        } else {
+            NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
+                self.company.dailyData = candles
+                DispatchQueue.main.async {
+                    self.hideLoader(true)
+                    self.timeButtonPressed(sender as! UIButton, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_year)
+                }
             }
         }
     }
@@ -624,6 +673,11 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.timeInterval = timeInterval
         if chartData.count > 0 {
             setTopBarValues(startPrice: chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
+        }
+        if self.timeInterval != Constants.TimeIntervals.day {
+            self.toggleSmasButton.isHidden = false
+        } else {
+            self.toggleSmasButton.isHidden = true
         }
         
         for timeButton in timeButtons {
