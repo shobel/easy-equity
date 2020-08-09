@@ -24,6 +24,7 @@ class StockDataTask: RepeatingUpdate {
     var timer:Timer?
     var caller: Updateable!
     var timeInterval: Double = 30.0
+    public var hibernating:Bool = false
     
     public init(caller: Updateable, timeInterval: Double){
         self.caller = caller
@@ -63,19 +64,21 @@ class WatchlistUpdater: StockDataTask {
     }
     
     @objc override func update(){
-        DispatchQueue.global(qos: .background).async {
-            let tickers = self.watchlistManager.getTickers()
-            NetworkManager.getMyRestApi().getQuotes(symbols: tickers, completionHandler: { (quotes: [Quote])->Void in
-                for c in self.watchlist {
-                    for q in quotes {
-                        if (c.symbol == q.symbol) {
-                            c.quote = q
+        if (!hibernating){
+            DispatchQueue.global(qos: .background).async {
+                let tickers = self.watchlistManager.getTickers()
+                NetworkManager.getMyRestApi().getQuotes(symbols: tickers, completionHandler: { (quotes: [Quote])->Void in
+                    for c in self.watchlist {
+                        for q in quotes {
+                            if (c.symbol == q.symbol) {
+                                c.quote = q
+                            }
                         }
                     }
-                }
-                self.watchlistManager.sortWatchlist()
-                self.caller.updateFromScheduledTask(nil)
-            })
+                    self.watchlistManager.sortWatchlist()
+                    self.caller.updateFromScheduledTask(nil)
+                })
+            }
         }
     }
 }

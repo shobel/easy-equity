@@ -91,7 +91,15 @@
                value = "candleDate.description">
             </PersistentString>
             <PersistentString
-               value = "self.myCandleData![i].date!.description">
+               value = "self.myCandleData">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in MyRestAPI.getNonIntradayChart(symbol:timeframe:completionHandler:):MyRestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Candle.createNonIntradayCandleFromJson(jsoncandle: jsoncandle)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -243,10 +251,10 @@
          contextName = "EPSChart.setChartData(company:):EPSChart.swift">
          <PersistentStrings>
             <PersistentString
-               value = "company.estimates">
+               value = "UIImage(named: &quot;earnings_with_line&quot;)">
             </PersistentString>
             <PersistentString
-               value = "UIImage(named: &quot;earnings_with_line&quot;)">
+               value = "company.estimates">
             </PersistentString>
             <PersistentString
                value = "company.earnings">
@@ -294,13 +302,16 @@
          contextName = "Company.getQuarterlyData(_:):Company.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.monthlyData">
-            </PersistentString>
-            <PersistentString
                value = "self.dailyData">
             </PersistentString>
             <PersistentString
                value = "candle.datettime?.split(separator: &quot;-&quot;)[1]">
+            </PersistentString>
+            <PersistentString
+               value = "dateFormatter.date(from: candle.datetime!)">
+            </PersistentString>
+            <PersistentString
+               value = "self.monthlyData">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -317,10 +328,10 @@
                value = "self.pagingView.bounds.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
+               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
+               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
             </PersistentString>
             <PersistentString
                value = "statsVC.getContentHeight()">
@@ -515,6 +526,9 @@
             <PersistentString
                value = "chartData.count">
             </PersistentString>
+            <PersistentString
+               value = "latestQuote">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -680,7 +694,7 @@
          contextName = "closure #1 in MyRestAPI.getQuoteAndIntradayChart(symbol:minutes:completionHandler:):MyRestAPI.swift">
          <PersistentStrings>
             <PersistentString
-               value = "jsonCandleList[i].rawString()!">
+               value = "jsonCandleList.count">
             </PersistentString>
             <PersistentString
                value = "jsonCandleList[i]">
@@ -789,6 +803,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "Company.setMinuteData(_:open:):Company.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dataSet">
+            </PersistentString>
+            <PersistentString
+               value = "returnDataSet">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in IEXTrading.getNews(ticker:completionHandler:):IEXTrading.swift">
          <PersistentStrings>
             <PersistentString
@@ -819,6 +844,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in closure #1 in MyRestAPI.getNonIntradayChart(symbol:timeframe:completionHandler:):MyRestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "c1.datetime! &lt; c2.datetime!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "DataRenderer.isDrawingValuesAllowed(dataProvider:):ChartDataRendererBase.swift">
          <PersistentStrings>
             <PersistentString
@@ -837,6 +870,22 @@
       </ContextState>
       <ContextState
          contextName = "StockDetailsVC.updateFromScheduledTask(_:):StockDetailsVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "NewsTableViewController.tableView(_:didSelectRowAt:):NewsTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "u.checkPromisedItemIsReachable()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in StockUpdater.update():StockUpdater.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.company.minuteData.count">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "Company.addSmaToCandleSets():Company.swift">

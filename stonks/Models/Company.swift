@@ -66,6 +66,7 @@ class Company: Equatable, Comparable {
     
     //will fill in missing minutes as needed
     public func setMinuteData(_ dataSet: [Candle], open: Bool) {
+        //fill in missing chart values
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
         let startTime = "9:30 AM"
@@ -97,8 +98,8 @@ class Company: Equatable, Comparable {
             }
             prevCandle = entry
         }
-        if !open {
-            let numToAdd = 391 - returnDataSet.count
+        if !open && returnDataSet.count > 0 {
+            let numToAdd = 390 - returnDataSet.count
             let lastEntry = returnDataSet[returnDataSet.count - 1]
             for x in 0..<numToAdd {
                 let prevDate = NumberFormatter.timeStringToDate(lastEntry.datetime!)
@@ -130,7 +131,7 @@ class Company: Equatable, Comparable {
         for index in 0..<quarterlyData.count {
             let candle = quarterlyData[index]
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy"
+            dateFormatter.dateFormat = "YYYY-MM-dd"
             let date = dateFormatter.date(from: candle.datetime!)!
             dateFormatter.dateFormat = "yy"
             let year = dateFormatter.string(from: date)
@@ -139,79 +140,6 @@ class Company: Equatable, Comparable {
             quarterlyData[index].datetime = month + " '" + year
         }
         return quarterlyData
-    }
-    
-    public func addSmaToCandleSets(smaSet: [DatedValue], key:String){
-        var dailyPointer = 0
-        var weeklyPointer = 0
-        var monthlyPointer = 0
-        let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "yyyy-MM-dd"
-        for i in 0..<smaSet.count {
-            let sma = smaSet[i]
-            let smaDate = dateformatter.string(from: sma.date!)
-            var dailyDate = dateformatter.string(from: self.dailyData[dailyPointer].date!)
-            var weeklyDate = dateformatter.string(from: self.weeklyData[weeklyPointer].date!)
-            var monthlyDate = dateformatter.string(from: self.monthlyData[monthlyPointer].date!)
-            //catch up all dates to sma date
-            while self.dailyData[dailyPointer].date!.compare(sma.date!) == .orderedAscending {
-                dailyPointer+=1
-            }
-            while self.weeklyData[weeklyPointer].date!.compare(sma.date!) == .orderedAscending {
-                weeklyPointer+=1
-            }
-            while self.monthlyData[monthlyPointer].date!.compare(sma.date!) == .orderedAscending {
-                monthlyPointer+=1
-            }
-            dailyDate = dateformatter.string(from: self.dailyData[dailyPointer].date!)
-            weeklyDate = dateformatter.string(from: self.weeklyData[weeklyPointer].date!)
-            monthlyDate = dateformatter.string(from: self.monthlyData[monthlyPointer].date!)
-            if smaDate == dailyDate {
-                switch key {
-                    case "200":
-                        self.dailyData[dailyPointer].sma200 = sma.value
-                        break
-                    case "50":
-                        self.dailyData[dailyPointer].sma50 = sma.value
-                        break
-                    case "100":
-                        self.dailyData[dailyPointer].sma100 = sma.value
-                        break
-                    default: break
-                }
-                dailyPointer+=1
-            }
-            if smaDate == weeklyDate {
-                 switch key {
-                     case "200":
-                         self.weeklyData[weeklyPointer].sma200 = sma.value
-                         break
-                     case "50":
-                         self.weeklyData[weeklyPointer].sma50 = sma.value
-                         break
-                     case "100":
-                         self.weeklyData[weeklyPointer].sma100 = sma.value
-                         break
-                     default: break
-                 }
-                 weeklyPointer+=1
-            }
-            if smaDate == monthlyDate {
-                switch key {
-                     case "200":
-                         self.monthlyData[monthlyPointer].sma200 = sma.value
-                         break
-                     case "50":
-                         self.monthlyData[monthlyPointer].sma50 = sma.value
-                         break
-                     case "100":
-                         self.monthlyData[monthlyPointer].sma100 = sma.value
-                         break
-                     default: break
-                 }
-                 monthlyPointer+=1
-            }
-        }
     }
     
     private func shrinkDataSet(_ chartData: [Candle], groupBy: Int) -> [Candle]{
@@ -236,8 +164,8 @@ class Company: Equatable, Comparable {
                     low = candle.low!
                 }
                 if counter == groupBy {
-                    let candle = Candle(date: candle.date!, datetime: date, volume: volume, high: high, low: low, open: open, close: candle.close!)
-                    dataSet.append(candle)
+                    let newCandle = Candle(datetime: date, volume: volume, high: high, low: low, open: open, close: candle.close!)
+                    dataSet.append(newCandle)
                     counter = 0
                     volume = 0.0
                 }

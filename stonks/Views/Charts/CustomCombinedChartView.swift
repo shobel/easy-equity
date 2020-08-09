@@ -29,6 +29,7 @@ class CustomCombinedChartView: CombinedChartView {
     private var sma20:LineChartDataSet = LineChartDataSet()
     private var sma50:LineChartDataSet = LineChartDataSet()
     private var sma100:LineChartDataSet = LineChartDataSet()
+    private var sma200:LineChartDataSet = LineChartDataSet()
 
     private var dayEntryCount = 391
     private var previousCloseValue = 0.0
@@ -50,8 +51,8 @@ class CustomCombinedChartView: CombinedChartView {
         self.leftAxis.labelTextColor = UIColor.gray
         self.leftAxis.drawGridLinesEnabled = false
         self.leftAxis.labelPosition = .insideChart
-        self.leftAxis.drawAxisLineEnabled = true
-        self.leftAxis.labelCount = 2
+        self.leftAxis.drawAxisLineEnabled = false
+//        self.leftAxis.labelCount = 2
         self.leftAxis.yOffset = -5
         self.leftAxis.forceLabelsEnabled = true
         
@@ -96,7 +97,6 @@ class CustomCombinedChartView: CombinedChartView {
     
     public func updateChart(){
         self.previousCloseValue = self.stockDetailsDelegate?.latestQuote.previousClose! ?? 0.0
-        let day = self.stockDetailsDelegate!.timeInterval == Constants.TimeIntervals.day
         var candleEntries:[ChartDataEntry] = []
         var lineEntries:[ChartDataEntry] = []
         var volumeEntries:[BarChartDataEntry] = []
@@ -104,6 +104,7 @@ class CustomCombinedChartView: CombinedChartView {
         var volume10minEntries:[BarChartDataEntry] = []
         var prevCloseEntries:[ChartDataEntry] = []
         var prevClose10MinEntries:[ChartDataEntry] = []
+        var sma20Entries:[ChartDataEntry] = []
         var sma50Entries:[ChartDataEntry] = []
         var sma100Entries:[ChartDataEntry] = []
         var sma200Entries:[ChartDataEntry] = []
@@ -111,19 +112,6 @@ class CustomCombinedChartView: CombinedChartView {
         var entryCount = self.myCandleData!.count
         var counter = 0
 
-        var prevCandle:Candle = Candle()
-        let earnings = self.stockDetailsDelegate?.company.earnings
-        var earningsIndex = 0
-        if earnings != nil {
-            for eIndex in stride(from: earnings!.count - 1, through: 0, by: -1) {
-                if let candleDate = self.myCandleData![0].date {
-                    if earnings![eIndex].getDate()!.compare(candleDate) == .orderedDescending || earnings![eIndex].getDate()!.compare(candleDate) == .orderedSame {
-                        earningsIndex = eIndex
-                        break
-                    }
-                }
-            }
-        }
         for i in 0..<self.myCandleData!.count{
             let candle:Candle = self.myCandleData![i]
             let high = candle.high!
@@ -131,16 +119,12 @@ class CustomCombinedChartView: CombinedChartView {
             let open = candle.open!
             let close = candle.close!
             let volume = candle.volume!
-            
-            //TODO: move this code to server - each candle should say whether it is an earnings date
-            if earningsIndex >= 0 && !day && candle.date != nil && self.stockDetailsDelegate!.timeInterval != Constants.TimeIntervals.twenty_year && self.stockDetailsDelegate!.timeInterval != Constants.TimeIntervals.five_year {
-                if candle.date!.compare(earnings![earningsIndex].getDate()!) == .orderedDescending || candle.date!.compare(earnings![earningsIndex].getDate()!) == .orderedSame {
-                    earningsEntries.append(ChartDataEntry(x: Double(i), y: close, icon: UIImage(named: "earnings_with_line_small")))
-                         earningsIndex -= 1
-                }
-            }
   
             candleEntries.append(CandleChartDataEntry(x: Double(i), shadowH: high, shadowL: low, open: open, close: close))
+            if candle.earnings ?? false {
+                earningsEntries.append(ChartDataEntry(x: Double(i), y: close, icon: UIImage(named: "earnings_with_line_small")))
+            }
+            sma20Entries.append(ChartDataEntry(x: Double(i), y: candle.sma20 ?? close))
             sma50Entries.append(ChartDataEntry(x: Double(i), y: candle.sma50 ?? close))
             sma100Entries.append(ChartDataEntry(x: Double(i), y: candle.sma100 ?? close))
             sma200Entries.append(ChartDataEntry(x: Double(i), y: candle.sma200 ?? close))
@@ -156,22 +140,24 @@ class CustomCombinedChartView: CombinedChartView {
                 prevCloseEntries.append(ChartDataEntry(x: Double(i), y: close))
                 counter+=1
             }
-            prevCandle = candle
         }
 
         let candleSet = CandleChartDataSet(entries: candleEntries)
         self.setUpCandleChart(set: candleSet)
         self.candleChartData = CandleChartData(dataSet: candleSet)
 
+        let sma20Set = LineChartDataSet(entries: sma20Entries)
+        self.sma20 = sma20Set
+        self.setUpSmaLine(set: sma20Set, color: Constants.fadedBlue)
         let sma50Set = LineChartDataSet(entries: sma50Entries)
         self.sma50 = sma50Set
-        self.setUpSmaLine(set: sma50Set, color: Constants.fadedBlue)
+        self.setUpSmaLine(set: sma50Set, color: Constants.fadedOrange)
         let sma100Set = LineChartDataSet(entries: sma100Entries)
         self.sma100 = sma100Set
         self.setUpSmaLine(set: sma100Set, color: Constants.fadedPurple)
         let sma200Set = LineChartDataSet(entries: sma200Entries)
-        self.sma20 = sma200Set
-        self.setUpSmaLine(set: sma200Set, color: Constants.fadedGreen)
+        self.sma200 = sma200Set
+        self.setUpSmaLine(set: sma200Set, color: Constants.fadedTeal)
         
         if self.stockDetailsDelegate!.candleMode{
             entryCount = self.myCandleDataTenMin!.count
@@ -242,9 +228,12 @@ class CustomCombinedChartView: CombinedChartView {
                         data.scatterData = self.previousCloseLineTenMin
                     }
                 } else {
-                    lineDataSets.append(self.sma20)
-                    lineDataSets.append(self.sma50)
-                    lineDataSets.append(self.sma100)
+                    if self.stockDetailsDelegate!.showSmas {
+                        lineDataSets.append(self.sma20)
+                        lineDataSets.append(self.sma50)
+                        lineDataSets.append(self.sma100)
+                        lineDataSets.append(self.sma200)
+                    }
                     data.barData = self.volumeChartData
                     data.candleData = self.candleChartData
                 }
@@ -255,9 +244,12 @@ class CustomCombinedChartView: CombinedChartView {
                         data.scatterData = self.previousCloseLine
                     }
                 } else {
-                    lineDataSets.append(self.sma20)
-                    lineDataSets.append(self.sma50)
-                    lineDataSets.append(self.sma100)
+                    if self.stockDetailsDelegate!.showSmas {
+                        lineDataSets.append(self.sma20)
+                        lineDataSets.append(self.sma50)
+                        lineDataSets.append(self.sma100)
+                        lineDataSets.append(self.sma200)
+                    }
                     data.scatterData = earningsData
                 }
                 lineDataSets.append(self.lineChartData)
@@ -317,7 +309,7 @@ class CustomCombinedChartView: CombinedChartView {
     
     private func setUpSmaLine(set: LineChartDataSet, color: UIColor){
         set.setColor(color)
-        set.lineWidth = 1
+        set.lineWidth = 2
         set.drawCirclesEnabled = false
         set.mode = .cubicBezier
         set.drawValuesEnabled = false
@@ -378,6 +370,38 @@ class CustomCombinedChartView: CombinedChartView {
         }
         return dataSet
     }
+    
+    private func shrinkCandleData(_ chartData: [Candle], groupBy: Int) -> [Candle]{
+           var dataSet:[Candle] = []
+           var counter = 0
+           var high = 0.0, low = 0.0, open = 0.0, volume = 0.0
+           var date:String = ""
+           for candle in chartData {
+               counter += 1
+               if counter == 1 {
+                   high = candle.high!
+                   low = candle.low!
+                   open = candle.open!
+                   volume = candle.volume!
+                   date = candle.datetime!
+               } else {
+                   volume += candle.volume!
+                   if candle.high! > high {
+                       high = candle.high!
+                   }
+                   if candle.low! < low {
+                       low = candle.low!
+                   }
+                   if counter == groupBy || counter == chartData.count - 1{
+                       let candle = Candle(datetime: date, volume: volume, high: high, low: low, open: open, close: candle.close!)
+                       dataSet.append(candle)
+                       counter = 0
+                       volume = 0.0
+                   }
+               }
+           }
+           return dataSet
+       }
     
     public func showCandleChart(){
         self.updateChart()

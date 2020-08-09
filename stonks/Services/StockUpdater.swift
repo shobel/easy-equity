@@ -8,9 +8,13 @@
 
 import Foundation
 
-struct QuoteAndIntradayChart {
-    var quote:Quote
-    var intradayChart:[Candle]
+class QuoteAndIntradayChart {
+    var quote:Quote!
+    var intradayChart:[Candle] = []
+    init(quote:Quote, intradayChart:[Candle]){
+        self.quote = quote
+        self.intradayChart = intradayChart
+    }
     
 }
 
@@ -25,10 +29,12 @@ class StockUpdater: StockDataTask {
     }
     
     @objc override func update(){
-        DispatchQueue.global(qos: .background).async {
-            NetworkManager.getMyRestApi().getQuoteAndIntradayChart(symbol: self.company.symbol, minutes: self.company.minuteData.count) { (quote, candles) in
-                let quoteAndIntradayChart = QuoteAndIntradayChart(quote: quote, intradayChart: candles)
-                self.caller.updateFromScheduledTask(quoteAndIntradayChart)
+        if (!hibernating){
+            DispatchQueue.global(qos: .background).async {
+                NetworkManager.getMyRestApi().getQuoteAndIntradayChart(symbol: self.company.symbol) { (quote, candles) in
+                    let quoteAndIntradayChart = QuoteAndIntradayChart(quote: quote, intradayChart: candles)
+                    self.caller.updateFromScheduledTask(quoteAndIntradayChart)
+                }
             }
         }
     }
