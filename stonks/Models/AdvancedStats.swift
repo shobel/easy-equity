@@ -11,24 +11,22 @@ import ObjectMapper
 
 struct AdvancedStats: Mappable {
    
-   //3000 + 5 points
-   public var totalCash:Int? //66301000000,
-   public var currentDebt:Int? //20748000000,
-   public var revenue:Int? //265809000000,
-   public var grossProfit:Int? //101983000000,
-   public var totalRevenue:Int? //265809000000,
-   public var EBITDA:Int? //80342000000,
-   public var revenuePerShare:Double? //0.02,
-   public var revenuePerEmployee:Double? //2013704.55,
-   public var debtToEquity:Double? //1.07,
-   public var profitMargin:Double? //22.396157,
-   public var enterpriseValue:Int? //1022460690000,
-   public var enterpriseValueToRevenue:Double? //3.85
-   public var priceToSales:Double? //3.49,
-   public var priceToBook:Double? //8.805916432564608,
-   public var forwardPERatio:Double? //18.14,
-   public var pegRatio:Double? //2.19,
-   public var beta:Double? //1.4661365583766115
+    public var putCallRatio:Double?
+    public var currentDebt:Int? //20748000000,
+    public var totalCash:Int? //66301000000,
+    public var revenue:Int? //265809000000,
+    public var grossProfit:Int? //101983000000,
+    public var ebitda:Int? //80342000000,
+    public var revenuePerShare:Double? //0.02,
+    public var revenuePerEmployee:Double? //2013704.55,
+    public var debtToEquity:Double? //1.07,
+    public var profitMargin:Double? //22.396157,
+    public var enterpriseValue:Int? //1022460690000,
+    public var enterpriseValueToRevenue:Double? //3.85
+    public var priceToSales:Double? //3.49,
+    public var priceToBook:Double? //8.805916432564608,
+    public var forwardPERatio:Double? //18.14,
+    public var pegRatio:Double? //2.19,
     
     init(){}
     init?(map: Map) {}
@@ -38,8 +36,7 @@ struct AdvancedStats: Mappable {
         currentDebt <- map["currentDebt"]
         revenue <- map["revenue"]
         grossProfit <- map["grossProfit"]
-        totalRevenue <- map["totalRevenue"]
-        EBITDA <- map["EBITDA"]
+        ebitda <- map["EBITDA"]
         revenuePerShare <- map["revenuePerShare"]
         revenuePerEmployee <- map["revenuePerEmployee"]
         debtToEquity <- map["debtToEquity"]
@@ -50,6 +47,6 @@ struct AdvancedStats: Mappable {
         priceToBook <- map["priceToBook"]
         forwardPERatio <- map["forwardPERatio"]
         pegRatio <- map["pegRatio"]
-        beta <- map["beta"]
+        putCallRatio <- map["putCallRatio"]
     }
 }

@@ -220,7 +220,7 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
         })
     }
     
-    func getAllData(ticker: String, completionHandler: @escaping (GeneralInfo, String, KeyStats, [News], PriceTarget, [Earnings], [Recommendations], AdvancedStats, Financials, Estimates) -> Void) {
+    func getAllData(ticker: String, completionHandler: @escaping (GeneralInfo, String, KeyStats, [News], PriceTarget, [Earnings], [Recommendations], AdvancedStats, Estimates) -> Void) {
         let params = [
             "symbols": ticker,
             "types": "logo,company,stats,news,price-target,recommendation-trends,earnings,advanced-stats,financials,estimates",
@@ -249,7 +249,6 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
                 var earningsList:[Earnings] = []
                 var recommendations:[Recommendations] = []
                 var advancedStats:AdvancedStats = AdvancedStats()
-                var financials:Financials = Financials()
                 var estimates:Estimates = Estimates()
                 var newsList:[News] = []
                 var keystats:KeyStats = KeyStats()
@@ -273,9 +272,6 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
                 if let a = Mapper<AdvancedStats>().map(JSONString: jsonAs){
                     advancedStats = a
                 }
-                if let f = Mapper<Financials>().map(JSONString: jsonFinancials){
-                    financials = f
-                }
                 if let e = Mapper<Estimates>().map(JSONString: jsonEstimates){
                     estimates = e
                 }
@@ -293,7 +289,7 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
                 if let g = Mapper<GeneralInfo>().map(JSONString: jsonInfo){
                     generalInfo = g
                 }
-                completionHandler(generalInfo, logo, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, financials, estimates)
+                completionHandler(generalInfo, logo, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, estimates)
             }
         })
     }
@@ -388,26 +384,6 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
                     advancedStats = a
                 }
                 completionHandler(advancedStats)
-            }
-        })
-    }
-    
-    func getFinancials(ticker: String, completionHandler: @escaping (Financials) -> Void) {
-        let params = [
-            "symbols": ticker,
-            "types": "financials",
-            "token": token
-        ]
-        let queryURL = buildQuery(url: batchURL, params: params)
-        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
-            if let data = data {
-                let json = JSON(data)
-                let JSONString:String = json[ticker]["financials"]["financials"][0].rawString()!
-                var financials:Financials = Financials()
-                if let f = Mapper<Financials>().map(JSONString: JSONString){
-                    financials = f
-                }
-                completionHandler(financials)
             }
         })
     }

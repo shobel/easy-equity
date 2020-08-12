@@ -27,16 +27,9 @@ class LaunchVC: UIViewController {
         super.viewDidLoad()        
         watchlistManager = Dataholder.watchlistManager
         numTotal = 0
-//        for c in watchlistManager.getWatchlist() {
-//            if c.isCompany {
-//                numTotal += 1
-//            }
-//        }
         
         //added line below to perform segue
         self.addProgress()
-        finvizAPI = FinvizAPI()
-        //finvizAPI.getData(forTickers: watchlistManager.getTickers(companiesOnly: true), completionHandler: handleFinvizResponse)
     }
     
     func addProgress(){

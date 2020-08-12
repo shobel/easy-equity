@@ -16,12 +16,13 @@ class FinancialsViewController: UIViewController, StatsVC {
     @IBOutlet weak var cashChange: FormattedNumberLabel!
     @IBOutlet weak var debt: FormattedNumberLabel!
     @IBOutlet weak var revenue: FormattedNumberLabel!
-    @IBOutlet weak var assets: FormattedNumberLabel!
-    @IBOutlet weak var liabilities: FormattedNumberLabel!
+    @IBOutlet weak var capex: FormattedNumberLabel!
+    @IBOutlet weak var opinc: FormattedNumberLabel!
     @IBOutlet weak var research: FormattedNumberLabel!
     @IBOutlet weak var opex: FormattedNumberLabel!
-    @IBOutlet weak var se: FormattedNumberLabel!
+    @IBOutlet weak var ebitda: FormattedNumberLabel!
     @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var profitMargin: FormattedNumberLabel!
     
     private var company:Company!
     private var isLoaded = false
@@ -37,39 +38,43 @@ class FinancialsViewController: UIViewController, StatsVC {
         self.company = Dataholder.selectedCompany!
         if (isLoaded){
             DispatchQueue.main.async {
-                if let ni = self.company.financials?.netIncome {
+                if let ni = self.company.cashflow?.netIncome {
                     self.netIncome.setValue(value: String(ni), format: FormattedNumberLabel.Format.NUMBER)
                 }
-                if let cf = self.company.financials?.cashFlow {
+                if let cf = self.company.cashflow?.cashFlow {
                     self.cashFlow.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
                 }
-                if let tc = self.company.financials?.totalCash {
+                if let tc = self.company.advancedStats?.totalCash {
                     self.totalCash.setValue(value: String(tc), format: FormattedNumberLabel.Format.NUMBER)
                 }
-                if let cf = self.company.financials?.cashChange {
+                if let cf = self.company.cashflow?.cashChange {
                     self.cashChange.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
                 }
-                if let cf = self.company.financials?.totalDebt {
+                if let cf = self.company.advancedStats?.currentDebt {
                     self.debt.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
                 }
-                if let cf = self.company.financials?.totalRevenue {
+                if let cf = self.company.advancedStats?.revenue {
                     self.revenue.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
                 }
-                if let cf = self.company.financials?.totalAssets {
-                    self.assets.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let cf = self.company.financials?.totalLiabilities {
-                    self.liabilities.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let cf = self.company.financials?.researchAndDevelopment {
-                    self.research.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let cf = self.company.financials?.operatingExpense {
+                if let cf = self.company.income?.operatingExpense {
                     self.opex.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
                 }
-                if let cf = self.company.financials?.shareholderEquity {
-                    self.se.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
+                if let cf = self.company.income?.operatingIncome {
+                    self.opinc.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
                 }
+                if let cf = self.company.income?.researchAndDevelopment {
+                    self.research.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
+                }
+                if let cf = self.company.cashflow?.capitalExpenditures {
+                    self.capex.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
+                }
+                if let cf = self.company.advancedStats?.ebitda {
+                    self.ebitda.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
+                }
+                if let x = self.company.advancedStats?.profitMargin {
+                    self.profitMargin.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+                }
+
             }
         }
     }

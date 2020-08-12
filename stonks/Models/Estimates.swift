@@ -16,6 +16,7 @@ struct Estimates: Mappable {
     public var fiscalPeriod:String? //"Q2 2017",
     public var fiscalEndDate:String? //"2017-03-31",
     public var reportDate:String? //"2017-04-15",
+    public var announceTime:String? //"AMC"
     
     init(){}
     init?(map: Map) {}
@@ -26,6 +27,7 @@ struct Estimates: Mappable {
         fiscalPeriod <- map["fiscalPeriod"]
         fiscalEndDate <- map["fiscalEndDate"]
         reportDate <- map["reportDate"]
+        announceTime <- map["announceTime"]
     }
     
     public func getDate() -> Date? {

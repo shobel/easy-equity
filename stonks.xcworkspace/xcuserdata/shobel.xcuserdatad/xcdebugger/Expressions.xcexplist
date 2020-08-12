@@ -120,6 +120,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #2 in NewsTableViewController.tableView(_:didSelectRowAt:):NewsTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "alert">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "static NumberFormatter.timeStringToMilitaryDate(_:):NumberFormatter.swift">
          <PersistentStrings>
             <PersistentString
@@ -229,13 +237,7 @@
          contextName = "PEChart.setChartData(company:):PEChart.swift">
          <PersistentStrings>
             <PersistentString
-               value = "reversedEarnings.count">
-            </PersistentString>
-            <PersistentString
-               value = "company.estimates">
-            </PersistentString>
-            <PersistentString
-               value = "formatter">
+               value = "Date(candle.date)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

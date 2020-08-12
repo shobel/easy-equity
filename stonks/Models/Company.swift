@@ -13,15 +13,14 @@ class Company: Equatable, Comparable {
     public var symbol:String
     public var fullName:String
     
-    public var isCompany:Bool? //is either company or etf
-    public var logo:String?
     public var generalInfo:GeneralInfo?
     public var keyStats:KeyStats?
     public var earnings:[Earnings]?
     public var estimates:Estimates?
-    public var financials:Financials?
+    public var cashflow:CashFlow?
+    public var income:Income?
     
-    public var recommendations:[Recommendations]?
+    public var recommendations:Recommendations?
     public var totalBuy:Int?
     public var totalHold:Int?
     public var totalSell:Int?
@@ -29,6 +28,7 @@ class Company: Equatable, Comparable {
     public var priceTarget:PriceTarget?
     public var news:[News]?
     public var advancedStats: AdvancedStats?
+    public var insiders:[Insider]?
     
     public var quote:Quote?
     public var earningsDate:Date?
@@ -61,7 +61,7 @@ class Company: Equatable, Comparable {
     }
     
     public func getIsCompany() -> Bool {
-        return self.isCompany ?? false
+        return self.generalInfo?.isCompany ?? false
     }
     
     //will fill in missing minutes as needed

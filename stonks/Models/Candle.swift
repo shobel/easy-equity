@@ -68,6 +68,12 @@ struct Candle: Mappable {
         candle.datetime = jsoncandle["date"].string ?? ""
         candle.dateLabel = jsoncandle["date"].string ?? ""
         candle.earnings = jsoncandle["earnings"].bool ?? false
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.date(from: jsoncandle["date"].string!)!
+        candle.date = date
+        
         if let sma20 = jsoncandle["sma20"].double {
             candle.sma20 = sma20
         }
