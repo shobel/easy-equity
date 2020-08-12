@@ -23,7 +23,7 @@ class WatchlistVC: UIViewController, Updateable {
         self.loadWatchlist()
         
         finvizAPI = FinvizAPI()
-//        finvizAPI.getData(forTickers: watchlistManager.getTickers(companiesOnly: true), completionHandler: handleFinvizResponse)
+//        finvizAPI.getData(forTickers: , completionHandler: handleFinvizResponse)
         
         self.addTickerButton.layer.shadowColor = UIColor.black.cgColor
         self.addTickerButton.layer.shadowOpacity = 0.7

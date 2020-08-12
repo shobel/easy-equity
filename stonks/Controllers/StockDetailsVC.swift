@@ -144,8 +144,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         stockDetailsNavView.name.text = company.fullName
         
         let rangeImage:UIImage? = UIImage(systemName: "circle.fill")
-//        slider52w.maximumTrackTintColor = Constants.darkGrey
-//        slider52w.minimumTrackTintColor = Constants.darkGrey
         slider52w.setThumbImage(rangeImage, for: .normal)
         slider52w.tintColor = Constants.darkPink
         
@@ -166,22 +164,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.activityIndicator.startAnimating()
         
         //start information retrieval processes
-        self.totalHandlers = 9
-//        StockAPIManager.shared.stockDataApiInstance.getCompanyGeneralInfo(ticker: company.symbol, completionHandler: handleCompanyData)
+        self.totalHandlers = 2
         if !Constants.locked {
-//            StockAPIManager.shared.stockDataApiInstance.getKeyStats(ticker: company.symbol, completionHandler: handleKeyStats)
-//            StockAPIManager.shared.stockDataApiInstance.getAdvancedStats(ticker: company.symbol, completionHandler: handleAdvancedStats)
-//            StockAPIManager.shared.stockDataApiInstance.getNews(ticker: company.symbol, completionHandler: handleNews)
-//            StockAPIManager.shared.stockDataApiInstance.getPriceTarget(ticker: company.symbol, completionHandler: handlePriceTarget)
-//            StockAPIManager.shared.stockDataApiInstance.getRecommendations(ticker: company.symbol, completionHandler: handleRecommendations)
-//            StockAPIManager.shared.stockDataApiInstance.getFinancials(ticker: company.symbol, completionHandler: handleFinancials)
-//            StockAPIManager.shared.stockDataApiInstance.getEstimates(ticker: company.symbol, completionHandler: handleEstimates)
-//            StockAPIManager.shared.stockDataApiInstance.getEarnings(ticker: company.symbol, completionHandler: handleEarnings)
-            StockAPIManager.shared.stockDataApiInstance.getAllData(ticker: company.symbol, completionHandler: handleAllData)
-//            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "50", completionHandler: handleSMA50)
-//            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "100", completionHandler: handleSMA100)
-//            self.alphaVantage.getMovingAverage(ticker: company.symbol, range: "200", completionHandler: handleSMA200)
+            
         }
+        NetworkManager.getMyRestApi().getAllFreeData(symbol: company.symbol, completionHandler: handleAllData)
+        NetworkManager.getMyRestApi().getNonIntradayChart(symbol: company.symbol, timeframe: .weekly, completionHandler: self.handleWeeklyChart)
         
         //setup chart buttons
         timeButtons = [button1D, button1M, button3M, button1Y, button5Y, buttonMax]
@@ -327,23 +315,39 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.totalVol.text = String("TODAY'S VOLUME: \(NumberFormatter.formatNumber(num: totalVol))")
     }
     
-    private func handleAllData(generalInfo: GeneralInfo, logo: String, keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: [Recommendations], advancedStats: AdvancedStats, financials: Financials, estimates: Estimates){
-        self.handleCompanyData(generalInfo, logo: logo)
-        self.handleKeyStats(keyStats: keystats)
-        self.handleNews(news: news)
-        self.handlePriceTarget(priceTarget: priceTarget)
-        self.handleEarnings(earnings: earnings)
-        self.handleRecommendations(recommendations: recommendations)
-        self.handleAdvancedStats(advancedStats: advancedStats)
-        self.handleFinancials(financials: financials)
-        self.handleEstimates(estimates: estimates)
+    private func handleAllData(generalInfo: GeneralInfo, keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: CashFlow, income: Income, estimates: Estimates, insiders: [Insider]){
+        self.company.generalInfo = generalInfo
+        self.company.keyStats = keystats
+        self.company.news = news
+        self.company.priceTarget = priceTarget
+        self.company.cashflow = cashflow
+        self.company.income = income
+        self.company.recommendations = recommendations
+        self.company.earnings = earnings
+        self.company.advancedStats = advancedStats
+        self.company.insiders = insiders
+        self.company.estimates = estimates
+    
+        let keystatsVC = self.keyStatsVC as! StatsVC
+        keystatsVC.updateData()
+        let newsVC = self.newsVC
+        newsVC.updateData()
+        let earningsVC = self.earningsVC as! StatsVC
+        earningsVC.updateData()
+        let financialsVC = self.financialsVC as! StatsVC
+        financialsVC.updateData()
+        let predictionsVC = self.predictionsVC as! StatsVC
+        predictionsVC.updateData()
+        let companyVC = self.companyVC as! StatsVC
+        companyVC.updateData()
+        
+        self.incrementLoadingProgress()
     }
     
     //handles the description, ceo, and logo
-    private func handleCompanyData(_ generalInfo: GeneralInfo, logo: String){
+    private func handleCompanyData(_ generalInfo: GeneralInfo){
         self.company.generalInfo = generalInfo
-        self.company.logo = logo
-        let url = URL(string: logo)
+        let url = URL(string: generalInfo.logo!)
         let data = try? Data(contentsOf: url!)
         
         if let imageData = data {
@@ -384,6 +388,11 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             self.incrementLoadingProgress()
         }
     }
+    
+    private func handleWeeklyChart(_ candles:[Candle]){
+         self.company.weeklyData = candles
+         self.incrementLoadingProgress()
+     }
     
     public func updateUI(function: @escaping ()->Void){
         DispatchQueue.main.async {
@@ -712,71 +721,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         case .max:
             return
         }
-    }
-    
-    //data saving functions
-    private func handleKeyStats(keyStats: KeyStats){
-        self.company.keyStats = keyStats
-        let x = self.keyStatsVC as! StatsVC
-        x.updateData()
-        print("\(self.handlersDone) key stats done")
-        self.incrementLoadingProgress()
-    }
-    
-    private func handleNews(news: [News]){
-        self.company.news = news
-        let x = self.newsVC
-        x.updateData()
-        print("\(self.handlersDone) news done")
-        self.incrementLoadingProgress()
-    }
-    
-    private func handleAdvancedStats(advancedStats: AdvancedStats){
-        self.company.advancedStats = advancedStats
-        let x = self.keyStatsVC as! StatsVC
-        x.updateData()
-        print("\(self.handlersDone) advanced done")
-        self.incrementLoadingProgress()
-    }
-    
-    private func handlePriceTarget(priceTarget: PriceTarget){
-        self.company.priceTarget = priceTarget
-        let x = self.predictionsVC as! StatsVC
-        x.updateData()
-        print("\(self.handlersDone) price targets done")
-        self.incrementLoadingProgress()
-    }
-    
-    private func handleRecommendations(recommendations: [Recommendations]){
-        self.company.recommendations = recommendations
-        let x = self.predictionsVC as! StatsVC
-        x.updateData()
-        print("\(self.handlersDone) recommendations done")
-        self.incrementLoadingProgress()
-    }
-    
-    private func handleFinancials(financials: Financials){
-        self.company.financials = financials
-        let x = self.financialsVC as! StatsVC
-        x.updateData()
-        print("\(self.handlersDone) financials done")
-        self.incrementLoadingProgress()
-    }
-    
-    private func handleEstimates(estimates: Estimates){
-        self.company.estimates = estimates
-        let x = self.predictionsVC as! StatsVC
-        x.updateData()
-        print("\(self.handlersDone) estimates done")
-        self.incrementLoadingProgress()
-    }
-    
-    private func handleEarnings(earnings: [Earnings]){
-        self.company.earnings = earnings
-        let x = self.earningsVC as! StatsVC
-        x.updateData()
-        print("\(self.handlersDone) earnings done")
-        self.incrementLoadingProgress()
     }
     
 }

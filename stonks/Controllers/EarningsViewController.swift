@@ -41,13 +41,13 @@ class EarningsViewController: UIViewController, StatsVC {
             DispatchQueue.main.async {
                 self.epsChart.setup(company: self.company, earningsDelegate: self)
                 self.peChart.setup(company: self.company, delegate: self)
-                if let est = self.company.estimates {
+                if let est = self.company.estimates, let stats = self.company.keyStats {
                     self.nextEarningsQuarter.text = est.fiscalPeriod
-                    if let estDate = est.getDate() {
+                    if let nextReportDate = stats.getNextEarningsDate() {
                         let dateformatter = DateFormatter()
                         dateformatter.dateFormat = "MMM d, yyyy"
-                        self.nextEarningsDate.text = dateformatter.string(from: estDate)
-                        self.nextEarningsDaysLeft.text = "\(GeneralUtility.daysUntil(date: estDate)) days"
+                        self.nextEarningsDate.text = dateformatter.string(from: nextReportDate)
+                        self.nextEarningsDaysLeft.text = "\(GeneralUtility.daysUntil(date: nextReportDate)) days"
                     } else {
                         self.nextEarningsDaysLeft.text = ""
                     }

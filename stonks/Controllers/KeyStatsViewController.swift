@@ -65,6 +65,36 @@ class KeyStatsViewController: UIViewController, StatsVC {
                 if let x = self.company.keyStats?.float {
                     self.float.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
                 }
+                if let x = self.company.keyStats?.sharesOutstanding {
+                    self.sharesOut.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+                }
+                if let x = self.company.keyStats?.nextDividendDate {
+                    self.nextDividend.setValue(value: String(x), format: FormattedNumberLabel.Format.DATE)
+                }
+                if let x = self.company.advancedStats?.forwardPERatio {
+                    self.pefwd.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+                }
+                if let x = self.company.advancedStats?.pegRatio {
+                    self.peg.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+                }
+                if let x = self.company.advancedStats?.priceToBook {
+                    self.pb.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+                }
+                if let x = self.company.advancedStats?.priceToSales {
+                    self.ps.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+                }
+                if let x = self.company.advancedStats?.revenuePerShare {
+                    self.rps.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+                }
+                if let x = self.company.advancedStats?.debtToEquity {
+                    self.de.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+                }
+                if let x = self.company.advancedStats?.enterpriseValueToRevenue {
+                    self.evrev.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+                }
+                if let x = self.company.advancedStats?.enterpriseValue {
+                    self.evLabel.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+                }
 
             }
         }

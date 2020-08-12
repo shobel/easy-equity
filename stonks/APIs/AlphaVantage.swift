@@ -200,7 +200,7 @@ class AlphaVantage: HTTPRequest, StockDataApiProtocol {
         
     }
     
-    func getAllData(ticker: String, completionHandler: @escaping (GeneralInfo, String, KeyStats, [News], PriceTarget, [Earnings], [Recommendations], AdvancedStats, Financials, Estimates) -> Void) {
+    func getAllData(ticker: String, completionHandler: @escaping (GeneralInfo, String, KeyStats, [News], PriceTarget, [Earnings], [Recommendations], AdvancedStats, Estimates) -> Void) {
         
     }
     
@@ -217,10 +217,6 @@ class AlphaVantage: HTTPRequest, StockDataApiProtocol {
     }
     
     func getAdvancedStats(ticker: String, completionHandler: @escaping (AdvancedStats) -> Void) {
-        
-    }
-    
-    func getFinancials(ticker: String, completionHandler: @escaping (Financials) -> Void) {
         
     }
     

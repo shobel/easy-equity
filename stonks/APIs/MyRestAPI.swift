@@ -155,6 +155,56 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
+    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, CashFlow, Income, Estimates, [Insider])->Void){
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/allfree/" + symbol, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            let companyLogoPeersJSON = json["companyLogoPeers"].rawString()!
+            let generalInfo:GeneralInfo = Mapper<GeneralInfo>().map(JSONString: companyLogoPeersJSON) ?? GeneralInfo()
+            let keystatsJSON = json["keystats"].rawString()!
+            let keystats:KeyStats = Mapper<KeyStats>().map(JSONString: keystatsJSON) ?? KeyStats()
+            let advancedJSON = json["advanced"].rawString()!
+            let advancedStats:AdvancedStats = Mapper<AdvancedStats>().map(JSONString: advancedJSON) ?? AdvancedStats()
+            let newsJSON = json["news"]
+            var newsList:[News] = []
+            for i in 0..<newsJSON.count{
+                let s:String = newsJSON[i].rawString()!
+                if let n = Mapper<News>().map(JSONString: s){
+                    if n.lang == "en" {
+                        newsList.append(n)
+                    }
+                }
+            }
+            let priceTargetJSON = json["priceTarget"].rawString()!
+            let priceTarget:PriceTarget = Mapper<PriceTarget>().map(JSONString: priceTargetJSON) ?? PriceTarget()
+            let recommendationsJSON = json["recommendations"].rawString()!
+            let recommendations:Recommendations = Mapper<Recommendations>().map(JSONString: recommendationsJSON) ?? Recommendations()
+            let earningsJSON = json["earnings"]
+            var earningsList:[Earnings] = []
+            for i in 0..<earningsJSON.count{
+                let s:String = earningsJSON[i].rawString()!
+                if let e = Mapper<Earnings>().map(JSONString: s){
+                    earningsList.append(e)
+                }
+            }
+            let incomeJSON = json["income"].rawString()!
+            let income:Income = Mapper<Income>().map(JSONString: incomeJSON) ?? Income()
+            let cashFlowJSON = json["cashflow"].rawString()!
+            let cashflow:CashFlow = Mapper<CashFlow>().map(JSONString: cashFlowJSON) ?? CashFlow()
+            let estimatesJSON = json["estimates"].rawString()!
+            let estimates:Estimates = Mapper<Estimates>().map(JSONString: estimatesJSON) ?? Estimates()
+            let insidersJSON = json["insiders"]
+            var insiderList:[Insider] = []
+            for i in 0..<insidersJSON.count{
+                let s:String = insidersJSON[i].rawString()!
+                if let insider = Mapper<Insider>().map(JSONString: s){
+                    insiderList.append(insider)
+                }
+            }
+            completionHandler(generalInfo, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashflow, income, estimates, insiderList)
+        }
+    }
+    
     public func getTop10s(completionHandler: @escaping (Top10s)->Void){
         let queryURL = buildQuery(url: apiurl + marketEndpoint + "/top10", params: [:])
         self.getRequest(queryURL: queryURL) { (data) in

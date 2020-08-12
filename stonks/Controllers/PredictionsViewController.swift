@@ -37,11 +37,10 @@ class PredictionsViewController: UIViewController, StatsVC {
                 var numSell = 0
                 var numHold = 0
                 if let recommendations = self.company.recommendations {
-                    for r in recommendations {
-                        numBuy += r.ratingBuy! + r.ratingOverweight!
-                        numHold += r.ratingHold!
-                        numSell += r.ratingUnderweight! + r.ratingSell!
-                    }
+                    numBuy += recommendations.ratingBuy! + recommendations.ratingOverweight!
+                    numHold += recommendations.ratingHold!
+                    numSell += recommendations.ratingUnderweight! + recommendations.ratingSell!
+                    
                     self.company.totalBuy = numBuy
                     self.company.totalHold = numHold
                     self.company.totalSell = numSell

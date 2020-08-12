@@ -875,7 +875,7 @@
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="O0E-0J-03a">
                                         <rect key="frame" x="169" y="315" width="37" height="37"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="color" red="0.91764705882352937" green="0.0" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1525,8 +1525,9 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lu1-Kj-7lm" userLabel="EPS LEGEND">
                                                         <rect key="frame" x="8.5" y="193" width="318.5" height="50"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pink_circle" translatesAutoresizingMaskIntoConstraints="NO" id="TTf-tq-bp4">
-                                                                <rect key="frame" x="10" y="9" width="12" height="12"/>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="TTf-tq-bp4">
+                                                                <rect key="frame" x="10" y="9.5" width="12" height="11"/>
+                                                                <color key="tintColor" red="0.91559165720000002" green="0.0" blue="0.38039642569999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="12" id="6ao-E2-seR"/>
                                                                     <constraint firstAttribute="height" constant="12" id="rpW-S1-q7f"/>
@@ -1550,8 +1551,9 @@
                                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="faded_pink_circle" translatesAutoresizingMaskIntoConstraints="NO" id="Xg9-qW-Tve">
-                                                                <rect key="frame" x="108.5" y="9" width="12" height="12"/>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Xg9-qW-Tve">
+                                                                <rect key="frame" x="108.5" y="9.5" width="12" height="11"/>
+                                                                <color key="tintColor" red="0.91559165720000002" green="0.0" blue="0.38039642569999998" alpha="0.50647474315068497" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="12" id="Urr-Vi-yGU"/>
                                                                     <constraint firstAttribute="height" constant="12" id="bEG-QJ-HJP"/>
@@ -1667,8 +1669,8 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fWk-zd-vvu" userLabel="LEGEND">
                                                         <rect key="frame" x="68" y="198" width="199.5" height="50"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pink_circle" translatesAutoresizingMaskIntoConstraints="NO" id="wuZ-Lx-drb">
-                                                                <rect key="frame" x="10" y="9" width="12" height="12"/>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="wuZ-Lx-drb">
+                                                                <rect key="frame" x="10" y="9.5" width="12" height="11"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="12" id="Bbg-Ad-TKU"/>
                                                                     <constraint firstAttribute="height" constant="12" id="xjs-w0-iVg"/>
@@ -1680,8 +1682,9 @@
                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="faded_pink_circle" translatesAutoresizingMaskIntoConstraints="NO" id="p5p-Ff-lW5">
-                                                                <rect key="frame" x="102.5" y="9" width="12" height="12"/>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="p5p-Ff-lW5">
+                                                                <rect key="frame" x="102.5" y="9.5" width="12" height="11"/>
+                                                                <color key="tintColor" red="0.0" green="0.077069251332482658" blue="1" alpha="0.45426665743352146" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="12" id="qgB-2D-wjy"/>
                                                                     <constraint firstAttribute="width" constant="12" id="yLT-u5-kfO"/>
@@ -1766,8 +1769,9 @@
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar_money" translatesAutoresizingMaskIntoConstraints="NO" id="ZRc-lG-jtW">
-                                                        <rect key="frame" x="0.0" y="31" width="82" height="50"/>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZRc-lG-jtW">
+                                                        <rect key="frame" x="0.0" y="32" width="82" height="47.5"/>
+                                                        <color key="tintColor" red="0.47451311349999997" green="0.47450375560000002" blue="0.47451013330000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="AEE-p2-HkZ"/>
                                                             <constraint firstAttribute="width" constant="82" id="NgY-Ip-6vX"/>
@@ -2092,13 +2096,13 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WYw-VO-HUz">
                                                         <rect key="frame" x="125" y="0.0" width="125" height="35.5"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="ASSETS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wzs-YM-J0Y" userLabel="ASSETS">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="CAP EX" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wzs-YM-J0Y" userLabel="CAPEX">
                                                                 <rect key="frame" x="0.0" y="10" width="125" height="11"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="9"/>
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8m-zo-0qo" userLabel="ASSETS" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8m-zo-0qo" userLabel="CAPEX" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="21" width="125" height="14.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2119,13 +2123,13 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gWF-Xd-0UD">
                                                         <rect key="frame" x="250" y="0.0" width="125" height="35.5"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="LIABILITIES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BWk-E7-Gyl" userLabel="LIABILITIES">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="OP INC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BWk-E7-Gyl" userLabel="OPINC">
                                                                 <rect key="frame" x="0.0" y="10" width="125" height="11"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="9"/>
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YtB-V3-bdQ" userLabel="LIABILITIES" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YtB-V3-bdQ" userLabel="OPINC" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="21" width="125" height="14.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2205,13 +2209,13 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pud-AS-rjb">
                                                         <rect key="frame" x="250" y="0.0" width="125" height="35.5"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="SE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNL-sp-Sba" userLabel="SE">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="EBITDA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNL-sp-Sba" userLabel="EBITDA">
                                                                 <rect key="frame" x="0.0" y="10" width="125" height="11"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="9"/>
                                                                 <color key="textColor" red="0.41529187820000002" green="0.41529187820000002" blue="0.41529187820000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOk-jI-gIn" userLabel="SE" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOk-jI-gIn" userLabel="EBITDA" customClass="FormattedNumberLabel" customModule="Bullfrog" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="21" width="125" height="14.5"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2255,17 +2259,18 @@
                         <viewLayoutGuide key="safeArea" id="kuI-Qe-7Yi"/>
                     </view>
                     <connections>
-                        <outlet property="assets" destination="h8m-zo-0qo" id="se8-81-0xG"/>
+                        <outlet property="capex" destination="h8m-zo-0qo" id="70G-eq-xgm"/>
                         <outlet property="cashChange" destination="eYa-UY-iqi" id="0NN-SE-RL5"/>
                         <outlet property="cashFlow" destination="4tM-En-J8i" id="UuX-fN-Ofv"/>
                         <outlet property="contentView" destination="xTu-kp-oSO" id="JW1-fA-GZC"/>
-                        <outlet property="debt" destination="0vl-Lv-1EK" id="nl5-vd-NIz"/>
-                        <outlet property="liabilities" destination="YtB-V3-bdQ" id="Sl2-Lc-ZvB"/>
+                        <outlet property="debt" destination="OMX-71-noC" id="bwh-I1-snL"/>
+                        <outlet property="ebitda" destination="qOk-jI-gIn" id="QQf-nj-Qnz"/>
                         <outlet property="netIncome" destination="zqF-uW-cI7" id="u4z-Ey-PBb"/>
                         <outlet property="opex" destination="xBo-LJ-ped" id="DmI-Td-AHr"/>
+                        <outlet property="opinc" destination="YtB-V3-bdQ" id="CJ0-tz-Num"/>
+                        <outlet property="profitMargin" destination="9VA-NE-qdv" id="1XK-i9-gRW"/>
                         <outlet property="research" destination="ho1-rR-c1w" id="jle-8y-dI6"/>
                         <outlet property="revenue" destination="0vl-Lv-1EK" id="n8S-l6-Vis"/>
-                        <outlet property="se" destination="qOk-jI-gIn" id="sTd-IX-56a"/>
                         <outlet property="totalCash" destination="Dpy-kX-4iq" id="mOe-66-NaN"/>
                     </connections>
                 </viewController>
@@ -3552,15 +3557,14 @@
         <image name="bell2" width="25" height="30"/>
         <image name="bullfrog__foot_text" width="349" height="95"/>
         <image name="bullfrog_white_blurred_transparent_bighorns" width="416" height="432"/>
-        <image name="calendar_money" width="37.5" height="37.5"/>
+        <image name="calendar" catalog="system" width="128" height="106"/>
         <image name="candlebar_white" width="487" height="475"/>
+        <image name="circle.fill" catalog="system" width="128" height="121"/>
         <image name="dollar_sign" width="175" height="175"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="eye" width="28.5" height="21.5"/>
-        <image name="faded_pink_circle" width="512" height="512"/>
         <image name="grey_line" width="436" height="231"/>
         <image name="line.horizontal.3.decrease.circle" catalog="system" width="128" height="121"/>
-        <image name="pink_circle" width="512" height="512"/>
         <image name="placeholder_image" width="500" height="500"/>
         <image name="search_grey" width="25" height="25"/>
         <image name="star" width="30" height="28.5"/>

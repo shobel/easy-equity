@@ -48,7 +48,7 @@ class CustomCombinedChartView: CombinedChartView {
         self.maxVisibleCount = 500
         
         self.leftAxis.labelFont = UIFont(name: "Charter", size: 12)!
-        self.leftAxis.labelTextColor = UIColor.gray
+        self.leftAxis.labelTextColor = UIColor.black
         self.leftAxis.drawGridLinesEnabled = false
         self.leftAxis.labelPosition = .insideChart
         self.leftAxis.drawAxisLineEnabled = false

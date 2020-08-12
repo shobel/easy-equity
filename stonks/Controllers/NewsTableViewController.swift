@@ -13,6 +13,7 @@ class NewsTableViewController: UITableViewController, StatsVC {
 
     private var company:Company!
     private var isLoaded:Bool = false
+    private var currentAlert:UIViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,18 +77,18 @@ class NewsTableViewController: UITableViewController, StatsVC {
                 let vc = SFSafariViewController(url: url!, configuration: config)
                 present(vc, animated: true)
             } else {
-                let alert = AlertDisplay.createAlertWithConfirmButton(title: "Error", message: "URL is not reachable", buttonText: "OK") { (action) in
+                self.currentAlert = AlertDisplay.createAlertWithConfirmButton(title: "Error", message: "URL is not reachable", buttonText: "OK") { (action) in
                     print("News URL is not reachable: " + newsItem.url!)
-                    self.dismiss(animated: true, completion: nil)
+                    self.currentAlert!.dismiss(animated: true, completion: nil)
                 }
-                self.present(alert, animated: true, completion: nil)
+                self.present(self.currentAlert!, animated: true, completion: nil)
             }
         } catch {
-            let alert = AlertDisplay.createAlertWithConfirmButton(title: "Error", message: "URL is invalid", buttonText: "OK") { (action) in
+            self.currentAlert = AlertDisplay.createAlertWithConfirmButton(title: "Error", message: "URL is invalid", buttonText: "OK") { (action) in
                 print("cannot open URL " + newsItem.url!)
-                self.dismiss(animated: true, completion: nil)
+                self.currentAlert!.dismiss(animated: true, completion: nil)
             }
-            self.present(alert, animated: true, completion: nil)
+            self.present(self.currentAlert!, animated: true, completion: nil)
         }
     }
     

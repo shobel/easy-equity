@@ -96,7 +96,7 @@ class PEChart: CombinedChartView {
             if let fpe = company.advancedStats?.forwardPERatio {
                 fwdPe = fpe
             }
-            self.earningsDelegate.updatePELegendValues(pe: String(Int(peEntries[peEntries.count-1].y)), peFwd: String(Int(fwdPe)))
+            self.earningsDelegate.updatePELegendValues(pe: String(format: "%.2f", Double(peEntries[peEntries.count-1].y)), peFwd: String(format: "%.2f", Double(fwdPe)))
             forwardPeEntries.append(ChartDataEntry(x: Double(reversedEarnings.count), y: fwdPe))
             self.formatter.addXAxisLabel(label)
 

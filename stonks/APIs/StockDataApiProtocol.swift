@@ -45,7 +45,7 @@ protocol StockDataApiProtocol {
     //iexendpoints: company, logo, stats, news, price-target, earnings, recommendation-trends
     // advanced-stats, financials, estimates
     func getAllData(ticker: String, completionHandler:
-        @escaping (GeneralInfo, String, KeyStats, [News], PriceTarget, [Earnings], [Recommendations], AdvancedStats, Financials, Estimates)->Void)
+        @escaping (GeneralInfo, String, KeyStats, [News], PriceTarget, [Earnings], [Recommendations], AdvancedStats, Estimates)->Void)
     
     //iexendpoints: price-target -> 500
     func getPriceTarget(ticker: String, completionHandler: @escaping (PriceTarget)->Void)
@@ -58,10 +58,7 @@ protocol StockDataApiProtocol {
     
     //iexendpoints: advanced-stats -> 3,005
     func getAdvancedStats(ticker: String, completionHandler: @escaping (AdvancedStats)->Void)
-    
-    //iexendpoints: financials -> 5,000
-    func getFinancials(ticker: String, completionHandler: @escaping (Financials)->Void)
-    
+        
     //iexendpoints: estimates -> 10,000
     func getEstimates(ticker: String, completionHandler: @escaping (Estimates)->Void)
 }
