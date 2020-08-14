@@ -882,6 +882,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "PriceTargetChart.setChartData():PriceTargetChart.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Array(monthOfDailyPrices)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in StockUpdater.update():StockUpdater.swift">
          <PersistentStrings>
             <PersistentString

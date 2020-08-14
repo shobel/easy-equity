@@ -10,14 +10,8 @@ import UIKit
 
 class PredictionsViewController: UIViewController, StatsVC {
     
-    @IBOutlet weak var priceTarget: FormattedNumberLabel!
-    @IBOutlet weak var numEstimatesPT: FormattedNumberLabel!
-    @IBOutlet weak var datePT: FormattedNumberLabel!
-    @IBOutlet weak var numBuys: FormattedNumberLabel!
-    @IBOutlet weak var numHolds: FormattedNumberLabel!
-    @IBOutlet weak var numSells: FormattedNumberLabel!
-    
     @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var priceTargetChartView: PriceTargetChart!
     
     private var company:Company!
     private var isLoaded = false
@@ -31,35 +25,38 @@ class PredictionsViewController: UIViewController, StatsVC {
     
     func updateData() {
         self.company = Dataholder.selectedCompany!
-        if (isLoaded){
-            DispatchQueue.main.async {
-                var numBuy = 0
-                var numSell = 0
-                var numHold = 0
-                if let recommendations = self.company.recommendations {
-                    numBuy += recommendations.ratingBuy! + recommendations.ratingOverweight!
-                    numHold += recommendations.ratingHold!
-                    numSell += recommendations.ratingUnderweight! + recommendations.ratingSell!
-                    
-                    self.company.totalBuy = numBuy
-                    self.company.totalHold = numHold
-                    self.company.totalSell = numSell
-                }
-                self.numBuys.setValue(value: String(numBuy), format: FormattedNumberLabel.Format.NUMBER)
-                self.numHolds.setValue(value: String(numHold), format: FormattedNumberLabel.Format.NUMBER)
-                self.numSells.setValue(value: String(numSell), format: FormattedNumberLabel.Format.NUMBER)
-            
-                if let x = self.company.priceTarget?.priceTargetAverage {
-                    self.priceTarget.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let x = self.company.priceTarget?.numberOfAnalysts {
-                    self.numEstimatesPT.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let x = self.company.priceTarget?.updatedDate {
-                    self.datePT.setValue(value: String(x), format: FormattedNumberLabel.Format.DATE)
-                }
-            }
+        if (isLoaded) {
+            self.priceTargetChartView.setup(company: self.company, predictionsDelegate: self)
         }
+//        if (isLoaded){
+//            DispatchQueue.main.async {
+//                var numBuy = 0
+//                var numSell = 0
+//                var numHold = 0
+//                if let recommendations = self.company.recommendations {
+//                    numBuy += recommendations.ratingBuy! + recommendations.ratingOverweight!
+//                    numHold += recommendations.ratingHold!
+//                    numSell += recommendations.ratingUnderweight! + recommendations.ratingSell!
+//
+//                    self.company.totalBuy = numBuy
+//                    self.company.totalHold = numHold
+//                    self.company.totalSell = numSell
+//                }
+//                self.numBuys.setValue(value: String(numBuy), format: FormattedNumberLabel.Format.NUMBER)
+//                self.numHolds.setValue(value: String(numHold), format: FormattedNumberLabel.Format.NUMBER)
+//                self.numSells.setValue(value: String(numSell), format: FormattedNumberLabel.Format.NUMBER)
+//
+//                if let x = self.company.priceTarget?.priceTargetAverage {
+//                    self.priceTarget.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+//                }
+//                if let x = self.company.priceTarget?.numberOfAnalysts {
+//                    self.numEstimatesPT.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+//                }
+//                if let x = self.company.priceTarget?.updatedDate {
+//                    self.datePT.setValue(value: String(x), format: FormattedNumberLabel.Format.DATE)
+//                }
+//            }
+//        }
     }
     
     func getContentHeight() -> CGFloat {

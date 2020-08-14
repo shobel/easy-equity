@@ -79,12 +79,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     private var dateOfLatestPriceData:String = ""
     
     fileprivate let icons = [
-        "stats",
-        "news",
-        "financials",
-        "earnings",
-        "analysts",
-        "company"
+        "stats2",
+        "news2",
+        "financials2",
+        "call",
+        "analysts2",
+        "company2"
     ]
     
     override func viewDidLoad() {
