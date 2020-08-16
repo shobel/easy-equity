@@ -21,8 +21,6 @@ class CustomCombinedChartView: CombinedChartView {
     private var candleChartData:CandleChartData = CandleChartData()
     private var candleChartDataTenMin:CandleChartData = CandleChartData()
     private var lineChartData:LineChartDataSet = LineChartDataSet()
-    private var previousCloseLine:ScatterChartData = ScatterChartData()
-    private var previousCloseLineTenMin:ScatterChartData = ScatterChartData()
     private var volumeChartData:BarChartData = BarChartData()
     private var volumeChartDataTenMin:BarChartData = BarChartData()
     private var earningsData:ScatterChartData = ScatterChartData()
@@ -33,6 +31,9 @@ class CustomCombinedChartView: CombinedChartView {
 
     private var dayEntryCount = 391
     private var previousCloseValue = 0.0
+    private var firstLineValue = 0.0
+    private var lastLineValue = 0.0
+    private var animated:Bool = false
     
     public func setup(delegate: StockDetailsVC){
         self.delegate = delegate
@@ -110,7 +111,6 @@ class CustomCombinedChartView: CombinedChartView {
         var sma200Entries:[ChartDataEntry] = []
         var earningsEntries:[ChartDataEntry] = []
         var entryCount = self.myCandleData!.count
-        var counter = 0
 
         for i in 0..<self.myCandleData!.count{
             let candle:Candle = self.myCandleData![i]
@@ -133,15 +133,14 @@ class CustomCombinedChartView: CombinedChartView {
             //volume chart
             volumeEntries.append(BarChartDataEntry(x: Double(i), y: volume))
             //previous close line
-            if counter == 2 {
-                counter = 0
+            if i == 0 {
+                self.firstLineValue = close
                 prevCloseEntries.append(ChartDataEntry(x: Double(i), y: previousCloseValue))
-            } else {
-                prevCloseEntries.append(ChartDataEntry(x: Double(i), y: close))
-                counter+=1
             }
         }
-
+        self.lastLineValue = self.myCandleData![self.myCandleData!.count - 1].close!
+        prevCloseEntries.append(ChartDataEntry(x: Double(self.myCandleData!.count - 1), y: previousCloseValue))
+        
         let candleSet = CandleChartDataSet(entries: candleEntries)
         self.setUpCandleChart(set: candleSet)
         self.candleChartData = CandleChartData(dataSet: candleSet)
@@ -157,7 +156,7 @@ class CustomCombinedChartView: CombinedChartView {
         self.setUpSmaLine(set: sma100Set, color: Constants.fadedPurple)
         let sma200Set = LineChartDataSet(entries: sma200Entries)
         self.sma200 = sma200Set
-        self.setUpSmaLine(set: sma200Set, color: Constants.fadedTeal)
+        self.setUpSmaLine(set: sma200Set, color: Constants.fadedDarkGrey)
         
         if self.stockDetailsDelegate!.candleMode{
             entryCount = self.myCandleDataTenMin!.count
@@ -176,8 +175,12 @@ class CustomCombinedChartView: CombinedChartView {
                 candle10minEntries.append(CandleChartDataEntry(x: Double(i), shadowH: high, shadowL: low, open: open, close: close))
                 volume10minEntries.append(BarChartDataEntry(x: Double(i), y: candle.volume!))
             }
-            prevClose10MinEntries.append(ChartDataEntry(x: Double(i), y: previousCloseValue))
+            if i == 0 {
+                prevClose10MinEntries.append(ChartDataEntry(x: Double(i), y: previousCloseValue))
+            }
         }
+        prevClose10MinEntries.append(ChartDataEntry(x: Double(self.myCandleDataTenMin!.count - 1), y: previousCloseValue))
+
         let candleSet10min = CandleChartDataSet(entries: candle10minEntries)
         self.setUpCandleChart(set: candleSet10min)
         self.candleChartDataTenMin = CandleChartData(dataSet: candleSet10min)
@@ -192,12 +195,10 @@ class CustomCombinedChartView: CombinedChartView {
         self.volumeChartData = BarChartData(dataSet: volumeSet)
         self.setUpLineChart(set: self.lineChartData)
 
-        let previousCloseSet = ScatterChartDataSet(entries: prevCloseEntries)
-        let previousCloseSet10min = ScatterChartDataSet(entries: prevClose10MinEntries)
+        let previousCloseSet = LineChartDataSet(entries: prevCloseEntries)
+        let previousCloseSet10min = LineChartDataSet(entries: prevClose10MinEntries)
         self.setUpPreviousLineChart(previousCloseSet: previousCloseSet)
         self.setUpPreviousLineChart(previousCloseSet: previousCloseSet10min)
-        self.previousCloseLine = ScatterChartData(dataSet: previousCloseSet)
-        self.previousCloseLineTenMin = ScatterChartData(dataSet: previousCloseSet10min)
         
         let earningsSet = ScatterChartDataSet(entries: earningsEntries)
         earningsSet.setColor(UIColor.clear)
@@ -225,7 +226,7 @@ class CustomCombinedChartView: CombinedChartView {
                     data.barData = self.volumeChartDataTenMin
                     data.candleData = self.candleChartDataTenMin
                     if self.shouldShowPreviousLine() {
-                        data.scatterData = self.previousCloseLineTenMin
+                        lineDataSets.append(previousCloseSet10min)
                     }
                 } else {
                     if self.stockDetailsDelegate!.showSmas {
@@ -238,10 +239,11 @@ class CustomCombinedChartView: CombinedChartView {
                     data.candleData = self.candleChartData
                 }
             } else {
+                lineDataSets.append(self.lineChartData)
                 if day {
                     lineDataSets.append(self.createSinglePointLineChartDataSet(index: 391, value: self.lineChartData.yMin))
                     if self.shouldShowPreviousLine() {
-                        data.scatterData = self.previousCloseLine
+                        lineDataSets.append(previousCloseSet)
                     }
                 } else {
                     if self.stockDetailsDelegate!.showSmas {
@@ -252,7 +254,6 @@ class CustomCombinedChartView: CombinedChartView {
                     }
                     data.scatterData = earningsData
                 }
-                lineDataSets.append(self.lineChartData)
                 data.barData = self.volumeChartData
             }
             let lineChartDatas:LineChartData = LineChartData(dataSets: lineDataSets)
@@ -262,8 +263,17 @@ class CustomCombinedChartView: CombinedChartView {
             self.rightAxis.axisMinimum = 0
             self.data = data
             self.notifyDataSetChanged()
+            //self.animate()
         }
     }
+    
+    //TODO-SAM: animated boolean for each time frame
+//    public func animate(){
+//        if !animated {
+//            self.animate(xAxisDuration: 0.25, yAxisDuration: 0.0, easingOption: .linear)
+//        }
+//        self.animated = true
+//    }
     
     private func shouldShowPreviousLine() -> Bool {
         let maxVal = self.lineChartData.yMax
@@ -299,12 +309,12 @@ class CustomCombinedChartView: CombinedChartView {
         set.drawValuesEnabled = false
     }
     
-    private func setUpPreviousLineChart(previousCloseSet: ScatterChartDataSet){
+    private func setUpPreviousLineChart(previousCloseSet: LineChartDataSet){
         previousCloseSet.setColor(UIColor.darkGray)
-        previousCloseSet.setScatterShape(.circle)
-        previousCloseSet.scatterShapeSize = CGFloat(0.8)
         previousCloseSet.highlightEnabled = false
         previousCloseSet.drawValuesEnabled = false
+        previousCloseSet.lineDashLengths = [5, 5]
+        previousCloseSet.drawCirclesEnabled = false
     }
     
     private func setUpSmaLine(set: LineChartDataSet, color: UIColor){
@@ -318,7 +328,10 @@ class CustomCombinedChartView: CombinedChartView {
     }
     
     private func setUpLineChart(set: LineChartDataSet){
-        set.setColor(Constants.darkPink)
+        let day = self.stockDetailsDelegate?.timeInterval == Constants.TimeIntervals.day
+        let firstValue = day ? self.previousCloseValue : self.firstLineValue
+        let color = self.lastLineValue > firstValue ? Constants.green : Constants.darkPink
+        set.setColor(color)
         set.lineWidth = 2
         set.drawCirclesEnabled = false
         set.mode = .cubicBezier

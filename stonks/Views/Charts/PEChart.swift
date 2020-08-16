@@ -11,6 +11,9 @@ import Charts
 
 class PEChart: CombinedChartView {
 
+    //TODO-SAM: fix circles that get cuf off (AA example) and figure out why there are missing values
+    //TODO-SAM: add arrow up/down %change next to forward pe number
+    
     private var peDataSets:[ScatterChartDataSet] = []
     private var formatter:PriceChartFormatter = PriceChartFormatter()
     private var earningsDelegate: EarningsViewController!
@@ -115,7 +118,8 @@ class PEChart: CombinedChartView {
                 //data.barData.barWidth = 0.1
                 //self.rightAxis.axisMaximum = data.barData.yMax * 2
                 self.xAxis.axisMaximum = data.xMax + 0.5
-                self.leftAxis.axisMaximum = data.yMax * 1.1
+                let tenPercentRange = (data.yMax - data.yMin)*0.2
+                self.leftAxis.axisMaximum = data.yMax + tenPercentRange
                 self.data = data
                 self.notifyDataSetChanged()
             }

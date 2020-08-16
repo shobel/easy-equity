@@ -19,6 +19,10 @@
 		1C4D2D8624E3D75D00E54EB8 /* Income.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D8524E3D75D00E54EB8 /* Income.swift */; };
 		1C4D2D8824E3DA2400E54EB8 /* Insider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D8724E3DA2400E54EB8 /* Insider.swift */; };
 		1C4D2D8A24E6751000E54EB8 /* PriceTargetChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D8924E6751000E54EB8 /* PriceTargetChart.swift */; };
+		1C4D2D8C24E7911A00E54EB8 /* SimpleColoredLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D8B24E7911A00E54EB8 /* SimpleColoredLabel.swift */; };
+		1C4D2D8E24E797E000E54EB8 /* ColoredComparisonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D8D24E797E000E54EB8 /* ColoredComparisonLabel.swift */; };
+		1C4D2D9024E88C3800E54EB8 /* MarketNewsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D8F24E88C3800E54EB8 /* MarketNewsTableView.swift */; };
+		1C4D2D9224E8921200E54EB8 /* RatingsChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D9124E8921200E54EB8 /* RatingsChart.swift */; };
 		1C4EF3612329598D000299E6 /* InterpolateColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EF3602329598D000299E6 /* InterpolateColor.swift */; };
 		1C4EF364232AACAF000299E6 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EF363232AACAF000299E6 /* NewsViewController.swift */; };
 		1C545211216AA4B90064239E /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545210216AA4B90064239E /* GradientButton.swift */; };
@@ -51,7 +55,6 @@
 		1C72F90C24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F90B24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift */; };
 		1C72F91024CA76C400EC59F6 /* SimpleQuote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F90F24CA76C400EC59F6 /* SimpleQuote.swift */; };
 		1C72F91224CA788200EC59F6 /* Top10s.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F91124CA788200EC59F6 /* Top10s.swift */; };
-		1C72F91424CBBB9B00EC59F6 /* MarketNewsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F91324CBBB9B00EC59F6 /* MarketNewsTableView.swift */; };
 		1C72F91624CBD4F300EC59F6 /* MarketNewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F91524CBD4F300EC59F6 /* MarketNewsTableViewCell.swift */; };
 		1C7B9830215B32D500C75014 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B982F215B32D500C75014 /* AppDelegate.swift */; };
 		1C7B9835215B32D500C75014 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C7B9833215B32D500C75014 /* Main.storyboard */; };
@@ -136,6 +139,10 @@
 		1C4D2D8524E3D75D00E54EB8 /* Income.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Income.swift; sourceTree = "<group>"; };
 		1C4D2D8724E3DA2400E54EB8 /* Insider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insider.swift; sourceTree = "<group>"; };
 		1C4D2D8924E6751000E54EB8 /* PriceTargetChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTargetChart.swift; sourceTree = "<group>"; };
+		1C4D2D8B24E7911A00E54EB8 /* SimpleColoredLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleColoredLabel.swift; sourceTree = "<group>"; };
+		1C4D2D8D24E797E000E54EB8 /* ColoredComparisonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredComparisonLabel.swift; sourceTree = "<group>"; };
+		1C4D2D8F24E88C3800E54EB8 /* MarketNewsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketNewsTableView.swift; sourceTree = "<group>"; };
+		1C4D2D9124E8921200E54EB8 /* RatingsChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingsChart.swift; sourceTree = "<group>"; };
 		1C4EF3602329598D000299E6 /* InterpolateColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpolateColor.swift; sourceTree = "<group>"; };
 		1C4EF363232AACAF000299E6 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		1C545210216AA4B90064239E /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
@@ -168,7 +175,6 @@
 		1C72F90B24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top10CollectionViewCell.swift; sourceTree = "<group>"; };
 		1C72F90F24CA76C400EC59F6 /* SimpleQuote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleQuote.swift; sourceTree = "<group>"; };
 		1C72F91124CA788200EC59F6 /* Top10s.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top10s.swift; sourceTree = "<group>"; };
-		1C72F91324CBBB9B00EC59F6 /* MarketNewsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketNewsTableView.swift; sourceTree = "<group>"; };
 		1C72F91524CBD4F300EC59F6 /* MarketNewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketNewsTableViewCell.swift; sourceTree = "<group>"; };
 		1C7B982C215B32D500C75014 /* Bullfrog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bullfrog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7B982F215B32D500C75014 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -419,8 +425,10 @@
 				1C6B5F1F24026A7E008E2C22 /* ShadowView.swift */,
 				1C8DD1BF24C8DF9800333C90 /* CompanySearchTableViewCell.swift */,
 				1C72F90B24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift */,
-				1C72F91324CBBB9B00EC59F6 /* MarketNewsTableView.swift */,
 				1C72F91524CBD4F300EC59F6 /* MarketNewsTableViewCell.swift */,
+				1C4D2D8B24E7911A00E54EB8 /* SimpleColoredLabel.swift */,
+				1C4D2D8D24E797E000E54EB8 /* ColoredComparisonLabel.swift */,
+				1C4D2D8F24E88C3800E54EB8 /* MarketNewsTableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -480,6 +488,7 @@
 				1CCBE58523FDBAD300E57D49 /* EPSChart.swift */,
 				1CCBE58723FE720600E57D49 /* PEChart.swift */,
 				1C4D2D8924E6751000E54EB8 /* PriceTargetChart.swift */,
+				1C4D2D9124E8921200E54EB8 /* RatingsChart.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -717,6 +726,7 @@
 				1C9B952523EE3958004E95B1 /* DatedValue.swift in Sources */,
 				1C6936B721CDC72200E3FDC9 /* VolumeChartFormatter.swift in Sources */,
 				1C62FDDD24BC4B9B00BABDCB /* AuthViewController.swift in Sources */,
+				1C4D2D8C24E7911A00E54EB8 /* SimpleColoredLabel.swift in Sources */,
 				1C62FDE224BD698C00BABDCB /* AlertDisplay.swift in Sources */,
 				1C62FDF224C0C0E100BABDCB /* MyRestAPI.swift in Sources */,
 				1C183F93216D5D2A0042F52C /* DemoBaseViewController.swift in Sources */,
@@ -724,9 +734,11 @@
 				1CCBE58623FDBAD300E57D49 /* EPSChart.swift in Sources */,
 				1C62FDE924BD814D00BABDCB /* PasswordResetViewController.swift in Sources */,
 				1C7B9830215B32D500C75014 /* AppDelegate.swift in Sources */,
+				1C4D2D8E24E797E000E54EB8 /* ColoredComparisonLabel.swift in Sources */,
 				1C62FDDB24BC4B6F00BABDCB /* SignupViewController.swift in Sources */,
 				1C4D2D8A24E6751000E54EB8 /* PriceTargetChart.swift in Sources */,
 				1CB257212172BBB6008E3D4D /* FinvizAPI.swift in Sources */,
+				1C4D2D9224E8921200E54EB8 /* RatingsChart.swift in Sources */,
 				1C545213216AF6400064239E /* WatchlistUpdater.swift in Sources */,
 				1C9B952323E74F14004E95B1 /* PriceChartPriceFormatter.swift in Sources */,
 				1C6936B921CDCE9000E3FDC9 /* NumberFormatter.swift in Sources */,
@@ -737,7 +749,6 @@
 				1C72F91024CA76C400EC59F6 /* SimpleQuote.swift in Sources */,
 				1C72F91624CBD4F300EC59F6 /* MarketNewsTableViewCell.swift in Sources */,
 				1CD11948216EAD2E000AE02E /* RatingLabel.swift in Sources */,
-				1C72F91424CBBB9B00EC59F6 /* MarketNewsTableView.swift in Sources */,
 				1CB3D620231DBE5A00D6F57C /* PriceTarget.swift in Sources */,
 				1C545211216AA4B90064239E /* GradientButton.swift in Sources */,
 				1CB3D61E231DBCF000D6F57C /* Recommendations.swift in Sources */,
@@ -764,6 +775,7 @@
 				1C6B5F2024026A7E008E2C22 /* ShadowView.swift in Sources */,
 				1C7B98862161949A00C75014 /* Dataholder.swift in Sources */,
 				1CB3D61A231DA0A400D6F57C /* Estimates.swift in Sources */,
+				1C4D2D9024E88C3800E54EB8 /* MarketNewsTableView.swift in Sources */,
 				1C2AC8622177B9A400469941 /* WatchlistVC.swift in Sources */,
 				1C4EF364232AACAF000299E6 /* NewsViewController.swift in Sources */,
 				1CD1194A216F35C3000AE02E /* MarkerView.swift in Sources */,

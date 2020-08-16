@@ -2,12 +2,13 @@
 //  MarketNewsTableView.swift
 //  stonks
 //
-//  Created by Samuel Hobel on 7/24/20.
+//  Created by Samuel Hobel on 8/15/20.
 //  Copyright © 2020 Samuel Hobel. All rights reserved.
 //
 
 import UIKit
 
+//dont delete, even though this is empty it is needed to differentiate 2 tables in the same table vc
 class MarketNewsTableView: UITableView {
 
     /*

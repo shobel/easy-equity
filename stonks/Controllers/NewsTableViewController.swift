@@ -29,7 +29,12 @@ class NewsTableViewController: UITableViewController, StatsVC {
     
     func getContentHeight() -> CGFloat {
         if isLoaded {
-            return CGFloat((self.company.news?.count ?? 0) * 90)
+            var height:CGFloat = 0.0
+            for cell in tableView.visibleCells {
+                height += cell.bounds.height
+            }
+            return CGFloat(height + 10)
+            //return CGFloat((self.company.news?.count ?? 0) * 90)
         }
         return 0.0
     }
