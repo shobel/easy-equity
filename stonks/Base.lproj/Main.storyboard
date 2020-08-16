@@ -3484,17 +3484,26 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CDt-fS-r76" userLabel="Overall Ratings">
                                                                 <rect key="frame" x="20" y="33" width="94" height="94"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2y-ck-8tp">
-                                                                        <rect key="frame" x="26" y="36" width="42" height="21"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="97.56%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2y-ck-8tp">
+                                                                        <rect key="frame" x="19" y="25" width="56" height="20.5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                        <nil key="textColor"/>
+                                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strong Buy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yUg-13-0hk">
+                                                                        <rect key="frame" x="13.5" y="50.5" width="67.5" height="16"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
+                                                                    <constraint firstItem="yUg-13-0hk" firstAttribute="centerX" secondItem="CDt-fS-r76" secondAttribute="centerX" id="29Q-My-lVA"/>
                                                                     <constraint firstAttribute="width" secondItem="CDt-fS-r76" secondAttribute="height" multiplier="1:1" id="GmD-hS-0CE"/>
+                                                                    <constraint firstItem="Z2y-ck-8tp" firstAttribute="centerX" secondItem="CDt-fS-r76" secondAttribute="centerX" id="SIa-Is-9hh"/>
+                                                                    <constraint firstItem="Z2y-ck-8tp" firstAttribute="centerY" secondItem="CDt-fS-r76" secondAttribute="centerY" multiplier="0.75" id="ZsN-Ou-RrA"/>
+                                                                    <constraint firstItem="yUg-13-0hk" firstAttribute="top" secondItem="Z2y-ck-8tp" secondAttribute="bottom" constant="5" id="vkg-7P-gT5"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
@@ -3567,6 +3576,8 @@
                         <outlet property="highTarget" destination="NBN-be-Im4" id="CrE-vg-Up1"/>
                         <outlet property="lowTarget" destination="Xhv-qQ-zs7" id="Bcc-hp-dSf"/>
                         <outlet property="numAnalysts" destination="9iP-QI-cek" id="Yj7-kA-0fg"/>
+                        <outlet property="overallLabel" destination="yUg-13-0hk" id="ZlM-3l-Gr1"/>
+                        <outlet property="overallPercent" destination="Z2y-ck-8tp" id="SgB-Ff-Xas"/>
                         <outlet property="overallRatingsView" destination="CDt-fS-r76" id="xh5-VN-eGp"/>
                         <outlet property="priceTargetChartView" destination="K1n-8w-Gej" id="a1p-9f-MqM"/>
                         <outlet property="ratingsChartView" destination="d5I-r2-71X" id="blk-iG-W8y"/>

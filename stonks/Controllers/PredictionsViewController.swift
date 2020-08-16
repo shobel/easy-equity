@@ -22,6 +22,9 @@ class PredictionsViewController: UIViewController, StatsVC {
     @IBOutlet weak var updateDate: UILabel!
     
     @IBOutlet weak var overallRatingsView: UIView!
+    @IBOutlet weak var overallPercent: UILabel!
+    @IBOutlet weak var overallLabel: UILabel!
+    
     private var company:Company!
     private var isLoaded = false
     
@@ -57,36 +60,24 @@ class PredictionsViewController: UIViewController, StatsVC {
             if let x = self.company.priceTarget?.updatedDate {
                 self.updateDate.text = NumberFormatter.formatDate(x)
             }
+            if let x = self.company.recommendations?.ratingScaleMark {
+                self.overallPercent.text = String(format: "%.2f", "\((x / 3)*100)")
+                var overallText = ""
+                if x <= 1 {
+                    overallText = "Strong Buy"
+                } else if x <= 1.5 {
+                    overallText = "Buy"
+                } else if x <= 2 {
+                    overallText = "Hold"
+                } else if x <= 2.5 {
+                    overallText = "Sell"
+                } else if x <= 3 {
+                    overallText = "Strong Sell"
+                }
+                self.overallLabel.text = overallText
+            }
         }
-//        if (isLoaded){
-//            DispatchQueue.main.async {
-//                var numBuy = 0
-//                var numSell = 0
-//                var numHold = 0
-//                if let recommendations = self.company.recommendations {
-//                    numBuy += recommendations.ratingBuy! + recommendations.ratingOverweight!
-//                    numHold += recommendations.ratingHold!
-//                    numSell += recommendations.ratingUnderweight! + recommendations.ratingSell!
-//
-//                    self.company.totalBuy = numBuy
-//                    self.company.totalHold = numHold
-//                    self.company.totalSell = numSell
-//                }
-//                self.numBuys.setValue(value: String(numBuy), format: FormattedNumberLabel.Format.NUMBER)
-//                self.numHolds.setValue(value: String(numHold), format: FormattedNumberLabel.Format.NUMBER)
-//                self.numSells.setValue(value: String(numSell), format: FormattedNumberLabel.Format.NUMBER)
-//
-//                if let x = self.company.priceTarget?.priceTargetAverage {
-//                    self.priceTarget.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
-//                }
-//                if let x = self.company.priceTarget?.numberOfAnalysts {
-//                    self.numEstimatesPT.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
-//                }
-//                if let x = self.company.priceTarget?.updatedDate {
-//                    self.datePT.setValue(value: String(x), format: FormattedNumberLabel.Format.DATE)
-//                }
-//            }
-//        }
+
     }
     
     func getContentHeight() -> CGFloat {
