@@ -79,16 +79,17 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     private var dateOfLatestPriceData:String = ""
     
     fileprivate let icons = [
-        "stats",
-        "news",
-        "financials",
-        "earnings",
-        "analysts",
-        "company"
+        "stats2",
+        "news2",
+        "financials2",
+        "call",
+        "analysts2",
+        "company2"
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.scrollView.delegate = self
         
         updateChartHeight()
         company = Dataholder.selectedCompany
@@ -215,7 +216,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             self.setVolumeValues(averageVolume: Double(quote.avgTotalVolume ?? 0), totalVol: Double(quote.latestVolume ?? 0))
             self.setTopBarValues(startPrice: 0.0, endPrice: self.latestQuote.latestPrice!, selected: false)
             self.set52wSlider(quote: quote, price: quote.latestPrice!)
-            print("updated" + String(self.latestQuote.latestPrice!) + " " + String(intradayChart.count) + " values")
+            if let pvc = self.predictionsVC as? PredictionsViewController {
+                if pvc.isViewLoaded {
+                    pvc.updateData()
+                }
+            }
+            print("updated " + String(self.latestQuote.latestPrice!) + " " + String(intradayChart.count) + " values")
         }
         self.handleDayChartNoProgress(intradayChart)
         if !self.isMarketOpen {
@@ -722,6 +728,32 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             return
         }
     }
+  
+    //can use this function to trigger chart animations when views enter the visible frame
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        if let x = predictionsVC as? PredictionsViewController {
+//            if x.ratingsChartView != nil && !x.ratingsChartView.animated && self.isVisible(view: x.ratingsChartView) {
+//                print("animation ratings chart")
+//                x.ratingsChartView.animate()
+//            }
+//            if x.priceTargetChartView != nil && !x.priceTargetChartView.animated && self.isVisible(view: x.priceTargetChartView) {
+//                print("animation price target chart")
+//                x.priceTargetChartView.animate()
+//            }
+//        }
+//    }
+    
+    public func isVisible(view: UIView) -> Bool {
+        func isVisible(view: UIView, inView: UIView?) -> Bool {
+            guard let inView = inView else { return true }
+            let viewFrame = inView.convert(view.bounds, from: view)
+            if viewFrame.intersects(CGRect(x: inView.bounds.minX, y: inView.bounds.minY - (viewFrame.height/2), width: inView.bounds.width, height: inView.bounds.height)) {
+                return isVisible(view: view, inView: inView.superview)
+            }
+            return false
+        }
+        return isVisible(view: view, inView: view.superview)
+    }
     
 }
 
@@ -751,3 +783,4 @@ extension StockDetailsVC: PagingViewControllerDelegate {
         }
     }
 }
+

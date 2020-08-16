@@ -1,8 +1,8 @@
 {
   "images" : [
     {
+      "filename" : "iconfinder_Icon_notification_outline_6637745.png",
       "idiom" : "universal",
-      "filename" : "stats.png",
       "scale" : "1x"
     },
     {
@@ -15,7 +15,7 @@
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

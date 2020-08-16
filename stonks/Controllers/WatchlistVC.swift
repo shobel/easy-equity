@@ -62,6 +62,7 @@ class WatchlistVC: UIViewController, Updateable {
                     self.watchlistUpdater!.startTask()
                 }
                 self.tableView.reloadData()
+                self.tableView.refreshControl!.endRefreshing()
             }
         }
     }
@@ -118,8 +119,7 @@ class WatchlistVC: UIViewController, Updateable {
 //     }
      
     @objc func handleRefresh() {
-        self.tableView.reloadData()
-        self.tableView.refreshControl!.endRefreshing()
+        self.loadWatchlist()
     }
 }
 

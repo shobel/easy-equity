@@ -48,7 +48,8 @@ struct Constants{
     public static var fadedPurple = UIColor(red: 150.0/255.0, green: 0.0/255.0, blue: 175.0/255.0, alpha: 0.5)
     public static var fadedBlue = UIColor(red: 0.0/255.0, green: 50.0/255.0, blue: 255.0/255.0, alpha: 0.5)
     public static var fadedTeal = UIColor(red: 50.0/255.0, green: 200.0/255.0, blue: 150.0/255.0, alpha: 0.5)
-    
+    public static var fadedDarkGrey = UIColor(red: 67.0/255.0, green: 67.0/255.0, blue: 67.0/255.0, alpha: 0.5)
+
     /* FINVIZ ratings */
     enum FinvizRatingCategory {
         case buy, weakBuy, hold, weakSell, sell

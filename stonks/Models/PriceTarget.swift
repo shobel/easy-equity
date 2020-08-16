@@ -16,8 +16,8 @@ struct PriceTarget: Mappable {
     public var symbol:String? //"AAPL",
     public var updatedDate:String? //"2019-01-30",
     public var priceTargetAverage:Double? //178.59,
-    public var priceTargetHigh:Int? //245,
-    public var priceTargetLow:Int? //140,
+    public var priceTargetHigh:Double? //245,
+    public var priceTargetLow:Double? //140,
     public var numberOfAnalysts:Int? //34
     
     init(){}

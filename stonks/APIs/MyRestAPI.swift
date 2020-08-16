@@ -170,9 +170,9 @@ class MyRestAPI: HTTPRequest {
             for i in 0..<newsJSON.count{
                 let s:String = newsJSON[i].rawString()!
                 if let n = Mapper<News>().map(JSONString: s){
-                    if n.lang == "en" {
+                    //if n.lang == "en" {
                         newsList.append(n)
-                    }
+                    //}
                 }
             }
             let priceTargetJSON = json["priceTarget"].rawString()!

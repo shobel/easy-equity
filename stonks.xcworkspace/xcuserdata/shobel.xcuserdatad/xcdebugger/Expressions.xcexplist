@@ -112,6 +112,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "PredictionsViewController.updateData():PredictionsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "((x - latestPrice!) / latestPrice!)*100.0">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "WatchlistManager.addCompany(company:):WatchlistManager.swift">
          <PersistentStrings>
             <PersistentString
@@ -297,6 +305,14 @@
          <PersistentStrings>
             <PersistentString
                value = "Bundle.main.bundleIdentifier!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in MyRestAPI.getAllFreeData(symbol:completionHandler:):MyRestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "newsJSON.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -882,6 +898,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "PriceTargetChart.setChartData():PriceTargetChart.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.company.priceTarget">
+            </PersistentString>
+            <PersistentString
+               value = "Array(monthOfDailyPrices)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in StockUpdater.update():StockUpdater.swift">
          <PersistentStrings>
             <PersistentString
@@ -916,6 +943,14 @@
       </ContextState>
       <ContextState
          contextName = "closure #1 in PEChart.setChartData(company:):PEChart.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "data.yMax">
+            </PersistentString>
+            <PersistentString
+               value = "(data.yMin - data.yMax) * 0.9">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "NewsTableViewController.tableView(_:cellForRowAt:):NewsTableViewController.swift">
@@ -944,6 +979,17 @@
          <PersistentStrings>
             <PersistentString
                value = "innerScroll.bounds.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "StockDetailsVC.scrollViewDidScroll(_:):StockDetailsVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "scrollView.bounds">
+            </PersistentString>
+            <PersistentString
+               value = "self.pageVC.view.frame">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
