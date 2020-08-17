@@ -29,7 +29,7 @@ class PriceTargetChart: CombinedChartView {
         self.doubleTapToZoomEnabled = false
         self.autoScaleMinMaxEnabled = true
         
-        self.leftAxis.labelFont = UIFont(name: "Charter", size: 12)!
+        self.leftAxis.labelFont = UIFont(name: "Futura", size: 12)!
         self.leftAxis.labelTextColor = UIColor.gray
         self.leftAxis.drawGridLinesEnabled = false
         self.leftAxis.labelPosition = .outsideChart
@@ -117,6 +117,9 @@ class PriceTargetChart: CombinedChartView {
         set.circleRadius = 5.0
         set.setColor(color)
         set.highlightEnabled = false
+        set.valueFont = UIFont(name: "Futura-Bold", size: 12)!
+        set.valueTextColor = .darkGray
+        set.valueFormatter = self
     }
     
     public func animate(){
@@ -126,4 +129,10 @@ class PriceTargetChart: CombinedChartView {
         self.animated = true
     }
 
+}
+
+extension PriceTargetChart: IValueFormatter {
+    func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
+        return NumberFormatter.formatNumberWithPossibleDecimal(value)
+    }
 }

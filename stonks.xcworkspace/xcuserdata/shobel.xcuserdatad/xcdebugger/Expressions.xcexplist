@@ -115,6 +115,9 @@
          contextName = "PredictionsViewController.updateData():PredictionsViewController.swift">
          <PersistentStrings>
             <PersistentString
+               value = "(x / 3)*100">
+            </PersistentString>
+            <PersistentString
                value = "((x - latestPrice!) / latestPrice!)*100.0">
             </PersistentString>
          </PersistentStrings>
@@ -569,6 +572,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "CashflowChart.setChartData():CashflowChart.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Double(cashflowEntry.netIncome!)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in IEXTrading.getQuotes(tickers:completionHandler:):IEXTrading.swift">
          <PersistentStrings>
             <PersistentString
@@ -990,6 +1001,14 @@
             </PersistentString>
             <PersistentString
                value = "self.pageVC.view.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in FinancialsViewController.updateData():FinancialsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.company.cashflow">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -155,7 +155,7 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, CashFlow, Income, Estimates, [Insider])->Void){
+    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [Income], Estimates, [Insider])->Void){
         let queryURL = buildQuery(url: apiurl + stockEndpoint + "/allfree/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
@@ -187,10 +187,22 @@ class MyRestAPI: HTTPRequest {
                     earningsList.append(e)
                 }
             }
-            let incomeJSON = json["income"].rawString()!
-            let income:Income = Mapper<Income>().map(JSONString: incomeJSON) ?? Income()
-            let cashFlowJSON = json["cashflow"].rawString()!
-            let cashflow:CashFlow = Mapper<CashFlow>().map(JSONString: cashFlowJSON) ?? CashFlow()
+            let incomeJSON = json["incomes"]
+            var incomeList:[Income] = []
+            for i in 0..<incomeJSON.count{
+                let s:String = incomeJSON[i].rawString()!
+                if let income = Mapper<Income>().map(JSONString: s){
+                    incomeList.append(income)
+                }
+            }
+            let cashFlowJSON = json["cashflows"]
+            var cashFlowList:[CashFlow] = []
+            for i in 0..<cashFlowJSON.count{
+                let s:String = cashFlowJSON[i].rawString()!
+                if let cf = Mapper<CashFlow>().map(JSONString: s){
+                    cashFlowList.append(cf)
+                }
+            }
             let estimatesJSON = json["estimates"].rawString()!
             let estimates:Estimates = Mapper<Estimates>().map(JSONString: estimatesJSON) ?? Estimates()
             let insidersJSON = json["insiders"]
@@ -201,7 +213,7 @@ class MyRestAPI: HTTPRequest {
                     insiderList.append(insider)
                 }
             }
-            completionHandler(generalInfo, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashflow, income, estimates, insiderList)
+            completionHandler(generalInfo, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, incomeList, estimates, insiderList)
         }
     }
     

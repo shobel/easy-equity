@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "star.png",
+      "filename" : "star_tab.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "star@2x.png",
+      "filename" : "star_tab@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "star@3x.png",
+      "filename" : "star_tab@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

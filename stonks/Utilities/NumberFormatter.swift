@@ -10,6 +10,33 @@ import Foundation
 
 class NumberFormatter {
     
+    /* formats a number to be a double if it has a decimal, otherwise an integer */
+    static func formatNumberWithPossibleDecimal(_ value:Double) -> String {
+         let dbl = value
+         let isInteger = floor(dbl) == dbl
+         if isInteger {
+             return String(Int(value.rounded()))
+         } else {
+             return String(format:"%.2f", value)
+         }
+    }
+    
+    //dates in the format YYYY-MM-DD or YYYY/MM/DD can be converted to Ints with this method
+    static func convertStringDateToInt(date:String) -> Int {
+        if date.contains("-"){
+            if let dateInt = Int(date.replacingOccurrences(of: "-", with: "")) {
+                return dateInt
+            }
+        }
+        if date.contains("/") {
+            if let dateInt = Int(date.replacingOccurrences(of: "/", with: "")) {
+                return dateInt
+            }
+        }
+        return 0
+    }
+    
+    /* Formats a number to be an integer with the appropriate suffix */
     static func formatNumber(num:Double) -> String {
         if abs(num) > 999999999 {
             return String(format: "%.0f", num/1000000000) + "B"

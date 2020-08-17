@@ -28,6 +28,14 @@ class PredictionsViewController: UIViewController, StatsVC {
     private var company:Company!
     private var isLoaded = false
     
+    private var ratingBackgroundColors = [
+        UIColor(red: 70.0/255.0, green: 180.0/255.0, blue: 88.0/255.0, alpha: 1),
+        UIColor(red: 164.0/255.0, green: 217.0/255.0, blue: 51.0/255.0, alpha: 1),
+        UIColor(red: 206.0/255.0, green: 194.0/255.0, blue: 46.0/255.0, alpha: 1),
+        UIColor(red: 238.0/255.0, green: 143.0/255.0, blue: 29.0/255.0, alpha: 1),
+        Constants.darkPink
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.company = Dataholder.selectedCompany!
@@ -61,20 +69,32 @@ class PredictionsViewController: UIViewController, StatsVC {
                 self.updateDate.text = NumberFormatter.formatDate(x)
             }
             if let x = self.company.recommendations?.ratingScaleMark {
-                self.overallPercent.text = String(format: "%.2f", "\((x / 3)*100)")
+                let overallPercentVal = (1 - ((x-1) / 2))*100
+                self.overallPercent.text = String("\(String(format: "%.0f", overallPercentVal))%")
+                var colorIndex:Int = 0
                 var overallText = ""
-                if x <= 1 {
+                if x <= 1.25 {
                     overallText = "Strong Buy"
-                } else if x <= 1.5 {
+                    colorIndex = 0
+                } else if x <= 1.75 {
                     overallText = "Buy"
-                } else if x <= 2 {
+                    colorIndex = 1
+                } else if x <= 2.25 {
                     overallText = "Hold"
-                } else if x <= 2.5 {
+                    colorIndex = 2
+                } else if x <= 2.75 {
                     overallText = "Sell"
+                    colorIndex = 3
                 } else if x <= 3 {
                     overallText = "Strong Sell"
+                    colorIndex = 4
                 }
-                self.overallLabel.text = overallText
+                let labelColor:UIColor = self.ratingBackgroundColors[colorIndex]
+                let backgroundColor = labelColor.withAlphaComponent(0.2)
+                overallRatingsView.backgroundColor = backgroundColor
+                overallLabel.textColor = labelColor
+                overallPercent.textColor = labelColor
+                overallLabel.text = overallText
             }
         }
 

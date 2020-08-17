@@ -11,7 +11,6 @@ import Charts
 
 class PEChart: CombinedChartView {
 
-    //TODO-SAM: fix circles that get cuf off (AA example) and figure out why there are missing values
     //TODO-SAM: add arrow up/down %change next to forward pe number
     
     private var peDataSets:[ScatterChartDataSet] = []

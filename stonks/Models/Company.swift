@@ -17,8 +17,8 @@ class Company: Equatable, Comparable {
     public var keyStats:KeyStats?
     public var earnings:[Earnings]?
     public var estimates:Estimates?
-    public var cashflow:CashFlow?
-    public var income:Income?
+    public var cashflow:[CashFlow]?
+    public var income:[Income]?
     
     public var recommendations:Recommendations?
     public var totalBuy:Int?

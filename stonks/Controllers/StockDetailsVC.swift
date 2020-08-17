@@ -84,7 +84,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         "financials2",
         "call",
         "analysts2",
-        "company2"
+        "star"
     ]
     
     override func viewDidLoad() {
@@ -321,7 +321,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.totalVol.text = String("TODAY'S VOLUME: \(NumberFormatter.formatNumber(num: totalVol))")
     }
     
-    private func handleAllData(generalInfo: GeneralInfo, keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: CashFlow, income: Income, estimates: Estimates, insiders: [Insider]){
+    private func handleAllData(generalInfo: GeneralInfo, keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], income: [Income], estimates: Estimates, insiders: [Insider]){
         self.company.generalInfo = generalInfo
         self.company.keyStats = keystats
         self.company.news = news

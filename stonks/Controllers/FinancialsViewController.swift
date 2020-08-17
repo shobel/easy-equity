@@ -24,6 +24,8 @@ class FinancialsViewController: UIViewController, StatsVC {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var profitMargin: FormattedNumberLabel!
     
+    @IBOutlet weak var cashflowChart: CashflowChart!
+    
     private var company:Company!
     private var isLoaded = false
     
@@ -38,35 +40,49 @@ class FinancialsViewController: UIViewController, StatsVC {
         self.company = Dataholder.selectedCompany!
         if (isLoaded){
             DispatchQueue.main.async {
-                if let ni = self.company.cashflow?.netIncome {
-                    self.netIncome.setValue(value: String(ni), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let cf = self.company.cashflow?.cashFlow {
-                    self.cashFlow.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
+                if self.company.cashflow != nil && self.company.cashflow!.count > 0
+                    && self.company.income != nil && self.company.income!.count > 0 {
+                    self.company.cashflow!.sort(by: { (a, b) -> Bool in
+                        return NumberFormatter.convertStringDateToInt(date: a.reportDate!) > NumberFormatter.convertStringDateToInt(date: b.reportDate!)
+                    })
+                    self.company.income!.sort(by: { (a, b) -> Bool in
+                        return NumberFormatter.convertStringDateToInt(date: a.reportDate!) > NumberFormatter.convertStringDateToInt(date: b.reportDate!)
+                    })
+                    let mostRecentCashflow:CashFlow = self.company.cashflow![0]
+                    let mostRecentIncome:Income = self.company.income![0]
+                    
+                    if let ni = mostRecentCashflow.netIncome {
+                        self.netIncome.setValue(value: String(ni), format: FormattedNumberLabel.Format.NUMBER)
+                    }
+                    if let cf = mostRecentCashflow.cashFlow {
+                        self.cashFlow.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
+                    }
+                    if let cf = mostRecentCashflow.capitalExpenditures {
+                        self.capex.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
+                    }
+                    if let cf = mostRecentCashflow.cashChange {
+                        self.cashChange.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
+                    }
+                    if let cf = mostRecentIncome.operatingExpense {
+                        self.opex.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
+                    }
+                    if let cf = mostRecentIncome.operatingIncome {
+                        self.opinc.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
+                    }
+                    if let cf = mostRecentIncome.researchAndDevelopment {
+                        self.research.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
+                    }
+                    
+                    self.cashflowChart.setup(company: self.company, financialDelegate: self)
                 }
                 if let tc = self.company.advancedStats?.totalCash {
                     self.totalCash.setValue(value: String(tc), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let cf = self.company.cashflow?.cashChange {
-                    self.cashChange.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
                 }
                 if let cf = self.company.advancedStats?.currentDebt {
                     self.debt.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
                 }
                 if let cf = self.company.advancedStats?.revenue {
                     self.revenue.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let cf = self.company.income?.operatingExpense {
-                    self.opex.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let cf = self.company.income?.operatingIncome {
-                    self.opinc.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let cf = self.company.income?.researchAndDevelopment {
-                    self.research.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
-                }
-                if let cf = self.company.cashflow?.capitalExpenditures {
-                    self.capex.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
                 }
                 if let cf = self.company.advancedStats?.ebitda {
                     self.ebitda.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
