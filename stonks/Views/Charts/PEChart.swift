@@ -117,8 +117,8 @@ class PEChart: CombinedChartView {
                 //data.barData.barWidth = 0.1
                 //self.rightAxis.axisMaximum = data.barData.yMax * 2
                 self.xAxis.axisMaximum = data.xMax + 0.5
-                let tenPercentRange = (data.yMax - data.yMin)*0.2
-                self.leftAxis.axisMaximum = data.yMax + tenPercentRange
+                let percentRange = (data.yMax - data.yMin)*0.2
+                self.leftAxis.axisMaximum = data.yMax + percentRange
                 self.data = data
                 self.notifyDataSetChanged()
             }

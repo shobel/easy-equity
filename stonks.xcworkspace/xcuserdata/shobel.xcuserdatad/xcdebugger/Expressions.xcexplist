@@ -1013,6 +1013,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "IncomeChart.stringForValue(_:axis:):IncomeChart.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in IncomeChart.setChartData():IncomeChart.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "data.yMin">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "static Company.== infix(_:_:):Company.swift">
          <PersistentStrings>
             <PersistentString

@@ -2070,7 +2070,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xTu-kp-oSO">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="405"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="460"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FINANCIALS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8j-t2-5pL">
                                         <rect key="frame" x="0.0" y="5" width="375" height="25"/>
@@ -2434,20 +2434,35 @@
                                         </constraints>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eds-9K-gi1" customClass="ShadowView" customModule="Bullfrog" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="205" width="335" height="200"/>
+                                        <rect key="frame" x="20" y="210" width="335" height="250"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VYW-yF-mRJ" customClass="CardView" customModule="Bullfrog" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="335" height="200"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="335" height="250"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HEg-rr-t7Q" customClass="CashflowChart" customModule="Bullfrog" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="200"/>
+                                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="OSr-JT-Fyn">
+                                                        <rect key="frame" x="20" y="5" width="295" height="32"/>
+                                                        <segments>
+                                                            <segment title="REVENUE"/>
+                                                            <segment title="NET INCOME"/>
+                                                            <segment title="OP INCOME"/>
+                                                        </segments>
+                                                        <color key="selectedSegmentTintColor" red="0.91559165720000002" green="0.0" blue="0.38039642569999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <connections>
+                                                            <action selector="incomeChartModeChanged:" destination="0KJ-G2-X1t" eventType="valueChanged" id="UXQ-E4-4HE"/>
+                                                        </connections>
+                                                    </segmentedControl>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HEg-rr-t7Q" customClass="IncomeChart" customModule="Bullfrog" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="41" width="335" height="209"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
-                                                    <constraint firstItem="HEg-rr-t7Q" firstAttribute="top" secondItem="VYW-yF-mRJ" secondAttribute="top" id="BEv-Pq-Oqi"/>
+                                                    <constraint firstAttribute="trailing" secondItem="OSr-JT-Fyn" secondAttribute="trailing" constant="20" symbolic="YES" id="8pw-kx-UWT"/>
                                                     <constraint firstAttribute="bottom" secondItem="HEg-rr-t7Q" secondAttribute="bottom" id="Kyc-B0-Whx"/>
+                                                    <constraint firstItem="OSr-JT-Fyn" firstAttribute="leading" secondItem="VYW-yF-mRJ" secondAttribute="leading" constant="20" symbolic="YES" id="Ph6-TU-DnG"/>
+                                                    <constraint firstItem="HEg-rr-t7Q" firstAttribute="top" secondItem="OSr-JT-Fyn" secondAttribute="bottom" constant="5" id="Qqo-IQ-lIm"/>
+                                                    <constraint firstItem="OSr-JT-Fyn" firstAttribute="top" secondItem="VYW-yF-mRJ" secondAttribute="top" constant="5" id="Ulq-u5-Q24"/>
                                                     <constraint firstItem="HEg-rr-t7Q" firstAttribute="leading" secondItem="VYW-yF-mRJ" secondAttribute="leading" id="WFP-MI-I2k"/>
                                                     <constraint firstAttribute="trailing" secondItem="HEg-rr-t7Q" secondAttribute="trailing" id="hML-l8-Cmx"/>
                                                 </constraints>
@@ -2459,7 +2474,7 @@
                                             <constraint firstAttribute="bottom" secondItem="VYW-yF-mRJ" secondAttribute="bottom" id="cj9-yK-G13"/>
                                             <constraint firstItem="VYW-yF-mRJ" firstAttribute="top" secondItem="Eds-9K-gi1" secondAttribute="top" id="fBy-HP-7YZ"/>
                                             <constraint firstAttribute="trailing" secondItem="VYW-yF-mRJ" secondAttribute="trailing" id="hcy-ph-yw5"/>
-                                            <constraint firstAttribute="height" constant="200" id="onq-9p-Idz"/>
+                                            <constraint firstAttribute="height" constant="250" id="onq-9p-Idz"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -2473,7 +2488,7 @@
                                     <constraint firstItem="Uct-OH-gsw" firstAttribute="top" secondItem="S8j-t2-5pL" secondAttribute="bottom" id="Tqy-0C-2N8"/>
                                     <constraint firstAttribute="trailing" secondItem="Uct-OH-gsw" secondAttribute="trailing" id="VO3-T5-e79"/>
                                     <constraint firstAttribute="bottom" secondItem="Eds-9K-gi1" secondAttribute="bottom" id="i8c-oE-cWD"/>
-                                    <constraint firstItem="Eds-9K-gi1" firstAttribute="top" secondItem="Uct-OH-gsw" secondAttribute="bottom" constant="10" id="ibC-sg-Vbo"/>
+                                    <constraint firstItem="Eds-9K-gi1" firstAttribute="top" secondItem="Uct-OH-gsw" secondAttribute="bottom" constant="15" id="ibC-sg-Vbo"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -2489,10 +2504,11 @@
                         <outlet property="capex" destination="h8m-zo-0qo" id="70G-eq-xgm"/>
                         <outlet property="cashChange" destination="eYa-UY-iqi" id="0NN-SE-RL5"/>
                         <outlet property="cashFlow" destination="4tM-En-J8i" id="UuX-fN-Ofv"/>
-                        <outlet property="cashflowChart" destination="HEg-rr-t7Q" id="x5e-Xh-17F"/>
+                        <outlet property="chartSegmentedControl" destination="OSr-JT-Fyn" id="ZrO-3t-m6Y"/>
                         <outlet property="contentView" destination="xTu-kp-oSO" id="JW1-fA-GZC"/>
                         <outlet property="debt" destination="OMX-71-noC" id="bwh-I1-snL"/>
                         <outlet property="ebitda" destination="qOk-jI-gIn" id="QQf-nj-Qnz"/>
+                        <outlet property="incomeChart" destination="HEg-rr-t7Q" id="Q1i-eK-SO3"/>
                         <outlet property="netIncome" destination="zqF-uW-cI7" id="u4z-Ey-PBb"/>
                         <outlet property="opex" destination="xBo-LJ-ped" id="DmI-Td-AHr"/>
                         <outlet property="opinc" destination="YtB-V3-bdQ" id="CJ0-tz-Num"/>

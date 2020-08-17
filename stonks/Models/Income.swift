@@ -17,6 +17,9 @@ struct Income: Mappable {
     public var costOfRevenue:Int?
     public var operatingExpense:Int?
     public var operatingIncome:Int?
+    public var netIncome:Int?
+    public var grossProfit:Int?
+    public var totalRevenue:Int?
     
     init(){}
     init?(map: Map) {}
@@ -28,6 +31,9 @@ struct Income: Mappable {
         operatingIncome <- map["operatingIncome"]
         researchAndDevelopment <- map["researchAndDevelopment"]
         operatingExpense <- map["operatingExpense"]
+        netIncome <- map["netIncome"]
+        grossProfit <- map["grossProfit"]
+        totalRevenue <- map["totalRevenue"]
     }
     
 }

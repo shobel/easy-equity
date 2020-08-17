@@ -24,13 +24,19 @@ class FinancialsViewController: UIViewController, StatsVC {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var profitMargin: FormattedNumberLabel!
     
-    @IBOutlet weak var cashflowChart: CashflowChart!
+    @IBOutlet weak var incomeChart: IncomeChart!
+    @IBOutlet weak var chartSegmentedControl: UISegmentedControl!
     
     private var company:Company!
     private var isLoaded = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.chartSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
+        let font = UIFont(name: "Futura", size: 10)!
+        self.chartSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
+
         self.isLoaded = true
         self.company = Dataholder.selectedCompany!
         updateData()
@@ -73,7 +79,7 @@ class FinancialsViewController: UIViewController, StatsVC {
                         self.research.setValue(value: String(cf), format: FormattedNumberLabel.Format.NUMBER)
                     }
                     
-                    self.cashflowChart.setup(company: self.company, financialDelegate: self)
+                    self.incomeChart.setup(company: self.company, financialDelegate: self)
                 }
                 if let tc = self.company.advancedStats?.totalCash {
                     self.totalCash.setValue(value: String(tc), format: FormattedNumberLabel.Format.NUMBER)
@@ -93,6 +99,10 @@ class FinancialsViewController: UIViewController, StatsVC {
 
             }
         }
+    }
+    
+    @IBAction func incomeChartModeChanged(_ sender: Any) {
+        self.incomeChart.changeChartMode(chartMode: self.chartSegmentedControl.titleForSegment(at: self.chartSegmentedControl.selectedSegmentIndex)!)
     }
     
     func getContentHeight() -> CGFloat {
