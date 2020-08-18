@@ -55,23 +55,31 @@ class IncomeChart: BarChartView {
              
     private func setChartData(){
         self.xLabels = []
+        var colors:[UIColor] = []
         if let inc = self.company.income {
             let inc = Array(inc.reversed())
             var barChartEntries:[BarChartDataEntry] = []
             for i in 0..<inc.count {
                 let incomeEntry = inc[i]
+                var val:Int = 0
                 self.xLabels.append(incomeEntry.reportDate!)
                 if self.chartMode == ChartMode.NETINCOME {
-                    barChartEntries.append(BarChartDataEntry(x: Double(i), y: Double(incomeEntry.netIncome!)))
+                    val = incomeEntry.netIncome!
                 } else if self.chartMode == ChartMode.OPERATINGINCOME {
-                    barChartEntries.append(BarChartDataEntry(x: Double(i), y: Double(incomeEntry.operatingIncome!)))
+                    val = incomeEntry.operatingIncome!
                 } else if self.chartMode == ChartMode.REVENUE{
-                    barChartEntries.append(BarChartDataEntry(x: Double(i), y: Double(incomeEntry.totalRevenue!)))
+                    val = incomeEntry.totalRevenue!
+                }
+                barChartEntries.append(BarChartDataEntry(x: Double(i), y: Double(val)))
+                if val > 0 {
+                    colors.append(Constants.green)
+                } else {
+                    colors.append(Constants.darkPink)
                 }
             }
             
             let set = BarChartDataSet(entries: barChartEntries)
-            set.setColor(Constants.blue)
+            set.colors = colors
             self.configureDataSet(dataset: set, label: "Income")
             
             DispatchQueue.main.async {

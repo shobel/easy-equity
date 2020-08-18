@@ -9,11 +9,6 @@
 import UIKit
 
 class GeneralInfoViewController: UIViewController, StatsVC {
-
-    @IBOutlet weak var sector: UILabel!
-    @IBOutlet weak var industry: UILabel!
-    @IBOutlet weak var exchange: UILabel!
-    @IBOutlet weak var descrip: UILabel!
     
     @IBOutlet weak var contentView: UIView!
     
@@ -31,10 +26,7 @@ class GeneralInfoViewController: UIViewController, StatsVC {
         self.company = Dataholder.selectedCompany!
         if (isLoaded) {
             DispatchQueue.main.async {
-                self.sector.text = self.company.generalInfo?.sector
-                self.industry.text = self.company.generalInfo?.industry
-                self.exchange.text = self.company.generalInfo?.exchange
-                self.descrip.text = self.company.generalInfo?.description
+
             }
         }
     }

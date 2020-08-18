@@ -25,6 +25,8 @@
 		1C4D2D9224E8921200E54EB8 /* RatingsChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D9124E8921200E54EB8 /* RatingsChart.swift */; };
 		1C4D2D9424EA552800E54EB8 /* IncomeChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D9324EA552800E54EB8 /* IncomeChart.swift */; };
 		1C4D2D9624EB174500E54EB8 /* BigNumberAxisFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D9524EB174500E54EB8 /* BigNumberAxisFormatter.swift */; };
+		1C4D2D9824EBB60500E54EB8 /* BrainSentiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D9724EBB60500E54EB8 /* BrainSentiment.swift */; };
+		1C4D2D9A24EBBD9C00E54EB8 /* Kscore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D9924EBBD9C00E54EB8 /* Kscore.swift */; };
 		1C4EF3612329598D000299E6 /* InterpolateColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EF3602329598D000299E6 /* InterpolateColor.swift */; };
 		1C4EF364232AACAF000299E6 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EF363232AACAF000299E6 /* NewsViewController.swift */; };
 		1C545211216AA4B90064239E /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545210216AA4B90064239E /* GradientButton.swift */; };
@@ -147,6 +149,8 @@
 		1C4D2D9124E8921200E54EB8 /* RatingsChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingsChart.swift; sourceTree = "<group>"; };
 		1C4D2D9324EA552800E54EB8 /* IncomeChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeChart.swift; sourceTree = "<group>"; };
 		1C4D2D9524EB174500E54EB8 /* BigNumberAxisFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigNumberAxisFormatter.swift; sourceTree = "<group>"; };
+		1C4D2D9724EBB60500E54EB8 /* BrainSentiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainSentiment.swift; sourceTree = "<group>"; };
+		1C4D2D9924EBBD9C00E54EB8 /* Kscore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kscore.swift; sourceTree = "<group>"; };
 		1C4EF3602329598D000299E6 /* InterpolateColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpolateColor.swift; sourceTree = "<group>"; };
 		1C4EF363232AACAF000299E6 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		1C545210216AA4B90064239E /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
@@ -405,6 +409,8 @@
 				1C4D2D8324E3D6F800E54EB8 /* CashFlow.swift */,
 				1C4D2D8524E3D75D00E54EB8 /* Income.swift */,
 				1C4D2D8724E3DA2400E54EB8 /* Insider.swift */,
+				1C4D2D9724EBB60500E54EB8 /* BrainSentiment.swift */,
+				1C4D2D9924EBBD9C00E54EB8 /* Kscore.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -769,6 +775,7 @@
 				1CD11942216DD73C000AE02E /* StockDetailsSummaryView.swift in Sources */,
 				1CB257252172C292008E3D4D /* WatchlistManager.swift in Sources */,
 				1C6936BC21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift in Sources */,
+				1C4D2D9824EBB60500E54EB8 /* BrainSentiment.swift in Sources */,
 				1C72349A230CF34500319D7F /* GeneralInfoViewController.swift in Sources */,
 				1C72349C230CF43200319D7F /* KeyStatsViewController.swift in Sources */,
 				1CB257292173B8A5008E3D4D /* Configuration.swift in Sources */,
@@ -782,6 +789,7 @@
 				1C6B5F2024026A7E008E2C22 /* ShadowView.swift in Sources */,
 				1C7B98862161949A00C75014 /* Dataholder.swift in Sources */,
 				1CB3D61A231DA0A400D6F57C /* Estimates.swift in Sources */,
+				1C4D2D9A24EBBD9C00E54EB8 /* Kscore.swift in Sources */,
 				1C4D2D9024E88C3800E54EB8 /* MarketNewsTableView.swift in Sources */,
 				1C2AC8622177B9A400469941 /* WatchlistVC.swift in Sources */,
 				1C4EF364232AACAF000299E6 /* NewsViewController.swift in Sources */,
