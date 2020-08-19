@@ -217,6 +217,24 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
+    public func getPremiumData(symbol:String, completionHandler: @escaping (Kscore, BrainSentiment)->Void){
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/premium/all/" + symbol, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            let kscoresJSON = json["kscore"].rawString()!
+            var kscore:Kscore = Kscore()
+            if let k = Mapper<Kscore>().map(JSONString: kscoresJSON){
+                kscore = k
+            }
+            let brainSentimentJSON = json["brainSentiment"].rawString()!
+            var brainSentiment:BrainSentiment = BrainSentiment()
+            if let b = Mapper<BrainSentiment>().map(JSONString: brainSentimentJSON){
+                brainSentiment = b
+            }
+            completionHandler(kscore, brainSentiment)
+        }
+    }
+    
     public func getTop10s(completionHandler: @escaping (Top10s)->Void){
         let queryURL = buildQuery(url: apiurl + marketEndpoint + "/top10", params: [:])
         self.getRequest(queryURL: queryURL) { (data) in

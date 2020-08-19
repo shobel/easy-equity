@@ -27,6 +27,7 @@
 		1C4D2D9624EB174500E54EB8 /* BigNumberAxisFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D9524EB174500E54EB8 /* BigNumberAxisFormatter.swift */; };
 		1C4D2D9824EBB60500E54EB8 /* BrainSentiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D9724EBB60500E54EB8 /* BrainSentiment.swift */; };
 		1C4D2D9A24EBBD9C00E54EB8 /* Kscore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D9924EBBD9C00E54EB8 /* Kscore.swift */; };
+		1C4D2D9C24EC414700E54EB8 /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D9B24EC414700E54EB8 /* CustomProgressView.swift */; };
 		1C4EF3612329598D000299E6 /* InterpolateColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EF3602329598D000299E6 /* InterpolateColor.swift */; };
 		1C4EF364232AACAF000299E6 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4EF363232AACAF000299E6 /* NewsViewController.swift */; };
 		1C545211216AA4B90064239E /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545210216AA4B90064239E /* GradientButton.swift */; };
@@ -53,7 +54,7 @@
 		1C6FF97D23261C74005AE40D /* FinancialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6FF97C23261C74005AE40D /* FinancialsViewController.swift */; };
 		1C6FF9832328E26B005AE40D /* IconItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6FF9822328E26B005AE40D /* IconItem.swift */; };
 		1C6FF9852328E6FE005AE40D /* IconPagingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6FF9842328E6FE005AE40D /* IconPagingCell.swift */; };
-		1C72349A230CF34500319D7F /* GeneralInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C723499230CF34500319D7F /* GeneralInfoViewController.swift */; };
+		1C72349A230CF34500319D7F /* PremiumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C723499230CF34500319D7F /* PremiumViewController.swift */; };
 		1C72349C230CF43200319D7F /* KeyStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72349B230CF43200319D7F /* KeyStatsViewController.swift */; };
 		1C72F90A24CA4FFD00EC59F6 /* UserAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F90924CA4FFD00EC59F6 /* UserAccountViewController.swift */; };
 		1C72F90C24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F90B24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift */; };
@@ -151,6 +152,7 @@
 		1C4D2D9524EB174500E54EB8 /* BigNumberAxisFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigNumberAxisFormatter.swift; sourceTree = "<group>"; };
 		1C4D2D9724EBB60500E54EB8 /* BrainSentiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainSentiment.swift; sourceTree = "<group>"; };
 		1C4D2D9924EBBD9C00E54EB8 /* Kscore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kscore.swift; sourceTree = "<group>"; };
+		1C4D2D9B24EC414700E54EB8 /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
 		1C4EF3602329598D000299E6 /* InterpolateColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpolateColor.swift; sourceTree = "<group>"; };
 		1C4EF363232AACAF000299E6 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		1C545210216AA4B90064239E /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
@@ -177,7 +179,7 @@
 		1C6FF97C23261C74005AE40D /* FinancialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialsViewController.swift; sourceTree = "<group>"; };
 		1C6FF9822328E26B005AE40D /* IconItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconItem.swift; sourceTree = "<group>"; };
 		1C6FF9842328E6FE005AE40D /* IconPagingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconPagingCell.swift; sourceTree = "<group>"; };
-		1C723499230CF34500319D7F /* GeneralInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoViewController.swift; sourceTree = "<group>"; };
+		1C723499230CF34500319D7F /* PremiumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumViewController.swift; sourceTree = "<group>"; };
 		1C72349B230CF43200319D7F /* KeyStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyStatsViewController.swift; sourceTree = "<group>"; };
 		1C72F90924CA4FFD00EC59F6 /* UserAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountViewController.swift; sourceTree = "<group>"; };
 		1C72F90B24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top10CollectionViewCell.swift; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 				1C4D2D8B24E7911A00E54EB8 /* SimpleColoredLabel.swift */,
 				1C4D2D8D24E797E000E54EB8 /* ColoredComparisonLabel.swift */,
 				1C4D2D8F24E88C3800E54EB8 /* MarketNewsTableView.swift */,
+				1C4D2D9B24EC414700E54EB8 /* CustomProgressView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -453,7 +456,7 @@
 				1C183F90216D59F90042F52C /* StockDetailsVC.swift */,
 				1C183F92216D5D2A0042F52C /* DemoBaseViewController.swift */,
 				1C2AC8672183D7C500469941 /* LaunchVC.swift */,
-				1C723499230CF34500319D7F /* GeneralInfoViewController.swift */,
+				1C723499230CF34500319D7F /* PremiumViewController.swift */,
 				1C72349B230CF43200319D7F /* KeyStatsViewController.swift */,
 				1CCA7E382313853F0033AC58 /* PredictionsViewController.swift */,
 				1C6FF9782325F974005AE40D /* AdvancedStatsViewController.swift */,
@@ -776,7 +779,7 @@
 				1CB257252172C292008E3D4D /* WatchlistManager.swift in Sources */,
 				1C6936BC21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift in Sources */,
 				1C4D2D9824EBB60500E54EB8 /* BrainSentiment.swift in Sources */,
-				1C72349A230CF34500319D7F /* GeneralInfoViewController.swift in Sources */,
+				1C72349A230CF34500319D7F /* PremiumViewController.swift in Sources */,
 				1C72349C230CF43200319D7F /* KeyStatsViewController.swift in Sources */,
 				1CB257292173B8A5008E3D4D /* Configuration.swift in Sources */,
 				1CCBD05D24CC327200B43C9D /* Skype.swift in Sources */,
@@ -790,6 +793,7 @@
 				1C7B98862161949A00C75014 /* Dataholder.swift in Sources */,
 				1CB3D61A231DA0A400D6F57C /* Estimates.swift in Sources */,
 				1C4D2D9A24EBBD9C00E54EB8 /* Kscore.swift in Sources */,
+				1C4D2D9C24EC414700E54EB8 /* CustomProgressView.swift in Sources */,
 				1C4D2D9024E88C3800E54EB8 /* MarketNewsTableView.swift in Sources */,
 				1C2AC8622177B9A400469941 /* WatchlistVC.swift in Sources */,
 				1C4EF364232AACAF000299E6 /* NewsViewController.swift in Sources */,

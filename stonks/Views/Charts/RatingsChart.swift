@@ -71,7 +71,7 @@ class RatingsChart: BarChartView {
             set.colors = [
                 UIColor(red: 70.0/255.0, green: 180.0/255.0, blue: 88.0/255.0, alpha: 1.0),
                 UIColor(red: 164.0/255.0, green: 217.0/255.0, blue: 51.0/255.0, alpha: 1.0),
-                UIColor(red: 230.0/255.0, green: 225.0/255.0, blue: 37.0/255.0, alpha: 1.0),
+                Constants.yellow,
                 UIColor(red: 238.0/255.0, green: 143.0/255.0, blue: 29.0/255.0, alpha: 1.0),
                 Constants.darkPink
             ]

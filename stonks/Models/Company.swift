@@ -44,6 +44,9 @@ class Company: Equatable, Comparable {
 
     public var analystsRating:AnalystsRating?
     
+    public var kscores:Kscore?
+    public var brainSentiment:BrainSentiment?
+    
     public var daysToER:Int {
         if let erDate = earningsDate {
             var calendar = Calendar.current

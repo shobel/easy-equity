@@ -71,7 +71,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     private var earningsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "EarningsVC")
     private var financialsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FinVC")
     private var predictionsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PredictionsVC")
-    private var companyVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "InfoVC")
+    private var premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumVC")
     
     private var stockUpdater:StockDataTask?
     private var pageVC: PagingViewController!
@@ -101,7 +101,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.stockUpdater?.startTask()
         
         self.pageVCList = [
-            self.keyStatsVC, self.newsVC, self.financialsVC, self.earningsVC, self.predictionsVC, self.companyVC
+            self.keyStatsVC, self.newsVC, self.financialsVC, self.earningsVC, self.predictionsVC, self.premiumVC
         ]
         
         pageVC = PagingViewController()
@@ -151,7 +151,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         latestQuote = company.quote
         //setup price info that will need to be updated each time quote is retreived
         if (latestQuote != nil){
-            setTopBarValues(startPrice: 0.0, endPrice: latestQuote.latestPrice!, selected: false)
+            //setTopBarValues(startPrice: 0.0, endPrice: latestQuote.latestPrice!, selected: false)
         }
         
         //load charts
@@ -166,8 +166,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         
         //start information retrieval processes
         self.totalHandlers = 2
-        if !Constants.locked {
-            
+        if Constants.subscriber {
+            self.totalHandlers += 1
+            NetworkManager.getMyRestApi().getPremiumData(symbol: company.symbol, completionHandler: handlePremiumData)
         }
         NetworkManager.getMyRestApi().getAllFreeData(symbol: company.symbol, completionHandler: handleAllData)
         NetworkManager.getMyRestApi().getNonIntradayChart(symbol: company.symbol, timeframe: .weekly, completionHandler: self.handleWeeklyChart)
@@ -213,8 +214,13 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.isMarketOpen = quote.isUSMarketOpen!
         self.latestQuote = quote
         DispatchQueue.main.async {
+            let chartData = self.chartView.getChartData(candleMode: self.candleMode)
             self.setVolumeValues(averageVolume: Double(quote.avgTotalVolume ?? 0), totalVol: Double(quote.latestVolume ?? 0))
-            self.setTopBarValues(startPrice: 0.0, endPrice: self.latestQuote.latestPrice!, selected: false)
+            if self.timeInterval == Constants.TimeIntervals.day {
+                self.setTopBarValues(startPrice: self.latestQuote.previousClose ?? chartData[0].close!, endPrice: self.latestQuote.latestPrice!, selected: false)
+            } else {
+                self.setTopBarValues(startPrice: chartData[0].close!, endPrice: self.latestQuote.latestPrice!, selected: false)
+            }
             self.set52wSlider(quote: quote, price: quote.latestPrice!)
             if let pvc = self.predictionsVC as? PredictionsViewController {
                 if pvc.isViewLoaded {
@@ -321,6 +327,15 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.totalVol.text = String("TODAY'S VOLUME: \(NumberFormatter.formatNumber(num: totalVol))")
     }
     
+    private func handlePremiumData(kscores: Kscore, brainSentiment: BrainSentiment) {
+        self.company.kscores = kscores
+        self.company.brainSentiment = brainSentiment
+        let premiumVC = self.premiumVC as! StatsVC
+        premiumVC.updateData()
+        self.incrementLoadingProgress()
+
+    }
+    
     private func handleAllData(generalInfo: GeneralInfo, keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], income: [Income], estimates: Estimates, insiders: [Insider]){
         self.company.generalInfo = generalInfo
         self.company.keyStats = keystats
@@ -344,28 +359,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         financialsVC.updateData()
         let predictionsVC = self.predictionsVC as! StatsVC
         predictionsVC.updateData()
-        let companyVC = self.companyVC as! StatsVC
-        companyVC.updateData()
         
-        self.incrementLoadingProgress()
-    }
-    
-    //handles the description, ceo, and logo
-    private func handleCompanyData(_ generalInfo: GeneralInfo){
-        self.company.generalInfo = generalInfo
-        let url = URL(string: generalInfo.logo!)
-        let data = try? Data(contentsOf: url!)
-        
-        if let imageData = data {
-            updateUI {
-                self.stockDetailsNavView.logo.contentMode = .scaleAspectFit
-                self.stockDetailsNavView.logo.image = UIImage(data: imageData)
-            }
-        }
-        let x = self.companyVC as! StatsVC
-        x.updateData()
-        
-        print("\(self.handlersDone) company data done")
         self.incrementLoadingProgress()
     }
     
@@ -531,7 +525,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         totalDateAndVolumeView.isHidden = false
         chartView.highlightValue(nil)
         let chartData = self.chartView.getChartData(candleMode: self.candleMode)
-        setTopBarValues(startPrice: chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
+        
+        if self.timeInterval == Constants.TimeIntervals.day {
+            setTopBarValues(startPrice: latestQuote.previousClose ?? chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
+        } else {
+            setTopBarValues(startPrice: chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
+        }
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
@@ -687,7 +686,11 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     private func timeButtonPressed(_ button: UIButton, chartData: [Candle], timeInterval: Constants.TimeIntervals){
         self.timeInterval = timeInterval
         if chartData.count > 0 {
-            setTopBarValues(startPrice: chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
+            if self.timeInterval == Constants.TimeIntervals.day {
+                setTopBarValues(startPrice: latestQuote.previousClose ?? chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
+            } else {
+                setTopBarValues(startPrice: chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
+            }
         }
         if self.timeInterval != Constants.TimeIntervals.day {
             self.toggleSmasButton.isHidden = false
