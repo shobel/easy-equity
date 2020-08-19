@@ -32,6 +32,11 @@ class KeyStatsViewController: UIViewController, StatsVC {
     @IBOutlet weak var de: FormattedNumberLabel!
     @IBOutlet weak var evrev: FormattedNumberLabel!
     
+    @IBOutlet weak var ceo: UILabel!
+    @IBOutlet weak var hq: UILabel!
+    @IBOutlet weak var website: UILabel!
+    @IBOutlet weak var sector: UILabel!
+    @IBOutlet weak var employees: UILabel!
     
     private var company:Company!
     private var isLoaded = false
@@ -95,7 +100,21 @@ class KeyStatsViewController: UIViewController, StatsVC {
                 if let x = self.company.advancedStats?.enterpriseValue {
                     self.evLabel.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
                 }
-
+                if let x = self.company.generalInfo?.ceo {
+                    self.ceo.text = x
+                }
+                if let x = self.company.generalInfo?.city, let y = self.company.generalInfo?.state {
+                    self.hq.text = String("\(x), \(y)")
+                }
+                if let x = self.company.generalInfo?.sector {
+                    self.sector.text = x
+                }
+                if let x = self.company.generalInfo?.website {
+                    self.website.text = x
+                }
+                if let x = self.company.generalInfo?.employees {
+                    self.employees.text = String(x)
+                }
             }
         }
     }

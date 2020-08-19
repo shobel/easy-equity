@@ -16,6 +16,7 @@ struct GeneralInfo: Mappable {
     public var companyName:String? //Apple Inc.
     public var exchange:String? //NASDAQ
     public var industry:String? //Telecomms
+    public var city:String?
     public var state:String?
     public var country:String?
     public var website:String?
@@ -24,6 +25,7 @@ struct GeneralInfo: Mappable {
     public var securityName:String? //Apple Inc.
     public var issueType:String? //cs
     public var sector:String? //Electronic Technology
+    public var employees:Int?
     public var tags:[String]?
     public var peers:[String]?
     
@@ -40,7 +42,9 @@ struct GeneralInfo: Mappable {
         exchange <- map["exchange"]
         industry <- map["industry"]
         website <- map["website"]
-        ceo <- map["ceo"]
+        employees <- map["employees"]
+        ceo <- map["CEO"]
+        city <- map["city"]
         state <- map["state"]
         country <- map["country"]
         securityName <- map["securityName"]

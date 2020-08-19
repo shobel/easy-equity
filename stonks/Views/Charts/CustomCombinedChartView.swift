@@ -78,7 +78,7 @@ class CustomCombinedChartView: CombinedChartView {
         if self.stockDetailsDelegate!.timeInterval == Constants.TimeIntervals.day && candleMode {
             return self.myCandleDataTenMin!
         }
-        return self.myCandleData!
+        return self.myCandleData ?? []
     }
     
     public func setChartData(chartData:[Candle]){
@@ -304,7 +304,7 @@ class CustomCombinedChartView: CombinedChartView {
     
     private func setUpVolumeChart(set: BarChartDataSet){
         set.axisDependency = .right
-        set.setColor(Constants.fadedOrange)
+        set.setColor(Constants.fadedOrange.withAlphaComponent(0.25))
         set.highlightEnabled = false
         set.drawValuesEnabled = false
     }

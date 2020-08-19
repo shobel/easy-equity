@@ -22,8 +22,19 @@ class PredictionsViewController: UIViewController, StatsVC {
     @IBOutlet weak var updateDate: UILabel!
     
     @IBOutlet weak var overallRatingsView: UIView!
+    @IBOutlet weak var overallPercent: UILabel!
+    @IBOutlet weak var overallLabel: UILabel!
+    
     private var company:Company!
     private var isLoaded = false
+    
+    private var ratingBackgroundColors = [
+        UIColor(red: 70.0/255.0, green: 180.0/255.0, blue: 88.0/255.0, alpha: 1),
+        UIColor(red: 164.0/255.0, green: 217.0/255.0, blue: 51.0/255.0, alpha: 1),
+        UIColor(red: 206.0/255.0, green: 194.0/255.0, blue: 46.0/255.0, alpha: 1),
+        UIColor(red: 238.0/255.0, green: 143.0/255.0, blue: 29.0/255.0, alpha: 1),
+        Constants.darkPink
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,36 +68,36 @@ class PredictionsViewController: UIViewController, StatsVC {
             if let x = self.company.priceTarget?.updatedDate {
                 self.updateDate.text = NumberFormatter.formatDate(x)
             }
+            if let x = self.company.recommendations?.ratingScaleMark {
+                let overallPercentVal = (1 - ((x-1) / 2))*100
+                self.overallPercent.text = String("\(String(format: "%.0f", overallPercentVal))%")
+                var colorIndex:Int = 0
+                var overallText = ""
+                if x <= 1.25 {
+                    overallText = "Strong Buy"
+                    colorIndex = 0
+                } else if x <= 1.75 {
+                    overallText = "Buy"
+                    colorIndex = 1
+                } else if x <= 2.25 {
+                    overallText = "Hold"
+                    colorIndex = 2
+                } else if x <= 2.75 {
+                    overallText = "Sell"
+                    colorIndex = 3
+                } else if x <= 3 {
+                    overallText = "Strong Sell"
+                    colorIndex = 4
+                }
+                let labelColor:UIColor = self.ratingBackgroundColors[colorIndex]
+                let backgroundColor = labelColor.withAlphaComponent(0.2)
+                overallRatingsView.backgroundColor = backgroundColor
+                overallLabel.textColor = labelColor
+                overallPercent.textColor = labelColor
+                overallLabel.text = overallText
+            }
         }
-//        if (isLoaded){
-//            DispatchQueue.main.async {
-//                var numBuy = 0
-//                var numSell = 0
-//                var numHold = 0
-//                if let recommendations = self.company.recommendations {
-//                    numBuy += recommendations.ratingBuy! + recommendations.ratingOverweight!
-//                    numHold += recommendations.ratingHold!
-//                    numSell += recommendations.ratingUnderweight! + recommendations.ratingSell!
-//
-//                    self.company.totalBuy = numBuy
-//                    self.company.totalHold = numHold
-//                    self.company.totalSell = numSell
-//                }
-//                self.numBuys.setValue(value: String(numBuy), format: FormattedNumberLabel.Format.NUMBER)
-//                self.numHolds.setValue(value: String(numHold), format: FormattedNumberLabel.Format.NUMBER)
-//                self.numSells.setValue(value: String(numSell), format: FormattedNumberLabel.Format.NUMBER)
-//
-//                if let x = self.company.priceTarget?.priceTargetAverage {
-//                    self.priceTarget.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
-//                }
-//                if let x = self.company.priceTarget?.numberOfAnalysts {
-//                    self.numEstimatesPT.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
-//                }
-//                if let x = self.company.priceTarget?.updatedDate {
-//                    self.datePT.setValue(value: String(x), format: FormattedNumberLabel.Format.DATE)
-//                }
-//            }
-//        }
+
     }
     
     func getContentHeight() -> CGFloat {

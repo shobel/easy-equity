@@ -29,10 +29,7 @@ class RatingsChart: BarChartView {
         self.doubleTapToZoomEnabled = false
         self.autoScaleMinMaxEnabled = true
         
-        self.leftAxis.labelFont = UIFont(name: "Charter", size: 10)!
-        self.leftAxis.labelTextColor = UIColor.gray
         self.leftAxis.drawGridLinesEnabled = false
-        self.leftAxis.labelPosition = .outsideChart
         self.leftAxis.drawAxisLineEnabled = false
         self.leftAxis.enabled = false
         self.leftAxis.axisMinimum = 0.0
@@ -56,11 +53,11 @@ class RatingsChart: BarChartView {
          
     private func setChartData(){
         if let r = self.company.recommendations {
-            let buy = 12 //r.ratingBuy!
-            let overweight = 14 // r.ratingOverweight!
-            let hold = 10 //r.ratingHold!
-            let underweight =  9 //r.ratingUnderweight!
-            let sell = 7 //r.ratingSell!
+            let buy = r.ratingBuy!
+            let overweight = r.ratingOverweight!
+            let hold = r.ratingHold!
+            let underweight = r.ratingUnderweight!
+            let sell = r.ratingSell!
             let overall = r.ratingScaleMark!
             
             var barChartEntries:[BarChartDataEntry] = []
@@ -74,9 +71,9 @@ class RatingsChart: BarChartView {
             set.colors = [
                 UIColor(red: 70.0/255.0, green: 180.0/255.0, blue: 88.0/255.0, alpha: 1.0),
                 UIColor(red: 164.0/255.0, green: 217.0/255.0, blue: 51.0/255.0, alpha: 1.0),
-                UIColor(red: 206.0/255.0, green: 194.0/255.0, blue: 46.0/255.0, alpha: 1.0),
+                Constants.yellow,
                 UIColor(red: 238.0/255.0, green: 143.0/255.0, blue: 29.0/255.0, alpha: 1.0),
-                UIColor(red: 217.0/255.0, green: 58.0/255.0, blue: 51.0/255.0, alpha: 1.0)
+                Constants.darkPink
             ]
 
             set.barShadowColor = Constants.veryLightGrey
@@ -84,7 +81,7 @@ class RatingsChart: BarChartView {
             set.drawValuesEnabled = true
             set.highlightEnabled = false
             set.valueFormatter = self
-            set.valueFont = UIFont(name: "Charter", size: 10)!
+            set.valueFont = UIFont(name: "Futura-Bold", size: 12)!
             
             DispatchQueue.main.async {
                 let data = BarChartData(dataSet: set)
@@ -113,5 +110,4 @@ extension RatingsChart: IValueFormatter {
     func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
         return String(Int(value.rounded()))
     }
-
 }

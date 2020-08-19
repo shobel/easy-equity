@@ -21,21 +21,11 @@ class ColoredComparisonLabel: UILabel {
         return Constants.green
     }
     
-    func formatNumber(_ value:Double) -> String{
-        let dbl = value
-        let isInteger = floor(dbl) == dbl
-        if isInteger {
-            return String(Int(value.rounded()))
-        } else {
-            return String(format:"%.2f", value)
-        }
-    }
-    
     public func setValue(value: Double, comparisonValue: Double){
         let diff = value - comparisonValue
         self.textColor = getColor(diff)
-        let formattedValue = self.formatNumber(value)
-        let percentString = self.formatNumber((diff / comparisonValue) * 100.0)
+        let formattedValue = NumberFormatter.formatNumberWithPossibleDecimal(value)
+        let percentString = NumberFormatter.formatNumberWithPossibleDecimal((diff / comparisonValue) * 100.0)
         self.text = String("\(formattedValue) (\(percentString)%)")
     }
 

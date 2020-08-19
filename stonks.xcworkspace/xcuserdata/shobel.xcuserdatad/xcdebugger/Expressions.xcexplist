@@ -58,10 +58,18 @@
          contextName = "closure #1 in LoginViewController.loginButtonClicked(_:):LoginViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "Auth.auth().currentUser!.uid">
+               value = "err.localizedDescription">
             </PersistentString>
             <PersistentString
-               value = "err.localizedDescription">
+               value = "Auth.auth().currentUser!.uid">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "IncomeChart.setChartData():IncomeChart.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "entry.y">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -114,6 +122,9 @@
       <ContextState
          contextName = "PredictionsViewController.updateData():PredictionsViewController.swift">
          <PersistentStrings>
+            <PersistentString
+               value = "(x / 3)*100">
+            </PersistentString>
             <PersistentString
                value = "((x - latestPrice!) / latestPrice!)*100.0">
             </PersistentString>
@@ -261,13 +272,13 @@
          contextName = "EPSChart.setChartData(company:):EPSChart.swift">
          <PersistentStrings>
             <PersistentString
+               value = "company.earnings">
+            </PersistentString>
+            <PersistentString
                value = "UIImage(named: &quot;earnings_with_line&quot;)">
             </PersistentString>
             <PersistentString
                value = "company.estimates">
-            </PersistentString>
-            <PersistentString
-               value = "company.earnings">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -346,13 +357,13 @@
                value = "self.pagingView.bounds.height">
             </PersistentString>
             <PersistentString
+               value = "statsVC.getContentHeight()">
+            </PersistentString>
+            <PersistentString
                value = "self.pageVC.pageViewController.scrollView.contentSize.height">
             </PersistentString>
             <PersistentString
                value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
-            </PersistentString>
-            <PersistentString
-               value = "statsVC.getContentHeight()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -509,10 +520,10 @@
          contextName = "closure #2 in StockDetailsVC.handleCompanyData(_:logo:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.contentViewHeightConstraint.multiplier">
+               value = "self.contentViewHeightConstraint.constant">
             </PersistentString>
             <PersistentString
-               value = "self.contentViewHeightConstraint.constant">
+               value = "self.contentViewHeightConstraint.multiplier">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -565,6 +576,14 @@
          <PersistentStrings>
             <PersistentString
                value = "shortDateUS.dateFormat">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CashflowChart.setChartData():CashflowChart.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Double(cashflowEntry.netIncome!)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -959,10 +978,10 @@
                value = "dateFormatter.string(from: date)">
             </PersistentString>
             <PersistentString
-               value = "dateFormatter.dateFormat = &quot;MMM d, yyyy&quot;">
+               value = "Date(timeIntervalSince1970: news.datetime!)">
             </PersistentString>
             <PersistentString
-               value = "Date(timeIntervalSince1970: news.datetime!)">
+               value = "dateFormatter.dateFormat = &quot;MMM d, yyyy&quot;">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -990,6 +1009,33 @@
             </PersistentString>
             <PersistentString
                value = "self.pageVC.view.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in FinancialsViewController.updateData():FinancialsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.company.cashflow">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "IncomeChart.stringForValue(_:axis:):IncomeChart.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in IncomeChart.setChartData():IncomeChart.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "data.yMin">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in PremiumViewController.updateData():PremiumViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Float(x)/9">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

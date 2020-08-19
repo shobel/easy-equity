@@ -17,8 +17,8 @@ class Company: Equatable, Comparable {
     public var keyStats:KeyStats?
     public var earnings:[Earnings]?
     public var estimates:Estimates?
-    public var cashflow:CashFlow?
-    public var income:Income?
+    public var cashflow:[CashFlow]?
+    public var income:[Income]?
     
     public var recommendations:Recommendations?
     public var totalBuy:Int?
@@ -43,6 +43,9 @@ class Company: Equatable, Comparable {
     public var sma200:[DatedValue] = []
 
     public var analystsRating:AnalystsRating?
+    
+    public var kscores:Kscore?
+    public var brainSentiment:BrainSentiment?
     
     public var daysToER:Int {
         if let erDate = earningsDate {
