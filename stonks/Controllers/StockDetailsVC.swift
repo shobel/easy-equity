@@ -336,7 +336,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
 
     }
     
-    private func handleAllData(generalInfo: GeneralInfo, keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], income: [Income], estimates: Estimates, insiders: [Insider]){
+    private func handleAllData(generalInfo: GeneralInfo, keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], income: [Income], estimates: Estimates, insiders: [Insider], priceTargetTopAnalysts: PriceTargetTopAnalysts?){
         self.company.generalInfo = generalInfo
         self.company.keyStats = keystats
         self.company.news = news
@@ -348,6 +348,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.company.advancedStats = advancedStats
         self.company.insiders = insiders
         self.company.estimates = estimates
+        self.company.priceTargetTopAnalysts = priceTargetTopAnalysts
     
         let keystatsVC = self.keyStatsVC as! StatsVC
         keystatsVC.updateData()
@@ -363,10 +364,10 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.incrementLoadingProgress()
     }
     
-    private func adjustContentHeight(vc: UIViewController){
+    public func adjustContentHeight(vc: UIViewController){
         DispatchQueue.main.async{
-            let statsVC = vc as! StatsVC
-            self.pagingViewHeightConstraint.constant = statsVC.getContentHeight() + 80
+            let currentVC = vc as! StatsVC
+            self.pagingViewHeightConstraint.constant = currentVC.getContentHeight() + 80
         }
     }
     
@@ -571,9 +572,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBAction func toggleSmasButtonTapped(_ sender: Any) {
         self.showSmas = !showSmas
         if showSmas {
-            self.toggleSmasButton.tintColor = Constants.darkPink
+            self.toggleSmasButton.setBackgroundImage(UIImage(named: "analytics"), for: .normal)
         } else {
-            self.toggleSmasButton.tintColor = Constants.darkGrey
+            self.toggleSmasButton.setBackgroundImage(UIImage(named: "analytics_grey"), for: .normal)
         }
         self.chartView.updateChart()
     }

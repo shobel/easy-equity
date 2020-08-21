@@ -74,6 +74,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in PredictionsViewController.changeMode(_:):PredictionsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.parent?.parent?.parent">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "EarningsViewController.updateData():EarningsViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -123,7 +131,7 @@
          contextName = "PredictionsViewController.updateData():PredictionsViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "(x / 3)*100">
+               value = "y/0.3">
             </PersistentString>
             <PersistentString
                value = "((x - latestPrice!) / latestPrice!)*100.0">
@@ -256,6 +264,9 @@
          contextName = "PEChart.setChartData(company:):PEChart.swift">
          <PersistentStrings>
             <PersistentString
+               value = "company.quote!">
+            </PersistentString>
+            <PersistentString
                value = "Date(candle.date)">
             </PersistentString>
          </PersistentStrings>
@@ -275,10 +286,10 @@
                value = "company.earnings">
             </PersistentString>
             <PersistentString
-               value = "UIImage(named: &quot;earnings_with_line&quot;)">
+               value = "company.estimates">
             </PersistentString>
             <PersistentString
-               value = "company.estimates">
+               value = "UIImage(named: &quot;earnings_with_line&quot;)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -360,10 +371,10 @@
                value = "statsVC.getContentHeight()">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
+               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
+               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -627,6 +638,26 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "CircularProgressView.setProgress(_:):CircularProgressView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "progress*100.0">
+            </PersistentString>
+            <PersistentString
+               value = "progress">
+            </PersistentString>
+            <PersistentString
+               value = "self.progressValueLabel">
+            </PersistentString>
+            <PersistentString
+               value = "self.progressValueLabel?.text">
+            </PersistentString>
+            <PersistentString
+               value = "Int((progress*100).rounded())">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "StockDetailsVC.handleSMA20(_:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -672,6 +703,37 @@
          <PersistentStrings>
             <PersistentString
                value = "self.company.advancedStats">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "StockDetailsVC.handleAllData(generalInfo:keystats:news:priceTarget:earnings:recommendations:advancedStats:cashflow:income:estimates:insiders:priceTargetTopAnalysts:):StockDetailsVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CircularProgressView.init(coder:):CircularProgressView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.center">
+            </PersistentString>
+            <PersistentString
+               value = "self.frame">
+            </PersistentString>
+            <PersistentString
+               value = "self.progressValueLabel!.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in CircularProgressView.progressValueLabel.getter:CircularProgressView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.frame">
+            </PersistentString>
+            <PersistentString
+               value = "self.frame.width">
+            </PersistentString>
+            <PersistentString
+               value = "label.center">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1044,6 +1106,14 @@
          <PersistentStrings>
             <PersistentString
                value = "lhs.generalInfo?.symbol == rhs.generalInfo?.symbol">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CircularProgressView.draw(_:):CircularProgressView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "progress">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

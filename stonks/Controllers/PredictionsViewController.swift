@@ -14,10 +14,6 @@ class PredictionsViewController: UIViewController, StatsVC {
     @IBOutlet weak var priceTargetChartView: PriceTargetChart!
     @IBOutlet weak var ratingsChartView: RatingsChart!
     
-    @IBOutlet weak var lowTarget: ColoredComparisonLabel!
-    @IBOutlet weak var avgTarget: ColoredComparisonLabel!
-    @IBOutlet weak var highTarget: ColoredComparisonLabel!
-    
     @IBOutlet weak var numAnalysts: UILabel!
     @IBOutlet weak var updateDate: UILabel!
     
@@ -25,8 +21,21 @@ class PredictionsViewController: UIViewController, StatsVC {
     @IBOutlet weak var overallPercent: UILabel!
     @IBOutlet weak var overallLabel: UILabel!
     
+    @IBOutlet weak var priceTargetContainerHeight: NSLayoutConstraint!
+    @IBOutlet weak var modeControl: UISegmentedControl!
+    @IBOutlet weak var accuracyLabel: UILabel!
+    @IBOutlet weak var avgReturnLabel: UILabel!
+    @IBOutlet weak var topAnalystSuccessRateView: CircularProgressView!
+    @IBOutlet weak var avgReturnView: CircularProgressView!
+
+    @IBOutlet weak var priceTargetChartTopConstraint: NSLayoutConstraint!
+    
     private var company:Company!
     private var isLoaded = false
+    
+    private var allMode:Bool = true
+    private var avgAnalystReturn:Double = 0.0
+    private var avgAnalystSuccessRate:Double = 0.0
     
     private var ratingBackgroundColors = [
         UIColor(red: 70.0/255.0, green: 180.0/255.0, blue: 88.0/255.0, alpha: 1),
@@ -40,31 +49,27 @@ class PredictionsViewController: UIViewController, StatsVC {
         super.viewDidLoad()
         self.company = Dataholder.selectedCompany!
         self.isLoaded = true
-        self.overallRatingsView.layer.cornerRadius = self.overallRatingsView.frame.width/2 + 5
+        self.overallRatingsView.layer.cornerRadius = self.overallRatingsView.frame.width/2
         self.overallRatingsView.layer.masksToBounds = true
         self.overallRatingsView.clipsToBounds = true
+        
+        self.accuracyLabel.alpha = 0
+        self.avgReturnLabel.alpha = 0
+        self.topAnalystSuccessRateView.alpha = 0
+        self.avgReturnView.alpha = 0
+        
+        self.topAnalystSuccessRateView.setProgress(0.0)
+        self.avgReturnView.setProgress(0.0)
+        
+        self.modeControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
+        
         updateData();
     }
     
     func updateData() {
         self.company = Dataholder.selectedCompany!
         if (isLoaded) {
-            self.priceTargetChartView.setup(company: self.company, predictionsDelegate: self)
             self.ratingsChartView.setup(company: self.company, predictionsDelegate: self)
-            let latestPrice = self.company.quote?.latestPrice
-            if let x = self.company.priceTarget?.priceTargetHigh {
-                self.highTarget.setValue(value: x, comparisonValue: latestPrice!)
-            }
-            if let x = self.company.priceTarget?.priceTargetAverage {
-                self.avgTarget.setValue(value: x, comparisonValue: latestPrice!)
-            }
-            if let x = self.company.priceTarget?.priceTargetLow {
-                self.lowTarget.setValue(value: x, comparisonValue: latestPrice!)
-            }
-            if let x = self.company.priceTarget?.numberOfAnalysts {
-                let analystString = x > 1 ? "analysts" : "analyst"
-                self.numAnalysts.text = String("\(x) \(analystString)")
-            }
             if let x = self.company.priceTarget?.updatedDate {
                 self.updateDate.text = NumberFormatter.formatDate(x)
             }
@@ -96,8 +101,52 @@ class PredictionsViewController: UIViewController, StatsVC {
                 overallPercent.textColor = labelColor
                 overallLabel.text = overallText
             }
+            var hasTipranksAnalysts:Bool = false
+            if let x = self.company.priceTargetTopAnalysts {
+                hasTipranksAnalysts = true
+                let sr = x.avgAnalystSuccessRate!
+                self.avgAnalystSuccessRate = sr
+                self.topAnalystSuccessRateView.setProgress(CGFloat(sr))
+                self.topAnalystSuccessRateView.setProgressColor(self.getTintColorForProgressValue(value: Float(sr)))
+    
+                let r = x.avgAnalystReturn!
+                self.avgAnalystReturn = r
+                self.avgReturnView.setProgressAndLabel(CGFloat(r/0.3), label: String(Int((r*100).rounded())) + "%")
+                self.avgReturnView.setProgressColor(self.getTintColorForReturnValue(value: Float(r)))
+            }
+            if let x = self.company.priceTarget?.numberOfAnalysts {
+                var n = x
+                if self.allMode {
+                    if hasTipranksAnalysts {
+                        n = x + (self.company.priceTargetTopAnalysts?.numAnalysts)!
+                    }
+                } else if !self.allMode && hasTipranksAnalysts {
+                    n = (self.company.priceTargetTopAnalysts?.numAnalysts)!
+                }
+                let analystString = n > 1 ? "analysts" : "analyst"
+                self.numAnalysts.text = String("\(n) \(analystString)")
+            }
+            self.priceTargetChartView.setup(company: self.company, predictionsDelegate: self, allMode: self.allMode)
         }
-
+    }
+    
+    func getTintColorForReturnValue(value:Float) -> UIColor {
+        if value > 0.3 {
+            return Constants.green
+        } else if value > 0.1 {
+            return Constants.yellow
+        } else {
+            return Constants.darkPink
+        }
+    }
+    func getTintColorForProgressValue(value:Float) -> UIColor {
+        if value > 0.7 {
+            return Constants.green
+        } else if value > 0.4 {
+            return Constants.yellow
+        } else {
+            return Constants.darkPink
+        }
     }
     
     func getContentHeight() -> CGFloat {
@@ -107,6 +156,49 @@ class PredictionsViewController: UIViewController, StatsVC {
         return 0.0
     }
     
+    func noTopAnalysts(){
+        modeControl.isHidden = true
+        accuracyLabel.isHidden = true
+        avgReturnLabel.isHidden = true
+        topAnalystSuccessRateView.isHidden = true
+        avgReturnView.isHidden = true
+        priceTargetChartTopConstraint.constant = 10
+        self.view.layoutIfNeeded()
+    }
+    
+    @IBAction func changeMode(_ sender: Any) {
+        self.allMode = !self.allMode
+        self.updateData()
+        UIView.animate(withDuration: 0.2) {
+            if self.allMode {
+                self.accuracyLabel.alpha = 0
+                self.avgReturnLabel.alpha = 0
+                self.topAnalystSuccessRateView.alpha = 0
+                self.avgReturnView.alpha = 0
+            
+                self.topAnalystSuccessRateView.setProgress(CGFloat(0.0))
+                self.avgReturnView.setProgressAndLabel(CGFloat(0.0), label: String(Int((self.avgAnalystReturn*100).rounded())) + "%")
+
+                self.priceTargetChartTopConstraint.constant = 60
+                self.priceTargetContainerHeight.constant = 300
+            } else {
+                self.accuracyLabel.alpha = 1
+                self.avgReturnLabel.alpha = 1
+                self.topAnalystSuccessRateView.alpha = 1
+                self.avgReturnView.alpha = 1
+            
+                self.topAnalystSuccessRateView.setProgress(CGFloat(self.avgAnalystSuccessRate))
+                self.avgReturnView.setProgressAndLabel(CGFloat(self.avgAnalystReturn/0.3), label: String(Int((self.avgAnalystReturn*100).rounded())) + "%")
+            
+                self.priceTargetChartTopConstraint.constant = 140
+                self.priceTargetContainerHeight.constant = 360
+            }
+            if let p = self.parent?.parent?.parent as? StockDetailsVC {
+                p.adjustContentHeight(vc: self)
+            }
+            self.view.layoutIfNeeded()
+        }
+    }
     
     /*
      // MARK: - Navigation
