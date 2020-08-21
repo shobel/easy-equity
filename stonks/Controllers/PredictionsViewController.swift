@@ -25,8 +25,19 @@ class PredictionsViewController: UIViewController, StatsVC {
     @IBOutlet weak var overallPercent: UILabel!
     @IBOutlet weak var overallLabel: UILabel!
     
+    @IBOutlet weak var priceTargetContainerHeight: NSLayoutConstraint!
+    @IBOutlet weak var modeControl: UISegmentedControl!
+    @IBOutlet weak var accuracyLabel: UILabel!
+    @IBOutlet weak var avgReturnLabel: UILabel!
+    @IBOutlet weak var breaker: UIView!
+    @IBOutlet weak var topAnalystSuccessRateView: CircularProgressView!
+    @IBOutlet weak var avgReturnView: CircularProgressView!
+    @IBOutlet weak var targetsStackTopConstraint: NSLayoutConstraint!
+    
     private var company:Company!
     private var isLoaded = false
+    
+    private var allMode:Bool = true
     
     private var ratingBackgroundColors = [
         UIColor(red: 70.0/255.0, green: 180.0/255.0, blue: 88.0/255.0, alpha: 1),
@@ -40,9 +51,11 @@ class PredictionsViewController: UIViewController, StatsVC {
         super.viewDidLoad()
         self.company = Dataholder.selectedCompany!
         self.isLoaded = true
-        self.overallRatingsView.layer.cornerRadius = self.overallRatingsView.frame.width/2 + 5
+        self.overallRatingsView.layer.cornerRadius = self.overallRatingsView.frame.width/2
         self.overallRatingsView.layer.masksToBounds = true
         self.overallRatingsView.clipsToBounds = true
+        self.topAnalystSuccessRateView.setProgress(0.0)
+        self.avgReturnView.setProgress(0.0)
         updateData();
     }
     
@@ -96,8 +109,36 @@ class PredictionsViewController: UIViewController, StatsVC {
                 overallPercent.textColor = labelColor
                 overallLabel.text = overallText
             }
+            if let x = self.company.priceTargetTopAnalysts {
+                if let y = x.avgAnalystSuccessRate {
+                    self.topAnalystSuccessRateView.setProgress(CGFloat(y))
+                    self.topAnalystSuccessRateView.setProgressColor(self.getTintColorForProgressValue(value: Float(y)))
+                }
+                if let y = x.avgAnalystReturn {
+                    self.avgReturnView.setProgressAndLabel(CGFloat(y/0.3), label: String(Int((y*100).rounded())) + "%")
+                    self.avgReturnView.setProgressColor(self.getTintColorForReturnValue(value: Float(y)))
+                }
+            }
         }
-
+    }
+    
+    func getTintColorForReturnValue(value:Float) -> UIColor {
+        if value > 0.3 {
+            return Constants.green
+        } else if value > 0.1 {
+            return Constants.yellow
+        } else {
+            return Constants.darkPink
+        }
+    }
+    func getTintColorForProgressValue(value:Float) -> UIColor {
+        if value > 0.7 {
+            return Constants.green
+        } else if value > 0.4 {
+            return Constants.yellow
+        } else {
+            return Constants.darkPink
+        }
     }
     
     func getContentHeight() -> CGFloat {
@@ -107,6 +148,39 @@ class PredictionsViewController: UIViewController, StatsVC {
         return 0.0
     }
     
+    func noTopAnalysts(){
+        modeControl.isHidden = true
+        accuracyLabel.isHidden = true
+        avgReturnLabel.isHidden = true
+        breaker.isHidden = true
+        topAnalystSuccessRateView.isHidden = true
+        avgReturnView.isHidden = true
+        targetsStackTopConstraint.constant = 10
+        self.view.layoutIfNeeded()
+    }
+    
+    @IBAction func changeMode(_ sender: Any) {
+        self.allMode = !self.allMode
+        if self.allMode {
+            accuracyLabel.isHidden = true
+            avgReturnLabel.isHidden = true
+            breaker.isHidden = true
+            topAnalystSuccessRateView.isHidden = true
+            avgReturnView.isHidden = true
+            targetsStackTopConstraint.constant = 10
+            priceTargetContainerHeight.constant = 320
+        } else {
+            accuracyLabel.isHidden = false
+            avgReturnLabel.isHidden = false
+            breaker.isHidden = false
+            topAnalystSuccessRateView.isHidden = false
+            avgReturnView.isHidden = false
+            targetsStackTopConstraint.constant = 125
+            priceTargetContainerHeight.constant = 400
+        }
+        self.view.layoutSubviews()
+        self.view.layoutIfNeeded()
+    }
     
     /*
      // MARK: - Navigation

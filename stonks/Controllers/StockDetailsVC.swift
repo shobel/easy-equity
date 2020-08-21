@@ -336,7 +336,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
 
     }
     
-    private func handleAllData(generalInfo: GeneralInfo, keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], income: [Income], estimates: Estimates, insiders: [Insider]){
+    private func handleAllData(generalInfo: GeneralInfo, keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], income: [Income], estimates: Estimates, insiders: [Insider], priceTargetTopAnalysts: PriceTargetTopAnalysts?){
         self.company.generalInfo = generalInfo
         self.company.keyStats = keystats
         self.company.news = news
@@ -348,6 +348,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.company.advancedStats = advancedStats
         self.company.insiders = insiders
         self.company.estimates = estimates
+        self.company.priceTargetTopAnalysts = priceTargetTopAnalysts
     
         let keystatsVC = self.keyStatsVC as! StatsVC
         keystatsVC.updateData()

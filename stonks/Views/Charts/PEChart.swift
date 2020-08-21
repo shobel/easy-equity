@@ -93,7 +93,7 @@ class PEChart: CombinedChartView {
                     sum += pastEarnings[i]
                 }
                 sum += est.consensusEPS!
-                fwdPe = company.quote!.close! / sum
+                fwdPe = (company.quote!.close ?? company.quote!.latestPrice!) / sum
             }
             if let fpe = company.advancedStats?.forwardPERatio {
                 fwdPe = fpe

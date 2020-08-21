@@ -59,11 +59,21 @@ class EPSChart: CombinedChartView {
             let reversedEarnings = Array(company.earnings!.reversed())
             for i in 0..<reversedEarnings.count {
                 let e = reversedEarnings[i]
-                actualEarningsEntries.append(ChartDataEntry(x: Double(i), y: e.actualEPS!))
-                expectedEarningsEntries.append(ChartDataEntry(x: Double(i), y: e.consensusEPS!))
-                estimatesEntries.append(BarChartDataEntry(x: Double(i), y: Double(e.numberOfEstimates!)))
-                pastEarnings.append(e.yearAgo!)
-                self.formatter.addXAxisLabel(e.fiscalPeriod!)
+                if e.actualEPS != nil {
+                    actualEarningsEntries.append(ChartDataEntry(x: Double(i), y: e.actualEPS!))
+                }
+                if e.consensusEPS != nil {
+                    expectedEarningsEntries.append(ChartDataEntry(x: Double(i), y: e.consensusEPS!))
+                }
+                if e.numberOfEstimates != nil {
+                    estimatesEntries.append(BarChartDataEntry(x: Double(i), y: Double(e.numberOfEstimates!)))
+                }
+                if e.yearAgo != nil {
+                    pastEarnings.append(e.yearAgo!)
+                }
+                if e.fiscalPeriod != nil {
+                    self.formatter.addXAxisLabel(e.fiscalPeriod!)
+                }
             }
             for i in 0...reversedEarnings.count {
                 if i < company.earnings!.count {
@@ -72,10 +82,10 @@ class EPSChart: CombinedChartView {
                 }
 
                 var sum = 0.0
-                for j in i..<(i+4) {
-                    sum += pastEarnings[j]
+                for j in i..<(i + (pastEarnings.count - i)) {
+                    sum += pastEarnings[j] //TODO-SAM: error here for new stock
                 }
-                let ttm = sum / 4
+                let ttm = sum / Double(pastEarnings.count - i)
                 epsTTMEntries.append(ChartDataEntry(x: Double(i), y: ttm))
             }
             
