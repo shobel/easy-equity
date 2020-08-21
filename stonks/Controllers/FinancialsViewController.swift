@@ -34,7 +34,7 @@ class FinancialsViewController: UIViewController, StatsVC {
         super.viewDidLoad()
         
         self.chartSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
-        let font = UIFont(name: "Futura", size: 10)!
+        let font = UIFont(name: "HelveticaNeue", size: 12)!
         self.chartSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
 
         self.isLoaded = true

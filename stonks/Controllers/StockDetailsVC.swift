@@ -364,10 +364,10 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.incrementLoadingProgress()
     }
     
-    private func adjustContentHeight(vc: UIViewController){
+    public func adjustContentHeight(vc: UIViewController){
         DispatchQueue.main.async{
-            let statsVC = vc as! StatsVC
-            self.pagingViewHeightConstraint.constant = statsVC.getContentHeight() + 80
+            let currentVC = vc as! StatsVC
+            self.pagingViewHeightConstraint.constant = currentVC.getContentHeight() + 80
         }
     }
     
@@ -572,9 +572,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBAction func toggleSmasButtonTapped(_ sender: Any) {
         self.showSmas = !showSmas
         if showSmas {
-            self.toggleSmasButton.tintColor = Constants.darkPink
+            self.toggleSmasButton.setBackgroundImage(UIImage(named: "analytics"), for: .normal)
         } else {
-            self.toggleSmasButton.tintColor = Constants.darkGrey
+            self.toggleSmasButton.setBackgroundImage(UIImage(named: "analytics_grey"), for: .normal)
         }
         self.chartView.updateChart()
     }

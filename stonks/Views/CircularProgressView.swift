@@ -57,6 +57,16 @@ import UIKit
         self.addSubview(self.progressValueLabel!)
     }
     
+    public func addAnimation() {
+        let progressAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        progressAnimation.toValue = 1
+        progressAnimation.duration = 0.6
+        progressAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        progressAnimation.fillMode = CAMediaTimingFillMode.forwards
+        progressAnimation.isRemovedOnCompletion = false
+        self.foreLayer!.add(progressAnimation, forKey: "progress")
+    }
+    
     public func customize(backColor: UIColor, progressColor: UIColor, backWidth: CGFloat, progressWidth: CGFloat, progressValue: CGFloat) {
         mainColor = backColor
         forgroundColor = progressColor
@@ -101,10 +111,12 @@ import UIKit
                                   y: self.foreLayer!.frame.size.height / 2)
         let start = 0 - CGFloat(Double.pi / 2)
         let end = CGFloat(Double.pi) * 2 * progress - CGFloat(Double.pi / 2)
-        let arc = UIBezierPath.init(arcCenter: center,
+        let arc = UIBezierPath(arcCenter: center,
                                     radius: self.foreLayer!.frame.size.width / 2,
                                     startAngle: start, endAngle: end, clockwise: true)
         self.foreLayer!.path = arc.cgPath
+        self.foreLayer?.strokeEnd = 0
         
+        self.addAnimation()
     }
 }

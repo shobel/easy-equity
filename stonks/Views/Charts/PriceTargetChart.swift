@@ -14,12 +14,14 @@ class PriceTargetChart: CombinedChartView {
     private var lineChartDataSets:[LineChartDataSet] = []
     private var predictionsDelegate: PredictionsViewController!
     private var company:Company!
+    private var allMode:Bool!
     public var animated:Bool = false
     
-    public func setup(company:Company, predictionsDelegate: PredictionsViewController){
+    public func setup(company:Company, predictionsDelegate: PredictionsViewController, allMode:Bool){
         self.delegate = delegate
         self.predictionsDelegate = predictionsDelegate
         self.company = company
+        self.allMode = allMode
         
         self.chartDescription?.enabled = false
         self.legend.enabled = false
@@ -70,12 +72,40 @@ class PriceTargetChart: CombinedChartView {
         var lowPriceTargetEntries:[ChartDataEntry] = []
 
         if self.company.priceTarget != nil {
+            var avg = (self.company.priceTarget?.priceTargetAverage!)!
+            if self.allMode {
+                if let ptta = self.company.priceTargetTopAnalysts {
+                    let newAvgPriceTarget = (avg*Double((self.company.priceTarget?.numberOfAnalysts)!))  + (ptta.avgPriceTarget!*Double(ptta.numAnalysts!))
+                    let newNumAnalysts = self.company.priceTarget!.numberOfAnalysts! + ptta.numAnalysts!
+                    avg = newAvgPriceTarget / Double(newNumAnalysts)
+                }
+            } else if !self.allMode && self.company.priceTargetTopAnalysts != nil {
+                avg = self.company.priceTargetTopAnalysts!.avgPriceTarget!
+            }
             averagePriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count), y: latestPrice))
-            averagePriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count + 20), y: Double((self.company.priceTarget?.priceTargetAverage!)!)))
+            averagePriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count + 20), y: avg))
+            
+            var highTarget = self.company.priceTarget!.priceTargetHigh!
+            if self.allMode {
+                if let ptta = self.company.priceTargetTopAnalysts {
+                    highTarget = max(highTarget, ptta.highPriceTarget!)
+                }
+            } else if !self.allMode && self.company.priceTargetTopAnalysts != nil {
+                highTarget = self.company.priceTargetTopAnalysts!.highPriceTarget!
+            }
             highPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count), y: latestPrice))
-            highPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count + 20), y: Double((self.company.priceTarget?.priceTargetHigh!)!)))
+            highPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count + 20), y: highTarget))
+            
+            var lowTarget = self.company.priceTarget!.priceTargetLow!
+            if self.allMode {
+                if let ptta = self.company.priceTargetTopAnalysts {
+                    lowTarget = max(lowTarget, ptta.lowPriceTarget!)
+                }
+            } else if !self.allMode && self.company.priceTargetTopAnalysts != nil {
+                lowTarget = self.company.priceTargetTopAnalysts!.lowPriceTarget!
+            }
             lowPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count), y: latestPrice))
-            lowPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count + 20), y: Double((self.company.priceTarget?.priceTargetLow!)!)))
+            lowPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count + 20), y: lowTarget))
         }
 
         let monthDataSet = LineChartDataSet(entries: monthDataEntries)
@@ -87,6 +117,7 @@ class PriceTargetChart: CombinedChartView {
         self.configureLineDataSet(set: highPriceTargetDataSet, dashed: true, color: Constants.green)
         self.configureLineDataSet(set: lowPriceTargetDataSet, dashed: true, color: Constants.darkPink)
         
+        lineChartDataSets = []
         self.lineChartDataSets.append(monthDataSet)
         self.lineChartDataSets.append(highPriceTargetDataSet)
         self.lineChartDataSets.append(lowPriceTargetDataSet)
@@ -96,7 +127,7 @@ class PriceTargetChart: CombinedChartView {
             let data = CombinedChartData()
             data.lineData = LineChartData(dataSets: self.lineChartDataSets)
       
-            self.xAxis.axisMaximum = data.xMax + 5
+            self.xAxis.axisMaximum = data.xMax + 10
             self.data = data
             self.notifyDataSetChanged()
         }
@@ -118,7 +149,7 @@ class PriceTargetChart: CombinedChartView {
         set.setColor(color)
         set.highlightEnabled = false
         set.valueFont = UIFont(name: "Futura-Bold", size: 12)!
-        set.valueTextColor = .darkGray
+        set.valueTextColor = color
         set.valueFormatter = self
     }
     
@@ -133,6 +164,11 @@ class PriceTargetChart: CombinedChartView {
 
 extension PriceTargetChart: IValueFormatter {
     func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
-        return NumberFormatter.formatNumberWithPossibleDecimal(value)
+        //return NumberFormatter.formatNumberWithPossibleDecimal(value)
+        let diff = value - self.company.quote!.latestPrice!
+        //self.textColor = getColor(diff)
+        let formattedValue = NumberFormatter.formatNumberWithPossibleDecimal(value)
+        let percentString = NumberFormatter.formatNumberWithPossibleDecimal((diff / self.company.quote!.latestPrice!) * 100.0)
+        return percentString == "0" ? String("\(formattedValue)") : String("\(formattedValue) (\(percentString)%)")
     }
 }
