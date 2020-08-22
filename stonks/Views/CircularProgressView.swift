@@ -79,19 +79,25 @@ import UIKit
     }
     
     public func setProgress(_ progress: CGFloat) {
-        self.progressValueLabel?.text = String(Int((progress*100).rounded())) + "%"
-        self.progress = progress
-        self.progressValueLabel!.sizeToFit()
-        self.progressValueLabel!.center = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
-        self.setNeedsDisplay()
+        if self.progress != progress {
+            self.progressValueLabel?.text = String(Int((progress*100).rounded())) + "%"
+            self.progress = progress
+            self.progressValueLabel!.sizeToFit()
+            self.progressValueLabel!.center = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
+            self.addAnimation()
+            self.setNeedsDisplay()
+        }
     }
     
     public func setProgressAndLabel(_ progress: CGFloat, label:String) {
-        self.progressValueLabel?.text = label
-        self.progress = progress
-        self.progressValueLabel!.sizeToFit()
-        self.progressValueLabel!.center = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
-        self.setNeedsDisplay()
+        if self.progress != progress || self.progressValueLabel?.text != label {
+            self.progressValueLabel?.text = label
+            self.progress = progress
+            self.progressValueLabel!.sizeToFit()
+            self.progressValueLabel!.center = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
+            self.addAnimation()
+            self.setNeedsDisplay()
+        }
     }
     
     public func setProgressColor(_ color:UIColor){
@@ -117,6 +123,6 @@ import UIKit
         self.foreLayer!.path = arc.cgPath
         self.foreLayer?.strokeEnd = 0
         
-        self.addAnimation()
+        //self.addAnimation()
     }
 }

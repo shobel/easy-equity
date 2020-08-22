@@ -22,18 +22,35 @@ extension CompanySearchVC: UISearchBarDelegate {
 
 extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        currentTop10List.count
+        if collectionView.restorationIdentifier == "top10" {
+            return currentTop10List.count
+        } else if collectionView.restorationIdentifier == "topAnalysts" {
+            return currentTopAnalystSymbols.count
+        } else {
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "top10cell", for: indexPath) as! Top10CollectionViewCell
-        let item = currentTop10List[indexPath.row]
-        cell.symbolLabel.text = item.symbol
-        cell.changePercentLabel.setValue(value: item.changePercent, isPercent: true)
-        cell.latestPriceLabel.text = String("$\(item.latestPrice)")
-        cell.latestPriceLabel.textColor = cell.changePercentLabel.getColor(value: item.changePercent)
-        self.buttonCompanyDict[cell.segueButton] = Company(symbol: item.symbol, fullName: item.companyName)
-        return cell;
+        if collectionView.restorationIdentifier == "top10" {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "top10cell", for: indexPath) as! Top10CollectionViewCell
+            let item = currentTop10List[indexPath.row]
+            cell.symbolLabel.text = item.symbol
+            cell.changePercentLabel.setValue(value: item.changePercent, isPercent: true)
+            cell.latestPriceLabel.text = String("$\(item.latestPrice)")
+            cell.latestPriceLabel.textColor = cell.changePercentLabel.getColor(value: item.changePercent)
+            self.buttonCompanyDict[cell.segueButton] = Company(symbol: item.symbol, fullName: item.companyName)
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topAnalystCell", for: indexPath) as! TopAnalystCollectionViewCell
+            let item = currentTopAnalystSymbols[indexPath.row]
+            cell.symbol.text = item.symbol
+            cell.avgUpside.setValue(value: item.upsidePercent!, isPercent: true)
+            cell.avgRank.text = String(format: "%.1f", item.avgAnalystRank!)
+            cell.numAnalysts.text = String(item.numAnalysts!)
+            self.buttonCompanyDict[cell.segueButton] = Company(symbol: item.symbol!, fullName: item.companyName!)
+            return cell
+        }
     }
     
 }
@@ -46,21 +63,31 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     @IBOutlet weak var marketView: UIView!
     @IBOutlet weak var top10CollectionView: UICollectionView!
+    @IBOutlet weak var topAnalystsCollection: UICollectionView!
     @IBOutlet weak var top10Title: UILabel!
     
-    public var searchResults:[Company] = []
-    public var activityIndicatorView: UIActivityIndicatorView!
+    private var searchResults:[Company] = []
+    private var activityIndicatorView: UIActivityIndicatorView!
     
-    public var top10s:Top10s?
-    public var currentTop10List:[SimpleQuote] = []
-    public var marketNews:[News] = []
+    private var top10s:Top10s?
+    private var currentTop10List:[SimpleQuote] = []
+    private var priceTargetTopAnalysts:[PriceTargetTopAnalysts] = []
+    private var currentTopAnalystSymbols:[PriceTargetTopAnalysts] = []
+    private var maxNumTopAnalystItems:Int = 10
+    private var marketNews:[News] = []
     private var buttonCompanyDict:[UIButton:Company] = [:]
+    @IBOutlet weak var noTopAnalystsLabel: UILabel!
+    
+    private var itemsLoaded:Int = 0
+    private var numItems:Int = 3
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         top10CollectionView.delegate = self
         top10CollectionView.dataSource = self
+        topAnalystsCollection.delegate = self
+        topAnalystsCollection.dataSource = self
         tableView.isHidden = true
         marketView.isHidden = false
         
@@ -78,18 +105,24 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         self.view.addSubview(activityIndicatorView)
         activityIndicatorView.center = self.view.center
         
+
+        self.loadingStarted()
+        NetworkManager.getMyRestApi().getTop10s(completionHandler: handleTop10s)
+        NetworkManager.getMyRestApi().getMarketNews(completionHandler: handleMarketNews)
+        NetworkManager.getMyRestApi().getTiprankSymbols(completionHandler: handleTopAnalysts)
+        if Dataholder.allTickers.isEmpty {
+            self.numItems += 1
+            NetworkManager.getMyRestApi().listCompanies(completionHandler: handleListCompanies)
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        NetworkManager.getMyRestApi().getTop10s(completionHandler: handleTop10s)
-        NetworkManager.getMyRestApi().getMarketNews(completionHandler: handleMarketNews)
-        if Dataholder.allTickers.isEmpty {
-            self.loadingStarted()
-            NetworkManager.getMyRestApi().listCompanies(completionHandler: handleListCompanies)
-        }
+        //
     }
     
-    @IBAction func nextTop10List(_ sender: Any) {
+    @IBAction func sortTop10List(_ sender: Any) {
+        self.top10CollectionView.scrollToItem(at: IndexPath(item: 0, section: 1), at: .left, animated: true)
         let actionController = SkypeActionController() //not really for skype
         actionController.addAction(Action("Top Gainers", style: .default, handler: { action in
             self.top10Title.text = "Top Gainers"
@@ -109,15 +142,49 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         present(actionController, animated: true, completion: nil)
     }
     
+    @IBAction func sortTopAnalysts(_ sender: Any) {
+        self.topAnalystsCollection.scrollToItem(at: IndexPath(item: 0, section: 1), at: .left, animated: true)
+        let actionController = SkypeActionController() //not really for skype
+        actionController.addAction(Action("Upside Percentage", style: .default, handler: { action in
+            self.priceTargetTopAnalysts.sort { (p1, p2) -> Bool in
+                return p1.upsidePercent! > p2.upsidePercent!
+            }
+            self.currentTopAnalystSymbols = Array(self.priceTargetTopAnalysts.prefix(self.maxNumTopAnalystItems))
+            self.topAnalystsCollection.reloadData()
+        }))
+        actionController.addAction(Action("Number of Analysts", style: .default, handler: { action in
+            self.priceTargetTopAnalysts.sort { (p1, p2) -> Bool in
+                return p1.numAnalysts! > p2.numAnalysts!
+            }
+            self.currentTopAnalystSymbols = Array(self.priceTargetTopAnalysts.prefix(self.maxNumTopAnalystItems))
+            self.topAnalystsCollection.reloadData()
+        }))
+        actionController.addAction(Action("Average Analyst Rank", style: .default, handler: { action in
+            self.priceTargetTopAnalysts.sort { (p1, p2) -> Bool in
+                return p1.avgAnalystRank! < p2.avgAnalystRank!
+            }
+            self.currentTopAnalystSymbols = Array(self.priceTargetTopAnalysts.prefix(self.maxNumTopAnalystItems))
+            self.topAnalystsCollection.reloadData()
+        }))
+        present(actionController, animated: true, completion: nil)
+    }
+    
     private func handleListCompanies(_ companies:[Company]) {
         Dataholder.allTickers = companies
-        self.loadingFinished()
+        self.itemsLoaded += 1
+        if self.itemsLoaded >= self.numItems {
+            self.loadingFinished()
+        }
     }
     
     private func handleMarketNews(_ news: [News]){
         self.marketNews = news
         DispatchQueue.main.async {
             self.marketNewsTableView.reloadData()
+        }
+        self.itemsLoaded += 1
+        if self.itemsLoaded >= self.numItems {
+            self.loadingFinished()
         }
     }
     
@@ -132,9 +199,35 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         self.top10s?.mostactive.sort(by: { (q1, q2) -> Bool in
             return q1.changePercent > q2.changePercent
         })
+        self.itemsLoaded += 1
+        if self.itemsLoaded >= self.numItems {
+            self.loadingFinished()
+        }
         DispatchQueue.main.async {
             self.currentTop10List = self.top10s?.gainers ?? []
             self.top10CollectionView.reloadData()
+        }
+    }
+    
+    private func handleTopAnalysts(_ topAnalystSymbols:[PriceTargetTopAnalysts]) {
+        self.priceTargetTopAnalysts = topAnalystSymbols
+        self.priceTargetTopAnalysts.sort { (p1, p2) -> Bool in
+            return p1.upsidePercent! > p2.upsidePercent!
+        }
+        self.itemsLoaded += 1
+        if self.itemsLoaded >= self.numItems {
+            self.loadingFinished()
+        }
+        DispatchQueue.main.async {
+            if self.priceTargetTopAnalysts.count == 0 {
+                self.noTopAnalystsLabel.isHidden = false
+                self.topAnalystsCollection.isHidden = true
+            } else {
+                self.noTopAnalystsLabel.isHidden = true
+                self.topAnalystsCollection.isHidden = false
+            }
+            self.currentTopAnalystSymbols = Array(self.priceTargetTopAnalysts.prefix(self.maxNumTopAnalystItems))
+            self.topAnalystsCollection.reloadData()
         }
     }
     

@@ -273,6 +273,21 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
+    public func getTiprankSymbols(completionHandler: @escaping ([PriceTargetTopAnalysts])->Void){
+        let queryURL = buildQuery(url: apiurl + marketEndpoint + "/tipranks/symbols", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var symbols:[PriceTargetTopAnalysts] = []
+            for i in 0..<json.count{
+                let JSONString:String = json[i].rawString()!
+                if let n = Mapper<PriceTargetTopAnalysts>().map(JSONString: JSONString){
+                    symbols.append(n)
+                }
+            }
+            completionHandler(symbols)
+        }
+    }
+    
     
     private func getRequest(queryURL:String, completion: @escaping (JSON) -> Void) {
         httpGetQuery(queryURL: queryURL, token: self.token) { (data, response, error) -> Void in
