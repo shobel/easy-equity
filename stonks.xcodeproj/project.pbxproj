@@ -64,6 +64,7 @@
 		1C72F91624CBD4F300EC59F6 /* MarketNewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F91524CBD4F300EC59F6 /* MarketNewsTableViewCell.swift */; };
 		1C754B0A24EF4432000AE379 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C754B0924EF4432000AE379 /* CircularProgressView.swift */; };
 		1C754B0C24F0AB39000AE379 /* TopAnalystCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C754B0B24F0AB39000AE379 /* TopAnalystCollectionViewCell.swift */; };
+		1C754B0E24F20FB5000AE379 /* PriceChartPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C754B0D24F20FB5000AE379 /* PriceChartPreviewView.swift */; };
 		1C7B9830215B32D500C75014 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B982F215B32D500C75014 /* AppDelegate.swift */; };
 		1C7B9835215B32D500C75014 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C7B9833215B32D500C75014 /* Main.storyboard */; };
 		1C7B9837215B32D700C75014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C7B9836215B32D700C75014 /* Assets.xcassets */; };
@@ -192,6 +193,7 @@
 		1C72F91524CBD4F300EC59F6 /* MarketNewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketNewsTableViewCell.swift; sourceTree = "<group>"; };
 		1C754B0924EF4432000AE379 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		1C754B0B24F0AB39000AE379 /* TopAnalystCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAnalystCollectionViewCell.swift; sourceTree = "<group>"; };
+		1C754B0D24F20FB5000AE379 /* PriceChartPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceChartPreviewView.swift; sourceTree = "<group>"; };
 		1C7B982C215B32D500C75014 /* Bullfrog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bullfrog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7B982F215B32D500C75014 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C7B9834215B32D500C75014 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -513,6 +515,7 @@
 				1CCBE58723FE720600E57D49 /* PEChart.swift */,
 				1C4D2D8924E6751000E54EB8 /* PriceTargetChart.swift */,
 				1C4D2D9124E8921200E54EB8 /* RatingsChart.swift */,
+				1C754B0D24F20FB5000AE379 /* PriceChartPreviewView.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -821,6 +824,7 @@
 				1CFE633D23FB665E00F81758 /* NewsWebViewController.swift in Sources */,
 				1C4D2D8424E3D6F800E54EB8 /* CashFlow.swift in Sources */,
 				1C6FF97B23261617005AE40D /* EarningsViewController.swift in Sources */,
+				1C754B0E24F20FB5000AE379 /* PriceChartPreviewView.swift in Sources */,
 				1C2AC864217FB01D00469941 /* PriceChartFormatter.swift in Sources */,
 				1C0A006124C2A7230030E1E4 /* NetworkManager.swift in Sources */,
 				1C6B5F1E24025F55008E2C22 /* CardView.swift in Sources */,

@@ -623,9 +623,19 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.hideLoader(false)
         NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
             self.company.dailyData = candles
-            DispatchQueue.main.async {
-                self.hideLoader(true)
-                self.timeButtonPressed(sender, chartData: self.company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
+            if candles.count > 0 && candles[candles.count-1].rsi14 == nil {
+                self.alphaVantage.getRSI(ticker: self.company.symbol, range: "14") { rsiMap in
+                    self.company.addTechnicalIndicatorsToDailyValues(rsiMap)
+                    DispatchQueue.main.async {
+                        self.hideLoader(true)
+                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.hideLoader(true)
+                    self.timeButtonPressed(sender, chartData: self.company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
+                }
             }
         }
     }
@@ -634,9 +644,19 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.hideLoader(false)
         NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
             self.company.dailyData = candles
-            DispatchQueue.main.async {
-                self.hideLoader(true)
-                self.timeButtonPressed(sender, chartData: self.company.getDailyData(65), timeInterval: Constants.TimeIntervals.three_month)
+            if candles.count > 0 && candles[candles.count-1].rsi14 == nil {
+                self.alphaVantage.getRSI(ticker: self.company.symbol, range: "14") { rsiMap in
+                    self.company.addTechnicalIndicatorsToDailyValues(rsiMap)
+                    DispatchQueue.main.async {
+                        self.hideLoader(true)
+                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(65), timeInterval: Constants.TimeIntervals.one_month)
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.hideLoader(true)
+                    self.timeButtonPressed(sender, chartData: self.company.getDailyData(65), timeInterval: Constants.TimeIntervals.one_month)
+                }
             }
         }
     }
@@ -665,9 +685,19 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         } else {
             NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
                 self.company.dailyData = candles
-                DispatchQueue.main.async {
-                    self.hideLoader(true)
-                    self.timeButtonPressed(sender, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_year)
+                if candles.count > 0 && candles[candles.count-1].rsi14 == nil {
+                    self.alphaVantage.getRSI(ticker: self.company.symbol, range: "14") { rsiMap in
+                        self.company.addTechnicalIndicatorsToDailyValues(rsiMap)
+                        DispatchQueue.main.async {
+                            self.hideLoader(true)
+                            self.timeButtonPressed(sender, chartData: self.company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
+                        }
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.hideLoader(true)
+                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
+                    }
                 }
             }
         }

@@ -135,7 +135,6 @@ extension WatchlistVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "watchListCell", for: indexPath) as! WatchlistTVCell
-        
         let company = watchlistManager.getWatchlist()[indexPath.row]
         cell.displayData(company: company)
         return cell

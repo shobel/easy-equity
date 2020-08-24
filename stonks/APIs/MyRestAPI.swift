@@ -155,6 +155,30 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
+    public func getQuotesAndSimplifiedCharts(symbols:[String], completionHandler: @escaping ([Quote])->Void){
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/quotes-and-simplified-charts", params: ["symbols":symbols.joined(separator: ",")])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var quotes:[Quote] = []
+            for (symbol,_):(String, JSON) in json {
+                let quoteJSONString:String = json[symbol]["latestQuote"].rawString()!
+                var quote:Quote = Quote()
+                if let q = Mapper<Quote>().map(JSONString: quoteJSONString){
+                    quote = q
+                }
+                let simplifiedChartJSON = json[symbol]["simplifiedChart"]
+                var simplifiedChart:[Double] = []
+                for i in 0..<simplifiedChartJSON.count {
+                    let s:Double = simplifiedChartJSON[i].double!
+                    simplifiedChart.append(s)
+                }
+                quote.simplifiedChart = simplifiedChart
+                quotes.append(quote)
+            }
+            completionHandler(quotes)
+        }
+    }
+    
     public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [Income], Estimates, [Insider], PriceTargetTopAnalysts?)->Void){
         let queryURL = buildQuery(url: apiurl + stockEndpoint + "/allfree/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in

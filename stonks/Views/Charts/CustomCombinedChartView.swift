@@ -28,6 +28,7 @@ class CustomCombinedChartView: CombinedChartView {
     private var sma50:LineChartDataSet = LineChartDataSet()
     private var sma100:LineChartDataSet = LineChartDataSet()
     private var sma200:LineChartDataSet = LineChartDataSet()
+    private var rsi14:LineChartDataSet = LineChartDataSet()
 
     private var dayEntryCount = 391
     private var previousCloseValue = 0.0
@@ -109,6 +110,7 @@ class CustomCombinedChartView: CombinedChartView {
         var sma50Entries:[ChartDataEntry] = []
         var sma100Entries:[ChartDataEntry] = []
         var sma200Entries:[ChartDataEntry] = []
+        var rsi14Entries:[ChartDataEntry] = []
         var earningsEntries:[ChartDataEntry] = []
         var entryCount = self.myCandleData!.count
 
@@ -128,6 +130,11 @@ class CustomCombinedChartView: CombinedChartView {
             sma50Entries.append(ChartDataEntry(x: Double(i), y: candle.sma50 ?? close))
             sma100Entries.append(ChartDataEntry(x: Double(i), y: candle.sma100 ?? close))
             sma200Entries.append(ChartDataEntry(x: Double(i), y: candle.sma200 ?? close))
+            
+            if let rsi = candle.rsi14 {
+                rsi14Entries.append(ChartDataEntry(x: Double(i), y: rsi))
+            }
+            
             //line chart
             lineEntries.append(ChartDataEntry(x: Double(i), y: close))
             //volume chart
@@ -157,6 +164,12 @@ class CustomCombinedChartView: CombinedChartView {
         let sma200Set = LineChartDataSet(entries: sma200Entries)
         self.sma200 = sma200Set
         self.setUpSmaLine(set: sma200Set, color: Constants.fadedDarkGrey)
+        
+        if rsi14Entries.count > 0 {
+            let rsiSet = LineChartDataSet(entries: rsi14Entries)
+            self.rsi14 = rsiSet
+            self.setUpSmaLine(set: rsiSet, color: .brown)
+        }
         
         if self.stockDetailsDelegate!.candleMode{
             entryCount = self.myCandleDataTenMin!.count
@@ -191,9 +204,10 @@ class CustomCombinedChartView: CombinedChartView {
         self.setUpVolumeChart(set: volumeSet10min)
 
         self.lineChartData = LineChartDataSet(entries: lineEntries)
+        self.setUpLineChart(set: self.lineChartData)
+
         self.volumeChartDataTenMin = BarChartData(dataSet: volumeSet10min)
         self.volumeChartData = BarChartData(dataSet: volumeSet)
-        self.setUpLineChart(set: self.lineChartData)
 
         let previousCloseSet = LineChartDataSet(entries: prevCloseEntries)
         let previousCloseSet10min = LineChartDataSet(entries: prevClose10MinEntries)

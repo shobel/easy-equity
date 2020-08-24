@@ -39,13 +39,13 @@ class NumberFormatter {
     /* Formats a number to be an integer with the appropriate suffix */
     static func formatNumber(num:Double) -> String {
         if abs(num) > 999999999 {
-            return String(format: "%.0f", num/1000000000) + "B"
+            return String(format: "%.1f", num/1000000000) + "B"
         }
         if abs(num) > 999999 {
-            return String(format: "%.0f", num/1000000) + "M"
+            return String(format: "%.1f", num/1000000) + "M"
         }
         if abs(num) > 999 {
-            return String(format: "%.0f", num/1000) + "K"
+            return String(format: "%.2f", num/1000) + "K"
         }
         if (num - floor(num) > 0.000001) { // 0.000001 can be changed depending on the level of precision you need
             return String(format: "%.2f", num)
@@ -82,6 +82,18 @@ class NumberFormatter {
     
     static func formatPercent(value:String) -> String{
         return String(format: "%.2f", Double(value)! * 100) + "%"
+    }
+    
+    //date string argument is in format of YYYY-MM-dd
+    static func formatDateToMonthYearShort(_ dateString: String) -> String {
+        let dateFormatter = DateFormatter()
+         dateFormatter.dateFormat = "YYYY-MM-dd"
+         let date = dateFormatter.date(from: dateString)!
+         dateFormatter.dateFormat = "yy"
+         let year = dateFormatter.string(from: date)
+         dateFormatter.dateFormat = "MMM"
+         let month = dateFormatter.string(from: date)
+         return month + " '" + year
     }
     
     //input is of the format HH:mm AM/PM, minutes don't appear if they are 00 i.g. 10 AM

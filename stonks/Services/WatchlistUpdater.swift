@@ -67,7 +67,7 @@ class WatchlistUpdater: StockDataTask {
         if (!hibernating){
             DispatchQueue.global(qos: .background).async {
                 let tickers = self.watchlistManager.getTickers()
-                NetworkManager.getMyRestApi().getQuotes(symbols: tickers, completionHandler: { (quotes: [Quote])->Void in
+                NetworkManager.getMyRestApi().getQuotesAndSimplifiedCharts(symbols: tickers, completionHandler: { (quotes: [Quote])->Void in
                     for c in self.watchlist {
                         for q in quotes {
                             if (c.symbol == q.symbol) {

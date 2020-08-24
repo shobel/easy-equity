@@ -40,6 +40,9 @@ class IncomeChart: BarChartView {
         self.rightAxis.enabled = false
                     
         self.xAxis.valueFormatter = self
+        //self.xAxis.labelRotationAngle = CGFloat(45.0)
+        self.xAxis.labelFont = UIFont(name: "HelveticaNeue", size: 10.0)!
+        self.xAxis.labelCount = .max
         self.xAxis.enabled = true
         self.xAxis.axisMinimum = -0.5
         self.xAxis.drawGridLinesEnabled = false
@@ -62,7 +65,7 @@ class IncomeChart: BarChartView {
             for i in 0..<inc.count {
                 let incomeEntry = inc[i]
                 var val:Int = 0
-                self.xLabels.append(incomeEntry.reportDate!)
+                self.xLabels.append(NumberFormatter.formatDateToMonthYearShort(incomeEntry.reportDate!))
                 if self.chartMode == ChartMode.NETINCOME {
                     val = incomeEntry.netIncome!
                 } else if self.chartMode == ChartMode.OPERATINGINCOME {
@@ -91,7 +94,7 @@ class IncomeChart: BarChartView {
                     self.leftAxis.axisMinimum = 0
                 }
 
-                data.barWidth = 0.4
+                data.barWidth = 0.6
                 self.data = data
                 self.notifyDataSetChanged()
             }
@@ -117,7 +120,7 @@ class IncomeChart: BarChartView {
         dataset.drawValuesEnabled = true
         dataset.highlightEnabled = false
         dataset.valueFormatter = self
-        dataset.valueFont = UIFont(name: "Futura", size: 12)!
+        dataset.valueFont = UIFont(name: "Futura", size: 8)!
         dataset.label = label
     }
 }

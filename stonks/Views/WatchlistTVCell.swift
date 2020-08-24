@@ -13,12 +13,14 @@ class WatchlistTVCell: UITableViewCell {
     @IBOutlet weak var ticker: UILabel!
     @IBOutlet weak var fullName: UILabel!
     @IBOutlet weak var currentPrice: UILabel!
-    @IBOutlet weak var afterPriceChange: ColoredValueLabel!
     @IBOutlet weak var percentChange: ColoredValueLabel!
-    @IBOutlet weak var afterPercentChange: ColoredValueLabel!
+    @IBOutlet weak var priceChange: ColoredValueLabel!
     
+    @IBOutlet weak var preAfterImage: UIImageView!
     @IBOutlet weak var buyRating: RatingLabel!
     @IBOutlet weak var daysToEarnings: UILabel!
+    
+    @IBOutlet weak var priceChartPreview: PriceChartPreviewView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,11 +31,14 @@ class WatchlistTVCell: UITableViewCell {
     }
     
     public func displayData(company: Company){
+        self.priceChartPreview.setup()
+        
         ticker.text = company.symbol
         fullName.text = company.fullName
         
         currentPrice.text = String(format: "%.2f", company.quote?.latestPrice ?? "--")
         percentChange.setValue(value: (company.quote?.changePercent ?? 0.0) * 100.0, isPercent: true)
+        priceChange.setValue(value: (company.quote?.change ?? 0.0), isPercent: false)
         
         if company.daysToER < 0 {
             daysToEarnings.text = ""
@@ -50,21 +55,25 @@ class WatchlistTVCell: UITableViewCell {
         }
         
         if let quote = company.quote {
+            if let sc = quote.simplifiedChart{
+                self.priceChartPreview.setData(data: sc, color: sc[sc.count - 1] > quote.previousClose! ? Constants.green : Constants.darkPink)
+            }
             if quote.isUSMarketOpen! {
-                afterPriceChange.isHidden = true
-                afterPercentChange.isHidden = true
+                preAfterImage.isHidden = true
             } else if (quote.extendedPrice != nil && quote.extendedChangePercent != nil){
-                afterPriceChange.isHidden = false
-                afterPercentChange.isHidden = false
-                var prefix = "After:"
+                preAfterImage.isHidden = false
+                preAfterImage.image = UIImage(systemName: "moon.circle.fill")
+                preAfterImage.tintColor = .black
+                //preAfterImage.image = UIImage(systemName: "sunset")
                 if isPremarket() {
-                    prefix = "Pre:"
+                    preAfterImage.image = UIImage(systemName: "sun.max.fill")
+                    preAfterImage.tintColor = Constants.yellow
+                    //preAfterImage.image = UIImage(systemName: "sunrise")
                 }
-                afterPriceChange.setValue(value: quote.extendedPrice! - quote.latestPrice!, isPercent: false, prefix: prefix)
-                afterPercentChange.setValue(value: quote.extendedChangePercent!, isPercent: true, prefix: prefix)
+                priceChange.setValue(value: quote.extendedChange!, isPercent: false, prefix: "")
+                percentChange.setValue(value: (quote.extendedChangePercent ?? 0.0) * 100.0, isPercent: true, prefix: "")
             } else {
-                afterPriceChange.isHidden = true
-                afterPercentChange.isHidden = true
+                preAfterImage.isHidden = true
             }
         }
     }

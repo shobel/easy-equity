@@ -12,7 +12,9 @@ class Company: Equatable, Comparable {
 
     public var symbol:String
     public var fullName:String
-    
+
+    public var quote:Quote?
+
     public var generalInfo:GeneralInfo?
     public var keyStats:KeyStats?
     public var earnings:[Earnings]?
@@ -30,8 +32,6 @@ class Company: Equatable, Comparable {
     public var news:[News]?
     public var advancedStats: AdvancedStats?
     public var insiders:[Insider]?
-    
-    public var quote:Quote?
     public var earningsDate:Date?
     
 //    public var quarterlyData:[Candle] = []
@@ -39,9 +39,6 @@ class Company: Equatable, Comparable {
     public var weeklyData:[Candle] = []
     public var dailyData:[Candle] = [] //daily candles
     public var minuteData:[Candle] = [] //minute candles
-    public var sma50:[DatedValue] = []
-    public var sma100:[DatedValue] = []
-    public var sma200:[DatedValue] = []
 
     public var analystsRating:AnalystsRating?
     
@@ -186,6 +183,17 @@ class Company: Equatable, Comparable {
             return Array(dataset.suffix(numDataPoints))
         }
         return []
+    }
+    
+    public func addTechnicalIndicatorsToDailyValues(_ technicals:[String:Double]){
+        for i in 0..<self.dailyData.count {
+            let dailyDataItem = self.dailyData[i]
+            let datestring = dailyDataItem.dateLabel
+            let rsi = technicals[datestring!]
+            if rsi != nil {
+                self.dailyData[i].rsi14 = rsi
+            }
+        }
     }
     
     static func == (lhs: Company, rhs: Company) -> Bool {

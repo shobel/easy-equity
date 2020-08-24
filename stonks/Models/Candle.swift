@@ -25,6 +25,7 @@ struct Candle: Mappable {
     public var sma100:Double?
     public var sma200:Double?
     public var earnings:Bool?
+    public var rsi14:Double?
     
     init(){}
     
