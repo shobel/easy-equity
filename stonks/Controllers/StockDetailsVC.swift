@@ -46,8 +46,10 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var sma100: UILabel!
     @IBOutlet weak var sma200: UILabel!
     @IBOutlet weak var toggleSmasButton: UIButton!
+    @IBOutlet weak var toggleRsiButton: UIButton!
     
     public var showSmas:Bool = false
+    public var showRsi:Bool = false
     
     public var company:Company!
     public var latestQuote:Quote!
@@ -567,17 +569,33 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
                 self.optionTapped(.toggleShowCandleBar)
             }
         }
+        self.hideShowRsiAndSmaButtons()
     }
     
     @IBAction func toggleSmasButtonTapped(_ sender: Any) {
         self.showSmas = !showSmas
         if showSmas {
-            self.toggleSmasButton.setBackgroundImage(UIImage(named: "analytics"), for: .normal)
+            self.toggleSmasButton.backgroundColor = Constants.darkPink
+            self.toggleSmasButton.tintColor = .white
         } else {
-            self.toggleSmasButton.setBackgroundImage(UIImage(named: "analytics_grey"), for: .normal)
+            self.toggleSmasButton.backgroundColor = Constants.veryLightGrey
+            self.toggleSmasButton.tintColor = .darkGray
         }
         self.chartView.updateChart()
     }
+    
+    @IBAction func toggleRsiButtonTapped(_ sender: Any) {
+        self.showRsi = !showRsi
+        if showRsi {
+            self.toggleRsiButton.backgroundColor = Constants.darkPink
+            self.toggleRsiButton.tintColor = .white
+        } else {
+            self.toggleRsiButton.backgroundColor = Constants.veryLightGrey
+            self.toggleRsiButton.tintColor = .darkGray
+        }
+        self.chartView.updateChart()
+    }
+    
     
     func chartViewDidEndPanning(_ chartView: ChartViewBase){
         self.chartValueNothingSelected(chartView)
@@ -690,13 +708,13 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
                         self.company.addTechnicalIndicatorsToDailyValues(rsiMap)
                         DispatchQueue.main.async {
                             self.hideLoader(true)
-                            self.timeButtonPressed(sender, chartData: self.company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
+                            self.timeButtonPressed(sender, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_year)
                         }
                     }
                 } else {
                     DispatchQueue.main.async {
                         self.hideLoader(true)
-                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
+                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_month)
                     }
                 }
             }
@@ -720,17 +738,14 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         }
         self.timeInterval = timeInterval
         if chartData.count > 0 {
-            if self.timeInterval == Constants.TimeIntervals.day {
+            if self.timeInterval == .day {
                 setTopBarValues(startPrice: latestQuote.previousClose ?? chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
             } else {
                 setTopBarValues(startPrice: chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
             }
         }
-        if self.timeInterval != Constants.TimeIntervals.day {
-            self.toggleSmasButton.isHidden = false
-        } else {
-            self.toggleSmasButton.isHidden = true
-        }
+
+        self.hideShowRsiAndSmaButtons()
         
         for timeButton in timeButtons {
             if timeButton == button as! UIButton {
@@ -763,6 +778,19 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             self.TwentyYearButtonPressed(self)
         case .max:
             return
+        }
+    }
+    
+    private func hideShowRsiAndSmaButtons(){
+        if self.timeInterval != .day {
+            self.toggleSmasButton.isHidden = false
+        } else {
+            self.toggleSmasButton.isHidden = true
+        }
+        if self.timeInterval == .one_month || self.timeInterval == .three_month || (self.timeInterval == .one_year && !self.candleMode) {
+            self.toggleRsiButton.isHidden = false
+        } else {
+            self.toggleRsiButton.isHidden = true
         }
     }
   
