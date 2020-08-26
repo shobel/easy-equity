@@ -167,10 +167,12 @@ class MyRestAPI: HTTPRequest {
                     quote = q
                 }
                 let simplifiedChartJSON = json[symbol]["simplifiedChart"]
-                var simplifiedChart:[Double] = []
+                var simplifiedChart:[DatedValue] = []
                 for i in 0..<simplifiedChartJSON.count {
-                    let s:Double = simplifiedChartJSON[i].double!
-                    simplifiedChart.append(s)
+                    let minute:String = simplifiedChartJSON[i]["minute"].string!
+                    let value:Double = simplifiedChartJSON[i]["close"].double!
+                    let datedValue:DatedValue = DatedValue(date: Date(), datestring: minute, value: value)
+                    simplifiedChart.append(datedValue)
                 }
                 quote.simplifiedChart = simplifiedChart
                 quotes.append(quote)
@@ -194,9 +196,9 @@ class MyRestAPI: HTTPRequest {
             for i in 0..<newsJSON.count{
                 let s:String = newsJSON[i].rawString()!
                 if let n = Mapper<News>().map(JSONString: s){
-                    //if n.lang == "en" {
+                    if Constants.demo || n.lang == "en" {
                         newsList.append(n)
-                    //}
+                    }
                 }
             }
             let priceTargetJSON = json["priceTarget"].rawString()!
@@ -288,7 +290,7 @@ class MyRestAPI: HTTPRequest {
             for i in 0..<json.count{
                 let JSONString:String = json[i].rawString()!
                 if let n = Mapper<News>().map(JSONString: JSONString){
-                    if n.lang == "en" {
+                    if Constants.demo || n.lang == "en" {
                         newsList.append(n)
                     }
                 }

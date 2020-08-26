@@ -47,6 +47,7 @@ class WatchlistVC: UIViewController, Updateable {
     
     override func viewDidAppear(_ animated: Bool) {
         //updateFinvizData()
+        watchlistUpdater?.startTask()
         self.tableView.reloadData()
     }
     
@@ -109,14 +110,18 @@ class WatchlistVC: UIViewController, Updateable {
     }
     
     public func updateFromScheduledTask(_ data:Any?){
+        let watchlist = self.watchlistManager.getWatchlist()
+        if watchlist.count > 0 && watchlist[0].quote != nil {
+            if watchlist[0].quote!.isUSMarketOpen ?? false {
+                self.watchlistUpdater?.hibernating = false
+            } else {
+                self.watchlistUpdater?.hibernating = true
+            }
+        }
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
-    
-//     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        print()
-//     }
      
     @objc func handleRefresh() {
         self.loadWatchlist()

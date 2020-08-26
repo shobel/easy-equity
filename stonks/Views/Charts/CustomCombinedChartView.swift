@@ -190,6 +190,8 @@ class CustomCombinedChartView: CombinedChartView {
             self.setUpRsiLine(set: rsiSet, color: .brown, dashed: false, drawValues: false)
             self.setUpRsiLine(set: rsiMaxSet, color: .darkGray, dashed: false, drawValues: true)
             self.setUpRsiLine(set: rsiCurrentSet, color: Constants.fadedOrange, dashed: true, drawValues: true)
+            rsiMaxSet.lineWidth = 1
+            //TODO-SAM: figure out why 1 year chard is not drawing rsi values
             
         }
         
@@ -270,11 +272,14 @@ class CustomCombinedChartView: CombinedChartView {
                         lineDataSets.append(self.sma50)
                         lineDataSets.append(self.sma100)
                         lineDataSets.append(self.sma200)
+                    }
+                    if self.stockDetailsDelegate!.showRsi && self.stockDetailsDelegate!.toggleRsiButton.isHidden == false {
                         lineDataSets.append(self.rsi14)
                         lineDataSets.append(self.rsi14Current)
                         lineDataSets.append(self.rsi14Max)
+                    } else {
+                        data.barData = self.volumeChartData
                     }
-                    //data.barData = self.volumeChartData
                     data.candleData = self.candleChartData
                 }
             } else {
@@ -290,21 +295,28 @@ class CustomCombinedChartView: CombinedChartView {
                         lineDataSets.append(self.sma50)
                         lineDataSets.append(self.sma100)
                         lineDataSets.append(self.sma200)
+                    }
+                    if self.stockDetailsDelegate!.showRsi && self.stockDetailsDelegate!.toggleRsiButton.isHidden == false {
                         lineDataSets.append(self.rsi14)
                         lineDataSets.append(self.rsi14Current)
                         lineDataSets.append(self.rsi14Max)
                     }
                     data.scatterData = earningsData
                 }
-                //data.barData = self.volumeChartData
+                if !self.stockDetailsDelegate!.showRsi || self.stockDetailsDelegate!.toggleRsiButton.isHidden == true {
+                    data.barData = self.volumeChartData
+                }
             }
             let lineChartDatas:LineChartData = LineChartData(dataSets: lineDataSets)
             data.lineData = lineChartDatas
             self.xAxis.axisMaximum = data.xMax + 1.5
             
-            //self.rightAxis.axisMaximum = data.barData.yMax * 2
-            self.rightAxis.axisMaximum = 400
-            self.rightAxis.axisMinimum = 0
+            if self.stockDetailsDelegate!.showRsi && self.stockDetailsDelegate!.toggleRsiButton.isHidden == false {
+                self.rightAxis.axisMaximum = 400
+                self.rightAxis.axisMinimum = 0
+            } else {
+                self.rightAxis.axisMaximum = data.barData.yMax * 2
+            }
             
             self.data = data
             self.notifyDataSetChanged()
@@ -377,7 +389,6 @@ class CustomCombinedChartView: CombinedChartView {
         set.lineWidth = 2
         set.drawCirclesEnabled = false
         set.mode = .cubicBezier
-        set.drawValuesEnabled = false
         set.axisDependency = .right
         set.highlightEnabled = false
         if dashed {
@@ -385,6 +396,8 @@ class CustomCombinedChartView: CombinedChartView {
         }
         if drawValues {
             set.drawValuesEnabled = true
+        } else {
+            set.drawValuesEnabled = false
         }
     }
     

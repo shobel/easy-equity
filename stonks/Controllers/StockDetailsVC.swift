@@ -93,6 +93,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         super.viewDidLoad()
         self.scrollView.delegate = self
         
+        self.toggleRsiButton.layer.cornerRadius = 5
+        self.toggleSmasButton.layer.cornerRadius = 5
+        
         updateChartHeight()
         company = Dataholder.selectedCompany
 //        let pageVC: StatsNewsPageViewController = self.children.first as! StatsNewsPageViewController
@@ -483,6 +486,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
                 sma200.text = ""
             }
             smastack.isHidden = false
+        } else {
+            smastack.isHidden = true
         }
         totalDateAndVolumeView.isHidden = true
         

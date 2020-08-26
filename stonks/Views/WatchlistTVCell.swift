@@ -55,8 +55,8 @@ class WatchlistTVCell: UITableViewCell {
         }
         
         if let quote = company.quote {
-            if let sc = quote.simplifiedChart{
-                self.priceChartPreview.setData(data: sc, color: sc[sc.count - 1] > quote.previousClose! ? Constants.green : Constants.darkPink)
+            if quote.simplifiedChart != nil{
+                self.priceChartPreview.setData(quote)
             }
             if quote.isUSMarketOpen! {
                 preAfterImage.isHidden = true
