@@ -155,6 +155,32 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
+    public func getQuotesAndSimplifiedCharts(symbols:[String], completionHandler: @escaping ([Quote])->Void){
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/quotes-and-simplified-charts", params: ["symbols":symbols.joined(separator: ",")])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var quotes:[Quote] = []
+            for (symbol,_):(String, JSON) in json {
+                let quoteJSONString:String = json[symbol]["latestQuote"].rawString()!
+                var quote:Quote = Quote()
+                if let q = Mapper<Quote>().map(JSONString: quoteJSONString){
+                    quote = q
+                }
+                let simplifiedChartJSON = json[symbol]["simplifiedChart"]
+                var simplifiedChart:[DatedValue] = []
+                for i in 0..<simplifiedChartJSON.count {
+                    let minute:String = simplifiedChartJSON[i]["minute"].string!
+                    let value:Double = simplifiedChartJSON[i]["close"].double!
+                    let datedValue:DatedValue = DatedValue(date: Date(), datestring: minute, value: value)
+                    simplifiedChart.append(datedValue)
+                }
+                quote.simplifiedChart = simplifiedChart
+                quotes.append(quote)
+            }
+            completionHandler(quotes)
+        }
+    }
+    
     public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [Income], Estimates, [Insider], PriceTargetTopAnalysts?)->Void){
         let queryURL = buildQuery(url: apiurl + stockEndpoint + "/allfree/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
@@ -170,9 +196,9 @@ class MyRestAPI: HTTPRequest {
             for i in 0..<newsJSON.count{
                 let s:String = newsJSON[i].rawString()!
                 if let n = Mapper<News>().map(JSONString: s){
-                    //if n.lang == "en" {
+                    if Constants.demo || n.lang == "en" {
                         newsList.append(n)
-                    //}
+                    }
                 }
             }
             let priceTargetJSON = json["priceTarget"].rawString()!
@@ -264,12 +290,27 @@ class MyRestAPI: HTTPRequest {
             for i in 0..<json.count{
                 let JSONString:String = json[i].rawString()!
                 if let n = Mapper<News>().map(JSONString: JSONString){
-                    if n.lang == "en" {
+                    if Constants.demo || n.lang == "en" {
                         newsList.append(n)
                     }
                 }
             }
             completionHandler(newsList)
+        }
+    }
+    
+    public func getTiprankSymbols(completionHandler: @escaping ([PriceTargetTopAnalysts])->Void){
+        let queryURL = buildQuery(url: apiurl + marketEndpoint + "/tipranks/symbols", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var symbols:[PriceTargetTopAnalysts] = []
+            for i in 0..<json.count{
+                let JSONString:String = json[i].rawString()!
+                if let n = Mapper<PriceTargetTopAnalysts>().map(JSONString: JSONString){
+                    symbols.append(n)
+                }
+            }
+            completionHandler(symbols)
         }
     }
     

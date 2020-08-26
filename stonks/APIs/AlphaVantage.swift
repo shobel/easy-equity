@@ -47,6 +47,30 @@ class AlphaVantage: HTTPRequest, StockDataApiProtocol {
         })
     }
     
+    func getRSI(ticker: String, range: String, completionHandler: @escaping ([String:Double]) -> Void) {
+        let params = [
+            "symbol": ticker,
+            "function": "rsi",
+            "interval": "daily",
+            "time_period": range, //14
+            "series_type": "close",
+            "apikey": apikey
+        ]
+        let queryURL = buildQuery(url: url, params: params)
+        sendQuery(queryURL: queryURL, completionHandler: { (data, response, error) -> Void in
+            if let data = data {
+                let json = JSON(data)
+                let jsonSMAs = json["Technical Analysis: RSI"]
+                var rsiMap:[String:Double] = [:]
+                for (key, val):(String, JSON) in jsonSMAs {
+                    let rsi = Double(val["RSI"].string!)!
+                    rsiMap[key] = rsi
+                }
+                completionHandler(rsiMap)
+            }
+        })
+    }
+    
     func getDailyChart(ticker: String, timeInterval: Constants.TimeIntervals, completionHandler: @escaping ([Candle]) -> Void) {
         let params = [
             "symbol": ticker,

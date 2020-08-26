@@ -114,6 +114,10 @@ class PredictionsViewController: UIViewController, StatsVC {
                 self.avgReturnView.setProgressAndLabel(CGFloat(r/0.3), label: String(Int((r*100).rounded())) + "%")
                 self.avgReturnView.setProgressColor(self.getTintColorForReturnValue(value: Float(r)))
             }
+            if !hasTipranksAnalysts {
+                self.noTopAnalysts()
+            }
+            
             if let x = self.company.priceTarget?.numberOfAnalysts {
                 var n = x
                 if self.allMode {
@@ -163,6 +167,7 @@ class PredictionsViewController: UIViewController, StatsVC {
         topAnalystSuccessRateView.isHidden = true
         avgReturnView.isHidden = true
         priceTargetChartTopConstraint.constant = 10
+        self.priceTargetContainerHeight.constant = 250
         self.view.layoutIfNeeded()
     }
     

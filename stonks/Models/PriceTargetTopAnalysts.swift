@@ -12,6 +12,7 @@ import ObjectMapper
 struct PriceTargetTopAnalysts: Mappable {
     
     public var symbol:String? //"AAPL",
+    public var companyName:String? //Apple, Inc.
     public var avgAnalystRank:Double? //18.2,
     public var avgAnalystReturn:Double? //0.294 percent as decimal
     public var avgAnalystSuccessRate:Double? //0.75, percent as decimal
@@ -27,6 +28,7 @@ struct PriceTargetTopAnalysts: Mappable {
     
     mutating func mapping(map: Map) {
         symbol <- map["symbol"]
+        companyName <- map["companyName"]
         avgAnalystRank <- map["avgAnalystRank"]
         avgAnalystReturn <- map["avgAnalystReturn"]
         avgAnalystSuccessRate <- map["avgAnalystSuccessRate"]

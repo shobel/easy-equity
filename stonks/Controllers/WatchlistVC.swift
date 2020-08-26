@@ -47,6 +47,7 @@ class WatchlistVC: UIViewController, Updateable {
     
     override func viewDidAppear(_ animated: Bool) {
         //updateFinvizData()
+        watchlistUpdater?.startTask()
         self.tableView.reloadData()
     }
     
@@ -109,14 +110,18 @@ class WatchlistVC: UIViewController, Updateable {
     }
     
     public func updateFromScheduledTask(_ data:Any?){
+        let watchlist = self.watchlistManager.getWatchlist()
+        if watchlist.count > 0 && watchlist[0].quote != nil {
+            if watchlist[0].quote!.isUSMarketOpen ?? false {
+                self.watchlistUpdater?.hibernating = false
+            } else {
+                self.watchlistUpdater?.hibernating = true
+            }
+        }
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
-    
-//     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        print()
-//     }
      
     @objc func handleRefresh() {
         self.loadWatchlist()
@@ -135,7 +140,6 @@ extension WatchlistVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "watchListCell", for: indexPath) as! WatchlistTVCell
-        
         let company = watchlistManager.getWatchlist()[indexPath.row]
         cell.displayData(company: company)
         return cell

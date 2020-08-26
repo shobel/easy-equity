@@ -46,8 +46,10 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var sma100: UILabel!
     @IBOutlet weak var sma200: UILabel!
     @IBOutlet weak var toggleSmasButton: UIButton!
+    @IBOutlet weak var toggleRsiButton: UIButton!
     
     public var showSmas:Bool = false
+    public var showRsi:Bool = false
     
     public var company:Company!
     public var latestQuote:Quote!
@@ -90,6 +92,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.scrollView.delegate = self
+        
+        self.toggleRsiButton.layer.cornerRadius = 5
+        self.toggleSmasButton.layer.cornerRadius = 5
         
         updateChartHeight()
         company = Dataholder.selectedCompany
@@ -481,6 +486,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
                 sma200.text = ""
             }
             smastack.isHidden = false
+        } else {
+            smastack.isHidden = true
         }
         totalDateAndVolumeView.isHidden = true
         
@@ -567,17 +574,33 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
                 self.optionTapped(.toggleShowCandleBar)
             }
         }
+        self.hideShowRsiAndSmaButtons()
     }
     
     @IBAction func toggleSmasButtonTapped(_ sender: Any) {
         self.showSmas = !showSmas
         if showSmas {
-            self.toggleSmasButton.setBackgroundImage(UIImage(named: "analytics"), for: .normal)
+            self.toggleSmasButton.backgroundColor = Constants.darkPink
+            self.toggleSmasButton.tintColor = .white
         } else {
-            self.toggleSmasButton.setBackgroundImage(UIImage(named: "analytics_grey"), for: .normal)
+            self.toggleSmasButton.backgroundColor = Constants.veryLightGrey
+            self.toggleSmasButton.tintColor = .darkGray
         }
         self.chartView.updateChart()
     }
+    
+    @IBAction func toggleRsiButtonTapped(_ sender: Any) {
+        self.showRsi = !showRsi
+        if showRsi {
+            self.toggleRsiButton.backgroundColor = Constants.darkPink
+            self.toggleRsiButton.tintColor = .white
+        } else {
+            self.toggleRsiButton.backgroundColor = Constants.veryLightGrey
+            self.toggleRsiButton.tintColor = .darkGray
+        }
+        self.chartView.updateChart()
+    }
+    
     
     func chartViewDidEndPanning(_ chartView: ChartViewBase){
         self.chartValueNothingSelected(chartView)
@@ -616,16 +639,26 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     @IBOutlet weak var button5Y: UIButton!
     
     @IBAction func OneDayButtonPressed(_ sender: Any) {
-        self.timeButtonPressed(sender as! UIButton, chartData: company.minuteData, timeInterval: Constants.TimeIntervals.day)
+        self.timeButtonPressed(sender, chartData: company.minuteData, timeInterval: Constants.TimeIntervals.day)
     }
     
     @IBAction func OneMonthButtonPressed(_ sender: Any) {
         self.hideLoader(false)
         NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
             self.company.dailyData = candles
-            DispatchQueue.main.async {
-                self.hideLoader(true)
-                self.timeButtonPressed(sender as! UIButton, chartData: self.company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
+            if candles.count > 0 && candles[candles.count-1].rsi14 == nil {
+                self.alphaVantage.getRSI(ticker: self.company.symbol, range: "14") { rsiMap in
+                    self.company.addTechnicalIndicatorsToDailyValues(rsiMap)
+                    DispatchQueue.main.async {
+                        self.hideLoader(true)
+                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.hideLoader(true)
+                    self.timeButtonPressed(sender, chartData: self.company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
+                }
             }
         }
     }
@@ -634,9 +667,19 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.hideLoader(false)
         NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
             self.company.dailyData = candles
-            DispatchQueue.main.async {
-                self.hideLoader(true)
-                self.timeButtonPressed(sender as! UIButton, chartData: self.company.getDailyData(65), timeInterval: Constants.TimeIntervals.three_month)
+            if candles.count > 0 && candles[candles.count-1].rsi14 == nil {
+                self.alphaVantage.getRSI(ticker: self.company.symbol, range: "14") { rsiMap in
+                    self.company.addTechnicalIndicatorsToDailyValues(rsiMap)
+                    DispatchQueue.main.async {
+                        self.hideLoader(true)
+                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(65), timeInterval: Constants.TimeIntervals.one_month)
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.hideLoader(true)
+                    self.timeButtonPressed(sender, chartData: self.company.getDailyData(65), timeInterval: Constants.TimeIntervals.one_month)
+                }
             }
         }
     }
@@ -647,7 +690,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             self.company.monthlyData = candles
             DispatchQueue.main.async {
                 self.hideLoader(true)
-                self.timeButtonPressed(sender as! UIButton, chartData: self.company.getQuarterlyData(80), timeInterval: Constants.TimeIntervals.twenty_year)
+                self.timeButtonPressed(sender, chartData: self.company.getQuarterlyData(80), timeInterval: Constants.TimeIntervals.twenty_year)
             }
         }
     }
@@ -659,15 +702,25 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
                 self.company.weeklyData = candles
                 DispatchQueue.main.async {
                     self.hideLoader(true)
-                    self.timeButtonPressed(sender as! UIButton, chartData: self.company.getWeeklyData(52), timeInterval: Constants.TimeIntervals.one_year)
+                    self.timeButtonPressed(sender, chartData: self.company.getWeeklyData(52), timeInterval: Constants.TimeIntervals.one_year)
                 }
             }
         } else {
             NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
                 self.company.dailyData = candles
-                DispatchQueue.main.async {
-                    self.hideLoader(true)
-                    self.timeButtonPressed(sender as! UIButton, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_year)
+                if candles.count > 0 && candles[candles.count-1].rsi14 == nil {
+                    self.alphaVantage.getRSI(ticker: self.company.symbol, range: "14") { rsiMap in
+                        self.company.addTechnicalIndicatorsToDailyValues(rsiMap)
+                        DispatchQueue.main.async {
+                            self.hideLoader(true)
+                            self.timeButtonPressed(sender, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_year)
+                        }
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.hideLoader(true)
+                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_month)
+                    }
                 }
             }
         }
@@ -679,28 +732,28 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             self.company.monthlyData = candles
             DispatchQueue.main.async {
                 self.hideLoader(true)
-                self.timeButtonPressed(sender as! UIButton, chartData: self.company.getMonthlyData(60), timeInterval: Constants.TimeIntervals.five_year)
+                self.timeButtonPressed(sender, chartData: self.company.getMonthlyData(60), timeInterval: Constants.TimeIntervals.five_year)
             }
         }
     }
     
-    private func timeButtonPressed(_ button: UIButton, chartData: [Candle], timeInterval: Constants.TimeIntervals){
+    private func timeButtonPressed(_ button: Any, chartData: [Candle], timeInterval: Constants.TimeIntervals){
+        if !(button is UIButton) {
+            return
+        }
         self.timeInterval = timeInterval
         if chartData.count > 0 {
-            if self.timeInterval == Constants.TimeIntervals.day {
+            if self.timeInterval == .day {
                 setTopBarValues(startPrice: latestQuote.previousClose ?? chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
             } else {
                 setTopBarValues(startPrice: chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
             }
         }
-        if self.timeInterval != Constants.TimeIntervals.day {
-            self.toggleSmasButton.isHidden = false
-        } else {
-            self.toggleSmasButton.isHidden = true
-        }
+
+        self.hideShowRsiAndSmaButtons()
         
         for timeButton in timeButtons {
-            if timeButton == button {
+            if timeButton == button as! UIButton {
                 timeButton.backgroundColor = UIColor.white
                 timeButton.setTitleColor(Constants.darkGrey, for: .normal)
             } else {
@@ -730,6 +783,19 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             self.TwentyYearButtonPressed(self)
         case .max:
             return
+        }
+    }
+    
+    private func hideShowRsiAndSmaButtons(){
+        if self.timeInterval != .day {
+            self.toggleSmasButton.isHidden = false
+        } else {
+            self.toggleSmasButton.isHidden = true
+        }
+        if self.timeInterval == .one_month || self.timeInterval == .three_month || (self.timeInterval == .one_year && !self.candleMode) {
+            self.toggleRsiButton.isHidden = false
+        } else {
+            self.toggleRsiButton.isHidden = true
         }
     }
   
