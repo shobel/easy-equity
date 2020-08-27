@@ -81,6 +81,36 @@
             </objects>
             <point key="canvasLocation" x="-175" y="1075"/>
         </scene>
+        <!--Subscription View Controller-->
+        <scene sceneID="QMx-ci-YUt">
+            <objects>
+                <viewController id="PN0-3l-ddg" customClass="SubscriptionViewController" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="f0s-oh-JbD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yGz-3Z-at1">
+                                <rect key="frame" x="158" y="309.5" width="59" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="BUY"/>
+                                <connections>
+                                    <action selector="buyTapped:" destination="PN0-3l-ddg" eventType="touchUpInside" id="jCU-SV-Piw"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="yGz-3Z-at1" firstAttribute="centerX" secondItem="f0s-oh-JbD" secondAttribute="centerX" id="3EH-Qv-Ac8"/>
+                            <constraint firstItem="yGz-3Z-at1" firstAttribute="centerY" secondItem="f0s-oh-JbD" secondAttribute="centerY" id="mFm-7z-kuc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="0YL-WK-kFr"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="jJR-a0-xkE"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9XA-37-VGM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="396" y="-755"/>
+        </scene>
         <!--Watchlist-->
         <scene sceneID="4UD-KL-NwV">
             <objects>
@@ -105,11 +135,25 @@
                                             <constraint firstAttribute="width" constant="90" id="SdZ-QY-80M"/>
                                         </constraints>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7d4-9D-WII" userLabel="Subscribe">
+                                        <rect key="frame" x="345" y="10" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="ZRq-fX-M2Y"/>
+                                            <constraint firstAttribute="height" constant="20" id="dMW-J7-vgg"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.91764705879999997" green="0.0" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" image="cart.fill" catalog="system"/>
+                                        <connections>
+                                            <segue destination="PN0-3l-ddg" kind="show" id="kG3-Cx-gQA"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="5Uo-r3-kxd" firstAttribute="centerY" secondItem="UYZ-tb-SQm" secondAttribute="centerY" id="5hK-Ez-BMr"/>
                                     <constraint firstAttribute="height" constant="40" id="AMF-3Q-juU"/>
+                                    <constraint firstItem="7d4-9D-WII" firstAttribute="top" secondItem="xj6-b4-9v7" secondAttribute="top" constant="10" id="FtH-37-UI5"/>
+                                    <constraint firstItem="xj6-b4-9v7" firstAttribute="trailing" secondItem="7d4-9D-WII" secondAttribute="trailing" constant="10" id="Lut-zy-siS"/>
                                     <constraint firstItem="HQh-PP-E6O" firstAttribute="centerY" secondItem="UYZ-tb-SQm" secondAttribute="centerY" id="PmO-Wf-b13"/>
                                     <constraint firstItem="5Uo-r3-kxd" firstAttribute="leading" secondItem="xj6-b4-9v7" secondAttribute="leading" constant="5" id="ifo-9Y-dYf"/>
                                     <constraint firstItem="HQh-PP-E6O" firstAttribute="centerX" secondItem="UYZ-tb-SQm" secondAttribute="centerX" id="qsI-za-11d"/>
@@ -4262,6 +4306,7 @@
         <image name="bullfrog_white_blurred_transparent_bighorns" width="416" height="432"/>
         <image name="calendar" catalog="system" width="128" height="106"/>
         <image name="candlebar_white" width="487" height="475"/>
+        <image name="cart.fill" catalog="system" width="128" height="102"/>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
         <image name="dollar_sign" width="175" height="175"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
