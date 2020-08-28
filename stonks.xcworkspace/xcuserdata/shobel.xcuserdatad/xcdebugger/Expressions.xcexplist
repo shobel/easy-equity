@@ -267,6 +267,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "WatchlistVC.authorizationController(controller:didCompleteWithAuthorization:):WatchlistVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "String(decoding: code, as: UTF8.self)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "Company.getQuarterlyData(_:):Company.swift">
          <PersistentStrings>
             <PersistentString
@@ -381,6 +389,9 @@
          <PersistentStrings>
             <PersistentString
                value = "self.token">
+            </PersistentString>
+            <PersistentString
+               value = "KeychainItem.currentUserIdentifier">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -544,6 +555,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "AppDelegate.application(_:didFinishLaunchingWithOptions:):AppDelegate.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "KeychainItem.currentUserIdentifier">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CircularProgressView.init(coder:):CircularProgressView.swift">
          <PersistentStrings>
             <PersistentString
@@ -554,6 +573,14 @@
             </PersistentString>
             <PersistentString
                value = "self.progressValueLabel!.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in MyRestAPI.postRequest(queryURL:body:completion:):MyRestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "httpResponse.statusCode">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -581,6 +608,14 @@
          <PersistentStrings>
             <PersistentString
                value = "lhs.generalInfo?.symbol == rhs.generalInfo?.symbol">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in MyRestAPI.signInWithAppleToken(token:completionHandler:):MyRestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "data[&quot;token&quot;].string!">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -758,6 +793,14 @@
             </PersistentString>
             <PersistentString
                value = "dataSet.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "UIViewController.showAuthViewController():Extensions.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UIApplication.shared.windows.first!.rootViewController!">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

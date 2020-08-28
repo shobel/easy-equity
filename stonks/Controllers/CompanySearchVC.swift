@@ -18,6 +18,9 @@ extension CompanySearchVC: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.dismiss(animated: true, completion: nil)
     }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.resignFirstResponder()
+    }
 }
 
 extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -55,6 +58,7 @@ extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate 
     
 }
 
+//TODO-SAM: when company search returns no results, might want to switch table views to show a message that says no results
 class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
@@ -345,8 +349,6 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             let company = self.buttonCompanyDict[button]!
             Dataholder.selectedCompany = company
         }
-
     }
-    
 
 }

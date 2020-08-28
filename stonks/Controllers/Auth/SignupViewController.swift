@@ -43,14 +43,14 @@ class SignupViewController: UIViewController {
                     self.showError(err.localizedDescription)
                     self.registerButton.stopAnimation(animationStyle: .shake, completion: nil)
                 } else {
-                    self.restAPI.createUser(id: Auth.auth().currentUser!.uid, email: self.emailInput.text!) { (JSON) in
-                        DispatchQueue.main.async {
-                            self.hideError()
-                            self.registerButton.stopAnimation(animationStyle: .expand, completion: {
-                                self.performSegue(withIdentifier: "toHome", sender: self)
-                            })
-                        }
-                    }
+//                    self.restAPI.createUser(id: Auth.auth().currentUser!.uid, email: self.emailInput.text!) { (JSON) in
+//                        DispatchQueue.main.async {
+//                            self.hideError()
+//                            self.registerButton.stopAnimation(animationStyle: .expand, completion: {
+//                                self.performSegue(withIdentifier: "toHome", sender: self)
+//                            })
+//                        }
+//                    }
                 }
             }
         }

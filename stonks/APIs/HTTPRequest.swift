@@ -40,7 +40,9 @@ class HTTPRequest {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
-            request.addValue("\(token)", forHTTPHeaderField: "Authorization")
+            if (!token.isEmpty) {
+                request.addValue("\(token)", forHTTPHeaderField: "Authorization")
+            }
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             let dataTask = sharedSession.dataTask(with: request, completionHandler: completionHandler)
             dataTask.resume()

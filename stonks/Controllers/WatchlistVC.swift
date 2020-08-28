@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 class WatchlistVC: UIViewController, Updateable {
     
@@ -19,6 +20,7 @@ class WatchlistVC: UIViewController, Updateable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.watchlistManager = Dataholder.watchlistManager
         self.loadWatchlist()
         
