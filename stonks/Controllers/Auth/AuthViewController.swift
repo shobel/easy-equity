@@ -10,11 +10,12 @@ import UIKit
 import AVKit
 import VisualEffectView
 import Firebase
+import TransitionButton
+import AuthenticationServices
 
-class AuthViewController: UIViewController {
+class AuthViewController: UIViewController, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
 
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var createAccountButton: UIButton!
+    @IBOutlet weak var loginButton: TransitionButton!
     var videoPlayer:AVPlayer?
     var videoPlayerLayer:AVPlayerLayer?
     
@@ -24,13 +25,13 @@ class AuthViewController: UIViewController {
         loginButton.layer.cornerRadius = 25
         loginButton.layer.borderColor = UIColor.white.cgColor
         loginButton.layer.borderWidth = CGFloat(1)
-        createAccountButton.layer.cornerRadius = 25
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if Auth.auth().currentUser != nil {
-            performSegue(withIdentifier: "toHome", sender: self)
-        }
+//        if Auth.auth().currentUser != nil {
+//            performSegue(withIdentifier: "toHome", sender: self)
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,58 +42,118 @@ class AuthViewController: UIViewController {
     }
     
     @IBAction func loginButtonClicked(_ sender: Any) {
-        performSegue(withIdentifier: "toLogin", sender: self)
+        self.loginButton.startAnimation()
+        self.handleAuthorization()
     }
     
-    @IBAction func createAccountButtonClicked(_ sender: Any) {
-        performSegue(withIdentifier: "toSignUp", sender: self)
+    private func signInToFirebase() {
+//        Auth.auth().signIn(withEmail: self.emailInput.text!, password: self.passwordInput.text!) { (result, err) in
+//            if err != nil {
+//                self.showError("Wrong username or password.")
+//                self.loginButton.stopAnimation(animationStyle: .shake, completion: nil)
+//            } else {
+//                self.hideError()
+//                self.loginButton.stopAnimation(animationStyle: .expand, completion: {
+//                    self.performSegue(withIdentifier: "toHome", sender: self)
+//                })
+//            }
+//        }
     }
     
-    func setBackground(){
-        let bg = UIImage(named: "finance-bg9.jpg")!
-        let imageView = UIImageView(frame: view.bounds)
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.image = bg
-        imageView.center = view.center
-        view.addSubview(imageView)
-        self.view.sendSubviewToBack(imageView)
+    private func handleAuthorization(){
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+         
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
     }
     
-    func addOpaqueLayer(){
-        let opaqueLayer = UIView()
-        opaqueLayer.frame = self.view.bounds
-        opaqueLayer.backgroundColor = UIColor(white: 0.5, alpha: 0.4)
-        view.addSubview(opaqueLayer)
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
     }
     
-    func applyBlur(){
-        //only apply the blur if the user hasn't disabled transparency effects
-        if !UIAccessibility.isReduceTransparencyEnabled {
-            //view.backgroundColor = .clear
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print(error.localizedDescription)
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        switch authorization.credential {
+        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+            // Create an account in your system.
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName
+            let email = appleIDCredential.email
+            let token = appleIDCredential.identityToken
+            let tokenStr = String(data: token!, encoding: .utf8)
             
-            let visualEffectView = VisualEffectView(frame: self.view.bounds)
-            visualEffectView.blurRadius = 6
-
-            view.addSubview(visualEffectView)
-        } else {
-            view.backgroundColor = .black
+            NetworkManager.getMyRestApi().signInWithAppleToken(token: tokenStr!) { (JSON) in
+                self.loginButton.stopAnimation(animationStyle: .expand, completion: {
+                    self.performSegue(withIdentifier: "toHome", sender: self)
+                })
+            }
+        
+        case let passwordCredential as ASPasswordCredential:
+            // Sign in using an existing iCloud Keychain credential.
+            let username = passwordCredential.user
+            let password = passwordCredential.password
+            
+            print(username)
+            print(password)
+            
+        default:
+            break
         }
     }
     
-    func setUpVideo(){
-        let bundlePath = Bundle.main.path(forResource: "frog-on-a-log", ofType: "mp4")
-        guard bundlePath != nil else {
-            return
-        }
-        let url = URL(fileURLWithPath: bundlePath!)
-        let item = AVPlayerItem(url: url)
-        videoPlayer = AVPlayer(playerItem: item)
-        videoPlayerLayer = AVPlayerLayer(player: videoPlayer!)
-        videoPlayerLayer?.frame = CGRect(x: -self.view.frame.size.width*0.25, y: 0, width: self.view.frame.size.width*1.5, height: self.view.frame.size.height)
-        view.layer.insertSublayer(videoPlayerLayer!, at: 0)
-        videoPlayer?.playImmediately(atRate: 0.5)
-    }
+    
+//    func setBackground(){
+//        let bg = UIImage(named: "finance-bg9.jpg")!
+//        let imageView = UIImageView(frame: view.bounds)
+//        imageView.contentMode = .scaleAspectFill
+//        imageView.clipsToBounds = true
+//        imageView.image = bg
+//        imageView.center = view.center
+//        view.addSubview(imageView)
+//        self.view.sendSubviewToBack(imageView)
+//    }
+//
+//    func addOpaqueLayer(){
+//        let opaqueLayer = UIView()
+//        opaqueLayer.frame = self.view.bounds
+//        opaqueLayer.backgroundColor = UIColor(white: 0.5, alpha: 0.4)
+//        view.addSubview(opaqueLayer)
+//    }
+//
+//    func applyBlur(){
+//        //only apply the blur if the user hasn't disabled transparency effects
+//        if !UIAccessibility.isReduceTransparencyEnabled {
+//            //view.backgroundColor = .clear
+//
+//            let visualEffectView = VisualEffectView(frame: self.view.bounds)
+//            visualEffectView.blurRadius = 6
+//
+//            view.addSubview(visualEffectView)
+//        } else {
+//            view.backgroundColor = .black
+//        }
+//    }
+//
+//    func setUpVideo(){
+//        let bundlePath = Bundle.main.path(forResource: "frog-on-a-log", ofType: "mp4")
+//        guard bundlePath != nil else {
+//            return
+//        }
+//        let url = URL(fileURLWithPath: bundlePath!)
+//        let item = AVPlayerItem(url: url)
+//        videoPlayer = AVPlayer(playerItem: item)
+//        videoPlayerLayer = AVPlayerLayer(player: videoPlayer!)
+//        videoPlayerLayer?.frame = CGRect(x: -self.view.frame.size.width*0.25, y: 0, width: self.view.frame.size.width*1.5, height: self.view.frame.size.height)
+//        view.layer.insertSublayer(videoPlayerLayer!, at: 0)
+//        videoPlayer?.playImmediately(atRate: 0.5)
+//    }
     
 
     /*

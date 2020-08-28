@@ -13,11 +13,13 @@ import Firebase
 
 class MyRestAPI: HTTPRequest {
     
-    private var apiurl = "http://localhost:3000/api"
+    private var apiurl = "http://192.168.1.8:3000/api"
+    //private var apiurl = "http://localhost:3000/api"
+    
     private var userEndpoint = "/user"
     private var stockEndpoint = "/stocks"
     private var marketEndpoint = "/market"
-    private var token:String = ""
+    private var authEndpoint = "/auth"
     
     public enum ChartTimeFrames : String {
         case daily, weekly, monthly
@@ -27,18 +29,39 @@ class MyRestAPI: HTTPRequest {
         super.init()
     }
     
-    public func setToken(token:String) {
-        self.token = token
+    public func clearKeychain() {
+        KeychainItem.deleteAllKeychainIdentifiers()
     }
 
-    public func createUser(id:String, email:String, completionHandler: @escaping (JSON)->Void){
+    public func signInWithAppleToken(token:String, completionHandler: @escaping (JSON)->Void){
         let body = [
-            "userid": id,
-            "email": email
+            "token": token
         ]
-        let queryURL = buildQuery(url: apiurl + userEndpoint + "/create", params: [:])
+        let queryURL = buildQuery(url: apiurl + authEndpoint + "/signinwithappletoken", params: [:])
+        //this post request should always succeed, save tokens, and take u to landing
         self.postRequest(queryURL: queryURL, body: body) { (data) in
+            self.saveTokenObjInKeychain(data)
             completionHandler(data)
+        }
+    }
+    
+    public func getNewIdTokenWithRefreshToken(completionHandler: @escaping (JSON)->Void){
+        let body = [
+            "refreshToken": KeychainItem.currentRefreshToken
+        ]
+        let queryURL = buildQuery(url: apiurl + authEndpoint + "/getnewidtokenwithrefreshtoken", params: [:])
+        httpPostQuery(queryURL: queryURL, token: KeychainItem.currentUserIdentifier, body: body) { (data, response, error) -> Void in
+            if let httpResponse = response as? HTTPURLResponse {
+                //if refresh token has been revoked, user needs to login again
+                if httpResponse.statusCode == 401 || httpResponse.statusCode == 400 {
+                    self.clearKeychain()
+                    DispatchQueue.main.async {
+                        UIApplication.shared.windows.first!.rootViewController?.showAuthViewController()
+                    }
+                } else {
+                    completionHandler(JSON(data!))
+                }
+            }
         }
     }
     
@@ -316,23 +339,29 @@ class MyRestAPI: HTTPRequest {
     
     
     private func getRequest(queryURL:String, completion: @escaping (JSON) -> Void) {
-        httpGetQuery(queryURL: queryURL, token: self.token) { (data, response, error) -> Void in
+        httpGetQuery(queryURL: queryURL, token: KeychainItem.currentUserIdentifier) { (data, response, error) -> Void in
             if let httpResponse = response as? HTTPURLResponse {
                 //if token is invalid, get a new token
                 if httpResponse.statusCode == 401 || httpResponse.statusCode == 400 {
-                    Auth.auth().currentUser?.getIDToken() { (token, authError) in
-                        if authError == nil && token != nil {
-                            self.token = token!
-                            //resend query
-                            self.httpGetQuery(queryURL: queryURL, token: self.token) { (data2, response2, error2) -> Void in
-                                if let httpResponse2 = response2 as? HTTPURLResponse {
-                                    if httpResponse2.statusCode == 200 {
-                                        completion(JSON(data2!))
-                                    }
-                                }
-                            }
-                        }
+                    self.getNewIdTokenWithRefreshToken() { (json) -> Void in
+                        self.saveTokenObjInKeychain(json)
+                        self.getRequest(queryURL: queryURL, completion: { (json2:JSON) in
+                            completion(json2)
+                        })
                     }
+//                    Auth.auth().currentUser?.getIDToken() { (token, authError) in
+//                        if authError == nil && token != nil {
+//                            self.saveUserTokenInKeychain(token!)
+//                            //resend query
+//                            self.httpGetQuery(queryURL: queryURL, token: KeychainItem.currentUserIdentifier) { (data2, response2, error2) -> Void in
+//                                if let httpResponse2 = response2 as? HTTPURLResponse {
+//                                    if httpResponse2.statusCode == 200 {
+//                                        completion(JSON(data2!))
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
                 } else if httpResponse.statusCode == 429 {
                     print("Rate limit reached")
                 } else if error == nil && data !=  nil {
@@ -343,26 +372,43 @@ class MyRestAPI: HTTPRequest {
     }
     
     private func postRequest(queryURL:String, body:[String:Any], completion: @escaping (JSON) -> Void) {
-        httpPostQuery(queryURL: queryURL, token: self.token, body: body) { (data, response, error) -> Void in
+        httpPostQuery(queryURL: queryURL, token: KeychainItem.currentUserIdentifier, body: body) { (data, response, error) -> Void in
             if let httpResponse = response as? HTTPURLResponse {
                 //if token is invalid, get a new token
                 if httpResponse.statusCode == 401 || httpResponse.statusCode == 400 {
-                    Auth.auth().currentUser?.getIDToken() { (token, authError) in
-                        if authError == nil && token != nil {
-                            self.token = token!
-                            //resend query
-                            self.httpPostQuery(queryURL: queryURL, token: self.token, body: body) { (data2, response2, error2) -> Void in
-                                if let httpResponse2 = response2 as? HTTPURLResponse {
-                                    if httpResponse2.statusCode == 200 {
-                                        completion(JSON(data!))
-                                    }
-                                }
-                            }
-                        }
+                    self.getNewIdTokenWithRefreshToken() { (json) -> Void in
+                        self.saveTokenObjInKeychain(json)
+                        self.getRequest(queryURL: queryURL, completion: { (json2:JSON) in
+                            completion(json2)
+                        })
                     }
+//                    Auth.auth().currentUser?.getIDToken() { (token, authError) in
+//                        if authError == nil && token != nil {
+//                            self.saveUserTokenInKeychain(token!)
+//                            //resend query
+//                            self.httpPostQuery(queryURL: queryURL, token: KeychainItem.currentUserIdentifier, body: body) { (data2, response2, error2) -> Void in
+//                                if let httpResponse2 = response2 as? HTTPURLResponse {
+//                                    if httpResponse2.statusCode == 200 {
+//                                        completion(JSON(data!))
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
                 } else if error == nil && data !=  nil {
                     completion(JSON(data!))
                 }
+            }
+        }
+    }
+    
+    private func saveTokenObjInKeychain(_ tokenObj: JSON) {
+        if let idToken = tokenObj["idToken"].string, let refreshToken = tokenObj["refreshToken"].string {
+            do {
+                try KeychainItem(service: Bundle.main.bundleIdentifier!, account: "userIdentifier").saveItem(idToken)
+                try KeychainItem(service: Bundle.main.bundleIdentifier!, account: "refreshToken").saveItem(refreshToken)
+            } catch {
+                print("Unable to save userIdentifier to keychain.")
             }
         }
     }

@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseCore
+import AuthenticationServices
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +19,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
-        return true
+        
+        do {
+            try KeychainItem(service: Bundle.main.bundleIdentifier!, account: "userIdentifier").deleteItem()
+        } catch {
+            print("Unable to delete userIdentifier to keychain.")
+        }
+        
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        appleIDProvider.getCredentialState(forUserID: KeychainItem.currentUserIdentifier) { (credentialState, error) in
+            switch credentialState {
+            case .authorized:
+                DispatchQueue.main.async {
+                    self.window?.rootViewController?.showHomeViewController()
+                }
+            case .revoked, .notFound:
+                break
+            default:
+                break
+            }
+        }
+        return true        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

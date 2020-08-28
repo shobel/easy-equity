@@ -15,6 +15,8 @@
 		1C2AC8622177B9A400469941 /* WatchlistVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2AC8612177B9A400469941 /* WatchlistVC.swift */; };
 		1C2AC864217FB01D00469941 /* PriceChartFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2AC863217FB01D00469941 /* PriceChartFormatter.swift */; };
 		1C2AC8682183D7C500469941 /* LaunchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2AC8672183D7C500469941 /* LaunchVC.swift */; };
+		1C4335E624F772AF00D2628D /* KeychainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4335E524F772AF00D2628D /* KeychainItem.swift */; };
+		1C4335EF24F8AF2C00D2628D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4335EE24F8AF2C00D2628D /* Extensions.swift */; };
 		1C4D2D8424E3D6F800E54EB8 /* CashFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D8324E3D6F800E54EB8 /* CashFlow.swift */; };
 		1C4D2D8624E3D75D00E54EB8 /* Income.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D8524E3D75D00E54EB8 /* Income.swift */; };
 		1C4D2D8824E3DA2400E54EB8 /* Insider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D2D8724E3DA2400E54EB8 /* Insider.swift */; };
@@ -66,6 +68,8 @@
 		1C754B0C24F0AB39000AE379 /* TopAnalystCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C754B0B24F0AB39000AE379 /* TopAnalystCollectionViewCell.swift */; };
 		1C754B0E24F20FB5000AE379 /* PriceChartPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C754B0D24F20FB5000AE379 /* PriceChartPreviewView.swift */; };
 		1C754B1024F375B4000AE379 /* RSIChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C754B0F24F375B4000AE379 /* RSIChart.swift */; };
+		1C754B1224F6EE4F000AE379 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C754B1124F6EE4F000AE379 /* StoreKit.framework */; };
+		1C754B1424F6EF32000AE379 /* SubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C754B1324F6EF32000AE379 /* SubscriptionViewController.swift */; };
 		1C7B9830215B32D500C75014 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B982F215B32D500C75014 /* AppDelegate.swift */; };
 		1C7B9835215B32D500C75014 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C7B9833215B32D500C75014 /* Main.storyboard */; };
 		1C7B9837215B32D700C75014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C7B9836215B32D700C75014 /* Assets.xcassets */; };
@@ -145,6 +149,9 @@
 		1C2AC8612177B9A400469941 /* WatchlistVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistVC.swift; sourceTree = "<group>"; };
 		1C2AC863217FB01D00469941 /* PriceChartFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceChartFormatter.swift; sourceTree = "<group>"; };
 		1C2AC8672183D7C500469941 /* LaunchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchVC.swift; sourceTree = "<group>"; };
+		1C4335E524F772AF00D2628D /* KeychainItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItem.swift; sourceTree = "<group>"; };
+		1C4335E724F7748D00D2628D /* Bullfrog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bullfrog.entitlements; sourceTree = "<group>"; };
+		1C4335EE24F8AF2C00D2628D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1C4D2D8324E3D6F800E54EB8 /* CashFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashFlow.swift; sourceTree = "<group>"; };
 		1C4D2D8524E3D75D00E54EB8 /* Income.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Income.swift; sourceTree = "<group>"; };
 		1C4D2D8724E3DA2400E54EB8 /* Insider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insider.swift; sourceTree = "<group>"; };
@@ -196,6 +203,8 @@
 		1C754B0B24F0AB39000AE379 /* TopAnalystCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAnalystCollectionViewCell.swift; sourceTree = "<group>"; };
 		1C754B0D24F20FB5000AE379 /* PriceChartPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceChartPreviewView.swift; sourceTree = "<group>"; };
 		1C754B0F24F375B4000AE379 /* RSIChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSIChart.swift; sourceTree = "<group>"; };
+		1C754B1124F6EE4F000AE379 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		1C754B1324F6EF32000AE379 /* SubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionViewController.swift; sourceTree = "<group>"; };
 		1C7B982C215B32D500C75014 /* Bullfrog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bullfrog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7B982F215B32D500C75014 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C7B9834215B32D500C75014 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -261,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3190B5951A804D1D76815360 /* Pods_stonks.framework in Frameworks */,
+				1C754B1224F6EE4F000AE379 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +291,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C4335ED24F8AF1D00D2628D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1C4335EE24F8AF2C00D2628D /* Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		1C4EF362232AAC62000299E6 /* Deprecated */ = {
 			isa = PBXGroup;
 			children = (
@@ -312,6 +330,7 @@
 		1C6936BA21CDCE9A00E3FDC9 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				1C4335E524F772AF00D2628D /* KeychainItem.swift */,
 				1C62FDE124BD698C00BABDCB /* AlertDisplay.swift */,
 				1C4D2D9524EB174500E54EB8 /* BigNumberAxisFormatter.swift */,
 				1C6B5F1B24015015008E2C22 /* CandleUtility.swift */,
@@ -362,6 +381,8 @@
 		1C7B982E215B32D500C75014 /* stonks */ = {
 			isa = PBXGroup;
 			children = (
+				1C4335ED24F8AF1D00D2628D /* Extensions */,
+				1C4335E724F7748D00D2628D /* Bullfrog.entitlements */,
 				1C72F91C24CC22F700EC59F6 /* ActionSheets */,
 				1CB257222172C17B008E3D4D /* APIs */,
 				1C7B982F215B32D500C75014 /* AppDelegate.swift */,
@@ -480,6 +501,7 @@
 				1C183F90216D59F90042F52C /* StockDetailsVC.swift */,
 				1C72F90924CA4FFD00EC59F6 /* UserAccountViewController.swift */,
 				1C2AC8612177B9A400469941 /* WatchlistVC.swift */,
+				1C754B1324F6EF32000AE379 /* SubscriptionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -535,6 +557,7 @@
 		C1754C75B9A372B1254918BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1C754B1124F6EE4F000AE379 /* StoreKit.framework */,
 				851E076FA06779BF9AEB98FC /* Pods_stonks.framework */,
 			);
 			name = Frameworks;
@@ -755,6 +778,7 @@
 				1CB257272173A234008E3D4D /* HTTPRequest.swift in Sources */,
 				1C9B952523EE3958004E95B1 /* DatedValue.swift in Sources */,
 				1C6936B721CDC72200E3FDC9 /* VolumeChartFormatter.swift in Sources */,
+				1C754B1424F6EF32000AE379 /* SubscriptionViewController.swift in Sources */,
 				1C62FDDD24BC4B9B00BABDCB /* AuthViewController.swift in Sources */,
 				1C4D2D8C24E7911A00E54EB8 /* SimpleColoredLabel.swift in Sources */,
 				1C62FDE224BD698C00BABDCB /* AlertDisplay.swift in Sources */,
@@ -795,6 +819,7 @@
 				1CB257252172C292008E3D4D /* WatchlistManager.swift in Sources */,
 				1C6936BC21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift in Sources */,
 				1C4D2D9824EBB60500E54EB8 /* BrainSentiment.swift in Sources */,
+				1C4335EF24F8AF2C00D2628D /* Extensions.swift in Sources */,
 				1C72349A230CF34500319D7F /* PremiumViewController.swift in Sources */,
 				1C72349C230CF43200319D7F /* KeyStatsViewController.swift in Sources */,
 				1CB257292173B8A5008E3D4D /* Configuration.swift in Sources */,
@@ -826,6 +851,7 @@
 				1CDA114C232B5C810028D00C /* FormattedNumberLabel.swift in Sources */,
 				1C4D2D9424EA552800E54EB8 /* IncomeChart.swift in Sources */,
 				1CFE633D23FB665E00F81758 /* NewsWebViewController.swift in Sources */,
+				1C4335E624F772AF00D2628D /* KeychainItem.swift in Sources */,
 				1C4D2D8424E3D6F800E54EB8 /* CashFlow.swift in Sources */,
 				1C6FF97B23261617005AE40D /* EarningsViewController.swift in Sources */,
 				1C754B0E24F20FB5000AE379 /* PriceChartPreviewView.swift in Sources */,
@@ -1008,6 +1034,7 @@
 			baseConfigurationReference = 5265415BD1DB5B226DB13419 /* Pods-stonks.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = stonks/Bullfrog.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BDZT3U3R7D;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1037,6 +1064,7 @@
 			baseConfigurationReference = 0D22008E39AAFEDD72A5E77D /* Pods-stonks.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = stonks/Bullfrog.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BDZT3U3R7D;
 				INFOPLIST_FILE = stonks/Info.plist;
