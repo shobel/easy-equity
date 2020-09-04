@@ -19,12 +19,7 @@ class UserAccountViewController: UIViewController {
     }
     
     @IBAction func signoutButtonTapped(_ sender: Any) {
-        do {
-            try Auth.auth().signOut()
-            NetworkManager.getMyRestApi().clearKeychain()
-        } catch let err {
-            print(err)
-        }
+        NetworkManager.getMyRestApi().signOutAndClearKeychain()
     }
     
     /*

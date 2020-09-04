@@ -32,6 +32,16 @@ class MyRestAPI: HTTPRequest {
     public func clearKeychain() {
         KeychainItem.deleteAllKeychainIdentifiers()
     }
+    
+    public func signOutAndClearKeychain(){
+        let body = [
+            "email": KeychainItem.currentEmail
+        ]
+        let queryURL = buildQuery(url: apiurl + authEndpoint + "/signout", params: [:])
+        self.postRequest(queryURL: queryURL, body: body) { (data) in
+            self.clearKeychain()
+        }
+    }
 
     public func signInWithAppleToken(token:String, completionHandler: @escaping (JSON)->Void){
         let body = [
@@ -54,7 +64,6 @@ class MyRestAPI: HTTPRequest {
             if let httpResponse = response as? HTTPURLResponse {
                 //if refresh token has been revoked, user needs to login again
                 if httpResponse.statusCode == 401 || httpResponse.statusCode == 400 {
-                    self.clearKeychain()
                     DispatchQueue.main.async {
                         UIApplication.shared.windows.first!.rootViewController?.showAuthViewController()
                     }

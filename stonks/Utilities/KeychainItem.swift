@@ -144,6 +144,15 @@ struct KeychainItem {
          }
      }
     
+    static var currentEmail: String {
+         do {
+             let storedIdentifier = try KeychainItem(service: Bundle.main.bundleIdentifier!, account: "userEmail").readItem()
+             return storedIdentifier
+         } catch {
+             return ""
+         }
+     }
+    
     static func deleteUserIdentifierFromKeychain() {
         do {
             try KeychainItem(service: Bundle.main.bundleIdentifier!, account: "userIdentifier").deleteItem()
@@ -164,6 +173,7 @@ struct KeychainItem {
         do {
             try KeychainItem(service: Bundle.main.bundleIdentifier!, account: "userIdentifier").deleteItem()
             try KeychainItem(service: Bundle.main.bundleIdentifier!, account: "refreshToken").deleteItem()
+            try KeychainItem(service: Bundle.main.bundleIdentifier!, account: "userEmail").deleteItem()
         } catch {
             print("Unable to delete identifiers from keychain")
         }

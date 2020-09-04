@@ -14,8 +14,8 @@ extension UIViewController {
     func showHomeViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let homeViewController = storyboard.instantiateViewController(withIdentifier: "Landing")
-        homeViewController.modalPresentationStyle = .automatic
-        homeViewController.isModalInPresentation = true
+        homeViewController.modalPresentationStyle = .fullScreen
+        homeViewController.isModalInPresentation = false
         UIApplication.topViewController()?.present(homeViewController, animated: true, completion: nil)
     }
     
