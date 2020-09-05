@@ -647,13 +647,11 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
             self.company.dailyData = candles
             if candles.count > 0 && candles[candles.count-1].rsi14 == nil {
-                self.alphaVantage.getRSI(ticker: self.company.symbol, range: "14") { rsiMap in
-                    self.company.addTechnicalIndicatorsToDailyValues(rsiMap)
-                    DispatchQueue.main.async {
-                        self.hideLoader(true)
-                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
-                    }
+                DispatchQueue.main.async {
+                    self.hideLoader(true)
+                    self.timeButtonPressed(sender, chartData: self.company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
                 }
+                
             } else {
                 DispatchQueue.main.async {
                     self.hideLoader(true)
@@ -668,12 +666,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
             self.company.dailyData = candles
             if candles.count > 0 && candles[candles.count-1].rsi14 == nil {
-                self.alphaVantage.getRSI(ticker: self.company.symbol, range: "14") { rsiMap in
-                    self.company.addTechnicalIndicatorsToDailyValues(rsiMap)
-                    DispatchQueue.main.async {
-                        self.hideLoader(true)
-                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(65), timeInterval: Constants.TimeIntervals.one_month)
-                    }
+                DispatchQueue.main.async {
+                    self.hideLoader(true)
+                    self.timeButtonPressed(sender, chartData: self.company.getDailyData(65), timeInterval: Constants.TimeIntervals.one_month)
                 }
             } else {
                 DispatchQueue.main.async {
@@ -709,12 +704,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
                 self.company.dailyData = candles
                 if candles.count > 0 && candles[candles.count-1].rsi14 == nil {
-                    self.alphaVantage.getRSI(ticker: self.company.symbol, range: "14") { rsiMap in
-                        self.company.addTechnicalIndicatorsToDailyValues(rsiMap)
-                        DispatchQueue.main.async {
-                            self.hideLoader(true)
-                            self.timeButtonPressed(sender, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_year)
-                        }
+                    DispatchQueue.main.async {
+                        self.hideLoader(true)
+                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_year)
                     }
                 } else {
                     DispatchQueue.main.async {

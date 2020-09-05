@@ -12,7 +12,7 @@ import UIKit
 struct Constants{
 
     public static var demo = true
-    public static var subscriber = true
+    public static var subscriber = false
     
     public static var restorationIDs = (details: "companyDetails", watchlist: "watchlist", search: "companySearch")
     

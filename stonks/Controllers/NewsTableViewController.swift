@@ -73,13 +73,19 @@ class NewsTableViewController: UITableViewController, StatsVC {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let newsItem:News = (self.company?.news![indexPath.row])!
-        let url = URL(string: newsItem.url!)
-        let config = SFSafariViewController.Configuration()
-        config.entersReaderIfAvailable = true
-        do {
-            let reachable = try url?.checkPromisedItemIsReachable()
-            if (reachable!){
-                let vc = SFSafariViewController(url: url!, configuration: config)
+        if let urlString = newsItem.url {
+            guard let url = URL(string: urlString) else {
+                self.currentAlert = AlertDisplay.createAlertWithConfirmButton(title: "Error", message: "URL is not reachable", buttonText: "OK") { (action) in
+                    print("News URL is not reachable: " + newsItem.url!)
+                    self.currentAlert!.dismiss(animated: true, completion: nil)
+                }
+                self.present(self.currentAlert!, animated: true, completion: nil)
+                return
+            }
+            if ["http", "https"].contains(url.scheme?.lowercased() ?? "") {
+                let config = SFSafariViewController.Configuration()
+                config.entersReaderIfAvailable = true
+                let vc = SFSafariViewController(url: url, configuration: config)
                 present(vc, animated: true)
             } else {
                 self.currentAlert = AlertDisplay.createAlertWithConfirmButton(title: "Error", message: "URL is not reachable", buttonText: "OK") { (action) in
@@ -88,12 +94,6 @@ class NewsTableViewController: UITableViewController, StatsVC {
                 }
                 self.present(self.currentAlert!, animated: true, completion: nil)
             }
-        } catch {
-            self.currentAlert = AlertDisplay.createAlertWithConfirmButton(title: "Error", message: "URL is invalid", buttonText: "OK") { (action) in
-                print("cannot open URL " + newsItem.url!)
-                self.currentAlert!.dismiss(animated: true, completion: nil)
-            }
-            self.present(self.currentAlert!, animated: true, completion: nil)
         }
     }
     
