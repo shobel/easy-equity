@@ -40,9 +40,8 @@ extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate 
             let item = currentTop10List[indexPath.row]
             cell.symbolLabel.text = item.symbol
             cell.changePercentLabel.setValue(value: item.changePercent, isPercent: true)
-            cell.latestPriceLabel.text = String("$\(item.latestPrice)")
+            cell.latestPriceLabel.text = String("\(item.latestPrice)")
             cell.latestPriceLabel.textColor = cell.changePercentLabel.getColor(value: item.changePercent)
-            self.buttonCompanyDict[cell.segueButton] = Company(symbol: item.symbol, fullName: item.companyName)
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topAnalystCell", for: indexPath) as! TopAnalystCollectionViewCell
@@ -51,9 +50,19 @@ extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate 
             cell.avgUpside.setValue(value: item.upsidePercent!, isPercent: true)
             cell.avgRank.text = String(format: "%.1f", item.avgAnalystRank!)
             cell.numAnalysts.text = String(item.numAnalysts!)
-            self.buttonCompanyDict[cell.segueButton] = Company(symbol: item.symbol!, fullName: item.companyName!)
             return cell
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView.restorationIdentifier == "top10" {
+            let item = currentTop10List[indexPath.row]
+            Dataholder.selectedCompany = Company(symbol: item.symbol, fullName: "")
+        } else {
+            let item = currentTopAnalystSymbols[indexPath.row]
+            Dataholder.selectedCompany = Company(symbol: item.symbol!, fullName: "")
+        }
+        performSegue(withIdentifier: "SearchToDetail", sender: self)
     }
     
 }
@@ -79,7 +88,6 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     private var currentTopAnalystSymbols:[PriceTargetTopAnalysts] = []
     private var maxNumTopAnalystItems:Int = 10
     private var marketNews:[News] = []
-    private var buttonCompanyDict:[UIButton:Company] = [:]
     @IBOutlet weak var noTopAnalystsLabel: UILabel!
     
     private var itemsLoaded:Int = 0
@@ -343,12 +351,10 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         return indexPath
     }
 
-    
+    /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let button = sender as? UIButton {
-            let company = self.buttonCompanyDict[button]!
-            Dataholder.selectedCompany = company
-        }
+
     }
+    */
 
 }

@@ -22,6 +22,8 @@ class Company: Equatable, Comparable {
     public var cashflow:[CashFlow]?
     public var income:[Income]?
     
+    public var peerQuotes:[Quote]?
+    
     public var recommendations:Recommendations?
     public var totalBuy:Int?
     public var totalHold:Int?

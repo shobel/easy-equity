@@ -15,6 +15,7 @@ class PriceChartPreviewView: LineChartView {
         self.chartDescription?.enabled = false
         self.legend.enabled = false
         self.dragEnabled = false
+        self.isUserInteractionEnabled = false
         self.setScaleEnabled(false)
         self.pinchZoomEnabled = false
         self.doubleTapToZoomEnabled = false

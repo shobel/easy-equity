@@ -17,6 +17,9 @@
                value = "volume">
             </PersistentString>
             <PersistentString
+               value = "self.peerCollection">
+            </PersistentString>
+            <PersistentString
                value = "volume.setValue()">
             </PersistentString>
          </PersistentStrings>
@@ -47,10 +50,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "StockDetailsVC.handleDailyChartData(_:):StockDetailsVC.swift">
+         contextName = "StockDetailsVC.chartValueSelected(_:entry:highlight:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "company.dailyData">
+               value = "chartData.count">
+            </PersistentString>
+            <PersistentString
+               value = "latestQuote">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -118,10 +124,10 @@
          contextName = "closure #1 in LoginViewController.loginButtonClicked(_:):LoginViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "Auth.auth().currentUser!.uid">
+               value = "err.localizedDescription">
             </PersistentString>
             <PersistentString
-               value = "err.localizedDescription">
+               value = "Auth.auth().currentUser!.uid">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -177,9 +183,6 @@
          contextName = "NewsTableViewController.tableView(_:didSelectRowAt:):NewsTableViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "NSURL(string: urlString)">
-            </PersistentString>
-            <PersistentString
                value = "URL(string: &quot;https://www.google.com&quot;)">
             </PersistentString>
             <PersistentString
@@ -187,6 +190,9 @@
             </PersistentString>
             <PersistentString
                value = "URL(string: &quot;http://nshipster.com/&quot;, relativeTo: nil)">
+            </PersistentString>
+            <PersistentString
+               value = "NSURL(string: urlString)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -342,10 +348,10 @@
                value = "dateFormatter.string(from: date)">
             </PersistentString>
             <PersistentString
-               value = "dateFormatter.dateFormat = &quot;MMM d, yyyy&quot;">
+               value = "Date(timeIntervalSince1970: news.datetime!)">
             </PersistentString>
             <PersistentString
-               value = "Date(timeIntervalSince1970: news.datetime!)">
+               value = "dateFormatter.dateFormat = &quot;MMM d, yyyy&quot;">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -490,13 +496,13 @@
                value = "self.pagingView.bounds.height">
             </PersistentString>
             <PersistentString
+               value = "statsVC.getContentHeight()">
+            </PersistentString>
+            <PersistentString
                value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
             </PersistentString>
             <PersistentString
                value = "self.pageVC.pageViewController.scrollView.contentSize.height">
-            </PersistentString>
-            <PersistentString
-               value = "statsVC.getContentHeight()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -602,10 +608,10 @@
          contextName = "closure #2 in StockDetailsVC.handleCompanyData(_:logo:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.contentViewHeightConstraint.multiplier">
+               value = "self.contentViewHeightConstraint.constant">
             </PersistentString>
             <PersistentString
-               value = "self.contentViewHeightConstraint.constant">
+               value = "self.contentViewHeightConstraint.multiplier">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -773,6 +779,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "StockDetailsVC.loadDynamicData(_:):StockDetailsVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.company">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "WatchlistVC.viewDidAppear(_:):WatchlistVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -838,6 +852,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "PriceChartPreviewView.setData(_:):PriceChartPreviewView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.data!.xMax">
+            </PersistentString>
+            <PersistentString
+               value = "data.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "StockDetailsVC.TwentyYearButtonPressed(_:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -857,13 +882,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "PriceChartPreviewView.setData(_:):PriceChartPreviewView.swift">
+         contextName = "StockDetailsVC.loadDynamicData():StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.data!.xMax">
-            </PersistentString>
-            <PersistentString
-               value = "data.count">
+               value = "timeInterval">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -875,6 +897,14 @@
          <PersistentStrings>
             <PersistentString
                value = "data.yMin">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "KeyStatsViewController.viewDidLoad():KeyStatsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.company">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -950,13 +980,13 @@
          contextName = "EPSChart.setChartData(company:):EPSChart.swift">
          <PersistentStrings>
             <PersistentString
+               value = "company.earnings">
+            </PersistentString>
+            <PersistentString
                value = "company.estimates">
             </PersistentString>
             <PersistentString
                value = "UIImage(named: &quot;earnings_with_line&quot;)">
-            </PersistentString>
-            <PersistentString
-               value = "company.earnings">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -975,7 +1005,7 @@
                value = "progress*100.0">
             </PersistentString>
             <PersistentString
-               value = "Int((progress*100).rounded())">
+               value = "progress">
             </PersistentString>
             <PersistentString
                value = "self.progressValueLabel">
@@ -984,7 +1014,7 @@
                value = "self.progressValueLabel?.text">
             </PersistentString>
             <PersistentString
-               value = "progress">
+               value = "Int((progress*100).rounded())">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1254,13 +1284,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "StockDetailsVC.chartValueSelected(_:entry:highlight:):StockDetailsVC.swift">
+         contextName = "StockDetailsVC.handleDailyChartData(_:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "chartData.count">
-            </PersistentString>
-            <PersistentString
-               value = "latestQuote">
+               value = "company.dailyData">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

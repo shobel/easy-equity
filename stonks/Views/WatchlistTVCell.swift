@@ -36,8 +36,8 @@ class WatchlistTVCell: UITableViewCell {
         ticker.text = company.symbol
         fullName.text = company.fullName
         
-        currentPrice.text = String(format: "%.2f", company.quote?.latestPrice ?? "--")
         percentChange.setValue(value: (company.quote?.changePercent ?? 0.0) * 100.0, isPercent: true)
+        currentPrice.text = String(format: "%.2f", company.quote?.latestPrice ?? "--")
         priceChange.setValue(value: (company.quote?.change ?? 0.0), isPercent: false)
         
         if company.daysToER < 0 {
@@ -70,8 +70,9 @@ class WatchlistTVCell: UITableViewCell {
                     preAfterImage.tintColor = Constants.yellow
                     //preAfterImage.image = UIImage(systemName: "sunrise")
                 }
-                priceChange.setValue(value: quote.extendedChange!, isPercent: false, prefix: "")
-                percentChange.setValue(value: (quote.extendedChangePercent ?? 0.0) * 100.0, isPercent: true, prefix: "")
+                currentPrice.text = String(format: "%.2f", company.quote?.extendedPrice ?? "--")
+                priceChange.setValue(value: quote.extendedChangePercent!, isPercent: true, prefix: "")
+                //percentChange.setValue(value: (quote.extendedChangePercent ?? 0.0) * 100.0, isPercent: true, prefix: "")
             } else {
                 preAfterImage.isHidden = true
             }
@@ -93,7 +94,9 @@ class WatchlistTVCell: UITableViewCell {
             minute: 30,
             second: 0,
             of: now)!
-        
+        if calendar.isDateInWeekend(etDate!) {
+            return false
+        }
         if etDate! < nine_thirty {
             return true
         }
