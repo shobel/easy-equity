@@ -68,6 +68,9 @@ class KeyStatsViewController: UIViewController, StatsVC {
     @IBOutlet weak var sector: UILabel!
     @IBOutlet weak var employees: UILabel!
     
+    @IBOutlet weak var insidersLabel: UILabel!
+    @IBOutlet weak var insidersValue: UILabel!
+    
     private var company:Company!
     private var isLoaded = false
     @IBOutlet weak var peerCollection: UICollectionView!
@@ -148,6 +151,28 @@ class KeyStatsViewController: UIViewController, StatsVC {
                 }
                 if let x = self.company.generalInfo?.employees {
                     self.employees.text = String(x)
+                }
+                
+                if let insiders = self.company.insiders {
+                    var total = 0
+                    for insider in insiders {
+                        total += insider.netTransacted!
+                    }
+                    if total > 0 {
+                        self.insidersLabel.text = "Insiders net bought over past 6 months: "
+                        self.insidersValue.textColor = Constants.green
+                    } else {
+                        self.insidersLabel.text = "Insiders net sold over past 6 months: "
+                        self.insidersValue.textColor = Constants.darkPink
+                    }
+                    if let latestPrice = self.company.quote?.latestPrice {
+                        let totalDollarValue = abs(Double(total) * latestPrice)
+                        let valFormatted = NumberFormatter.formatNumber(num: totalDollarValue)
+                        self.insidersValue.text = "$\(valFormatted)"
+                    } else {
+                        let valFormatted = NumberFormatter.formatNumber(num: Double(abs(total)))
+                        self.insidersValue.text = "\(valFormatted) shares"
+                    }
                 }
             }
         }
