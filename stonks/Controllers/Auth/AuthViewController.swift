@@ -76,19 +76,26 @@ class AuthViewController: UIViewController, ASAuthorizationControllerDelegate, A
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        self.loginButton.stopAnimation(animationStyle: .shake)
         print(error.localizedDescription)
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            // Create an account in your system.
-            let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
+//            let userIdentifier = appleIDCredential.user
+//            let fullName = appleIDCredential.fullName
             let email = appleIDCredential.email
             let token = appleIDCredential.identityToken
             let tokenStr = String(data: token!, encoding: .utf8)
             
+            if let email = email {
+                do {
+                    try KeychainItem(service: Bundle.main.bundleIdentifier!, account: "userEmail").saveItem(email)
+                } catch {
+                    print("Unable to save email to keychain.")
+                }
+            }
             NetworkManager.getMyRestApi().signInWithAppleToken(token: tokenStr!) { (JSON) in
                 self.loginButton.stopAnimation(animationStyle: .expand, completion: {
                     self.performSegue(withIdentifier: "toHome", sender: self)

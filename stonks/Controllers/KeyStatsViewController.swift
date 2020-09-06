@@ -11,6 +11,36 @@ protocol StatsVC {
     func updateData()
     func getContentHeight() -> CGFloat
 }
+
+extension KeyStatsViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.company.peerQuotes?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "top10cell", for: indexPath) as! Top10CollectionViewCell
+        if let peerQuotes = self.company.peerQuotes {
+            let item = peerQuotes[indexPath.row]
+            cell.symbolLabel.text = item.symbol
+            cell.changePercentLabel.setValue(value: item.changePercent!, isPercent: true)
+            cell.latestPriceLabel.text = String("\(item.latestPrice!)")
+            cell.latestPriceLabel.textColor = cell.changePercentLabel.getColor(value: item.changePercent)
+            return cell
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let peerQuotes = self.company.peerQuotes {
+            let item = peerQuotes[indexPath.row]
+            Dataholder.selectedCompany = Company(symbol: item.symbol!, fullName: "")
+            let detailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StockDetails")
+            self.navigationController?.pushViewController(detailsVC, animated: true)
+        }
+    }
+    
+}
+
 class KeyStatsViewController: UIViewController, StatsVC {
     
     @IBOutlet weak var marketCap: FormattedNumberLabel!
@@ -40,10 +70,13 @@ class KeyStatsViewController: UIViewController, StatsVC {
     
     private var company:Company!
     private var isLoaded = false
+    @IBOutlet weak var peerCollection: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.isLoaded = true
+        self.peerCollection.delegate = self
+        self.peerCollection.dataSource = self
         self.company = Dataholder.selectedCompany!
         updateData()
     }
@@ -52,6 +85,7 @@ class KeyStatsViewController: UIViewController, StatsVC {
         self.company = Dataholder.selectedCompany!
         if (isLoaded){
             DispatchQueue.main.async {
+                self.peerCollection.reloadData()
                 if let x = self.company.keyStats?.marketcap {
                     self.marketCap.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
                 }

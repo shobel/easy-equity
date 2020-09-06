@@ -20,25 +20,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         
-        do {
-            try KeychainItem(service: Bundle.main.bundleIdentifier!, account: "userIdentifier").deleteItem()
-        } catch {
-            print("Unable to delete userIdentifier to keychain.")
-        }
+//        do {
+//            try KeychainItem(service: Bundle.main.bundleIdentifier!, account: "userIdentifier").deleteItem()
+//        } catch {
+//            print("Unable to delete userIdentifier to keychain.")
+//        }
         
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        appleIDProvider.getCredentialState(forUserID: KeychainItem.currentUserIdentifier) { (credentialState, error) in
-            switch credentialState {
-            case .authorized:
-                DispatchQueue.main.async {
-                    self.window?.rootViewController?.showHomeViewController()
-                }
-            case .revoked, .notFound:
-                break
-            default:
-                break
+        if !KeychainItem.currentUserIdentifier.isEmpty{
+            DispatchQueue.main.async {
+                self.window?.rootViewController?.showHomeViewController()
             }
         }
+        
+//        let appleIDProvider = ASAuthorizationAppleIDProvider()
+//        appleIDProvider.getCredentialState(forUserID: KeychainItem.currentUserIdentifier) { (credentialState, error) in
+//            switch credentialState {
+//            case .authorized:
+//                DispatchQueue.main.async {
+//                    self.window?.rootViewController?.showHomeViewController()
+//                }
+//            case .revoked, .notFound:
+//                break
+//            default:
+//                break
+//            }
+//        }
         return true        
     }
 

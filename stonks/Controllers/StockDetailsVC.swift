@@ -92,23 +92,15 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.scrollView.delegate = self
-        
         self.toggleRsiButton.layer.cornerRadius = 5
         self.toggleSmasButton.layer.cornerRadius = 5
         
-        updateChartHeight()
-        company = Dataholder.selectedCompany
-//        let pageVC: StatsNewsPageViewController = self.children.first as! StatsNewsPageViewController
-//        pageVC.pageDelegate = self
-        
-        //fetch new intraday chart values once per minute
-        self.stockUpdater = StockUpdater(caller: self, company: company, timeInterval: 30.0)
-        self.stockUpdater?.startTask()
+        chartTypeButton.imageView!.contentMode = UIView.ContentMode.scaleAspectFit
+        feedbackGenerator = UISelectionFeedbackGenerator()
         
         self.pageVCList = [
             self.keyStatsVC, self.newsVC, self.financialsVC, self.earningsVC, self.predictionsVC, self.premiumVC
         ]
-        
         pageVC = PagingViewController()
         pageVC.register(IconPagingCell.self, for: IconItem.self)
         pageVC.menuHorizontalAlignment = .center
@@ -118,7 +110,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         pageVC.dataSource = self
         pageVC.delegate = self
         pageVC.select(pagingItem: IconItem(icon: icons[0], index: 0))
-        
         self.addChild(pageVC)
         self.pagingView.addSubview(pageVC.view)
         pageVC.didMove(toParent: self)
@@ -132,43 +123,72 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         ])
         pageVC.selectedFont = UIFont(name: "HelveticaNeue-Thin", size: 12.0)!
         pageVC.backgroundColor = UIColor.lightGray
-
-        chartTypeButton.imageView!.contentMode = UIView.ContentMode.scaleAspectFit
-        feedbackGenerator = UISelectionFeedbackGenerator()
         
+        //setup general stock and price information
+        stockDetailsNavView.logo.layer.cornerRadius = (stockDetailsNavView.logo.frame.width)/2
+        stockDetailsNavView.logo.layer.masksToBounds = true
+        
+        let rangeImage:UIImage? = UIImage(systemName: "circle.fill")
+        slider52w.setThumbImage(rangeImage, for: .normal)
+        slider52w.tintColor = Constants.darkPink
+        
+        //setup chart buttons
+        timeButtons = [button1D, button1M, button3M, button1Y, button5Y, buttonMax]
+        button1D.backgroundColor = UIColor.white
+        button1D.setTitleColor(Constants.darkGrey, for: .normal)
+        timeInterval = Constants.TimeIntervals.day
+        
+        self.loadDynamicData()
+    }
+    
+    
+    //TODO reload outdated charts on view appear and during each scheduled task handler
+    override func viewDidAppear(_ animated: Bool) {
+        self.stockUpdater?.startTask()
+        if self.dateOfLatestPriceData != "" && self.dateOfLatestPriceData != NumberFormatter.formatDateToYearMonthDayDashesString(Date()){
+            self.refetchCurrentChart()
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.stockUpdater?.stopTask()
+    }
+    
+    public func loadDynamicData(){
+        self.hideLoader(false)
+                
+        updateChartHeight()
+        company = Dataholder.selectedCompany
+        //let pageVC: StatsNewsPageViewController = self.children.first as! StatsNewsPageViewController
+        //pageVC.pageDelegate = self
+                
+        //fetch new intraday chart values once per minute
+        self.stockUpdater?.hibernating = false
+        self.stockUpdater = StockUpdater(caller: self, company: company, timeInterval: 30.0)
+        self.stockUpdater?.startTask()
+                
         //watchlist button
         if Dataholder.watchlistManager.getWatchlist().contains(company){
             self.addedToWatchlist(true)
         } else {
             self.addedToWatchlist(false)
         }
-        
-        //setup general stock and price information
-        stockDetailsNavView.logo.layer.cornerRadius = (stockDetailsNavView.logo.frame.width)/2
-        stockDetailsNavView.logo.layer.masksToBounds = true
+                
         stockDetailsNavView.ticker.text = company.symbol
         stockDetailsNavView.name.text = company.fullName
-        
-        let rangeImage:UIImage? = UIImage(systemName: "circle.fill")
-        slider52w.setThumbImage(rangeImage, for: .normal)
-        slider52w.tintColor = Constants.darkPink
-        
+                
         latestQuote = company.quote
         //setup price info that will need to be updated each time quote is retreived
         if (latestQuote != nil){
             //setTopBarValues(startPrice: 0.0, endPrice: latestQuote.latestPrice!, selected: false)
         }
-        
+                
         //load charts
         setGlobalChartOptions()
         volumeChartFormatter = VolumeChartFormatter()
         self.chartView.setup(delegate: self)
         self.chartView.delegate = self
-        
-        //loader indicator setup
-        self.loaderView.isHidden = false
-        self.activityIndicator.startAnimating()
-        
+                
         //start information retrieval processes
         self.totalHandlers = 2
         if Constants.subscriber {
@@ -177,28 +197,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         }
         NetworkManager.getMyRestApi().getAllFreeData(symbol: company.symbol, completionHandler: handleAllData)
         NetworkManager.getMyRestApi().getNonIntradayChart(symbol: company.symbol, timeframe: .weekly, completionHandler: self.handleWeeklyChart)
-        
-        //setup chart buttons
-        timeButtons = [button1D, button1M, button3M, button1Y, button5Y, buttonMax]
-        button1D.backgroundColor = UIColor.white
-        button1D.setTitleColor(Constants.darkGrey, for: .normal)
-        timeInterval = Constants.TimeIntervals.day
-        
+                
         self.adjustContentHeight(vc: self.keyStatsVC)
-        
-    }
-    
-    //TODO reload outdated charts on view appear and during each scheduled task handler
-    override func viewDidAppear(_ animated: Bool) {
-        self.stockUpdater?.startTask()
-        if self.dateOfLatestPriceData != "" && self.dateOfLatestPriceData != NumberFormatter.formatDateToYearMonthDayDashesString(Date()){
-            self.refetchCurrentChart()
-        }
-        
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        self.stockUpdater?.stopTask()
     }
     
     func updateFromScheduledTask(_ quoteAndIntradayChart:Any?) {
@@ -216,6 +216,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.dateOfLatestPriceData = qic.intradayChart[0].dateLabel!
         let quote = qic.quote!
         let intradayChart = qic.intradayChart
+        if quote.symbol == nil {
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }
+            return
+        }
         self.isMarketOpen = quote.isUSMarketOpen!
         self.latestQuote = quote
         DispatchQueue.main.async {
@@ -297,6 +303,11 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     public func hideLoader(_ hide:Bool){
         DispatchQueue.main.async {
+            if hide {
+                self.activityIndicator.stopAnimating()
+            } else {
+                self.activityIndicator.startAnimating()
+            }
             self.loaderView.isHidden = hide
         }
     }
@@ -313,10 +324,10 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             priceDetailsView.priceChangeAndPercent.setPriceChange(price: priceChange, percent: percentChange)
         }
         
-        var datetext = "market closed, "
+        var datetext = "market closed - "
         datetime.textColor = UIColor.gray
         if self.isMarketOpen {
-            datetext = "market open, "
+            datetext = "market open - "
             datetime.textColor = Constants.green
         }
         if latestQuote.latestTime!.contains(":"){
@@ -341,8 +352,10 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
 
     }
     
-    private func handleAllData(generalInfo: GeneralInfo, keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], income: [Income], estimates: Estimates, insiders: [Insider], priceTargetTopAnalysts: PriceTargetTopAnalysts?){
+    private func handleAllData(generalInfo: GeneralInfo, peerQuotes:[Quote], keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], income: [Income], estimates: Estimates, insiders: [Insider], priceTargetTopAnalysts: PriceTargetTopAnalysts?){
         self.company.generalInfo = generalInfo
+        self.company.fullName = self.company.generalInfo!.companyName!
+        self.company.peerQuotes = peerQuotes
         self.company.keyStats = keystats
         self.company.news = news
         self.company.priceTarget = priceTarget
@@ -355,6 +368,11 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.company.estimates = estimates
         self.company.priceTargetTopAnalysts = priceTargetTopAnalysts
     
+        DispatchQueue.main.async {
+            self.stockDetailsNavView.ticker.text = self.company.symbol
+            self.stockDetailsNavView.name.text = self.company.fullName
+        }
+        
         let keystatsVC = self.keyStatsVC as! StatsVC
         keystatsVC.updateData()
         let newsVC = self.newsVC
@@ -647,13 +665,11 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
             self.company.dailyData = candles
             if candles.count > 0 && candles[candles.count-1].rsi14 == nil {
-                self.alphaVantage.getRSI(ticker: self.company.symbol, range: "14") { rsiMap in
-                    self.company.addTechnicalIndicatorsToDailyValues(rsiMap)
-                    DispatchQueue.main.async {
-                        self.hideLoader(true)
-                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
-                    }
+                DispatchQueue.main.async {
+                    self.hideLoader(true)
+                    self.timeButtonPressed(sender, chartData: self.company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
                 }
+                
             } else {
                 DispatchQueue.main.async {
                     self.hideLoader(true)
@@ -668,17 +684,14 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
             self.company.dailyData = candles
             if candles.count > 0 && candles[candles.count-1].rsi14 == nil {
-                self.alphaVantage.getRSI(ticker: self.company.symbol, range: "14") { rsiMap in
-                    self.company.addTechnicalIndicatorsToDailyValues(rsiMap)
-                    DispatchQueue.main.async {
-                        self.hideLoader(true)
-                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(65), timeInterval: Constants.TimeIntervals.one_month)
-                    }
+                DispatchQueue.main.async {
+                    self.hideLoader(true)
+                    self.timeButtonPressed(sender, chartData: self.company.getDailyData(65), timeInterval: Constants.TimeIntervals.three_month)
                 }
             } else {
                 DispatchQueue.main.async {
                     self.hideLoader(true)
-                    self.timeButtonPressed(sender, chartData: self.company.getDailyData(65), timeInterval: Constants.TimeIntervals.one_month)
+                    self.timeButtonPressed(sender, chartData: self.company.getDailyData(65), timeInterval: Constants.TimeIntervals.three_month)
                 }
             }
         }
@@ -709,12 +722,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
                 self.company.dailyData = candles
                 if candles.count > 0 && candles[candles.count-1].rsi14 == nil {
-                    self.alphaVantage.getRSI(ticker: self.company.symbol, range: "14") { rsiMap in
-                        self.company.addTechnicalIndicatorsToDailyValues(rsiMap)
-                        DispatchQueue.main.async {
-                            self.hideLoader(true)
-                            self.timeButtonPressed(sender, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_year)
-                        }
+                    DispatchQueue.main.async {
+                        self.hideLoader(true)
+                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_year)
                     }
                 } else {
                     DispatchQueue.main.async {
@@ -741,6 +751,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         if !(button is UIButton) {
             return
         }
+        let timeIntervals:[Constants.TimeIntervals] = [.day, .one_month, .three_month, .one_year, .five_year, .twenty_year]
+        let index = timeIntervals.firstIndex(of: timeInterval)
+
         self.timeInterval = timeInterval
         if chartData.count > 0 {
             if self.timeInterval == .day {
@@ -752,13 +765,14 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
 
         self.hideShowRsiAndSmaButtons()
         
-        for timeButton in timeButtons {
-            if timeButton == button as! UIButton {
-                timeButton.backgroundColor = UIColor.white
-                timeButton.setTitleColor(Constants.darkGrey, for: .normal)
+        for i in 0..<timeButtons.count {
+            let button = timeButtons[i]
+            if i == index {
+                button.backgroundColor = UIColor.white
+                button.setTitleColor(Constants.darkGrey, for: .normal)
             } else {
-                timeButton.backgroundColor = Constants.darkPink
-                timeButton.setTitleColor(UIColor.white, for: .normal)
+                button.backgroundColor = Constants.darkPink
+                button.setTitleColor(UIColor.white, for: .normal)
             }
         }
         self.chartView.setChartData(chartData: chartData)

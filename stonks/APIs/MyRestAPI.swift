@@ -32,6 +32,16 @@ class MyRestAPI: HTTPRequest {
     public func clearKeychain() {
         KeychainItem.deleteAllKeychainIdentifiers()
     }
+    
+    public func signOutAndClearKeychain(){
+        let body = [
+            "email": KeychainItem.currentEmail
+        ]
+        let queryURL = buildQuery(url: apiurl + authEndpoint + "/signout", params: [:])
+        self.postRequest(queryURL: queryURL, body: body) { (data) in
+            self.clearKeychain()
+        }
+    }
 
     public func signInWithAppleToken(token:String, completionHandler: @escaping (JSON)->Void){
         let body = [
@@ -54,7 +64,6 @@ class MyRestAPI: HTTPRequest {
             if let httpResponse = response as? HTTPURLResponse {
                 //if refresh token has been revoked, user needs to login again
                 if httpResponse.statusCode == 401 || httpResponse.statusCode == 400 {
-                    self.clearKeychain()
                     DispatchQueue.main.async {
                         UIApplication.shared.windows.first!.rootViewController?.showAuthViewController()
                     }
@@ -153,7 +162,7 @@ class MyRestAPI: HTTPRequest {
                 let jsoncandle = json[i]
                 candles.append(Candle.createNonIntradayCandleFromJson(jsoncandle: jsoncandle))
             }
-            if candles[0].datetime! > candles[candles.count - 1].datetime! {
+            if candles.count > 0 && candles[0].datetime! > candles[candles.count - 1].datetime! {
                 completionHandler(candles.reversed())
             } else {
                 completionHandler(candles)
@@ -204,12 +213,22 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [Income], Estimates, [Insider], PriceTargetTopAnalysts?)->Void){
+    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [Income], Estimates, [Insider], PriceTargetTopAnalysts?)->Void){
         let queryURL = buildQuery(url: apiurl + stockEndpoint + "/allfree/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
             let companyLogoPeersJSON = json["companyLogoPeers"].rawString()!
             let generalInfo:GeneralInfo = Mapper<GeneralInfo>().map(JSONString: companyLogoPeersJSON) ?? GeneralInfo()
+            let peerQuotesJson = json["peerQuotes"]
+            var peerQuotes:[Quote] = []
+            for (symbol,_):(String, JSON) in peerQuotesJson {
+                let JSONString:String = peerQuotesJson[symbol].rawString()!
+                var quote:Quote = Quote()
+                if let q = Mapper<Quote>().map(JSONString: JSONString){
+                    quote = q
+                }
+                peerQuotes.append(quote)
+            }
             let keystatsJSON = json["keystats"].rawString()!
             let keystats:KeyStats = Mapper<KeyStats>().map(JSONString: keystatsJSON) ?? KeyStats()
             let advancedJSON = json["advanced"].rawString()!
@@ -264,7 +283,7 @@ class MyRestAPI: HTTPRequest {
             }
             let tipranksJSON = json["tipranksAnalysts"].rawString()!
             let tipranks:PriceTargetTopAnalysts? = Mapper<PriceTargetTopAnalysts>().map(JSONString: tipranksJSON) ?? nil
-            completionHandler(generalInfo, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, incomeList, estimates, insiderList, tipranks)
+            completionHandler(generalInfo, peerQuotes, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, incomeList, estimates, insiderList, tipranks)
         }
     }
     

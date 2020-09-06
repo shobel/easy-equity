@@ -87,6 +87,9 @@ struct Candle: Mappable {
         if let sma200 = jsoncandle["sma200"].double {
             candle.sma200 = sma200
         }
+        if let rsi14 = jsoncandle["rsi14"].double {
+            candle.rsi14 = rsi14
+        }
         return candle
     }
 }

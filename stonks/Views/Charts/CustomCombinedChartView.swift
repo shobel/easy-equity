@@ -313,11 +313,11 @@ class CustomCombinedChartView: CombinedChartView {
             
             if self.stockDetailsDelegate!.showRsi && self.stockDetailsDelegate!.toggleRsiButton.isHidden == false {
                 self.rightAxis.axisMaximum = 400
-                self.rightAxis.axisMinimum = 0
             } else {
                 self.rightAxis.axisMaximum = data.barData.yMax * 2
             }
-            
+            self.rightAxis.axisMinimum = 0
+
             self.data = data
             self.notifyDataSetChanged()
             //self.animate()
