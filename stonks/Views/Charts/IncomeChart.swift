@@ -15,9 +15,9 @@ class IncomeChart: BarChartView {
     private var company:Company!
     private var xLabels:[String] = []
     private enum ChartMode {
-        case REVENUE, NETINCOME, OPERATINGINCOME
+        case QUARTERLY, ANNUAL
     }
-    private var chartMode: ChartMode = ChartMode.REVENUE
+    private var chartMode: ChartMode = ChartMode.QUARTERLY
            
     public func setup(company:Company, financialDelegate: FinancialsViewController){
         self.delegate = delegate
@@ -25,7 +25,7 @@ class IncomeChart: BarChartView {
         self.company = company
                
         self.chartDescription?.enabled = false
-        self.legend.enabled = false
+        self.legend.enabled = true
         self.dragEnabled = false
         self.setScaleEnabled(false)
         self.pinchZoomEnabled = false
@@ -39,17 +39,18 @@ class IncomeChart: BarChartView {
         self.leftAxis.drawZeroLineEnabled = true
         self.rightAxis.enabled = false
                     
-        self.xAxis.valueFormatter = self
+        //self.xAxis.valueFormatter = self
         //self.xAxis.labelRotationAngle = CGFloat(45.0)
-        self.xAxis.labelFont = UIFont(name: "HelveticaNeue", size: 10.0)!
-        self.xAxis.labelCount = .max
+        self.xAxis.labelFont = UIFont(name: "HelveticaNeue", size: 12.0)!
         self.xAxis.enabled = true
         self.xAxis.axisMinimum = -0.5
         self.xAxis.drawGridLinesEnabled = false
         self.xAxis.labelPosition = .bottom
-        self.xAxis.granularity = 1
+        self.xAxis.granularityEnabled = true
         self.xAxis.drawAxisLineEnabled = true
-        self.xAxis.wordWrapEnabled = true
+        self.xAxis.wordWrapEnabled = false
+        self.xAxis.centerAxisLabelsEnabled = true
+        self.xAxis.valueFormatter = self
         //self.drawBarShadowEnabled = true
 //        self.extraTopOffset = 0
         self.extraBottomOffset = 15
@@ -58,43 +59,88 @@ class IncomeChart: BarChartView {
              
     private func setChartData(){
         self.xLabels = []
-        var colors:[UIColor] = []
-        if let inc = self.company.income {
-            let inc = Array(inc.reversed())
-            var barChartEntries:[BarChartDataEntry] = []
-            for i in 0..<inc.count {
-                let incomeEntry = inc[i]
-                var val:Int = 0
-                self.xLabels.append(NumberFormatter.formatDateToMonthYearShort(incomeEntry.reportDate!))
-                if self.chartMode == ChartMode.NETINCOME {
-                    val = incomeEntry.netIncome!
-                } else if self.chartMode == ChartMode.OPERATINGINCOME {
-                    val = incomeEntry.operatingIncome!
-                } else if self.chartMode == ChartMode.REVENUE{
-                    val = incomeEntry.totalRevenue!
+        var revEntries:[BarChartDataEntry] = []
+        var incomeEntries:[BarChartDataEntry] = []
+        var opIncEntries:[BarChartDataEntry] = []
+        if var inc = self.company.income {
+            if self.chartMode == ChartMode.ANNUAL {
+                var currentYear:String = ""
+                var income:[Int] = [0]
+                var revenue:[Int] = [0]
+                var opInc:[Int] = [0]
+                var currentIndex = 0
+                for k in inc {
+                    var year = k.fiscalDate!.components(separatedBy: "-")[0]
+                    let month = k.fiscalDate!.components(separatedBy: "-")[1]
+                    if Int(month)! <= 3 {
+                        year = String(Int(year)! - 1)
+                    }
+                    if currentYear == "" {
+                        currentYear = String(year)
+                        self.xLabels.append(year)
+                    }
+                    if currentYear != year {
+                        currentIndex+=1
+                        currentYear = year
+                        self.xLabels.append(year)
+                        income.append(0)
+                        revenue.append(0)
+                        opInc.append(0)
+                    }
+                    income[currentIndex] += k.netIncome!
+                    revenue[currentIndex] += k.totalRevenue!
+                    opInc[currentIndex] += k.operatingIncome!
                 }
-                barChartEntries.append(BarChartDataEntry(x: Double(i), y: Double(val)))
-                if val > 0 {
-                    colors.append(Constants.green)
-                } else {
-                    colors.append(Constants.darkPink)
+                income.reverse()
+                revenue.reverse()
+                opInc.reverse()
+                self.xLabels.reverse()
+                for i in 0..<income.count {
+                    incomeEntries.append(BarChartDataEntry(x: Double(i), y: Double(income[i])))
+                    revEntries.append(BarChartDataEntry(x: Double(i), y: Double(revenue[i])))
+                    opIncEntries.append(BarChartDataEntry(x: Double(i), y: Double(opInc[i])))
+                }
+            } else if self.chartMode == ChartMode.QUARTERLY {
+                inc = Array(inc.prefix(4)).reversed()
+                for i in 0..<inc.count {
+                    let incomeEntry = inc[i]
+                    self.xLabels.append(NumberFormatter.formatDateToMonthYearShort(incomeEntry.reportDate!))
+                    incomeEntries.append(BarChartDataEntry(x: Double(i), y: Double(incomeEntry.netIncome!)))
+                    revEntries.append(BarChartDataEntry(x: Double(i), y: Double(incomeEntry.totalRevenue!)))
+                    opIncEntries.append(BarChartDataEntry(x: Double(i), y: Double(incomeEntry.operatingIncome!)))
                 }
             }
             
-            let set = BarChartDataSet(entries: barChartEntries)
-            set.colors = colors
-            self.configureDataSet(dataset: set, label: "Income")
-            
+            let incomeSet = BarChartDataSet(entries: incomeEntries)
+            self.configureDataSet(dataset: incomeSet, label: "Income", color: Constants.orange)
+            let revSet = BarChartDataSet(entries: revEntries)
+            self.configureDataSet(dataset: revSet, label: "Revenue", color: Constants.blue)
+            let opSet = BarChartDataSet(entries: opIncEntries)
+            self.configureDataSet(dataset: opSet, label: "Operating Income", color: Constants.purple)
+
             DispatchQueue.main.async {
                 let data = BarChartData()
-                data.addDataSet(set)
+                data.addDataSet(revSet)
+                data.addDataSet(incomeSet)
+                data.addDataSet(opSet)
+                
+                let groupSpace = 2.0
+                let barSpace = 1.0
+                let barWidth = 5.0
+                
+                data.barWidth = barWidth
+                let gg = data.groupWidth(groupSpace: groupSpace, barSpace: barSpace)
+                self.xAxis.axisMinimum = 0.0
+                self.xAxis.axisMaximum = Double(0) + gg * Double(incomeSet.count)
+                data.groupBars(fromX: Double(0), groupSpace: groupSpace, barSpace: barSpace)
+                self.xAxis.granularity = self.xAxis.axisMaximum / Double(incomeSet.count)
+
                 let percentRange = (data.yMax - data.yMin)*0.2
                 self.leftAxis.axisMinimum = data.yMin - percentRange
                 if data.yMin > 0 && self.leftAxis.axisMinimum < 0 {
                     self.leftAxis.axisMinimum = 0
                 }
 
-                data.barWidth = 0.6
                 self.data = data
                 self.notifyDataSetChanged()
             }
@@ -103,31 +149,40 @@ class IncomeChart: BarChartView {
     
     public func changeChartMode(chartMode:String){
         switch chartMode {
-        case "REVENUE":
-            self.chartMode = ChartMode.REVENUE
-        case "NET INCOME":
-            self.chartMode = ChartMode.NETINCOME
-        case "OP INCOME":
-            self.chartMode = ChartMode.OPERATINGINCOME
+        case "QUARTERLY":
+            self.chartMode = ChartMode.QUARTERLY
+        case "ANNUAL":
+            self.chartMode = ChartMode.ANNUAL
         default:
             self.setChartData()
         }
         self.setChartData()
     }
     
-    func configureDataSet(dataset: BarChartDataSet, label:String) {
+    func configureDataSet(dataset: BarChartDataSet, label:String, color: UIColor) {
         dataset.valueTextColor = Constants.darkGrey
         dataset.drawValuesEnabled = true
         dataset.highlightEnabled = false
         dataset.valueFormatter = self
-        dataset.valueFont = UIFont(name: "Futura", size: 8)!
+        dataset.valueFont = UIFont(name: "Futura", size: 9)!
         dataset.label = label
+        dataset.setColor(color)
     }
 }
 
 extension IncomeChart: IAxisValueFormatter {
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        return xLabels[Int(value) % xLabels.count]
+        let count = self.xLabels.count
+        guard let axis = axis, count > 0 else {
+            return ""
+        }
+        let factor = axis.axisMaximum / Double(count)
+        let index = Int((value / factor).rounded())
+        if index >= 0 && index < count {
+            return self.xLabels[index]
+        }
+        return ""
+//        return xLabels[Int(value) % xLabels.count]
     }
 }
 

@@ -24,6 +24,7 @@ class PriceChartPreviewView: LineChartView {
         self.leftAxis.enabled = false
         self.rightAxis.enabled = false
         self.xAxis.enabled = false
+        self.noDataText = ""
     }
     
     public func setData(_ quote: Quote){
