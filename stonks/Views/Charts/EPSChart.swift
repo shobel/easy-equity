@@ -15,11 +15,11 @@ class EPSChart: CombinedChartView {
     private var numEstimates:[BarChartDataSet] = []
     private var epsTTM:[LineChartDataSet] = []
     private var formatter:PriceChartFormatter = PriceChartFormatter()
-    private var earningsDelegate: EarningsViewController!
+    private var parentDelegate: FinancialsViewController!
 
-    public func setup(company:Company, earningsDelegate: EarningsViewController){
+    public func setup(company:Company, parentDelegate: FinancialsViewController){
         self.delegate = delegate
-        self.earningsDelegate = earningsDelegate
+        self.parentDelegate = parentDelegate
         
         self.chartDescription?.enabled = false
         self.legend.enabled = false
@@ -121,7 +121,7 @@ class EPSChart: CombinedChartView {
             if epsTTMEntries.count > 0{
                 avgLabelValue = String(format: "%.2f", epsTTMEntries[epsTTMEntries.count - 1].y)
             }
-            earningsDelegate.updateEPSLegendValues(eps: actualEpsLabel, epsDate: epsDate, epsFwd: fwdLabelValue, epsFwdDate: fwdEpsDate, avg: avgLabelValue)
+            parentDelegate.updateEPSLegendValues(eps: actualEpsLabel, epsDate: epsDate, epsFwd: fwdLabelValue, epsFwdDate: fwdEpsDate, avg: avgLabelValue)
             
             let actualEarningsDataSet = ScatterChartDataSet(entries: actualEarningsEntries)
             self.configureScatterDataSet(set: actualEarningsDataSet, color: Constants.darkPink)

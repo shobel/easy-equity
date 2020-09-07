@@ -70,7 +70,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     private var pageVCList:[UIViewController] = []
     private var keyStatsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StatsVC")
     private var newsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewsVC") as! NewsTableViewController
-    private var earningsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "EarningsVC")
+//    private var earningsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "EarningsVC")
     private var financialsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FinVC")
     private var predictionsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PredictionsVC")
     private var premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumVC")
@@ -81,10 +81,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     private var dateOfLatestPriceData:String = ""
     
     fileprivate let icons = [
-        "stats2",
-        "news2",
+        "stats",
+        "news",
         "financials2",
-        "call",
         "analysts2",
         "star"
     ]
@@ -99,7 +98,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         feedbackGenerator = UISelectionFeedbackGenerator()
         
         self.pageVCList = [
-            self.keyStatsVC, self.newsVC, self.financialsVC, self.earningsVC, self.predictionsVC, self.premiumVC
+            self.keyStatsVC, self.newsVC, self.financialsVC, self.predictionsVC, self.premiumVC
         ]
         pageVC = PagingViewController()
         pageVC.register(IconPagingCell.self, for: IconItem.self)
@@ -377,8 +376,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         keystatsVC.updateData()
         let newsVC = self.newsVC
         newsVC.updateData()
-        let earningsVC = self.earningsVC as! StatsVC
-        earningsVC.updateData()
         let financialsVC = self.financialsVC as! StatsVC
         financialsVC.updateData()
         let predictionsVC = self.predictionsVC as! StatsVC

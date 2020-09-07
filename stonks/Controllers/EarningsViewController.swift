@@ -39,8 +39,8 @@ class EarningsViewController: UIViewController, StatsVC {
         self.company = Dataholder.selectedCompany!
         if (isLoaded){
             DispatchQueue.main.async {
-                self.epsChart.setup(company: self.company, earningsDelegate: self)
-                self.peChart.setup(company: self.company, delegate: self)
+//                self.epsChart.setup(company: self.company, earningsDelegate: self)
+//                self.peChart.setup(company: self.company, delegate: self)
                 if let est = self.company.estimates, let stats = self.company.keyStats {
                     self.nextEarningsQuarter.text = est.fiscalPeriod
                     if let nextReportDate = stats.getNextEarningsDate() {

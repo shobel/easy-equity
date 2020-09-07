@@ -15,9 +15,9 @@ class PEChart: CombinedChartView {
     
     private var peDataSets:[ScatterChartDataSet] = []
     private var formatter:PriceChartFormatter = PriceChartFormatter()
-    private var earningsDelegate: EarningsViewController!
+    private var earningsDelegate: FinancialsViewController!
     
-    public func setup(company:Company, delegate: EarningsViewController){
+    public func setup(company:Company, delegate: FinancialsViewController){
         self.earningsDelegate = delegate
         
         self.chartDescription?.enabled = false
