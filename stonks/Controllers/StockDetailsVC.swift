@@ -726,7 +726,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
                 } else {
                     DispatchQueue.main.async {
                         self.hideLoader(true)
-                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_month)
+                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_year)
                     }
                 }
             }
