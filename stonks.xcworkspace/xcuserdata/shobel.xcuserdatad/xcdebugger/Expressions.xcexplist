@@ -454,6 +454,9 @@
          contextName = "ScatterChartRenderer.drawValues(context:):ScatterChartRenderer.swift">
          <PersistentStrings>
             <PersistentString
+               value = "isDrawingValuesAllowed(dataProvider: dataProvider)">
+            </PersistentString>
+            <PersistentString
                value = "icon.size">
             </PersistentString>
          </PersistentStrings>
@@ -515,10 +518,13 @@
          contextName = "closure #1 in CustomCombinedChartView.updateChart():CustomCombinedChartView.swift">
          <PersistentStrings>
             <PersistentString
+               value = "earningsData.count">
+            </PersistentString>
+            <PersistentString
                value = "data.lineData.yMax">
             </PersistentString>
             <PersistentString
-               value = "self.sma50.entryCount">
+               value = "data.scatterData">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -548,7 +554,7 @@
                value = "candleDate.description">
             </PersistentString>
             <PersistentString
-               value = "self.myCandleData">
+               value = "close">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1116,6 +1122,9 @@
       <ContextState
          contextName = "DataRenderer.isDrawingValuesAllowed(dataProvider:):ChartDataRendererBase.swift">
          <PersistentStrings>
+            <PersistentString
+               value = "">
+            </PersistentString>
             <PersistentString
                value = "dataProvider?.maxVisibleCount">
             </PersistentString>

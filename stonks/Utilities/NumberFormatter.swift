@@ -87,13 +87,13 @@ class NumberFormatter {
     //date string argument is in format of YYYY-MM-dd
     static func formatDateToMonthYearShort(_ dateString: String) -> String {
         let dateFormatter = DateFormatter()
-         dateFormatter.dateFormat = "YYYY-MM-dd"
-         let date = dateFormatter.date(from: dateString)!
-         dateFormatter.dateFormat = "yy"
-         let year = dateFormatter.string(from: date)
-         dateFormatter.dateFormat = "MMM"
-         let month = dateFormatter.string(from: date)
-         return month + " '" + year
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        let date = dateFormatter.date(from: dateString)!
+        dateFormatter.dateFormat = "yy"
+        let year = dateFormatter.string(from: date)
+        dateFormatter.dateFormat = "MMM"
+        let month = dateFormatter.string(from: date)
+        return month + " '" + year
     }
     
     //input is of the format HH:mm AM/PM, minutes don't appear if they are 00 i.g. 10 AM

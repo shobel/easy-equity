@@ -50,7 +50,7 @@ class CustomCombinedChartView: CombinedChartView {
         self.pinchZoomEnabled = false
         self.doubleTapToZoomEnabled = false
         self.autoScaleMinMaxEnabled = true
-        self.maxVisibleCount = 500
+        self.maxVisibleCount = 1000
         
         self.leftAxis.labelFont = UIFont(name: "Charter", size: 12)!
         self.leftAxis.labelTextColor = UIColor.black
@@ -190,9 +190,7 @@ class CustomCombinedChartView: CombinedChartView {
             self.setUpRsiLine(set: rsiSet, color: .brown, dashed: false, drawValues: false)
             self.setUpRsiLine(set: rsiMaxSet, color: .darkGray, dashed: false, drawValues: true)
             self.setUpRsiLine(set: rsiCurrentSet, color: Constants.fadedOrange, dashed: true, drawValues: true)
-            rsiMaxSet.lineWidth = 1
-            //TODO-SAM: figure out why 1 year chard is not drawing rsi values
-            
+            rsiMaxSet.lineWidth = 1            
         }
         
         if self.stockDetailsDelegate!.candleMode{
