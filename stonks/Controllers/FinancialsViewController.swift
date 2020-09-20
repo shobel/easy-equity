@@ -35,7 +35,6 @@ class FinancialsViewController: UIViewController, StatsVC {
     @IBOutlet weak var epsDate: UILabel!
     @IBOutlet weak var estEps: UILabel!
     @IBOutlet weak var estEpsDate: UILabel!
-    @IBOutlet weak var avg: UILabel!
     
     @IBOutlet weak var nextEarningsDate: UILabel!
     @IBOutlet weak var nextEarningsQuarter: UILabel!
@@ -95,6 +94,7 @@ class FinancialsViewController: UIViewController, StatsVC {
                     
                     self.incomeChart.setup(company: self.company, financialDelegate: self)
                 }
+                
                 if let tc = self.company.advancedStats?.totalCash {
                     self.totalCash.setValue(value: String(tc), format: FormattedNumberLabel.Format.NUMBER)
                 }
@@ -113,15 +113,18 @@ class FinancialsViewController: UIViewController, StatsVC {
                 
                 self.epsChart.setup(company: self.company, parentDelegate: self)
                 self.peChart.setup(company: self.company, delegate: self)
-                if let est = self.company.estimates, let stats = self.company.keyStats {
-                    self.nextEarningsQuarter.text = est.fiscalPeriod
-                    if let nextReportDate = stats.getNextEarningsDate() {
-                        let dateformatter = DateFormatter()
-                        dateformatter.dateFormat = "MMM d, yyyy"
-                        self.nextEarningsDate.text = dateformatter.string(from: nextReportDate)
-                        self.nextEarningsDaysLeft.text = "\(GeneralUtility.daysUntil(date: nextReportDate)) days"
-                    } else {
-                        self.nextEarningsDaysLeft.text = ""
+                if let earnings = self.company.earnings, let stats = self.company.keyStats {
+                    if earnings.count > 0 {
+                        let est = earnings[earnings.count - 1]
+                        self.nextEarningsQuarter.text = est.fiscalPeriod
+                        if let nextReportDate = stats.getNextEarningsDate() {
+                            let dateformatter = DateFormatter()
+                            dateformatter.dateFormat = "MMM d, yyyy"
+                            self.nextEarningsDate.text = dateformatter.string(from: nextReportDate)
+                            self.nextEarningsDaysLeft.text = "\(GeneralUtility.daysUntil(date: nextReportDate)) days"
+                        } else {
+                           self.nextEarningsDaysLeft.text = ""
+                        }
                     }
                 }
 
@@ -134,12 +137,11 @@ class FinancialsViewController: UIViewController, StatsVC {
         self.peValue.text = pe
     }
     
-    public func updateEPSLegendValues(eps: String, epsDate: String, epsFwd: String, epsFwdDate: String, avg: String){
+    public func updateEPSLegendValues(eps: String, epsDate: String, epsFwd: String, epsFwdDate: String){
         self.eps.text = eps
         self.epsDate.text = epsDate
         self.estEpsDate.text = epsFwdDate
         self.estEps.text = epsFwd
-        self.avg.text = avg
     }
     
     @IBAction func incomeChartModeChanged(_ sender: Any) {

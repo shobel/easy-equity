@@ -213,7 +213,7 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [Income], Estimates, [Insider], PriceTargetTopAnalysts?)->Void){
+    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [Income], [Insider], PriceTargetTopAnalysts?)->Void){
         let queryURL = buildQuery(url: apiurl + stockEndpoint + "/allfree/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
@@ -271,8 +271,6 @@ class MyRestAPI: HTTPRequest {
                     cashFlowList.append(cf)
                 }
             }
-            let estimatesJSON = json["estimates"].rawString()!
-            let estimates:Estimates = Mapper<Estimates>().map(JSONString: estimatesJSON) ?? Estimates()
             let insidersJSON = json["insiders"]
             var insiderList:[Insider] = []
             for i in 0..<insidersJSON.count{
@@ -283,7 +281,7 @@ class MyRestAPI: HTTPRequest {
             }
             let tipranksJSON = json["tipranksAnalysts"].rawString()!
             let tipranks:PriceTargetTopAnalysts? = Mapper<PriceTargetTopAnalysts>().map(JSONString: tipranksJSON) ?? nil
-            completionHandler(generalInfo, peerQuotes, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, incomeList, estimates, insiderList, tipranks)
+            completionHandler(generalInfo, peerQuotes, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, incomeList, insiderList, tipranks)
         }
     }
     

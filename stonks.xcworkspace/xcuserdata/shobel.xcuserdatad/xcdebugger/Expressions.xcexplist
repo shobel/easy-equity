@@ -394,10 +394,13 @@
          contextName = "PEChart.setChartData(company:):PEChart.swift">
          <PersistentStrings>
             <PersistentString
-               value = "company.quote!">
+               value = "dailyEntry.datetime">
             </PersistentString>
             <PersistentString
-               value = "Date(candle.date)">
+               value = "price! / e.actualEPS!">
+            </PersistentString>
+            <PersistentString
+               value = "e.EPSReportDate">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -986,13 +989,16 @@
          contextName = "EPSChart.setChartData(company:):EPSChart.swift">
          <PersistentStrings>
             <PersistentString
+               value = "company.earnings">
+            </PersistentString>
+            <PersistentString
                value = "UIImage(named: &quot;earnings_with_line&quot;)">
             </PersistentString>
             <PersistentString
                value = "company.estimates">
             </PersistentString>
             <PersistentString
-               value = "company.earnings">
+               value = "Array(reversedEarnings)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -195,7 +195,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             NetworkManager.getMyRestApi().getPremiumData(symbol: company.symbol, completionHandler: handlePremiumData)
         }
         NetworkManager.getMyRestApi().getAllFreeData(symbol: company.symbol, completionHandler: handleAllData)
-        NetworkManager.getMyRestApi().getNonIntradayChart(symbol: company.symbol, timeframe: .weekly, completionHandler: self.handleWeeklyChart)
+        NetworkManager.getMyRestApi().getNonIntradayChart(symbol: company.symbol, timeframe: .daily, completionHandler: self.handleDailyChart)
                 
         self.adjustContentHeight(vc: self.keyStatsVC)
     }
@@ -351,7 +351,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
 
     }
     
-    private func handleAllData(generalInfo: GeneralInfo, peerQuotes:[Quote], keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], income: [Income], estimates: Estimates, insiders: [Insider], priceTargetTopAnalysts: PriceTargetTopAnalysts?){
+    private func handleAllData(generalInfo: GeneralInfo, peerQuotes:[Quote], keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], income: [Income], insiders: [Insider], priceTargetTopAnalysts: PriceTargetTopAnalysts?){
         self.company.generalInfo = generalInfo
         self.company.fullName = self.company.generalInfo!.companyName!
         self.company.peerQuotes = peerQuotes
@@ -364,7 +364,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.company.earnings = earnings
         self.company.advancedStats = advancedStats
         self.company.insiders = insiders
-        self.company.estimates = estimates
         self.company.priceTargetTopAnalysts = priceTargetTopAnalysts
     
         DispatchQueue.main.async {
@@ -408,6 +407,11 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         if updateProgress {
             self.incrementLoadingProgress()
         }
+    }
+    
+    private func handleDailyChart(_ candles:[Candle]){
+        self.company.dailyData = candles
+        self.incrementLoadingProgress()
     }
     
     private func handleWeeklyChart(_ candles:[Candle]){
@@ -685,7 +689,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             self.company.monthlyData = candles
             DispatchQueue.main.async {
                 self.hideLoader(true)
-                self.timeButtonPressed(sender, chartData: self.company.getQuarterlyData(80), timeInterval: Constants.TimeIntervals.twenty_year)
+                self.timeButtonPressed(sender, chartData: self.company.getMonthlyData(240), timeInterval: Constants.TimeIntervals.twenty_year)
             }
         }
     }
@@ -778,14 +782,16 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     private func hideShowRsiAndSmaButtons(){
         if self.timeInterval != .day {
             self.toggleSmasButton.isHidden = false
-        } else {
-            self.toggleSmasButton.isHidden = true
-        }
-        if self.timeInterval == .one_month || self.timeInterval == .three_month || (self.timeInterval == .one_year && !self.candleMode) {
             self.toggleRsiButton.isHidden = false
         } else {
+            self.toggleSmasButton.isHidden = true
             self.toggleRsiButton.isHidden = true
         }
+//        if self.timeInterval == .one_month || self.timeInterval == .three_month || (self.timeInterval == .one_year && !self.candleMode) {
+//            self.toggleRsiButton.isHidden = false
+//        } else {
+//            self.toggleRsiButton.isHidden = true
+//        }
     }
   
     //can use this function to trigger chart animations when views enter the visible frame

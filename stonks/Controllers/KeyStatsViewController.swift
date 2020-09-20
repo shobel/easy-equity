@@ -113,6 +113,8 @@ class KeyStatsViewController: UIViewController, StatsVC {
                 if let x = self.company.keyStats?.nextDividendDate {
                     self.nextDividend.setValue(value: String(x), format: FormattedNumberLabel.Format.DATE)
                 }
+                
+                
                 if let x = self.company.advancedStats?.forwardPERatio {
                     self.pefwd.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
                 }

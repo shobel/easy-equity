@@ -22,6 +22,8 @@ struct Earnings: Mappable {
     public var fiscalEndDate:String? //"2019-03-31",
     public var yearAgo:Double? //2.73,
     public var yearAgoChangePercent:Double? //-0.0989
+    public var revenue:Double?
+    public var revenueEstimated:Double?
     
     private var dateFormat:String = "yyyy-MM-dd"
     
@@ -38,6 +40,8 @@ struct Earnings: Mappable {
         fiscalPeriod <- map["fiscalPeriod"]
         yearAgo <- map["yearAgo"]
         yearAgoChangePercent <- map["yearAgoChangePercent"]
+        revenue <- map["revenue"]
+        revenueEstimated <- map["revenueEstimated"]
     }
     
     public func getDate() -> Date? {
