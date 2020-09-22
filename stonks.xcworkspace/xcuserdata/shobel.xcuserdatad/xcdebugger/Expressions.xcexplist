@@ -77,6 +77,25 @@
          contextName = "closure #2 in CustomCombinedChartView.updateChart():CustomCombinedChartView.swift">
       </ContextState>
       <ContextState
+         contextName = "WatchlistVC.updateFromScheduledTask(_:):WatchlistVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "GeneralUtility.isPremarket()">
+            </PersistentString>
+            <PersistentString
+               value = "GeneralUtility.isAftermarket()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WatchlistUpdaterFMP.update():WatchlistUpdater.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "hibernating">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "EarningsViewController.updateData():EarningsViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -133,6 +152,14 @@
          <PersistentStrings>
             <PersistentString
                value = "self.company.advancedStats">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in WatchlistUpdaterFMP.update():WatchlistUpdater.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.watchlist">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -265,6 +292,9 @@
          contextName = "PriceChartFormatter.addXAxisLabel(_:):PriceChartFormatter.swift">
       </ContextState>
       <ContextState
+         contextName = "closure #1 in closure #1 in WatchlistUpdater.update():WatchlistUpdater.swift">
+      </ContextState>
+      <ContextState
          contextName = "ScatterChartRenderer.drawDataSet(context:dataSet:):ScatterChartRenderer.swift">
       </ContextState>
       <ContextState
@@ -360,6 +390,14 @@
             </PersistentString>
             <PersistentString
                value = "self.dailyData">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WatchlistUpdater.update():WatchlistUpdater.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "watchlist">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1228,6 +1266,9 @@
       <ContextState
          contextName = "WatchlistTVCell.displayData(company:):WatchlistTVCell.swift">
          <PersistentStrings>
+            <PersistentString
+               value = "quote.extendedChangePercent!">
+            </PersistentString>
             <PersistentString
                value = "company.quote?.changePercent">
             </PersistentString>

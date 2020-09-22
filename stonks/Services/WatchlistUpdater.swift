@@ -49,7 +49,6 @@ class StockDataTask: RepeatingUpdate {
         
     }
     
-    
 }
 
 class WatchlistUpdater: StockDataTask {
@@ -72,6 +71,46 @@ class WatchlistUpdater: StockDataTask {
                         for q in quotes {
                             if (c.symbol == q.symbol) {
                                 c.quote = q
+                            }
+                        }
+                    }
+                    self.watchlistManager.sortWatchlist()
+                    self.caller.updateFromScheduledTask(nil)
+                })
+            }
+        }
+    }
+}
+
+class WatchlistUpdaterFMP: StockDataTask {
+    
+    var watchlistManager: WatchlistManager!
+    var watchlist: [Company]!
+    var fmpAPI:FinancialModelingPrepAPI = FinancialModelingPrepAPI()
+    
+    public override init(caller: Updateable, timeInterval: Double){
+        super.init(caller: caller, timeInterval: timeInterval)
+        self.watchlistManager = Dataholder.watchlistManager
+        self.watchlist = watchlistManager.getWatchlist()
+    }
+    
+    @objc override func update(){
+        if (!hibernating){
+            DispatchQueue.global(qos: .background).async {
+                let tickers = self.watchlistManager.getTickers()
+                self.fmpAPI.getQuotes(symbols: tickers, completionHandler: { (quotes: [Quote])->Void in
+                    for c in self.watchlist {
+                        for q in quotes {
+                            if (c.symbol == q.symbol) {
+                                if let oldQuote = c.quote {
+                                    c.quote = q
+                                    c.quote?.simplifiedChart = oldQuote.simplifiedChart
+                                    c.quote?.isUSMarketOpen = oldQuote.isUSMarketOpen
+                                    c.quote?.extendedPrice = oldQuote.extendedPrice
+                                    c.quote?.extendedChange = oldQuote.extendedChange
+                                    c.quote?.extendedChangePercent = oldQuote.extendedChangePercent
+                                    c.quote?.extendedPriceTime = oldQuote.extendedPriceTime
+                                }
                             }
                         }
                     }

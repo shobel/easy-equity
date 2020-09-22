@@ -36,6 +36,7 @@
 		1C545211216AA4B90064239E /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545210216AA4B90064239E /* GradientButton.swift */; };
 		1C545213216AF6400064239E /* WatchlistUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545212216AF6400064239E /* WatchlistUpdater.swift */; };
 		1C545215216C31950064239E /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545214216C31950064239E /* Quote.swift */; };
+		1C565DBD25191BB1002856D5 /* FinancialModelingPrepAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C565DBC25191BB1002856D5 /* FinancialModelingPrepAPI.swift */; };
 		1C5B96192404FDFD00E63316 /* GeneralUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5B96182404FDFD00E63316 /* GeneralUtility.swift */; };
 		1C62FDD624BC144D00BABDCB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDD524BC144D00BABDCB /* LoginViewController.swift */; };
 		1C62FDD924BC14D900BABDCB /* frog-on-a-log.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C62FDD824BC14D900BABDCB /* frog-on-a-log.mp4 */; };
@@ -171,6 +172,7 @@
 		1C545210216AA4B90064239E /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		1C545212216AF6400064239E /* WatchlistUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistUpdater.swift; sourceTree = "<group>"; };
 		1C545214216C31950064239E /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
+		1C565DBC25191BB1002856D5 /* FinancialModelingPrepAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialModelingPrepAPI.swift; sourceTree = "<group>"; };
 		1C5B96182404FDFD00E63316 /* GeneralUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralUtility.swift; sourceTree = "<group>"; };
 		1C62FDD524BC144D00BABDCB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1C62FDD824BC14D900BABDCB /* frog-on-a-log.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "frog-on-a-log.mp4"; sourceTree = "<group>"; };
@@ -515,6 +517,7 @@
 				1CB257262173A234008E3D4D /* HTTPRequest.swift */,
 				1C0BC4DC2331F144007C117F /* AlphaVantage.swift */,
 				1C62FDF124C0C0E100BABDCB /* MyRestAPI.swift */,
+				1C565DBC25191BB1002856D5 /* FinancialModelingPrepAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -852,6 +855,7 @@
 				1C4D2D9424EA552800E54EB8 /* IncomeChart.swift in Sources */,
 				1CFE633D23FB665E00F81758 /* NewsWebViewController.swift in Sources */,
 				1C4335E624F772AF00D2628D /* KeychainItem.swift in Sources */,
+				1C565DBD25191BB1002856D5 /* FinancialModelingPrepAPI.swift in Sources */,
 				1C4D2D8424E3D6F800E54EB8 /* CashFlow.swift in Sources */,
 				1C6FF97B23261617005AE40D /* EarningsViewController.swift in Sources */,
 				1C754B0E24F20FB5000AE379 /* PriceChartPreviewView.swift in Sources */,

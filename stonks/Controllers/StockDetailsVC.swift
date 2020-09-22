@@ -76,6 +76,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     private var premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumVC")
     
     private var stockUpdater:StockDataTask?
+    private var watchlistUpdater:WatchlistUpdater?
     private var pageVC: PagingViewController!
     
     private var dateOfLatestPriceData:String = ""
@@ -161,10 +162,11 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         //let pageVC: StatsNewsPageViewController = self.children.first as! StatsNewsPageViewController
         //pageVC.pageDelegate = self
                 
-        //fetch new intraday chart values once per minute
         self.stockUpdater?.hibernating = false
-        self.stockUpdater = StockUpdater(caller: self, company: company, timeInterval: 30.0)
-        self.stockUpdater?.startTask()
+        self.stockUpdater = StockUpdater(caller: self, company: company, timeInterval: 2.0)
+        
+        self.watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: 60.0)
+        self.watchlistUpdater!.startTask()
                 
         //watchlist button
         if Dataholder.watchlistManager.getWatchlist().contains(company){
@@ -200,29 +202,44 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.adjustContentHeight(vc: self.keyStatsVC)
     }
     
-    func updateFromScheduledTask(_ quoteAndIntradayChart:Any?) {
-        guard let qic = quoteAndIntradayChart as? QuoteAndIntradayChart else {
-            return
-        }
-        if qic.intradayChart.count == 0 {
-            return
-        }
-        if self.dateOfLatestPriceData != "" && qic.intradayChart.count > 0 && self.dateOfLatestPriceData != qic.intradayChart[0].dateLabel {
-            self.company.dailyData = []
-            self.company.weeklyData = []
-            self.company.monthlyData = []
-        }
-        self.dateOfLatestPriceData = qic.intradayChart[0].dateLabel!
-        let quote = qic.quote!
-        let intradayChart = qic.intradayChart
-        if quote.symbol == nil {
-            DispatchQueue.main.async {
-                self.navigationController?.popViewController(animated: true)
+    func updateFromScheduledTask(_ data:Any?) {
+        var quote:Quote = Quote()
+        if let quoteAndIntradayChart = data as? QuoteAndIntradayChart {
+            quote = quoteAndIntradayChart.quote
+            let intradayChart = quoteAndIntradayChart.intradayChart
+            
+            self.handleDayChartNoProgress(intradayChart)
+            
+            if self.dateOfLatestPriceData != "" && intradayChart.count > 0 &&
+                self.dateOfLatestPriceData != intradayChart[0].dateLabel {
+                self.company.dailyData = []
+                self.company.weeklyData = []
+                self.company.monthlyData = []
             }
-            return
+            self.dateOfLatestPriceData = intradayChart[0].dateLabel!
+
+            if quote.symbol == nil {
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
+                }
+                return
+            }
+            print("updated " + String(quote.latestPrice!) + " " + String(intradayChart.count) + " values")
+        } else {
+            quote = self.company.quote!
+            if quote.isUSMarketOpen {
+                self.stockUpdater?.startTask()
+                self.stockUpdater?.hibernating = false
+                self.watchlistUpdater?.hibernating = false
+            } else {
+                self.stockUpdater?.hibernating = true
+                self.watchlistUpdater?.hibernating = true
+            }
         }
-        self.isMarketOpen = quote.isUSMarketOpen!
+        
+        self.isMarketOpen = quote.isUSMarketOpen
         self.latestQuote = quote
+        
         DispatchQueue.main.async {
             let chartData = self.chartView.getChartData(candleMode: self.candleMode)
             self.setVolumeValues(averageVolume: Double(quote.avgTotalVolume ?? 0), totalVol: Double(quote.latestVolume ?? 0))
@@ -237,13 +254,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
                     pvc.updateData()
                 }
             }
-            print("updated " + String(self.latestQuote.latestPrice!) + " " + String(intradayChart.count) + " values")
-        }
-        self.handleDayChartNoProgress(intradayChart)
-        if !self.isMarketOpen {
-            self.stockUpdater?.hibernating = true
-        } else {
-            self.stockUpdater?.hibernating = false
         }
     }
     

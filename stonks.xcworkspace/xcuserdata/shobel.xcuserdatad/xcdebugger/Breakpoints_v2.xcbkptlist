@@ -7,57 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3DA6A5C1-4930-4903-A882-24DF8C41F9F1"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "stonks/APIs/AlphaVantage.swift"
-            timestampString = "601371390.618121"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "getWeeklyChart(ticker:timeInterval:completionHandler:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "3DA6A5C1-4930-4903-A882-24DF8C41F9F1 - dc03923fcfee9221"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "stonks.AlphaVantage.getMonthlyChart(ticker: Swift.String, timeInterval: stonks.Constants.TimeIntervals, completionHandler: (Swift.Array&lt;stonks.Candle&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "stonks"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shobel/Desktop/apps/easy-equity/stonks/APIs/AlphaVantage.swift"
-                  timestampString = "599891206.02897"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "97"
-                  endingLineNumber = "97"
-                  offsetFromSymbolStart = "959">
-               </Location>
-               <Location
-                  uuid = "3DA6A5C1-4930-4903-A882-24DF8C41F9F1 - 7256c2ff90a67c35"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in stonks.AlphaVantage.getMonthlyChart(ticker: Swift.String, timeInterval: stonks.Constants.TimeIntervals, completionHandler: (Swift.Array&lt;stonks.Candle&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "stonks"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shobel/Desktop/apps/easy-equity/stonks/APIs/AlphaVantage.swift"
-                  timestampString = "599891206.03154"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "98"
-                  endingLineNumber = "98"
-                  offsetFromSymbolStart = "562">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "4D42F295-001C-41ED-AFBF-B5DAE08437C7"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -314,22 +263,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0E592ECA-0838-4CA2-9E8B-0EEF74899943"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "stonks/Views/WatchlistTVCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "displayData(company:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "0380AC4F-9760-4B84-B667-96BD992CF2EC"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -372,6 +305,22 @@
             startingLineNumber = "100"
             endingLineNumber = "100"
             landmarkName = "setChartData(company:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "19B16598-B438-4766-8446-3E21999CF66C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "stonks/Services/WatchlistUpdater.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "update()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
