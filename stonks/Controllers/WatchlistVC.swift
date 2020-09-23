@@ -14,7 +14,6 @@ class WatchlistVC: UIViewController, Updateable {
     @IBOutlet weak var addTickerButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     private var watchlistUpdater: WatchlistUpdater?
-    private var watchlistUpdaterFMP: WatchlistUpdaterFMP?
     private var finvizAPI:FinvizAPI!
     
     private var watchlistManager:WatchlistManager!
@@ -51,21 +50,18 @@ class WatchlistVC: UIViewController, Updateable {
     override func viewDidAppear(_ animated: Bool) {
         //updateFinvizData()
         watchlistUpdater?.startTask()
-        watchlistUpdaterFMP?.startTask()
         self.tableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         watchlistUpdater?.stopTask()
-        watchlistUpdaterFMP?.stopTask()
     }
     
     private func loadWatchlist(){
         NetworkManager.getMyRestApi().getWatchlistForCurrentUser() {
             DispatchQueue.main.async {
                 if !self.watchlistManager.getWatchlist().isEmpty {
-                    self.watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: 60.0)
-                    self.watchlistUpdaterFMP = WatchlistUpdaterFMP(caller: self, timeInterval: 1.0)
+                    self.watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: 5.0)
                     self.watchlistUpdater!.startTask()
                 }
                 self.tableView.refreshControl!.endRefreshing()
@@ -118,16 +114,13 @@ class WatchlistVC: UIViewController, Updateable {
         let watchlist = self.watchlistManager.getWatchlist()
         if watchlist.count > 0 && watchlist[0].quote != nil {
             if watchlist[0].quote!.isUSMarketOpen {
-                self.watchlistUpdaterFMP!.startTask()
                 self.watchlistUpdater?.hibernating = false
-                self.watchlistUpdaterFMP?.hibernating = false
             } else {
                 if GeneralUtility.isPremarket() || GeneralUtility.isAftermarket(){
                     self.watchlistUpdater?.hibernating = false
                 } else {
                     self.watchlistUpdater?.hibernating = true
                 }
-                self.watchlistUpdaterFMP?.hibernating = true
             }
         }
         DispatchQueue.main.async {

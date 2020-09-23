@@ -163,9 +163,10 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         //pageVC.pageDelegate = self
                 
         self.stockUpdater?.hibernating = false
-        self.stockUpdater = StockUpdater(caller: self, company: company, timeInterval: 2.0)
-        
-        self.watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: 60.0)
+        self.stockUpdater = StockUpdater(caller: self, company: company, timeInterval: 30.0)
+        self.stockUpdater?.startTask()
+
+        self.watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: 5.0)
         self.watchlistUpdater!.startTask()
                 
         //watchlist button
@@ -227,14 +228,14 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             print("updated " + String(quote.latestPrice!) + " " + String(intradayChart.count) + " values")
         } else {
             quote = self.company.quote!
-            if quote.isUSMarketOpen {
-                self.stockUpdater?.startTask()
-                self.stockUpdater?.hibernating = false
-                self.watchlistUpdater?.hibernating = false
-            } else {
-                self.stockUpdater?.hibernating = true
-                self.watchlistUpdater?.hibernating = true
-            }
+        }
+        
+        if quote.isUSMarketOpen {
+            self.stockUpdater?.hibernating = false
+            self.watchlistUpdater?.hibernating = false
+        } else {
+            self.stockUpdater?.hibernating = true
+            self.watchlistUpdater?.hibernating = true
         }
         
         self.isMarketOpen = quote.isUSMarketOpen
