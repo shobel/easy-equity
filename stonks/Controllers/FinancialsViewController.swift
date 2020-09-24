@@ -67,8 +67,11 @@ class FinancialsViewController: UIViewController, StatsVC {
                     self.company.income!.sort(by: { (a, b) -> Bool in
                         return NumberFormatter.convertStringDateToInt(date: a.reportDate!) > NumberFormatter.convertStringDateToInt(date: b.reportDate!)
                     })
-                    let mostRecentCashflow:CashFlow = self.company.cashflow![0]
-                    let mostRecentIncome:Income = self.company.income![0]
+                    if self.company.cashflowAnnual?.count == 0 && self.company.incomeAnnual?.count == 0 {
+                        return
+                    }
+                    let mostRecentCashflow:CashFlow = self.company.cashflowAnnual![0]
+                    let mostRecentIncome:Income = self.company.incomeAnnual![0]
                     
                     if let ni = mostRecentCashflow.netIncome {
                         self.netIncome.setValue(value: String(ni), format: FormattedNumberLabel.Format.NUMBER)
@@ -113,21 +116,22 @@ class FinancialsViewController: UIViewController, StatsVC {
                 
                 self.epsChart.setup(company: self.company, parentDelegate: self)
                 self.peChart.setup(company: self.company, delegate: self)
-                if let earnings = self.company.earnings, let stats = self.company.keyStats {
-                    if earnings.count > 0 {
-                        let est = earnings[earnings.count - 1]
-                        self.nextEarningsQuarter.text = est.fiscalPeriod
-                        if let nextReportDate = stats.getNextEarningsDate() {
-                            let dateformatter = DateFormatter()
-                            dateformatter.dateFormat = "MMM d, yyyy"
-                            self.nextEarningsDate.text = dateformatter.string(from: nextReportDate)
-                            self.nextEarningsDaysLeft.text = "\(GeneralUtility.daysUntil(date: nextReportDate)) days"
-                        } else {
-                           self.nextEarningsDaysLeft.text = ""
-                        }
+                if let inc = self.company.income, let stats = self.company.keyStats {
+                    let latestPeriod = inc[0].period
+                    var futurePeriod = Int((latestPeriod?.components(separatedBy: "Q")[1])!)! + 1
+                    if futurePeriod > 4 {
+                        futurePeriod = 1
+                    }
+                    self.nextEarningsQuarter.text = String("Q\(futurePeriod)")
+                    if let nextReportDate = stats.getNextEarningsDate() {
+                        let dateformatter = DateFormatter()
+                        dateformatter.dateFormat = "MMM d, yyyy"
+                        self.nextEarningsDate.text = dateformatter.string(from: nextReportDate)
+                        self.nextEarningsDaysLeft.text = "\(GeneralUtility.daysUntil(date: nextReportDate)) days"
+                    } else {
+                        self.nextEarningsDaysLeft.text = ""
                     }
                 }
-
             }
         }
     }

@@ -8,6 +8,7 @@
 
 import UIKit
 
+//NOT USED ANYMORE, REPLACED WITH FINANCIAL CONTROLLER
 class EarningsViewController: UIViewController, StatsVC {
 
     @IBOutlet weak var epsChart: EPSChart!
@@ -41,8 +42,13 @@ class EarningsViewController: UIViewController, StatsVC {
             DispatchQueue.main.async {
 //                self.epsChart.setup(company: self.company, earningsDelegate: self)
 //                self.peChart.setup(company: self.company, delegate: self)
-                if let est = self.company.estimates, let stats = self.company.keyStats {
-                    self.nextEarningsQuarter.text = est.fiscalPeriod
+                if let inc = self.company.income, let stats = self.company.keyStats {
+                    let latestPeriod = inc[0].period
+                    var futurePeriod = Int((latestPeriod?.components(separatedBy: "Q")[1])!)! + 1
+                    if futurePeriod > 4 {
+                        futurePeriod = 1
+                    }
+                    self.nextEarningsQuarter.text = String("Q\(futurePeriod)")
                     if let nextReportDate = stats.getNextEarningsDate() {
                         let dateformatter = DateFormatter()
                         dateformatter.dateFormat = "MMM d, yyyy"

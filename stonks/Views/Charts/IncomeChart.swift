@@ -62,55 +62,20 @@ class IncomeChart: BarChartView {
         var revEntries:[BarChartDataEntry] = []
         var incomeEntries:[BarChartDataEntry] = []
         var opIncEntries:[BarChartDataEntry] = []
-        if var inc = self.company.income {
-            if self.chartMode == ChartMode.ANNUAL {
-                var currentYear:String = ""
-                var income:[Int] = [0]
-                var revenue:[Int] = [0]
-                var opInc:[Int] = [0]
-                var currentIndex = 0
-                for k in inc {
-                    var year = k.fiscalDate!.components(separatedBy: "-")[0]
-                    let month = k.fiscalDate!.components(separatedBy: "-")[1]
-                    if Int(month)! <= 3 {
-                        year = String(Int(year)! - 1)
-                    }
-                    if currentYear == "" {
-                        currentYear = String(year)
-                        self.xLabels.append(year)
-                    }
-                    if currentYear != year {
-                        currentIndex+=1
-                        currentYear = year
-                        self.xLabels.append(year)
-                        income.append(0)
-                        revenue.append(0)
-                        opInc.append(0)
-                    }
-                    income[currentIndex] += k.netIncome!
-                    revenue[currentIndex] += k.totalRevenue!
-                    opInc[currentIndex] += k.operatingIncome!
-                }
-                income.reverse()
-                revenue.reverse()
-                opInc.reverse()
-                self.xLabels.reverse()
-                for i in 0..<income.count {
-                    incomeEntries.append(BarChartDataEntry(x: Double(i), y: Double(income[i])))
-                    revEntries.append(BarChartDataEntry(x: Double(i), y: Double(revenue[i])))
-                    opIncEntries.append(BarChartDataEntry(x: Double(i), y: Double(opInc[i])))
-                }
-            } else if self.chartMode == ChartMode.QUARTERLY {
-                inc = Array(inc.prefix(4)).reversed()
-                for i in 0..<inc.count {
-                    let incomeEntry = inc[i]
-                    self.xLabels.append(NumberFormatter.formatDateToMonthYearShort(incomeEntry.reportDate!))
-                    incomeEntries.append(BarChartDataEntry(x: Double(i), y: Double(incomeEntry.netIncome!)))
-                    revEntries.append(BarChartDataEntry(x: Double(i), y: Double(incomeEntry.totalRevenue!)))
-                    opIncEntries.append(BarChartDataEntry(x: Double(i), y: Double(incomeEntry.operatingIncome!)))
-                }
+        var incomes = self.company.income
+        if self.chartMode == ChartMode.ANNUAL {
+            incomes = self.company.incomeAnnual
+        }
+        if var inc = incomes {
+            inc = Array(inc.prefix(4)).reversed()
+            for i in 0..<inc.count {
+                let incomeEntry = inc[i]
+                self.xLabels.append(NumberFormatter.formatDateToMonthYearShort(incomeEntry.reportDate!))
+                incomeEntries.append(BarChartDataEntry(x: Double(i), y: Double(incomeEntry.netIncome!)))
+                revEntries.append(BarChartDataEntry(x: Double(i), y: Double(incomeEntry.totalRevenue!)))
+                opIncEntries.append(BarChartDataEntry(x: Double(i), y: Double(incomeEntry.operatingIncome!)))
             }
-            
+      
             let incomeSet = BarChartDataSet(entries: incomeEntries)
             self.configureDataSet(dataset: incomeSet, label: "Income", color: Constants.orange)
             let revSet = BarChartDataSet(entries: revEntries)

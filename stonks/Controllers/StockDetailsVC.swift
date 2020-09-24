@@ -362,15 +362,19 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
 
     }
     
-    private func handleAllData(generalInfo: GeneralInfo, peerQuotes:[Quote], keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], income: [Income], insiders: [Insider], priceTargetTopAnalysts: PriceTargetTopAnalysts?){
+    private func handleAllData(generalInfo: GeneralInfo, peerQuotes:[Quote], keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], cashflowAnnual:[CashFlow], income: [Income], incomeAnnual: [Income], insiders: [Insider], priceTargetTopAnalysts: PriceTargetTopAnalysts?){
         self.company.generalInfo = generalInfo
         self.company.fullName = self.company.generalInfo!.companyName!
-        self.company.peerQuotes = peerQuotes
+        self.company.peerQuotes = peerQuotes.filter({ (q) -> Bool in
+            q.symbol != nil && q.symbol != ""
+        })
         self.company.keyStats = keystats
         self.company.news = news
         self.company.priceTarget = priceTarget
         self.company.cashflow = cashflow
+        self.company.cashflowAnnual = cashflowAnnual
         self.company.income = income
+        self.company.incomeAnnual = incomeAnnual
         self.company.recommendations = recommendations
         self.company.earnings = earnings
         self.company.advancedStats = advancedStats

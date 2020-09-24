@@ -68,7 +68,9 @@ class EPSChart: CombinedChartView {
                     fwdLabelValue = String(format: "%.2f", e.consensusEPS!)
                     fwdEpsDate = e.EPSReportDate!
                 }
-                self.formatter.addXAxisLabel(e.EPSReportDate!)
+                let year = (e.EPSReportDate?.components(separatedBy: "-")[0])!
+                let month = (e.EPSReportDate?.components(separatedBy: "-")[1])!
+                self.formatter.addXAxisLabel(year + "-" + month)
             }
             parentDelegate.updateEPSLegendValues(eps: actualEpsLabel, epsDate: epsDate, epsFwd: fwdLabelValue, epsFwdDate: fwdEpsDate)
             

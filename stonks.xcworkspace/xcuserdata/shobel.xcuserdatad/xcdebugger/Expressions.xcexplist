@@ -118,6 +118,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in WatchlistVC.updateFromScheduledTask(_:):WatchlistVC.swift">
+      </ContextState>
+      <ContextState
          contextName = "IEXTrading.listCompanies():IEXTrading.swift">
          <PersistentStrings>
             <PersistentString
@@ -253,6 +256,9 @@
       <ContextState
          contextName = "IncomeChart.setChartData():IncomeChart.swift">
          <PersistentStrings>
+            <PersistentString
+               value = "self.company.income">
+            </PersistentString>
             <PersistentString
                value = "self.xLabels">
             </PersistentString>
@@ -466,6 +472,14 @@
          <PersistentStrings>
             <PersistentString
                value = "self.newsVC">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "StockDetailsVC.OneDayButtonPressed(_:):StockDetailsVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "company.minuteData">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

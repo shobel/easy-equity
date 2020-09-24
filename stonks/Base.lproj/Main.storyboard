@@ -2255,7 +2255,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xTu-kp-oSO">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="1085"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="1135"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FINANCIALS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8j-t2-5pL">
                                         <rect key="frame" x="0.0" y="5" width="375" height="25"/>
@@ -2915,10 +2915,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eds-9K-gi1" customClass="ShadowView" customModule="Bullfrog" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="835" width="335" height="250"/>
+                                        <rect key="frame" x="20" y="835" width="335" height="300"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VYW-yF-mRJ" customClass="CardView" customModule="Bullfrog" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="335" height="250"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="335" height="300"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="REVENUE AND INCOME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="67X-eg-ugj" userLabel="EARNINGS">
                                                         <rect key="frame" x="0.0" y="10" width="335" height="20"/>
@@ -2944,7 +2944,7 @@
                                                         </connections>
                                                     </segmentedControl>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HEg-rr-t7Q" customClass="IncomeChart" customModule="Bullfrog" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="75" width="335" height="175"/>
+                                                        <rect key="frame" x="0.0" y="75" width="335" height="225"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     </view>
                                                 </subviews>
@@ -2969,7 +2969,7 @@
                                             <constraint firstAttribute="bottom" secondItem="VYW-yF-mRJ" secondAttribute="bottom" id="cj9-yK-G13"/>
                                             <constraint firstItem="VYW-yF-mRJ" firstAttribute="top" secondItem="Eds-9K-gi1" secondAttribute="top" id="fBy-HP-7YZ"/>
                                             <constraint firstAttribute="trailing" secondItem="VYW-yF-mRJ" secondAttribute="trailing" id="hcy-ph-yw5"/>
-                                            <constraint firstAttribute="height" constant="250" id="onq-9p-Idz"/>
+                                            <constraint firstAttribute="height" constant="300" id="onq-9p-Idz"/>
                                         </constraints>
                                     </view>
                                 </subviews>

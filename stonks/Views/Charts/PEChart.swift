@@ -73,7 +73,9 @@ class PEChart: CombinedChartView {
                     epsSum += e.consensusEPS!
                     forwardPeEntries.append(ChartDataEntry(x: Double(i), y: company.quote!.latestPrice! / epsSum))
                     fwdPe = company.quote!.latestPrice! / epsSum
-                    self.formatter.addXAxisLabel(e.EPSReportDate!)
+                    let year = (e.EPSReportDate?.components(separatedBy: "-")[0])!
+                    let month = (e.EPSReportDate?.components(separatedBy: "-")[1])!
+                    self.formatter.addXAxisLabel(year + "-" + month)
                 } else {
                     let reversedDaily = Array(company.dailyData.reversed())
                     for j in 0..<reversedDaily.count{
@@ -83,7 +85,9 @@ class PEChart: CombinedChartView {
                             if e.actualEPS != 0.0 && epsSum != 0.0 {
                                 peEntries.append(ChartDataEntry(x: Double(i), y: price! / epsSum))
                             }
-                            self.formatter.addXAxisLabel(e.EPSReportDate!)
+                            let year = (e.EPSReportDate?.components(separatedBy: "-")[0])!
+                            let month = (e.EPSReportDate?.components(separatedBy: "-")[1])!
+                            self.formatter.addXAxisLabel(year + "-" + month)
                             break
                         }
                     }

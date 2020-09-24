@@ -144,7 +144,7 @@ class MyRestAPI: HTTPRequest {
                 candle.open = jsoncandle["open"].double ?? 0
                 candle.high = jsoncandle["high"].double ?? 0
                 candle.low = jsoncandle["low"].double ?? 0
-                candle.volume = jsoncandle["marketVolume"].double ?? 0
+                candle.volume = jsoncandle["volume"].double ?? 0
                 candle.datetime = jsoncandle["label"].string ?? ""
                 candle.dateLabel = jsoncandle["date"].string ?? ""
                 candles.append(candle)
@@ -213,7 +213,7 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [Income], [Insider], PriceTargetTopAnalysts?)->Void){
+    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [CashFlow], [Income], [Income], [Insider], PriceTargetTopAnalysts?)->Void){
         let queryURL = buildQuery(url: apiurl + stockEndpoint + "/allfree/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
@@ -263,12 +263,28 @@ class MyRestAPI: HTTPRequest {
                     incomeList.append(income)
                 }
             }
+            let incomeAnnualJSON = json["incomesAnnual"]
+            var incomeAnnualList:[Income] = []
+            for i in 0..<incomeAnnualJSON.count{
+                let s:String = incomeAnnualJSON[i].rawString()!
+                if let income = Mapper<Income>().map(JSONString: s){
+                    incomeAnnualList.append(income)
+                }
+            }
             let cashFlowJSON = json["cashflows"]
             var cashFlowList:[CashFlow] = []
             for i in 0..<cashFlowJSON.count{
                 let s:String = cashFlowJSON[i].rawString()!
                 if let cf = Mapper<CashFlow>().map(JSONString: s){
                     cashFlowList.append(cf)
+                }
+            }
+            let cashFlowAnnualJSON = json["cashflowsAnnual"]
+            var cashFlowAnnualList:[CashFlow] = []
+            for i in 0..<cashFlowAnnualJSON.count{
+                let s:String = cashFlowAnnualJSON[i].rawString()!
+                if let cf = Mapper<CashFlow>().map(JSONString: s){
+                    cashFlowAnnualList.append(cf)
                 }
             }
             let insidersJSON = json["insiders"]
@@ -281,7 +297,7 @@ class MyRestAPI: HTTPRequest {
             }
             let tipranksJSON = json["tipranksAnalysts"].rawString()!
             let tipranks:PriceTargetTopAnalysts? = Mapper<PriceTargetTopAnalysts>().map(JSONString: tipranksJSON) ?? nil
-            completionHandler(generalInfo, peerQuotes, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, incomeList, insiderList, tipranks)
+            completionHandler(generalInfo, peerQuotes, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, cashFlowAnnualList, incomeList, incomeAnnualList, insiderList, tipranks)
         }
     }
     
