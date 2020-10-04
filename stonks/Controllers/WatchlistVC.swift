@@ -49,20 +49,29 @@ class WatchlistVC: UIViewController, Updateable {
     
     override func viewDidAppear(_ animated: Bool) {
         //updateFinvizData()
-        watchlistUpdater?.startTask()
         self.tableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        watchlistUpdater?.stopTask()
     }
     
     private func loadWatchlist(){
         NetworkManager.getMyRestApi().getWatchlistForCurrentUser() {
             DispatchQueue.main.async {
                 if !self.watchlistManager.getWatchlist().isEmpty {
-                    self.watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: 5.0)
-                    self.watchlistUpdater!.startTask()
+                    let marketOpen = self.watchlistManager.getWatchlist().first?.quote?.isUSMarketOpen
+                    var timeInterval = 5.0 //5.0
+                    if let mo = marketOpen {
+                        if !mo {
+                            timeInterval = 60.0 //60.0
+                        }
+                    }
+                    if self.watchlistUpdater == nil {
+                        self.watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: timeInterval)
+                        self.watchlistUpdater!.startTask()
+                    } else {
+                        self.watchlistUpdater?.changeTimeInterval(newTimeInterval: timeInterval)
+                    }
                 }
                 self.tableView.refreshControl!.endRefreshing()
             }
@@ -76,46 +85,16 @@ class WatchlistVC: UIViewController, Updateable {
                 tickers.append(c.symbol)
             }
         }
-        if !tickers.isEmpty {
-            finvizAPI.getData(forTickers: tickers, completionHandler: handleFinvizResponse)
-        }
-    }
-    
-    private func handleFinvizResponse(data: [String:[String:Any?]]){
-        for c in watchlistManager.getWatchlist(){
-            if let ticker = data.keys.first {
-                if ticker == c.symbol {
-                    c.analystsRating = data[ticker]!["ratings"] as? AnalystsRating
-                    
-                    let earningsDateString = data[ticker]!["Earnings"] as? String
-                    let erArray = earningsDateString?.components(separatedBy: .whitespaces)
-                    //let time = erArray![2]
-                    
-                    let today = Date()
-                    let calendar = Calendar.current
-                    let year = calendar.component(.year, from: today)
-                    
-                    let earningsDate = erArray![0] + " " + erArray![1] + " " + String(year)
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "MMM dd yyyy"
-                    dateFormatter.timeZone = TimeZone(abbreviation: "EST")
-                    guard let date = dateFormatter.date(from: earningsDate) else {
-                        fatalError()
-                    }
-                    c.earningsDate = date
-                    break
-                }
-            }
-        }
-        updateFromScheduledTask(nil)
     }
     
     public func updateFromScheduledTask(_ data:Any?){
         let watchlist = self.watchlistManager.getWatchlist()
         if watchlist.count > 0 && watchlist[0].quote != nil {
             if watchlist[0].quote!.isUSMarketOpen {
+                self.watchlistUpdater?.changeTimeInterval(newTimeInterval: 5.0)
                 self.watchlistUpdater?.hibernating = false
             } else {
+                self.watchlistUpdater?.changeTimeInterval(newTimeInterval: 60.0) //60.0
                 if GeneralUtility.isPremarket() || GeneralUtility.isAftermarket(){
                     self.watchlistUpdater?.hibernating = false
                 } else {

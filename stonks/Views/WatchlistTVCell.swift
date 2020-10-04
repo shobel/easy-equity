@@ -37,6 +37,11 @@ class WatchlistTVCell: UITableViewCell {
         fullName.text = company.fullName
         
         percentChange.setValue(value: (company.quote?.changePercent ?? 0.0) * 100.0, isPercent: true)
+        
+        currentPrice.alpha = 0.0
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+            self.currentPrice.alpha = 1.0
+        }, completion: nil)
         currentPrice.text = String(format: "%.2f", company.quote?.latestPrice ?? "--")
         priceChange.setValue(value: (company.quote?.change ?? 0.0), isPercent: false)
         

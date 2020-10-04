@@ -22,7 +22,9 @@ class QuoteAndIntradayChart {
 class StockUpdater: StockDataTask {
     
     private var company:Company!
-    let fmpAPI:FinancialModelingPrepAPI = FinancialModelingPrepAPI()
+    private var fmpAPI:FinancialModelingPrepAPI = FinancialModelingPrepAPI()
+    private var chartUpdateTimeInterval:Double = 60.0
+    var lastFire: Int = 0
 
     public init(caller: Updateable, company: Company, timeInterval: Double) {
         super.init(caller: caller, timeInterval: timeInterval)
@@ -30,12 +32,24 @@ class StockUpdater: StockDataTask {
     }
     
     @objc override func update(){
+        let now:Int = Int(Date().timeIntervalSince1970)
+        let diff = (now - lastFire)
+        print(String("SU (hibernating: \(hibernating)): \(diff)"))
+
         if (!hibernating){
-            DispatchQueue.global(qos: .background).async {
-                NetworkManager.getMyRestApi().getQuoteAndIntradayChart(symbol: self.company.symbol) { (quote, candles) in
-                    let quoteAndIntradayChart = QuoteAndIntradayChart(quote: quote, intradayChart: candles)
-                    self.caller.updateFromScheduledTask(quoteAndIntradayChart)
+            
+            let now:Int = Int(Date().timeIntervalSince1970)
+            if (now - lastFire) >= Int(self.chartUpdateTimeInterval) {
+                lastFire = now
+                print(String("SU (hibernating: \(hibernating)): \(diff), getting intraday"))
+                DispatchQueue.global(qos: .background).async {
+                    NetworkManager.getMyRestApi().getQuoteAndIntradayChart(symbol: self.company.symbol) { (quote, candles) in
+                        let quoteAndIntradayChart = QuoteAndIntradayChart(quote: quote, intradayChart: candles)
+                        self.caller.updateFromScheduledTask(quoteAndIntradayChart)
+                    }
                 }
+            } else {
+                self.caller.updateFromScheduledTask(nil)
             }
         }
     }

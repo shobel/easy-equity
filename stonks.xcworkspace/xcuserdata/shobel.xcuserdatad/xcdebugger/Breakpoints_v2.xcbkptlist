@@ -295,49 +295,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5BE730F6-FEB8-4FF4-972E-3AA93DFB076F"
+            uuid = "778A7AE1-EED3-459C-9438-4E17756848E6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "stonks/Controllers/StockDetailsVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
+            landmarkName = "updateFromScheduledTask(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "73C85C13-CEA6-4C9D-BF7F-CADA4DC3F084"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "stonks/Controllers/StockDetailsVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "updateFromScheduledTask(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4A0F8342-CBDD-4103-A213-9698D65A64E7"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "stonks/Controllers/FinancialsViewController.swift"
+            filePath = "stonks/Controllers/PredictionsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
             landmarkName = "updateData()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "5BE730F6-FEB8-4FF4-972E-3AA93DFB076F - 86d13ade43d29368"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in Bullfrog.FinancialsViewController.updateData() -&gt; ()"
-                  moduleName = "Bullfrog"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shobel/Desktop/apps/easy-equity/stonks/Controllers/FinancialsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "121"
-                  endingLineNumber = "121"
-                  offsetFromSymbolStart = "14217">
-               </Location>
-               <Location
-                  uuid = "5BE730F6-FEB8-4FF4-972E-3AA93DFB076F - 86d13ade43d29368"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in Bullfrog.FinancialsViewController.updateData() -&gt; ()"
-                  moduleName = "Bullfrog"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shobel/Desktop/apps/easy-equity/stonks/Controllers/FinancialsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "121"
-                  endingLineNumber = "121"
-                  offsetFromSymbolStart = "14273">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

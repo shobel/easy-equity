@@ -76,7 +76,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     private var premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumVC")
     
     private var stockUpdater:StockDataTask?
-    private var watchlistUpdater:WatchlistUpdater?
     private var pageVC: PagingViewController!
     
     private var dateOfLatestPriceData:String = ""
@@ -163,11 +162,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         //pageVC.pageDelegate = self
                 
         self.stockUpdater?.hibernating = false
-        self.stockUpdater = StockUpdater(caller: self, company: company, timeInterval: 30.0)
+        self.stockUpdater = StockUpdater(caller: self, company: company, timeInterval: 5.0)
         self.stockUpdater?.startTask()
-
-        self.watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: 5.0)
-        self.watchlistUpdater!.startTask()
                 
         //watchlist button
         if Dataholder.watchlistManager.getWatchlist().contains(company){
@@ -220,34 +216,37 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             self.dateOfLatestPriceData = intradayChart[0].dateLabel!
 
             if quote.symbol == nil {
-                DispatchQueue.main.async {
-                    self.navigationController?.popViewController(animated: true)
-                }
+//                DispatchQueue.main.async {
+//                    self.navigationController?.popViewController(animated: true)
+//                }
                 return
             }
             print("updated " + String(quote.latestPrice!) + " " + String(intradayChart.count) + " values")
-        } else {
+        } else if self.company.quote != nil {
             quote = self.company.quote!
         }
         
         if quote.isUSMarketOpen {
             self.stockUpdater?.hibernating = false
-            self.watchlistUpdater?.hibernating = false
         } else {
             self.stockUpdater?.hibernating = true
-            self.watchlistUpdater?.hibernating = true
         }
         
         self.isMarketOpen = quote.isUSMarketOpen
         self.latestQuote = quote
+        if latestQuote == nil || latestQuote.symbol == nil {
+            return
+        }
         
         DispatchQueue.main.async {
             let chartData = self.chartView.getChartData(candleMode: self.candleMode)
             self.setVolumeValues(averageVolume: Double(quote.avgTotalVolume ?? 0), totalVol: Double(quote.latestVolume ?? 0))
-            if self.timeInterval == Constants.TimeIntervals.day {
-                self.setTopBarValues(startPrice: self.latestQuote.previousClose ?? chartData[0].close!, endPrice: self.latestQuote.latestPrice!, selected: false)
-            } else {
-                self.setTopBarValues(startPrice: chartData[0].close!, endPrice: self.latestQuote.latestPrice!, selected: false)
+            if chartData.count > 0 {
+                if self.timeInterval == Constants.TimeIntervals.day {
+                    self.setTopBarValues(startPrice: self.latestQuote.previousClose ?? chartData[0].close!, endPrice: self.latestQuote.latestPrice!, selected: false)
+                } else {
+                    self.setTopBarValues(startPrice: chartData[0].close!, endPrice: self.latestQuote.latestPrice!, selected: false)
+                }
             }
             self.set52wSlider(quote: quote, price: quote.latestPrice!)
             if let pvc = self.predictionsVC as? PredictionsViewController {

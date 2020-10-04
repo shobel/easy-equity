@@ -27,7 +27,7 @@ struct Quote: Mappable {
     var peRatio:Double? //17.18,
     var latestPrice:Double? //224.29
     var latestTime:String? //"latestTime":"October 5, 2018",
-    var latestUpdate:String? // epoch time
+    var latestUpdate:Int? // epoch time
     var previousClose:Double? //227.99
     var change:Double? //-3.7
     var changePercent:Double? //-0.01623
