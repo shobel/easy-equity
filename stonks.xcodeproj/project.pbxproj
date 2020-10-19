@@ -38,6 +38,8 @@
 		1C545215216C31950064239E /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545214216C31950064239E /* Quote.swift */; };
 		1C565DBD25191BB1002856D5 /* FinancialModelingPrepAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C565DBC25191BB1002856D5 /* FinancialModelingPrepAPI.swift */; };
 		1C5B96192404FDFD00E63316 /* GeneralUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5B96182404FDFD00E63316 /* GeneralUtility.swift */; };
+		1C62712F253D5FCC00A4CC57 /* IntitutionalOwnership.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62712E253D5FCC00A4CC57 /* IntitutionalOwnership.swift */; };
+		1C627131253D656C00A4CC57 /* Scores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C627130253D656C00A4CC57 /* Scores.swift */; };
 		1C62FDD624BC144D00BABDCB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDD524BC144D00BABDCB /* LoginViewController.swift */; };
 		1C62FDD924BC14D900BABDCB /* frog-on-a-log.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C62FDD824BC14D900BABDCB /* frog-on-a-log.mp4 */; };
 		1C62FDDB24BC4B6F00BABDCB /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDDA24BC4B6F00BABDCB /* SignupViewController.swift */; };
@@ -174,6 +176,8 @@
 		1C545214216C31950064239E /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
 		1C565DBC25191BB1002856D5 /* FinancialModelingPrepAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialModelingPrepAPI.swift; sourceTree = "<group>"; };
 		1C5B96182404FDFD00E63316 /* GeneralUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralUtility.swift; sourceTree = "<group>"; };
+		1C62712E253D5FCC00A4CC57 /* IntitutionalOwnership.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntitutionalOwnership.swift; sourceTree = "<group>"; };
+		1C627130253D656C00A4CC57 /* Scores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scores.swift; sourceTree = "<group>"; };
 		1C62FDD524BC144D00BABDCB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1C62FDD824BC14D900BABDCB /* frog-on-a-log.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "frog-on-a-log.mp4"; sourceTree = "<group>"; };
 		1C62FDDA24BC4B6F00BABDCB /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -448,6 +452,8 @@
 				1CB3D61D231DBCF000D6F57C /* Recommendations.swift */,
 				1C72F90F24CA76C400EC59F6 /* SimpleQuote.swift */,
 				1C72F91124CA788200EC59F6 /* Top10s.swift */,
+				1C62712E253D5FCC00A4CC57 /* IntitutionalOwnership.swift */,
+				1C627130253D656C00A4CC57 /* Scores.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -815,6 +821,7 @@
 				1CCA7E3D2313AB5E0033AC58 /* KeyStats.swift in Sources */,
 				1C6FF9772324BE23005AE40D /* AdvancedStats.swift in Sources */,
 				1C7B9861215DDFBC00C75014 /* Company.swift in Sources */,
+				1C627131253D656C00A4CC57 /* Scores.swift in Sources */,
 				1C9B95BE23FA2075004E95B1 /* NewsTableViewCell.swift in Sources */,
 				1CFFAA0B2170337400D3E768 /* AnalystsRating.swift in Sources */,
 				1C7B9863215DE1A800C75014 /* Constants.swift in Sources */,
@@ -847,6 +854,7 @@
 				1CCBD05B24CC326600B43C9D /* ActionData.swift in Sources */,
 				1C6FF9792325F974005AE40D /* AdvancedStatsViewController.swift in Sources */,
 				1C4EF3612329598D000299E6 /* InterpolateColor.swift in Sources */,
+				1C62712F253D5FCC00A4CC57 /* IntitutionalOwnership.swift in Sources */,
 				1C4D2D8824E3DA2400E54EB8 /* Insider.swift in Sources */,
 				1C4D2DA024EE33F800E54EB8 /* PriceTargetTopAnalysts.swift in Sources */,
 				1CD11940216DC394000AE02E /* CandlePricesView.swift in Sources */,

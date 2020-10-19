@@ -160,8 +160,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "132"
             endingLineNumber = "132"
-            landmarkName = "setChartData()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -327,16 +327,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4A0F8342-CBDD-4103-A213-9698D65A64E7"
-            shouldBeEnabled = "Yes"
+            uuid = "FFCCF0D8-C971-428D-97C4-B98823876DD3"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "stonks/Controllers/PredictionsViewController.swift"
+            filePath = "stonks/APIs/MyRestAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
-            landmarkName = "updateData()"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
+            landmarkName = "getAllFreeData(symbol:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -38,6 +38,7 @@ class Company: Equatable, Comparable {
     public var advancedStats: AdvancedStats?
     public var insiders:[Insider]?
     public var earningsDate:Date?
+    public var scores:Scores?
     
 //    public var quarterlyData:[Candle] = []
     public var monthlyData:[Candle] = []

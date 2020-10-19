@@ -361,7 +361,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
 
     }
     
-    private func handleAllData(generalInfo: GeneralInfo, peerQuotes:[Quote], keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], cashflowAnnual:[CashFlow], income: [Income], incomeAnnual: [Income], insiders: [Insider], priceTargetTopAnalysts: PriceTargetTopAnalysts?){
+    private func handleAllData(generalInfo: GeneralInfo, peerQuotes:[Quote], keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], cashflowAnnual:[CashFlow], income: [Income], incomeAnnual: [Income], insiders: [Insider], scores:Scores, priceTargetTopAnalysts: PriceTargetTopAnalysts?){
         self.company.generalInfo = generalInfo
         self.company.fullName = self.company.generalInfo!.companyName!
         self.company.peerQuotes = peerQuotes.filter({ (q) -> Bool in
@@ -379,6 +379,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.company.advancedStats = advancedStats
         self.company.insiders = insiders
         self.company.priceTargetTopAnalysts = priceTargetTopAnalysts
+        self.company.scores = scores
     
         DispatchQueue.main.async {
             self.stockDetailsNavView.ticker.text = self.company.symbol
