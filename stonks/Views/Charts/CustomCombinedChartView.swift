@@ -101,7 +101,7 @@ class CustomCombinedChartView: CombinedChartView {
     }
     
     public func updateChart(){
-        self.previousCloseValue = self.stockDetailsDelegate?.latestQuote.previousClose! ?? 0.0
+        self.previousCloseValue = self.stockDetailsDelegate?.latestQuote?.previousClose ?? 0.0
         var candleEntries:[ChartDataEntry] = []
         var lineEntries:[ChartDataEntry] = []
         var volumeEntries:[BarChartDataEntry] = []

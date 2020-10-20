@@ -16,6 +16,7 @@ struct Scores: Mappable {
     public var valuation:[String:Double]?
     public var technical:[String:Double]?
     public var overallScore:Double?
+    public var percentile:Double?
     
     init(){}
     init?(map: Map) {}
@@ -27,6 +28,7 @@ struct Scores: Mappable {
         valuation <- map["categories.valuation"]
         technical <- map["categories.technical"]
         overallScore <- map["overallScore"]
+        percentile <- map["percentile"]
     }
 
 }
