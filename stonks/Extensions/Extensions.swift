@@ -44,3 +44,13 @@ extension UIApplication {
         return base
     }
 }
+
+extension UILabel {
+    func uiLabelTextShadow(){
+        self.layer.masksToBounds = false
+        self.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.layer.rasterizationScale = UIScreen.main.scale
+        self.layer.shadowRadius = 1.0
+        self.layer.shadowOpacity = 0.5
+   }
+}

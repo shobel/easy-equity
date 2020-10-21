@@ -108,8 +108,10 @@ class MyRestAPI: HTTPRequest {
             let json = JSON(data)
             var companies:[Company] = []
             for i in 0..<json.count{
-                let company = Company(symbol: json[i]["symbol"].string!, fullName: json[i]["companyName"].string!)
-                companies.append(company)
+                if let symbol = json[i]["symbol"].string, let companyName = json[i]["companyName"].string{
+                    let company = Company(symbol: symbol, fullName: companyName)
+                    companies.append(company)
+                }
             }
             completionHandler(companies)
         }

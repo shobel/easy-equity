@@ -15,13 +15,13 @@ class ScoresViewController: UIViewController, StatsVC {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var overallScoreContainer: UIView!
     @IBOutlet weak var overallScore: UILabel!
+    @IBOutlet weak var rank: UILabel!
     
     @IBOutlet weak var overallValuationScore: UILabel!
     @IBOutlet weak var peRatioScore: UILabel!
     @IBOutlet weak var epsTTMScore: UILabel!
     @IBOutlet weak var psScore: UILabel!
     @IBOutlet weak var pbScore: UILabel!
-    @IBOutlet weak var dcfScore: UILabel!
     
     @IBOutlet weak var overallFutureScore: UILabel!
     @IBOutlet weak var pegScore: UILabel!
@@ -56,6 +56,33 @@ class ScoresViewController: UIViewController, StatsVC {
     @IBOutlet weak var momentumScore: UILabel!
     @IBOutlet weak var ssrScore: UILabel!
     
+    @IBOutlet weak var peRatioValue: UILabel!
+    @IBOutlet weak var epsValue: UILabel!
+    @IBOutlet weak var psValue: UILabel!
+    @IBOutlet weak var pbValue: UILabel!
+
+    @IBOutlet weak var pegValue: UILabel!
+    @IBOutlet weak var epsConsensusValue: UILabel!
+    @IBOutlet weak var priceTargetsValue: UILabel!
+    @IBOutlet weak var recommendationsValue: UILabel!
+    
+    @IBOutlet weak var incomeGrowthValue: UILabel!
+    @IBOutlet weak var incomeGrowthAccelValue: UILabel!
+    @IBOutlet weak var revenueGrowthValue: UILabel!
+    @IBOutlet weak var revGrowthAccelValue: UILabel!
+    @IBOutlet weak var profitMarginGrowthValue: UILabel!
+    @IBOutlet weak var cashflowGrowthValue: UILabel!
+    @IBOutlet weak var oneYearPerfValue: UILabel!
+    
+    @IBOutlet weak var roeValue: UILabel!
+    @IBOutlet weak var assetLiabilityValue: UILabel!
+    @IBOutlet weak var debtEquityValue: UILabel!
+    @IBOutlet weak var debtAssetValue: UILabel!
+    @IBOutlet weak var cashflowDebtValue: UILabel!
+    @IBOutlet weak var dividendValue: UILabel!
+    @IBOutlet weak var tutesValue: UILabel!
+    @IBOutlet weak var insiderValues: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.isLoaded = true
@@ -70,33 +97,42 @@ class ScoresViewController: UIViewController, StatsVC {
         self.company = Dataholder.selectedCompany!
         if (isLoaded){
             DispatchQueue.main.async {
-                if let scores = self.company.scores, let percentile = self.company.scores?.percentile {
-                    let stringVal = String(format: "%.0f", percentile * 100.0)
+                if let scores = self.company.scores, let overallScore = self.company.scores?.overallScore {
+                    let stringVal = String(format: "%.0f", overallScore * 100.0)
                     self.overallScore.text = String("\(stringVal)%")
-                    self.overallScore.textColor = self.getTintColorForProgressValue(value: Float(percentile))
-                    self.overallScoreContainer.backgroundColor = self.getTintColorForProgressValue(value: Float(percentile)).withAlphaComponent(0.2)
-                    
+                    self.overallScore.textColor = self.getTintColorForProgressValue(value: Float(overallScore))
+                    self.overallScoreContainer.backgroundColor = self.getTintColorForProgressValue(value: Float(overallScore)).withAlphaComponent(0.2)
+                    self.rank.text = String(scores.rank ?? 0)
+                    let rawValues = scores.rawValues!
                     if let valuationScores = self.company.scores?.valuation {
                         for (key, value) in valuationScores {
-                            let valueString = String(format: "%.1f", value * 100.0) + "%"
+                            let scoreString = String(format: "%.1f", value * 100.0) + "%"
+                            let scoreColor = self.getScoreTextColor(value)
+                            let valueString = String(format: "%.1f", rawValues[key] ?? 0.0)
                             switch key {
                                 case "overall":
-                                    self.overallValuationScore.text = valueString
+                                    self.overallValuationScore.text = scoreString
+                                    self.overallValuationScore.textColor = scoreColor
                                     break
                                 case "peRatio":
-                                    self.peRatioScore.text = valueString
+                                    self.peRatioScore.text = scoreString
+                                    self.peRatioScore.textColor = scoreColor
+                                    self.peRatioValue.text = valueString
                                     break
                                 case "epsTTM":
-                                    self.epsTTMScore.text = valueString
+                                    self.epsTTMScore.text = scoreString
+                                    self.epsTTMScore.textColor = scoreColor
+                                    self.epsValue.text = valueString
                                     break
                                 case "priceToSales":
-                                    self.psScore.text = valueString
+                                    self.psScore.text = scoreString
+                                    self.psScore.textColor = scoreColor
+                                    self.psValue.text = valueString
                                     break
                                 case "priceToBook":
-                                    self.pbScore.text = valueString
-                                    break
-                                case "priceFairValue":
-                                    self.dcfScore.text = valueString
+                                    self.pbScore.text = scoreString
+                                    self.pbScore.textColor = scoreColor
+                                    self.pbValue.text = valueString
                                     break
                                 default:
                                     break
@@ -106,22 +142,180 @@ class ScoresViewController: UIViewController, StatsVC {
                     
                     if let futureScores = self.company.scores?.futureGrowth {
                         for (key, value) in futureScores {
-                            let valueString = String(format: "%.1f", value * 100.0) + "%"
+                            let scoreString = String(format: "%.1f", value * 100.0) + "%"
+                            let scoreColor = self.getScoreTextColor(value)
+                            let valueString = String(format: "%.1f", rawValues[key] ?? 0.0)
                             switch key {
                                 case "overall":
-                                    self.overallFutureScore.text = valueString
+                                    self.overallFutureScore.text = scoreString
+                                    self.overallFutureScore.textColor = scoreColor
                                     break
                                 case "pegRatio":
-                                    self.pegScore.text = valueString
+                                    self.pegScore.text = scoreString
+                                    self.pegScore.textColor = scoreColor
+                                    self.pegValue.text = valueString
                                     break
                                 case "epsNextQGrowth":
-                                    self.epsNextQuarterScore.text = valueString
+                                    self.epsNextQuarterScore.text = scoreString
+                                    self.epsNextQuarterScore.textColor = scoreColor
+                                    self.epsConsensusValue.text = valueString
                                     break
                                 case "priceTargetScore":
-                                    self.priceTargetScore.text = valueString
+                                    self.priceTargetScore.text = scoreString
+                                    self.priceTargetScore.textColor = scoreColor
+                                    self.priceTargetsValue.text = valueString
                                     break
                                 case "recommendationScore":
-                                    self.recommendationsScore.text = valueString
+                                    self.recommendationsScore.text = scoreString
+                                    self.recommendationsScore.textColor = scoreColor
+                                    self.recommendationsValue.text = valueString
+                                    break
+                                default:
+                                    break
+                            }
+                        }
+                    }
+                    
+                    if let pastScores = self.company.scores?.pastPerformance {
+                        for (key, value) in pastScores {
+                            let scoreString = String(format: "%.1f", value * 100.0) + "%"
+                            let scoreColor = self.getScoreTextColor(value)
+                            let valueString = String(format: "%.1f", (rawValues[key] ?? 0.0) * 100.0) + "%"
+                            switch key {
+                                case "overall":
+                                    self.overallPastScore.text = scoreString
+                                    self.overallPastScore.textColor = scoreColor
+                                    break
+                                case "avgRevenueGrowth":
+                                    self.revenueGrowthScore.text = scoreString
+                                    self.revenueGrowthScore.textColor = scoreColor
+                                    self.revenueGrowthValue.text = valueString
+                                    break
+                                case "avgIncomeGrowth":
+                                    self.incomeGrowthScore.text = scoreString
+                                    self.incomeGrowthScore.textColor = scoreColor
+                                    self.incomeGrowthValue.text = valueString
+                                    break
+                                case "revenueGrowthRate":
+                                    self.revenueGrowthRateScore.text = scoreString
+                                    self.revenueGrowthRateScore.textColor = scoreColor
+                                    self.revGrowthAccelValue.text = valueString
+                                    break
+                                case "incomeGrowthRate":
+                                    self.incomeGrowthRateScore.text = scoreString
+                                    self.incomeGrowthRateScore.textColor = scoreColor
+                                    self.incomeGrowthAccelValue.text = valueString
+                                    break
+                                case "cashFlowGrowth":
+                                    self.cashFlowGrowthScore.text = scoreString
+                                    self.cashFlowGrowthScore.textColor = scoreColor
+                                    self.cashflowGrowthValue.text = valueString
+                                    break
+                                case "profitMarginGrowth":
+                                    self.profitMarginGrowthScore.text = scoreString
+                                    self.profitMarginGrowthScore.textColor = scoreColor
+                                    self.profitMarginGrowthValue.text = valueString
+                                    break
+                                case "oneYearChange":
+                                    self.OneYearScore.text = scoreString
+                                    self.OneYearScore.textColor = scoreColor
+                                    self.oneYearPerfValue.text = valueString
+                                    break
+                                default:
+                                    break
+                            }
+                        }
+                    }
+                    
+                    if let healthScores = self.company.scores?.financialHealth {
+                        for (key, value) in healthScores {
+                            let scoreString = String(format: "%.1f", value * 100.0) + "%"
+                            let scoreColor = self.getScoreTextColor(value)
+                            let valueString = String(format: "%.1f", rawValues[key] ?? 0.0)
+                            let valueStringPercent = String(format: "%.1f", (rawValues[key] ?? 0.0) * 100.0) + "%"
+                            switch key {
+                                case "overall":
+                                    self.overallHealthScore.text = scoreString
+                                    self.overallHealthScore.textColor = scoreColor
+                                    break
+                                case "debtToAssets":
+                                    self.debtAssetsScore.text = scoreString
+                                    self.debtAssetsScore.textColor = scoreColor
+                                    self.debtAssetValue.text = valueString
+                                    break
+                                case "debtToEquity":
+                                    self.debtEquityScore.text = scoreString
+                                    self.debtEquityScore.textColor = scoreColor
+                                    self.debtEquityValue.text = valueString
+                                    break
+                                case "returnOnEquity":
+                                    self.roeScore.text = scoreString
+                                    self.roeScore.textColor = scoreColor
+                                    self.roeValue.text = valueStringPercent
+                                    break
+                                case "insiders":
+                                    self.insiderScore.text = scoreString
+                                    self.insiderScore.textColor = scoreColor
+                                    self.insiderValues.text = String(NumberFormatter.formatNumber(num: Double(valueString)!))
+                                    break
+                                case "tutes":
+                                    self.tutesScore.text = scoreString
+                                    self.tutesScore.textColor = scoreColor
+                                    self.tutesValue.text = valueStringPercent
+                                    break
+                                case "assetsLiabilities":
+                                    self.assetsLiabilitiesScore.text = scoreString
+                                    self.assetsLiabilitiesScore.textColor = scoreColor
+                                    self.assetLiabilityValue.text = valueString
+                                    break
+                                case "cashflowDebt":
+                                    self.cashFlowDebtScore.text = scoreString
+                                    self.cashFlowDebtScore.textColor = scoreColor
+                                    self.cashflowDebtValue.text = valueString
+                                    break
+                                case "dividendYield":
+                                    self.dividendScore.text = scoreString
+                                    self.dividendScore.textColor = scoreColor
+                                    self.dividendValue.text = valueStringPercent
+                                    break
+                                default:
+                                    break
+                            }
+                        }
+                    }
+                    
+                    if let technicals = self.company.scores?.technical {
+                        for (key, value) in technicals {
+                            let scoreString = String(format: "%.1f", value * 100.0) + "%"
+                            let scoreColor = self.getScoreTextColor(value)
+                            switch key {
+                                case "overall":
+                                    self.overallTechnicalScore.text = scoreString
+                                    self.overallTechnicalScore.textColor = scoreColor
+                                    break
+                                case "support":
+                                    self.supportScore.text = scoreString
+                                    self.supportScore.textColor = scoreColor
+                                    break
+                                case "pressure":
+                                    self.gapScore.text = scoreString
+                                    self.gapScore.textColor = scoreColor
+                                    break
+                                case "trends":
+                                    self.trendsScore.text = scoreString
+                                    self.trendsScore.textColor = scoreColor
+                                    break
+                                case "momentum":
+                                    self.momentumScore.text = scoreString
+                                    self.momentumScore.textColor = scoreColor
+                                    break
+                                case "circuitBreaker":
+                                    self.ssrScore.text = scoreString
+                                    self.ssrScore.textColor = scoreColor
+                                    break
+                                case "strength":
+                                    self.rsiScore.text = scoreString
+                                    self.rsiScore.textColor = scoreColor
                                     break
                                 default:
                                     break
@@ -131,6 +325,20 @@ class ScoresViewController: UIViewController, StatsVC {
                 }
             }
         }
+    }
+    
+    func getScoreTextColor(_ val:Double) -> UIColor {
+        let blue:CGFloat = 0.0
+        var red:CGFloat = 0.0
+        var green:CGFloat = 0.0
+        if val <= 0.5 {
+            red = 218.0
+            green = CGFloat((val/0.5) * 218.0)
+        } else {
+            green = 218.0
+            red = CGFloat(218.0 - ((val - 0.5)/0.5) * 218.0)
+        }
+        return UIColor(red: red/255.0, green: green/255.0, blue: blue/255.0, alpha: 1.0)
     }
     
     func getTintColorForProgressValue(value:Float) -> UIColor {
