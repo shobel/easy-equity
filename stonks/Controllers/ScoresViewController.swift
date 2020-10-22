@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import XLActionController
 
 class ScoresViewController: UIViewController, StatsVC {
     
     private var company:Company!
     private var isLoaded = false
     @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var overallScoreContainer: UIView!
+    @IBOutlet weak var rankContainer: UIView!
     @IBOutlet weak var overallScore: UILabel!
     @IBOutlet weak var rank: UILabel!
     
@@ -87,22 +88,40 @@ class ScoresViewController: UIViewController, StatsVC {
         super.viewDidLoad()
         self.isLoaded = true
         self.company = Dataholder.selectedCompany!
-        self.overallScoreContainer.layer.cornerRadius = self.overallScoreContainer.frame.width/2
-        self.overallScoreContainer.layer.masksToBounds = true
-        self.overallScoreContainer.clipsToBounds = true
+        self.rankContainer.layer.cornerRadius = self.rankContainer.frame.width/2
+        self.rankContainer.layer.masksToBounds = true
+        self.rankContainer.clipsToBounds = true
         updateData()
+    }
+    
+    @IBAction func moreButtonAction(_ sender: Any) {
+        let actionController = SkypeActionController() //not really for skype
+        actionController.addAction(Action("Configure Scores", style: .default, handler: { action in
+            
+        }))
+        actionController.addAction(Action("Search By Score", style: .default, handler: { action in
+
+        }))
+        actionController.addAction(Action("How Are Scores Calculated?", style: .default, handler: { action in
+            
+        }))
+        actionController.addAction(Action("Suggest A Metric", style: .default, handler: { action in
+            
+        }))
+        present(actionController, animated: true, completion: nil)
     }
     
     func updateData() {
         self.company = Dataholder.selectedCompany!
         if (isLoaded){
             DispatchQueue.main.async {
-                if let scores = self.company.scores, let overallScore = self.company.scores?.overallScore {
-                    let stringVal = String(format: "%.0f", overallScore * 100.0)
+                if let scores = self.company.scores, let percentile = self.company.scores?.percentile, let rank = self.company.scores?.rank {
+                    let stringVal = String(format: "%.0f", percentile * 100.0)
                     self.overallScore.text = String("\(stringVal)%")
-                    self.overallScore.textColor = self.getTintColorForProgressValue(value: Float(overallScore))
-                    self.overallScoreContainer.backgroundColor = self.getTintColorForProgressValue(value: Float(overallScore)).withAlphaComponent(0.2)
+                    self.overallScore.textColor = self.getTintColorForProgressValue(value: Float(percentile))
+                    self.rankContainer.backgroundColor = self.getTintColorForProgressValue(value: Float(percentile)).withAlphaComponent(0.2)
                     self.rank.text = String(scores.rank ?? 0)
+                    self.rank.textColor = self.getTintColorForProgressValue(value: Float(percentile))
                     let rawValues = scores.rawValues!
                     if let valuationScores = self.company.scores?.valuation {
                         for (key, value) in valuationScores {
@@ -326,6 +345,8 @@ class ScoresViewController: UIViewController, StatsVC {
             }
         }
     }
+    
+    
     
     func getScoreTextColor(_ val:Double) -> UIColor {
         let blue:CGFloat = 0.0

@@ -41,6 +41,8 @@
 		1C62712F253D5FCC00A4CC57 /* IntitutionalOwnership.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62712E253D5FCC00A4CC57 /* IntitutionalOwnership.swift */; };
 		1C627131253D656C00A4CC57 /* Scores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C627130253D656C00A4CC57 /* Scores.swift */; };
 		1C627133253E232900A4CC57 /* ScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C627132253E232900A4CC57 /* ScoresViewController.swift */; };
+		1C6271352541135B00A4CC57 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6271342541135B00A4CC57 /* AnalysisViewController.swift */; };
+		1C6271372541327A00A4CC57 /* CompanyScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6271362541327A00A4CC57 /* CompanyScoreTableViewCell.swift */; };
 		1C62FDD624BC144D00BABDCB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDD524BC144D00BABDCB /* LoginViewController.swift */; };
 		1C62FDD924BC14D900BABDCB /* frog-on-a-log.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C62FDD824BC14D900BABDCB /* frog-on-a-log.mp4 */; };
 		1C62FDDB24BC4B6F00BABDCB /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDDA24BC4B6F00BABDCB /* SignupViewController.swift */; };
@@ -179,6 +181,8 @@
 		1C62712E253D5FCC00A4CC57 /* IntitutionalOwnership.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntitutionalOwnership.swift; sourceTree = "<group>"; };
 		1C627130253D656C00A4CC57 /* Scores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scores.swift; sourceTree = "<group>"; };
 		1C627132253E232900A4CC57 /* ScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewController.swift; sourceTree = "<group>"; };
+		1C6271342541135B00A4CC57 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
+		1C6271362541327A00A4CC57 /* CompanyScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyScoreTableViewCell.swift; sourceTree = "<group>"; };
 		1C62FDD524BC144D00BABDCB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1C62FDD824BC14D900BABDCB /* frog-on-a-log.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "frog-on-a-log.mp4"; sourceTree = "<group>"; };
 		1C62FDDA24BC4B6F00BABDCB /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -486,6 +490,7 @@
 				1C7B987F215F396200C75014 /* WatchlistTVCell.swift */,
 				1C754B0924EF4432000AE379 /* CircularProgressView.swift */,
 				1C754B0B24F0AB39000AE379 /* TopAnalystCollectionViewCell.swift */,
+				1C6271362541327A00A4CC57 /* CompanyScoreTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -510,6 +515,7 @@
 				1C2AC8612177B9A400469941 /* WatchlistVC.swift */,
 				1C754B1324F6EF32000AE379 /* SubscriptionViewController.swift */,
 				1C627132253E232900A4CC57 /* ScoresViewController.swift */,
+				1C6271342541135B00A4CC57 /* AnalysisViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -820,6 +826,7 @@
 				1CD11944216DD886000AE02E /* ColoredValueLabel.swift in Sources */,
 				1CCA7E3D2313AB5E0033AC58 /* KeyStats.swift in Sources */,
 				1C6FF9772324BE23005AE40D /* AdvancedStats.swift in Sources */,
+				1C6271352541135B00A4CC57 /* AnalysisViewController.swift in Sources */,
 				1C7B9861215DDFBC00C75014 /* Company.swift in Sources */,
 				1C627131253D656C00A4CC57 /* Scores.swift in Sources */,
 				1C9B95BE23FA2075004E95B1 /* NewsTableViewCell.swift in Sources */,
@@ -850,6 +857,7 @@
 				1C2AC8622177B9A400469941 /* WatchlistVC.swift in Sources */,
 				1C4EF364232AACAF000299E6 /* NewsViewController.swift in Sources */,
 				1CD1194A216F35C3000AE02E /* MarkerView.swift in Sources */,
+				1C6271372541327A00A4CC57 /* CompanyScoreTableViewCell.swift in Sources */,
 				1CCA7E3B2313A8E80033AC58 /* GeneralInfo.swift in Sources */,
 				1CCBD05B24CC326600B43C9D /* ActionData.swift in Sources */,
 				1C6FF9792325F974005AE40D /* AdvancedStatsViewController.swift in Sources */,
