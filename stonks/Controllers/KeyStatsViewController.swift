@@ -66,6 +66,7 @@ class KeyStatsViewController: UIViewController, StatsVC {
     @IBOutlet weak var hq: UILabel!
     @IBOutlet weak var website: UILabel!
     @IBOutlet weak var sector: UILabel!
+    @IBOutlet weak var industry: UILabel!
     @IBOutlet weak var employees: UILabel!
     
     @IBOutlet weak var insidersLabel: UILabel!
@@ -147,6 +148,9 @@ class KeyStatsViewController: UIViewController, StatsVC {
                 }
                 if let x = self.company.generalInfo?.sector {
                     self.sector.text = x
+                }
+                if let x = self.company.generalInfo?.industry {
+                    self.industry.text = x
                 }
                 if let x = self.company.generalInfo?.website {
                     self.website.text = x

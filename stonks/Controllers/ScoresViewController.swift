@@ -15,8 +15,13 @@ class ScoresViewController: UIViewController, StatsVC {
     private var isLoaded = false
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var rankContainer: UIView!
+    @IBOutlet weak var overallScoreContainer: UIView!
     @IBOutlet weak var overallScore: UILabel!
     @IBOutlet weak var rank: UILabel!
+    @IBOutlet weak var industryRankContainer: UIView!
+    @IBOutlet weak var industryRank: UILabel!
+    @IBOutlet weak var industryLabel: UILabel!
+    @IBOutlet weak var industryTotal: UILabel!
     
     @IBOutlet weak var overallValuationScore: UILabel!
     @IBOutlet weak var peRatioScore: UILabel!
@@ -91,6 +96,14 @@ class ScoresViewController: UIViewController, StatsVC {
         self.rankContainer.layer.cornerRadius = self.rankContainer.frame.width/2
         self.rankContainer.layer.masksToBounds = true
         self.rankContainer.clipsToBounds = true
+        
+        self.industryRankContainer.layer.cornerRadius = self.industryRankContainer.frame.width/2
+        self.industryRankContainer.layer.masksToBounds = true
+        self.industryRankContainer.clipsToBounds = true
+        
+        self.overallScoreContainer.layer.cornerRadius = self.overallScoreContainer.frame.width/2
+        self.overallScoreContainer.layer.masksToBounds = true
+        self.overallScoreContainer.clipsToBounds = true
         updateData()
     }
     
@@ -102,7 +115,7 @@ class ScoresViewController: UIViewController, StatsVC {
         actionController.addAction(Action("Search By Score", style: .default, handler: { action in
 
         }))
-        actionController.addAction(Action("How Are Scores Calculated?", style: .default, handler: { action in
+        actionController.addAction(Action("What Do The Scores Mean?", style: .default, handler: { action in
             
         }))
         actionController.addAction(Action("Suggest A Metric", style: .default, handler: { action in
@@ -119,9 +132,19 @@ class ScoresViewController: UIViewController, StatsVC {
                     let stringVal = String(format: "%.0f", percentile * 100.0)
                     self.overallScore.text = String("\(stringVal)%")
                     self.overallScore.textColor = self.getTintColorForProgressValue(value: Float(percentile))
+                    self.overallScoreContainer.backgroundColor = self.getTintColorForProgressValue(value: Float(percentile)).withAlphaComponent(0.2)
+
                     self.rankContainer.backgroundColor = self.getTintColorForProgressValue(value: Float(percentile)).withAlphaComponent(0.2)
-                    self.rank.text = String(scores.rank ?? 0)
+                    self.rank.text = String("#\(scores.rank ?? 0)")
                     self.rank.textColor = self.getTintColorForProgressValue(value: Float(percentile))
+                    
+                    self.industryRank.text = String("#\(scores.industryRank ?? 0)")
+                    let industryRankPercent:Float = 1.0 - Float((Float(scores.industryRank ?? 0))/(Float(scores.industryTotal ?? 0)))
+                    self.industryRankContainer.backgroundColor = self.getTintColorForProgressValue(value: industryRankPercent).withAlphaComponent(0.2)
+                    self.industryRank.textColor = self.getTintColorForProgressValue(value: industryRankPercent)
+                    
+                    self.industryLabel.text = "IND: " + (scores.industry ?? "")
+                    self.industryTotal.text = String("of \(scores.industryTotal ?? 0)")
                     let rawValues = scores.rawValues!
                     if let valuationScores = self.company.scores?.valuation {
                         for (key, value) in valuationScores {
@@ -363,13 +386,24 @@ class ScoresViewController: UIViewController, StatsVC {
     }
     
     func getTintColorForProgressValue(value:Float) -> UIColor {
-        if value > 0.7 {
-            return Constants.green
-        } else if value > 0.4 {
-            return Constants.yellow
+//        if value > 0.7 {
+//            return Constants.green
+//        } else if value > 0.4 {
+//            return Constants.yellow
+//        } else {
+//            return Constants.darkPink
+//        }
+        let blue:CGFloat = 0.0
+        var red:CGFloat = 0.0
+        var green:CGFloat = 0.0
+        if value <= 0.5 {
+            red = 218.0
+            green = CGFloat((value/0.5) * 218.0)
         } else {
-            return Constants.darkPink
+            green = 218.0
+            red = CGFloat(218.0 - ((value - 0.5)/0.5) * 218.0)
         }
+        return UIColor(red: red/255.0, green: green/255.0, blue: blue/255.0, alpha: 1.0)
     }
     
     func getContentHeight() -> CGFloat {

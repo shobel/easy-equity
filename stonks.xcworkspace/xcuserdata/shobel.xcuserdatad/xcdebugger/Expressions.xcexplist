@@ -359,7 +359,7 @@
          contextName = "closure #1 in ScoresViewController.updateData():ScoresViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "rawValues[key]">
+               value = "Float((scores.industryRank ?? 0)/(scores.industryTotal ?? 0))">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

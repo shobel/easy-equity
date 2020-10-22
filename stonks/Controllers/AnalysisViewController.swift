@@ -21,7 +21,7 @@ extension AnalysisViewController: UISearchBarDelegate {
     }
 }
 
-class AnalysisViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AnalysisViewController: UIViewController {
 
     @IBOutlet weak var configureButton: UIButton!
     @IBOutlet weak var searchbar: UISearchBar!
@@ -34,13 +34,13 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
         configureButton.layer.borderWidth = CGFloat(1)
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
-    }
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 1
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        
+//    }
     /*
     // MARK: - Navigation
 
