@@ -374,6 +374,21 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
+    public func getScoresWithUserSettingsApplied(completionHandler: @escaping ([SimpleScore])->Void){
+        let queryURL = buildQuery(url: apiurl + "/test/score-settings", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var scores:[SimpleScore] = []
+            for i in 0..<json.count{
+                let JSONString:String = json[i].rawString()!
+                if let n = Mapper<SimpleScore>().map(JSONString: JSONString){
+                    scores.append(n)
+                }
+            }
+            completionHandler(scores)
+        }
+    }
+    
     
     private func getRequest(queryURL:String, completion: @escaping (JSON) -> Void) {
         httpGetQuery(queryURL: queryURL, token: KeychainItem.currentUserIdentifier) { (data, response, error) -> Void in
