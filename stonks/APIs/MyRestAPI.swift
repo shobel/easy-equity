@@ -375,7 +375,7 @@ class MyRestAPI: HTTPRequest {
     }
     
     public func getScoresWithUserSettingsApplied(completionHandler: @escaping ([SimpleScore])->Void){
-        let queryURL = buildQuery(url: apiurl + "/test/score-settings", params: [:])
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/scores-settings-applied", params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
             var scores:[SimpleScore] = []
@@ -386,6 +386,38 @@ class MyRestAPI: HTTPRequest {
                 }
             }
             completionHandler(scores)
+        }
+    }
+    
+    public func getSettingsAndVariables(completionHandler: @escaping (ScoreSettings, [String:String], [String:[String]])->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/variables-and-score-settings", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var scoreSettings:ScoreSettings = ScoreSettings()
+            let scoreSettingsJSON = json["scoreSettings"].rawString()!
+            if let s = Mapper<ScoreSettings>().map(JSONString: scoreSettingsJSON){
+                scoreSettings = s
+            }
+            var variableNamesMap:[String:String] = [:]
+            let vnmJsonString = json["variableNames"].rawString()!
+            if let data = vnmJsonString.data(using: .utf8) {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:String]
+                    if let vmp = json {
+                        variableNamesMap = vmp
+                    }
+                } catch {
+                    print("Something went wrong")
+                }
+            }
+            var variables:[String:[String]] = [:]
+            variables["future"] = json["future"].rawValue as? [String]
+            variables["past"] = json["past"].rawValue as? [String]
+            variables["health"] = json["health"].rawValue as? [String]
+            variables["valuation"] = json["valuation"].rawValue as? [String]
+            variables["technical"] = json["technical"].rawValue as? [String]
+
+            completionHandler(scoreSettings, variableNamesMap, variables)
         }
     }
     

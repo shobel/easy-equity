@@ -91,6 +91,9 @@
 		1C7B9880215F396200C75014 /* WatchlistTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B987F215F396200C75014 /* WatchlistTVCell.swift */; };
 		1C7B98862161949A00C75014 /* Dataholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B98852161949A00C75014 /* Dataholder.swift */; };
 		1C7B98882161CC2F00C75014 /* CompanySearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B98872161CC2F00C75014 /* CompanySearchVC.swift */; };
+		1C817BD02544935A003695F7 /* ScoreSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C817BCF2544935A003695F7 /* ScoreSettings.swift */; };
+		1C817BDA2544B604003695F7 /* ScoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C817BD92544B604003695F7 /* ScoreSettingsViewController.swift */; };
+		1C817BDF2544C8FB003695F7 /* VariableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C817BDE2544C8FB003695F7 /* VariableTableViewCell.swift */; };
 		1C87391124BB90BC006B80AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C87391024BB90BC006B80AD /* GoogleService-Info.plist */; };
 		1C8DD1C024C8DF9800333C90 /* CompanySearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8DD1BF24C8DF9800333C90 /* CompanySearchTableViewCell.swift */; };
 		1C9B952323E74F14004E95B1 /* PriceChartPriceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B952223E74F14004E95B1 /* PriceChartPriceFormatter.swift */; };
@@ -238,6 +241,9 @@
 		1C7B987F215F396200C75014 /* WatchlistTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTVCell.swift; sourceTree = "<group>"; };
 		1C7B98852161949A00C75014 /* Dataholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataholder.swift; sourceTree = "<group>"; };
 		1C7B98872161CC2F00C75014 /* CompanySearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanySearchVC.swift; sourceTree = "<group>"; };
+		1C817BCF2544935A003695F7 /* ScoreSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreSettings.swift; sourceTree = "<group>"; };
+		1C817BD92544B604003695F7 /* ScoreSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreSettingsViewController.swift; sourceTree = "<group>"; };
+		1C817BDE2544C8FB003695F7 /* VariableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableTableViewCell.swift; sourceTree = "<group>"; };
 		1C87391024BB90BC006B80AD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1C8DD1BF24C8DF9800333C90 /* CompanySearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanySearchTableViewCell.swift; sourceTree = "<group>"; };
 		1C9B952223E74F14004E95B1 /* PriceChartPriceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceChartPriceFormatter.swift; sourceTree = "<group>"; };
@@ -461,6 +467,7 @@
 				1C62712E253D5FCC00A4CC57 /* IntitutionalOwnership.swift */,
 				1C627130253D656C00A4CC57 /* Scores.swift */,
 				1C37D1E925425F61003564BE /* SimpleScore.swift */,
+				1C817BCF2544935A003695F7 /* ScoreSettings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -494,6 +501,7 @@
 				1C754B0924EF4432000AE379 /* CircularProgressView.swift */,
 				1C754B0B24F0AB39000AE379 /* TopAnalystCollectionViewCell.swift */,
 				1C6271362541327A00A4CC57 /* CompanyScoreTableViewCell.swift */,
+				1C817BDE2544C8FB003695F7 /* VariableTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -519,6 +527,7 @@
 				1C754B1324F6EF32000AE379 /* SubscriptionViewController.swift */,
 				1C627132253E232900A4CC57 /* ScoresViewController.swift */,
 				1C6271342541135B00A4CC57 /* AnalysisViewController.swift */,
+				1C817BD92544B604003695F7 /* ScoreSettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -831,6 +840,7 @@
 				1CCA7E3D2313AB5E0033AC58 /* KeyStats.swift in Sources */,
 				1C6FF9772324BE23005AE40D /* AdvancedStats.swift in Sources */,
 				1C6271352541135B00A4CC57 /* AnalysisViewController.swift in Sources */,
+				1C817BDA2544B604003695F7 /* ScoreSettingsViewController.swift in Sources */,
 				1C7B9861215DDFBC00C75014 /* Company.swift in Sources */,
 				1C627131253D656C00A4CC57 /* Scores.swift in Sources */,
 				1C9B95BE23FA2075004E95B1 /* NewsTableViewCell.swift in Sources */,
@@ -855,6 +865,7 @@
 				1C7B98862161949A00C75014 /* Dataholder.swift in Sources */,
 				1CB3D61A231DA0A400D6F57C /* Estimates.swift in Sources */,
 				1C4D2D9A24EBBD9C00E54EB8 /* Kscore.swift in Sources */,
+				1C817BD02544935A003695F7 /* ScoreSettings.swift in Sources */,
 				1C754B0C24F0AB39000AE379 /* TopAnalystCollectionViewCell.swift in Sources */,
 				1C4D2D9C24EC414700E54EB8 /* CustomProgressView.swift in Sources */,
 				1C4D2D9024E88C3800E54EB8 /* MarketNewsTableView.swift in Sources */,
@@ -869,6 +880,7 @@
 				1C627133253E232900A4CC57 /* ScoresViewController.swift in Sources */,
 				1C62712F253D5FCC00A4CC57 /* IntitutionalOwnership.swift in Sources */,
 				1C4D2D8824E3DA2400E54EB8 /* Insider.swift in Sources */,
+				1C817BDF2544C8FB003695F7 /* VariableTableViewCell.swift in Sources */,
 				1C4D2DA024EE33F800E54EB8 /* PriceTargetTopAnalysts.swift in Sources */,
 				1CD11940216DC394000AE02E /* CandlePricesView.swift in Sources */,
 				1C72F90A24CA4FFD00EC59F6 /* UserAccountViewController.swift in Sources */,

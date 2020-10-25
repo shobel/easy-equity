@@ -31,9 +31,14 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
     private var scoresOriginal:[SimpleScore] = []
     
     private var colorMap:[String:UIColor] = [:]
-    
+    private var indicator = UIActivityIndicatorView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.activityIndicator()
+        DispatchQueue.main.async {
+            self.indicator.startAnimating()
+        }
         configureButton.layer.cornerRadius = 15
         configureButton.layer.borderColor = UIColor.darkGray.cgColor
         configureButton.layer.borderWidth = CGFloat(1)
@@ -54,8 +59,20 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
             self.scoresOriginal = self.scores
             DispatchQueue.main.async {
                 self.companyScoresTable.reloadData()
+                self.indicator.stopAnimating()
             }
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.companyScoresTable.reloadData()
+    }
+
+    func activityIndicator() {
+        self.indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        self.indicator.style = .large
+        self.indicator.center = CGPoint(x: self.companyScoresTable.frame.width/2 + 20, y: 100)
+        self.companyScoresTable.addSubview(indicator)
     }
     
     private func filterList(searchText: String){
@@ -97,9 +114,16 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.companyName.text = score.companyName ?? "-"
         cell.industry.text = score.industry ?? "-"
         cell.rank.text = String(score.rank ?? 0)
-        cell.industryRank.text = String(score.industryRank ?? 0)
+        cell.score.text = String(format: "%.1f", (score.percentile ?? 0) * 100.0) + "%"
         cell.setData(industryColor: self.colorMap[score.industry ?? ""] ?? UIColor.gray, rank: score.rank ?? 0, industryRank: score.industryRank ?? 0, industryTotal: score.industryTotal ?? 1, percentile: score.percentile ?? 0.0)
         cell.backgroundColor = UIColor.clear
+        
+        if Dataholder.watchlistManager.getTickers().contains(score.symbol ?? "") {
+            cell.addedToWatchlist(true)
+        } else {
+            cell.addedToWatchlist(false)
+        }
+        
         return cell
     }
     /*
