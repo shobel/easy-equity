@@ -202,6 +202,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "specialized closure #1 in ScoreSettingsViewController.updateTotalWeighting():ScoreSettingsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "String(format: &quot;%.1f&quot;, total)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "WatchlistManager.addCompany(company:):WatchlistManager.swift">
          <PersistentStrings>
             <PersistentString
@@ -1102,6 +1110,11 @@
       </ContextState>
       <ContextState
          contextName = "ScoreSettingsViewController.updateTotalWeighting():ScoreSettingsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Double(category.value)">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "PriceChartFormatter.stringForValue(_:axis:):PriceChartFormatter.swift">

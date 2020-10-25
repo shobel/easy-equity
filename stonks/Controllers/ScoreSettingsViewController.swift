@@ -88,11 +88,13 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
         for category in self.scoreSettings.weightings! {
             total += Double(category.value)
         }
-        self.totalWeight.text = String("\(total)%")
-        if total == 100 {
-            self.totalWeight.textColor = Constants.green
-        } else {
-            self.totalWeight.textColor = Constants.darkPink
+        DispatchQueue.main.async {
+            self.totalWeight.text = String(format: "%.0f", total) + "%"
+            if total == 100 {
+                self.totalWeight.textColor = Constants.green
+            } else {
+                self.totalWeight.textColor = Constants.darkPink
+            }
         }
     }
     
