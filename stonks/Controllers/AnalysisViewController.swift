@@ -126,6 +126,13 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let score = self.scores[indexPath.row]
+        if let symbol = score.symbol {
+            Dataholder.selectedCompany = Company(symbol: symbol, fullName: score.companyName ?? "")
+        }
+    }
     /*
     // MARK: - Navigation
 

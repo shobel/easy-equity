@@ -13,13 +13,13 @@
         <!--Analysis View Controller-->
         <scene sceneID="BtD-nf-WdN">
             <objects>
-                <viewController id="p3f-Ir-Da1" customClass="AnalysisViewController" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="equityScoresVC" id="p3f-Ir-Da1" customClass="AnalysisViewController" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hgh-4p-SYD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ANALYTICS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPC-MO-eMH">
-                                <rect key="frame" x="142.5" y="20" width="90" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EQUITY SCORES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPC-MO-eMH">
+                                <rect key="frame" x="122.5" y="20" width="130" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.91764705879999997" green="0.0" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -161,24 +161,25 @@
                                             <outlet property="score" destination="4di-0q-cO9" id="9gj-Jd-GpT"/>
                                             <outlet property="symbol" destination="FH0-AW-y1l" id="3E3-1x-fae"/>
                                             <outlet property="watchlistButton" destination="Kp7-Qw-9mf" id="fFt-a1-Qjh"/>
+                                            <segue destination="VCE-f9-Qth" kind="show" identifier="ScoresToDetail" id="Ipu-Ae-C4h"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Equities Ranked By Adjusted Overall Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Coi-GA-FNm">
-                                <rect key="frame" x="15" y="116" width="286.5" height="17"/>
+                                <rect key="frame" x="44.5" y="116" width="286.5" height="17"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" red="0.18830856679999999" green="0.19203343989999999" blue="0.20000121000000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MKT RANK" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAT-N4-Reu">
-                                <rect key="frame" x="153.5" y="187" width="50" height="12"/>
+                                <rect key="frame" x="145.5" y="187" width="50" height="12"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="10"/>
                                 <color key="textColor" red="0.47451311349999997" green="0.47450375560000002" blue="0.47451013330000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADJ Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhc-t1-cnH">
-                                <rect key="frame" x="238.5" y="187" width="46.5" height="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADJ SCORE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhc-t1-cnH">
+                                <rect key="frame" x="230.5" y="187" width="54.5" height="12"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="10"/>
                                 <color key="textColor" red="0.47451311349999997" green="0.47450375560000002" blue="0.47451013330000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -192,14 +193,13 @@
                             <constraint firstItem="fvr-QZ-gxh" firstAttribute="centerX" secondItem="sEm-Q9-AGI" secondAttribute="centerX" id="D8S-VO-ajT"/>
                             <constraint firstItem="Bb8-NF-l7m" firstAttribute="top" secondItem="Coi-GA-FNm" secondAttribute="bottom" id="Dl9-7N-vGT"/>
                             <constraint firstItem="HPC-MO-eMH" firstAttribute="top" secondItem="sEm-Q9-AGI" secondAttribute="top" constant="20" id="Hko-4G-aWB"/>
+                            <constraint firstItem="Coi-GA-FNm" firstAttribute="centerX" secondItem="Hgh-4p-SYD" secondAttribute="centerX" id="IA1-Hl-Yef"/>
                             <constraint firstItem="Bb8-NF-l7m" firstAttribute="trailing" secondItem="sEm-Q9-AGI" secondAttribute="trailing" id="JSd-mY-Til"/>
                             <constraint firstItem="fvr-QZ-gxh" firstAttribute="top" secondItem="HPC-MO-eMH" secondAttribute="bottom" constant="15" id="ORb-ol-0sS"/>
                             <constraint firstItem="mS7-Xc-66R" firstAttribute="top" secondItem="Bb8-NF-l7m" secondAttribute="bottom" constant="10" id="P3l-Wo-NG8"/>
                             <constraint firstItem="Bb8-NF-l7m" firstAttribute="leading" secondItem="sEm-Q9-AGI" secondAttribute="leading" id="UgF-e2-tNb"/>
                             <constraint firstItem="mS7-Xc-66R" firstAttribute="top" secondItem="dhc-t1-cnH" secondAttribute="bottom" id="Ugw-W3-z2H"/>
-                            <constraint firstItem="sEm-Q9-AGI" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Coi-GA-FNm" secondAttribute="trailing" symbolic="YES" id="Zf4-Tm-LE9"/>
                             <constraint firstItem="sEm-Q9-AGI" firstAttribute="bottom" secondItem="mS7-Xc-66R" secondAttribute="bottom" id="aha-Mt-7Su"/>
-                            <constraint firstItem="Coi-GA-FNm" firstAttribute="leading" secondItem="sEm-Q9-AGI" secondAttribute="leading" constant="15" id="fNU-jM-h6u"/>
                             <constraint firstItem="sEm-Q9-AGI" firstAttribute="trailing" secondItem="dhc-t1-cnH" secondAttribute="trailing" constant="90" id="fqW-4x-jur"/>
                             <constraint firstItem="mS7-Xc-66R" firstAttribute="leading" secondItem="sEm-Q9-AGI" secondAttribute="leading" id="fxA-Ed-sAH"/>
                             <constraint firstItem="fvr-QZ-gxh" firstAttribute="width" secondItem="Hgh-4p-SYD" secondAttribute="width" multiplier="0.6" id="jfw-eX-YgS"/>
@@ -5501,7 +5501,7 @@
         <!--Score Settings View Controller-->
         <scene sceneID="vec-to-8rG">
             <objects>
-                <viewController id="KzY-f9-L8X" customClass="ScoreSettingsViewController" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="scoreSettingsVC" id="KzY-f9-L8X" customClass="ScoreSettingsViewController" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GTP-eE-wEd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6013,7 +6013,7 @@
         <!--View Controller-->
         <scene sceneID="2bD-kZ-37Z">
             <objects>
-                <viewController id="0Ps-kF-HgB" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="scoreDocumentationVC" id="0Ps-kF-HgB" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xzp-hn-GoV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6095,7 +6095,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="pDr-Wp-HVS"/>
+        <segue reference="Ipu-Ae-C4h"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Kavout_logo_grey" width="249" height="244"/>

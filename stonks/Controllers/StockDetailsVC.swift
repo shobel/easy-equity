@@ -217,9 +217,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             self.dateOfLatestPriceData = intradayChart[0].dateLabel!
 
             if quote.symbol == nil {
-//                DispatchQueue.main.async {
-//                    self.navigationController?.popViewController(animated: true)
-//                }
                 return
             }
             print("updated " + String(quote.latestPrice!) + " " + String(intradayChart.count) + " values")

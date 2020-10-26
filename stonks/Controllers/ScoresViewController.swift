@@ -110,16 +110,16 @@ class ScoresViewController: UIViewController, StatsVC {
     @IBAction func moreButtonAction(_ sender: Any) {
         let actionController = SkypeActionController() //not really for skype
         actionController.addAction(Action("Configure Scores", style: .default, handler: { action in
-            
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "scoreSettingsVC")
+            self.present(vc, animated: true, completion: nil)
         }))
         actionController.addAction(Action("Search By Score", style: .default, handler: { action in
-
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "equityScoresVC")
+            self.present(vc, animated: true, completion: nil)
         }))
         actionController.addAction(Action("What Do The Scores Mean?", style: .default, handler: { action in
-            
-        }))
-        actionController.addAction(Action("Suggest A Metric", style: .default, handler: { action in
-            
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "scoreDocumentationVC")
+            self.present(vc, animated: true, completion: nil)
         }))
         present(actionController, animated: true, completion: nil)
     }
