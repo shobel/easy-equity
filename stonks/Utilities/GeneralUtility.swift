@@ -29,6 +29,20 @@ struct GeneralUtility {
         return difference.day ?? 0
     }
     
+    /* iso string format example: 2020-10-27T17:09:22Z */
+    public static func isoDateToTimestamp(isoString:String) -> Double {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        if let newdate = formatter.date(from: isoString) {
+            return newdate.timeIntervalSince1970
+        } else {
+            return 0.0
+        }
+    }
+    
     public static func isPremarket() -> Bool{
         let now = Date()
         let formatter = DateFormatter()

@@ -389,6 +389,21 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
+    public func getStocktwitsPostsForSymbol(symbol:String, completionHandler: @escaping ([StocktwitsPost])->Void){
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/stocktwits-for-symbol/" + symbol, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var posts:[StocktwitsPost] = []
+            for i in 0..<json.count{
+                let JSONString:String = json[i].rawString()!
+                if let n = Mapper<StocktwitsPost>().map(JSONString: JSONString){
+                    posts.append(n)
+                }
+            }
+            completionHandler(posts)
+        }
+    }
+    
     public func getScoresWithUserSettingsApplied(completionHandler: @escaping ([SimpleScore])->Void){
         let queryURL = buildQuery(url: apiurl + userEndpoint + "/scores-settings-applied", params: [:])
         self.getRequest(queryURL: queryURL) { (data) in

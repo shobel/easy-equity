@@ -196,6 +196,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         self.refreshAll()
     }
     
+    //SAM-TODO: auto refresh every 10 minutes during market hours
     private func refreshAll(){
         if Date().timeIntervalSince1970 - self.lastLoadedTimestamp > (60*30){
             self.lastLoadedTimestamp = Date().timeIntervalSince1970
@@ -342,6 +343,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     x + y
                 })
                 DispatchQueue.main.async {
+                    self.stocktwitsTableHeights = []
                     self.stocktwitsTableHeight.constant = totalHeight
                     super.updateViewConstraints()
                 }
@@ -446,22 +448,6 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             self.marketView.isHidden = false
             self.tableView.isHidden = true
         }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if !(tableView is MarketNewsTableView) && tableView.restorationIdentifier != "stocktwitsTable" {
-//            Dataholder.selectedCompany = searchResults[indexPath.row]
-//        } else if tableView.restorationIdentifier == "marketNewsCollection" {
-//            let marketNewsItem:News = self.marketNews[indexPath.row]
-//            let url = URL(string: marketNewsItem.url!)
-//            let config = SFSafariViewController.Configuration()
-//            config.entersReaderIfAvailable = true
-//            var vc = SFSafariViewController(url: URL(string: "https://www.google.com")!)
-//            if (marketNewsItem.url?.starts(with: "http"))! {
-//                vc = SFSafariViewController(url: url!, configuration: config)
-//            }
-//            present(vc, animated: true)
-//        }
     }
 
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {

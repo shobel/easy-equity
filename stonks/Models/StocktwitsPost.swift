@@ -15,6 +15,7 @@ struct StocktwitsPost: Mappable {
     public var username:String?
     public var sentiment:String?
     public var symbols:[String]?
+    public var createdAt:String?
     
     init(){}
     init?(map: Map) {}
@@ -25,5 +26,6 @@ struct StocktwitsPost: Mappable {
         username <- map["username"]
         sentiment <- map["sentiment"]
         symbols <- map["symbols"]
+        createdAt <- map["createdAt"]
     }
 }

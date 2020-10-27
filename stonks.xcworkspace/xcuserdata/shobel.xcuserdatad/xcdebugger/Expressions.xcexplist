@@ -83,6 +83,9 @@
             <PersistentString
                value = "cell.frame.height">
             </PersistentString>
+            <PersistentString
+               value = "self.stocktwitsTableHeights">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -163,7 +166,7 @@
          contextName = "PEChart.setChartData(company:):PEChart.swift">
          <PersistentStrings>
             <PersistentString
-               value = "price! / e.actualEPS!">
+               value = "company.quote">
             </PersistentString>
             <PersistentString
                value = "e.EPSReportDate">
@@ -1267,6 +1270,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #2 in NewsViewController.tableView(_:willDisplay:forRowAt:):NewsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.parent?.parent?.parent?.restorationIdentifier">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "static NumberFormatter.timeStringToMilitaryDate(_:):NumberFormatter.swift">
          <PersistentStrings>
             <PersistentString
@@ -1414,6 +1425,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "NewsViewController.tableView(_:willDisplay:forRowAt:):NewsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.stocktwitsTableHeights.count">
+            </PersistentString>
+            <PersistentString
+               value = "self.stocktwitsPosts.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "StockDetailsVC.loadVolumeChart():StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -1503,6 +1525,20 @@
          <PersistentStrings>
             <PersistentString
                value = "self.axisLabels">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "NewsViewController.getContentHeight():NewsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.stocktwitsTableView.frame.height">
+            </PersistentString>
+            <PersistentString
+               value = "self.view.bounds.height">
+            </PersistentString>
+            <PersistentString
+               value = "self.view.frame.height">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

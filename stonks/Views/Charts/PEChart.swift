@@ -71,8 +71,8 @@ class PEChart: CombinedChartView {
                 let e = reversedEarnings[i]
                 if NumberFormatter.convertStringDateToInt(date: e.EPSReportDate!) > NumberFormatter.convertStringDateToInt(date: formattedToday){
                     epsSum += e.consensusEPS!
-                    forwardPeEntries.append(ChartDataEntry(x: Double(i), y: company.quote!.latestPrice! / epsSum))
-                    fwdPe = company.quote!.latestPrice! / epsSum
+                    forwardPeEntries.append(ChartDataEntry(x: Double(i), y: (company.quote?.latestPrice ?? 0.0) / epsSum))
+                    fwdPe = (company.quote?.latestPrice ?? 0.0) / epsSum
                     let year = (e.EPSReportDate?.components(separatedBy: "-")[0])!
                     let month = (e.EPSReportDate?.components(separatedBy: "-")[1])!
                     self.formatter.addXAxisLabel(year + "-" + month)

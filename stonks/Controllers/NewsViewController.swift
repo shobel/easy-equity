@@ -58,10 +58,12 @@ class NewsViewController: UIViewController, StatsVC, UITableViewDelegate, UITabl
     private var isLoaded:Bool = false
     @IBOutlet weak var newsCollectionView: UICollectionView!
     @IBOutlet weak var stocktwitsTableView: UITableView!
+    @IBOutlet weak var stocktwitsTableHeight: NSLayoutConstraint!
     
     private var stockNews:[News] = []
     private var stocktwitsPosts:[StocktwitsPost] = []
-    
+    private var stocktwitsTableHeights:[CGFloat] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,20 +75,29 @@ class NewsViewController: UIViewController, StatsVC, UITableViewDelegate, UITabl
         
         self.isLoaded = true
         self.company = Dataholder.selectedCompany!
+        
         updateData()
     }
     
     func updateData() {
         self.company = Dataholder.selectedCompany!
         self.stockNews = self.company.news ?? []
+        NetworkManager.getMyRestApi().getStocktwitsPostsForSymbol(symbol: self.company.symbol, completionHandler: handleStocktwitsPosts)
         DispatchQueue.main.async {
             self.newsCollectionView.reloadData()
         }
     }
     
+    func handleStocktwitsPosts(posts:[StocktwitsPost]){
+        self.stocktwitsPosts = posts
+        DispatchQueue.main.async {
+            self.stocktwitsTableView.reloadData()
+        }
+    }
+    
     func getContentHeight() -> CGFloat {
         if isLoaded {
-            return self.view.bounds.height
+            return self.stocktwitsTableHeight.constant + self.newsCollectionView.frame.height + 50
         }
         return 0.0
     }
@@ -118,7 +129,12 @@ class NewsViewController: UIViewController, StatsVC, UITableViewDelegate, UITabl
             cell.message.attributedText = string
         }
         
-        cell.time.text = Date(timeIntervalSince1970: TimeInterval(post.timestamp! / 1000)).timeAgoSinceDate()
+        if let ts = post.timestamp {
+            cell.time.text = Date(timeIntervalSince1970: TimeInterval(ts / 1000)).timeAgoSinceDate()
+        } else if let ca = post.createdAt {
+            let ts = GeneralUtility.isoDateToTimestamp(isoString: ca)
+            cell.time.text = Date(timeIntervalSince1970: TimeInterval(ts)).timeAgoSinceDate()
+        }
         if post.sentiment == "Bearish" {
             cell.bullbear.image = UIImage(named: "bull_face.png")
         } else if post.sentiment == "Bullish" {
@@ -127,6 +143,23 @@ class NewsViewController: UIViewController, StatsVC, UITableViewDelegate, UITabl
             cell.bullbear.image = UIImage(systemName: "person.crop.circle.fill")
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        self.stocktwitsTableHeights.append(cell.frame.height)
+        if self.stocktwitsTableHeights.count == self.stocktwitsPosts.count {
+            let totalHeight = self.stocktwitsTableHeights.reduce(0, { x, y in
+                x + y
+            })
+            DispatchQueue.main.async {
+                self.stocktwitsTableHeights = []
+                self.stocktwitsTableHeight.constant = totalHeight
+                super.updateViewConstraints()
+                if let p = self.parent?.parent?.parent as? StockDetailsVC {
+                    p.adjustContentHeight(vc: self)
+                }
+            }
+        }
     }
 
     /*

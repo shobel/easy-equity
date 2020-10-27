@@ -815,10 +815,10 @@
                                 <rect key="frame" x="0.0" y="110" width="375" height="508"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E7r-b5-MbB">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="788.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="742"/>
                                         <subviews>
                                             <view contentMode="redraw" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="RYj-DQ-Gqi" userLabel="ContentView">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="788.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="742"/>
                                                 <subviews>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="er5-5D-Zjd" userLabel="CandlePricesViewWrapper">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
@@ -959,10 +959,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o8F-1I-xRa" userLabel="ChartViewWrapper">
-                                                        <rect key="frame" x="0.0" y="50" width="375" height="213.5"/>
+                                                        <rect key="frame" x="0.0" y="50" width="375" height="167"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pOO-wd-YKI" userLabel="CombinedChartVIew" customClass="CustomCombinedChartView" customModule="Bullfrog" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="213.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="167"/>
                                                                 <subviews>
                                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zKF-r2-7Yn" userLabel="MarkerView" customClass="MarkerView" customModule="Bullfrog" customModuleProvider="target">
                                                                         <rect key="frame" x="287" y="-10" width="80" height="20"/>
@@ -1003,7 +1003,7 @@
                                                         </constraints>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dPH-Qg-t9f" userLabel="ChartTimeView">
-                                                        <rect key="frame" x="0.0" y="253.5" width="375" height="35"/>
+                                                        <rect key="frame" x="0.0" y="207" width="375" height="35"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0b-UA-Jmx">
                                                                 <rect key="frame" x="0.0" y="0.0" width="53.5" height="35"/>
@@ -1093,7 +1093,7 @@
                                                         </constraints>
                                                     </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIg-gA-RMF" userLabel="PagingView">
-                                                        <rect key="frame" x="0.0" y="288.5" width="375" height="500"/>
+                                                        <rect key="frame" x="0.0" y="242" width="375" height="500"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" priority="250" constant="500" id="bYW-PJ-vZi"/>
@@ -1164,7 +1164,7 @@
                             <constraint firstItem="9EV-Zd-SxD" firstAttribute="top" secondItem="bvo-nF-PIO" secondAttribute="top" id="VI2-Ok-2tX"/>
                             <constraint firstItem="bvo-nF-PIO" firstAttribute="bottom" secondItem="1Tn-qb-wNm" secondAttribute="bottom" id="WS7-2Z-rmg"/>
                             <constraint firstItem="iWi-Ft-mpG" firstAttribute="leading" secondItem="bvo-nF-PIO" secondAttribute="leading" id="dUz-JM-J64"/>
-                            <constraint firstItem="o8F-1I-xRa" firstAttribute="height" secondItem="ua2-Xz-tAi" secondAttribute="height" multiplier="0.32" id="eAw-z0-wcQ"/>
+                            <constraint firstItem="o8F-1I-xRa" firstAttribute="height" secondItem="ua2-Xz-tAi" secondAttribute="height" multiplier="0.25" id="eAw-z0-wcQ"/>
                             <constraint firstItem="1Tn-qb-wNm" firstAttribute="top" secondItem="iWi-Ft-mpG" secondAttribute="bottom" id="hga-ja-rTl"/>
                             <constraint firstItem="vXG-m3-RVA" firstAttribute="bottom" secondItem="ua2-Xz-tAi" secondAttribute="bottom" id="iBv-UZ-li6"/>
                             <constraint firstItem="iWi-Ft-mpG" firstAttribute="top" secondItem="9EV-Zd-SxD" secondAttribute="bottom" id="jwS-Tm-6Qz"/>
@@ -4218,13 +4218,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NEWS AND COMMENTS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YC1-jV-GcE">
-                                <rect key="frame" x="0.0" y="5" width="375" height="20"/>
+                                <rect key="frame" x="0.0" y="5" width="375" height="19.5"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                 <color key="textColor" red="0.91644194160000003" green="0.0" blue="0.3790128478" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TNF-02-5EI">
-                                <rect key="frame" x="0.0" y="45" width="375" height="190"/>
+                                <rect key="frame" x="0.0" y="29.5" width="375" height="190"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="190" id="raW-HD-Xij"/>
@@ -4335,9 +4335,18 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RVt-km-Fvb">
-                                <rect key="frame" x="0.0" y="269" width="375" height="398"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECENT SOCIAL MEDIA POSTS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v7v-aX-bZR">
+                                <rect key="frame" x="25" y="224.5" width="350" height="19.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                                <color key="textColor" red="0.18830856679999999" green="0.19203343989999999" blue="0.20000121000000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RVt-km-Fvb">
+                                <rect key="frame" x="0.0" y="249" width="375" height="5000"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="5000" id="rJD-aD-owF"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="detailStocktwitsTableViewCell" id="y1B-63-nhd" customClass="DetailStocktwitsTableViewCell" customModule="Bullfrog" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="313"/>
@@ -4414,20 +4423,23 @@
                         <viewLayoutGuide key="safeArea" id="e1e-Bl-Int"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="v7v-aX-bZR" firstAttribute="trailing" secondItem="e1e-Bl-Int" secondAttribute="trailing" id="1n5-Y4-7Ud"/>
                             <constraint firstItem="e1e-Bl-Int" firstAttribute="trailing" secondItem="RVt-km-Fvb" secondAttribute="trailing" id="6RV-43-oOA"/>
                             <constraint firstItem="YC1-jV-GcE" firstAttribute="top" secondItem="e1e-Bl-Int" secondAttribute="top" constant="5" id="9Wr-eS-3EA"/>
-                            <constraint firstItem="e1e-Bl-Int" firstAttribute="bottom" secondItem="RVt-km-Fvb" secondAttribute="bottom" id="EVJ-m4-RwE"/>
                             <constraint firstItem="TNF-02-5EI" firstAttribute="leading" secondItem="e1e-Bl-Int" secondAttribute="leading" id="IjD-7m-Mhe"/>
                             <constraint firstItem="TNF-02-5EI" firstAttribute="trailing" secondItem="e1e-Bl-Int" secondAttribute="trailing" id="NzT-AE-7Eq"/>
+                            <constraint firstItem="v7v-aX-bZR" firstAttribute="leading" secondItem="e1e-Bl-Int" secondAttribute="leading" constant="25" id="PpD-tb-Dav"/>
                             <constraint firstItem="YC1-jV-GcE" firstAttribute="leading" secondItem="e1e-Bl-Int" secondAttribute="leading" id="SnC-jV-umh"/>
                             <constraint firstItem="e1e-Bl-Int" firstAttribute="trailing" secondItem="YC1-jV-GcE" secondAttribute="trailing" id="Wal-bQ-KHI"/>
-                            <constraint firstItem="TNF-02-5EI" firstAttribute="top" secondItem="YC1-jV-GcE" secondAttribute="bottom" constant="20" id="jpV-JV-E8G"/>
-                            <constraint firstItem="RVt-km-Fvb" firstAttribute="top" secondItem="TNF-02-5EI" secondAttribute="bottom" constant="34" id="kbN-w5-6QK"/>
+                            <constraint firstItem="v7v-aX-bZR" firstAttribute="top" secondItem="TNF-02-5EI" secondAttribute="bottom" constant="5" id="bHN-fA-GDj"/>
+                            <constraint firstItem="RVt-km-Fvb" firstAttribute="top" secondItem="v7v-aX-bZR" secondAttribute="bottom" constant="5" id="c69-R3-TlE"/>
+                            <constraint firstItem="TNF-02-5EI" firstAttribute="top" secondItem="YC1-jV-GcE" secondAttribute="bottom" constant="5" id="jpV-JV-E8G"/>
                             <constraint firstItem="RVt-km-Fvb" firstAttribute="leading" secondItem="e1e-Bl-Int" secondAttribute="leading" id="nR4-5Z-K8u"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="newsCollectionView" destination="TNF-02-5EI" id="FuR-Ea-7tM"/>
+                        <outlet property="stocktwitsTableHeight" destination="rJD-aD-owF" id="sqO-n6-1cm"/>
                         <outlet property="stocktwitsTableView" destination="RVt-km-Fvb" id="n45-I5-gxm"/>
                     </connections>
                 </viewController>
