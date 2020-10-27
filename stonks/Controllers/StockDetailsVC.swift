@@ -69,7 +69,10 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     private var pageVCList:[UIViewController] = []
     private var keyStatsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StatsVC")
+    
     private var newsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewsVC") as! NewsTableViewController
+    private var newsVC2 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StockNewsVC") as! NewsViewController
+    
     private var scoresVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ScoresVC")
     private var financialsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FinVC")
     private var predictionsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PredictionsVC")
@@ -99,7 +102,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         feedbackGenerator = UISelectionFeedbackGenerator()
         
         self.pageVCList = [
-            self.keyStatsVC, self.newsVC, self.financialsVC, self.predictionsVC, self.scoresVC, self.premiumVC
+            self.keyStatsVC, self.newsVC2, self.financialsVC, self.predictionsVC, self.scoresVC, self.premiumVC
         ]
         pageVC = PagingViewController()
         pageVC.register(IconPagingCell.self, for: IconItem.self)
@@ -386,7 +389,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         
         let keystatsVC = self.keyStatsVC as! StatsVC
         keystatsVC.updateData()
-        let newsVC = self.newsVC
+        let newsVC = self.newsVC2
         newsVC.updateData()
         let financialsVC = self.financialsVC as! StatsVC
         financialsVC.updateData()

@@ -35,10 +35,7 @@ class CompanyScoreTableViewCell: UITableViewCell {
         score.layer.masksToBounds = true
         
         cellView.backgroundColor = UIColor.white
-//        cellView.layer.borderColor = UIColor.black.cgColor
-//        cellView.layer.borderWidth = 1
         cellView.layer.cornerRadius = 8
-//        cellView.clipsToBounds = true
         cellView.layer.shadowColor = UIColor.black.cgColor
         cellView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
         cellView.layer.shadowOpacity = 0.2

@@ -7,28 +7,126 @@
 //
 
 import UIKit
+import SafariServices
 
-class NewsViewController: UIViewController, StatsVC {
+extension NewsViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.stockNews.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stockNewsCollectionCell", for: indexPath) as! StockNewsCollectionViewCell
+        let news:News = self.stockNews[indexPath.row]
+        cell.heading.text = news.headline
+        let date = Date(timeIntervalSince1970: Double(news.datetime! / 1000))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, yy"
+        let localDate = dateFormatter.string(from: date)
+        cell.date.text = localDate
+        let url = URL(string: news.image!)
+        DispatchQueue.global().async {
+            if let data = try? Data(contentsOf: url!) {
+                DispatchQueue.main.async {
+                    cell.newImage.image = UIImage(data: data)
+                }
+            }
+        }
+        cell.source.text = news.source
+        cell.symbols.text = news.related
+        cell.paywall = news.hasPaywall!
+        cell.url = news.url
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let stockNewsItem:News = self.stockNews[indexPath.row]
+        let url = URL(string: stockNewsItem.url!)
+        let config = SFSafariViewController.Configuration()
+        config.entersReaderIfAvailable = true
+        var vc = SFSafariViewController(url: URL(string: "https://www.google.com")!)
+        if (stockNewsItem.url?.starts(with: "http"))! {
+            vc = SFSafariViewController(url: url!, configuration: config)
+        }
+        present(vc, animated: true)
+    }
+    
+}
+
+class NewsViewController: UIViewController, StatsVC, UITableViewDelegate, UITableViewDataSource {
 
     private var company:Company!
-    @IBOutlet weak var contentView: UIView!
     private var isLoaded:Bool = false
+    @IBOutlet weak var newsCollectionView: UICollectionView!
+    @IBOutlet weak var stocktwitsTableView: UITableView!
+    
+    private var stockNews:[News] = []
+    private var stocktwitsPosts:[StocktwitsPost] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        isLoaded = true
-        company = Dataholder.selectedCompany
+        
+        self.newsCollectionView.delegate = self
+        self.newsCollectionView.dataSource = self
+        
+        self.stocktwitsTableView.delegate = self
+        self.stocktwitsTableView.dataSource = self
+        
+        self.isLoaded = true
+        self.company = Dataholder.selectedCompany!
+        updateData()
     }
     
     func updateData() {
-        
+        self.company = Dataholder.selectedCompany!
+        self.stockNews = self.company.news ?? []
+        DispatchQueue.main.async {
+            self.newsCollectionView.reloadData()
+        }
     }
     
     func getContentHeight() -> CGFloat {
         if isLoaded {
-            return self.contentView.bounds.height
+            return self.view.bounds.height
         }
         return 0.0
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.stocktwitsPosts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = stocktwitsTableView.dequeueReusableCell(withIdentifier: "detailStocktwitsTableViewCell") as! DetailStocktwitsTableViewCell
+        let post = self.stocktwitsPosts[indexPath.row]
+        cell.username.text = post.username
+        cell.message.text = post.body
+        
+        if let body = post.body {
+            let string = NSMutableAttributedString(string: body)
+            string.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 16), range: NSRange(location: 0, length: string.length))
+            let words:[String] = body.components(separatedBy:" ")
+            for word in words {
+                if word.count > 1 && word.hasPrefix("$"){
+                    let index = word.index(word.startIndex, offsetBy: 1)
+                    if String(word[index]).range(of: "[^a-zA-Z]", options: .regularExpression) == nil {
+                        let range:NSRange = (string.string as NSString).range(of: word)
+                        string.addAttribute(NSAttributedString.Key.foregroundColor, value: Constants.darkPink, range: range)
+                        string.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 18), range: range)
+                    }
+                }
+            }
+            cell.message.attributedText = string
+        }
+        
+        cell.time.text = Date(timeIntervalSince1970: TimeInterval(post.timestamp! / 1000)).timeAgoSinceDate()
+        if post.sentiment == "Bearish" {
+            cell.bullbear.image = UIImage(named: "bull_face.png")
+        } else if post.sentiment == "Bullish" {
+            cell.bullbear.image = UIImage(named: "bear_face.png")
+        } else {
+            cell.bullbear.image = UIImage(systemName: "person.crop.circle.fill")
+        }
+        return cell
     }
 
     /*
