@@ -27,16 +27,16 @@ struct Quote: Mappable {
     var peRatio:Double? //17.18,
     var latestPrice:Double? //224.29
     var latestTime:String? //"latestTime":"October 5, 2018",
-    var latestUpdate:String? // epoch time
+    var latestUpdate:Int? // epoch time
     var previousClose:Double? //227.99
     var change:Double? //-3.7
     var changePercent:Double? //-0.01623
     var extendedPrice:Double? //"extendedPrice":224.54
     var extendedChangePercent:Double? //"extendedChangePercent":0.00111
     var lastTradeTime:Int? //1567799999401,
-    var isUSMarketOpen:Bool? //false
     
-    var simplifiedChart:[DatedValue]?
+    var isUSMarketOpen:Bool = false
+    var simplifiedChart:[DatedValue] = []
         
     public func getYrHighChangePercent() -> Double {
         return ((self.latestPrice! - self.week52High!) / (self.week52High!))*100.0

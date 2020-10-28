@@ -37,6 +37,11 @@ class WatchlistTVCell: UITableViewCell {
         fullName.text = company.fullName
         
         percentChange.setValue(value: (company.quote?.changePercent ?? 0.0) * 100.0, isPercent: true)
+        
+        currentPrice.alpha = 0.0
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+            self.currentPrice.alpha = 1.0
+        }, completion: nil)
         currentPrice.text = String(format: "%.2f", company.quote?.latestPrice ?? "--")
         priceChange.setValue(value: (company.quote?.change ?? 0.0), isPercent: false)
         
@@ -55,23 +60,21 @@ class WatchlistTVCell: UITableViewCell {
         }
         
         if let quote = company.quote {
-            if quote.simplifiedChart != nil{
-                self.priceChartPreview.setData(quote)
-            }
-            if quote.isUSMarketOpen! {
+            self.priceChartPreview.setData(quote)
+            if quote.isUSMarketOpen {
                 preAfterImage.isHidden = true
             } else if (quote.extendedPrice != nil && quote.extendedChangePercent != nil){
                 preAfterImage.isHidden = false
                 preAfterImage.image = UIImage(systemName: "moon.circle.fill")
                 preAfterImage.tintColor = .black
                 //preAfterImage.image = UIImage(systemName: "sunset")
-                if isPremarket() {
+                if GeneralUtility.isPremarket() {
                     preAfterImage.image = UIImage(systemName: "sun.max.fill")
                     preAfterImage.tintColor = Constants.yellow
                     //preAfterImage.image = UIImage(systemName: "sunrise")
                 }
                 currentPrice.text = String(format: "%.2f", company.quote?.extendedPrice ?? "--")
-                priceChange.setValue(value: quote.extendedChangePercent!, isPercent: true, prefix: "")
+                priceChange.setValue(value: quote.extendedChangePercent! * 100.0, isPercent: true, prefix: "")
                 //percentChange.setValue(value: (quote.extendedChangePercent ?? 0.0) * 100.0, isPercent: true, prefix: "")
             } else {
                 preAfterImage.isHidden = true
@@ -79,27 +82,4 @@ class WatchlistTVCell: UITableViewCell {
         }
     }
     
-    private func isPremarket() -> Bool{
-        let now = Date()
-        let formatter = DateFormatter()
-        formatter.timeZone = TimeZone.init(abbreviation: "EST")
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let dateString = formatter.string(from: now)
-        let etDate = formatter.date(from: dateString)
-        
-        var calendar = Calendar.current
-        calendar.timeZone = TimeZone.init(abbreviation: "EST")!
-        let nine_thirty = calendar.date(
-            bySettingHour: 9,
-            minute: 30,
-            second: 0,
-            of: now)!
-        if calendar.isDateInWeekend(etDate!) {
-            return false
-        }
-        if etDate! < nine_thirty {
-            return true
-        }
-        return false
-    }
 }

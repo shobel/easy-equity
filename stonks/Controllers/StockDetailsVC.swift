@@ -69,8 +69,11 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     private var pageVCList:[UIViewController] = []
     private var keyStatsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StatsVC")
+    
     private var newsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewsVC") as! NewsTableViewController
-    private var earningsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "EarningsVC")
+    private var newsVC2 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StockNewsVC") as! NewsViewController
+    
+    private var scoresVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ScoresVC")
     private var financialsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FinVC")
     private var predictionsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PredictionsVC")
     private var premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumVC")
@@ -81,11 +84,11 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     private var dateOfLatestPriceData:String = ""
     
     fileprivate let icons = [
-        "stats2",
-        "news2",
-        "financials2",
-        "call",
-        "analysts2",
+        "stats",
+        "news",
+        "wallet",
+        "analysts",
+        "scores",
         "star"
     ]
     
@@ -99,7 +102,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         feedbackGenerator = UISelectionFeedbackGenerator()
         
         self.pageVCList = [
-            self.keyStatsVC, self.newsVC, self.financialsVC, self.earningsVC, self.predictionsVC, self.premiumVC
+            self.keyStatsVC, self.newsVC2, self.financialsVC, self.predictionsVC, self.scoresVC, self.premiumVC
         ]
         pageVC = PagingViewController()
         pageVC.register(IconPagingCell.self, for: IconItem.self)
@@ -162,9 +165,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         //let pageVC: StatsNewsPageViewController = self.children.first as! StatsNewsPageViewController
         //pageVC.pageDelegate = self
                 
-        //fetch new intraday chart values once per minute
         self.stockUpdater?.hibernating = false
-        self.stockUpdater = StockUpdater(caller: self, company: company, timeInterval: 30.0)
+        self.stockUpdater = StockUpdater(caller: self, company: company, timeInterval: 5.0)
         self.stockUpdater?.startTask()
                 
         //watchlist button
@@ -196,41 +198,56 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             NetworkManager.getMyRestApi().getPremiumData(symbol: company.symbol, completionHandler: handlePremiumData)
         }
         NetworkManager.getMyRestApi().getAllFreeData(symbol: company.symbol, completionHandler: handleAllData)
-        NetworkManager.getMyRestApi().getNonIntradayChart(symbol: company.symbol, timeframe: .weekly, completionHandler: self.handleWeeklyChart)
+        NetworkManager.getMyRestApi().getNonIntradayChart(symbol: company.symbol, timeframe: .daily, completionHandler: self.handleDailyChart)
                 
         self.adjustContentHeight(vc: self.keyStatsVC)
     }
     
-    func updateFromScheduledTask(_ quoteAndIntradayChart:Any?) {
-        guard let qic = quoteAndIntradayChart as? QuoteAndIntradayChart else {
-            return
-        }
-        if qic.intradayChart.count == 0 {
-            return
-        }
-        if self.dateOfLatestPriceData != "" && qic.intradayChart.count > 0 && self.dateOfLatestPriceData != qic.intradayChart[0].dateLabel {
-            self.company.dailyData = []
-            self.company.weeklyData = []
-            self.company.monthlyData = []
-        }
-        self.dateOfLatestPriceData = qic.intradayChart[0].dateLabel!
-        let quote = qic.quote!
-        let intradayChart = qic.intradayChart
-        if quote.symbol == nil {
-            DispatchQueue.main.async {
-                self.navigationController?.popViewController(animated: true)
+    func updateFromScheduledTask(_ data:Any?) {
+        var quote:Quote = Quote()
+        if let quoteAndIntradayChart = data as? QuoteAndIntradayChart {
+            quote = quoteAndIntradayChart.quote
+            let intradayChart = quoteAndIntradayChart.intradayChart
+            
+            self.handleDayChartNoProgress(intradayChart)
+            
+            if self.dateOfLatestPriceData != "" && intradayChart.count > 0 &&
+                self.dateOfLatestPriceData != intradayChart[0].dateLabel {
+                self.company.dailyData = []
+                self.company.weeklyData = []
+                self.company.monthlyData = []
             }
+            self.dateOfLatestPriceData = intradayChart[0].dateLabel!
+
+            if quote.symbol == nil {
+                return
+            }
+            print("updated " + String(quote.latestPrice!) + " " + String(intradayChart.count) + " values")
+        } else if self.company.quote != nil {
+            quote = self.company.quote!
+        }
+        
+        if quote.isUSMarketOpen {
+            self.stockUpdater?.hibernating = false
+        } else {
+            self.stockUpdater?.hibernating = true
+        }
+        
+        self.isMarketOpen = quote.isUSMarketOpen
+        self.latestQuote = quote
+        if latestQuote == nil || latestQuote.symbol == nil {
             return
         }
-        self.isMarketOpen = quote.isUSMarketOpen!
-        self.latestQuote = quote
+        
         DispatchQueue.main.async {
             let chartData = self.chartView.getChartData(candleMode: self.candleMode)
             self.setVolumeValues(averageVolume: Double(quote.avgTotalVolume ?? 0), totalVol: Double(quote.latestVolume ?? 0))
-            if self.timeInterval == Constants.TimeIntervals.day {
-                self.setTopBarValues(startPrice: self.latestQuote.previousClose ?? chartData[0].close!, endPrice: self.latestQuote.latestPrice!, selected: false)
-            } else {
-                self.setTopBarValues(startPrice: chartData[0].close!, endPrice: self.latestQuote.latestPrice!, selected: false)
+            if chartData.count > 0 {
+                if self.timeInterval == Constants.TimeIntervals.day {
+                    self.setTopBarValues(startPrice: self.latestQuote.previousClose ?? chartData[0].close!, endPrice: self.latestQuote.latestPrice!, selected: false)
+                } else {
+                    self.setTopBarValues(startPrice: chartData[0].close!, endPrice: self.latestQuote.latestPrice!, selected: false)
+                }
             }
             self.set52wSlider(quote: quote, price: quote.latestPrice!)
             if let pvc = self.predictionsVC as? PredictionsViewController {
@@ -238,13 +255,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
                     pvc.updateData()
                 }
             }
-            print("updated " + String(self.latestQuote.latestPrice!) + " " + String(intradayChart.count) + " values")
-        }
-        self.handleDayChartNoProgress(intradayChart)
-        if !self.isMarketOpen {
-            self.stockUpdater?.hibernating = true
-        } else {
-            self.stockUpdater?.hibernating = false
         }
     }
     
@@ -338,7 +348,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         datetime.text = datetext
     }
     
-    //SAM-TODO remove average volume argument and encorporate low/high volume into analysis
+    //TODO-SAM: remove average volume argument and encorporate low/high volume into analysis
     public func setVolumeValues(averageVolume:Double, totalVol:Double){
         self.totalVol.text = String("TODAY'S VOLUME: \(NumberFormatter.formatNumber(num: totalVol))")
     }
@@ -352,21 +362,25 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
 
     }
     
-    private func handleAllData(generalInfo: GeneralInfo, peerQuotes:[Quote], keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], income: [Income], estimates: Estimates, insiders: [Insider], priceTargetTopAnalysts: PriceTargetTopAnalysts?){
+    private func handleAllData(generalInfo: GeneralInfo, peerQuotes:[Quote], keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], cashflowAnnual:[CashFlow], income: [Income], incomeAnnual: [Income], insiders: [Insider], scores:Scores, priceTargetTopAnalysts: PriceTargetTopAnalysts?){
         self.company.generalInfo = generalInfo
         self.company.fullName = self.company.generalInfo!.companyName!
-        self.company.peerQuotes = peerQuotes
+        self.company.peerQuotes = peerQuotes.filter({ (q) -> Bool in
+            q.symbol != nil && q.symbol != ""
+        })
         self.company.keyStats = keystats
         self.company.news = news
         self.company.priceTarget = priceTarget
         self.company.cashflow = cashflow
+        self.company.cashflowAnnual = cashflowAnnual
         self.company.income = income
+        self.company.incomeAnnual = incomeAnnual
         self.company.recommendations = recommendations
         self.company.earnings = earnings
         self.company.advancedStats = advancedStats
         self.company.insiders = insiders
-        self.company.estimates = estimates
         self.company.priceTargetTopAnalysts = priceTargetTopAnalysts
+        self.company.scores = scores
     
         DispatchQueue.main.async {
             self.stockDetailsNavView.ticker.text = self.company.symbol
@@ -375,10 +389,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         
         let keystatsVC = self.keyStatsVC as! StatsVC
         keystatsVC.updateData()
-        let newsVC = self.newsVC
+        let newsVC = self.newsVC2
         newsVC.updateData()
-        let earningsVC = self.earningsVC as! StatsVC
-        earningsVC.updateData()
         let financialsVC = self.financialsVC as! StatsVC
         financialsVC.updateData()
         let predictionsVC = self.predictionsVC as! StatsVC
@@ -411,6 +423,11 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         if updateProgress {
             self.incrementLoadingProgress()
         }
+    }
+    
+    private func handleDailyChart(_ candles:[Candle]){
+        self.company.dailyData = candles
+        self.incrementLoadingProgress()
     }
     
     private func handleWeeklyChart(_ candles:[Candle]){
@@ -664,17 +681,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.hideLoader(false)
         NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
             self.company.dailyData = candles
-            if candles.count > 0 && candles[candles.count-1].rsi14 == nil {
-                DispatchQueue.main.async {
-                    self.hideLoader(true)
-                    self.timeButtonPressed(sender, chartData: self.company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
-                }
-                
-            } else {
-                DispatchQueue.main.async {
-                    self.hideLoader(true)
-                    self.timeButtonPressed(sender, chartData: self.company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
-                }
+            DispatchQueue.main.async {
+                self.hideLoader(true)
+                self.timeButtonPressed(sender, chartData: self.company.getDailyData(22), timeInterval: Constants.TimeIntervals.one_month)
             }
         }
     }
@@ -683,16 +692,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.hideLoader(false)
         NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
             self.company.dailyData = candles
-            if candles.count > 0 && candles[candles.count-1].rsi14 == nil {
-                DispatchQueue.main.async {
-                    self.hideLoader(true)
-                    self.timeButtonPressed(sender, chartData: self.company.getDailyData(65), timeInterval: Constants.TimeIntervals.three_month)
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.hideLoader(true)
-                    self.timeButtonPressed(sender, chartData: self.company.getDailyData(65), timeInterval: Constants.TimeIntervals.three_month)
-                }
+            DispatchQueue.main.async {
+                self.hideLoader(true)
+                self.timeButtonPressed(sender, chartData: self.company.getDailyData(65), timeInterval: Constants.TimeIntervals.three_month)
             }
         }
     }
@@ -703,7 +705,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             self.company.monthlyData = candles
             DispatchQueue.main.async {
                 self.hideLoader(true)
-                self.timeButtonPressed(sender, chartData: self.company.getQuarterlyData(80), timeInterval: Constants.TimeIntervals.twenty_year)
+                self.timeButtonPressed(sender, chartData: self.company.getMonthlyData(240), timeInterval: Constants.TimeIntervals.twenty_year)
             }
         }
     }
@@ -721,16 +723,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         } else {
             NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
                 self.company.dailyData = candles
-                if candles.count > 0 && candles[candles.count-1].rsi14 == nil {
-                    DispatchQueue.main.async {
-                        self.hideLoader(true)
-                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_year)
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self.hideLoader(true)
-                        self.timeButtonPressed(sender, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_month)
-                    }
+                DispatchQueue.main.async {
+                    self.hideLoader(true)
+                    self.timeButtonPressed(sender, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_year)
                 }
             }
         }
@@ -803,14 +798,16 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     private func hideShowRsiAndSmaButtons(){
         if self.timeInterval != .day {
             self.toggleSmasButton.isHidden = false
-        } else {
-            self.toggleSmasButton.isHidden = true
-        }
-        if self.timeInterval == .one_month || self.timeInterval == .three_month || (self.timeInterval == .one_year && !self.candleMode) {
             self.toggleRsiButton.isHidden = false
         } else {
+            self.toggleSmasButton.isHidden = true
             self.toggleRsiButton.isHidden = true
         }
+//        if self.timeInterval == .one_month || self.timeInterval == .three_month || (self.timeInterval == .one_year && !self.candleMode) {
+//            self.toggleRsiButton.isHidden = false
+//        } else {
+//            self.toggleRsiButton.isHidden = true
+//        }
     }
   
     //can use this function to trigger chart animations when views enter the visible frame

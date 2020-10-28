@@ -24,12 +24,13 @@ class PriceChartPreviewView: LineChartView {
         self.leftAxis.enabled = false
         self.rightAxis.enabled = false
         self.xAxis.enabled = false
+        self.noDataText = ""
     }
     
     public func setData(_ quote: Quote){
         var lineEntries:[ChartDataEntry] = []
         var previousLineEntries:[ChartDataEntry] = []
-        let data = quote.simplifiedChart!
+        let data = quote.simplifiedChart
         var lastTime:String = ""
         for i in 0..<data.count {
             lineEntries.append(ChartDataEntry(x: Double(i), y: data[i].value))

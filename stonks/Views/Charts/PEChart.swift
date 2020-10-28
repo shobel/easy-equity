@@ -15,9 +15,9 @@ class PEChart: CombinedChartView {
     
     private var peDataSets:[ScatterChartDataSet] = []
     private var formatter:PriceChartFormatter = PriceChartFormatter()
-    private var earningsDelegate: EarningsViewController!
+    private var earningsDelegate: FinancialsViewController!
     
-    public func setup(company:Company, delegate: EarningsViewController){
+    public func setup(company:Company, delegate: FinancialsViewController){
         self.earningsDelegate = delegate
         
         self.chartDescription?.enabled = false
@@ -48,80 +48,74 @@ class PEChart: CombinedChartView {
     }
     
     private func setChartData(company:Company){
-        if company.earnings != nil {
-            var peEntries:[ChartDataEntry] = []
-            var pastEarnings:[Double] = []
-            let reversedEarnings = Array(company.earnings!.reversed())
-            for i in 0..<reversedEarnings.count{
-                let e = reversedEarnings[i]
-                if (reversedEarnings.count == 5 && i < reversedEarnings.count - 1) || reversedEarnings.count < 5{
-                    pastEarnings.append(e.yearAgo!)
-                }
-                self.formatter.addXAxisLabel(e.fiscalPeriod!)
-            }
-            
-            for i in 0...reversedEarnings.count {
-                if i < company.earnings!.count {
-                    let e = reversedEarnings[i]
-                    pastEarnings.append(e.actualEPS!)
-                    var sum = 0.0
-                    for j in (i+1)..<(i+5) {
-                        sum += pastEarnings[j]
+        var peEntries:[ChartDataEntry] = []
+        var forwardPeEntries:[ChartDataEntry] = []
+        var fwdPe = 0.0
+        
+        let today = Date()
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let formattedToday = format.string(from: today)
+        
+        if let earnings = company.earnings, company.dailyData.count > 0 {
+            let reversedEarnings = Array(Array(earnings.reversed()).suffix(5))
+            for i in 0..<reversedEarnings.count {
+                var epsSum = 0.0
+                for j in (i-3)...i {
+                    if j < 0 && i+1 < reversedEarnings.count{
+                        epsSum += reversedEarnings[i+1].yearAgo!
+                    } else if j >= 0 {
+                        epsSum += reversedEarnings[j].actualEPS!
                     }
-                    var found = false
-                    for k in stride(from: company.weeklyData.count-1, to: 0, by: -1) {
-                        let candle = company.weeklyData[k]
-                        let compValue = candle.date!.compare(e.getDate()!).rawValue
-                        if compValue == 1 || compValue == 0 {
-                            peEntries.append(ChartDataEntry(x: Double(i), y: candle.close!/sum))
-                            found = true
+                }
+                let e = reversedEarnings[i]
+                if NumberFormatter.convertStringDateToInt(date: e.EPSReportDate!) > NumberFormatter.convertStringDateToInt(date: formattedToday){
+                    epsSum += e.consensusEPS!
+                    forwardPeEntries.append(ChartDataEntry(x: Double(i), y: (company.quote?.latestPrice ?? 0.0) / epsSum))
+                    fwdPe = (company.quote?.latestPrice ?? 0.0) / epsSum
+                    let year = (e.EPSReportDate?.components(separatedBy: "-")[0])!
+                    let month = (e.EPSReportDate?.components(separatedBy: "-")[1])!
+                    self.formatter.addXAxisLabel(year + "-" + month)
+                } else {
+                    let reversedDaily = Array(company.dailyData.reversed())
+                    for j in 0..<reversedDaily.count{
+                        let dailyEntry = reversedDaily[j]
+                        if e.EPSReportDate == dailyEntry.datetime {
+                            let price = dailyEntry.close
+                            if e.actualEPS != 0.0 && epsSum != 0.0 {
+                                peEntries.append(ChartDataEntry(x: Double(i), y: price! / epsSum))
+                            }
+                            let year = (e.EPSReportDate?.components(separatedBy: "-")[0])!
+                            let month = (e.EPSReportDate?.components(separatedBy: "-")[1])!
+                            self.formatter.addXAxisLabel(year + "-" + month)
                             break
                         }
                     }
-                    if !found {
-                        print("couldnt find candle for \(e.EPSReportDate)")
-                    }
                 }
             }
-            var forwardPeEntries:[ChartDataEntry] = []
-            var label = "Future"
-            var fwdPe = 0.0
-            if let est = company.estimates {
-                label = est.fiscalPeriod!
-                var sum = 0.0
-                for i in stride(from: pastEarnings.count - 1, to: 0, by: -1) {
-                    sum += pastEarnings[i]
-                }
-                sum += est.consensusEPS!
-                fwdPe = (company.quote!.close ?? company.quote!.latestPrice!) / sum
-            }
-            if let fpe = company.advancedStats?.forwardPERatio {
-                fwdPe = fpe
-            }
-            self.earningsDelegate.updatePELegendValues(pe: String(format: "%.2f", Double(peEntries[peEntries.count-1].y)), peFwd: String(format: "%.2f", Double(fwdPe)))
-            forwardPeEntries.append(ChartDataEntry(x: Double(reversedEarnings.count), y: fwdPe))
-            self.formatter.addXAxisLabel(label)
 
-            let peDataSet = ScatterChartDataSet(entries: peEntries)
-            self.configureScatterDataSet(set: peDataSet, color: Constants.blue)
-            let forwardPeSet = ScatterChartDataSet(entries: forwardPeEntries)
-            self.configureScatterDataSet(set: forwardPeSet, color: Constants.fadedBlue)
-            self.peDataSets.append(peDataSet)
-            self.peDataSets.append(forwardPeSet)
+        }
+        var actualPe = 0.0
+        if let keystats = company.keyStats {
+            actualPe = Double(keystats.peRatio!)
+        }
+        self.earningsDelegate.updatePELegendValues(pe: String(format: "%.2f", Double(actualPe)), peFwd: String(format: "%.2f", Double(fwdPe)))
+
+        let peDataSet = ScatterChartDataSet(entries: peEntries.suffix(5))
+        self.configureScatterDataSet(set: peDataSet, color: Constants.blue)
+        let forwardPeSet = ScatterChartDataSet(entries: forwardPeEntries)
+        self.configureScatterDataSet(set: forwardPeSet, color: Constants.fadedBlue)
+        self.peDataSets.append(forwardPeSet)
+        self.peDataSets.append(peDataSet)
             
-            DispatchQueue.main.async {
-                let data = CombinedChartData()
-                data.scatterData = ScatterChartData(dataSets: self.peDataSets)
-                //data.lineData = LineChartData(dataSets: self.epsTTM)
-                //data.barData = BarChartData(dataSets: self.numEstimates)
-                //data.barData.barWidth = 0.1
-                //self.rightAxis.axisMaximum = data.barData.yMax * 2
-                self.xAxis.axisMaximum = data.xMax + 0.5
-                let percentRange = (data.yMax - data.yMin)*0.2
-                self.leftAxis.axisMaximum = data.yMax + percentRange
-                self.data = data
-                self.notifyDataSetChanged()
-            }
+        DispatchQueue.main.async {
+            let data = CombinedChartData()
+            data.scatterData = ScatterChartData(dataSets: self.peDataSets)
+            self.xAxis.axisMaximum = data.xMax + 0.5
+            let percentRange = (data.yMax - data.yMin)*0.2
+            self.leftAxis.axisMaximum = data.yMax + percentRange
+            self.data = data
+            self.notifyDataSetChanged()
         }
     }
     
@@ -130,7 +124,7 @@ class PEChart: CombinedChartView {
         set.setColor(color)
         set.scatterShapeSize = CGFloat(20)
         set.highlightEnabled = false
-        set.drawValuesEnabled = true
+        set.drawValuesEnabled = false
     }
 
 }

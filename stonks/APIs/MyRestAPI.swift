@@ -108,8 +108,10 @@ class MyRestAPI: HTTPRequest {
             let json = JSON(data)
             var companies:[Company] = []
             for i in 0..<json.count{
-                let company = Company(symbol: json[i]["symbol"].string!, fullName: json[i]["companyName"].string!)
-                companies.append(company)
+                if let symbol = json[i]["symbol"].string, let companyName = json[i]["companyName"].string{
+                    let company = Company(symbol: symbol, fullName: companyName)
+                    companies.append(company)
+                }
             }
             completionHandler(companies)
         }
@@ -144,7 +146,7 @@ class MyRestAPI: HTTPRequest {
                 candle.open = jsoncandle["open"].double ?? 0
                 candle.high = jsoncandle["high"].double ?? 0
                 candle.low = jsoncandle["low"].double ?? 0
-                candle.volume = jsoncandle["marketVolume"].double ?? 0
+                candle.volume = jsoncandle["volume"].double ?? 0
                 candle.datetime = jsoncandle["label"].string ?? ""
                 candle.dateLabel = jsoncandle["date"].string ?? ""
                 candles.append(candle)
@@ -213,7 +215,7 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [Income], Estimates, [Insider], PriceTargetTopAnalysts?)->Void){
+    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [CashFlow], [Income], [Income], [Insider], Scores, PriceTargetTopAnalysts?)->Void){
         let queryURL = buildQuery(url: apiurl + stockEndpoint + "/allfree/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
@@ -263,6 +265,14 @@ class MyRestAPI: HTTPRequest {
                     incomeList.append(income)
                 }
             }
+            let incomeAnnualJSON = json["incomesAnnual"]
+            var incomeAnnualList:[Income] = []
+            for i in 0..<incomeAnnualJSON.count{
+                let s:String = incomeAnnualJSON[i].rawString()!
+                if let income = Mapper<Income>().map(JSONString: s){
+                    incomeAnnualList.append(income)
+                }
+            }
             let cashFlowJSON = json["cashflows"]
             var cashFlowList:[CashFlow] = []
             for i in 0..<cashFlowJSON.count{
@@ -271,8 +281,14 @@ class MyRestAPI: HTTPRequest {
                     cashFlowList.append(cf)
                 }
             }
-            let estimatesJSON = json["estimates"].rawString()!
-            let estimates:Estimates = Mapper<Estimates>().map(JSONString: estimatesJSON) ?? Estimates()
+            let cashFlowAnnualJSON = json["cashflowsAnnual"]
+            var cashFlowAnnualList:[CashFlow] = []
+            for i in 0..<cashFlowAnnualJSON.count{
+                let s:String = cashFlowAnnualJSON[i].rawString()!
+                if let cf = Mapper<CashFlow>().map(JSONString: s){
+                    cashFlowAnnualList.append(cf)
+                }
+            }
             let insidersJSON = json["insiders"]
             var insiderList:[Insider] = []
             for i in 0..<insidersJSON.count{
@@ -281,9 +297,11 @@ class MyRestAPI: HTTPRequest {
                     insiderList.append(insider)
                 }
             }
+            let scoresJSON = json["scores"].rawString()!
+            let scores:Scores = Mapper<Scores>().map(JSONString: scoresJSON) ?? Scores()
             let tipranksJSON = json["tipranksAnalysts"].rawString()!
             let tipranks:PriceTargetTopAnalysts? = Mapper<PriceTargetTopAnalysts>().map(JSONString: tipranksJSON) ?? nil
-            completionHandler(generalInfo, peerQuotes, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, incomeList, estimates, insiderList, tipranks)
+            completionHandler(generalInfo, peerQuotes, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, cashFlowAnnualList, incomeList, incomeAnnualList, insiderList, scores, tipranks)
         }
     }
     
@@ -353,6 +371,83 @@ class MyRestAPI: HTTPRequest {
                 }
             }
             completionHandler(symbols)
+        }
+    }
+    
+    public func getStocktwitsPostsTrending(summary:String, completionHandler: @escaping ([StocktwitsPost])->Void){
+        let queryURL = buildQuery(url: apiurl + marketEndpoint + "/stocktwits-trending-symbols/" + summary, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var posts:[StocktwitsPost] = []
+            for i in 0..<json.count{
+                let JSONString:String = json[i].rawString()!
+                if let n = Mapper<StocktwitsPost>().map(JSONString: JSONString){
+                    posts.append(n)
+                }
+            }
+            completionHandler(posts)
+        }
+    }
+    
+    public func getStocktwitsPostsForSymbol(symbol:String, completionHandler: @escaping ([StocktwitsPost])->Void){
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/stocktwits-for-symbol/" + symbol, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var posts:[StocktwitsPost] = []
+            for i in 0..<json.count{
+                let JSONString:String = json[i].rawString()!
+                if let n = Mapper<StocktwitsPost>().map(JSONString: JSONString){
+                    posts.append(n)
+                }
+            }
+            completionHandler(posts)
+        }
+    }
+    
+    public func getScoresWithUserSettingsApplied(completionHandler: @escaping ([SimpleScore])->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/scores-settings-applied", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var scores:[SimpleScore] = []
+            for i in 0..<json.count{
+                let JSONString:String = json[i].rawString()!
+                if let n = Mapper<SimpleScore>().map(JSONString: JSONString){
+                    scores.append(n)
+                }
+            }
+            completionHandler(scores)
+        }
+    }
+    
+    public func getSettingsAndVariables(completionHandler: @escaping (ScoreSettings, [String:String], [String:[String]])->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/variables-and-score-settings", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var scoreSettings:ScoreSettings = ScoreSettings()
+            let scoreSettingsJSON = json["scoreSettings"].rawString()!
+            if let s = Mapper<ScoreSettings>().map(JSONString: scoreSettingsJSON){
+                scoreSettings = s
+            }
+            var variableNamesMap:[String:String] = [:]
+            let vnmJsonString = json["variableNames"].rawString()!
+            if let data = vnmJsonString.data(using: .utf8) {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:String]
+                    if let vmp = json {
+                        variableNamesMap = vmp
+                    }
+                } catch {
+                    print("Something went wrong")
+                }
+            }
+            var variables:[String:[String]] = [:]
+            variables["future"] = json["future"].rawValue as? [String]
+            variables["past"] = json["past"].rawValue as? [String]
+            variables["health"] = json["health"].rawValue as? [String]
+            variables["valuation"] = json["valuation"].rawValue as? [String]
+            variables["technical"] = json["technical"].rawValue as? [String]
+
+            completionHandler(scoreSettings, variableNamesMap, variables)
         }
     }
     

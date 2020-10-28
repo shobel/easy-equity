@@ -18,6 +18,7 @@ struct CashFlow: Mappable {
     public var cashFlow:Int?
     public var capitalExpenditures:Int?
     public var dividendsPaid:Int?
+    public var period:String?
     
     init(){}
     init?(map: Map) {}
@@ -30,6 +31,7 @@ struct CashFlow: Mappable {
         cashFlow <- map["cashFlow"]
         capitalExpenditures <- map["capitalExpenditures"]
         dividendsPaid <- map["dividendsPaid"]
+        period <- map["period"]
     }
     
 }

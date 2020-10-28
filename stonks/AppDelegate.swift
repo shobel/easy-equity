@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            print("Unable to delete userIdentifier to keychain.")
 //        }
         
-        if !KeychainItem.currentUserIdentifier.isEmpty{
+        if !KeychainItem.currentUserIdentifier.isEmpty {
             DispatchQueue.main.async {
                 self.window?.rootViewController?.showHomeViewController()
             }

@@ -18,9 +18,12 @@ class Company: Equatable, Comparable {
     public var generalInfo:GeneralInfo?
     public var keyStats:KeyStats?
     public var earnings:[Earnings]?
-    public var estimates:Estimates?
+//    public var estimates:Estimates?
+    
     public var cashflow:[CashFlow]?
+    public var cashflowAnnual:[CashFlow]?
     public var income:[Income]?
+    public var incomeAnnual:[Income]?
     
     public var peerQuotes:[Quote]?
     
@@ -35,6 +38,7 @@ class Company: Equatable, Comparable {
     public var advancedStats: AdvancedStats?
     public var insiders:[Insider]?
     public var earningsDate:Date?
+    public var scores:Scores?
     
 //    public var quarterlyData:[Candle] = []
     public var monthlyData:[Candle] = []

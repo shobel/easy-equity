@@ -27,6 +27,19 @@ class FinancialsViewController: UIViewController, StatsVC {
     @IBOutlet weak var incomeChart: IncomeChart!
     @IBOutlet weak var chartSegmentedControl: UISegmentedControl!
     
+    @IBOutlet weak var epsChart: EPSChart!
+    @IBOutlet weak var peChart: PEChart!
+    @IBOutlet weak var peFwdValue: UILabel!
+    @IBOutlet weak var peValue: UILabel!
+    @IBOutlet weak var eps: UILabel!
+    @IBOutlet weak var epsDate: UILabel!
+    @IBOutlet weak var estEps: UILabel!
+    @IBOutlet weak var estEpsDate: UILabel!
+    
+    @IBOutlet weak var nextEarningsDate: UILabel!
+    @IBOutlet weak var nextEarningsQuarter: UILabel!
+    @IBOutlet weak var nextEarningsDaysLeft: UILabel!
+    
     private var company:Company!
     private var isLoaded = false
     
@@ -54,8 +67,11 @@ class FinancialsViewController: UIViewController, StatsVC {
                     self.company.income!.sort(by: { (a, b) -> Bool in
                         return NumberFormatter.convertStringDateToInt(date: a.reportDate!) > NumberFormatter.convertStringDateToInt(date: b.reportDate!)
                     })
-                    let mostRecentCashflow:CashFlow = self.company.cashflow![0]
-                    let mostRecentIncome:Income = self.company.income![0]
+                    if self.company.cashflowAnnual?.count == 0 && self.company.incomeAnnual?.count == 0 {
+                        return
+                    }
+                    let mostRecentCashflow:CashFlow = self.company.cashflowAnnual![0]
+                    let mostRecentIncome:Income = self.company.incomeAnnual![0]
                     
                     if let ni = mostRecentCashflow.netIncome {
                         self.netIncome.setValue(value: String(ni), format: FormattedNumberLabel.Format.NUMBER)
@@ -81,6 +97,7 @@ class FinancialsViewController: UIViewController, StatsVC {
                     
                     self.incomeChart.setup(company: self.company, financialDelegate: self)
                 }
+                
                 if let tc = self.company.advancedStats?.totalCash {
                     self.totalCash.setValue(value: String(tc), format: FormattedNumberLabel.Format.NUMBER)
                 }
@@ -96,9 +113,39 @@ class FinancialsViewController: UIViewController, StatsVC {
                 if let x = self.company.advancedStats?.profitMargin {
                     self.profitMargin.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
                 }
-
+                
+                self.epsChart.setup(company: self.company, parentDelegate: self)
+                self.peChart.setup(company: self.company, delegate: self)
+                if let inc = self.company.income, let stats = self.company.keyStats {
+                    let latestPeriod = inc[0].period
+                    var futurePeriod = Int((latestPeriod?.components(separatedBy: "Q")[1])!)! + 1
+                    if futurePeriod > 4 {
+                        futurePeriod = 1
+                    }
+                    self.nextEarningsQuarter.text = String("Q\(futurePeriod)")
+                    if let nextReportDate = stats.getNextEarningsDate() {
+                        let dateformatter = DateFormatter()
+                        dateformatter.dateFormat = "MMM d, yyyy"
+                        self.nextEarningsDate.text = dateformatter.string(from: nextReportDate)
+                        self.nextEarningsDaysLeft.text = "\(GeneralUtility.daysUntil(date: nextReportDate)) days"
+                    } else {
+                        self.nextEarningsDaysLeft.text = ""
+                    }
+                }
             }
         }
+    }
+    
+    public func updatePELegendValues(pe: String, peFwd: String){
+        self.peFwdValue.text = peFwd
+        self.peValue.text = pe
+    }
+    
+    public func updateEPSLegendValues(eps: String, epsDate: String, epsFwd: String, epsFwdDate: String){
+        self.eps.text = eps
+        self.epsDate.text = epsDate
+        self.estEpsDate.text = epsFwdDate
+        self.estEps.text = epsFwd
     }
     
     @IBAction func incomeChartModeChanged(_ sender: Any) {

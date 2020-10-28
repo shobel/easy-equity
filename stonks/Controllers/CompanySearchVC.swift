@@ -14,6 +14,11 @@ extension CompanySearchVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterList(searchText: searchText)
         self.tableView.reloadData()
+        if self.searchResults.count > 0 {
+            DispatchQueue.main.async {
+                self.scrollView.setContentOffset(.zero, animated: false)
+            }
+        }
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.dismiss(animated: true, completion: nil)
@@ -29,6 +34,8 @@ extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate 
             return currentTop10List.count
         } else if collectionView.restorationIdentifier == "topAnalysts" {
             return currentTopAnalystSymbols.count
+        } else if collectionView.restorationIdentifier == "marketNewsCollection" {
+            return marketNews.count
         } else {
             return 0
         }
@@ -43,7 +50,29 @@ extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate 
             cell.latestPriceLabel.text = String("\(item.latestPrice)")
             cell.latestPriceLabel.textColor = cell.changePercentLabel.getColor(value: item.changePercent)
             return cell
-        } else {
+        } else if collectionView.restorationIdentifier == "marketNewsCollection" {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "marketNewsCollectionCell", for: indexPath) as! MarketNewsCollectionViewCell
+            let news:News = self.marketNews[indexPath.row]
+            cell.heading.text = news.headline
+            let date = Date(timeIntervalSince1970: Double(news.datetime! / 1000))
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM d, yy"
+            let localDate = dateFormatter.string(from: date)
+            cell.date.text = localDate
+            let url = URL(string: news.image!)
+            DispatchQueue.global().async {
+                if let data = try? Data(contentsOf: url!) {
+                    DispatchQueue.main.async {
+                        cell.newImage.image = UIImage(data: data)
+                    }
+                }
+            }
+            cell.source.text = news.source
+            cell.symbols.text = news.related
+            cell.paywall = news.hasPaywall!
+            cell.url = news.url
+            return cell
+        } else if collectionView.restorationIdentifier == "topAnalysts"{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topAnalystCell", for: indexPath) as! TopAnalystCollectionViewCell
             let item = currentTopAnalystSymbols[indexPath.row]
             cell.symbol.text = item.symbol
@@ -52,17 +81,29 @@ extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate 
             cell.numAnalysts.text = String(item.numAnalysts!)
             return cell
         }
+        return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView.restorationIdentifier == "top10" {
             let item = currentTop10List[indexPath.row]
             Dataholder.selectedCompany = Company(symbol: item.symbol, fullName: "")
-        } else {
+            performSegue(withIdentifier: "SearchToDetail", sender: self)
+        } else if collectionView.restorationIdentifier == "topAnalysts" {
             let item = currentTopAnalystSymbols[indexPath.row]
             Dataholder.selectedCompany = Company(symbol: item.symbol!, fullName: "")
+            performSegue(withIdentifier: "SearchToDetail", sender: self)
+        } else if collectionView.restorationIdentifier == "marketNewsCollection" {
+            let marketNewsItem:News = self.marketNews[indexPath.row]
+            let url = URL(string: marketNewsItem.url!)
+            let config = SFSafariViewController.Configuration()
+            config.entersReaderIfAvailable = true
+            var vc = SFSafariViewController(url: URL(string: "https://www.google.com")!)
+            if (marketNewsItem.url?.starts(with: "http"))! {
+                vc = SFSafariViewController(url: url!, configuration: config)
+            }
+            present(vc, animated: true)
         }
-        performSegue(withIdentifier: "SearchToDetail", sender: self)
     }
     
 }
@@ -70,11 +111,15 @@ extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate 
 //TODO-SAM: when company search returns no results, might want to switch table views to show a message that says no results
 class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var marketNewsTableView: MarketNewsTableView!
+    //@IBOutlet weak var marketNewsTableView: MarketNewsTableView!
+    @IBOutlet weak var stocktwitsTable: UITableView!
+    @IBOutlet weak var stocktwitsTableHeight: NSLayoutConstraint!
     
     @IBOutlet weak var marketView: UIView!
+    @IBOutlet weak var marketNewsCollection: UICollectionView!
     @IBOutlet weak var top10CollectionView: UICollectionView!
     @IBOutlet weak var topAnalystsCollection: UICollectionView!
     @IBOutlet weak var top10Title: UILabel!
@@ -88,10 +133,15 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     private var currentTopAnalystSymbols:[PriceTargetTopAnalysts] = []
     private var maxNumTopAnalystItems:Int = 10
     private var marketNews:[News] = []
+    private var stocktwitsPosts:[StocktwitsPost] = []
     @IBOutlet weak var noTopAnalystsLabel: UILabel!
     
+    private var stocktwitsTableHeights:[CGFloat] = []
+    private var refreshControl:UIRefreshControl!
+    
     private var itemsLoaded:Int = 0
-    private var numItems:Int = 3
+    private var numItems:Int = 4
+    private var lastLoadedTimestamp:Double = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,33 +154,63 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         marketView.isHidden = false
         
         tableView.tableFooterView = UIView(frame: .zero)
-        marketNewsTableView.tableFooterView = UIView(frame: .zero)
+        //marketNewsTableView.tableFooterView = UIView(frame: .zero)
         
         searchBar.autocapitalizationType = .none
         searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
-        marketNewsTableView.delegate = self
-        marketNewsTableView.dataSource = self
+        
+        //marketNewsTableView.delegate = self
+        //marketNewsTableView.dataSource = self
+        marketNewsCollection.delegate = self
+        marketNewsCollection.dataSource = self
+        
+        stocktwitsTable.delegate = self
+        stocktwitsTable.dataSource = self
         
         activityIndicatorView = UIActivityIndicatorView(style: .large)
         self.view.addSubview(activityIndicatorView)
         activityIndicatorView.center = self.view.center
         
-
         self.loadingStarted()
         NetworkManager.getMyRestApi().getTop10s(completionHandler: handleTop10s)
         NetworkManager.getMyRestApi().getMarketNews(completionHandler: handleMarketNews)
         NetworkManager.getMyRestApi().getTiprankSymbols(completionHandler: handleTopAnalysts)
+        NetworkManager.getMyRestApi().getStocktwitsPostsTrending(summary: "false", completionHandler: handleStocktwitsPosts)
         if Dataholder.allTickers.isEmpty {
             self.numItems += 1
             NetworkManager.getMyRestApi().listCompanies(completionHandler: handleListCompanies)
         }
         
+        self.scrollView.refreshControl = UIRefreshControl()
+        self.scrollView.refreshControl!.attributedTitle = NSAttributedString(string: "refreshing...")
+        self.scrollView.refreshControl!.addTarget(self, action: #selector(didPullToRefresh), for: UIControl.Event.valueChanged)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //
+        self.refreshAll()
+    }
+    
+    @objc func didPullToRefresh(sender:AnyObject) {
+        self.refreshAll()
+    }
+    
+    //TODO-SAM: auto refresh every 10 minutes during market hours
+    private func refreshAll(){
+        if Date().timeIntervalSince1970 - self.lastLoadedTimestamp > (60*30){
+            self.lastLoadedTimestamp = Date().timeIntervalSince1970
+            self.itemsLoaded = 0
+            self.numItems = 4
+            self.loadingStarted()
+            NetworkManager.getMyRestApi().getTop10s(completionHandler: handleTop10s)
+            NetworkManager.getMyRestApi().getMarketNews(completionHandler: handleMarketNews)
+            NetworkManager.getMyRestApi().getTiprankSymbols(completionHandler: handleTopAnalysts)
+            NetworkManager.getMyRestApi().getStocktwitsPostsTrending(summary: "false", completionHandler: handleStocktwitsPosts)
+        } else {
+            self.stocktwitsTable.reloadData()
+            self.scrollView.refreshControl!.endRefreshing()
+        }
     }
     
     @IBAction func sortTop10List(_ sender: Any) {
@@ -192,7 +272,8 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     private func handleMarketNews(_ news: [News]){
         self.marketNews = news
         DispatchQueue.main.async {
-            self.marketNewsTableView.reloadData()
+            //self.marketNewsTableView.reloadData()
+            self.marketNewsCollection.reloadData()
         }
         self.itemsLoaded += 1
         if self.itemsLoaded >= self.numItems {
@@ -243,6 +324,33 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         }
     }
     
+    private func handleStocktwitsPosts(_ posts:[StocktwitsPost]){
+        self.stocktwitsPosts = posts
+        self.itemsLoaded += 1
+        if self.itemsLoaded >= self.numItems {
+            self.loadingFinished()
+        }
+        DispatchQueue.main.async {
+            self.stocktwitsTable.reloadData()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if tableView.restorationIdentifier == "stocktwitsTable" {
+            self.stocktwitsTableHeights.append(cell.frame.height)
+            if self.stocktwitsTableHeights.count == self.stocktwitsPosts.count {
+                let totalHeight = self.stocktwitsTableHeights.reduce(0, { x, y in
+                    x + y
+                })
+                DispatchQueue.main.async {
+                    self.stocktwitsTableHeights = []
+                    self.stocktwitsTableHeight.constant = totalHeight
+                    super.updateViewConstraints()
+                }
+            }
+        }
+    }
+    
     public func loadingStarted(){
         DispatchQueue.main.async {
             self.activityIndicatorView.startAnimating()
@@ -250,6 +358,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     public func loadingFinished(){
         DispatchQueue.main.async {
+            self.scrollView.refreshControl!.endRefreshing()
             self.activityIndicatorView.stopAnimating()
         }
     }
@@ -261,13 +370,16 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView is MarketNewsTableView {
             return self.marketNews.count
-        } else {
+        } else if tableView.restorationIdentifier == "searchTable" {
             return searchResults.count
+        } else if tableView.restorationIdentifier == "stocktwitsTable" {
+            return stocktwitsPosts.count
         }
+        return 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if !(tableView is MarketNewsTableView) {
+        if tableView.restorationIdentifier == "searchTable" {
             let cell = tableView.dequeueReusableCell(withIdentifier: "companySearchCell", for: indexPath) as! CompanySearchTableViewCell
             cell.parentVC = self
             let company = searchResults[indexPath.row]
@@ -281,27 +393,43 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 cell.addedToWatchlist(false)
             }
             return cell
-        } else {
-            let cell = marketNewsTableView.dequeueReusableCell(withIdentifier: "marketnewscell") as! MarketNewsTableViewCell
-            let news:News = self.marketNews[indexPath.row]
-            cell.heading.text = news.headline
-            let date = Date(timeIntervalSince1970: Double(news.datetime! / 1000))
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMM d, yy"
-            let localDate = dateFormatter.string(from: date)
-            cell.date.text = localDate
-            let url = URL(string: news.image!)
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: url!) {
-                    DispatchQueue.main.async {
-                        cell.newImage.image = UIImage(data: data)
+        } else { //if tableView.restorationIdentifier == "stocktwitsTable" 
+            let cell = stocktwitsTable.dequeueReusableCell(withIdentifier: "stocktwitsCell") as! StocktwitsTableViewCell
+            let post = self.stocktwitsPosts[indexPath.row]
+            cell.id = post.id
+            cell.username.setTitle(post.username, for: .normal)
+            cell.message.text = post.body
+            
+            if let body = post.body {
+                let string = NSMutableAttributedString(string: body)
+                string.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 16), range: NSRange(location: 0, length: string.length))
+                let words:[String] = body.components(separatedBy:" ")
+                for word in words {
+                    if word.count > 1 && word.hasPrefix("$"){
+                        let index = word.index(word.startIndex, offsetBy: 1)
+                        if String(word[index]).range(of: "[^a-zA-Z]", options: .regularExpression) == nil {
+                            let range:NSRange = (string.string as NSString).range(of: word)
+                            string.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 18), range: range)
+                            string.addAttribute(NSAttributedString.Key.link, value: NSURL(string: String("http://www.stocktwits.com/\(word)"))!, range: range)
+                        }
                     }
                 }
+                cell.message.attributedText = string
             }
-            cell.source.text = news.source
-            cell.symbols.text = news.related
-            cell.paywall = news.hasPaywall!
-            cell.url = news.url
+            
+            if let ts = post.timestamp {
+                cell.timeButton.setTitle(Date(timeIntervalSince1970: TimeInterval(ts / 1000)).timeAgoSinceDate(), for: .normal)
+            } else if let ca = post.createdAt {
+                let ts = GeneralUtility.isoDateToTimestamp(isoString: ca)
+                cell.timeButton.setTitle(Date(timeIntervalSince1970: TimeInterval(ts)).timeAgoSinceDate(), for: .normal)
+            }
+            if post.sentiment == "Bearish" {
+                cell.bullbear.image = UIImage(named: "bull_face.png")
+            } else if post.sentiment == "Bullish" {
+                cell.bullbear.image = UIImage(named: "bear_face.png")
+            } else {
+                cell.bullbear.image = UIImage(systemName: "person.crop.circle.fill")
+            }
             return cell
         }
     }
@@ -327,30 +455,19 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             self.tableView.isHidden = true
         }
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if !(tableView is MarketNewsTableView) {
-            Dataholder.selectedCompany = searchResults[indexPath.row]
-        } else {
-            let marketNewsItem:News = self.marketNews[indexPath.row]
-            let url = URL(string: marketNewsItem.url!)
-            let config = SFSafariViewController.Configuration()
-            config.entersReaderIfAvailable = true
-            var vc = SFSafariViewController(url: URL(string: "https://www.google.com")!)
-            if (marketNewsItem.url?.starts(with: "http"))! {
-                vc = SFSafariViewController(url: url!, configuration: config)
-            }
-            present(vc, animated: true)
-        }
-    }
 
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if !(tableView is MarketNewsTableView) {
+        if !(tableView is MarketNewsTableView) && tableView.restorationIdentifier != "stocktwitsTable" {
             Dataholder.selectedCompany = searchResults[indexPath.row]
         }
         return indexPath
     }
 
+    @IBAction func stocktwitsTapped(_ sender: Any) {
+        if let url = URL(string: String("http://www.stocktwits.com")) {
+            UIApplication.shared.open(url)
+        }
+    }
     /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
