@@ -109,7 +109,8 @@ class NewsViewController: UIViewController, StatsVC, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = stocktwitsTableView.dequeueReusableCell(withIdentifier: "detailStocktwitsTableViewCell") as! DetailStocktwitsTableViewCell
         let post = self.stocktwitsPosts[indexPath.row]
-        cell.username.text = post.username
+        cell.id = post.id
+        cell.username.setTitle(post.username, for: .normal)
         cell.message.text = post.body
         
         if let body = post.body {
@@ -121,8 +122,8 @@ class NewsViewController: UIViewController, StatsVC, UITableViewDelegate, UITabl
                     let index = word.index(word.startIndex, offsetBy: 1)
                     if String(word[index]).range(of: "[^a-zA-Z]", options: .regularExpression) == nil {
                         let range:NSRange = (string.string as NSString).range(of: word)
-                        string.addAttribute(NSAttributedString.Key.foregroundColor, value: Constants.darkPink, range: range)
                         string.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 18), range: range)
+                        string.addAttribute(NSAttributedString.Key.link, value: NSURL(string: String("http://www.stocktwits.com/\(word)"))!, range: range)
                     }
                 }
             }
@@ -130,10 +131,10 @@ class NewsViewController: UIViewController, StatsVC, UITableViewDelegate, UITabl
         }
         
         if let ts = post.timestamp {
-            cell.time.text = Date(timeIntervalSince1970: TimeInterval(ts / 1000)).timeAgoSinceDate()
+            cell.timeButton.setTitle(Date(timeIntervalSince1970: TimeInterval(ts / 1000)).timeAgoSinceDate(), for: .normal)
         } else if let ca = post.createdAt {
             let ts = GeneralUtility.isoDateToTimestamp(isoString: ca)
-            cell.time.text = Date(timeIntervalSince1970: TimeInterval(ts)).timeAgoSinceDate()
+            cell.timeButton.setTitle(Date(timeIntervalSince1970: TimeInterval(ts)).timeAgoSinceDate(), for: .normal)
         }
         if post.sentiment == "Bearish" {
             cell.bullbear.image = UIImage(named: "bull_face.png")
@@ -162,6 +163,12 @@ class NewsViewController: UIViewController, StatsVC, UITableViewDelegate, UITabl
         }
     }
 
+    @IBAction func stocktwitsTapped(_ sender: Any) {
+        if let url = URL(string: String("http://www.stocktwits.com")) {
+            UIApplication.shared.open(url)
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

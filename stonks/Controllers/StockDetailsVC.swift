@@ -348,7 +348,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         datetime.text = datetext
     }
     
-    //SAM-TODO remove average volume argument and encorporate low/high volume into analysis
+    //TODO-SAM: remove average volume argument and encorporate low/high volume into analysis
     public func setVolumeValues(averageVolume:Double, totalVol:Double){
         self.totalVol.text = String("TODAY'S VOLUME: \(NumberFormatter.formatNumber(num: totalVol))")
     }

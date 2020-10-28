@@ -196,7 +196,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         self.refreshAll()
     }
     
-    //SAM-TODO: auto refresh every 10 minutes during market hours
+    //TODO-SAM: auto refresh every 10 minutes during market hours
     private func refreshAll(){
         if Date().timeIntervalSince1970 - self.lastLoadedTimestamp > (60*30){
             self.lastLoadedTimestamp = Date().timeIntervalSince1970
@@ -396,7 +396,8 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         } else { //if tableView.restorationIdentifier == "stocktwitsTable" 
             let cell = stocktwitsTable.dequeueReusableCell(withIdentifier: "stocktwitsCell") as! StocktwitsTableViewCell
             let post = self.stocktwitsPosts[indexPath.row]
-            cell.username.text = post.username
+            cell.id = post.id
+            cell.username.setTitle(post.username, for: .normal)
             cell.message.text = post.body
             
             if let body = post.body {
@@ -408,15 +409,20 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         let index = word.index(word.startIndex, offsetBy: 1)
                         if String(word[index]).range(of: "[^a-zA-Z]", options: .regularExpression) == nil {
                             let range:NSRange = (string.string as NSString).range(of: word)
-                            string.addAttribute(NSAttributedString.Key.foregroundColor, value: Constants.darkPink, range: range)
                             string.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 18), range: range)
+                            string.addAttribute(NSAttributedString.Key.link, value: NSURL(string: String("http://www.stocktwits.com/\(word)"))!, range: range)
                         }
                     }
                 }
                 cell.message.attributedText = string
             }
             
-            cell.time.text = Date(timeIntervalSince1970: TimeInterval(post.timestamp! / 1000)).timeAgoSinceDate()
+            if let ts = post.timestamp {
+                cell.timeButton.setTitle(Date(timeIntervalSince1970: TimeInterval(ts / 1000)).timeAgoSinceDate(), for: .normal)
+            } else if let ca = post.createdAt {
+                let ts = GeneralUtility.isoDateToTimestamp(isoString: ca)
+                cell.timeButton.setTitle(Date(timeIntervalSince1970: TimeInterval(ts)).timeAgoSinceDate(), for: .normal)
+            }
             if post.sentiment == "Bearish" {
                 cell.bullbear.image = UIImage(named: "bull_face.png")
             } else if post.sentiment == "Bullish" {
@@ -457,6 +463,11 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         return indexPath
     }
 
+    @IBAction func stocktwitsTapped(_ sender: Any) {
+        if let url = URL(string: String("http://www.stocktwits.com")) {
+            UIApplication.shared.open(url)
+        }
+    }
     /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 

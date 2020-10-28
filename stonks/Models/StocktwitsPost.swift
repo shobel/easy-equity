@@ -10,6 +10,7 @@ import Foundation
 import ObjectMapper
 struct StocktwitsPost: Mappable {
     
+    public var id:Int?
     public var body:String?
     public var timestamp:Int?
     public var username:String?
@@ -21,6 +22,7 @@ struct StocktwitsPost: Mappable {
     init?(map: Map) {}
     
     mutating func mapping(map: Map) {
+        id <- map["id"]
         body <- map["body"]
         timestamp <- map["timestamp"]
         username <- map["username"]

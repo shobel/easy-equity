@@ -10,10 +10,11 @@ import UIKit
 
 class DetailStocktwitsTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var username: UILabel!
+    @IBOutlet weak var username: UIButton!
     @IBOutlet weak var message: UITextView!
-    @IBOutlet weak var time: UILabel!
     @IBOutlet weak var bullbear: UIImageView!
+    @IBOutlet weak var timeButton: UIButton!
+    public var id:Int?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,5 +26,20 @@ class DetailStocktwitsTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    @IBAction func timeTapped(_ sender: Any) {
+        if let id = self.id, let username = username.title(for: .normal){
+            if let url = URL(string: String("http://www.stocktwits.com/\(username)/message/\(id)")) {
+                UIApplication.shared.open(url)
+            }
+        }
+    }
+    
+    @IBAction func usernameTapped(_ sender: Any) {
+        if let username = username.title(for: .normal) {
+            if let url = URL(string: String("http://www.stocktwits.com/\(username)")) {
+                UIApplication.shared.open(url)
+            }
+        }
+    }
 }
