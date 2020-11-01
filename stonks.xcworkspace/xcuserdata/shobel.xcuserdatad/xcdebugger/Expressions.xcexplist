@@ -92,6 +92,9 @@
          contextName = "VariableTableViewCell.switchChanged(_:):VariableTableViewCell.swift">
          <PersistentStrings>
             <PersistentString
+               value = "parent">
+            </PersistentString>
+            <PersistentString
                value = "sender.isOn">
             </PersistentString>
          </PersistentStrings>
@@ -465,6 +468,14 @@
          <PersistentStrings>
             <PersistentString
                value = "self.contentView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MyRestAPI.setScoresSettings(scoreSettings:completionHandler:):MyRestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "try? JSONSerialization.jsonObject(with: jsonObj, options: [])">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1124,10 +1135,26 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ScoreSettingsViewController.viewDidDisappear(_:):ScoreSettingsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self. presentingViewController">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in closure #1 in WatchlistUpdaterFMP.update():WatchlistUpdater.swift">
          <PersistentStrings>
             <PersistentString
                value = "self.watchlist">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ScoreSettingsViewController.switchChanged(variableName:isOn:):ScoreSettingsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.scoreSettings.disabled!">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1155,6 +1182,14 @@
          <PersistentStrings>
             <PersistentString
                value = "self.company">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ScoreSettingsViewController.viewDidLoad():ScoreSettingsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.presentingViewController.children">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

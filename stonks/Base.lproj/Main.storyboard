@@ -6022,6 +6022,7 @@
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <connections>
+                                                            <outlet property="onoff" destination="RXY-2F-fYp" id="KEL-3e-8an"/>
                                                             <outlet property="variableName" destination="hAX-5w-cgI" id="RdM-8J-Esc"/>
                                                         </connections>
                                                     </tableViewCell>
@@ -6064,6 +6065,7 @@
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <connections>
+                                                            <outlet property="onoff" destination="S2M-kK-k15" id="YiV-zo-WxA"/>
                                                             <outlet property="variableName" destination="hEz-7Y-Fah" id="PjD-04-CMQ"/>
                                                         </connections>
                                                     </tableViewCell>
@@ -6106,6 +6108,7 @@
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <connections>
+                                                            <outlet property="onoff" destination="Lxk-D4-Wpu" id="bcB-rm-Cg6"/>
                                                             <outlet property="variableName" destination="aQY-gj-wYR" id="iA4-EJ-GRg"/>
                                                         </connections>
                                                     </tableViewCell>
@@ -6149,6 +6152,7 @@
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <connections>
+                                                            <outlet property="onoff" destination="O8H-Zs-xT8" id="2E9-p3-uJq"/>
                                                             <outlet property="variableName" destination="k0K-C2-IdK" id="cPO-Vb-c4w"/>
                                                         </connections>
                                                     </tableViewCell>
@@ -6191,6 +6195,7 @@
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <connections>
+                                                            <outlet property="onoff" destination="PZD-Jh-UBY" id="tyc-Au-alU"/>
                                                             <outlet property="variableName" destination="3cv-vL-Lnm" id="NyH-z6-VdW"/>
                                                         </connections>
                                                     </tableViewCell>

@@ -11,7 +11,8 @@ import UIKit
 class VariableTableViewCell: UITableViewCell {
 
     @IBOutlet weak var variableName: UILabel!
-
+    @IBOutlet weak var onoff: UISwitch!
+    public var variable:String?
     public var parent:ScoreSettingsViewController?
     
     override func awakeFromNib() {
@@ -27,7 +28,7 @@ class VariableTableViewCell: UITableViewCell {
     
     @IBAction func switchChanged(_ sender: Any) {
         if let sender = sender as? UISwitch {
-            print(sender.isOn)
+            parent?.switchChanged(variableName: self.variable!, isOn: sender.isOn)
         }
     }
     

@@ -36,9 +36,7 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         self.activityIndicator()
-        DispatchQueue.main.async {
-            self.indicator.startAnimating()
-        }
+        
         configureButton.layer.cornerRadius = 15
         configureButton.layer.borderColor = UIColor.darkGray.cgColor
         configureButton.layer.borderWidth = CGFloat(1)
@@ -46,7 +44,17 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
         self.companyScoresTable.delegate = self
         self.companyScoresTable.dataSource = self
         self.searchbar.delegate = self
-        
+    
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.fetchScores()
+    }
+    
+    public func fetchScores() {
+        DispatchQueue.main.async {
+            self.indicator.startAnimating()
+        }
         NetworkManager.getMyRestApi().getScoresWithUserSettingsApplied { (scores) in
             self.scores = scores.sorted(by: { (a, b) -> Bool in
                 return b.rank ?? 0 > a.rank ?? 0
@@ -64,10 +72,6 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        self.companyScoresTable.reloadData()
-    }
-
     func activityIndicator() {
         self.indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         self.indicator.style = .large
@@ -133,14 +137,15 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
             Dataholder.selectedCompany = Company(symbol: symbol, fullName: score.companyName ?? "")
         }
     }
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let dest = segue.destination as? ScoreSettingsViewController {
+            dest.parentVC = self
+        }
     }
-    */
+    
 
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 import ObjectMapper
-struct ScoreSettings: Mappable {
+struct ScoreSettings: Mappable, Codable {
     
     public var disabled:[String]?
     public var weightings:[String:Double]?
@@ -20,4 +20,12 @@ struct ScoreSettings: Mappable {
         disabled <- map["disabled"]
         weightings <- map["weightings"]
     }
+    
+    func asDictionary() -> [String: AnyObject] {
+        return [
+            "disabled": disabled as AnyObject,
+            "weightings": weightings as AnyObject
+        ]
+    }
+    
 }

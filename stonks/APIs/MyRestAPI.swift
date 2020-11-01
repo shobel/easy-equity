@@ -419,6 +419,19 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
+    
+    public func setScoresSettings(scoreSettings:ScoreSettings, completionHandler: @escaping (Bool)->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/set-score-settings", params: [:])
+        let body = [
+            "settings": scoreSettings.asDictionary()
+        ]
+        self.postRequest(queryURL: queryURL, body: body) { (data) in
+            let json = JSON(data)
+            let success = json["result"].bool ?? false
+            completionHandler(success)
+        }
+    }
+    
     public func getSettingsAndVariables(completionHandler: @escaping (ScoreSettings, [String:String], [String:[String]])->Void){
         let queryURL = buildQuery(url: apiurl + userEndpoint + "/variables-and-score-settings", params: [:])
         self.getRequest(queryURL: queryURL) { (data) in

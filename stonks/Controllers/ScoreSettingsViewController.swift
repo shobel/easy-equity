@@ -43,10 +43,11 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
     private var technical = "technical"
     
     private var somethingChanged:Bool = false
+    public var parentVC:UIViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.valuationTable.delegate = self
         self.valuationTable.dataSource = self
         self.futureTable.delegate = self
@@ -67,6 +68,15 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
                 self.pastHeight.constant = CGFloat((self.variables[self.past]!).count) * 40
                 self.healthHeight.constant = CGFloat((self.variables[self.health]!).count) * 40
                 self.technicalHeight.constant = CGFloat((self.variables[self.technical]!).count) * 40
+                
+                if let w = self.scoreSettings.weightings {
+                    self.valuationWeight.text = String(w[self.valuation]!)
+                    self.futureWeight.text = String(w[self.future]!)
+                    self.pastWeight.text = String(w[self.past]!)
+                    self.healthWeight.text = String(w[self.health]!)
+                    self.technicalWeight.text = String(w[self.technical]!)
+
+                }
 
                 self.valuationTable.reloadData()
                 self.futureTable.reloadData()
@@ -79,7 +89,11 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidDisappear(_ animated: Bool) {
         if somethingChanged {
-            //save scoresettings00
+            NetworkManager.getMyRestApi().setScoresSettings(scoreSettings: self.scoreSettings) { (result) in
+                if let p = self.parentVC as? AnalysisViewController {
+                    p.fetchScores()
+                }
+            }
         }
     }
     
@@ -100,9 +114,14 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
     
     public func switchChanged(variableName:String, isOn:Bool){
         if isOn {
-            self.scoreSettings.disabled?.remove(at: (self.scoreSettings.disabled?.firstIndex(of: variableName))!)
+            let index = self.scoreSettings.disabled?.firstIndex(of: variableName)
+            if let index = index {
+                self.scoreSettings.disabled?.remove(at: index)
+            }
         } else {
-            self.scoreSettings.disabled?.append(variableName)
+            if !(self.scoreSettings.disabled?.contains(variableName) ?? true) {
+                self.scoreSettings.disabled?.append(variableName)
+            }
         }
         self.somethingChanged = true
     }
@@ -139,22 +158,32 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
         if tableView.restorationIdentifier == "valuationTable" {
             if let t = self.variables[valuation] {
                 variableName = self.variableNames[t[indexPath.row]] ?? ""
+                cell.variable = t[indexPath.row]
+                cell.onoff.isOn = !(self.scoreSettings.disabled ?? []).contains(t[indexPath.row])
             }
         } else if tableView.restorationIdentifier == "futureTable" {
             if let t = self.variables[future] {
                 variableName = self.variableNames[t[indexPath.row]] ?? ""
+                cell.variable = t[indexPath.row]
+                cell.onoff.isOn = !(self.scoreSettings.disabled ?? []).contains(t[indexPath.row])
             }
         } else if tableView.restorationIdentifier == "pastTable" {
             if let t = self.variables[past] {
                 variableName = self.variableNames[t[indexPath.row]] ?? ""
+                cell.variable = t[indexPath.row]
+                cell.onoff.isOn = !(self.scoreSettings.disabled ?? []).contains(t[indexPath.row])
             }
         } else if tableView.restorationIdentifier == "healthTable" {
             if let t = self.variables[health] {
                 variableName = self.variableNames[t[indexPath.row]] ?? ""
+                cell.variable = t[indexPath.row]
+                cell.onoff.isOn = !(self.scoreSettings.disabled ?? []).contains(t[indexPath.row])
             }
         } else if tableView.restorationIdentifier == "technicalTable" {
             if let t = self.variables[technical] {
                 variableName = self.variableNames[t[indexPath.row]] ?? ""
+                cell.variable = t[indexPath.row]
+                cell.onoff.isOn = !(self.scoreSettings.disabled ?? []).contains(t[indexPath.row])
             }
         }
         cell.variableName.text = variableName
@@ -190,14 +219,12 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    /*
+    
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+// 
+//    }
+    
 
 }
