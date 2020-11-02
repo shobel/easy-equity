@@ -221,7 +221,6 @@ PODS:
   - Charts (3.5.0):
     - Charts/Core (= 3.5.0)
   - Charts/Core (3.5.0)
-  - DDSpiderChart (0.5)
   - Firebase/Analytics (6.28.1):
     - Firebase/Core
   - Firebase/Auth (6.28.1):
@@ -351,7 +350,6 @@ PODS:
 
 DEPENDENCIES:
   - Charts
-  - DDSpiderChart
   - Firebase/Analytics
   - Firebase/Core
   - Firebase/Firestore
@@ -371,7 +369,6 @@ SPEC REPOS:
     - abseil
     - BoringSSL-GRPC
     - Charts
-    - DDSpiderChart
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -403,7 +400,6 @@ SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   Charts: 40a08591df1f8ad5c223ddedfb1a06da92f24f7c
-  DDSpiderChart: e8ea6e63b54b08bd680c66cd48a0f51ca80b8f96
   Firebase: ed042590caa0029392257529a8003c25ee82bc18
   FirebaseAnalytics: 5fa308e1b13f838d0f6dc74719ac2a72e8c5afc4
   FirebaseAuth: 06feef26ff3a98323677c76c4102146b872cd6b7
@@ -431,6 +427,6 @@ SPEC CHECKSUMS:
   VisualEffectView: 8c05bdc77490d84aabfa9fd17b1ffd6476da0e2c
   XLActionController: f1f2226d2c6629db197d4a41f2da907085a4cb9d
 
-PODFILE CHECKSUM: c3efd0315d9c4347888086a909e8c3bd32a60f5e
+PODFILE CHECKSUM: 565a1bb95bd9077605bd8a96fde473d31b2b1521
 
 COCOAPODS: 1.9.3
