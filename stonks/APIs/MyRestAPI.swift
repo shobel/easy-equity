@@ -215,7 +215,7 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [CashFlow], [Income], [Income], [Insider], Scores, PriceTargetTopAnalysts?)->Void){
+    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [CashFlow], [Income], [Income], [Insider], PriceTargetTopAnalysts?)->Void){
         let queryURL = buildQuery(url: apiurl + stockEndpoint + "/allfree/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
@@ -297,11 +297,9 @@ class MyRestAPI: HTTPRequest {
                     insiderList.append(insider)
                 }
             }
-            let scoresJSON = json["scores"].rawString()!
-            let scores:Scores = Mapper<Scores>().map(JSONString: scoresJSON) ?? Scores()
             let tipranksJSON = json["tipranksAnalysts"].rawString()!
             let tipranks:PriceTargetTopAnalysts? = Mapper<PriceTargetTopAnalysts>().map(JSONString: tipranksJSON) ?? nil
-            completionHandler(generalInfo, peerQuotes, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, cashFlowAnnualList, incomeList, incomeAnnualList, insiderList, scores, tipranks)
+            completionHandler(generalInfo, peerQuotes, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, cashFlowAnnualList, incomeList, incomeAnnualList, insiderList, tipranks)
         }
     }
     
@@ -416,6 +414,30 @@ class MyRestAPI: HTTPRequest {
                 }
             }
             completionHandler(scores)
+        }
+    }
+    
+    public func getScoresForSymbolWithUserSettingsApplied(symbol:String, completionHandler: @escaping (Scores, ScoreSettings)->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/scores-settings-applied-for-symbol/" + symbol, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            let scoresJSON = json["scores"].rawString()!
+            let scores:Scores = Mapper<Scores>().map(JSONString: scoresJSON) ?? Scores()
+            let settingsJSON = json["userSettings"].rawString()!
+            let settings:ScoreSettings = Mapper<ScoreSettings>().map(JSONString: settingsJSON) ?? ScoreSettings()
+            completionHandler(scores, settings)
+        }
+    }
+    
+    public func setScoresSettings(scoreSettings:ScoreSettings, completionHandler: @escaping (Bool)->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/set-score-settings", params: [:])
+        let body = [
+            "settings": scoreSettings.asDictionary()
+        ]
+        self.postRequest(queryURL: queryURL, body: body) { (data) in
+            let json = JSON(data)
+            let success = json["result"].bool ?? false
+            completionHandler(success)
         }
     }
     

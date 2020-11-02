@@ -105,6 +105,7 @@
 		1CABC489254740B500B37588 /* MarketNewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABC488254740B500B37588 /* MarketNewsCollectionViewCell.swift */; };
 		1CABC48E2548028F00B37588 /* StockNewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABC48D2548028E00B37588 /* StockNewsCollectionViewCell.swift */; };
 		1CABC493254803F700B37588 /* DetailStocktwitsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABC492254803F700B37588 /* DetailStocktwitsTableViewCell.swift */; };
+		1CABC498254F634000B37588 /* ScoreSnowflakeChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CABC497254F634000B37588 /* ScoreSnowflakeChart.swift */; };
 		1CB257212172BBB6008E3D4D /* FinvizAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB257202172BBB6008E3D4D /* FinvizAPI.swift */; };
 		1CB257252172C292008E3D4D /* WatchlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB257242172C292008E3D4D /* WatchlistManager.swift */; };
 		1CB257272173A234008E3D4D /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB257262173A234008E3D4D /* HTTPRequest.swift */; };
@@ -260,6 +261,7 @@
 		1CABC488254740B500B37588 /* MarketNewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketNewsCollectionViewCell.swift; sourceTree = "<group>"; };
 		1CABC48D2548028E00B37588 /* StockNewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockNewsCollectionViewCell.swift; sourceTree = "<group>"; };
 		1CABC492254803F700B37588 /* DetailStocktwitsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStocktwitsTableViewCell.swift; sourceTree = "<group>"; };
+		1CABC497254F634000B37588 /* ScoreSnowflakeChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreSnowflakeChart.swift; sourceTree = "<group>"; };
 		1CB257202172BBB6008E3D4D /* FinvizAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinvizAPI.swift; sourceTree = "<group>"; };
 		1CB257242172C292008E3D4D /* WatchlistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistManager.swift; sourceTree = "<group>"; };
 		1CB257262173A234008E3D4D /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 				1C4D2D8724E3DA2400E54EB8 /* Insider.swift */,
 				1CCA7E3C2313AB5E0033AC58 /* KeyStats.swift */,
 				1C4D2D9924EBBD9C00E54EB8 /* Kscore.swift */,
+				1C627130253D656C00A4CC57 /* Scores.swift */,
 				1CB3D621231DBF0E00D6F57C /* News.swift */,
 				1CB3D61F231DBE5A00D6F57C /* PriceTarget.swift */,
 				1C4D2D9F24EE33F800E54EB8 /* PriceTargetTopAnalysts.swift */,
@@ -475,7 +478,6 @@
 				1C72F90F24CA76C400EC59F6 /* SimpleQuote.swift */,
 				1C72F91124CA788200EC59F6 /* Top10s.swift */,
 				1C62712E253D5FCC00A4CC57 /* IntitutionalOwnership.swift */,
-				1C627130253D656C00A4CC57 /* Scores.swift */,
 				1C37D1E925425F61003564BE /* SimpleScore.swift */,
 				1C817BCF2544935A003695F7 /* ScoreSettings.swift */,
 				1CABC483254691E000B37588 /* StocktwitsPost.swift */,
@@ -583,6 +585,7 @@
 				1C4D2D8924E6751000E54EB8 /* PriceTargetChart.swift */,
 				1C4D2D9124E8921200E54EB8 /* RatingsChart.swift */,
 				1C754B0D24F20FB5000AE379 /* PriceChartPreviewView.swift */,
+				1CABC497254F634000B37588 /* ScoreSnowflakeChart.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -850,6 +853,7 @@
 				1CD11948216EAD2E000AE02E /* RatingLabel.swift in Sources */,
 				1CB3D620231DBE5A00D6F57C /* PriceTarget.swift in Sources */,
 				1C37D1EA25425F61003564BE /* SimpleScore.swift in Sources */,
+				1CABC498254F634000B37588 /* ScoreSnowflakeChart.swift in Sources */,
 				1C545211216AA4B90064239E /* GradientButton.swift in Sources */,
 				1CABC484254691E000B37588 /* StocktwitsPost.swift in Sources */,
 				1CB3D61E231DBCF000D6F57C /* Recommendations.swift in Sources */,

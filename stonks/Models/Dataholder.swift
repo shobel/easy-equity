@@ -13,5 +13,6 @@ class Dataholder {
     public static var allTickers: [Company] = []
     public static var selectedCompany:Company?
     public static var watchlistManager: WatchlistManager = WatchlistManager()
+    public static var userScoreSettings: ScoreSettings = ScoreSettings()
     
 }
