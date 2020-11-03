@@ -8,7 +8,6 @@
 
 import UIKit
 import XLActionController
-import DDSpiderChart
 
 class ScoresViewController: UIViewController, StatsVC {
     
@@ -23,18 +22,21 @@ class ScoresViewController: UIViewController, StatsVC {
     
     @IBOutlet weak var scoreSnowflakeChart: ScoreSnowflakeChart!
     
+    @IBOutlet weak var valuationWeight: UILabel!
     @IBOutlet weak var overallValuationScore: UILabel!
     @IBOutlet weak var peRatioScore: UILabel!
     @IBOutlet weak var epsTTMScore: UILabel!
     @IBOutlet weak var psScore: UILabel!
     @IBOutlet weak var pbScore: UILabel!
     
+    @IBOutlet weak var futureWeight: UILabel!
     @IBOutlet weak var overallFutureScore: UILabel!
     @IBOutlet weak var pegScore: UILabel!
     @IBOutlet weak var epsNextQuarterScore: UILabel!
     @IBOutlet weak var priceTargetScore: UILabel!
     @IBOutlet weak var recommendationsScore: UILabel!
     
+    @IBOutlet weak var pastWeight: UILabel!
     @IBOutlet weak var overallPastScore: UILabel!
     @IBOutlet weak var incomeGrowthScore: UILabel!
     @IBOutlet weak var incomeGrowthRateScore: UILabel!
@@ -44,6 +46,7 @@ class ScoresViewController: UIViewController, StatsVC {
     @IBOutlet weak var cashFlowGrowthScore: UILabel!
     @IBOutlet weak var OneYearScore: UILabel!
     
+    @IBOutlet weak var healthWeight: UILabel!
     @IBOutlet weak var overallHealthScore: UILabel!
     @IBOutlet weak var roeScore: UILabel!
     @IBOutlet weak var assetsLiabilitiesScore: UILabel!
@@ -54,6 +57,7 @@ class ScoresViewController: UIViewController, StatsVC {
     @IBOutlet weak var tutesScore: UILabel!
     @IBOutlet weak var insiderScore: UILabel!
 
+    @IBOutlet weak var technicalWeight: UILabel!
     @IBOutlet weak var overallTechnicalScore: UILabel!
     @IBOutlet weak var trendsScore: UILabel!
     @IBOutlet weak var gapScore: UILabel!
@@ -98,6 +102,10 @@ class ScoresViewController: UIViewController, StatsVC {
         self.overallScoreContainer.layer.masksToBounds = true
         self.overallScoreContainer.clipsToBounds = true
                 
+        self.fetchScores()
+    }
+    
+    public func fetchScores(){
         NetworkManager.getMyRestApi().getScoresForSymbolWithUserSettingsApplied(symbol: self.company.symbol) { (scores, scoreSettings) in
             self.company.scores = scores
             Dataholder.userScoreSettings = scoreSettings
@@ -110,6 +118,9 @@ class ScoresViewController: UIViewController, StatsVC {
         let actionController = SkypeActionController() //not really for skype
         actionController.addAction(Action("Configure Scores", style: .default, handler: { action in
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "scoreSettingsVC")
+            if let vc = vc as? ScoreSettingsViewController {
+                vc.parentVC = self
+            }
             self.present(vc, animated: true, completion: nil)
         }))
         actionController.addAction(Action("Search By Score", style: .default, handler: { action in
@@ -151,8 +162,12 @@ class ScoresViewController: UIViewController, StatsVC {
                             var valueColor = Constants.darkGrey
                             if let settings = self.scoreSettings, let disabled = settings.disabled {
                                 if disabled.contains(key) {
-                                    scoreColor = Constants.lightGrey
-                                    valueColor = Constants.lightGrey
+                                    scoreColor = Constants.veryLightGrey
+                                    valueColor = Constants.veryLightGrey
+                                }
+                                if let ws = settings.weightings, let w = ws["valuation"] {
+                                    let rounded = String(format: "%.0f", w)
+                                    self.valuationWeight.text = String("\(rounded)% weight")
                                 }
                             }
                             let valueString = String(format: "%.1f", rawValues[key] ?? 0.0)
@@ -199,8 +214,12 @@ class ScoresViewController: UIViewController, StatsVC {
                             var valueColor = Constants.darkGrey
                             if let settings = self.scoreSettings, let disabled = settings.disabled {
                                 if disabled.contains(key) {
-                                    scoreColor = Constants.lightGrey
-                                    valueColor = Constants.lightGrey
+                                    scoreColor = Constants.veryLightGrey
+                                    valueColor = Constants.veryLightGrey
+                                }
+                                if let ws = settings.weightings, let w = ws["future"] {
+                                    let rounded = String(format: "%.0f", w)
+                                    self.futureWeight.text = String("\(rounded)% weight")
                                 }
                             }
                             let valueString = String(format: "%.1f", rawValues[key] ?? 0.0)
@@ -247,8 +266,12 @@ class ScoresViewController: UIViewController, StatsVC {
                             var valueColor = Constants.darkGrey
                             if let settings = self.scoreSettings, let disabled = settings.disabled {
                                 if disabled.contains(key) {
-                                    scoreColor = Constants.lightGrey
-                                    valueColor = Constants.lightGrey
+                                    scoreColor = Constants.veryLightGrey
+                                    valueColor = Constants.veryLightGrey
+                                }
+                                if let ws = settings.weightings, let w = ws["past"] {
+                                    let rounded = String(format: "%.0f", w)
+                                    self.pastWeight.text = String("\(rounded)% weight")
                                 }
                             }
                             let valueString = String(format: "%.1f", (rawValues[key] ?? 0.0) * 100.0) + "%"
@@ -315,8 +338,12 @@ class ScoresViewController: UIViewController, StatsVC {
                             var valueColor = Constants.darkGrey
                             if let settings = self.scoreSettings, let disabled = settings.disabled {
                                 if disabled.contains(key) {
-                                    scoreColor = Constants.lightGrey
-                                    valueColor = Constants.lightGrey
+                                    scoreColor = Constants.veryLightGrey
+                                    valueColor = Constants.veryLightGrey
+                                }
+                                if let ws = settings.weightings, let w = ws["health"] {
+                                    let rounded = String(format: "%.0f", w)
+                                    self.healthWeight.text = String("\(rounded)% weight")
                                 }
                             }
                             switch key {
@@ -385,7 +412,11 @@ class ScoresViewController: UIViewController, StatsVC {
                             var scoreColor = self.getScoreTextColor(value)
                             if let settings = self.scoreSettings, let disabled = settings.disabled {
                                 if disabled.contains(key) {
-                                    scoreColor = Constants.lightGrey
+                                    scoreColor = Constants.veryLightGrey
+                                }
+                                if let ws = settings.weightings, let w = ws["technical"] {
+                                    let rounded = String(format: "%.0f", w)
+                                    self.technicalWeight.text = String("\(rounded)% weight")
                                 }
                             }
                             switch key {
