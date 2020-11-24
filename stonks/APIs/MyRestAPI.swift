@@ -441,6 +441,23 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
+    public func getFearGreedIndicators(completionHandler: @escaping (Int, [FearGreedIndicator])->Void){
+        let queryURL = buildQuery(url: apiurl + marketEndpoint + "/fear-greed", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var indicators:[FearGreedIndicator] = []
+            let indicatorsJSON = json["indicators"]
+            for i in 0..<indicatorsJSON.count{
+                let JSONString:String = indicatorsJSON[i].rawString()!
+                if let n = Mapper<FearGreedIndicator>().map(JSONString: JSONString){
+                    indicators.append(n)
+                }
+            }
+            let nowValue = json["timeline"]["now"].string!
+            completionHandler(Int(nowValue) ?? 0, indicators)
+        }
+    }
+    
     public func getSettingsAndVariables(completionHandler: @escaping (ScoreSettings, [String:String], [String:[String]])->Void){
         let queryURL = buildQuery(url: apiurl + userEndpoint + "/variables-and-score-settings", params: [:])
         self.getRequest(queryURL: queryURL) { (data) in

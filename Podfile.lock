@@ -277,6 +277,7 @@ PODS:
   - FirebaseUI/Auth (8.4.2):
     - Firebase/Auth (~> 6.0)
     - GoogleUtilities/UserDefaults
+  - GaugeKit (0.5.1)
   - GoogleAppMeasurement (6.6.2):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -354,6 +355,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Firestore
   - FirebaseUI/Auth
+  - GaugeKit
   - MaterialActivityIndicator
   - ObjectMapper
   - Parchment
@@ -377,6 +379,7 @@ SPEC REPOS:
     - FirebaseFirestore
     - FirebaseInstallations
     - FirebaseUI
+    - GaugeKit
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
@@ -408,6 +411,7 @@ SPEC CHECKSUMS:
   FirebaseFirestore: 436c2de95f42495fbb6daf86bebde483e66706c3
   FirebaseInstallations: 3c520c951305cbf9ca54eb891ff9e6d1fd384881
   FirebaseUI: e57e9b9c4340631151fbe67a14206d23d0974f37
+  GaugeKit: b09f41f141511c172a606403e71adf8e9b6008b3
   GoogleAppMeasurement: 8cd1f289d60e629cf16ab03363b9e89c776b9651
   GoogleDataTransport: 8a40cb194ad242b6f6dfe72c14fe40fc67c4dcd7
   GoogleUtilities: e121a3867449ce16b0e35ddf1797ea7a389ffdf2
@@ -427,6 +431,6 @@ SPEC CHECKSUMS:
   VisualEffectView: 8c05bdc77490d84aabfa9fd17b1ffd6476da0e2c
   XLActionController: f1f2226d2c6629db197d4a41f2da907085a4cb9d
 
-PODFILE CHECKSUM: 565a1bb95bd9077605bd8a96fde473d31b2b1521
+PODFILE CHECKSUM: 6a7791e5d638f3c3d786f5cb5d173bc72a434bb1
 
 COCOAPODS: 1.9.3

@@ -10,6 +10,10 @@
 		1C0A006124C2A7230030E1E4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0A006024C2A7230030E1E4 /* NetworkManager.swift */; };
 		1C0BC4DB232D83B9007C117F /* CustomCombinedChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0BC4DA232D83B9007C117F /* CustomCombinedChartView.swift */; };
 		1C0BC4DD2331F144007C117F /* AlphaVantage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0BC4DC2331F144007C117F /* AlphaVantage.swift */; };
+		1C1421D9256C5247006087BA /* FearGreedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1421D8256C5247006087BA /* FearGreedViewController.swift */; };
+		1C1421DE256C529A006087BA /* FearGreedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1421DD256C529A006087BA /* FearGreedTableViewCell.swift */; };
+		1C1421E3256C5408006087BA /* FearGreedIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1421E2256C5408006087BA /* FearGreedIndicator.swift */; };
+		1C1421EB256CC00B006087BA /* MarketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1421EA256CC00B006087BA /* MarketViewController.swift */; };
 		1C183F91216D59F90042F52C /* StockDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C183F90216D59F90042F52C /* StockDetailsVC.swift */; };
 		1C183F93216D5D2A0042F52C /* DemoBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C183F92216D5D2A0042F52C /* DemoBaseViewController.swift */; };
 		1C2AC8622177B9A400469941 /* WatchlistVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2AC8612177B9A400469941 /* WatchlistVC.swift */; };
@@ -159,6 +163,10 @@
 		1C0A006024C2A7230030E1E4 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		1C0BC4DA232D83B9007C117F /* CustomCombinedChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCombinedChartView.swift; sourceTree = "<group>"; };
 		1C0BC4DC2331F144007C117F /* AlphaVantage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphaVantage.swift; sourceTree = "<group>"; };
+		1C1421D8256C5247006087BA /* FearGreedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FearGreedViewController.swift; sourceTree = "<group>"; };
+		1C1421DD256C529A006087BA /* FearGreedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FearGreedTableViewCell.swift; sourceTree = "<group>"; };
+		1C1421E2256C5408006087BA /* FearGreedIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FearGreedIndicator.swift; sourceTree = "<group>"; };
+		1C1421EA256CC00B006087BA /* MarketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketViewController.swift; sourceTree = "<group>"; };
 		1C183F90216D59F90042F52C /* StockDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailsVC.swift; sourceTree = "<group>"; };
 		1C183F92216D5D2A0042F52C /* DemoBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoBaseViewController.swift; sourceTree = "<group>"; };
 		1C2AC8612177B9A400469941 /* WatchlistVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistVC.swift; sourceTree = "<group>"; };
@@ -481,6 +489,7 @@
 				1C37D1E925425F61003564BE /* SimpleScore.swift */,
 				1C817BCF2544935A003695F7 /* ScoreSettings.swift */,
 				1CABC483254691E000B37588 /* StocktwitsPost.swift */,
+				1C1421E2256C5408006087BA /* FearGreedIndicator.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -519,6 +528,7 @@
 				1CABC488254740B500B37588 /* MarketNewsCollectionViewCell.swift */,
 				1CABC48D2548028E00B37588 /* StockNewsCollectionViewCell.swift */,
 				1CABC492254803F700B37588 /* DetailStocktwitsTableViewCell.swift */,
+				1C1421DD256C529A006087BA /* FearGreedTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -545,6 +555,8 @@
 				1C627132253E232900A4CC57 /* ScoresViewController.swift */,
 				1C6271342541135B00A4CC57 /* AnalysisViewController.swift */,
 				1C817BD92544B604003695F7 /* ScoreSettingsViewController.swift */,
+				1C1421D8256C5247006087BA /* FearGreedViewController.swift */,
+				1C1421EA256CC00B006087BA /* MarketViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -823,6 +835,7 @@
 				1CB257272173A234008E3D4D /* HTTPRequest.swift in Sources */,
 				1C9B952523EE3958004E95B1 /* DatedValue.swift in Sources */,
 				1C6936B721CDC72200E3FDC9 /* VolumeChartFormatter.swift in Sources */,
+				1C1421D9256C5247006087BA /* FearGreedViewController.swift in Sources */,
 				1C754B1424F6EF32000AE379 /* SubscriptionViewController.swift in Sources */,
 				1C62FDDD24BC4B9B00BABDCB /* AuthViewController.swift in Sources */,
 				1C4D2D8C24E7911A00E54EB8 /* SimpleColoredLabel.swift in Sources */,
@@ -887,6 +900,7 @@
 				1C6B5F2024026A7E008E2C22 /* ShadowView.swift in Sources */,
 				1C7B98862161949A00C75014 /* Dataholder.swift in Sources */,
 				1CB3D61A231DA0A400D6F57C /* Estimates.swift in Sources */,
+				1C1421E3256C5408006087BA /* FearGreedIndicator.swift in Sources */,
 				1C4D2D9A24EBBD9C00E54EB8 /* Kscore.swift in Sources */,
 				1C817BD02544935A003695F7 /* ScoreSettings.swift in Sources */,
 				1C754B0C24F0AB39000AE379 /* TopAnalystCollectionViewCell.swift in Sources */,
@@ -895,6 +909,7 @@
 				1C2AC8622177B9A400469941 /* WatchlistVC.swift in Sources */,
 				1C4EF364232AACAF000299E6 /* NewsViewController.swift in Sources */,
 				1CD1194A216F35C3000AE02E /* MarkerView.swift in Sources */,
+				1C1421EB256CC00B006087BA /* MarketViewController.swift in Sources */,
 				1C6271372541327A00A4CC57 /* CompanyScoreTableViewCell.swift in Sources */,
 				1CCA7E3B2313A8E80033AC58 /* GeneralInfo.swift in Sources */,
 				1CCBD05B24CC326600B43C9D /* ActionData.swift in Sources */,
@@ -905,6 +920,7 @@
 				1C4D2D8824E3DA2400E54EB8 /* Insider.swift in Sources */,
 				1C817BDF2544C8FB003695F7 /* VariableTableViewCell.swift in Sources */,
 				1C4D2DA024EE33F800E54EB8 /* PriceTargetTopAnalysts.swift in Sources */,
+				1C1421DE256C529A006087BA /* FearGreedTableViewCell.swift in Sources */,
 				1CD11940216DC394000AE02E /* CandlePricesView.swift in Sources */,
 				1C72F90A24CA4FFD00EC59F6 /* UserAccountViewController.swift in Sources */,
 				1CDA114C232B5C810028D00C /* FormattedNumberLabel.swift in Sources */,
