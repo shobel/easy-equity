@@ -41,6 +41,7 @@ class FearGreedViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.title.text = indicator.name
         cell.gauge.rate = CGFloat(self.getFearGreedValueFromString(indicator.indicatorValue ?? ""))
         cell.indicatorText.text = indicator.indicatorDescription
+        cell.indicatorString.text = indicator.indicatorValue
         return cell
     }
 
@@ -60,6 +61,13 @@ class FearGreedViewController: UIViewController, UITableViewDelegate, UITableVie
             return 50
         }
     }
+    
+    @IBAction func cnnmoneyButtonTapped(_ sender: Any) {
+        if let url = URL(string: String("http://www.cnn.com")) {
+            UIApplication.shared.open(url)
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

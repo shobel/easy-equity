@@ -48,6 +48,10 @@
 		1C627133253E232900A4CC57 /* ScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C627132253E232900A4CC57 /* ScoresViewController.swift */; };
 		1C6271352541135B00A4CC57 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6271342541135B00A4CC57 /* AnalysisViewController.swift */; };
 		1C6271372541327A00A4CC57 /* CompanyScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6271362541327A00A4CC57 /* CompanyScoreTableViewCell.swift */; };
+		1C62CF45256E078B009C27E3 /* IndustryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62CF44256E078B009C27E3 /* IndustryCollectionViewCell.swift */; };
+		1C62CF4A256E43E4009C27E3 /* SectorPerformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62CF49256E43E4009C27E3 /* SectorPerformance.swift */; };
+		1C62CF4F256E44E3009C27E3 /* EconomyWeekly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62CF4E256E44E3009C27E3 /* EconomyWeekly.swift */; };
+		1C62CF54256E4C8D009C27E3 /* EconomicMonthly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62CF53256E4C8D009C27E3 /* EconomicMonthly.swift */; };
 		1C62FDD624BC144D00BABDCB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDD524BC144D00BABDCB /* LoginViewController.swift */; };
 		1C62FDD924BC14D900BABDCB /* frog-on-a-log.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C62FDD824BC14D900BABDCB /* frog-on-a-log.mp4 */; };
 		1C62FDDB24BC4B6F00BABDCB /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDDA24BC4B6F00BABDCB /* SignupViewController.swift */; };
@@ -202,6 +206,10 @@
 		1C627132253E232900A4CC57 /* ScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewController.swift; sourceTree = "<group>"; };
 		1C6271342541135B00A4CC57 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 		1C6271362541327A00A4CC57 /* CompanyScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyScoreTableViewCell.swift; sourceTree = "<group>"; };
+		1C62CF44256E078B009C27E3 /* IndustryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndustryCollectionViewCell.swift; sourceTree = "<group>"; };
+		1C62CF49256E43E4009C27E3 /* SectorPerformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectorPerformance.swift; sourceTree = "<group>"; };
+		1C62CF4E256E44E3009C27E3 /* EconomyWeekly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EconomyWeekly.swift; sourceTree = "<group>"; };
+		1C62CF53256E4C8D009C27E3 /* EconomicMonthly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EconomicMonthly.swift; sourceTree = "<group>"; };
 		1C62FDD524BC144D00BABDCB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1C62FDD824BC14D900BABDCB /* frog-on-a-log.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "frog-on-a-log.mp4"; sourceTree = "<group>"; };
 		1C62FDDA24BC4B6F00BABDCB /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -490,6 +498,9 @@
 				1C817BCF2544935A003695F7 /* ScoreSettings.swift */,
 				1CABC483254691E000B37588 /* StocktwitsPost.swift */,
 				1C1421E2256C5408006087BA /* FearGreedIndicator.swift */,
+				1C62CF49256E43E4009C27E3 /* SectorPerformance.swift */,
+				1C62CF4E256E44E3009C27E3 /* EconomyWeekly.swift */,
+				1C62CF53256E4C8D009C27E3 /* EconomicMonthly.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -529,6 +540,7 @@
 				1CABC48D2548028E00B37588 /* StockNewsCollectionViewCell.swift */,
 				1CABC492254803F700B37588 /* DetailStocktwitsTableViewCell.swift */,
 				1C1421DD256C529A006087BA /* FearGreedTableViewCell.swift */,
+				1C62CF44256E078B009C27E3 /* IndustryCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -831,6 +843,7 @@
 				1C6FF97D23261C74005AE40D /* FinancialsViewController.swift in Sources */,
 				1C0BC4DB232D83B9007C117F /* CustomCombinedChartView.swift in Sources */,
 				1C8DD1C024C8DF9800333C90 /* CompanySearchTableViewCell.swift in Sources */,
+				1C62CF4A256E43E4009C27E3 /* SectorPerformance.swift in Sources */,
 				1C6936C021D1CFB300E3FDC9 /* StatsNewsPageViewController.swift in Sources */,
 				1CB257272173A234008E3D4D /* HTTPRequest.swift in Sources */,
 				1C9B952523EE3958004E95B1 /* DatedValue.swift in Sources */,
@@ -876,6 +889,7 @@
 				1C6271352541135B00A4CC57 /* AnalysisViewController.swift in Sources */,
 				1CABC493254803F700B37588 /* DetailStocktwitsTableViewCell.swift in Sources */,
 				1C817BDA2544B604003695F7 /* ScoreSettingsViewController.swift in Sources */,
+				1C62CF45256E078B009C27E3 /* IndustryCollectionViewCell.swift in Sources */,
 				1C7B9861215DDFBC00C75014 /* Company.swift in Sources */,
 				1C627131253D656C00A4CC57 /* Scores.swift in Sources */,
 				1CABC48E2548028F00B37588 /* StockNewsCollectionViewCell.swift in Sources */,
@@ -885,10 +899,12 @@
 				1CD11942216DD73C000AE02E /* StockDetailsSummaryView.swift in Sources */,
 				1CB257252172C292008E3D4D /* WatchlistManager.swift in Sources */,
 				1C6936BC21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift in Sources */,
+				1C62CF54256E4C8D009C27E3 /* EconomicMonthly.swift in Sources */,
 				1C4D2D9824EBB60500E54EB8 /* BrainSentiment.swift in Sources */,
 				1C4335EF24F8AF2C00D2628D /* Extensions.swift in Sources */,
 				1C72349A230CF34500319D7F /* PremiumViewController.swift in Sources */,
 				1C72349C230CF43200319D7F /* KeyStatsViewController.swift in Sources */,
+				1C62CF4F256E44E3009C27E3 /* EconomyWeekly.swift in Sources */,
 				1CB257292173B8A5008E3D4D /* Configuration.swift in Sources */,
 				1CCBD05D24CC327200B43C9D /* Skype.swift in Sources */,
 				1CB2572B21765C3A008E3D4D /* StockDetailsNavView.swift in Sources */,

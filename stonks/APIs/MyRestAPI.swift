@@ -441,20 +441,54 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func getFearGreedIndicators(completionHandler: @escaping (Int, [FearGreedIndicator])->Void){
-        let queryURL = buildQuery(url: apiurl + marketEndpoint + "/fear-greed", params: [:])
+    public func getMarketAndEconomyData(completionHandler: @escaping (Int, [FearGreedIndicator], [SectorPerformance], [EconomyWeekly], [EconomyMonthly], [Double])->Void){
+        let queryURL = buildQuery(url: apiurl + marketEndpoint + "/market-economy", params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
             var indicators:[FearGreedIndicator] = []
-            let indicatorsJSON = json["indicators"]
+            let fearGreedJSON = json["fearGreed"]
+            let indicatorsJSON = fearGreedJSON["indicators"]
             for i in 0..<indicatorsJSON.count{
                 let JSONString:String = indicatorsJSON[i].rawString()!
                 if let n = Mapper<FearGreedIndicator>().map(JSONString: JSONString){
                     indicators.append(n)
                 }
             }
-            let nowValue = json["timeline"]["now"].string!
-            completionHandler(Int(nowValue) ?? 0, indicators)
+            let nowValue = fearGreedJSON["timeline"]["now"].string!
+            
+            let sectorJSON = json["sectorPerformance"]
+            var sectorPerformances:[SectorPerformance] = []
+            for i in 0..<sectorJSON.count{
+                let sp:JSON = sectorJSON[i]
+                let sectorPerformance:SectorPerformance = SectorPerformance(name: sp["name"].string!, performance: sp["performance"].double!)
+                sectorPerformances.append(sectorPerformance)
+            }
+            
+            let economy = json["economy"]
+            let weekly = economy["weekly"]
+            var weeklyEconomy:[EconomyWeekly] = []
+            for i in 0..<weekly.count{
+                let JSONString:String = weekly[i].rawString()!
+                if let n = Mapper<EconomyWeekly>().map(JSONString: JSONString){
+                    weeklyEconomy.append(n)
+                }
+            }
+            let monthly = economy["monthly"]
+            var monthlyEconomy:[EconomyMonthly] = []
+            for i in 0..<monthly.count{
+                let JSONString:String = monthly[i].rawString()!
+                if let n = Mapper<EconomyMonthly>().map(JSONString: JSONString){
+                    monthlyEconomy.append(n)
+                }
+            }
+            
+            let quarterly = economy["quarterly"]
+            var gdps:[Double] = []
+            for i in 0..<quarterly.count {
+                let q = quarterly[i]["realGDP"].double!
+                gdps.append(q)
+            }
+            completionHandler(Int(nowValue) ?? 0, indicators, sectorPerformances, weeklyEconomy, monthlyEconomy, gdps)
         }
     }
     

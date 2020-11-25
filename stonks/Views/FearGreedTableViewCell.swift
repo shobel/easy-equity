@@ -14,6 +14,7 @@ class FearGreedTableViewCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var gauge: Gauge!
     @IBOutlet weak var indicatorText: UITextView!
+    @IBOutlet weak var indicatorString: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
