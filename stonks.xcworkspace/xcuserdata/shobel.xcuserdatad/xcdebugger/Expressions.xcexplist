@@ -480,6 +480,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in closure #1 in MarketViewController.viewDidLoad():MarketViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.em">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "MyRestAPI.setScoresSettings(scoreSettings:completionHandler:):MyRestAPI.swift">
          <PersistentStrings>
             <PersistentString
@@ -911,10 +919,10 @@
                value = "statsVC.getContentHeight()">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
+               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
+               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1093,6 +1101,17 @@
          <PersistentStrings>
             <PersistentString
                value = "self.parent?.parent?.parent">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in MyRestAPI.getFearGreedIndicators(completionHandler:):MyRestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "json[&quot;timeline&quot;][&quot;now&quot;].string!">
+            </PersistentString>
+            <PersistentString
+               value = "fearGreedJSON[&quot;timeline&quot;]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

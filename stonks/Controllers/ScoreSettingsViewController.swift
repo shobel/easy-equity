@@ -92,6 +92,8 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
             NetworkManager.getMyRestApi().setScoresSettings(scoreSettings: self.scoreSettings) { (result) in
                 if let p = self.parentVC as? AnalysisViewController {
                     p.fetchScores()
+                } else if let p = self.parentVC as? ScoresViewController {
+                    p.fetchScores()
                 }
             }
         }

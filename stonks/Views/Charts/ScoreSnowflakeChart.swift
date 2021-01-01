@@ -16,7 +16,8 @@ class ScoreSnowflakeChart: RadarChartView {
         self.rotationEnabled = false
         self.highlightPerTapEnabled = false
         self.isUserInteractionEnabled = false
-        
+        self.noDataText = ""
+
         self.yAxis.drawLabelsEnabled = false
         self.yAxis.axisMaximum = 80.0
         self.yAxis.axisMinimum = 0.0

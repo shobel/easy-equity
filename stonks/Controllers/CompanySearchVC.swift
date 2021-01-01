@@ -410,7 +410,9 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         if String(word[index]).range(of: "[^a-zA-Z]", options: .regularExpression) == nil {
                             let range:NSRange = (string.string as NSString).range(of: word)
                             string.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 18), range: range)
-                            string.addAttribute(NSAttributedString.Key.link, value: NSURL(string: String("http://www.stocktwits.com/\(word)"))!, range: range)
+                            if let link = NSURL(string:String("http://www.stocktwits.com/\(word)")) {
+                                string.addAttribute(NSAttributedString.Key.link, value: link, range: range)
+                            }
                         }
                     }
                 }

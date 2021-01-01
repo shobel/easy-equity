@@ -20,6 +20,7 @@ target 'stonks' do
   pod 'ObjectMapper'
 
   # Flashy UI
+  pod "GaugeKit"
   pod 'Parchment'
   pod 'MaterialActivityIndicator'
   pod 'RSLoadingView'
