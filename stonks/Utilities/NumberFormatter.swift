@@ -12,13 +12,18 @@ class NumberFormatter {
     
     /* formats a number to be a double if it has a decimal, otherwise an integer */
     static func formatNumberWithPossibleDecimal(_ value:Double) -> String {
-         let dbl = value
-         let isInteger = floor(dbl) == dbl
-         if isInteger {
-             return String(Int(value.rounded()))
-         } else {
-             return String(format:"%.2f", value)
-         }
+        var dbl = value
+        if ceil(value) - value < 0.02 {
+            dbl = ceil(value)
+        } else if value - floor(value) < 0.02 {
+            dbl = floor(value)
+        }
+        let isInteger = floor(dbl) == dbl
+        if isInteger {
+            return String(Int(value.rounded()))
+        } else {
+            return String(format:"%.2f", value)
+        }
     }
     
     //dates in the format YYYY-MM-DD or YYYY/MM/DD can be converted to Ints with this method
@@ -111,6 +116,20 @@ class NumberFormatter {
             return dateFormatter.date(from: finalTimeString)!
         }
         return dateFormatter.date(from: timeString)!
+    }
+    
+    static func timestampToDatestring(_ timestamp: Double) -> String {
+        var adjTimestamp = timestamp
+        if adjTimestamp > 9999999999 {
+            adjTimestamp = timestamp / 1000
+        }
+        let date = Date(timeIntervalSince1970: adjTimestamp)
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "EST") //Set timezone that you want
+        dateFormatter.locale = NSLocale.current
+        dateFormatter.dateFormat = "MMM dd, YYYY" //Specify your format that you want
+        let strDate = dateFormatter.string(from: date)
+        return strDate
     }
 }
 
