@@ -16,9 +16,13 @@ class MarketViewController: UIViewController, UICollectionViewDelegate, UICollec
     private var overallValue:Int = 0
     
     private var sectorPerformances:[SectorPerformance] = []
+    @IBOutlet weak var sectorPerfDate: UILabel!
     private var ew:[EconomyMetric] = []
     private var em:[EconomyMetric] = []
     private var gdps:[Double] = []
+    @IBOutlet weak var gdpStartDate: UILabel!
+    @IBOutlet weak var gdpEndDate: UILabel!
+    @IBOutlet weak var gdpChart: SimplestLineChart!
     @IBOutlet weak var industryCollection: UICollectionView!
     
     @IBOutlet weak var weeklyEconomyTable: UITableView!
@@ -34,23 +38,44 @@ class MarketViewController: UIViewController, UICollectionViewDelegate, UICollec
         self.monthlyEconomyTable.delegate = self
         self.monthlyEconomyTable.dataSource = self
         
-        NetworkManager.getMyRestApi().getMarketAndEconomyData(completionHandler: { (overallFearGreed, indicators, sectors, economyWeekly, economyMonthly, gdps) in
+        NetworkManager.getMyRestApi().getMarketAndEconomyData(completionHandler: { (overallFearGreed, indicators, sectors, economyWeekly, economyMonthly, gdps, gdpStartDate, gdpEndDate) in
             DispatchQueue.main.async {
                 self.overallValue = overallFearGreed
                 self.overallFearGreed.text = String(overallFearGreed)
                 self.indicators = indicators
                 self.overallGauge.rate = CGFloat(overallFearGreed)
                 self.sectorPerformances = sectors
+                if self.sectorPerformances.count > 0, let updated = sectors[0].updated {
+                    self.sectorPerfDate.text = NumberFormatter.timestampToDatestring(Double(updated))
+                } else {
+                    self.sectorPerfDate.text = ""
+                }
                 
                 self.ew = EconomyWeekly.getValueArrayFromEconomyWeeklies(weeklies: economyWeekly)
                 self.em = EconomyMonthly.getValueArrayFromEconomyMonthlies(monthlies: economyMonthly)
-                self.gdps = gdps
+                self.gdps = self.getRealGDPFromPercentChanges(gdps.reversed())
                 
+                self.gdpStartDate.text = gdpStartDate
+                self.gdpEndDate.text = gdpEndDate
+                self.gdpChart.setData(self.gdps)
+                self.gdpChart.setDrawZeroLine()
+                self.gdpChart.setHideLeftAxis()
                 self.industryCollection.reloadData()
                 self.weeklyEconomyTable.reloadData()
                 self.monthlyEconomyTable.reloadData()
             }
         })
+    }
+    
+    func getRealGDPFromPercentChanges(_ gdps:[Double]) -> [Double]{
+        var realGdps:[Double] = []
+        var currentValue = 1.0
+        for i in 0..<gdps.count {
+            let gdp = gdps[i]
+            currentValue = currentValue + (currentValue * gdp/100.0)
+            realGdps.append(currentValue)
+        }
+        return realGdps
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -87,7 +112,7 @@ class MarketViewController: UIViewController, UICollectionViewDelegate, UICollec
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sectorCell", for: indexPath) as! IndustryCollectionViewCell
         let sector = sectorPerformances[indexPath.row]
         cell.industryName.text = sector.name
-        cell.performance.text = String(sector.performance ?? 0.0)
+        cell.setPerformance(sector.performance ?? 0.0)
         return cell
 
     }

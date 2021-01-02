@@ -11,8 +11,11 @@ import Foundation
 struct SectorPerformance {
     public var name:String?
     public var performance:Double?
-    init(name:String, performance:Double){
+    public var updated:Int?
+    
+    init(name:String, performance:Double, updated:Int){
         self.name = name
         self.performance = performance
+        self.updated = updated
     }
 }

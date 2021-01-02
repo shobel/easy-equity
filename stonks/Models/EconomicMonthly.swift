@@ -39,34 +39,47 @@ struct EconomyMonthly: Mappable {
             let field = fields[i]
             let name = names[i]
             em.name = name
+            var foundFirstValue = false
             for j in 0..<monthlies.count {
                 let monthly = monthlies[j]
+                var foundValue = false
                 var latestValue = 0.0
                 switch field {
                     case "recessionProbability":
-                        latestValue = Double(monthly.recessionProbability ?? 0)
-                        em.values.append(Double(monthly.recessionProbability ?? 0))
+                        if monthly.recessionProbability != nil {
+                            latestValue = Double(monthly.recessionProbability ?? 0)
+                            em.values.append(latestValue)
+                        }
                         break
                     case "consumerPriceIndex":
-                        latestValue = Double(monthly.consumerPriceIndex ?? 0)
-                        em.values.append(Double(monthly.consumerPriceIndex ?? 0))
+                        if monthly.consumerPriceIndex != nil {
+                            latestValue = Double(monthly.consumerPriceIndex ?? 0)
+                            em.values.append(latestValue)
+                        }
                         break
                     case "unemploymentPercent":
-                        latestValue = Double(monthly.unemploymentPercent ?? 0)
-                        em.values.append(Double(monthly.unemploymentPercent ?? 0))
+                        if monthly.unemploymentPercent != nil {
+                            latestValue = Double(monthly.unemploymentPercent ?? 0)
+                            em.values.append(latestValue)
+                        }
                         break
                     case "fedFundsRate":
-                        latestValue = Double(monthly.fedFundsRate ?? 0)
-                        em.values.append(Double(monthly.fedFundsRate ?? 0))
+                        if monthly.fedFundsRate != nil {
+                            latestValue = Double(monthly.fedFundsRate ?? 0)
+                            em.values.append(latestValue)
+                        }
                         break
                     case "industrialProductionIndex":
-                        latestValue = Double(monthly.industrialProductionIndex ?? 0)
-                        em.values.append(Double(monthly.industrialProductionIndex ?? 0))
+                        if monthly.industrialProductionIndex != nil {
+                            latestValue = Double(monthly.industrialProductionIndex ?? 0)
+                            em.values.append(latestValue)
+                        }
                         break
                     default:
                         break
                 }
-                if j == 0 {
+                if !foundFirstValue && foundValue {
+                    foundFirstValue = true
                     em.latestValue = latestValue
                 }
             }

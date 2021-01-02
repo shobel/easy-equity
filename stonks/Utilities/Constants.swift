@@ -50,6 +50,15 @@ struct Constants{
     public static var fadedBlue = UIColor(red: 0.0/255.0, green: 50.0/255.0, blue: 255.0/255.0, alpha: 0.5)
     public static var fadedTeal = UIColor(red: 50.0/255.0, green: 200.0/255.0, blue: 150.0/255.0, alpha: 0.5)
     public static var fadedDarkGrey = UIColor(red: 67.0/255.0, green: 67.0/255.0, blue: 67.0/255.0, alpha: 0.5)
+    
+    public static var bigGreen = UIColor(red: 49.0/255.0, green: 204.0/255.0, blue: 90.0/255.0, alpha: 1.0)
+    public static var mediumGreen = UIColor(red: 46.0/255.0, green: 159.0/255.0, blue: 78.0/255.0, alpha: 1.0)
+    public static var smallGreen = UIColor(red: 52.0/255.0, green: 119.0/255.0, blue: 77.0/255.0, alpha: 1.0)
+    public static var neutralGrey = UIColor(red: 65.0/255.0, green: 70.0/255.0, blue: 84.0/255.0, alpha: 1.0)
+    public static var smallRed = UIColor(red: 140.0/255.0, green: 68.0/255.0, blue: 78.0/255.0, alpha: 1.0)
+    public static var mediumRed = UIColor(red: 192.0/255.0, green: 64.0/255.0, blue: 69.0/255.0, alpha: 1.0)
+    public static var bigRed = UIColor(red: 246.0/255.0, green: 53.0/255.0, blue: 56.0/255.0, alpha: 1.0)
+
 
     /* FINVIZ ratings */
     enum FinvizRatingCategory {

@@ -441,7 +441,7 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func getMarketAndEconomyData(completionHandler: @escaping (Int, [FearGreedIndicator], [SectorPerformance], [EconomyWeekly], [EconomyMonthly], [Double])->Void){
+    public func getMarketAndEconomyData(completionHandler: @escaping (Int, [FearGreedIndicator], [SectorPerformance], [EconomyWeekly], [EconomyMonthly], [Double], String, String)->Void){
         let queryURL = buildQuery(url: apiurl + marketEndpoint + "/market-economy", params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
@@ -460,7 +460,7 @@ class MyRestAPI: HTTPRequest {
             var sectorPerformances:[SectorPerformance] = []
             for i in 0..<sectorJSON.count{
                 let sp:JSON = sectorJSON[i]
-                let sectorPerformance:SectorPerformance = SectorPerformance(name: sp["name"].string!, performance: sp["performance"].double!)
+                let sectorPerformance:SectorPerformance = SectorPerformance(name: sp["name"].string ?? "", performance: sp["performance"].double ?? 0.0, updated: sp["lastUpdated"].int ?? 0)
                 sectorPerformances.append(sectorPerformance)
             }
             
@@ -484,11 +484,19 @@ class MyRestAPI: HTTPRequest {
             
             let quarterly = economy["quarterly"]
             var gdps:[Double] = []
+            var gdpStartDate = ""
+            var gdpEndDate = ""
             for i in 0..<quarterly.count {
+                if i == 0 {
+                    gdpEndDate = quarterly[i]["id"].string ?? ""
+                }
+                if i == quarterly.count - 1 {
+                    gdpStartDate = quarterly[i]["id"].string ?? ""
+                }
                 let q = quarterly[i]["realGDP"].double!
                 gdps.append(q)
             }
-            completionHandler(Int(nowValue) ?? 0, indicators, sectorPerformances, weeklyEconomy, monthlyEconomy, gdps)
+            completionHandler(Int(nowValue) ?? 0, indicators, sectorPerformances, weeklyEconomy, monthlyEconomy, gdps, gdpStartDate, gdpEndDate)
         }
     }
     

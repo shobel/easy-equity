@@ -21,11 +21,12 @@ class SimplestLineChart: LineChartView {
         self.doubleTapToZoomEnabled = false
         self.autoScaleMinMaxEnabled = true
         
-        self.leftAxis.enabled = false
-        self.leftAxis.drawAxisLineEnabled = false
+        self.leftAxis.enabled = true
+        self.leftAxis.drawAxisLineEnabled = true
         self.leftAxis.labelPosition = .insideChart
         self.leftAxis.labelCount = 2
         self.leftAxis.drawGridLinesEnabled = false
+        self.leftAxis.valueFormatter = BigNumberAxisFormatter()
         self.rightAxis.enabled = false
         self.xAxis.enabled = false
         self.noDataText = ""
@@ -50,5 +51,12 @@ class SimplestLineChart: LineChartView {
             self.notifyDataSetChanged()
         }
     }
-
+    
+    public func setDrawZeroLine(){
+        self.leftAxis.drawZeroLineEnabled = true
+    }
+    
+    public func setHideLeftAxis(){
+        self.leftAxis.enabled = false
+    }
 }

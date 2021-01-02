@@ -35,27 +35,39 @@ struct EconomyWeekly: Mappable {
             let field = fields[i]
             let name = names[i]
             em.name = name
+            var foundFirstValue = false
             for j in 0..<weeklies.count {
                 let weekly = weeklies[j]
-                var latestValue = 0.0
+                var foundValue = false
+                var curVal = 0.0
                 switch field {
                     case "initialClaims":
-                        latestValue = Double(weekly.initialClaims ?? 0)
-                        em.values.append(Double(weekly.initialClaims ?? 0))
+                        if weekly.initialClaims != nil {
+                            foundValue = true
+                            curVal = Double(weekly.initialClaims ?? 0)
+                            em.values.append(curVal)
+                        }
                         break
                     case "retailMoneyFunds":
-                        latestValue = Double(weekly.retailMoneyFunds ?? 0)
-                        em.values.append(Double(weekly.retailMoneyFunds ?? 0))
+                        if weekly.retailMoneyFunds != nil {
+                            foundValue = true
+                            curVal = Double(weekly.retailMoneyFunds ?? 0)
+                            em.values.append(curVal)
+                        }
                         break
                     case "institutionalMoneyFunds":
-                        latestValue = Double(weekly.institutionalMoneyFunds ?? 0)
-                        em.values.append(Double(weekly.institutionalMoneyFunds ?? 0))
+                        if weekly.institutionalMoneyFunds != nil {
+                            foundValue = true
+                            curVal = Double(weekly.institutionalMoneyFunds ?? 0)
+                            em.values.append(curVal)
+                        }
                         break
                     default:
                         break
                 }
-                if j == 0 {
-                    em.latestValue = latestValue
+                if !foundFirstValue && foundValue {
+                    foundFirstValue = true
+                    em.latestValue = curVal
                 }
             }
             em.values.reverse()
