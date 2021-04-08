@@ -6973,12 +6973,6 @@
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="feather" translatesAutoresizingMaskIntoConstraints="NO" id="geN-de-HWB">
                                                         <rect key="frame" x="20" y="142" width="25" height="25"/>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="LITIGIOUS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qj0-lY-3OF">
-                                                        <rect key="frame" x="70" y="146.5" width="58.5" height="16"/>
-                                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="INTERESTING" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3E9-aA-BkU">
                                                         <rect key="frame" x="70" y="212.5" width="77.5" height="16"/>
                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
@@ -6991,6 +6985,12 @@
                                                             <constraint firstAttribute="height" constant="20" id="gKX-hd-Z1D"/>
                                                         </constraints>
                                                     </progressView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="LITIGIOUS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qj0-lY-3OF">
+                                                        <rect key="frame" x="70" y="146.5" width="58.5" height="16"/>
+                                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="UNCERTAINTY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CpB-aP-3it">
                                                         <rect key="frame" x="70" y="113.5" width="83" height="16"/>
                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
@@ -7045,6 +7045,7 @@
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="CpB-aP-3it" secondAttribute="trailing" constant="20" symbolic="YES" id="cuP-D7-xbs"/>
                                                     <constraint firstItem="IyC-o3-gqw" firstAttribute="leading" secondItem="oh9-FM-bsg" secondAttribute="leading" id="dLB-oN-vtK"/>
                                                     <constraint firstItem="geN-de-HWB" firstAttribute="centerX" secondItem="kQo-M1-wSI" secondAttribute="centerX" id="ds6-lY-4Jw"/>
+                                                    <constraint firstItem="f6G-oz-1uc" firstAttribute="leading" secondItem="CpB-aP-3it" secondAttribute="leading" id="eeE-z9-I17"/>
                                                     <constraint firstItem="WqY-sB-Nq6" firstAttribute="centerY" secondItem="Csz-w3-WfQ" secondAttribute="centerY" id="eqw-n9-yx4"/>
                                                     <constraint firstItem="yJI-zo-bhE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HxF-kN-gia" secondAttribute="trailing" constant="8" symbolic="YES" id="erp-a7-Dd5"/>
                                                     <constraint firstItem="eo4-Cf-y9e" firstAttribute="height" secondItem="2cp-01-eqe" secondAttribute="height" id="fC9-SP-MWf"/>
@@ -7058,7 +7059,6 @@
                                                     <constraint firstItem="IyC-o3-gqw" firstAttribute="centerY" secondItem="geN-de-HWB" secondAttribute="centerY" id="s9f-X2-it3"/>
                                                     <constraint firstItem="g1T-VT-YGJ" firstAttribute="leading" secondItem="oh9-FM-bsg" secondAttribute="leading" id="ssR-er-90O"/>
                                                     <constraint firstItem="gqy-iT-GZM" firstAttribute="centerX" secondItem="fOt-bF-ep8" secondAttribute="centerX" id="swE-Vx-kzv"/>
-                                                    <constraint firstItem="f6G-oz-1uc" firstAttribute="leading" secondItem="Qj0-lY-3OF" secondAttribute="leading" id="ths-H9-bC5"/>
                                                     <constraint firstItem="Qj0-lY-3OF" firstAttribute="leading" secondItem="CpB-aP-3it" secondAttribute="leading" id="vWo-m7-TYX"/>
                                                     <constraint firstItem="WqY-sB-Nq6" firstAttribute="leading" secondItem="oh9-FM-bsg" secondAttribute="leading" id="zqj-Op-VNn"/>
                                                 </constraints>
