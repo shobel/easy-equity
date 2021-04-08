@@ -29,13 +29,23 @@ class MyRestAPI: HTTPRequest {
         super.init()
     }
     
+    public func verifyReceipt(_ receipt:String, completionHandler: @escaping (JSON)->Void){
+        let body = [
+            "receipt": receipt
+        ]
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/verifyReceipt", params: [:])
+        self.postRequest(queryURL: queryURL, body: body) { (data) in
+            completionHandler(data)
+        }
+    }
+    
     public func clearKeychain() {
         KeychainItem.deleteAllKeychainIdentifiers()
     }
     
     public func signOutAndClearKeychain(){
         let body = [
-            "email": KeychainItem.currentEmail
+            "userid": KeychainItem.currentUserIdentifier
         ]
         let queryURL = buildQuery(url: apiurl + authEndpoint + "/signout", params: [:])
         self.postRequest(queryURL: queryURL, body: body) { (data) in
@@ -303,21 +313,38 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func getPremiumData(symbol:String, completionHandler: @escaping (Kscore, BrainSentiment)->Void){
-        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/premium/all/" + symbol, params: [:])
+    public func getPremiumData(symbol:String, completionHandler: @escaping (PremiumStockInfo?, Kscore?, BrainSentiment?)->Void){
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/premium/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
-            let kscoresJSON = json["kscore"].rawString()!
-            var kscore:Kscore = Kscore()
-            if let k = Mapper<Kscore>().map(JSONString: kscoresJSON){
-                kscore = k
+            var kscore:Kscore? = nil
+            var brainSentiment:BrainSentiment? = nil
+            var premiumStockInfo:PremiumStockInfo? = nil
+            if (json["premiumStockInfo"].exists()) {
+                premiumStockInfo = PremiumStockInfo()
+                let psi = json["premiumStockInfo"]
+                premiumStockInfo!.symbol = psi["symbol"].stringValue
+                premiumStockInfo!.lastUpdated = psi["lastUpdate"].doubleValue
+                premiumStockInfo!.updatesRemaining = psi["updatesRemaining"].intValue
+                
             }
-            let brainSentimentJSON = json["brainSentiment"].rawString()!
-            var brainSentiment:BrainSentiment = BrainSentiment()
-            if let b = Mapper<BrainSentiment>().map(JSONString: brainSentimentJSON){
-                brainSentiment = b
+            if (json["premiumStockData"].exists()){
+                if (json["kscore"].exists()){
+                    kscore = Kscore()
+                    let kscoresJSON = json["kscore"].rawString()!
+                    if let k = Mapper<Kscore>().map(JSONString: kscoresJSON){
+                        kscore = k
+                    }
+                }
+                if (json["brainSentiment"].exists()){
+                    brainSentiment = BrainSentiment()
+                    let brainSentimentJSON = json["brainSentiment"].rawString()!
+                    if let b = Mapper<BrainSentiment>().map(JSONString: brainSentimentJSON){
+                        brainSentiment = b
+                    }
+                }
             }
-            completionHandler(kscore, brainSentiment)
+            completionHandler(premiumStockInfo, kscore, brainSentiment)
         }
     }
     

@@ -90,7 +90,12 @@ class CustomCombinedChartView: CombinedChartView {
             self.myCandleDataTenMin = shrinkMinuteData(chartData, groupBy: 10)
         }
         self.myCandleData = chartData
-        updateChart()
+        if self.myCandleData?.count ?? 0 > 0 {
+            updateChart()
+        } else {
+            self.data = nil
+            self.notifyDataSetChanged()
+        }
     }
     
     public func getChartDataCount(timeInteral: Constants.TimeIntervals, candleMode: Bool) -> Int {
@@ -159,7 +164,9 @@ class CustomCombinedChartView: CombinedChartView {
                 prevCloseEntries.append(ChartDataEntry(x: Double(i), y: previousCloseValue))
             }
         }
-        self.lastLineValue = self.myCandleData![self.myCandleData!.count - 1].close!
+        if self.myCandleData!.count > 0 {
+            self.lastLineValue = self.myCandleData![self.myCandleData!.count - 1].close!
+        }
         prevCloseEntries.append(ChartDataEntry(x: Double(self.myCandleData!.count - 1), y: previousCloseValue))
         
         let candleSet = CandleChartDataSet(entries: candleEntries)

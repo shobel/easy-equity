@@ -28,6 +28,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "UserAccountViewController.viewDidLoad():UserAccountViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "KeychainItem.currentEmail">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "WatchlistVC.updateFromScheduledTask(_:):WatchlistVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -78,6 +86,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "static NumberFormatter.formatNumberWithPossibleDecimal(_:):NumberFormatter.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "floor(dbl)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CompanySearchVC.tableView(_:willDisplay:forRowAt:):CompanySearchVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -85,14 +101,6 @@
             </PersistentString>
             <PersistentString
                value = "self.stocktwitsTableHeights">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "static NumberFormatter.formatNumberWithPossibleDecimal(_:):NumberFormatter.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "floor(dbl)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -335,6 +343,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "PurchaseViewController.paymentQueue(_:updatedTransactions:):PurchaseViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "transaction.transactionState">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "WatchlistUpdater.update():WatchlistUpdater.swift">
          <PersistentStrings>
             <PersistentString
@@ -492,6 +508,14 @@
          <PersistentStrings>
             <PersistentString
                value = "self.contentView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "PremiumStockTableViewCell.currentMonthSwitch(_:):PremiumStockTableViewCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "superview?.superview">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -868,6 +892,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in SubscriptionViewController.receiptValidation():SubscriptionViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "receipt[&quot;latest_receipt_info&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "receipt[&quot;pending_renewal_info&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #2 in CustomCombinedChartView.updateChart():CustomCombinedChartView.swift">
       </ContextState>
       <ContextState
@@ -894,6 +929,9 @@
                value = "timer?.timeInterval">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ManagePremiumStocksViewController.filterList(searchText:):ManagePremiumStocksViewController.swift">
       </ContextState>
       <ContextState
          contextName = "StockDetailsVC.OneDayButtonPressed(_:):StockDetailsVC.swift">
@@ -924,10 +962,10 @@
                value = "self.pagingView.bounds.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
+               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
+               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
             </PersistentString>
             <PersistentString
                value = "statsVC.getContentHeight()">
@@ -1536,6 +1574,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "SubscriptionViewController.hasActiveSubscription(_:):SubscriptionViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Int(now)*1000">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "Company.addSmaToCandleSets():Company.swift">
          <PersistentStrings>
             <PersistentString
@@ -1598,6 +1644,14 @@
             </PersistentString>
             <PersistentString
                value = "dataSet.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SubscriptionViewController.productsRequest(_:didReceive:):SubscriptionViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "product?.subscriptionPeriod?.unit">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -24,11 +24,13 @@ class PremiumViewController: UIViewController, StatsVC {
     @IBOutlet weak var divider: UIView!
     @IBOutlet weak var brainSentimentPositive: UIProgressView!
     
+    
     private var company:Company!
     private var isLoaded = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+                
         self.overallRatingsView.layer.cornerRadius = self.overallRatingsView.frame.width/2
         self.overallRatingsView.layer.masksToBounds = true
         self.overallRatingsView.clipsToBounds = true
@@ -40,7 +42,23 @@ class PremiumViewController: UIViewController, StatsVC {
 
         self.isLoaded = true
         self.company = Dataholder.selectedCompany!
-        updateData()
+        
+        NetworkManager.getMyRestApi().getPremiumData(symbol: company.symbol, completionHandler: handlePremiumData)
+        
+    }
+    
+    private func handlePremiumData(premiumStockInfo:PremiumStockInfo?, kscores: Kscore?, brainSentiment: BrainSentiment?) {
+        if (premiumStockInfo == nil){
+
+        } else {
+            if (kscores != nil){
+                self.company.kscores = kscores
+            }
+            if (brainSentiment != nil){
+                self.company.brainSentiment = brainSentiment
+            }
+            self.updateData()
+        }
     }
     
     func updateData() {

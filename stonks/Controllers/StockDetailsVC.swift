@@ -193,10 +193,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
                 
         //start information retrieval processes
         self.totalHandlers = 2
-        if Constants.subscriber {
-            self.totalHandlers += 1
-            NetworkManager.getMyRestApi().getPremiumData(symbol: company.symbol, completionHandler: handlePremiumData)
-        }
         NetworkManager.getMyRestApi().getAllFreeData(symbol: company.symbol, completionHandler: handleAllData)
         NetworkManager.getMyRestApi().getNonIntradayChart(symbol: company.symbol, timeframe: .daily, completionHandler: self.handleDailyChart)
                 
@@ -340,7 +336,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             datetext = "market open - "
             datetime.textColor = Constants.green
         }
-        if latestQuote.latestTime!.contains(":"){
+        if latestQuote != nil && latestQuote.latestTime!.contains(":"){
             datetext += "last updated \(latestQuote.latestTime!) ET"
         } else {
             datetext += "last updated \(latestQuote.latestTime!)"
@@ -351,15 +347,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     //TODO-SAM: remove average volume argument and encorporate low/high volume into analysis
     public func setVolumeValues(averageVolume:Double, totalVol:Double){
         self.totalVol.text = String("TODAY'S VOLUME: \(NumberFormatter.formatNumber(num: totalVol))")
-    }
-    
-    private func handlePremiumData(kscores: Kscore, brainSentiment: BrainSentiment) {
-        self.company.kscores = kscores
-        self.company.brainSentiment = brainSentiment
-        let premiumVC = self.premiumVC as! StatsVC
-        premiumVC.updateData()
-        self.incrementLoadingProgress()
-
     }
     
     private func handleAllData(generalInfo: GeneralInfo, peerQuotes:[Quote], keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], cashflowAnnual:[CashFlow], income: [Income], incomeAnnual: [Income], insiders: [Insider], priceTargetTopAnalysts: PriceTargetTopAnalysts?){
@@ -568,10 +555,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         chartView.highlightValue(nil)
         let chartData = self.chartView.getChartData(candleMode: self.candleMode)
         
-        if self.timeInterval == Constants.TimeIntervals.day {
-            setTopBarValues(startPrice: latestQuote.previousClose ?? chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
-        } else {
-            setTopBarValues(startPrice: chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
+        if chartData.count > 0 {
+            if self.timeInterval == Constants.TimeIntervals.day {
+                setTopBarValues(startPrice: latestQuote.previousClose ?? chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
+            } else {
+                setTopBarValues(startPrice: chartData[0].close!, endPrice: latestQuote.latestPrice!, selected: false)
+            }
         }
     }
     

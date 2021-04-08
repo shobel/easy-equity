@@ -1,25 +1,22 @@
 //
-//  UserAccountViewController.swift
+//  PremiumStocksViewController.swift
 //  stonks
 //
-//  Created by Samuel Hobel on 7/23/20.
-//  Copyright © 2020 Samuel Hobel. All rights reserved.
+//  Created by Samuel Hobel on 1/18/21.
+//  Copyright © 2021 Samuel Hobel. All rights reserved.
 //
 
 import UIKit
-import Firebase
 
-class UserAccountViewController: UIViewController {
+class PremiumStocksViewController: UIViewController {
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
     }
     
-    @IBAction func signoutButtonTapped(_ sender: Any) {
-        NetworkManager.getMyRestApi().signOutAndClearKeychain()
-    }
-    
+
     /*
     // MARK: - Navigation
 

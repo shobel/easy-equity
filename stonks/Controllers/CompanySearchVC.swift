@@ -10,7 +10,7 @@ import UIKit
 import SafariServices
 import XLActionController
 
-extension CompanySearchVC: UISearchBarDelegate {
+extension CompanySearchVC: UISearchBarDelegate, LoadingProtocol {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterList(searchText: searchText)
         self.tableView.reloadData()
