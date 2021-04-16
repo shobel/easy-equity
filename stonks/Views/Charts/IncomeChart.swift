@@ -26,6 +26,7 @@ class IncomeChart: BarChartView {
                
         self.chartDescription?.enabled = false
         self.legend.enabled = true
+        self.legend.textColor = .black
         self.dragEnabled = false
         self.setScaleEnabled(false)
         self.pinchZoomEnabled = false
@@ -51,6 +52,8 @@ class IncomeChart: BarChartView {
         self.xAxis.wordWrapEnabled = false
         self.xAxis.centerAxisLabelsEnabled = true
         self.xAxis.valueFormatter = self
+        self.xAxis.labelTextColor = .black
+
         //self.drawBarShadowEnabled = true
 //        self.extraTopOffset = 0
         self.extraBottomOffset = 15

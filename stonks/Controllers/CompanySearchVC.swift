@@ -153,6 +153,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         tableView.isHidden = true
         marketView.isHidden = false
         
+        tableView.backgroundColor = .white
         tableView.tableFooterView = UIView(frame: .zero)
         //marketNewsTableView.tableFooterView = UIView(frame: .zero)
         
@@ -426,11 +427,14 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 cell.timeButton.setTitle(Date(timeIntervalSince1970: TimeInterval(ts)).timeAgoSinceDate(), for: .normal)
             }
             if post.sentiment == "Bearish" {
-                cell.bullbear.image = UIImage(named: "bull_face.png")
+                cell.bullbear.text = "BEARISH"
+                cell.bullbear.textColor = Constants.darkPink
             } else if post.sentiment == "Bullish" {
-                cell.bullbear.image = UIImage(named: "bear_face.png")
+                cell.bullbear.text = "BULLISH"
+                cell.bullbear.textColor = Constants.green
             } else {
-                cell.bullbear.image = UIImage(systemName: "person.crop.circle.fill")
+                cell.bullbear.text = "NEUTRAL"
+                cell.bullbear.textColor = .lightGray
             }
             return cell
         }

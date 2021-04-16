@@ -190,8 +190,8 @@
             filePath = "stonks/Views/Charts/PEChart.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "setChartData(company:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -199,16 +199,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "94B0B4B5-1B40-43AC-98AD-76097F14C804"
+            uuid = "5D043BC7-418D-4CF3-B194-B91E2EB052D6"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "stonks/Controllers/PurchaseViewController.swift"
+            filePath = "stonks/Controllers/PremiumViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
-            landmarkName = "receiptValidation()"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "handlePremiumData(premiumStockInfo:kscores:brainSentiment:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

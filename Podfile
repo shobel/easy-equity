@@ -13,6 +13,7 @@ target 'stonks' do
 
   # Essential UI
   pod 'Charts'
+  pod 'SPStorkController'
 
   # Utilities
   pod 'SwiftyJSON'
@@ -27,5 +28,5 @@ target 'stonks' do
   pod 'TransitionButton'
   pod 'VisualEffectView'
   pod 'XLActionController'
-
+  pod 'EFCountingLabel'
 end

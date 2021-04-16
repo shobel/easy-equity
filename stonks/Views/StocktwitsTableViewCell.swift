@@ -12,13 +12,13 @@ class StocktwitsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var username: UIButton!
     @IBOutlet weak var message: UITextView!
-    @IBOutlet weak var bullbear: UIImageView!
+    @IBOutlet weak var bullbear: UILabel!
     @IBOutlet weak var timeButton: UIButton!
     public var id:Int?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.message.backgroundColor = .white
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

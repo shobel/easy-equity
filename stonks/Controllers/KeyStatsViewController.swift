@@ -162,7 +162,7 @@ class KeyStatsViewController: UIViewController, StatsVC {
                 if let insiders = self.company.insiders {
                     var total = 0
                     for insider in insiders {
-                        total += insider.netTransacted!
+                        total += insider.netTransacted ?? 0
                     }
                     if total > 0 {
                         self.insidersLabel.text = "Insiders net bought over past 6 months: "

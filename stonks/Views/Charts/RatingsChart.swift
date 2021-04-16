@@ -43,7 +43,8 @@ class RatingsChart: BarChartView {
         self.xAxis.granularity = 1
         self.xAxis.drawAxisLineEnabled = true
         self.xAxis.wordWrapEnabled = true
-        
+        self.xAxis.labelTextColor = .black
+
         self.drawBarShadowEnabled = true
         self.extraTopOffset = 10 //isnt doing anything
         self.extraBottomOffset = 20

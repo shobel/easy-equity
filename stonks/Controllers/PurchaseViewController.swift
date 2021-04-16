@@ -9,15 +9,22 @@
 import UIKit
 import StoreKit
 import XLActionController
+import EFCountingLabel
 
-class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPaymentTransactionObserver {
+class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPaymentTransactionObserver, UITableViewDelegate, UITableViewDataSource {
 
     private var productId = "premiumstockinfo"
     private var cancelSubscriptionUrl:String = "https://apps.apple.com/account/subscriptions"
     private var subscriptionPrice:String = "$9.99"
     private var buttonAction:ButtonAction = ButtonAction.purchase
-    private var product:SKProduct?
+    private var productsApple:[SKProduct] = []
+    private var products:[Product] = []
     private var receipt: [String : Any]?
+    
+    @IBOutlet weak var topView: UIView!
+    
+    @IBOutlet weak var currentCredits: EFCountingLabel!
+    @IBOutlet weak var purchaseTable: UITableView!
     
     enum ButtonAction {
         case purchase
@@ -26,17 +33,84 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.purchaseTable.delegate = self
+        self.purchaseTable.dataSource = self
+
+        self.topView.layer.cornerRadius = 10
+        self.topView.layer.borderWidth = 1.0
+        self.topView.layer.borderColor = UIColor.lightGray.cgColor
+        
+        self.getProducts()
+        
+        self.currentCredits.counter.timingFunction = EFTimingFunction.linear
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.requestProducts()
-        self.receiptValidation()
+//        self.requestProducts()
+//        self.receiptValidation()
+        self.currentCredits.countFromCurrentValueTo(100, withDuration: 1.0)
     }
     
-    @IBAction func purchaseButtonTapped(_ sender: Any) {
-        if self.product != nil {
-            self.buyProduct(self.product!)
+    public func getProducts(){
+        NetworkManager.getMyRestApi().getProducts { (products) in
+            self.products = products
+            self.requestAppleProducts()
         }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.products.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "purchaseCell") as! PurchaseTableViewCell
+        
+        let product = self.products[indexPath.row]
+        cell.credits.text = String(product.credits!)
+        cell.price.text = "$" + String(product.usd!)
+        cell.icon.image = UIImage(named: self.getCoinIconName(product.usd!))
+        if product.usd! == 0.99 {
+            cell.bonusIcon.isHidden = true
+        } else {
+            cell.bonusIcon.isHidden = false
+        }
+        cell.bonusIcon.image = UIImage(named: self.getBonusIconName(product.usd!))
+        return cell
+    }
+    
+    func getBonusIconName(_ usd:Double) -> String {
+        if usd == 4.99 {
+            return "bonus_10.png"
+        } else if usd == 9.99 {
+            return "bonus_20.png"
+        } else if usd == 49.99 {
+            return "bonus_30.png"
+        } else if usd == 99.99 {
+            return "bonus_50.png"
+        }
+        return ""
+    }
+    
+    func getCoinIconName(_ usd:Double) -> String {
+        if usd == 0.99 {
+            return "coin_3_shadow.png"
+        } else if usd == 4.99 {
+            return "coins_5_shadow.png"
+        } else if usd == 9.99 {
+            return "coins_10_shadow.png"
+        } else if usd == 49.99 {
+            return "coin_bag_shadow.png"
+        } else if usd == 99.99 {
+            return "coin_2bags_shadow.png"
+        } else {
+            return "coin_shadow.png"
+        }
+    }
+    
+    func purchaseButtonTapped(_ sender: Any) {
+//        if self.product != nil {
+//            self.buyProduct(self.product!)
+//        }
     }
     
     public func buyProduct(_ product: SKProduct) {
@@ -46,12 +120,35 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         SKPaymentQueue.default().add(payment)
     }
     
-    public func requestProducts() {
+    public func requestAppleProducts() {
         var productIds:Set<String> = Set()
-        productIds.insert(self.productId)
+        for p in self.products {
+            productIds.insert(p.id ?? "")
+        }
         let productsRequest = SKProductsRequest(productIdentifiers: productIds)
         productsRequest.delegate = self
         productsRequest.start()
+    }
+    
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        print("Loaded list of products...")
+        let products:[SKProduct] = response.products
+        if products.count > 0 {
+            var validProducts:[Product] = []
+            for p in self.products {
+                if products.contains(where: { (product) -> Bool in
+                    product.productIdentifier == p.id
+                }) {
+                    validProducts.append(p)
+                }
+            }
+            self.products = validProducts.sorted(by: { (p1, p2) -> Bool in
+                return p1.usd! < p2.usd!
+            })
+            DispatchQueue.main.async {
+                self.purchaseTable.reloadData()
+            }
+        }
     }
     
     func cancelAction(){
@@ -61,9 +158,9 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     }
     
     func subscribeAction(){
-        if self.product != nil {
-            self.buyProduct(product!)
-        }
+//        if self.product != nil {
+//            self.buyProduct(product!)
+//        }
     }
   
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
@@ -132,16 +229,6 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         guard let identifier = identifier else { return }
         NotificationCenter.default.post(name: .init("Test Notification"), object: identifier)
      }
-    
-    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        print("Loaded list of products...")
-        let products:[SKProduct] = response.products
-        if products.count > 0 {
-            self.product = products[0]
-            print("Found product: \(product!.productIdentifier) \(product!.localizedTitle) \(product!.price.floatValue)")
-        }
-    }
-    
     
     func request(_ request: SKRequest, didFailWithError error: Error) {
         print("SKRequest failed")

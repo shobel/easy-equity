@@ -8,18 +8,21 @@
 
 import UIKit
 import AuthenticationServices
+import SPStorkController
 
 class WatchlistVC: UIViewController, Updateable {
     
-    @IBOutlet weak var addTickerButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     private var watchlistUpdater: WatchlistUpdater?
     private var finvizAPI:FinvizAPI!
     
     private var watchlistManager:WatchlistManager!
+    @IBOutlet weak var headerBgView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.headerBgView.addGradientBackground()
         
         self.watchlistManager = Dataholder.watchlistManager
         self.loadWatchlist()
@@ -27,10 +30,10 @@ class WatchlistVC: UIViewController, Updateable {
         finvizAPI = FinvizAPI()
 //        finvizAPI.getData(forTickers: , completionHandler: handleFinvizResponse)
         
-        self.addTickerButton.layer.shadowColor = UIColor.black.cgColor
-        self.addTickerButton.layer.shadowOpacity = 0.7
-        self.addTickerButton.layer.shadowOffset = .zero
-        self.addTickerButton.layer.shadowRadius = 3
+        self.headerBgView.layer.shadowColor = UIColor.black.cgColor
+        self.headerBgView.layer.shadowOpacity = 0.7
+        self.headerBgView.layer.shadowOffset = .zero
+        self.headerBgView.layer.shadowRadius = 3
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -109,6 +112,19 @@ class WatchlistVC: UIViewController, Updateable {
      
     @objc func handleRefresh() {
         self.loadWatchlist()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "creditSegue" {
+            let s = segue as! SPStorkSegue
+            s.transitioningDelegate = SPStorkTransitioningDelegate()
+            s.transitioningDelegate!.customHeight = 150
+            s.transitioningDelegate!.cornerRadius = 20
+            s.transitioningDelegate!.translateForDismiss = 50
+            s.transitioningDelegate!.indicatorMode = .alwaysLine
+            s.transitioningDelegate!.hapticMoments = [.willPresent, .willDismiss]
+
+        }
     }
 }
 

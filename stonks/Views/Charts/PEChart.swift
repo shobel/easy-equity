@@ -42,7 +42,8 @@ class PEChart: CombinedChartView {
         self.xAxis.valueFormatter = self.formatter
         self.xAxis.granularity = 1
         self.xAxis.drawAxisLineEnabled = false
-
+        self.xAxis.labelTextColor = .black
+        
         self.drawOrder = [DrawOrder.bar.rawValue, DrawOrder.line.rawValue, DrawOrder.scatter.rawValue]
         self.setChartData(company: company)
     }
@@ -63,9 +64,9 @@ class PEChart: CombinedChartView {
                 var epsSum = 0.0
                 for j in (i-3)...i {
                     if j < 0 && i+1 < reversedEarnings.count{
-                        epsSum += reversedEarnings[i+1].yearAgo!
+                        epsSum += reversedEarnings[i+1].yearAgo ?? 0.0
                     } else if j >= 0 {
-                        epsSum += reversedEarnings[j].actualEPS!
+                        epsSum += reversedEarnings[j].actualEPS ?? 0.0
                     }
                 }
                 let e = reversedEarnings[i]

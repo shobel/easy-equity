@@ -58,6 +58,13 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
         self.healthTable.dataSource = self
         self.technicalTable.delegate = self
         self.technicalTable.dataSource = self
+        
+        self.valuationTable.backgroundColor = .white
+        self.futureTable.backgroundColor = .white
+        self.pastTable.backgroundColor = .white
+        self.healthTable.backgroundColor = .white
+        self.technicalTable.backgroundColor = .white
+        
         NetworkManager.getMyRestApi().getSettingsAndVariables { (scoreSettings, variableNamesMap, variableMap) in
             self.scoreSettings = scoreSettings
             self.variableNames = variableNamesMap

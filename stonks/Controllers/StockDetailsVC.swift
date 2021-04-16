@@ -10,6 +10,7 @@ import UIKit
 import Charts
 import Parchment
 import MaterialActivityIndicator
+import SPStorkController
 
 class StockDetailsVC: DemoBaseViewController, Updateable {
 
@@ -70,7 +71,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     private var pageVCList:[UIViewController] = []
     private var keyStatsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StatsVC")
     
-    private var newsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewsVC") as! NewsTableViewController
     private var newsVC2 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StockNewsVC") as! NewsViewController
     
     private var scoresVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ScoresVC")
@@ -94,6 +94,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+                
         self.scrollView.delegate = self
         self.toggleRsiButton.layer.cornerRadius = 5
         self.toggleSmasButton.layer.cornerRadius = 5
@@ -336,10 +337,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             datetext = "market open - "
             datetime.textColor = Constants.green
         }
-        if latestQuote != nil && latestQuote.latestTime!.contains(":"){
-            datetext += "last updated \(latestQuote.latestTime!) ET"
-        } else {
-            datetext += "last updated \(latestQuote.latestTime!)"
+        if latestQuote != nil && latestQuote.latestTime != nil {
+            if latestQuote.latestTime!.contains(":") {
+                datetext += "last updated \(latestQuote.latestTime!) ET"
+            } else {
+                datetext += "last updated \(latestQuote.latestTime!)"
+            }
         }
         datetime.text = datetext
     }
@@ -644,16 +647,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
 //        }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     @IBOutlet weak var button1D: UIButton!
     @IBOutlet weak var button1M: UIButton!
     @IBOutlet weak var button3M: UIButton!
@@ -791,12 +784,43 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
             self.toggleSmasButton.isHidden = true
             self.toggleRsiButton.isHidden = true
         }
+    }
+    
+    @IBAction func creditsTapped(_ sender: Any) {
+        //self.presentCreditsView()
+    }
+    
+    private func presentCreditsView(){
+        let controller = CreditsViewController()
+        let transitionDelegate = SPStorkTransitioningDelegate()
+        transitionDelegate.customHeight = 350
+        transitionDelegate.cornerRadius = 20
+        controller.transitioningDelegate = transitionDelegate
+        controller.modalPresentationStyle = .custom
+        controller.modalPresentationCapturesStatusBarAppearance = true
+                
+        self.present(controller, animated: true, completion: nil)
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let s = segue as? SPStorkSegue {
+            s.transitioningDelegate = SPStorkTransitioningDelegate()
+            s.transitioningDelegate!.customHeight = 150
+            s.transitioningDelegate!.cornerRadius = 20
+            s.transitioningDelegate!.translateForDismiss = 50
+            s.transitioningDelegate!.indicatorMode = .alwaysLine
+            s.transitioningDelegate!.hapticMoments = [.willPresent, .willDismiss]
+
+        }
+    }
+    
 //        if self.timeInterval == .one_month || self.timeInterval == .three_month || (self.timeInterval == .one_year && !self.candleMode) {
 //            self.toggleRsiButton.isHidden = false
 //        } else {
 //            self.toggleRsiButton.isHidden = true
 //        }
-    }
+//    }
   
     //can use this function to trigger chart animations when views enter the visible frame
 //    func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -812,17 +836,19 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
 //        }
 //    }
     
-    public func isVisible(view: UIView) -> Bool {
-        func isVisible(view: UIView, inView: UIView?) -> Bool {
-            guard let inView = inView else { return true }
-            let viewFrame = inView.convert(view.bounds, from: view)
-            if viewFrame.intersects(CGRect(x: inView.bounds.minX, y: inView.bounds.minY - (viewFrame.height/2), width: inView.bounds.width, height: inView.bounds.height)) {
-                return isVisible(view: view, inView: inView.superview)
-            }
-            return false
-        }
-        return isVisible(view: view, inView: view.superview)
-    }
+//    public func isVisible(view: UIView) -> Bool {
+//        func isVisible(view: UIView, inView: UIView?) -> Bool {
+//            guard let inView = inView else { return true }
+//            let viewFrame = inView.convert(view.bounds, from: view)
+//            if viewFrame.intersects(CGRect(x: inView.bounds.minX, y: inView.bounds.minY - (viewFrame.height/2), width: inView.bounds.width, height: inView.bounds.height)) {
+//                return isVisible(view: view, inView: inView.superview)
+//            }
+//            return false
+//        }
+//        return isVisible(view: view, inView: view.superview)
+//    }
+    
+    
     
 }
 

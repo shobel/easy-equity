@@ -24,6 +24,8 @@ class PremiumViewController: UIViewController, StatsVC {
     @IBOutlet weak var divider: UIView!
     @IBOutlet weak var brainSentimentPositive: UIProgressView!
     
+    @IBOutlet weak var kavoutInfoView: UIView!
+    @IBOutlet weak var sent30InfoView: UIView!
     
     private var company:Company!
     private var isLoaded = false
@@ -31,7 +33,7 @@ class PremiumViewController: UIViewController, StatsVC {
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-        self.overallRatingsView.layer.cornerRadius = self.overallRatingsView.frame.width/2
+        self.overallRatingsView.layer.cornerRadius = self.overallRatingsView.frame.width/1.8
         self.overallRatingsView.layer.masksToBounds = true
         self.overallRatingsView.clipsToBounds = true
         
@@ -44,7 +46,12 @@ class PremiumViewController: UIViewController, StatsVC {
         self.company = Dataholder.selectedCompany!
         
         NetworkManager.getMyRestApi().getPremiumData(symbol: company.symbol, completionHandler: handlePremiumData)
-        
+ 
+//        self.valuebar.tintColor = self.getTintColorForProgressValue(value: Float(0.2))
+//        self.growthbar.tintColor = self.getTintColorForProgressValue(value: Float(0.7))
+//        self.qualitybar.tintColor = self.getTintColorForProgressValue(value: Float(0.8))
+//        self.kavoutbar.tintColor = self.getTintColorForProgressValue(value: Float(0.6))
+//        self.momentumbar.tintColor = self.getTintColorForProgressValue(value: Float(0.5))
     }
     
     private func handlePremiumData(premiumStockInfo:PremiumStockInfo?, kscores: Kscore?, brainSentiment: BrainSentiment?) {

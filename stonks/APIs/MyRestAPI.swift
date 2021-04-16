@@ -13,9 +13,10 @@ import Firebase
 
 class MyRestAPI: HTTPRequest {
     
-    private var apiurl = "http://192.168.1.8:3000/api"
+    private var apiurl = "http://192.168.4.32:3000/api"
     //private var apiurl = "http://localhost:3000/api"
     
+    private var appEndpoint = "/app"
     private var userEndpoint = "/user"
     private var stockEndpoint = "/stocks"
     private var marketEndpoint = "/market"
@@ -81,6 +82,21 @@ class MyRestAPI: HTTPRequest {
                     completionHandler(JSON(data!))
                 }
             }
+        }
+    }
+    
+    public func getProducts(completionHandler: @escaping ([Product])->Void){
+        let queryURL = buildQuery(url: apiurl + appEndpoint + "/products", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            var products:[Product] = []
+            let json = JSON(data)
+            for (_,product):(String, JSON) in json {
+                let JSONString:String = product.rawString()!
+                if let p = Mapper<Product>().map(JSONString: JSONString){
+                    products.append(p)
+                }
+            }
+            completionHandler(products)
         }
     }
     

@@ -123,7 +123,7 @@ class NewsViewController: UIViewController, StatsVC, UITableViewDelegate, UITabl
                     if String(word[index]).range(of: "[^a-zA-Z]", options: .regularExpression) == nil {
                         let range:NSRange = (string.string as NSString).range(of: word)
                         string.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 18), range: range)
-                        string.addAttribute(NSAttributedString.Key.link, value: NSURL(string: String("http://www.stocktwits.com/\(word)"))!, range: range)
+                        string.addAttribute(NSAttributedString.Key.link, value: NSURL(string: String("http://www.stocktwits.com/\(word)")) ?? "abcxyz", range: range)
                     }
                 }
             }
@@ -137,11 +137,14 @@ class NewsViewController: UIViewController, StatsVC, UITableViewDelegate, UITabl
             cell.timeButton.setTitle(Date(timeIntervalSince1970: TimeInterval(ts)).timeAgoSinceDate(), for: .normal)
         }
         if post.sentiment == "Bearish" {
-            cell.bullbear.image = UIImage(named: "bull_face.png")
+            cell.bullbear.text = "BEARISH"
+            cell.bullbear.textColor = Constants.darkPink
         } else if post.sentiment == "Bullish" {
-            cell.bullbear.image = UIImage(named: "bear_face.png")
+            cell.bullbear.text = "BULLISH"
+            cell.bullbear.textColor = Constants.green
         } else {
-            cell.bullbear.image = UIImage(systemName: "person.crop.circle.fill")
+            cell.bullbear.text = "NEUTRAL"
+            cell.bullbear.textColor = .lightGray
         }
         return cell
     }

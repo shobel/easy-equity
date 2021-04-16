@@ -10,7 +10,6 @@ import UIKit
 
 class ShadowButton: UIButton {
 
-    
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
@@ -21,7 +20,7 @@ class ShadowButton: UIButton {
         self.layer.shadowRadius = 4.0
         self.layer.masksToBounds = false
         self.layer.cornerRadius = 10.0
-        self.contentEdgeInsets = UIEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
+        self.contentEdgeInsets = UIEdgeInsets(top: 8.0, left: 15.0, bottom: 8.0, right: 15.0)
     }
     
 

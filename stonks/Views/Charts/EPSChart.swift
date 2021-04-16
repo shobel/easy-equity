@@ -42,6 +42,7 @@ class EPSChart: CombinedChartView {
         self.xAxis.valueFormatter = self.formatter
         self.xAxis.granularity = 1
         self.xAxis.drawAxisLineEnabled = false
+        self.xAxis.labelTextColor = .black
 
         self.drawOrder = [DrawOrder.bar.rawValue, DrawOrder.line.rawValue, DrawOrder.scatter.rawValue]
         self.setChartData(company: company)
