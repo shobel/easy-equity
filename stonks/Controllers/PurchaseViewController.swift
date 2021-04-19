@@ -21,7 +21,6 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     private var products:[Product] = []
     private var receipt: [String : Any]?
     
-    @IBOutlet weak var topView: UIView!
     
     @IBOutlet weak var currentCredits: EFCountingLabel!
     @IBOutlet weak var purchaseTable: UITableView!
@@ -35,10 +34,6 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         super.viewDidLoad()
         self.purchaseTable.delegate = self
         self.purchaseTable.dataSource = self
-
-        self.topView.layer.cornerRadius = 10
-        self.topView.layer.borderWidth = 1.0
-        self.topView.layer.borderColor = UIColor.lightGray.cgColor
         
         self.getProducts()
         
@@ -92,19 +87,20 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     }
     
     func getCoinIconName(_ usd:Double) -> String {
-        if usd == 0.99 {
-            return "coin_3_shadow.png"
-        } else if usd == 4.99 {
-            return "coins_5_shadow.png"
-        } else if usd == 9.99 {
-            return "coins_10_shadow.png"
-        } else if usd == 49.99 {
-            return "coin_bag_shadow.png"
-        } else if usd == 99.99 {
-            return "coin_2bags_shadow.png"
-        } else {
-            return "coin_shadow.png"
-        }
+//        if usd == 0.99 {
+//            return "coin_3_shadow.png"
+//        } else if usd == 4.99 {
+//            return "coins_5_shadow.png"
+//        } else if usd == 9.99 {
+//            return "coins_10_shadow.png"
+//        } else if usd == 49.99 {
+//            return "coin_bag_shadow.png"
+//        } else if usd == 99.99 {
+//            return "coin_2bags_shadow.png"
+//        } else {
+//            return "coin_shadow.png"
+//        }
+        return "coin_stack_shadow.png"
     }
     
     func purchaseButtonTapped(_ sender: Any) {
