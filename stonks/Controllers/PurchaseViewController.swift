@@ -24,6 +24,9 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     
     @IBOutlet weak var currentCredits: EFCountingLabel!
     @IBOutlet weak var purchaseTable: UITableView!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var transparentView: UIView!
+    @IBOutlet weak var pullDownBar: UIView!
     
     enum ButtonAction {
         case purchase
@@ -32,6 +35,12 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.containerView.layer.cornerRadius = 15.0
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+           
+        self.transparentView.addGestureRecognizer(tapGesture)
+        self.pullDownBar.layer.cornerRadius = 3.0
+        
         self.purchaseTable.delegate = self
         self.purchaseTable.dataSource = self
         
@@ -44,6 +53,10 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
 //        self.requestProducts()
 //        self.receiptValidation()
         self.currentCredits.countFromCurrentValueTo(100, withDuration: 1.0)
+    }
+    
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     public func getProducts(){
@@ -62,28 +75,28 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         
         let product = self.products[indexPath.row]
         cell.credits.text = String(product.credits!)
-        cell.price.text = "$" + String(product.usd!)
+        cell.price.setTitle("$" + String(product.usd!), for: .normal)
         cell.icon.image = UIImage(named: self.getCoinIconName(product.usd!))
         if product.usd! == 0.99 {
             cell.bonusIcon.isHidden = true
         } else {
             cell.bonusIcon.isHidden = false
         }
-        cell.bonusIcon.image = UIImage(named: self.getBonusIconName(product.usd!))
+        cell.bonusIcon.image = UIImage(systemName: self.getBonusIconName(product.usd!))
         return cell
     }
     
     func getBonusIconName(_ usd:Double) -> String {
-        if usd == 4.99 {
-            return "bonus_10.png"
-        } else if usd == 9.99 {
-            return "bonus_20.png"
-        } else if usd == 49.99 {
-            return "bonus_30.png"
-        } else if usd == 99.99 {
-            return "bonus_50.png"
-        }
-        return ""
+//        if usd == 4.99 {
+//            return "bonus_10.png"
+//        } else if usd == 9.99 {
+//            return "bonus_20.png"
+//        } else if usd == 49.99 {
+//            return "bonus_30.png"
+//        } else if usd == 99.99 {
+//            return "bonus_50.png"
+//        }
+        return "bookmark.fill"
     }
     
     func getCoinIconName(_ usd:Double) -> String {

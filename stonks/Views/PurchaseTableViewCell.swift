@@ -13,12 +13,12 @@ class PurchaseTableViewCell: UITableViewCell {
 
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var credits: EFCountingLabel!
-    @IBOutlet weak var price: EFCountingLabel!
     @IBOutlet weak var bonusIcon: UIImageView!
+    @IBOutlet weak var price: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.setupPriceLabel()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -27,4 +27,13 @@ class PurchaseTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    private func setupPriceLabel() {
+        self.price.layer.shadowColor = UIColor(red: 132.0/255.0, green: 30.0/255.0, blue: 62.0/255.0, alpha: 1.0).cgColor
+        self.price.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
+        self.price.layer.shadowOpacity = 1.0
+        self.price.layer.shadowRadius = 0.0
+        self.price.layer.masksToBounds = false
+//        self.price.clipsToBounds = true
+        self.price.layer.cornerRadius = 5.0
+    }
 }
