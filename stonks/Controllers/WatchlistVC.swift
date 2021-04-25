@@ -114,18 +114,8 @@ class WatchlistVC: UIViewController, Updateable {
         self.loadWatchlist()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "creditSegue" {
-            let s = segue as! SPStorkSegue
-            s.transitioningDelegate = SPStorkTransitioningDelegate()
-            s.transitioningDelegate!.customHeight = 150
-            s.transitioningDelegate!.cornerRadius = 20
-            s.transitioningDelegate!.translateForDismiss = 50
-            s.transitioningDelegate!.indicatorMode = .alwaysLine
-            s.transitioningDelegate!.hapticMoments = [.willPresent, .willDismiss]
-
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//    }
 }
 
 /* TableView functions */

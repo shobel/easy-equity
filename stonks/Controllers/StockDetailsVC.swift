@@ -803,17 +803,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     }
     
     // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let s = segue as? SPStorkSegue {
-            s.transitioningDelegate = SPStorkTransitioningDelegate()
-            s.transitioningDelegate!.customHeight = 150
-            s.transitioningDelegate!.cornerRadius = 20
-            s.transitioningDelegate!.translateForDismiss = 50
-            s.transitioningDelegate!.indicatorMode = .alwaysLine
-            s.transitioningDelegate!.hapticMoments = [.willPresent, .willDismiss]
-
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//    }
     
 //        if self.timeInterval == .one_month || self.timeInterval == .three_month || (self.timeInterval == .one_year && !self.candleMode) {
 //            self.toggleRsiButton.isHidden = false

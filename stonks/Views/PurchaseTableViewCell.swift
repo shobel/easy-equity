@@ -28,7 +28,7 @@ class PurchaseTableViewCell: UITableViewCell {
     }
 
     private func setupPriceLabel() {
-        self.price.layer.shadowColor = UIColor(red: 132.0/255.0, green: 30.0/255.0, blue: 62.0/255.0, alpha: 1.0).cgColor
+        self.price.layer.shadowColor = UIColor(red: 25.0/255.0, green: 105.0/255.0, blue: 75.0/255.0, alpha: 1.0).cgColor
         self.price.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
         self.price.layer.shadowOpacity = 1.0
         self.price.layer.shadowRadius = 0.0

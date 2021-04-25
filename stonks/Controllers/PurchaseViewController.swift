@@ -82,38 +82,37 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         } else {
             cell.bonusIcon.isHidden = false
         }
-        cell.bonusIcon.image = UIImage(systemName: self.getBonusIconName(product.usd!))
+        cell.bonusIcon.image = UIImage(named: self.getBonusIconName(product.usd!))
         return cell
     }
     
     func getBonusIconName(_ usd:Double) -> String {
-//        if usd == 4.99 {
-//            return "bonus_10.png"
-//        } else if usd == 9.99 {
-//            return "bonus_20.png"
-//        } else if usd == 49.99 {
-//            return "bonus_30.png"
-//        } else if usd == 99.99 {
-//            return "bonus_50.png"
-//        }
-        return "bookmark.fill"
+        if usd <= 5.0 {
+            return "bonus_10.png"
+        } else if usd <= 10.0 {
+            return "bonus_20.png"
+        } else if usd <= 50.0 {
+            return "bonus_30.png"
+        } else if usd <= 100.0 {
+            return "bonus_50.png"
+        }
+        return ""
     }
     
     func getCoinIconName(_ usd:Double) -> String {
-//        if usd == 0.99 {
-//            return "coin_3_shadow.png"
-//        } else if usd == 4.99 {
-//            return "coins_5_shadow.png"
-//        } else if usd == 9.99 {
-//            return "coins_10_shadow.png"
-//        } else if usd == 49.99 {
-//            return "coin_bag_shadow.png"
-//        } else if usd == 99.99 {
-//            return "coin_2bags_shadow.png"
-//        } else {
-//            return "coin_shadow.png"
-//        }
-        return "coin_stack_shadow.png"
+        if usd == 0.99 {
+            return "coin_stack_1.png"
+        } else if usd == 4.99 {
+            return "coin_stack_2.png"
+        } else if usd == 9.99 {
+            return "coin_stack_3.png"
+        } else if usd == 49.99 {
+            return "coin_stack_4.png"
+        } else if usd == 99.99 {
+            return "coin_stack_4.png"
+        } else {
+            return "coin.png"
+        }
     }
     
     func purchaseButtonTapped(_ sender: Any) {
