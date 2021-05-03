@@ -13,7 +13,7 @@ import Firebase
 
 class MyRestAPI: HTTPRequest {
     
-    private var apiurl = "http://192.168.4.32:3000/api"
+    private var apiurl = "http://192.168.1.70:3000/api"
     //private var apiurl = "http://localhost:3000/api"
     
     private var appEndpoint = "/app"
@@ -30,13 +30,17 @@ class MyRestAPI: HTTPRequest {
         super.init()
     }
     
-    public func verifyReceipt(_ receipt:String, completionHandler: @escaping (JSON)->Void){
+    public func verifyReceipt(_ receipt:String, productid:String, completionHandler: @escaping (Int?)->Void){
         let body = [
-            "receipt": receipt
+            "receipt": receipt,
+            "productid": productid
         ]
         let queryURL = buildQuery(url: apiurl + userEndpoint + "/verifyReceipt", params: [:])
         self.postRequest(queryURL: queryURL, body: body) { (data) in
-            completionHandler(data)
+            let json = JSON(data)
+            if let credits = json["credits"].int {
+                completionHandler(credits)
+            }
         }
     }
     
@@ -125,6 +129,18 @@ class MyRestAPI: HTTPRequest {
         let queryURL = buildQuery(url: apiurl + userEndpoint + "/watchlist/remove/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             completionHandler(data)
+        }
+    }
+    
+    public func getCreditsForCurrentUser(completionHandler: @escaping (Int)->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/getCredits", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            if let credits:Int = json["credits"].int {
+                completionHandler(credits)
+            } else {
+                completionHandler(0)
+            }
         }
     }
     

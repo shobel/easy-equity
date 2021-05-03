@@ -24,9 +24,9 @@ target 'stonks' do
   pod "GaugeKit"
   pod 'Parchment'
   pod 'MaterialActivityIndicator'
-  pod 'RSLoadingView'
   pod 'TransitionButton'
   pod 'VisualEffectView'
   pod 'XLActionController'
   pod 'EFCountingLabel'
+  pod 'FCAlertView'
 end

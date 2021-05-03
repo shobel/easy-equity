@@ -59,6 +59,8 @@
 		1C545215216C31950064239E /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545214216C31950064239E /* Quote.swift */; };
 		1C565DBD25191BB1002856D5 /* FinancialModelingPrepAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C565DBC25191BB1002856D5 /* FinancialModelingPrepAPI.swift */; };
 		1C5B96192404FDFD00E63316 /* GeneralUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5B96182404FDFD00E63316 /* GeneralUtility.swift */; };
+		1C5EFE41263FCDE900582599 /* ShadowButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5EFE40263FCDE900582599 /* ShadowButtonView.swift */; };
+		1C5EFE43263FD63300582599 /* ShadowButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1C5EFE42263FD63300582599 /* ShadowButtonView.xib */; };
 		1C62712F253D5FCC00A4CC57 /* IntitutionalOwnership.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62712E253D5FCC00A4CC57 /* IntitutionalOwnership.swift */; };
 		1C627131253D656C00A4CC57 /* Scores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C627130253D656C00A4CC57 /* Scores.swift */; };
 		1C627133253E232900A4CC57 /* ScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C627132253E232900A4CC57 /* ScoresViewController.swift */; };
@@ -239,6 +241,8 @@
 		1C545214216C31950064239E /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
 		1C565DBC25191BB1002856D5 /* FinancialModelingPrepAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialModelingPrepAPI.swift; sourceTree = "<group>"; };
 		1C5B96182404FDFD00E63316 /* GeneralUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralUtility.swift; sourceTree = "<group>"; };
+		1C5EFE40263FCDE900582599 /* ShadowButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowButtonView.swift; sourceTree = "<group>"; };
+		1C5EFE42263FD63300582599 /* ShadowButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShadowButtonView.xib; sourceTree = "<group>"; };
 		1C62712E253D5FCC00A4CC57 /* IntitutionalOwnership.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntitutionalOwnership.swift; sourceTree = "<group>"; };
 		1C627130253D656C00A4CC57 /* Scores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scores.swift; sourceTree = "<group>"; };
 		1C627132253E232900A4CC57 /* ScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewController.swift; sourceTree = "<group>"; };
@@ -621,6 +625,8 @@
 				1C742C6625B81E7A00B88B74 /* CompanySearchSimpleTableViewCell.swift */,
 				1C67B18C261C2787007BB31A /* ShadowButton.swift */,
 				1C0CE3652628BFE00099B72B /* PurchaseTableViewCell.swift */,
+				1C5EFE40263FCDE900582599 /* ShadowButtonView.swift */,
+				1C5EFE42263FD63300582599 /* ShadowButtonView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -839,6 +845,7 @@
 				1C0CE390262D0DA40099B72B /* Roboto-Medium.ttf in Resources */,
 				1C0CE391262D0DA40099B72B /* Roboto-Black.ttf in Resources */,
 				1C0CE394262D0DA40099B72B /* Roboto-MediumItalic.ttf in Resources */,
+				1C5EFE43263FD63300582599 /* ShadowButtonView.xib in Resources */,
 				1C7B9835215B32D500C75014 /* Main.storyboard in Resources */,
 				1CCBD05F24CC327D00B43C9D /* SkypeCell.xib in Resources */,
 				1C0CE38D262D0DA40099B72B /* Roboto-Thin.ttf in Resources */,
@@ -1001,6 +1008,7 @@
 				1C7B9863215DE1A800C75014 /* Constants.swift in Sources */,
 				1CD11942216DD73C000AE02E /* StockDetailsSummaryView.swift in Sources */,
 				1CB257252172C292008E3D4D /* WatchlistManager.swift in Sources */,
+				1C5EFE41263FCDE900582599 /* ShadowButtonView.swift in Sources */,
 				1C6936BC21D01F5100E3FDC9 /* TouchdownGestureRecognizer.swift in Sources */,
 				1C62CF54256E4C8D009C27E3 /* EconomicMonthly.swift in Sources */,
 				1C4D2D9824EBB60500E54EB8 /* BrainSentiment.swift in Sources */,

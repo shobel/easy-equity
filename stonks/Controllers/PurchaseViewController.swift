@@ -10,49 +10,46 @@ import UIKit
 import StoreKit
 import XLActionController
 import EFCountingLabel
+import FCAlertView
 
 class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPaymentTransactionObserver, UITableViewDelegate, UITableViewDataSource {
 
     private var productId = "premiumstockinfo"
     private var cancelSubscriptionUrl:String = "https://apps.apple.com/account/subscriptions"
-    private var subscriptionPrice:String = "$9.99"
-    private var buttonAction:ButtonAction = ButtonAction.purchase
     private var productsApple:[SKProduct] = []
     private var products:[Product] = []
     private var receipt: [String : Any]?
     
+    private var currentSelectedProduct:Product?
     
     @IBOutlet weak var currentCredits: EFCountingLabel!
     @IBOutlet weak var purchaseTable: UITableView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var transparentView: UIView!
     @IBOutlet weak var pullDownBar: UIView!
-    
-    enum ButtonAction {
-        case purchase
-        case cancel
-    }
+    @IBOutlet weak var loadingView: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.containerView.layer.cornerRadius = 15.0
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
-           
         self.transparentView.addGestureRecognizer(tapGesture)
         self.pullDownBar.layer.cornerRadius = 3.0
         
         self.purchaseTable.delegate = self
         self.purchaseTable.dataSource = self
-        
+        self.purchaseTable.isHidden = true
         self.getProducts()
-        
         self.currentCredits.counter.timingFunction = EFTimingFunction.linear
     }
     
     override func viewDidAppear(_ animated: Bool) {
 //        self.requestProducts()
+        self.currentSelectedProduct = nil
 //        self.receiptValidation()
-        self.currentCredits.countFromCurrentValueTo(100, withDuration: 1.0)
+        NetworkManager.getMyRestApi().getCreditsForCurrentUser { credits in
+            self.currentCredits.countFromCurrentValueTo(CGFloat(credits), withDuration: 1.0)
+        }
     }
     
     @objc func handleTap(sender: UITapGestureRecognizer) {
@@ -86,39 +83,23 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         return cell
     }
     
-    func getBonusIconName(_ usd:Double) -> String {
-        if usd <= 5.0 {
-            return "bonus_10.png"
-        } else if usd <= 10.0 {
-            return "bonus_20.png"
-        } else if usd <= 50.0 {
-            return "bonus_30.png"
-        } else if usd <= 100.0 {
-            return "bonus_50.png"
-        }
-        return ""
-    }
-    
-    func getCoinIconName(_ usd:Double) -> String {
-        if usd == 0.99 {
-            return "coin_stack_1.png"
-        } else if usd == 4.99 {
-            return "coin_stack_2.png"
-        } else if usd == 9.99 {
-            return "coin_stack_3.png"
-        } else if usd == 49.99 {
-            return "coin_stack_4.png"
-        } else if usd == 99.99 {
-            return "coin_stack_4.png"
-        } else {
-            return "coin.png"
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let product = self.products[indexPath.row]
+        self.currentSelectedProduct = product
+        let appleProduct = self.getAppleProduct(product)
+        if appleProduct != nil {
+            self.loadingView.isHidden = false
+            self.buyProduct(appleProduct!)
         }
     }
     
-    func purchaseButtonTapped(_ sender: Any) {
-//        if self.product != nil {
-//            self.buyProduct(self.product!)
-//        }
+    private func getAppleProduct(_ product:Product) -> SKProduct? {
+        for p in self.productsApple {
+            if p.productIdentifier == product.id {
+                return p
+            }
+        }
+        return nil
     }
     
     public func buyProduct(_ product: SKProduct) {
@@ -138,9 +119,16 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         productsRequest.start()
     }
     
+    public func receiptRefreshRequest(){
+        let refreshRequest = SKReceiptRefreshRequest()
+        refreshRequest.delegate = self
+        refreshRequest.start()
+    }
+        
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         print("Loaded list of products...")
         let products:[SKProduct] = response.products
+        self.productsApple = products
         if products.count > 0 {
             var validProducts:[Product] = []
             for p in self.products {
@@ -154,21 +142,10 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
                 return p1.usd! < p2.usd!
             })
             DispatchQueue.main.async {
+                self.purchaseTable.isHidden = false
                 self.purchaseTable.reloadData()
             }
         }
-    }
-    
-    func cancelAction(){
-        if let url = URL(string: self.cancelSubscriptionUrl) {
-            UIApplication.shared.open(url)
-        }
-    }
-    
-    func subscribeAction(){
-//        if self.product != nil {
-//            self.buyProduct(product!)
-//        }
     }
   
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
@@ -203,17 +180,18 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     
     func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
         print("error")
+        self.loadingView.isHidden = true
     }
     
     private func complete(transaction: SKPaymentTransaction) {
         print("complete...")
         
         //tell our backend that the user purchased successfully
-        
+
         //notify user that the purchase was successful
         deliverPurchaseNotificationFor(identifier: transaction.payment.productIdentifier)
+        self.receiptValidation(transaction)
         
-        SKPaymentQueue.default().finishTransaction(transaction)
     }
     
     private func restore(transaction: SKPaymentTransaction) {
@@ -224,13 +202,30 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     }
     
     private func fail(transaction: SKPaymentTransaction) {
-        //called when user clicks cancel
-        print("fail...")
-        if let _ = transaction.error as NSError?, let localizedDescription = transaction.error?.localizedDescription {
-            print("Transaction Error: \(localizedDescription)")
+        var message:String = "Something went wrong"
+        if let error = transaction.error as? NSError {
+            if error.domain == SKErrorDomain {
+                // handle all possible errors
+                switch (error.code) {
+                case SKError.unknown.rawValue:
+                    message = "Something went wrong"
+                case SKError.clientInvalid.rawValue:
+                    message = "Client is not allowed to issue the request"
+                case SKError.paymentCancelled.rawValue:
+                    message = "Request cancelled"
+                case SKError.paymentInvalid.rawValue:
+                    message = "Payment method invalid"
+                case SKError.paymentNotAllowed.rawValue:
+                    message = "This device is not allowed to make the payment"
+                default:
+                    break;
+                }
+            }
         }
-
         SKPaymentQueue.default().finishTransaction(transaction)
+        self.loadingView.isHidden = true
+        //show error
+        self.showErrorAlert(message: message)
     }
     
     private func deliverPurchaseNotificationFor(identifier: String?) {
@@ -239,10 +234,10 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
      }
     
     func request(_ request: SKRequest, didFailWithError error: Error) {
-        print("SKRequest failed")
+        print("SKRequest " + request.description + " failed: " + error.localizedDescription)
     }
     
-    func receiptValidation() {
+    func receiptValidation(_ transaction:SKPaymentTransaction) {
         let receiptPath = Bundle.main.appStoreReceiptURL?.path
         if FileManager.default.fileExists(atPath: receiptPath!) {
             var receiptData:NSData?
@@ -259,155 +254,104 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
                 return
             }
             
-            NetworkManager.getMyRestApi().verifyReceipt(encodedReceipt) { (data) in
-                if let jsonstring = data.rawString() {
-                    let data = jsonstring.data(using: .utf8)
-                    if let data = data {
-                        do {
-                            self.receipt = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject]
-                            if let receipt = self.receipt as [String:AnyObject]? {
-                                //print(receipt)
-                                if receipt["receipt"] != nil {
-                                    if receipt["receipt"]!["in_app"] != nil {
-                                        let inapp = receipt["receipt"]!["in_app"] as! NSArray
-                                        if inapp.count > 0 {
-                                            let first = inapp[0] as! NSDictionary
-                                            if first["transaction_id"] != nil {
-                                                print(first["transaction_id"]!)
-                                            }
-                                        }
-                                    }
-                                }
-                                var hasActiveSubscription:Bool = false
-                                var expirationDate:Int?
-                                var expirationDateString:String = ""
-                                var autoRenews:Bool = false
-                                var cancelled:Bool = false
-                                var expirationReason:String = ""
-                                if let latestReceipt = self.getLatestReceipt(receipt) {
-                                    expirationDate = self.hasActiveSubscription(latestReceipt)
-                                    if let expirationDate = expirationDate {
-                                        expirationDateString = GeneralUtility.timestampToDateString(expirationDate)
-                                        hasActiveSubscription = true
-                                    }
-                                    cancelled = self.subscriptionCancelled(latestReceipt)
-                                    if let pri = self.getPendingRenewalInfo(receipt) {
-                                        autoRenews = self.subscriptionAutoRenews(pri)
-                                        expirationReason = self.expirationReason(pri)
-                                    }
-                                }
-                                self.updateData(hasActiveSubscription: hasActiveSubscription, expirationDateString: expirationDateString, autoRenews: autoRenews, cancelled: cancelled, expirationReason: expirationReason)
-//                                print("Active subscription: " + String(hasActiveSubscription))
-//                                print("Expiration Date: " + expirationDateString)
-//                                print("Expiration reason: " + String(expirationReason))
-//                                print("Auto-renews: " + String(autoRenews))
-//                                print("Cancelled: " + String(cancelled))
-                            }
-                        } catch let error as NSError {
-                            print(error)
-                        }
+            NetworkManager.getMyRestApi().verifyReceipt(encodedReceipt, productid: (self.currentSelectedProduct?.id)!) { (credits) in
+                if credits != nil {
+                    self.currentCredits.countFromCurrentValueTo(CGFloat(credits!), withDuration: 1.0)
+                    SKPaymentQueue.default().finishTransaction(transaction)
+//                    self.receiptRefreshRequest()
+                    DispatchQueue.main.async {
+                        self.loadingView.isHidden = true
+                        self.showSuccessAlert(self.currentSelectedProduct?.credits ?? 0)
                     }
-                }
-            }
-            
-        }
-    }
-    
-    func updateData(hasActiveSubscription:Bool, expirationDateString:String, autoRenews:Bool, cancelled:Bool, expirationReason:String){
-        DispatchQueue.main.async {
-            if hasActiveSubscription {
-                var topText = ""
-                if cancelled {
-                    topText += ". Your subscription was cancelled and will not auto-renew. You will keep your subscription benefits until " + expirationDateString
-                    self.buttonAction = .purchase
                 } else {
-                    if !autoRenews {
-                        topText += " Your subscription will expire on " + expirationDateString + " and will not auto-renew."
-                        self.buttonAction = .purchase
-                    } else {
-                        topText += " Your subscription will auto-renew on " + expirationDateString + "."
-                        self.buttonAction = .cancel
-                    }
-                }
-            } else {
-                self.buttonAction = .purchase
-            }
-        }
-    }
-    
-    func getLatestReceipt(_ receipt:[String:AnyObject]) -> [String:AnyObject]? {
-        if let latestReceipts = receipt["latest_receipt_info"] as? [AnyObject] {
-            if latestReceipts.count > 0 {
-                return latestReceipts[0] as? [String:AnyObject]
-            }
-        }
-        return nil
-    }
-    
-    func getPendingRenewalInfo(_ receipt:[String:AnyObject]) -> [String:AnyObject]? {
-        if let pris = receipt["pending_renewal_info"] as? [AnyObject] {
-            for pri in pris {
-                if let priDict = pri as? [String:AnyObject], priDict["product_id"] as! String == "shobel.stonks" {
-                    return priDict
+                    self.showErrorAlert(message: "Contact support immediately")
                 }
             }
         }
-        return nil
     }
     
-    func hasActiveSubscription(_ latestReceipt:[String:AnyObject]) -> Int? {
-        if latestReceipt["expires_date_ms"] == nil {
-            return nil
-        }
-        if let latestExpiration = Int(latestReceipt["expires_date_ms"] as! String) {
-            let now = Date().timeIntervalSince1970
-            if latestExpiration/1000 > Int(now) {
-                return latestExpiration/1000
-            }
-        }
-        return nil
+    func showSuccessAlert(_ credits:Int){
+        let alert = FCAlertView()
+        alert.colorScheme = Constants.green
+        alert.dismissOnOutsideTouch = true
+        alert.detachButtons = true
+        alert.showAlert(inView: self,
+                        withTitle: "Success",
+                        withSubtitle: String(credits) + " credits have been added to your account!",
+                        withCustomImage: UIImage(systemName: "checkmark"),
+                        withDoneButtonTitle: nil,
+                        andButtons: nil)
     }
     
-    func subscriptionAutoRenews(_ pendingRenewalInfo:[String:AnyObject]) -> Bool {
-        if pendingRenewalInfo["auto_renew_status"] == nil {
-            return false
-        }
-        if let autoRenewStatus = Int(pendingRenewalInfo["auto_renew_status"] as! String) {
-            if autoRenewStatus == 1 {
-                return true
-            }
-        }
-        return false
-    }
-    
-    func subscriptionCancelled(_ latestReceipt:[String:AnyObject]) -> Bool {
-        if latestReceipt["cancellation_date_ms"] != nil {
-            return true
-        }
-        return false
-    }
-    
-    func expirationReason(_ pendingRenewalInfo:[String:AnyObject]) -> String {
-        if pendingRenewalInfo["expiration_intent"] == nil {
-            return "Unknown"
-        }
-        if let expirationReason = Int(pendingRenewalInfo["expiration_intent"] as! String) {
-            if expirationReason == 1 {
-                return "Cancelled"
-            } else if expirationReason == 2 {
-                return "Billing error"
-            } else {
-                return "Unknown Error"
-            }
-        }
-        return "Expired"
+    func showErrorAlert(message:String){
+        let alert = FCAlertView()
+        alert.colorScheme = .red
+        alert.dismissOnOutsideTouch = true
+        alert.detachButtons = true
+        alert.showAlert(inView: self,
+                        withTitle: "Error",
+                        withSubtitle: message,
+                        withCustomImage: UIImage(systemName: "exclamationmark.triangle.fill"),
+                        withDoneButtonTitle: nil,
+                        andButtons: nil)
     }
 
-    @IBAction func closeButtonTapped(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+    func getBonusIconName(_ usd:Double) -> String {
+        if usd <= 5.0 {
+            return "bonus_10.png"
+        } else if usd <= 10.0 {
+            return "bonus_20.png"
+        } else if usd <= 50.0 {
+            return "bonus_30.png"
+        } else if usd <= 100.0 {
+            return "bonus_50.png"
+        }
+        return ""
+    }
+    
+    func getCoinIconName(_ usd:Double) -> String {
+        if usd == 0.99 {
+            return "coin_stack_1.png"
+        } else if usd == 4.99 {
+            return "coin_stack_2.png"
+        } else if usd == 9.99 {
+            return "coin_stack_3.png"
+        } else if usd == 49.99 {
+            return "coin_stack_4.png"
+        } else if usd == 99.99 {
+            return "coin_stack_4.png"
+        } else {
+            return "coin.png"
+        }
     }
     
 
+    // reading receipt data
+    //                if let jsonstring = data.rawString() {
+    //                    let data = jsonstring.data(using: .utf8)
+    //                    if let data = data {
+    //                        do {
+    //                            self.receipt = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject]
+    //                            if let receipt = self.receipt as [String:AnyObject]? {
+    //                                //print(receipt)
+    //                                if receipt["receipt"] != nil {
+    //                                    if receipt["receipt"]!["in_app"] != nil {
+    //                                        let inapp = receipt["receipt"]!["in_app"] as! NSArray
+    //                                        if inapp.count > 0 {
+    //                                            let first = inapp[0] as! NSDictionary
+    //                                            if first["transaction_id"] != nil {
+    //                                                print(first["transaction_id"]!)
+    //                                            }
+    //                                        }
+    //                                    }
+    //                                }
+    //                        }
+    //                    }
+    //                }
+    //           }
+    //        }
+    
+    
     
 //            let requestDictionary = ["receipt-data":base64encodedReceipt!,"password":SUBSCRIPTION_SECRET]
 //
