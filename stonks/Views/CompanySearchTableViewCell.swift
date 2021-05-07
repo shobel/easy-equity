@@ -13,7 +13,7 @@ class CompanySearchTableViewCell: UITableViewCell {
     @IBOutlet weak var symbol: UILabel!
     @IBOutlet weak var companyName: UILabel!
     @IBOutlet weak var watchlistButton: UIButton!
-    public var parentVC:CompanySearchVC?
+    public var parentVC:LoadingProtocol?
     public var company:Company!
     
     override func awakeFromNib() {

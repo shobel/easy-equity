@@ -47,30 +47,35 @@ struct EconomyMonthly: Mappable {
                 switch field {
                     case "recessionProbability":
                         if monthly.recessionProbability != nil {
+                            foundValue = true
                             latestValue = Double(monthly.recessionProbability ?? 0)
                             em.values.append(latestValue)
                         }
                         break
                     case "consumerPriceIndex":
                         if monthly.consumerPriceIndex != nil {
+                            foundValue = true
                             latestValue = Double(monthly.consumerPriceIndex ?? 0)
                             em.values.append(latestValue)
                         }
                         break
                     case "unemploymentPercent":
                         if monthly.unemploymentPercent != nil {
+                            foundValue = true
                             latestValue = Double(monthly.unemploymentPercent ?? 0)
                             em.values.append(latestValue)
                         }
                         break
                     case "fedFundsRate":
                         if monthly.fedFundsRate != nil {
+                            foundValue = true
                             latestValue = Double(monthly.fedFundsRate ?? 0)
                             em.values.append(latestValue)
                         }
                         break
                     case "industrialProductionIndex":
                         if monthly.industrialProductionIndex != nil {
+                            foundValue = true
                             latestValue = Double(monthly.industrialProductionIndex ?? 0)
                             em.values.append(latestValue)
                         }

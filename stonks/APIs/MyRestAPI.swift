@@ -13,9 +13,10 @@ import Firebase
 
 class MyRestAPI: HTTPRequest {
     
-    private var apiurl = "http://192.168.1.8:3000/api"
+    private var apiurl = "http://192.168.1.65:3000/api"
     //private var apiurl = "http://localhost:3000/api"
     
+    private var appEndpoint = "/app"
     private var userEndpoint = "/user"
     private var stockEndpoint = "/stocks"
     private var marketEndpoint = "/market"
@@ -29,13 +30,27 @@ class MyRestAPI: HTTPRequest {
         super.init()
     }
     
+    public func verifyReceipt(_ receipt:String, productid:String, completionHandler: @escaping (Int?)->Void){
+        let body = [
+            "receipt": receipt,
+            "productid": productid
+        ]
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/verifyReceipt", params: [:])
+        self.postRequest(queryURL: queryURL, body: body) { (data) in
+            let json = JSON(data)
+            if let credits = json["credits"].int {
+                completionHandler(credits)
+            }
+        }
+    }
+    
     public func clearKeychain() {
         KeychainItem.deleteAllKeychainIdentifiers()
     }
     
     public func signOutAndClearKeychain(){
         let body = [
-            "email": KeychainItem.currentEmail
+            "userid": KeychainItem.currentUserIdentifier
         ]
         let queryURL = buildQuery(url: apiurl + authEndpoint + "/signout", params: [:])
         self.postRequest(queryURL: queryURL, body: body) { (data) in
@@ -74,6 +89,36 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
+    public func getProducts(completionHandler: @escaping ([Product])->Void){
+        let queryURL = buildQuery(url: apiurl + appEndpoint + "/products", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            var products:[Product] = []
+            let json = JSON(data)
+            for (_,product):(String, JSON) in json {
+                let JSONString:String = product.rawString()!
+                if let p = Mapper<Product>().map(JSONString: JSONString){
+                    products.append(p)
+                }
+            }
+            completionHandler(products)
+        }
+    }
+    
+    public func getPremiumPackages(completionHandler: @escaping ([PremiumPackage])->Void){
+        let queryURL = buildQuery(url: apiurl + appEndpoint + "/premium-packages", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            var packages:[PremiumPackage] = []
+            let json = JSON(data)
+            for (_,product):(String, JSON) in json {
+                let JSONString:String = product.rawString()!
+                if let p = Mapper<PremiumPackage>().map(JSONString: JSONString){
+                    packages.append(p)
+                }
+            }
+            completionHandler(packages)
+        }
+    }
+    
     public func getWatchlistForCurrentUser(completionHandler: @escaping ()->Void){
         let queryURL = buildQuery(url: apiurl + userEndpoint + "/watchlist", params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
@@ -99,6 +144,18 @@ class MyRestAPI: HTTPRequest {
         let queryURL = buildQuery(url: apiurl + userEndpoint + "/watchlist/remove/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             completionHandler(data)
+        }
+    }
+    
+    public func getCreditsForCurrentUser(completionHandler: @escaping (Int)->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/getCredits", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            if let credits:Int = json["credits"].int {
+                completionHandler(credits)
+            } else {
+                completionHandler(0)
+            }
         }
     }
     
@@ -303,21 +360,38 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func getPremiumData(symbol:String, completionHandler: @escaping (Kscore, BrainSentiment)->Void){
-        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/premium/all/" + symbol, params: [:])
+    public func getPremiumData(symbol:String, completionHandler: @escaping (PremiumStockInfo?, Kscore?, BrainSentiment?)->Void){
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/premium/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
-            let kscoresJSON = json["kscore"].rawString()!
-            var kscore:Kscore = Kscore()
-            if let k = Mapper<Kscore>().map(JSONString: kscoresJSON){
-                kscore = k
+            var kscore:Kscore? = nil
+            var brainSentiment:BrainSentiment? = nil
+            var premiumStockInfo:PremiumStockInfo? = nil
+            if (json["premiumStockInfo"].exists()) {
+                premiumStockInfo = PremiumStockInfo()
+                let psi = json["premiumStockInfo"]
+                premiumStockInfo!.symbol = psi["symbol"].stringValue
+                premiumStockInfo!.lastUpdated = psi["lastUpdate"].doubleValue
+                premiumStockInfo!.updatesRemaining = psi["updatesRemaining"].intValue
+                
             }
-            let brainSentimentJSON = json["brainSentiment"].rawString()!
-            var brainSentiment:BrainSentiment = BrainSentiment()
-            if let b = Mapper<BrainSentiment>().map(JSONString: brainSentimentJSON){
-                brainSentiment = b
+            if (json["premiumStockData"].exists()){
+                if (json["kscore"].exists()){
+                    kscore = Kscore()
+                    let kscoresJSON = json["kscore"].rawString()!
+                    if let k = Mapper<Kscore>().map(JSONString: kscoresJSON){
+                        kscore = k
+                    }
+                }
+                if (json["brainSentiment"].exists()){
+                    brainSentiment = BrainSentiment()
+                    let brainSentimentJSON = json["brainSentiment"].rawString()!
+                    if let b = Mapper<BrainSentiment>().map(JSONString: brainSentimentJSON){
+                        brainSentiment = b
+                    }
+                }
             }
-            completionHandler(kscore, brainSentiment)
+            completionHandler(premiumStockInfo, kscore, brainSentiment)
         }
     }
     

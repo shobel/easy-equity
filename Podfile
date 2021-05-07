@@ -13,6 +13,7 @@ target 'stonks' do
 
   # Essential UI
   pod 'Charts'
+  pod 'SPStorkController'
 
   # Utilities
   pod 'SwiftyJSON'
@@ -23,9 +24,9 @@ target 'stonks' do
   pod "GaugeKit"
   pod 'Parchment'
   pod 'MaterialActivityIndicator'
-  pod 'RSLoadingView'
   pod 'TransitionButton'
   pod 'VisualEffectView'
   pod 'XLActionController'
-
+  pod 'EFCountingLabel'
+  pod 'FCAlertView'
 end

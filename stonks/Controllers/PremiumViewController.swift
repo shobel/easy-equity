@@ -24,12 +24,28 @@ class PremiumViewController: UIViewController, StatsVC {
     @IBOutlet weak var divider: UIView!
     @IBOutlet weak var brainSentimentPositive: UIProgressView!
     
+    @IBOutlet weak var kavoutInfoView: UIView!
+    @IBOutlet weak var sent30InfoView: UIView!
+    
+    @IBOutlet weak var kavoutUpdateButton: ShadowButtonView!
+    @IBOutlet weak var day30SentimentUpdateButton: ShadowButtonView!
+    @IBOutlet weak var day21ReturnUpdateButton: ShadowButtonView!
+    @IBOutlet weak var languageUpdateButton: ShadowButtonView!
+    @IBOutlet weak var stocktwitsUpdateButton: ShadowButtonView!
+    
     private var company:Company!
     private var isLoaded = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.overallRatingsView.layer.cornerRadius = self.overallRatingsView.frame.width/2
+                
+        self.kavoutUpdateButton.delegate = self
+        self.day21ReturnUpdateButton.delegate = self
+        self.day30SentimentUpdateButton.delegate = self
+        self.languageUpdateButton.delegate = self
+        self.stocktwitsUpdateButton.delegate = self
+        
+        self.overallRatingsView.layer.cornerRadius = self.overallRatingsView.frame.width/1.8
         self.overallRatingsView.layer.masksToBounds = true
         self.overallRatingsView.clipsToBounds = true
         
@@ -40,7 +56,62 @@ class PremiumViewController: UIViewController, StatsVC {
 
         self.isLoaded = true
         self.company = Dataholder.selectedCompany!
-        updateData()
+        
+        NetworkManager.getMyRestApi().getPremiumPackages(completionHandler: handlePremiumPackages)
+        NetworkManager.getMyRestApi().getPremiumData(symbol: company.symbol, completionHandler: handlePremiumData)
+ 
+//        self.valuebar.tintColor = self.getTintColorForProgressValue(value: Float(0.2))
+//        self.growthbar.tintColor = self.getTintColorForProgressValue(value: Float(0.7))
+//        self.qualitybar.tintColor = self.getTintColorForProgressValue(value: Float(0.8))
+//        self.kavoutbar.tintColor = self.getTintColorForProgressValue(value: Float(0.6))
+//        self.momentumbar.tintColor = self.getTintColorForProgressValue(value: Float(0.5))
+    }
+    
+    public func buyUpdateButtonTapped(){
+        print("buy update button tapped")
+    }
+    
+    private func handlePremiumPackages(_ premiumPackages:[PremiumPackage]){
+        DispatchQueue.main.async {
+            for package in premiumPackages {
+                switch package.id {
+                    case "PREMIUM_BRAIN_LANGUAGE_METRICS_ALL":
+                        self.languageUpdateButton.credits.text = String(package.credits!)
+                        break
+                    case "PREMIUM_BRAIN_RANKING_21_DAYS":
+                        self.day21ReturnUpdateButton.credits.text = String(package.credits!)
+                        break
+                    case "PREMIUM_BRAIN_SENTIMENT_30_DAYS":
+                        self.day30SentimentUpdateButton.credits.text = String(package.credits!)
+                        break
+                    case "PREMIUM_KAVOUT_KSCORE":
+                        self.kavoutUpdateButton.credits.text = String(package.credits!)
+                        break
+                    case "STOCKTWITS_SENTIMENT":
+                        self.stocktwitsUpdateButton.credits.text = String(package.credits!)
+                        break
+                    case .none:
+                        break
+                    case .some(_):
+                        break
+                    
+                }
+            }
+        }
+    }
+    
+    private func handlePremiumData(premiumStockInfo:PremiumStockInfo?, kscores: Kscore?, brainSentiment: BrainSentiment?) {
+        if (premiumStockInfo == nil){
+
+        } else {
+            if (kscores != nil){
+                self.company.kscores = kscores
+            }
+            if (brainSentiment != nil){
+                self.company.brainSentiment = brainSentiment
+            }
+            self.updateData()
+        }
     }
     
     func updateData() {

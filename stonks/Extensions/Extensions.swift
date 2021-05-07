@@ -28,6 +28,19 @@ extension UIViewController {
     }
 }
 
+extension UIView {
+    func addGradientBackground(){
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [Constants.purple.cgColor, Constants.darkPink.cgColor]
+        gradientLayer.frame = self.bounds
+        gradientLayer.locations = [0.0, 0.8]
+        gradientLayer.startPoint = CGPoint.zero
+        gradientLayer.endPoint = CGPoint(x: 1, y: 0)
+        self.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+}
+
 extension UIApplication {
     class func topViewController(base: UIViewController? = UIApplication.shared.windows.first!.rootViewController) -> UIViewController? {
         if let nav = base as? UINavigationController {

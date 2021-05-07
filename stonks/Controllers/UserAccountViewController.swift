@@ -11,11 +11,9 @@ import Firebase
 
 class UserAccountViewController: UIViewController {
 
-    @IBOutlet weak var emailLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.emailLabel.text = Auth.auth().currentUser?.email
     }
     
     @IBAction func signoutButtonTapped(_ sender: Any) {

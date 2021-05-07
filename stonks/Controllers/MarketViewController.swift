@@ -37,6 +37,9 @@ class MarketViewController: UIViewController, UICollectionViewDelegate, UICollec
         self.weeklyEconomyTable.dataSource = self
         self.monthlyEconomyTable.delegate = self
         self.monthlyEconomyTable.dataSource = self
+        self.weeklyEconomyTable.backgroundColor
+            = .white
+        self.monthlyEconomyTable.backgroundColor = .white
         
         NetworkManager.getMyRestApi().getMarketAndEconomyData(completionHandler: { (overallFearGreed, indicators, sectors, economyWeekly, economyMonthly, gdps, gdpStartDate, gdpEndDate) in
             DispatchQueue.main.async {

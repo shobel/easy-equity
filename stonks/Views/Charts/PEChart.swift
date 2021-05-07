@@ -42,7 +42,8 @@ class PEChart: CombinedChartView {
         self.xAxis.valueFormatter = self.formatter
         self.xAxis.granularity = 1
         self.xAxis.drawAxisLineEnabled = false
-
+        self.xAxis.labelTextColor = .black
+        
         self.drawOrder = [DrawOrder.bar.rawValue, DrawOrder.line.rawValue, DrawOrder.scatter.rawValue]
         self.setChartData(company: company)
     }
@@ -63,9 +64,9 @@ class PEChart: CombinedChartView {
                 var epsSum = 0.0
                 for j in (i-3)...i {
                     if j < 0 && i+1 < reversedEarnings.count{
-                        epsSum += reversedEarnings[i+1].yearAgo!
+                        epsSum += reversedEarnings[i+1].yearAgo ?? 0.0
                     } else if j >= 0 {
-                        epsSum += reversedEarnings[j].actualEPS!
+                        epsSum += reversedEarnings[j].actualEPS ?? 0.0
                     }
                 }
                 let e = reversedEarnings[i]
@@ -105,17 +106,23 @@ class PEChart: CombinedChartView {
         self.configureScatterDataSet(set: peDataSet, color: Constants.blue)
         let forwardPeSet = ScatterChartDataSet(entries: forwardPeEntries)
         self.configureScatterDataSet(set: forwardPeSet, color: Constants.fadedBlue)
-        self.peDataSets.append(forwardPeSet)
-        self.peDataSets.append(peDataSet)
+        if peDataSet.count > 0 {
+            self.peDataSets.append(peDataSet)
+        }
+        if forwardPeSet.count > 0 {
+            self.peDataSets.append(forwardPeSet)
+        }
             
         DispatchQueue.main.async {
-            let data = CombinedChartData()
-            data.scatterData = ScatterChartData(dataSets: self.peDataSets)
-            self.xAxis.axisMaximum = data.xMax + 0.5
-            let percentRange = (data.yMax - data.yMin)*0.2
-            self.leftAxis.axisMaximum = data.yMax + percentRange
-            self.data = data
-            self.notifyDataSetChanged()
+            if (self.peDataSets.count > 0){
+                let data = CombinedChartData()
+                data.scatterData = ScatterChartData(dataSets: self.peDataSets)
+                self.xAxis.axisMaximum = data.xMax + 0.5
+                let percentRange = (data.yMax - data.yMin)*0.2
+                self.leftAxis.axisMaximum = data.yMax + percentRange
+                self.data = data
+                self.notifyDataSetChanged()
+            }
         }
     }
     

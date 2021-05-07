@@ -29,6 +29,15 @@ struct GeneralUtility {
         return difference.day ?? 0
     }
     
+    public static func timestampToDateString(_ timestamp:Int) -> String{
+        let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.medium //Set date style
+        dateFormatter.timeZone = .current
+        let localDate = dateFormatter.string(from: date)
+        return localDate
+    }
+    
     /* iso string format example: 2020-10-27T17:09:22Z */
     public static func isoDateToTimestamp(isoString:String) -> Double {
         let formatter = DateFormatter()
