@@ -106,17 +106,23 @@ class PEChart: CombinedChartView {
         self.configureScatterDataSet(set: peDataSet, color: Constants.blue)
         let forwardPeSet = ScatterChartDataSet(entries: forwardPeEntries)
         self.configureScatterDataSet(set: forwardPeSet, color: Constants.fadedBlue)
-        self.peDataSets.append(forwardPeSet)
-        self.peDataSets.append(peDataSet)
+        if peDataSet.count > 0 {
+            self.peDataSets.append(peDataSet)
+        }
+        if forwardPeSet.count > 0 {
+            self.peDataSets.append(forwardPeSet)
+        }
             
         DispatchQueue.main.async {
-            let data = CombinedChartData()
-            data.scatterData = ScatterChartData(dataSets: self.peDataSets)
-            self.xAxis.axisMaximum = data.xMax + 0.5
-            let percentRange = (data.yMax - data.yMin)*0.2
-            self.leftAxis.axisMaximum = data.yMax + percentRange
-            self.data = data
-            self.notifyDataSetChanged()
+            if (self.peDataSets.count > 0){
+                let data = CombinedChartData()
+                data.scatterData = ScatterChartData(dataSets: self.peDataSets)
+                self.xAxis.axisMaximum = data.xMax + 0.5
+                let percentRange = (data.yMax - data.yMin)*0.2
+                self.leftAxis.axisMaximum = data.yMax + percentRange
+                self.data = data
+                self.notifyDataSetChanged()
+            }
         }
     }
     

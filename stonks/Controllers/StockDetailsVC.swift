@@ -256,11 +256,13 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     }
     
     private func set52wSlider(quote:Quote, price:Double){
-        let numerator = price - quote.week52Low!
-        let denominator = quote.week52High! - quote.week52Low!
+        let quoteHigh = quote.week52High ?? 0.0
+        let quoteLow = quote.week52Low ?? 0.0
+        let numerator = price - quoteLow
+        let denominator = quoteHigh - quoteLow
         self.slider52w.value = Float(numerator / denominator)
-        self.sliderMin.text = String(quote.week52Low!)
-        self.sliderMax.text = String(quote.week52High!)
+        self.sliderMin.text = String(quoteLow)
+        self.sliderMax.text = String(quoteHigh)
     }
     
     private func incrementLoadingProgress(){

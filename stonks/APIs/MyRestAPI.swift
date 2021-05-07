@@ -13,7 +13,7 @@ import Firebase
 
 class MyRestAPI: HTTPRequest {
     
-    private var apiurl = "http://192.168.1.70:3000/api"
+    private var apiurl = "http://192.168.1.65:3000/api"
     //private var apiurl = "http://localhost:3000/api"
     
     private var appEndpoint = "/app"
@@ -101,6 +101,21 @@ class MyRestAPI: HTTPRequest {
                 }
             }
             completionHandler(products)
+        }
+    }
+    
+    public func getPremiumPackages(completionHandler: @escaping ([PremiumPackage])->Void){
+        let queryURL = buildQuery(url: apiurl + appEndpoint + "/premium-packages", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            var packages:[PremiumPackage] = []
+            let json = JSON(data)
+            for (_,product):(String, JSON) in json {
+                let JSONString:String = product.rawString()!
+                if let p = Mapper<PremiumPackage>().map(JSONString: JSONString){
+                    packages.append(p)
+                }
+            }
+            completionHandler(packages)
         }
     }
     
