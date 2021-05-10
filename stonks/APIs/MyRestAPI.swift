@@ -360,40 +360,40 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func getPremiumData(symbol:String, completionHandler: @escaping (PremiumStockInfo?, Kscore?, BrainSentiment?)->Void){
-        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/premium/" + symbol, params: [:])
-        self.getRequest(queryURL: queryURL) { (data) in
-            let json = JSON(data)
-            var kscore:Kscore? = nil
-            var brainSentiment:BrainSentiment? = nil
-            var premiumStockInfo:PremiumStockInfo? = nil
-            if (json["premiumStockInfo"].exists()) {
-                premiumStockInfo = PremiumStockInfo()
-                let psi = json["premiumStockInfo"]
-                premiumStockInfo!.symbol = psi["symbol"].stringValue
-                premiumStockInfo!.lastUpdated = psi["lastUpdate"].doubleValue
-                premiumStockInfo!.updatesRemaining = psi["updatesRemaining"].intValue
-                
-            }
-            if (json["premiumStockData"].exists()){
-                if (json["kscore"].exists()){
-                    kscore = Kscore()
-                    let kscoresJSON = json["kscore"].rawString()!
-                    if let k = Mapper<Kscore>().map(JSONString: kscoresJSON){
-                        kscore = k
-                    }
-                }
-                if (json["brainSentiment"].exists()){
-                    brainSentiment = BrainSentiment()
-                    let brainSentimentJSON = json["brainSentiment"].rawString()!
-                    if let b = Mapper<BrainSentiment>().map(JSONString: brainSentimentJSON){
-                        brainSentiment = b
-                    }
-                }
-            }
-            completionHandler(premiumStockInfo, kscore, brainSentiment)
-        }
-    }
+    //public func getPremiumData(symbol:String, completionHandler: @escaping (PremiumStockInfo?, Kscore?, BrainSentiment?)->Void){
+//        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/premium/" + symbol, params: [:])
+//        self.getRequest(queryURL: queryURL) { (data) in
+//            let json = JSON(data)
+//            var kscore:Kscore? = nil
+//            var brainSentiment:BrainSentiment? = nil
+//            var premiumStockInfo:PremiumStockInfo? = nil
+//            if (json["premiumStockInfo"].exists()) {
+//                premiumStockInfo = PremiumStockInfo()
+//                let psi = json["premiumStockInfo"]
+//                premiumStockInfo!.symbol = psi["symbol"].stringValue
+//                premiumStockInfo!.lastUpdated = psi["lastUpdate"].doubleValue
+//                premiumStockInfo!.updatesRemaining = psi["updatesRemaining"].intValue
+//
+//            }
+//            if (json["premiumStockData"].exists()){
+//                if (json["kscore"].exists()){
+//                    kscore = Kscore()
+//                    let kscoresJSON = json["kscore"].rawString()!
+//                    if let k = Mapper<Kscore>().map(JSONString: kscoresJSON){
+//                        kscore = k
+//                    }
+//                }
+//                if (json["brainSentiment"].exists()){
+//                    brainSentiment = BrainSentiment()
+//                    let brainSentimentJSON = json["brainSentiment"].rawString()!
+//                    if let b = Mapper<BrainSentiment>().map(JSONString: brainSentimentJSON){
+//                        brainSentiment = b
+//                    }
+//                }
+//            }
+//            completionHandler(premiumStockInfo, kscore, brainSentiment)
+//        }
+//    }
     
     public func getTop10s(completionHandler: @escaping (Top10s)->Void){
         let queryURL = buildQuery(url: apiurl + marketEndpoint + "/top10", params: [:])

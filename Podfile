@@ -14,6 +14,7 @@ target 'stonks' do
   # Essential UI
   pod 'Charts'
   pod 'SPStorkController'
+  pod 'MSPeekCollectionViewDelegateImplementation'
 
   # Utilities
   pod 'SwiftyJSON'

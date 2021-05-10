@@ -14,9 +14,9 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DC581306CD0DF3E92B40424B88951629"
-               BuildableName = "RSLoadingView.framework"
-               BlueprintName = "RSLoadingView"
+               BlueprintIdentifier = "CC4DE41EB4BC5DDE87BBBE62DE643BD8"
+               BuildableName = "MSPeekCollectionViewDelegateImplementation.framework"
+               BlueprintName = "MSPeekCollectionViewDelegateImplementation"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

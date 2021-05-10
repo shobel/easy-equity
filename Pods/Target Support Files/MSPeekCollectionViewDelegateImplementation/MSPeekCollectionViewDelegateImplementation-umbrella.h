@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double RSLoadingViewVersionNumber;
-FOUNDATION_EXPORT const unsigned char RSLoadingViewVersionString[];
+FOUNDATION_EXPORT double MSPeekCollectionViewDelegateImplementationVersionNumber;
+FOUNDATION_EXPORT const unsigned char MSPeekCollectionViewDelegateImplementationVersionString[];
 

@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import MSPeekCollectionViewDelegateImplementation
 
 extension NewsViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -50,6 +51,9 @@ extension NewsViewController: UICollectionViewDataSource, UICollectionViewDelega
         present(vc, animated: true)
     }
     
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+            behavior.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+    }
 }
 
 class NewsViewController: UIViewController, StatsVC, UITableViewDelegate, UITableViewDataSource {
@@ -64,12 +68,21 @@ class NewsViewController: UIViewController, StatsVC, UITableViewDelegate, UITabl
     private var stocktwitsPosts:[StocktwitsPost] = []
     private var stocktwitsTableHeights:[CGFloat] = []
 
+    var behavior: MSCollectionViewPeekingBehavior!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.newsCollectionView.delegate = self
         self.newsCollectionView.dataSource = self
-        
+        behavior = MSCollectionViewPeekingBehavior()
+        behavior.cellPeekWidth = 50
+        behavior.cellSpacing = 10
+        behavior.minimumItemsToScroll = 1
+        behavior.maximumItemsToScroll = 1
+        behavior.numberOfItemsToShow = 1
+        self.newsCollectionView.configureForPeekingBehavior(behavior: behavior)
+        self.newsCollectionView.delegate = self
+
         self.stocktwitsTableView.delegate = self
         self.stocktwitsTableView.dataSource = self
         

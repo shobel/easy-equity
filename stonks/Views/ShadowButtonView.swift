@@ -10,11 +10,14 @@ import UIKit
 
 class ShadowButtonView: UIView {
 
+    @IBOutlet var view: UIView!
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var credits: UILabel!
+    @IBOutlet weak var width: NSLayoutConstraint!
     
     public var delegate:PremiumViewController?
+    public var premiumPackage:PremiumPackage?
     
     let nibName = "ShadowButtonView"
     
@@ -40,7 +43,7 @@ class ShadowButtonView: UIView {
     }
     
     @IBAction func buttonTapped(_ sender: Any) {
-        self.delegate?.buyUpdateButtonTapped()
+        self.delegate?.buyUpdateButtonTapped(self.premiumPackage)
     }
     
     override func draw(_ rect:CGRect) {
