@@ -34,6 +34,7 @@ class Company: Equatable, Comparable {
     
     public var priceTarget:PriceTarget?
     public var priceTargetTopAnalysts:PriceTargetTopAnalysts?
+    public var tipranksAllAnalysts:[ExpertAndRatingForStock]?
     public var news:[News]?
     public var advancedStats: AdvancedStats?
     public var insiders:[Insider]?

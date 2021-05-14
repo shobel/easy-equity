@@ -30,4 +30,5 @@ target 'stonks' do
   pod 'XLActionController'
   pod 'EFCountingLabel'
   pod 'FCAlertView'
+  pod 'Cosmos'
 end

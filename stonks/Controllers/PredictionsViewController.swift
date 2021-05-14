@@ -29,6 +29,7 @@ class PredictionsViewController: UIViewController, StatsVC {
     @IBOutlet weak var avgReturnView: CircularProgressView!
 
     @IBOutlet weak var priceTargetChartTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var analystButtonView: UIView!
     
     private var company:Company!
     private var isLoaded = false
@@ -53,6 +54,15 @@ class PredictionsViewController: UIViewController, StatsVC {
         self.overallRatingsView.layer.masksToBounds = true
         self.overallRatingsView.clipsToBounds = true
         
+        self.analystButtonView.layer.borderWidth = 1.0
+        self.analystButtonView.layer.borderColor = Constants.lightGrey.cgColor
+        self.analystButtonView.layer.cornerRadius = 5.0
+        self.analystButtonView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        self.analystButtonView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        self.analystButtonView.layer.shadowOpacity = 1.0
+        self.analystButtonView.layer.shadowRadius = 0.0
+        self.analystButtonView.layer.masksToBounds = false
+        
         self.accuracyLabel.alpha = 0
         self.avgReturnLabel.alpha = 0
         self.topAnalystSuccessRateView.alpha = 0
@@ -69,37 +79,9 @@ class PredictionsViewController: UIViewController, StatsVC {
     func updateData() {
         self.company = Dataholder.selectedCompany!
         if (isLoaded) {
-            self.ratingsChartView.setup(company: self.company, predictionsDelegate: self)
+            self.ratingsChartView.setup(company: self.company, predictionsDelegate: self, allMode: self.allMode)
             if let x = self.company.priceTarget?.updatedDate {
                 self.updateDate.text = NumberFormatter.formatDate(x)
-            }
-            if let x = self.company.recommendations?.ratingScaleMark {
-                let overallPercentVal = (1 - ((x-1) / 2))*100
-                self.overallPercent.text = String("\(String(format: "%.0f", overallPercentVal))%")
-                var colorIndex:Int = 0
-                var overallText = ""
-                if x <= 1.25 {
-                    overallText = "Strong Buy"
-                    colorIndex = 0
-                } else if x <= 1.75 {
-                    overallText = "Buy"
-                    colorIndex = 1
-                } else if x <= 2.25 {
-                    overallText = "Hold"
-                    colorIndex = 2
-                } else if x <= 2.75 {
-                    overallText = "Sell"
-                    colorIndex = 3
-                } else if x <= 3 {
-                    overallText = "Strong Sell"
-                    colorIndex = 4
-                }
-                let labelColor:UIColor = self.ratingBackgroundColors[colorIndex]
-                let backgroundColor = labelColor.withAlphaComponent(0.2)
-                overallRatingsView.backgroundColor = backgroundColor
-                overallLabel.textColor = labelColor
-                overallPercent.textColor = labelColor
-                overallLabel.text = overallText
             }
             var hasTipranksAnalysts:Bool = false
             if let x = self.company.priceTargetTopAnalysts {
@@ -118,24 +100,57 @@ class PredictionsViewController: UIViewController, StatsVC {
                 self.noTopAnalysts()
             }
             
-            if let x = self.company.priceTarget?.numberOfAnalysts {
-                var n = x
-                if self.allMode {
-                    if hasTipranksAnalysts {
-                        n = x + (self.company.priceTargetTopAnalysts?.numAnalysts)!
-                    }
-                } else if !self.allMode && hasTipranksAnalysts {
-                    n = (self.company.priceTargetTopAnalysts?.numAnalysts)!
+            var numAnalysts = 0
+            if self.allMode {
+                if let x = self.company.priceTarget?.numberOfAnalysts {
+                    numAnalysts += x
                 }
-                let analystString = n > 1 ? "analysts" : "analyst"
-                self.numAnalysts.text = String("\(n) \(analystString)")
+                if hasTipranksAnalysts {
+                    numAnalysts += self.company.priceTargetTopAnalysts?.numAnalysts ?? 0
+                }
+                if let y = self.company.tipranksAllAnalysts {
+                    numAnalysts += y.count
+                }
+            } else if !self.allMode && hasTipranksAnalysts {
+                numAnalysts += self.company.priceTargetTopAnalysts?.numAnalysts ?? 0
             }
+            let analystString = numAnalysts > 1 ? "analysts" : "analyst"
+            self.numAnalysts.text = String("\(numAnalysts) \(analystString)")
+            
             self.priceTargetChartView.setup(company: self.company, predictionsDelegate: self, allMode: self.allMode)
         }
     }
     
+    public func setOverallRecommendationScore(_ score:Double) {
+        self.overallPercent.text = String("\(String(format: "%.0f", score*100.0))%")
+        var colorIndex:Int = 0
+        var overallText = ""
+        if score >= 0.80 {
+            overallText = "Strong Buy"
+            colorIndex = 0
+        } else if score >= 0.60 {
+            overallText = "Buy"
+            colorIndex = 1
+        } else if score >= 0.40 {
+            overallText = "Hold"
+            colorIndex = 2
+        } else if score >= 0.20 {
+            overallText = "Sell"
+            colorIndex = 3
+        } else {
+            overallText = "Strong Sell"
+            colorIndex = 4
+        }
+        let labelColor:UIColor = self.ratingBackgroundColors[colorIndex]
+        let backgroundColor = labelColor.withAlphaComponent(0.2)
+        overallRatingsView.backgroundColor = backgroundColor
+        overallLabel.textColor = labelColor
+        overallPercent.textColor = labelColor
+        overallLabel.text = overallText
+    }
+    
     func getTintColorForReturnValue(value:Float) -> UIColor {
-        if value > 0.3 {
+        if value > 0.25 {
             return Constants.green
         } else if value > 0.1 {
             return Constants.yellow
@@ -184,8 +199,8 @@ class PredictionsViewController: UIViewController, StatsVC {
                 self.topAnalystSuccessRateView.setProgress(CGFloat(0.0))
                 self.avgReturnView.setProgressAndLabel(CGFloat(0.0), label: String(Int((self.avgAnalystReturn*100).rounded())) + "%")
 
-                self.priceTargetChartTopConstraint.constant = 60
-                self.priceTargetContainerHeight.constant = 300
+                self.priceTargetChartTopConstraint.constant = 10
+                //self.priceTargetContainerHeight.constant = 300
             } else {
                 self.accuracyLabel.alpha = 1
                 self.avgReturnLabel.alpha = 1
@@ -195,8 +210,8 @@ class PredictionsViewController: UIViewController, StatsVC {
                 self.topAnalystSuccessRateView.setProgress(CGFloat(self.avgAnalystSuccessRate))
                 self.avgReturnView.setProgressAndLabel(CGFloat(self.avgAnalystReturn/0.3), label: String(Int((self.avgAnalystReturn*100).rounded())) + "%")
             
-                self.priceTargetChartTopConstraint.constant = 140
-                self.priceTargetContainerHeight.constant = 360
+                self.priceTargetChartTopConstraint.constant = 110
+                //self.priceTargetContainerHeight.constant = 380
             }
             if let p = self.parent?.parent?.parent as? StockDetailsVC {
                 p.adjustContentHeight(vc: self)
@@ -205,14 +220,23 @@ class PredictionsViewController: UIViewController, StatsVC {
         }
     }
     
-    /*
+    
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
+        if let dest = segue.destination as? ExpertsViewController {
+            if self.allMode {
+                dest.experts = self.company.tipranksAllAnalysts ?? []
+            } else {
+                dest.experts = self.company.priceTargetTopAnalysts?.expertRatings ?? []
+            }
+            dest.latestPrice = self.company.quote?.latestPrice ?? 0.0
+            dest.symbol = self.company.symbol
+            dest.companyName = self.company.fullName
+            dest.companyLogo = self.company.generalInfo?.logo ?? ""
+        }
      }
-     */
+     
     
 }

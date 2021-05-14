@@ -79,9 +79,13 @@ import UIKit
     }
     
     public func setProgress(_ progress: CGFloat) {
-        if self.progress != progress {
-            self.progressValueLabel?.text = String(Int((progress*100).rounded())) + "%"
-            self.progress = progress
+        var p = progress
+        if p < 0 {
+            p = 0
+        }
+        if self.progress != p {
+            self.progressValueLabel?.text = String(Int((p*100).rounded())) + "%"
+            self.progress = p
             self.progressValueLabel!.sizeToFit()
             self.progressValueLabel!.center = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
             self.addAnimation()
@@ -90,9 +94,13 @@ import UIKit
     }
     
     public func setProgressAndLabel(_ progress: CGFloat, label:String) {
-        if self.progress != progress || self.progressValueLabel?.text != label {
+        var p = progress
+        if p < 0 {
+            p = 0
+        }
+        if self.progress != p || self.progressValueLabel?.text != label {
             self.progressValueLabel?.text = label
-            self.progress = progress
+            self.progress = p
             self.progressValueLabel!.sizeToFit()
             self.progressValueLabel!.center = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
             self.addAnimation()

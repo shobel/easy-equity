@@ -272,7 +272,7 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [CashFlow], [Income], [Income], [Insider], PriceTargetTopAnalysts?)->Void){
+    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [CashFlow], [Income], [Income], [Insider], PriceTargetTopAnalysts?, [ExpertAndRatingForStock])->Void){
         let queryURL = buildQuery(url: apiurl + stockEndpoint + "/allfree/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
@@ -356,7 +356,16 @@ class MyRestAPI: HTTPRequest {
             }
             let tipranksJSON = json["tipranksAnalysts"].rawString()!
             let tipranks:PriceTargetTopAnalysts? = Mapper<PriceTargetTopAnalysts>().map(JSONString: tipranksJSON) ?? nil
-            completionHandler(generalInfo, peerQuotes, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, cashFlowAnnualList, incomeList, incomeAnnualList, insiderList, tipranks)
+            
+            let tipranksAllJSON = json["tipranksAnalystsAll"]
+            var tipranksAllAnalystsList:[ExpertAndRatingForStock] = []
+            for i in 0..<tipranksAllJSON.count{
+                let s:String = tipranksAllJSON[i].rawString()!
+                if let expertAndRatings = Mapper<ExpertAndRatingForStock>().map(JSONString: s){
+                    tipranksAllAnalystsList.append(expertAndRatings)
+                }
+            }
+            completionHandler(generalInfo, peerQuotes, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, cashFlowAnnualList, incomeList, incomeAnnualList, insiderList, tipranks, tipranksAllAnalystsList)
         }
     }
     

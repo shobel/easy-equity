@@ -1,6 +1,7 @@
 ${PODS_ROOT}/Target Support Files/Pods-stonks/Pods-stonks-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework
 ${BUILT_PRODUCTS_DIR}/Charts/Charts.framework
+${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework
 ${BUILT_PRODUCTS_DIR}/EFCountingLabel/EFCountingLabel.framework
 ${BUILT_PRODUCTS_DIR}/FCAlertView/FCAlertView.framework
 ${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework

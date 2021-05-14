@@ -221,6 +221,7 @@ PODS:
   - Charts (3.5.0):
     - Charts/Core (= 3.5.0)
   - Charts/Core (3.5.0)
+  - Cosmos (23.0.0)
   - EFCountingLabel (5.1.2)
   - FCAlertView (1.4.0)
   - Firebase/Analytics (6.28.1):
@@ -354,6 +355,7 @@ PODS:
 
 DEPENDENCIES:
   - Charts
+  - Cosmos
   - EFCountingLabel
   - FCAlertView
   - Firebase/Analytics
@@ -377,6 +379,7 @@ SPEC REPOS:
     - abseil
     - BoringSSL-GRPC
     - Charts
+    - Cosmos
     - EFCountingLabel
     - FCAlertView
     - Firebase
@@ -412,6 +415,7 @@ SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   Charts: 40a08591df1f8ad5c223ddedfb1a06da92f24f7c
+  Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
   EFCountingLabel: fb9119eff4bb20bf42538665cab8e8419083e486
   FCAlertView: fdddd63381898c1d1a5a20c9f084fbd2c6d12f8b
   Firebase: ed042590caa0029392257529a8003c25ee82bc18
@@ -443,6 +447,6 @@ SPEC CHECKSUMS:
   VisualEffectView: 8c05bdc77490d84aabfa9fd17b1ffd6476da0e2c
   XLActionController: f1f2226d2c6629db197d4a41f2da907085a4cb9d
 
-PODFILE CHECKSUM: b5d726df95c30d82de3ef76535f8e1a6a95aea50
+PODFILE CHECKSUM: c34f1cf5f306a0dd441d03343443dc6db82d53a5
 
 COCOAPODS: 1.9.3

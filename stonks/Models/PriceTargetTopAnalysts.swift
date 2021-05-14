@@ -22,6 +22,7 @@ struct PriceTargetTopAnalysts: Mappable {
     public var numAnalysts:Int? //34
     public var numRatings:Int? //25
     public var upsidePercent:Double? //-16.73 actual percent
+    public var expertRatings:[ExpertAndRatingForStock]?
     
     init(){}
     init?(map: Map) {}
@@ -38,5 +39,6 @@ struct PriceTargetTopAnalysts: Mappable {
         numAnalysts <- map["numAnalysts"]
         numRatings <- map["numRatings"]
         upsidePercent <- map["upsidePercent"]
+        expertRatings <- map["experts"]
     }
 }
