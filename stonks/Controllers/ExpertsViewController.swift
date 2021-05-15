@@ -147,7 +147,7 @@ class ExpertsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func sortByButtonTapped(_ sender: Any) {
         let actionController = SkypeActionController() //not really for skype
-        actionController.addAction(Action("Rank", style: .default, handler: { action in
+        actionController.addAction(Action("Analyst Rank", style: .default, handler: { action in
             self.experts.sort { expert1, expert2 in
                 return expert1.rank ?? 0 < expert2.rank ?? 0
             }
@@ -192,6 +192,12 @@ class ExpertsViewController: UIViewController, UITableViewDataSource, UITableVie
         actionController.addAction(Action("Rating date", style: .default, handler: { action in
             self.experts.sort { expert1, expert2 in
                 return expert1.stockRating?.timestamp ?? 0 > expert2.stockRating?.timestamp ?? 0
+            }
+            self.expertsTable.reloadData()
+        }))
+        actionController.addAction(Action("Price target for " + self.symbol, style: .default, handler: { action in
+            self.experts.sort { expert1, expert2 in
+                return expert1.stockRating?.priceTarget ?? 0 > expert2.stockRating?.priceTarget ?? 0
             }
             self.expertsTable.reloadData()
         }))
