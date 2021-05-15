@@ -79,29 +79,33 @@ class PriceTargetChart: CombinedChartView {
             var numAnalysts =  self.company.priceTarget?.numberOfAnalysts ?? 0
             if self.allMode {
                 if let ptta = self.company.priceTargetTopAnalysts {
-                    let newAvgPriceTarget = (avg*Double((self.company.priceTarget?.numberOfAnalysts)!)) + (ptta.avgPriceTarget!*Double(ptta.numAnalysts!))
-                    numAnalysts += ptta.numAnalysts!
-                    avg = newAvgPriceTarget / Double(numAnalysts)
+                    if ptta.expertRatings?.count ?? 0 > 0 {
+                        let newAvgPriceTarget = (avg*Double((self.company.priceTarget?.numberOfAnalysts)!)) + (ptta.avgPriceTarget!*Double(ptta.numAnalysts!))
+                        numAnalysts += ptta.numAnalysts!
+                        avg = newAvgPriceTarget / Double(numAnalysts)
+                    }
                 }
                 if let allExperts = self.company.tipranksAllAnalysts {
-                    var numTipranksAnalystsWithPriceTargets = 0
-                    var priceTargetSum = 0.0
-                    for var rating in allExperts {
-                        if let pt = rating.stockRating?.priceTarget {
-                            numTipranksAnalystsWithPriceTargets += 1
-                            priceTargetSum += pt
-                            if allTipranksExpertsHigh == nil || pt > allTipranksExpertsHigh! {
-                                allTipranksExpertsHigh = pt
-                            }
-                            if allTipranksExpertsLow == nil || pt < allTipranksExpertsLow! {
-                                allTipranksExpertsLow = pt
+                    if allExperts.count > 0 {
+                        var numTipranksAnalystsWithPriceTargets = 0
+                        var priceTargetSum = 0.0
+                        for var rating in allExperts {
+                            if let pt = rating.stockRating?.priceTarget {
+                                numTipranksAnalystsWithPriceTargets += 1
+                                priceTargetSum += pt
+                                if allTipranksExpertsHigh == nil || pt > allTipranksExpertsHigh! {
+                                    allTipranksExpertsHigh = pt
+                                }
+                                if allTipranksExpertsLow == nil || pt < allTipranksExpertsLow! {
+                                    allTipranksExpertsLow = pt
+                                }
                             }
                         }
+                        let ptAvg = priceTargetSum / Double(numTipranksAnalystsWithPriceTargets)
+                        let newAvgPriceTarget = (avg*Double(numAnalysts)) + (ptAvg*Double(numTipranksAnalystsWithPriceTargets))
+                        numAnalysts += numTipranksAnalystsWithPriceTargets
+                        avg = newAvgPriceTarget / Double(numAnalysts)
                     }
-                    let ptAvg = priceTargetSum / Double(numTipranksAnalystsWithPriceTargets)
-                    let newAvgPriceTarget = (avg*Double(numAnalysts)) + (ptAvg*Double(numTipranksAnalystsWithPriceTargets))
-                    numAnalysts += numTipranksAnalystsWithPriceTargets
-                    avg = newAvgPriceTarget / Double(numAnalysts)
                 }
 
             } else if !self.allMode && self.company.priceTargetTopAnalysts != nil {

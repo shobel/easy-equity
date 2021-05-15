@@ -29,6 +29,7 @@ class PredictionsViewController: UIViewController, StatsVC {
     @IBOutlet weak var avgReturnView: CircularProgressView!
 
     @IBOutlet weak var priceTargetChartTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var priceTargetLabelTop: NSLayoutConstraint!
     @IBOutlet weak var analystButtonView: UIView!
     
     private var company:Company!
@@ -150,21 +151,25 @@ class PredictionsViewController: UIViewController, StatsVC {
     }
     
     func getTintColorForReturnValue(value:Float) -> UIColor {
-        if value > 0.25 {
-            return Constants.green
+        if value > 0.3 {
+            return UIColor(red: 80.0/255.0, green: 50.0/255.0, blue: 250.0/255.0, alpha: 1.0)
+        } else if value > 0.2 {
+            return UIColor(red: 120.0/255.0, green: 50.0/255.0, blue: 230.0/255.0, alpha: 1.0)
         } else if value > 0.1 {
-            return Constants.yellow
+            return UIColor(red: 160.0/255.0, green: 53.0/255.0, blue: 210.0/255.0, alpha: 1.0)
         } else {
-            return Constants.darkPink
+            return UIColor(red: 200.0/255.0, green: 60.0/255.0, blue: 168.0/255.0, alpha: 1.0)
         }
     }
     func getTintColorForProgressValue(value:Float) -> UIColor {
-        if value > 0.7 {
-            return Constants.green
-        } else if value > 0.4 {
-            return Constants.yellow
+        if value > 0.75 {
+            return UIColor(red: 80.0/255.0, green: 50.0/255.0, blue: 250.0/255.0, alpha: 1.0)
+        } else if value > 0.5 {
+            return UIColor(red: 120.0/255.0, green: 50.0/255.0, blue: 230.0/255.0, alpha: 1.0)
+        } else if value > 0.25 {
+            return UIColor(red: 160.0/255.0, green: 53.0/255.0, blue: 210.0/255.0, alpha: 1.0)
         } else {
-            return Constants.darkPink
+            return UIColor(red: 200.0/255.0, green: 60.0/255.0, blue: 168.0/255.0, alpha: 1.0)
         }
     }
     
@@ -182,7 +187,7 @@ class PredictionsViewController: UIViewController, StatsVC {
         topAnalystSuccessRateView.isHidden = true
         avgReturnView.isHidden = true
         priceTargetChartTopConstraint.constant = 10
-        self.priceTargetContainerHeight.constant = 250
+        priceTargetLabelTop.constant = 10
         self.view.layoutIfNeeded()
     }
     
@@ -200,7 +205,6 @@ class PredictionsViewController: UIViewController, StatsVC {
                 self.avgReturnView.setProgressAndLabel(CGFloat(0.0), label: String(Int((self.avgAnalystReturn*100).rounded())) + "%")
 
                 self.priceTargetChartTopConstraint.constant = 10
-                //self.priceTargetContainerHeight.constant = 300
             } else {
                 self.accuracyLabel.alpha = 1
                 self.avgReturnLabel.alpha = 1
@@ -211,7 +215,6 @@ class PredictionsViewController: UIViewController, StatsVC {
                 self.avgReturnView.setProgressAndLabel(CGFloat(self.avgAnalystReturn/0.3), label: String(Int((self.avgAnalystReturn*100).rounded())) + "%")
             
                 self.priceTargetChartTopConstraint.constant = 110
-                //self.priceTargetContainerHeight.constant = 380
             }
             if let p = self.parent?.parent?.parent as? StockDetailsVC {
                 p.adjustContentHeight(vc: self)
@@ -226,11 +229,10 @@ class PredictionsViewController: UIViewController, StatsVC {
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? ExpertsViewController {
-            if self.allMode {
-                dest.experts = self.company.tipranksAllAnalysts ?? []
-            } else {
-                dest.experts = self.company.priceTargetTopAnalysts?.expertRatings ?? []
-            }
+            let topExperts = self.company.priceTargetTopAnalysts?.expertRatings ?? []
+            let otherExperts = self.company.tipranksAllAnalysts ?? []
+            dest.experts = topExperts + otherExperts
+            
             dest.latestPrice = self.company.quote?.latestPrice ?? 0.0
             dest.symbol = self.company.symbol
             dest.companyName = self.company.fullName

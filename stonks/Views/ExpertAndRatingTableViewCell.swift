@@ -24,6 +24,7 @@ class ExpertAndRatingTableViewCell: UITableViewCell {
     @IBOutlet weak var ptPercentOff: UILabel!
     @IBOutlet weak var positionLabelContainer: UIView!
     @IBOutlet weak var positionLabel: UILabel!
+    @IBOutlet weak var date: UILabel!
     
     @IBOutlet weak var overallNumRatings: UILabel!
     @IBOutlet weak var stockNumRatings: UILabel!

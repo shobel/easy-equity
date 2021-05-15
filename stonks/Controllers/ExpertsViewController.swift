@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import XLActionController
 
 class ExpertsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var expertsTable: UITableView!
+    @IBOutlet weak var symbolLabel: UILabel!
+    @IBOutlet weak var latestPriceLabel: UILabel!
+    @IBOutlet weak var companyNameLabel: UILabel!
+    @IBOutlet weak var sortByContainer: UIView!
     
     public var experts:[ExpertAndRatingForStock] = []
     public var latestPrice:Double?
@@ -21,11 +26,16 @@ class ExpertsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         self.expertsTable.delegate = self
         self.expertsTable.dataSource = self
-        
+        self.sortByContainer.layer.cornerRadius = 5.0
         self.experts.sort { expert1, expert2 in
             return expert1.rank ?? 0 < expert2.rank ?? 0
         }
 
+        self.symbolLabel.text = self.symbol
+        self.companyNameLabel.text = self.companyName
+        if let latestPrice = self.latestPrice {
+            self.latestPriceLabel.text = String("$\(self.latestPrice!)")
+        }
         super.viewDidLoad()
     }
     
@@ -88,38 +98,39 @@ class ExpertsViewController: UIViewController, UITableViewDataSource, UITableVie
             cell.overallNumRatings.text = String("Overall: \(overallNumRatings) ratings")
         }
         if let stockNumRatings = expert.stockRating?.numRatings {
-            cell.stockNumRatings.text = String("This stock: \(stockNumRatings) ratings")
+            cell.stockNumRatings.text = String("On \(self.symbol): \(stockNumRatings) ratings")
         }
         cell.stars.rating = expert.stars ?? 5.0
         if let pos = expert.stockRating?.position {
             cell.positionLabel.text = pos.uppercased()
             cell.positionLabelContainer.backgroundColor = self.getColorForRating(value: pos)
         }
+        if let date = expert.stockRating?.date {
+            cell.date.text = date
+        }
         return cell
     }
     
     func getTintColorForReturnValue(value:Float) -> UIColor {
-        if value > 0.25 {
-//            return Constants.green
-            return Constants.blue
+        if value > 0.3 {
+            return UIColor(red: 80.0/255.0, green: 50.0/255.0, blue: 250.0/255.0, alpha: 1.0)
+        } else if value > 0.2 {
+            return UIColor(red: 120.0/255.0, green: 50.0/255.0, blue: 230.0/255.0, alpha: 1.0)
         } else if value > 0.1 {
-//            return Constants.yellow
-            return Constants.purple
+            return UIColor(red: 160.0/255.0, green: 53.0/255.0, blue: 210.0/255.0, alpha: 1.0)
         } else {
-//            return Constants.darkPink
-            return Constants.bigRed
+            return UIColor(red: 200.0/255.0, green: 60.0/255.0, blue: 168.0/255.0, alpha: 1.0)
         }
     }
     func getTintColorForProgressValue(value:Float) -> UIColor {
-        if value > 0.7 {
-//            return Constants.green
-            return Constants.blue
-        } else if value > 0.4 {
-//            return Constants.yellow
-            return Constants.purple
+        if value > 0.75 {
+            return UIColor(red: 80.0/255.0, green: 50.0/255.0, blue: 250.0/255.0, alpha: 1.0)
+        } else if value > 0.5 {
+            return UIColor(red: 120.0/255.0, green: 50.0/255.0, blue: 230.0/255.0, alpha: 1.0)
+        } else if value > 0.25 {
+            return UIColor(red: 160.0/255.0, green: 53.0/255.0, blue: 210.0/255.0, alpha: 1.0)
         } else {
-//            return Constants.darkPink
-            return Constants.bigRed
+            return UIColor(red: 200.0/255.0, green: 60.0/255.0, blue: 168.0/255.0, alpha: 1.0)
         }
     }
     func getColorForRating(value:String) -> UIColor {
@@ -134,6 +145,58 @@ class ExpertsViewController: UIViewController, UITableViewDataSource, UITableVie
         return .black
     }
     
+    @IBAction func sortByButtonTapped(_ sender: Any) {
+        let actionController = SkypeActionController() //not really for skype
+        actionController.addAction(Action("Rank", style: .default, handler: { action in
+            self.experts.sort { expert1, expert2 in
+                return expert1.rank ?? 0 < expert2.rank ?? 0
+            }
+            self.expertsTable.reloadData()
+        }))
+        actionController.addAction(Action("Overall success rate", style: .default, handler: { action in
+            self.experts.sort { expert1, expert2 in
+                return expert1.successRate ?? 0.0 > expert2.successRate ?? 0.0
+            }
+            self.expertsTable.reloadData()
+        }))
+        actionController.addAction(Action("Overall average return", style: .default, handler: { action in
+            self.experts.sort { expert1, expert2 in
+                return expert1.avgReturn ?? 0.0 > expert2.avgReturn ?? 0.0
+            }
+            self.expertsTable.reloadData()
+        }))
+        actionController.addAction(Action("Success rate on " + self.symbol, style: .default, handler: { action in
+            self.experts.sort { expert1, expert2 in
+                return expert1.stockRating?.successRate ?? 0.0 > expert2.stockRating?.successRate ?? 0.0
+            }
+            self.expertsTable.reloadData()
+        }))
+        actionController.addAction(Action("Average return on " + self.symbol, style: .default, handler: { action in
+            self.experts.sort { expert1, expert2 in
+                return expert1.stockRating?.averageReturn ?? 0.0 > expert2.stockRating?.averageReturn ?? 0.0
+            }
+            self.expertsTable.reloadData()
+        }))
+        actionController.addAction(Action("Number of ratings", style: .default, handler: { action in
+            self.experts.sort { expert1, expert2 in
+                return expert1.numRatings ?? 0 > expert2.numRatings ?? 0
+            }
+            self.expertsTable.reloadData()
+        }))
+        actionController.addAction(Action("Number of ratings on " + self.symbol, style: .default, handler: { action in
+            self.experts.sort { expert1, expert2 in
+                return expert1.stockRating?.numRatings ?? 0 > expert2.stockRating?.numRatings ?? 0
+            }
+            self.expertsTable.reloadData()
+        }))
+        actionController.addAction(Action("Rating date", style: .default, handler: { action in
+            self.experts.sort { expert1, expert2 in
+                return expert1.stockRating?.timestamp ?? 0 > expert2.stockRating?.timestamp ?? 0
+            }
+            self.expertsTable.reloadData()
+        }))
+        present(actionController, animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 
