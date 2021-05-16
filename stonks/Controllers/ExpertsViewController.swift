@@ -203,6 +203,11 @@ class ExpertsViewController: UIViewController, UITableViewDataSource, UITableVie
         }))
         present(actionController, animated: true, completion: nil)
     }
+    
+    @IBAction func closeTapped(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 

@@ -272,7 +272,7 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [CashFlow], [Income], [Income], [Insider], PriceTargetTopAnalysts?, [ExpertAndRatingForStock])->Void){
+    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [CashFlow], [Income], [Income], [Insider], PriceTargetTopAnalysts?, [ExpertAndRatingForStock], [SimpleTimeAndPrice], [SimpleTimeAndPrice])->Void){
         let queryURL = buildQuery(url: apiurl + stockEndpoint + "/allfree/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
@@ -365,7 +365,26 @@ class MyRestAPI: HTTPRequest {
                     tipranksAllAnalystsList.append(expertAndRatings)
                 }
             }
-            completionHandler(generalInfo, peerQuotes, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, cashFlowAnnualList, incomeList, incomeAnnualList, insiderList, tipranks, tipranksAllAnalystsList)
+            
+            let priceTargetsOverTimeJSON = json["priceTargetsOverTime"]
+            var priceTargetsOverTime:[SimpleTimeAndPrice] = []
+            for i in 0..<priceTargetsOverTimeJSON.count{
+                let s:String = priceTargetsOverTimeJSON[i].rawString()!
+                if let pt = Mapper<SimpleTimeAndPrice>().map(JSONString: s){
+                    priceTargetsOverTime.append(pt)
+                }
+            }
+            
+            let bestPriceTargetsOverTimeJSON = json["bestPriceTargetsOverTime"]
+            var bestPriceTargetsOverTime:[SimpleTimeAndPrice] = []
+            for i in 0..<bestPriceTargetsOverTimeJSON.count{
+                let s:String = bestPriceTargetsOverTimeJSON[i].rawString()!
+                if let pt = Mapper<SimpleTimeAndPrice>().map(JSONString: s){
+                    bestPriceTargetsOverTime.append(pt)
+                }
+            }
+            
+            completionHandler(generalInfo, peerQuotes, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, cashFlowAnnualList, incomeList, incomeAnnualList, insiderList, tipranks, tipranksAllAnalystsList, priceTargetsOverTime, bestPriceTargetsOverTime)
         }
     }
     

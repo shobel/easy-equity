@@ -13,6 +13,7 @@ class PredictionsViewController: UIViewController, StatsVC {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var priceTargetChartView: PriceTargetChart!
     @IBOutlet weak var ratingsChartView: RatingsChart!
+    @IBOutlet weak var priceTargetsOverTimeChartView: PriceTargetsOverTimeChart!
     
     @IBOutlet weak var numAnalysts: UILabel!
     @IBOutlet weak var updateDate: UILabel!
@@ -21,7 +22,6 @@ class PredictionsViewController: UIViewController, StatsVC {
     @IBOutlet weak var overallPercent: UILabel!
     @IBOutlet weak var overallLabel: UILabel!
     
-    @IBOutlet weak var priceTargetContainerHeight: NSLayoutConstraint!
     @IBOutlet weak var modeControl: UISegmentedControl!
     @IBOutlet weak var accuracyLabel: UILabel!
     @IBOutlet weak var avgReturnLabel: UILabel!
@@ -119,6 +119,7 @@ class PredictionsViewController: UIViewController, StatsVC {
             self.numAnalysts.text = String("\(numAnalysts) \(analystString)")
             
             self.priceTargetChartView.setup(company: self.company, predictionsDelegate: self, allMode: self.allMode)
+            self.priceTargetsOverTimeChartView.setup(company: self.company, allMode: self.allMode)
         }
     }
     
@@ -186,15 +187,15 @@ class PredictionsViewController: UIViewController, StatsVC {
         avgReturnLabel.isHidden = true
         topAnalystSuccessRateView.isHidden = true
         avgReturnView.isHidden = true
-        priceTargetChartTopConstraint.constant = 10
-        priceTargetLabelTop.constant = 10
+        priceTargetChartTopConstraint.constant = 15
+        priceTargetLabelTop.constant = 15
         self.view.layoutIfNeeded()
     }
     
     @IBAction func changeMode(_ sender: Any) {
         self.allMode = !self.allMode
         self.updateData()
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: 0.2) { [self] in
             if self.allMode {
                 self.accuracyLabel.alpha = 0
                 self.avgReturnLabel.alpha = 0
@@ -205,6 +206,7 @@ class PredictionsViewController: UIViewController, StatsVC {
                 self.avgReturnView.setProgressAndLabel(CGFloat(0.0), label: String(Int((self.avgAnalystReturn*100).rounded())) + "%")
 
                 self.priceTargetChartTopConstraint.constant = 10
+                self.priceTargetLabelTop.constant = 15
             } else {
                 self.accuracyLabel.alpha = 1
                 self.avgReturnLabel.alpha = 1
@@ -215,6 +217,7 @@ class PredictionsViewController: UIViewController, StatsVC {
                 self.avgReturnView.setProgressAndLabel(CGFloat(self.avgAnalystReturn/0.3), label: String(Int((self.avgAnalystReturn*100).rounded())) + "%")
             
                 self.priceTargetChartTopConstraint.constant = 110
+                self.priceTargetLabelTop.constant = 60
             }
             if let p = self.parent?.parent?.parent as? StockDetailsVC {
                 p.adjustContentHeight(vc: self)

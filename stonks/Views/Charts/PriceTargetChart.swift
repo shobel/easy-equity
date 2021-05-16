@@ -59,7 +59,7 @@ class PriceTargetChart: CombinedChartView {
       
     private func setChartData(){
         var monthDataEntries:[ChartDataEntry] = []
-        let monthOfDailyPrices = Array(self.company.dailyData.suffix(20))
+        let monthOfDailyPrices = Array(self.company.dailyData.suffix(40)) //2months
         for i in 0..<monthOfDailyPrices.count {
             let chartItem = monthOfDailyPrices[i]
             monthDataEntries.append(ChartDataEntry(x: Double(i), y: chartItem.close!))
@@ -112,7 +112,7 @@ class PriceTargetChart: CombinedChartView {
                 avg = self.company.priceTargetTopAnalysts!.avgPriceTarget!
             }
             averagePriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count), y: latestPrice))
-            averagePriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count + 20), y: avg))
+            averagePriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count * 2), y: avg))
             
             var highTarget = self.company.priceTarget!.priceTargetHigh!
             if self.allMode {
@@ -124,7 +124,7 @@ class PriceTargetChart: CombinedChartView {
                 highTarget = self.company.priceTargetTopAnalysts!.highPriceTarget!
             }
             highPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count), y: latestPrice))
-            highPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count + 20), y: highTarget))
+            highPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count * 2), y: highTarget))
             
             var lowTarget = self.company.priceTarget!.priceTargetLow!
             if self.allMode {
@@ -136,7 +136,7 @@ class PriceTargetChart: CombinedChartView {
                 lowTarget = self.company.priceTargetTopAnalysts!.lowPriceTarget!
             }
             lowPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count), y: latestPrice))
-            lowPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count + 20), y: lowTarget))
+            lowPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count * 2), y: lowTarget))
         }
 
         let monthDataSet = LineChartDataSet(entries: monthDataEntries)
@@ -158,7 +158,7 @@ class PriceTargetChart: CombinedChartView {
             let data = CombinedChartData()
             data.lineData = LineChartData(dataSets: self.lineChartDataSets)
       
-            self.xAxis.axisMaximum = data.xMax + 10
+            self.xAxis.axisMaximum = data.xMax + 20
             self.data = data
             self.notifyDataSetChanged()
         }
