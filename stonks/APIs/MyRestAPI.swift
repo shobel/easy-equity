@@ -272,7 +272,7 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [CashFlow], [Income], [Income], [Insider], PriceTargetTopAnalysts?)->Void){
+    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [CashFlow], [Income], [Income], [Insider], PriceTargetTopAnalysts?, [ExpertAndRatingForStock], [SimpleTimeAndPrice], [SimpleTimeAndPrice])->Void){
         let queryURL = buildQuery(url: apiurl + stockEndpoint + "/allfree/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
@@ -356,44 +356,72 @@ class MyRestAPI: HTTPRequest {
             }
             let tipranksJSON = json["tipranksAnalysts"].rawString()!
             let tipranks:PriceTargetTopAnalysts? = Mapper<PriceTargetTopAnalysts>().map(JSONString: tipranksJSON) ?? nil
-            completionHandler(generalInfo, peerQuotes, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, cashFlowAnnualList, incomeList, incomeAnnualList, insiderList, tipranks)
+            
+            let tipranksAllJSON = json["tipranksAnalystsAll"]
+            var tipranksAllAnalystsList:[ExpertAndRatingForStock] = []
+            for i in 0..<tipranksAllJSON.count{
+                let s:String = tipranksAllJSON[i].rawString()!
+                if let expertAndRatings = Mapper<ExpertAndRatingForStock>().map(JSONString: s){
+                    tipranksAllAnalystsList.append(expertAndRatings)
+                }
+            }
+            
+            let priceTargetsOverTimeJSON = json["priceTargetsOverTime"]
+            var priceTargetsOverTime:[SimpleTimeAndPrice] = []
+            for i in 0..<priceTargetsOverTimeJSON.count{
+                let s:String = priceTargetsOverTimeJSON[i].rawString()!
+                if let pt = Mapper<SimpleTimeAndPrice>().map(JSONString: s){
+                    priceTargetsOverTime.append(pt)
+                }
+            }
+            
+            let bestPriceTargetsOverTimeJSON = json["bestPriceTargetsOverTime"]
+            var bestPriceTargetsOverTime:[SimpleTimeAndPrice] = []
+            for i in 0..<bestPriceTargetsOverTimeJSON.count{
+                let s:String = bestPriceTargetsOverTimeJSON[i].rawString()!
+                if let pt = Mapper<SimpleTimeAndPrice>().map(JSONString: s){
+                    bestPriceTargetsOverTime.append(pt)
+                }
+            }
+            
+            completionHandler(generalInfo, peerQuotes, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, cashFlowAnnualList, incomeList, incomeAnnualList, insiderList, tipranks, tipranksAllAnalystsList, priceTargetsOverTime, bestPriceTargetsOverTime)
         }
     }
     
-    public func getPremiumData(symbol:String, completionHandler: @escaping (PremiumStockInfo?, Kscore?, BrainSentiment?)->Void){
-        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/premium/" + symbol, params: [:])
-        self.getRequest(queryURL: queryURL) { (data) in
-            let json = JSON(data)
-            var kscore:Kscore? = nil
-            var brainSentiment:BrainSentiment? = nil
-            var premiumStockInfo:PremiumStockInfo? = nil
-            if (json["premiumStockInfo"].exists()) {
-                premiumStockInfo = PremiumStockInfo()
-                let psi = json["premiumStockInfo"]
-                premiumStockInfo!.symbol = psi["symbol"].stringValue
-                premiumStockInfo!.lastUpdated = psi["lastUpdate"].doubleValue
-                premiumStockInfo!.updatesRemaining = psi["updatesRemaining"].intValue
-                
-            }
-            if (json["premiumStockData"].exists()){
-                if (json["kscore"].exists()){
-                    kscore = Kscore()
-                    let kscoresJSON = json["kscore"].rawString()!
-                    if let k = Mapper<Kscore>().map(JSONString: kscoresJSON){
-                        kscore = k
-                    }
-                }
-                if (json["brainSentiment"].exists()){
-                    brainSentiment = BrainSentiment()
-                    let brainSentimentJSON = json["brainSentiment"].rawString()!
-                    if let b = Mapper<BrainSentiment>().map(JSONString: brainSentimentJSON){
-                        brainSentiment = b
-                    }
-                }
-            }
-            completionHandler(premiumStockInfo, kscore, brainSentiment)
-        }
-    }
+    //public func getPremiumData(symbol:String, completionHandler: @escaping (PremiumStockInfo?, Kscore?, BrainSentiment?)->Void){
+//        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/premium/" + symbol, params: [:])
+//        self.getRequest(queryURL: queryURL) { (data) in
+//            let json = JSON(data)
+//            var kscore:Kscore? = nil
+//            var brainSentiment:BrainSentiment? = nil
+//            var premiumStockInfo:PremiumStockInfo? = nil
+//            if (json["premiumStockInfo"].exists()) {
+//                premiumStockInfo = PremiumStockInfo()
+//                let psi = json["premiumStockInfo"]
+//                premiumStockInfo!.symbol = psi["symbol"].stringValue
+//                premiumStockInfo!.lastUpdated = psi["lastUpdate"].doubleValue
+//                premiumStockInfo!.updatesRemaining = psi["updatesRemaining"].intValue
+//
+//            }
+//            if (json["premiumStockData"].exists()){
+//                if (json["kscore"].exists()){
+//                    kscore = Kscore()
+//                    let kscoresJSON = json["kscore"].rawString()!
+//                    if let k = Mapper<Kscore>().map(JSONString: kscoresJSON){
+//                        kscore = k
+//                    }
+//                }
+//                if (json["brainSentiment"].exists()){
+//                    brainSentiment = BrainSentiment()
+//                    let brainSentimentJSON = json["brainSentiment"].rawString()!
+//                    if let b = Mapper<BrainSentiment>().map(JSONString: brainSentimentJSON){
+//                        brainSentiment = b
+//                    }
+//                }
+//            }
+//            completionHandler(premiumStockInfo, kscore, brainSentiment)
+//        }
+//    }
     
     public func getTop10s(completionHandler: @escaping (Top10s)->Void){
         let queryURL = buildQuery(url: apiurl + marketEndpoint + "/top10", params: [:])

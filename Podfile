@@ -14,6 +14,7 @@ target 'stonks' do
   # Essential UI
   pod 'Charts'
   pod 'SPStorkController'
+  pod 'MSPeekCollectionViewDelegateImplementation'
 
   # Utilities
   pod 'SwiftyJSON'
@@ -29,4 +30,5 @@ target 'stonks' do
   pod 'XLActionController'
   pod 'EFCountingLabel'
   pod 'FCAlertView'
+  pod 'Cosmos'
 end

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FCAlertView
 
 class PremiumViewController: UIViewController, StatsVC {
     
@@ -57,38 +58,40 @@ class PremiumViewController: UIViewController, StatsVC {
         self.isLoaded = true
         self.company = Dataholder.selectedCompany!
         
+        //gets the cost of the different premium packages
         NetworkManager.getMyRestApi().getPremiumPackages(completionHandler: handlePremiumPackages)
-        NetworkManager.getMyRestApi().getPremiumData(symbol: company.symbol, completionHandler: handlePremiumData)
- 
-//        self.valuebar.tintColor = self.getTintColorForProgressValue(value: Float(0.2))
-//        self.growthbar.tintColor = self.getTintColorForProgressValue(value: Float(0.7))
-//        self.qualitybar.tintColor = self.getTintColorForProgressValue(value: Float(0.8))
-//        self.kavoutbar.tintColor = self.getTintColorForProgressValue(value: Float(0.6))
-//        self.momentumbar.tintColor = self.getTintColorForProgressValue(value: Float(0.5))
+        
+        //
+        self.handlePremiumData(kscores: nil, brainSentiment: nil, brain21Ranking: nil, brainLanguage: nil, stocktwitsSentiment: nil)
+        //NetworkManager.getMyRestApi().getPremiumData(symbol: company.symbol, completionHandler: handlePremiumData)
+
     }
     
-    public func buyUpdateButtonTapped(){
-        print("buy update button tapped")
+    public func buyUpdateButtonTapped(_ premiumPackage:PremiumPackage?){
+        if premiumPackage != nil {
+            self.showInfoAlert(premiumPackage!)
+        }
     }
     
     private func handlePremiumPackages(_ premiumPackages:[PremiumPackage]){
         DispatchQueue.main.async {
             for package in premiumPackages {
+                var currentButton:ShadowButtonView?
                 switch package.id {
                     case "PREMIUM_BRAIN_LANGUAGE_METRICS_ALL":
-                        self.languageUpdateButton.credits.text = String(package.credits!)
+                        currentButton = self.languageUpdateButton
                         break
                     case "PREMIUM_BRAIN_RANKING_21_DAYS":
-                        self.day21ReturnUpdateButton.credits.text = String(package.credits!)
+                        currentButton = self.day21ReturnUpdateButton
                         break
                     case "PREMIUM_BRAIN_SENTIMENT_30_DAYS":
-                        self.day30SentimentUpdateButton.credits.text = String(package.credits!)
+                        currentButton = self.day30SentimentUpdateButton
                         break
                     case "PREMIUM_KAVOUT_KSCORE":
-                        self.kavoutUpdateButton.credits.text = String(package.credits!)
+                        currentButton = self.kavoutUpdateButton
                         break
                     case "STOCKTWITS_SENTIMENT":
-                        self.stocktwitsUpdateButton.credits.text = String(package.credits!)
+                        currentButton = self.stocktwitsUpdateButton
                         break
                     case .none:
                         break
@@ -96,22 +99,31 @@ class PremiumViewController: UIViewController, StatsVC {
                         break
                     
                 }
+                if currentButton != nil {
+                    currentButton!.credits.text = String(package.credits!)
+                    currentButton!.premiumPackage = package
+                }
             }
         }
     }
     
-    private func handlePremiumData(premiumStockInfo:PremiumStockInfo?, kscores: Kscore?, brainSentiment: BrainSentiment?) {
-        if (premiumStockInfo == nil){
-
-        } else {
-            if (kscores != nil){
-                self.company.kscores = kscores
-            }
-            if (brainSentiment != nil){
-                self.company.brainSentiment = brainSentiment
-            }
-            self.updateData()
+    private func handlePremiumData(kscores: Kscore?, brainSentiment: BrainSentiment?, brain21Ranking:Brain21DayRanking?, brainLanguage:BrainLanguage?, stocktwitsSentiment:StocktwitsSentiment?) {
+        if kscores != nil {
+            self.company.kscores = kscores
         }
+        if brainSentiment != nil {
+            self.company.brainSentiment = brainSentiment
+        }
+        if (brain21Ranking != nil){
+
+        }
+        if (brainLanguage != nil){
+
+        }
+        if stocktwitsSentiment != nil {
+
+        }
+        self.updateData()
     }
     
     func updateData() {
@@ -167,6 +179,25 @@ class PremiumViewController: UIViewController, StatsVC {
             }
         }
     }
+    
+    func showInfoAlert(_ package:PremiumPackage){
+        let message = "You are about to use " + String(package.credits!) + " credits to get " + package.name! + " data for " + company.fullName + ". If you have already received this data recently, new data might not meaningfully differ from what you already have, depending on market conditions."
+        let alert = FCAlertView()
+        alert.doneActionBlock {
+            print("use")
+        }
+        alert.colorScheme = Constants.green
+        alert.dismissOnOutsideTouch = true
+        alert.detachButtons = true
+        alert.showAlert(inView: self,
+                        withTitle: "Premium Data",
+                        withSubtitle: message,
+                        withCustomImage: UIImage(named: "coin_bw.png"),
+                        withDoneButtonTitle: "Use",
+                        andButtons: ["Cancel"])
+    }
+    
+    
     
     func getTintColorForProgressValue(value:Float) -> UIColor {
         if value > 0.7 {

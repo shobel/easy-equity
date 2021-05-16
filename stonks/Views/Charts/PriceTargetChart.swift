@@ -59,7 +59,7 @@ class PriceTargetChart: CombinedChartView {
       
     private func setChartData(){
         var monthDataEntries:[ChartDataEntry] = []
-        let monthOfDailyPrices = Array(self.company.dailyData.suffix(20))
+        let monthOfDailyPrices = Array(self.company.dailyData.suffix(40)) //2months
         for i in 0..<monthOfDailyPrices.count {
             let chartItem = monthOfDailyPrices[i]
             monthDataEntries.append(ChartDataEntry(x: Double(i), y: chartItem.close!))
@@ -71,41 +71,72 @@ class PriceTargetChart: CombinedChartView {
         var highPriceTargetEntries:[ChartDataEntry] = []
         var lowPriceTargetEntries:[ChartDataEntry] = []
 
+        var allTipranksExpertsHigh:Double? = nil
+        var allTipranksExpertsLow:Double? = nil
+        
         if self.company.priceTarget != nil {
             var avg = (self.company.priceTarget?.priceTargetAverage!)!
+            var numAnalysts =  self.company.priceTarget?.numberOfAnalysts ?? 0
             if self.allMode {
                 if let ptta = self.company.priceTargetTopAnalysts {
-                    let newAvgPriceTarget = (avg*Double((self.company.priceTarget?.numberOfAnalysts)!))  + (ptta.avgPriceTarget!*Double(ptta.numAnalysts!))
-                    let newNumAnalysts = self.company.priceTarget!.numberOfAnalysts! + ptta.numAnalysts!
-                    avg = newAvgPriceTarget / Double(newNumAnalysts)
+                    if ptta.expertRatings?.count ?? 0 > 0 {
+                        let newAvgPriceTarget = (avg*Double((self.company.priceTarget?.numberOfAnalysts)!)) + (ptta.avgPriceTarget!*Double(ptta.numAnalysts!))
+                        numAnalysts += ptta.numAnalysts!
+                        avg = newAvgPriceTarget / Double(numAnalysts)
+                    }
                 }
+                if let allExperts = self.company.tipranksAllAnalysts {
+                    if allExperts.count > 0 {
+                        var numTipranksAnalystsWithPriceTargets = 0
+                        var priceTargetSum = 0.0
+                        for var rating in allExperts {
+                            if let pt = rating.stockRating?.priceTarget {
+                                numTipranksAnalystsWithPriceTargets += 1
+                                priceTargetSum += pt
+                                if allTipranksExpertsHigh == nil || pt > allTipranksExpertsHigh! {
+                                    allTipranksExpertsHigh = pt
+                                }
+                                if allTipranksExpertsLow == nil || pt < allTipranksExpertsLow! {
+                                    allTipranksExpertsLow = pt
+                                }
+                            }
+                        }
+                        let ptAvg = priceTargetSum / Double(numTipranksAnalystsWithPriceTargets)
+                        let newAvgPriceTarget = (avg*Double(numAnalysts)) + (ptAvg*Double(numTipranksAnalystsWithPriceTargets))
+                        numAnalysts += numTipranksAnalystsWithPriceTargets
+                        avg = newAvgPriceTarget / Double(numAnalysts)
+                    }
+                }
+
             } else if !self.allMode && self.company.priceTargetTopAnalysts != nil {
                 avg = self.company.priceTargetTopAnalysts!.avgPriceTarget!
             }
             averagePriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count), y: latestPrice))
-            averagePriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count + 20), y: avg))
+            averagePriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count * 2), y: avg))
             
             var highTarget = self.company.priceTarget!.priceTargetHigh!
             if self.allMode {
                 if let ptta = self.company.priceTargetTopAnalysts {
                     highTarget = max(highTarget, ptta.highPriceTarget!)
+                    highTarget = max(highTarget, allTipranksExpertsHigh ?? highTarget)
                 }
             } else if !self.allMode && self.company.priceTargetTopAnalysts != nil {
                 highTarget = self.company.priceTargetTopAnalysts!.highPriceTarget!
             }
             highPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count), y: latestPrice))
-            highPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count + 20), y: highTarget))
+            highPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count * 2), y: highTarget))
             
             var lowTarget = self.company.priceTarget!.priceTargetLow!
             if self.allMode {
                 if let ptta = self.company.priceTargetTopAnalysts {
-                    lowTarget = max(lowTarget, ptta.lowPriceTarget!)
+                    lowTarget = min(lowTarget, ptta.lowPriceTarget!)
+                    lowTarget = min(lowTarget, allTipranksExpertsLow ?? lowTarget)
                 }
             } else if !self.allMode && self.company.priceTargetTopAnalysts != nil {
                 lowTarget = self.company.priceTargetTopAnalysts!.lowPriceTarget!
             }
             lowPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count), y: latestPrice))
-            lowPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count + 20), y: lowTarget))
+            lowPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count * 2), y: lowTarget))
         }
 
         let monthDataSet = LineChartDataSet(entries: monthDataEntries)
@@ -127,7 +158,7 @@ class PriceTargetChart: CombinedChartView {
             let data = CombinedChartData()
             data.lineData = LineChartData(dataSets: self.lineChartDataSets)
       
-            self.xAxis.axisMaximum = data.xMax + 10
+            self.xAxis.axisMaximum = data.xMax + 20
             self.data = data
             self.notifyDataSetChanged()
         }
@@ -165,10 +196,19 @@ class PriceTargetChart: CombinedChartView {
 extension PriceTargetChart: IValueFormatter {
     func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
         //return NumberFormatter.formatNumberWithPossibleDecimal(value)
-        let diff = value - self.company.quote!.latestPrice!
-        //self.textColor = getColor(diff)
-        let formattedValue = NumberFormatter.formatNumberWithPossibleDecimal(value)
-        let percentString = NumberFormatter.formatNumberWithPossibleDecimal((diff / self.company.quote!.latestPrice!) * 100.0)
-        return percentString == "0" ? String("\(formattedValue)") : String("\(formattedValue) (\(percentString)%)")
+        if let latestPrice = self.company.quote?.latestPrice {
+            let diff = value - latestPrice
+            //self.textColor = getColor(diff)
+            let formattedValue = NumberFormatter.formatNumberWithPossibleDecimal(value)
+            let percentString = NumberFormatter.formatNumberWithPossibleDecimal((diff / latestPrice) * 100.0)
+            if diff > 0 {
+                return String("\(formattedValue) (+\(percentString)%)")
+            } else if diff < 0 {
+                return String("\(formattedValue) (\(percentString)%)")
+            } else {
+                return String("\(formattedValue)")
+            }
+        }
+        return ""
     }
 }
