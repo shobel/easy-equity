@@ -44,13 +44,19 @@ class ColoredValueLabel: UILabel {
         return Constants.green
     }
     
+    //weird rule: if value is Int.min, will set the text to ---- in gray
     public func setValue(value: Double, isPercent: Bool, prefix:String = ""){
-        self.changeValue = value
-        self.isPercent = isPercent
-        self.prefix = prefix
-        
-        self.textColor = getColor(value: value)
-        self.text = getFormattedString()
+        if value == Double(Int.min) {
+            self.textColor = .gray
+            self.text = "-------"
+        } else {
+            self.changeValue = value
+            self.isPercent = isPercent
+            self.prefix = prefix
+            
+            self.textColor = getColor(value: value)
+            self.text = getFormattedString()
+        }
     }
 
 }

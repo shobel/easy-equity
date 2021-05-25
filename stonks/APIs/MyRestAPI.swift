@@ -119,6 +119,46 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
+    public func buyPremiumPackage(symbol:String, packageId:String, completionHandler: @escaping (PremiumDataBase?, Int?, String?)->Void) {
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/spendCredits/" + symbol + "/" + packageId, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            if json["error"].string != nil && json["credits"].int != nil {
+                completionHandler(nil, json["credits"].intValue, json["error"].stringValue)
+                return
+            } else if json["data"].dictionary != nil && json["credits"].int != nil {
+                let JSONString:String = json["data"].rawString()!
+                if packageId == Constants.premiumPackageIds.PREMIUM_BRAIN_LANGUAGE_METRICS_ALL {
+                    if let p = Mapper<BrainLanguage>().map(JSONString: JSONString){
+                        completionHandler(p, json["credits"].intValue, nil)
+                        return
+                    }
+                } else if packageId == Constants.premiumPackageIds.PREMIUM_BRAIN_RANKING_21_DAYS {
+                    if let p = Mapper<Brain21DayRanking>().map(JSONString: JSONString){
+                        completionHandler(p, json["credits"].intValue, nil)
+                        return
+                    }
+                } else if packageId == Constants.premiumPackageIds.PREMIUM_BRAIN_SENTIMENT_30_DAYS {
+                    if let p = Mapper<BrainSentiment>().map(JSONString: JSONString){
+                        completionHandler(p, json["credits"].intValue, nil)
+                        return
+                    }
+                } else if packageId == Constants.premiumPackageIds.PREMIUM_KAVOUT_KSCORE {
+                    if let p = Mapper<Kscore>().map(JSONString: JSONString){
+                        completionHandler(p, json["credits"].intValue, nil)
+                        return
+                    }
+                } else if packageId == Constants.premiumPackageIds.STOCKTWITS_SENTIMENT {
+                    if let p = Mapper<StocktwitsSentiment>().map(JSONString: JSONString){
+                        completionHandler(p, json["credits"].intValue, nil)
+                        return
+                    }
+                }
+            }
+            completionHandler(nil, nil, nil)
+        }
+    }
+    
     public func getWatchlistForCurrentUser(completionHandler: @escaping ()->Void){
         let queryURL = buildQuery(url: apiurl + userEndpoint + "/watchlist", params: [:])
         self.getRequest(queryURL: queryURL) { (data) in

@@ -13,7 +13,7 @@ struct KeyStats: Mappable {
     public var marketcap:Int? //760334287200,
     public var avg10Volume:Int? //2774000,
     public var avg30Volume:Int? //12774000,
-    public var peRatio:Int? //14,
+    public var peRatio:Double? //14,
     public var ttmEPS:Double? //16.5,
     public var ttmDividendRate:Double? //2.25,
     public var dividendYield:Double? //.021,

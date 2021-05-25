@@ -98,7 +98,7 @@ class PEChart: CombinedChartView {
         }
         var actualPe = 0.0
         if let keystats = company.keyStats {
-            actualPe = Double(keystats.peRatio!)
+            actualPe = Double(keystats.peRatio ?? 0.0)
         }
         self.earningsDelegate.updatePELegendValues(pe: String(format: "%.2f", Double(actualPe)), peFwd: String(format: "%.2f", Double(fwdPe)))
 

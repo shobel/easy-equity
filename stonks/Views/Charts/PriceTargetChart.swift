@@ -58,6 +58,8 @@ class PriceTargetChart: CombinedChartView {
     }
       
     private func setChartData(){
+        lineChartDataSets = []
+
         var monthDataEntries:[ChartDataEntry] = []
         let monthOfDailyPrices = Array(self.company.dailyData.suffix(40)) //2months
         for i in 0..<monthOfDailyPrices.count {
@@ -74,84 +76,84 @@ class PriceTargetChart: CombinedChartView {
         var allTipranksExpertsHigh:Double? = nil
         var allTipranksExpertsLow:Double? = nil
         
-        if self.company.priceTarget != nil {
-            var avg = (self.company.priceTarget?.priceTargetAverage!)!
-            var numAnalysts =  self.company.priceTarget?.numberOfAnalysts ?? 0
-            if self.allMode {
-                if let ptta = self.company.priceTargetTopAnalysts {
-                    if ptta.expertRatings?.count ?? 0 > 0 {
-                        let newAvgPriceTarget = (avg*Double((self.company.priceTarget?.numberOfAnalysts)!)) + (ptta.avgPriceTarget!*Double(ptta.numAnalysts!))
-                        numAnalysts += ptta.numAnalysts!
-                        avg = newAvgPriceTarget / Double(numAnalysts)
-                    }
+        var avg = self.company.priceTarget?.priceTargetAverage ?? 0.0
+        var numAnalysts =  self.company.priceTarget?.numberOfAnalysts ?? 0
+        if self.allMode {
+            if let ptta = self.company.priceTargetTopAnalysts {
+                if ptta.expertRatings?.count ?? 0 > 0 {
+                    let newAvgPriceTarget = (avg*Double(numAnalysts)) + ((ptta.avgPriceTarget ?? 0.0)*Double(ptta.numAnalysts ?? 0))
+                    numAnalysts += ptta.numAnalysts ?? 0
+                    avg = newAvgPriceTarget / Double(numAnalysts)
                 }
-                if let allExperts = self.company.tipranksAllAnalysts {
-                    if allExperts.count > 0 {
-                        var numTipranksAnalystsWithPriceTargets = 0
-                        var priceTargetSum = 0.0
-                        for var rating in allExperts {
-                            if let pt = rating.stockRating?.priceTarget {
-                                numTipranksAnalystsWithPriceTargets += 1
-                                priceTargetSum += pt
-                                if allTipranksExpertsHigh == nil || pt > allTipranksExpertsHigh! {
-                                    allTipranksExpertsHigh = pt
-                                }
-                                if allTipranksExpertsLow == nil || pt < allTipranksExpertsLow! {
-                                    allTipranksExpertsLow = pt
-                                }
+            }
+            if let allExperts = self.company.tipranksAllAnalysts {
+                if allExperts.count > 0 {
+                    var numTipranksAnalystsWithPriceTargets = 0
+                    var priceTargetSum = 0.0
+                    for rating in allExperts {
+                        if let pt = rating.stockRating?.priceTarget {
+                            numTipranksAnalystsWithPriceTargets += 1
+                            priceTargetSum += pt
+                            if allTipranksExpertsHigh == nil || pt > allTipranksExpertsHigh! {
+                                allTipranksExpertsHigh = pt
+                            }
+                            if allTipranksExpertsLow == nil || pt < allTipranksExpertsLow! {
+                                allTipranksExpertsLow = pt
                             }
                         }
-                        let ptAvg = priceTargetSum / Double(numTipranksAnalystsWithPriceTargets)
-                        let newAvgPriceTarget = (avg*Double(numAnalysts)) + (ptAvg*Double(numTipranksAnalystsWithPriceTargets))
-                        numAnalysts += numTipranksAnalystsWithPriceTargets
-                        avg = newAvgPriceTarget / Double(numAnalysts)
                     }
+                    let ptAvg = priceTargetSum / Double(numTipranksAnalystsWithPriceTargets)
+                    let newAvgPriceTarget = (avg*Double(numAnalysts)) + (ptAvg*Double(numTipranksAnalystsWithPriceTargets))
+                    numAnalysts += numTipranksAnalystsWithPriceTargets
+                    avg = newAvgPriceTarget / Double(numAnalysts)
                 }
-
-            } else if !self.allMode && self.company.priceTargetTopAnalysts != nil {
-                avg = self.company.priceTargetTopAnalysts!.avgPriceTarget!
             }
-            averagePriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count), y: latestPrice))
-            averagePriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count * 2), y: avg))
-            
-            var highTarget = self.company.priceTarget!.priceTargetHigh!
-            if self.allMode {
-                if let ptta = self.company.priceTargetTopAnalysts {
-                    highTarget = max(highTarget, ptta.highPriceTarget!)
-                    highTarget = max(highTarget, allTipranksExpertsHigh ?? highTarget)
-                }
-            } else if !self.allMode && self.company.priceTargetTopAnalysts != nil {
-                highTarget = self.company.priceTargetTopAnalysts!.highPriceTarget!
+        } else if !self.allMode && self.company.priceTargetTopAnalysts != nil {
+            avg = self.company.priceTargetTopAnalysts?.avgPriceTarget ?? 0.0
+        }
+        averagePriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count), y: latestPrice))
+        averagePriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count * 2), y: avg))
+        
+        var highTarget = self.company.priceTarget?.priceTargetHigh ?? -1.0
+        if self.allMode {
+            if let ptta = self.company.priceTargetTopAnalysts {
+                highTarget = max(highTarget, ptta.highPriceTarget ?? -1.0)
+                highTarget = max(highTarget, allTipranksExpertsHigh ?? highTarget)
             }
+        } else if !self.allMode && self.company.priceTargetTopAnalysts != nil {
+            highTarget = self.company.priceTargetTopAnalysts?.highPriceTarget ?? -1.0
+        }
+        if highTarget != -1.0 {
             highPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count), y: latestPrice))
             highPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count * 2), y: highTarget))
-            
-            var lowTarget = self.company.priceTarget!.priceTargetLow!
-            if self.allMode {
-                if let ptta = self.company.priceTargetTopAnalysts {
-                    lowTarget = min(lowTarget, ptta.lowPriceTarget!)
-                    lowTarget = min(lowTarget, allTipranksExpertsLow ?? lowTarget)
-                }
-            } else if !self.allMode && self.company.priceTargetTopAnalysts != nil {
-                lowTarget = self.company.priceTargetTopAnalysts!.lowPriceTarget!
+            let highPriceTargetDataSet = LineChartDataSet(entries: highPriceTargetEntries)
+            self.configureLineDataSet(set: highPriceTargetDataSet, dashed: true, color: Constants.green)
+            self.lineChartDataSets.append(highPriceTargetDataSet)
+        }
+        
+        var lowTarget = self.company.priceTarget?.priceTargetLow ?? Double(Int.max)
+        if self.allMode {
+            if let ptta = self.company.priceTargetTopAnalysts {
+                lowTarget = min(lowTarget, ptta.lowPriceTarget ?? Double(Int.max))
+                lowTarget = min(lowTarget, allTipranksExpertsLow ?? lowTarget)
             }
+        } else if !self.allMode && self.company.priceTargetTopAnalysts != nil {
+            lowTarget = self.company.priceTargetTopAnalysts?.lowPriceTarget ?? Double(Int.max)
+        }
+        if lowTarget != Double(Int.max) {
             lowPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count), y: latestPrice))
             lowPriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count * 2), y: lowTarget))
+            let lowPriceTargetDataSet = LineChartDataSet(entries: lowPriceTargetEntries)
+            self.configureLineDataSet(set: lowPriceTargetDataSet, dashed: true, color: Constants.darkPink)
+            self.lineChartDataSets.append(lowPriceTargetDataSet)
         }
 
         let monthDataSet = LineChartDataSet(entries: monthDataEntries)
         let averagePriceTargetDataSet = LineChartDataSet(entries: averagePriceTargetEntries)
-        let highPriceTargetDataSet = LineChartDataSet(entries: highPriceTargetEntries)
-        let lowPriceTargetDataSet = LineChartDataSet(entries: lowPriceTargetEntries)
         self.configureLineDataSet(set: monthDataSet, dashed: false, color: .gray)
         self.configureLineDataSet(set: averagePriceTargetDataSet, dashed: true, color: .gray)
-        self.configureLineDataSet(set: highPriceTargetDataSet, dashed: true, color: Constants.green)
-        self.configureLineDataSet(set: lowPriceTargetDataSet, dashed: true, color: Constants.darkPink)
         
-        lineChartDataSets = []
         self.lineChartDataSets.append(monthDataSet)
-        self.lineChartDataSets.append(highPriceTargetDataSet)
-        self.lineChartDataSets.append(lowPriceTargetDataSet)
         self.lineChartDataSets.append(averagePriceTargetDataSet)
 
         DispatchQueue.main.async {

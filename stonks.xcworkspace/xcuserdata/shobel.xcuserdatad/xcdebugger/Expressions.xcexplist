@@ -866,6 +866,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in CompanySearchVC.sortTopAnalysts(_:):CompanySearchVC.swift">
+      </ContextState>
+      <ContextState
          contextName = "StockDetailsVC.TwentyYearButtonPressed(_:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -1055,6 +1058,20 @@
          <PersistentStrings>
             <PersistentString
                value = "CGFloat((expert.avgReturn ?? 0.0) * 2.5)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in MyRestAPI.buyPremiumPackage(symbol:packageId:completionHandler:):MyRestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "json[&quot;error&quot;].string">
+            </PersistentString>
+            <PersistentString
+               value = "json[&quot;credits&quot;].int">
+            </PersistentString>
+            <PersistentString
+               value = "json[&quot;data&quot;].dictionary">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1700,6 +1717,14 @@
             </PersistentString>
             <PersistentString
                value = "dataSet.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in CompanySearchVC.sortTopAnalysts(_:):CompanySearchVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "p1.upsidePercent ?? Double(Int.min) &gt; p2.upsidePercent ?? Double(Int.min)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
