@@ -428,22 +428,21 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    //public func getPremiumData(symbol:String, completionHandler: @escaping (PremiumStockInfo?, Kscore?, BrainSentiment?)->Void){
-//        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/premium/" + symbol, params: [:])
-//        self.getRequest(queryURL: queryURL) { (data) in
-//            let json = JSON(data)
-//            var kscore:Kscore? = nil
-//            var brainSentiment:BrainSentiment? = nil
-//            var premiumStockInfo:PremiumStockInfo? = nil
-//            if (json["premiumStockInfo"].exists()) {
-//                premiumStockInfo = PremiumStockInfo()
-//                let psi = json["premiumStockInfo"]
-//                premiumStockInfo!.symbol = psi["symbol"].stringValue
-//                premiumStockInfo!.lastUpdated = psi["lastUpdate"].doubleValue
-//                premiumStockInfo!.updatesRemaining = psi["updatesRemaining"].intValue
-//
-//            }
-//            if (json["premiumStockData"].exists()){
+    public func getPremiumData(symbol:String, completionHandler: @escaping ([String:PremiumDataBase?])->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/premium/" + symbol, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            
+            var kscore:Kscore? = nil
+            var brainSentiment:BrainSentiment? = nil
+            var brain21Ranking:Brain21DayRanking? = nil
+            var brainLanguage:BrainLanguage? = nil
+            var stocktwitsSentiment:StocktwitsSentiment? = nil
+            
+            if !(json.dictionary?.isEmpty ?? false) {
+                for (id, data):(String, JSON) in json {
+                    
+                }
 //                if (json["kscore"].exists()){
 //                    kscore = Kscore()
 //                    let kscoresJSON = json["kscore"].rawString()!
@@ -458,10 +457,10 @@ class MyRestAPI: HTTPRequest {
 //                        brainSentiment = b
 //                    }
 //                }
-//            }
-//            completionHandler(premiumStockInfo, kscore, brainSentiment)
-//        }
-//    }
+            }
+            completionHandler([:])
+        }
+    }
     
     public func getTop10s(completionHandler: @escaping (Top10s)->Void){
         let queryURL = buildQuery(url: apiurl + marketEndpoint + "/top10", params: [:])

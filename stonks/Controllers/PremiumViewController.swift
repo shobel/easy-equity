@@ -99,9 +99,7 @@ class PremiumViewController: UIViewController, StatsVC {
         //gets the cost of the different premium packages
         NetworkManager.getMyRestApi().getPremiumPackages(completionHandler: handlePremiumPackages)
         
-        //
-        self.handlePremiumData(kscores: nil, brainSentiment: nil, brain21Ranking: nil, brainLanguage: nil, stocktwitsSentiment: nil)
-        //NetworkManager.getMyRestApi().getPremiumData(symbol: company.symbol, completionHandler: handlePremiumData)
+        NetworkManager.getMyRestApi().getPremiumData(symbol: company.symbol, completionHandler: handlePremiumData)
 
     }
     
@@ -131,6 +129,7 @@ class PremiumViewController: UIViewController, StatsVC {
                 DispatchQueue.main.async {
                     self.showErrorAlert(error, credits: credits)
                 }
+                return
             }
             if premiumPackage.id == Constants.premiumPackageIds.PREMIUM_KAVOUT_KSCORE {
                 self.kscoreData = premiumData as? Kscore
@@ -180,23 +179,23 @@ class PremiumViewController: UIViewController, StatsVC {
         }
     }
     
-    private func handlePremiumData(kscores: Kscore?, brainSentiment: BrainSentiment?, brain21Ranking:Brain21DayRanking?, brainLanguage:BrainLanguage?, stocktwitsSentiment:StocktwitsSentiment?) {
-        if kscores != nil {
-            self.kscoreData = kscores
-        }
-        if brainSentiment != nil {
-            self.brain30SentimentData = brainSentiment
-        }
-        if (brain21Ranking != nil){
-            self.brain21RankingData = brain21Ranking
-        }
-        if (brainLanguage != nil){
-            self.brainLanguageData = brainLanguage
-        }
-        if stocktwitsSentiment != nil {
-            self.stocktwitsSentimentData = stocktwitsSentiment
-        }
-        self.updateData()
+    private func handlePremiumData(_ premiumData:[String:PremiumDataBase?]) {
+//        if kscores != nil {
+//            self.kscoreData = kscores
+//        }
+//        if brainSentiment != nil {
+//            self.brain30SentimentData = brainSentiment
+//        }
+//        if (brain21Ranking != nil){
+//            self.brain21RankingData = brain21Ranking
+//        }
+//        if (brainLanguage != nil){
+//            self.brainLanguageData = brainLanguage
+//        }
+//        if stocktwitsSentiment != nil {
+//            self.stocktwitsSentimentData = stocktwitsSentiment
+//        }
+//        self.updateData()
     }
     
     func updateData() {
