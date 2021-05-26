@@ -9,9 +9,9 @@
 import Foundation
 import ObjectMapper
 
-struct Brain21DayRanking: Mappable {
+struct Brain21DayRanking: Mappable, PremiumDataBase {
     
-    public var id:String?// "PREMIUM_BRAIN_RANKING_21_DAYS",
+    public var id:String?// "PREMIUM_BRAIN_RANKING_21_DAYS", <- i think this gets swapped for the date in the backend
     public var source:String?// "Brain Company",
     public var key:String? //"BAC",
     public var subkey:String?// "2020-01-13",

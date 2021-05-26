@@ -23,6 +23,14 @@ struct Constants{
         case buy, hold
     }
     
+    public static var premiumPackageIds = (
+        PREMIUM_KAVOUT_KSCORE: "PREMIUM_KAVOUT_KSCORE",
+        PREMIUM_BRAIN_LANGUAGE_METRICS_ALL: "PREMIUM_BRAIN_LANGUAGE_METRICS_ALL",
+        PREMIUM_BRAIN_RANKING_21_DAYS: "PREMIUM_BRAIN_RANKING_21_DAYS",
+        PREMIUM_BRAIN_SENTIMENT_30_DAYS: "PREMIUM_BRAIN_SENTIMENT_30_DAYS",
+        STOCKTWITS_SENTIMENT: "STOCKTWITS_SENTIMENT"
+    )
+    
     public static var ratingColors:[RatingType:UIColor] = [
         RatingType.buy: lightGreen,
         RatingType.hold: lightOrange

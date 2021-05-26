@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-struct BrainSentiment: Mappable {
+struct BrainSentiment: Mappable, PremiumDataBase {
         
     var volumeSentiment:Int?
     var calculationDate:String?
@@ -17,7 +17,7 @@ struct BrainSentiment: Mappable {
     var updated:Int? //timestamp
     var sentimentScore:Double? // 0.2653, (negative) -1 to 1 (positive)
     var compositeFigi:String? // "B0B6DG0V03C2" some sort of identifier
-    var id:String? //same as calculation date
+    var id:String? //same as calculation date <- i think this gets swapped for the date in the backend
     var numberOfDaysIncluded:Int? //30
     var volume:Int? // 94 Number of news articles detected in the previous 30 days for the company.
     var companyName:String?

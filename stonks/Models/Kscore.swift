@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-struct Kscore: Mappable {
+struct Kscore: Mappable, PremiumDataBase {
         
     //A score indicative of how well-managed a company is and whether its financial strength is solid. Factors include but are not limited to: working capital to long-term debt ratio, Greenblatt ROC, dividend payout, and operating profitability.
     var qualityScore:Int?// 8,

@@ -76,7 +76,11 @@ extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topAnalystCell", for: indexPath) as! TopAnalystCollectionViewCell
             let item = currentTopAnalystSymbols[indexPath.row]
             cell.symbol.text = item.symbol
-            cell.avgUpside.setValue(value: item.upsidePercent!, isPercent: true)
+            if let upside = item.upsidePercent {
+                cell.avgUpside.setValue(value: upside, isPercent: true)
+            } else {
+                cell.avgUpside.setValue(value: Double(Int.min), isPercent: true)
+            }
             cell.avgRank.text = String(format: "%.1f", item.avgAnalystRank!)
             cell.numAnalysts.text = String(item.numAnalysts!)
             return cell
@@ -239,10 +243,13 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         self.topAnalystsCollection.scrollToItem(at: IndexPath(item: 0, section: 1), at: .left, animated: true)
         let actionController = SkypeActionController() //not really for skype
         actionController.addAction(Action("Upside Percentage", style: .default, handler: { action in
-            self.priceTargetTopAnalysts.sort { (p1, p2) -> Bool in
-                return p1.upsidePercent! > p2.upsidePercent!
+            self.priceTargetTopAnalysts = self.priceTargetTopAnalysts.sorted {
+                return ($0.upsidePercent ?? Double(Int.min)) > ($1.upsidePercent ?? Double(Int.min))
             }
             self.currentTopAnalystSymbols = Array(self.priceTargetTopAnalysts.prefix(self.maxNumTopAnalystItems))
+            self.currentTopAnalystSymbols = self.currentTopAnalystSymbols.filter({ p in
+                p.upsidePercent != nil
+            })
             self.topAnalystsCollection.reloadData()
         }))
         actionController.addAction(Action("Number of Analysts", style: .default, handler: { action in
@@ -306,7 +313,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     private func handleTopAnalysts(_ topAnalystSymbols:[PriceTargetTopAnalysts]) {
         self.priceTargetTopAnalysts = topAnalystSymbols
         self.priceTargetTopAnalysts.sort { (p1, p2) -> Bool in
-            return p1.upsidePercent! > p2.upsidePercent!
+            return p1.upsidePercent ?? Double(Int.min) > p2.upsidePercent ?? Double(Int.min)
         }
         self.itemsLoaded += 1
         if self.itemsLoaded >= self.numItems {
@@ -321,6 +328,9 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.topAnalystsCollection.isHidden = false
             }
             self.currentTopAnalystSymbols = Array(self.priceTargetTopAnalysts.prefix(self.maxNumTopAnalystItems))
+            self.currentTopAnalystSymbols = self.currentTopAnalystSymbols.filter({ p in
+                p.upsidePercent != nil
+            })
             self.topAnalystsCollection.reloadData()
         }
     }

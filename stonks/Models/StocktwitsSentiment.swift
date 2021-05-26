@@ -8,8 +8,9 @@
 
 import Foundation
 import ObjectMapper
-struct StocktwitsSentiment: Mappable {
+struct StocktwitsSentiment: Mappable, PremiumDataBase {
     
+    public var id:String? //date
     public var sentiment:Double?// 0.20365833333333336,
     public var totalScores:Int?// 24,
     public var positive:Double?// 0.88,
@@ -19,6 +20,7 @@ struct StocktwitsSentiment: Mappable {
     init?(map: Map) {}
     
     mutating func mapping(map: Map) {
+        id <- map["id"]
         sentiment <- map["sentiment"]
         totalScores <- map["totalScores"]
         positive <- map["positive"]
