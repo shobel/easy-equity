@@ -77,6 +77,8 @@ class PremiumViewController: UIViewController, StatsVC {
     private var brain21RankingData:Brain21DayRanking?
     private var stocktwitsSentimentData:StocktwitsSentiment?
     
+    public var stockDetailsDelegate:StockDetailsVC!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
                 
@@ -99,6 +101,7 @@ class PremiumViewController: UIViewController, StatsVC {
         //gets the cost of the different premium packages
         NetworkManager.getMyRestApi().getPremiumPackages(completionHandler: handlePremiumPackages)
         
+        self.stockDetailsDelegate.hideLoader(false)
         NetworkManager.getMyRestApi().getPremiumData(symbol: company.symbol, completionHandler: handlePremiumData)
 
     }
@@ -123,10 +126,12 @@ class PremiumViewController: UIViewController, StatsVC {
     }
     
     public func buyUpdateAction(_ premiumPackage:PremiumPackage){
+        self.stockDetailsDelegate.hideLoader(false)
         NetworkManager.getMyRestApi().buyPremiumPackage(symbol: self.company.symbol, packageId: premiumPackage.id!) {
             premiumData, newCredits, error in
             if let error = error, let credits = newCredits {
                 DispatchQueue.main.async {
+                    self.stockDetailsDelegate.hideLoader(true)
                     self.showErrorAlert(error, credits: credits)
                 }
                 return
@@ -180,22 +185,30 @@ class PremiumViewController: UIViewController, StatsVC {
     }
     
     private func handlePremiumData(_ premiumData:[String:PremiumDataBase?]) {
-//        if kscores != nil {
-//            self.kscoreData = kscores
-//        }
-//        if brainSentiment != nil {
-//            self.brain30SentimentData = brainSentiment
-//        }
-//        if (brain21Ranking != nil){
-//            self.brain21RankingData = brain21Ranking
-//        }
-//        if (brainLanguage != nil){
-//            self.brainLanguageData = brainLanguage
-//        }
-//        if stocktwitsSentiment != nil {
-//            self.stocktwitsSentimentData = stocktwitsSentiment
-//        }
-//        self.updateData()
+        for (id, data):(String, PremiumDataBase?) in premiumData {
+            if let data = data {
+                switch id {
+                case Constants.premiumPackageIds.PREMIUM_BRAIN_LANGUAGE_METRICS_ALL:
+                    self.brainLanguageData = data as? BrainLanguage
+                    break
+                case Constants.premiumPackageIds.PREMIUM_KAVOUT_KSCORE:
+                    self.kscoreData = data as? Kscore
+                    break
+                case Constants.premiumPackageIds.PREMIUM_BRAIN_RANKING_21_DAYS:
+                    self.brain21RankingData = data as? Brain21DayRanking
+                    break
+                case Constants.premiumPackageIds.PREMIUM_BRAIN_SENTIMENT_30_DAYS:
+                    self.brain30SentimentData = data as? BrainSentiment
+                    break
+                case Constants.premiumPackageIds.STOCKTWITS_SENTIMENT:
+                    self.stocktwitsSentimentData = data as? StocktwitsSentiment
+                    break
+                default:
+                    break
+                }
+            }
+        }
+        self.updateData()
     }
     
     func updateData() {
@@ -258,8 +271,8 @@ class PremiumViewController: UIViewController, StatsVC {
                             self.brainSentimentNegative.setProgress(Float(bsd.sentimentScore! * -1)*5.0, animated: true)
                         }
                     }
-                    if bsd.calculationDate != nil {
-                        self.brain30dateLabel.text = bsd.calculationDate
+                    if bsd.id != nil {
+                        self.brain30dateLabel.text = bsd.id
                     }
                     if bsd.sentimentScore != nil {
                         self.brain30sentLabel.text = String("\(bsd.volumeSentiment!)")
@@ -327,6 +340,7 @@ class PremiumViewController: UIViewController, StatsVC {
                 }
             }
         }
+        self.stockDetailsDelegate.hideLoader(true)
     }
     
     func showInfoAlert(_ package:PremiumPackage){

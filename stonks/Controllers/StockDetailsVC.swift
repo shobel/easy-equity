@@ -76,7 +76,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     private var scoresVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ScoresVC")
     private var financialsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FinVC")
     private var predictionsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PredictionsVC")
-    private var premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumVC")
+    private var premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumVC") as! PremiumViewController
     
     private var stockUpdater:StockDataTask?
     private var pageVC: PagingViewController!
@@ -99,6 +99,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         self.toggleRsiButton.layer.cornerRadius = 5
         self.toggleSmasButton.layer.cornerRadius = 5
         
+        self.premiumVC.stockDetailsDelegate = self
         chartTypeButton.imageView!.contentMode = UIView.ContentMode.scaleAspectFit
         feedbackGenerator = UISelectionFeedbackGenerator()
         

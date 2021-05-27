@@ -433,32 +433,41 @@ class MyRestAPI: HTTPRequest {
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
             
-            var kscore:Kscore? = nil
-            var brainSentiment:BrainSentiment? = nil
-            var brain21Ranking:Brain21DayRanking? = nil
-            var brainLanguage:BrainLanguage? = nil
-            var stocktwitsSentiment:StocktwitsSentiment? = nil
-            
-            if !(json.dictionary?.isEmpty ?? false) {
+            var dic:[String:PremiumDataBase] = [:]
+            if !(json.dictionary?.isEmpty ?? true) {
                 for (id, data):(String, JSON) in json {
-                    
+                    switch id {
+                    case Constants.premiumPackageIds.PREMIUM_BRAIN_LANGUAGE_METRICS_ALL:
+                        if let x = Mapper<BrainLanguage>().map(JSONString: data.rawString()!){
+                            dic[id] = x as PremiumDataBase
+                        }
+                        break
+                    case Constants.premiumPackageIds.PREMIUM_KAVOUT_KSCORE:
+                        if let x = Mapper<Kscore>().map(JSONString: data.rawString()!){
+                            dic[id] = x as PremiumDataBase
+                        }
+                        break
+                    case Constants.premiumPackageIds.PREMIUM_BRAIN_RANKING_21_DAYS:
+                        if let x = Mapper<Brain21DayRanking>().map(JSONString: data.rawString()!){
+                            dic[id] = x as PremiumDataBase
+                        }
+                        break
+                    case Constants.premiumPackageIds.PREMIUM_BRAIN_SENTIMENT_30_DAYS:
+                        if let x = Mapper<BrainSentiment>().map(JSONString: data.rawString()!){
+                            dic[id] = x as PremiumDataBase
+                        }
+                        break
+                    case Constants.premiumPackageIds.STOCKTWITS_SENTIMENT:
+                        if let x = Mapper<StocktwitsSentiment>().map(JSONString: data.rawString()!){
+                            dic[id] = x as PremiumDataBase
+                        }
+                        break
+                    default:
+                        break
+                    }
                 }
-//                if (json["kscore"].exists()){
-//                    kscore = Kscore()
-//                    let kscoresJSON = json["kscore"].rawString()!
-//                    if let k = Mapper<Kscore>().map(JSONString: kscoresJSON){
-//                        kscore = k
-//                    }
-//                }
-//                if (json["brainSentiment"].exists()){
-//                    brainSentiment = BrainSentiment()
-//                    let brainSentimentJSON = json["brainSentiment"].rawString()!
-//                    if let b = Mapper<BrainSentiment>().map(JSONString: brainSentimentJSON){
-//                        brainSentiment = b
-//                    }
-//                }
             }
-            completionHandler([:])
+            completionHandler(dic)
         }
     }
     
