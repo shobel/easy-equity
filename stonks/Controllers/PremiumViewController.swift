@@ -9,7 +9,7 @@
 import UIKit
 import FCAlertView
 
-class PremiumViewController: UIViewController, StatsVC {
+class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
     
     @IBOutlet weak var contentView: UIView!
     
@@ -119,7 +119,7 @@ class PremiumViewController: UIViewController, StatsVC {
         divider.layer.cornerRadius = 2.0
     }
     
-    public func buyUpdateButtonTapped(_ premiumPackage:PremiumPackage?){
+    public func shadowButtonTapped(_ premiumPackage:PremiumPackage?){
         if premiumPackage != nil {
             self.showInfoAlert(premiumPackage!)
         }
@@ -136,6 +136,7 @@ class PremiumViewController: UIViewController, StatsVC {
                 }
                 return
             }
+            self.stockDetailsDelegate.updateCredits(newCredits ?? 0)
             if premiumPackage.id == Constants.premiumPackageIds.PREMIUM_KAVOUT_KSCORE {
                 self.kscoreData = premiumData as? Kscore
             } else if premiumPackage.id == Constants.premiumPackageIds.PREMIUM_BRAIN_RANKING_21_DAYS {
@@ -179,6 +180,8 @@ class PremiumViewController: UIViewController, StatsVC {
                 if currentButton != nil {
                     currentButton!.credits.text = String(package.credits!)
                     currentButton!.premiumPackage = package
+                    currentButton!.bgColor = UIColor(red: 48.0/255.0, green: 203.0/255.0, blue: 141.0/255.0, alpha: 1.0)
+                    currentButton!.shadColor = UIColor(red: 25.0/255.0, green: 105.0/255.0, blue: 75.0/255.0, alpha: 1.0).cgColor
                 }
             }
         }

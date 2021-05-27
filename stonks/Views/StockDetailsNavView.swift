@@ -12,7 +12,6 @@ class StockDetailsNavView: UIView {
 
     @IBOutlet var ticker: UILabel!
     @IBOutlet var name: UILabel!
-    @IBOutlet var logo: UIImageView!
     
     /*
     // Only override draw() if you perform custom drawing.

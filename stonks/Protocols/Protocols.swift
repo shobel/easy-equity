@@ -12,3 +12,8 @@ protocol LoadingProtocol {
     func loadingStarted()
     func loadingFinished()
 }
+
+protocol ShadowButtonDelegate {
+    
+    func shadowButtonTapped(_ premiumPackage:PremiumPackage?)
+}
