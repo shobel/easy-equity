@@ -750,6 +750,9 @@ class MyRestAPI: HTTPRequest {
     private func saveTokenObjInKeychain(_ tokenObj: JSON) {
         if let idToken = tokenObj["idToken"].string, let refreshToken = tokenObj["refreshToken"].string {
             do {
+                if let email = tokenObj["email"].string {
+                    try KeychainItem(service: Bundle.main.bundleIdentifier!, account: "userEmail").saveItem(email)
+                }
                 try KeychainItem(service: Bundle.main.bundleIdentifier!, account: "userIdentifier").saveItem(idToken)
                 try KeychainItem(service: Bundle.main.bundleIdentifier!, account: "refreshToken").saveItem(refreshToken)
             } catch {

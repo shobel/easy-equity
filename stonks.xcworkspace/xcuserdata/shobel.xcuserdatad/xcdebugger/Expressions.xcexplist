@@ -33,6 +33,9 @@
             <PersistentString
                value = "KeychainItem.currentEmail">
             </PersistentString>
+            <PersistentString
+               value = "KeychainItem.currentUserIdentifier">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
