@@ -39,6 +39,19 @@ extension UIView {
         self.layer.insertSublayer(gradientLayer, at: 0)
     }
     
+    @IBInspectable
+    var rotation: Int {
+        get {
+            return 0
+        } set {
+            let radians = ((CGFloat.pi) * CGFloat(newValue) / CGFloat(180.0))
+            self.transform = CGAffineTransform(rotationAngle: radians)
+        }
+    }
+}
+
+@IBDesignable
+class DesignableLabel: UILabel {
 }
 
 extension UIApplication {

@@ -12,7 +12,7 @@ import XLActionController
 import EFCountingLabel
 import FCAlertView
 
-class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPaymentTransactionObserver, UITableViewDelegate, UITableViewDataSource {
+class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPaymentTransactionObserver, UITableViewDelegate, UITableViewDataSource, ShadowButtonDelegate {
 
     private var productId = "premiumstockinfo"
     private var cancelSubscriptionUrl:String = "https://apps.apple.com/account/subscriptions"
@@ -31,6 +31,9 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Dataholder.subscribeForCreditBalanceUpdates(self)
+        
         self.containerView.layer.cornerRadius = 15.0
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
         self.transparentView.addGestureRecognizer(tapGesture)
@@ -47,9 +50,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
 //        self.requestProducts()
         self.currentSelectedProduct = nil
 //        self.receiptValidation()
-        NetworkManager.getMyRestApi().getCreditsForCurrentUser { credits in
-            self.currentCredits.countFromCurrentValueTo(CGFloat(credits), withDuration: 1.0)
-        }
+        self.currentCredits.countFromCurrentValueTo(CGFloat(Dataholder.getCreditBalance()), withDuration: 1.0)
     }
     
     @objc func handleTap(sender: UITapGestureRecognizer) {
@@ -323,6 +324,16 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         } else {
             return "coin.png"
         }
+    }
+    
+    func creditBalanceUpdated() {
+        DispatchQueue.main.async {
+            self.currentCredits.countFromCurrentValueTo(CGFloat(Dataholder.getCreditBalance()), withDuration: 1.0)
+        }
+    }
+    
+    func shadowButtonTapped(_ premiumPackage: PremiumPackage?) {
+        return
     }
     
 

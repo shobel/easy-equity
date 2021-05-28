@@ -12,8 +12,9 @@ import Parchment
 import MaterialActivityIndicator
 import SPStorkController
 
-class StockDetailsVC: DemoBaseViewController, Updateable {
+class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
 
+    @IBOutlet weak var creditBalanceButton: ShadowButtonView!
     @IBOutlet weak var stockDetailsNavView: StockDetailsNavView!
     @IBOutlet weak var priceDetailsView: StockDetailsSummaryView!
     @IBOutlet weak var chartView: CustomCombinedChartView!
@@ -95,6 +96,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
     override func viewDidLoad() {
         super.viewDidLoad()
                 
+        Dataholder.subscribeForCreditBalanceUpdates(self)
+        self.creditBalanceButton.credits.text = String("\(Dataholder.getCreditBalance())")
+        self.creditBalanceButton.delegate = self
+        self.creditBalanceButton.bgColor = Constants.orange
+        self.creditBalanceButton.shadColor = UIColor(red: 100.0/255.0, green: 60.0/255.0, blue: 25.0/255.0, alpha: 1.0).cgColor
+
         self.scrollView.delegate = self
         self.toggleRsiButton.layer.cornerRadius = 5
         self.toggleSmasButton.layer.cornerRadius = 5
@@ -130,8 +137,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         pageVC.backgroundColor = UIColor.lightGray
         
         //setup general stock and price information
-        stockDetailsNavView.logo.layer.cornerRadius = (stockDetailsNavView.logo.frame.width)/2
-        stockDetailsNavView.logo.layer.masksToBounds = true
         
         let rangeImage:UIImage? = UIImage(systemName: "circle.fill")
         slider52w.setThumbImage(rangeImage, for: .normal)
@@ -792,20 +797,17 @@ class StockDetailsVC: DemoBaseViewController, Updateable {
         }
     }
     
-    @IBAction func creditsTapped(_ sender: Any) {
-        //self.presentCreditsView()
+    public func shadowButtonTapped(_ premiumPackage: PremiumPackage?) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let purchaseVC = storyboard.instantiateViewController(withIdentifier: "purchaseCreditsVC") as! PurchaseViewController
+        self.present(purchaseVC, animated: true, completion: nil)
     }
     
-    private func presentCreditsView(){
-        let controller = CreditsViewController()
-        let transitionDelegate = SPStorkTransitioningDelegate()
-        transitionDelegate.customHeight = 350
-        transitionDelegate.cornerRadius = 20
-        controller.transitioningDelegate = transitionDelegate
-        controller.modalPresentationStyle = .custom
-        controller.modalPresentationCapturesStatusBarAppearance = true
-                
-        self.present(controller, animated: true, completion: nil)
+    public func creditBalanceUpdated() {
+        DispatchQueue.main.async {
+            self.creditBalanceButton.credits.text = String("\(Dataholder.getCreditBalance())")
+            print()
+        }
     }
     
     // MARK: - Navigation

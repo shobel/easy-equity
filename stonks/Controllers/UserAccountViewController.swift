@@ -11,8 +11,10 @@ import Firebase
 
 class UserAccountViewController: UIViewController {
 
+    @IBOutlet weak var userid: UILabel!
     
     override func viewDidLoad() {
+        userid.text = KeychainItem.currentEmail
         super.viewDidLoad()
     }
     

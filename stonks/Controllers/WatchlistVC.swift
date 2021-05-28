@@ -10,8 +10,9 @@ import UIKit
 import AuthenticationServices
 import SPStorkController
 
-class WatchlistVC: UIViewController, Updateable {
+class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
     
+    @IBOutlet weak var creditBalanceView: ShadowButtonView!
     @IBOutlet weak var tableView: UITableView!
     private var watchlistUpdater: WatchlistUpdater?
     private var finvizAPI:FinvizAPI!
@@ -21,7 +22,11 @@ class WatchlistVC: UIViewController, Updateable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        Dataholder.subscribeForCreditBalanceUpdates(self)
+        self.creditBalanceView.delegate = self
+        self.creditBalanceView.bgColor = Constants.orange
+        self.creditBalanceView.shadColor = UIColor(red: 100.0/255.0, green: 60.0/255.0, blue: 25.0/255.0, alpha: 1.0).cgColor
         self.headerBgView.addGradientBackground()
         
         self.watchlistManager = Dataholder.watchlistManager
@@ -53,6 +58,7 @@ class WatchlistVC: UIViewController, Updateable {
     override func viewDidAppear(_ animated: Bool) {
         //updateFinvizData()
         self.tableView.reloadData()
+        self.creditBalanceView.credits.text = String("\(Dataholder.getCreditBalance())")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -112,6 +118,18 @@ class WatchlistVC: UIViewController, Updateable {
      
     @objc func handleRefresh() {
         self.loadWatchlist()
+    }
+    
+    public func shadowButtonTapped(_ premiumPackage: PremiumPackage?) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let purchaseVC = storyboard.instantiateViewController(withIdentifier: "purchaseCreditsVC") as! PurchaseViewController
+        self.present(purchaseVC, animated: true, completion: nil)
+    }
+    
+    public func creditBalanceUpdated() {
+        DispatchQueue.main.async {
+            self.creditBalanceView.credits.text = String("\(Dataholder.getCreditBalance())")
+        }
     }
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
