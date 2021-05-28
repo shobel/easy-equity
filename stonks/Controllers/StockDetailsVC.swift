@@ -96,6 +96,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
                 
+        Dataholder.subscribeForCreditBalanceUpdates(self)
+        self.creditBalanceButton.credits.text = String("\(Dataholder.getCreditBalance())")
         self.creditBalanceButton.delegate = self
         self.creditBalanceButton.bgColor = Constants.orange
         self.creditBalanceButton.shadColor = UIColor(red: 100.0/255.0, green: 60.0/255.0, blue: 25.0/255.0, alpha: 1.0).cgColor
@@ -801,11 +803,13 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         self.present(purchaseVC, animated: true, completion: nil)
     }
     
-    public func updateCredits(_ credits:Int) {
+    public func creditBalanceUpdated() {
         DispatchQueue.main.async {
-            self.creditBalanceButton.credits.text = String("\(credits)")
+            self.creditBalanceButton.credits.text = String("\(Dataholder.getCreditBalance())")
+            print()
         }
     }
+    
     // MARK: - Navigation
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //    }

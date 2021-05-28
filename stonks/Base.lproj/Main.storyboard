@@ -1462,18 +1462,18 @@
             <objects>
                 <viewController storyboardIdentifier="purchaseCreditsVC" id="ZfH-C3-Fhu" customClass="PurchaseViewController" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gTi-K3-SN0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YlQ-mz-tE3" userLabel="Transparent">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mwO-2L-Lwv" userLabel="Transparent">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="84.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rmT-x4-21f">
-                                        <rect key="frame" x="0.0" y="64.5" width="375" height="582.5"/>
+                                        <rect key="frame" x="0.0" y="84.5" width="375" height="582.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YBw-2x-qqw" userLabel="pulldownbar">
                                                 <rect key="frame" x="162.5" y="10" width="50" height="5"/>
@@ -1692,7 +1692,7 @@
                                 </constraints>
                             </view>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="3p7-dF-1Dd">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kSe-tW-GuJ"/>
@@ -1726,7 +1726,7 @@
         <!--Watchlist-->
         <scene sceneID="4UD-KL-NwV">
             <objects>
-                <viewController title="Watchlist" id="2Qv-vA-eQy" customClass="WatchlistVC" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WatchlistVC" title="Watchlist" id="2Qv-vA-eQy" customClass="WatchlistVC" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KdZ-Qy-6y3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1740,26 +1740,21 @@
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAt-Or-iV0" userLabel="Credits Button">
-                                        <rect key="frame" x="320" y="7.5" width="35" height="35"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1fN-Hy-pRA" customClass="ShadowButtonView" customModule="Bullfrog" customModuleProvider="target">
+                                        <rect key="frame" x="295" y="10" width="65" height="30"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="7vo-yB-Php"/>
-                                            <constraint firstAttribute="width" constant="35" id="BWT-hX-3yh"/>
+                                            <constraint firstAttribute="width" constant="65" id="jnZ-9H-WtV"/>
+                                            <constraint firstAttribute="height" constant="30" id="mNI-8a-3o6"/>
                                         </constraints>
-                                        <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
-                                        <state key="normal" image="coin"/>
-                                        <connections>
-                                            <action selector="creditsTapped:" destination="VCE-f9-Qth" eventType="touchUpInside" id="DFP-m8-mVM"/>
-                                            <segue destination="ZfH-C3-Fhu" kind="presentation" id="3e5-bH-rer"/>
-                                        </connections>
-                                    </button>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="zAt-Or-iV0" secondAttribute="trailing" constant="20" id="2uz-Ct-fBv"/>
                                     <constraint firstItem="txX-yk-84e" firstAttribute="centerX" secondItem="uzW-9n-sVH" secondAttribute="centerX" id="FjM-HF-cuU"/>
+                                    <constraint firstAttribute="trailing" secondItem="1fN-Hy-pRA" secondAttribute="trailing" constant="15" id="PHD-am-dtZ"/>
                                     <constraint firstAttribute="height" constant="50" id="UVL-Uc-Oai"/>
-                                    <constraint firstItem="zAt-Or-iV0" firstAttribute="centerY" secondItem="uzW-9n-sVH" secondAttribute="centerY" id="X4u-hu-eJm"/>
+                                    <constraint firstItem="1fN-Hy-pRA" firstAttribute="centerY" secondItem="uzW-9n-sVH" secondAttribute="centerY" id="gzF-SG-MjO"/>
                                     <constraint firstItem="txX-yk-84e" firstAttribute="centerY" secondItem="uzW-9n-sVH" secondAttribute="centerY" id="yUB-dl-Tgh"/>
                                 </constraints>
                             </view>
@@ -1819,30 +1814,30 @@
                                 <color key="sectionIndexBackgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="watchListCell" translatesAutoresizingMaskIntoConstraints="NO" id="X3N-vF-qqs" customClass="WatchlistTVCell" customModule="Bullfrog" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="375" height="178.5"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="375" height="188.5"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X3N-vF-qqs" translatesAutoresizingMaskIntoConstraints="NO" id="SaX-TD-YGr">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="178.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="188.5"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="os8-2S-Yve">
-                                                    <rect key="frame" x="0.0" y="0.0" width="491.5" height="178.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="491.5" height="188.5"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rBI-oK-cdu" userLabel="NameView">
-                                                            <rect key="frame" x="0.0" y="0.0" width="98.5" height="178.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="98.5" height="188.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="RKT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qv3-dK-R7K" userLabel="Title">
-                                                                    <rect key="frame" x="15" y="70.5" width="35" height="21.5"/>
+                                                                    <rect key="frame" x="15" y="75.5" width="35" height="21.5"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                                     <color key="textColor" red="0.24610697910000001" green="0.24610697910000001" blue="0.24610697910000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rocket Companies, Inc." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rtu-Kh-hLP" userLabel="Subtitle">
-                                                                    <rect key="frame" x="15" y="94" width="103.5" height="11"/>
+                                                                    <rect key="frame" x="15" y="99" width="103.5" height="11"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20d" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFD-kk-pxG" userLabel="ER">
-                                                                    <rect key="frame" x="58" y="74" width="22.5" height="14.5"/>
+                                                                    <rect key="frame" x="58" y="79" width="22.5" height="14.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                     <color key="textColor" red="0.036305642919999999" green="0.76669574870000001" blue="0.47864035129999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -1863,13 +1858,13 @@
                                                             </constraints>
                                                         </view>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ahF-pr-MrV" userLabel="RatingStackView">
-                                                            <rect key="frame" x="98.5" y="0.0" width="98" height="178.5"/>
+                                                            <rect key="frame" x="98.5" y="0.0" width="98" height="188.5"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fax-7a-qZy" userLabel="RatingView">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="98" height="178.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="98" height="188.5"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6c-Zt-DEI" userLabel="Buy" customClass="RatingLabel" customModule="Bullfrog" customModuleProvider="target">
-                                                                            <rect key="frame" x="34" y="74.5" width="30" height="30"/>
+                                                                            <rect key="frame" x="34" y="79.5" width="30" height="30"/>
                                                                             <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="30" id="Jxo-oQ-Yu0"/>
@@ -1889,14 +1884,14 @@
                                                             </subviews>
                                                         </stackView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hv0-Q6-lXe" customClass="PriceChartPreviewView" customModule="Bullfrog" customModuleProvider="target">
-                                                            <rect key="frame" x="196.5" y="0.0" width="137.5" height="178.5"/>
+                                                            <rect key="frame" x="196.5" y="0.0" width="137.5" height="188.5"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vlp-es-sHq" userLabel="PricesView">
-                                                            <rect key="frame" x="334" y="0.0" width="157.5" height="178.5"/>
+                                                            <rect key="frame" x="334" y="0.0" width="157.5" height="188.5"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gnS-Zt-p5k">
-                                                                    <rect key="frame" x="-6.5" y="122.5" width="15" height="15"/>
+                                                                    <rect key="frame" x="-6.5" y="130" width="15" height="15"/>
                                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="15" id="5JU-zf-ASv"/>
@@ -1904,26 +1899,26 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-15" translatesAutoresizingMaskIntoConstraints="NO" id="VnO-2x-Cls" userLabel="ChangeStackView">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="157.5" height="178.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="157.5" height="188.5"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="+1.72%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ff6-Io-5F0" userLabel="PriceChange" customClass="ColoredValueLabel" customModule="Bullfrog" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="157.5" height="97"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="157.5" height="102"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="16"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cjw-KQ-mI3">
-                                                                            <rect key="frame" x="0.0" y="82" width="157.5" height="96.5"/>
+                                                                            <rect key="frame" x="0.0" y="87" width="157.5" height="101.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2002.5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxf-NI-WcT">
-                                                                                    <rect key="frame" x="13.5" y="40" width="91.5" height="16"/>
+                                                                                    <rect key="frame" x="13.5" y="42.5" width="91.5" height="16"/>
                                                                                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
                                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="-66.7" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZRm-YO-NZU" userLabel="priceChange" customClass="ColoredValueLabel" customModule="Bullfrog" customModuleProvider="target">
-                                                                                    <rect key="frame" x="110" y="40" width="29" height="16"/>
+                                                                                    <rect key="frame" x="110" y="42.5" width="29" height="16"/>
                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
                                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2011,6 +2006,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="skK-qV-Cqh"/>
                     <connections>
+                        <outlet property="creditBalanceView" destination="1fN-Hy-pRA" id="wJh-gB-tZk"/>
                         <outlet property="headerBgView" destination="fLp-L6-00M" id="ymM-OZ-nCB"/>
                         <outlet property="tableView" destination="Cx4-Zn-jgs" id="AqC-Ua-Gm1"/>
                     </connections>
@@ -2019,10 +2015,10 @@
             </objects>
             <point key="canvasLocation" x="396" y="17.541229385307346"/>
         </scene>
-        <!--Stock DetailsVC-->
+        <!--StockDetails-->
         <scene sceneID="0Kx-wS-zT4">
             <objects>
-                <viewController storyboardIdentifier="StockDetails" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VCE-f9-Qth" customClass="StockDetailsVC" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StockDetails" title="StockDetails" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VCE-f9-Qth" customClass="StockDetailsVC" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ua2-Xz-tAi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2047,7 +2043,7 @@
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HGC-w4-xxI" customClass="ShadowButtonView" customModule="Bullfrog" customModuleProvider="target">
                                         <rect key="frame" x="295" y="0.0" width="65" height="30"/>
-                                        <color key="backgroundColor" red="0.38189981802545414" green="0.24540956078295981" blue="0.090989002643482683" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="65" id="NIL-4t-3OR"/>
                                             <constraint firstAttribute="height" constant="30" id="awc-r3-sHh"/>
@@ -5564,10 +5560,10 @@
             </objects>
             <point key="canvasLocation" x="3836" y="17.541229385307346"/>
         </scene>
-        <!--News View Controller-->
+        <!--NEWS-->
         <scene sceneID="4J4-2r-2o5">
             <objects>
-                <viewController storyboardIdentifier="StockNewsVC" id="BMU-dF-MnX" customClass="NewsViewController" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StockNewsVC" title="NEWS" id="BMU-dF-MnX" customClass="NewsViewController" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="otW-mn-oo1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6575,7 +6571,7 @@
         <!--PREMIUM-->
         <scene sceneID="owV-aF-pY2">
             <objects>
-                <viewController storyboardIdentifier="PremiumVC" title="COMPANY" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EUw-DO-jwS" userLabel="PREMIUM" customClass="PremiumViewController" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PremiumVC" title="PREMIUM" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EUw-DO-jwS" userLabel="PREMIUM" customClass="PremiumViewController" customModule="Bullfrog" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="66M-rf-433">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1250"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -9070,7 +9066,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="pDr-Wp-HVS"/>
+        <segue reference="Xgq-1i-9gK"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="CNNMoney_Logo" width="1133" height="420"/>
@@ -9092,8 +9088,8 @@
         <image name="dollar_sign" width="175" height="175"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="exclamation" width="512" height="512"/>
-        <image name="eye" catalog="system" width="128" height="81"/>
         <image name="eye" width="28.5" height="21.5"/>
+        <image name="eye" catalog="system" width="128" height="81"/>
         <image name="feather" width="512" height="512"/>
         <image name="globe" width="25" height="25"/>
         <image name="grid" width="512" height="512"/>

@@ -144,6 +144,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "static Dataholder.updateCreditBalance(_:):Dataholder.swift">
+      </ContextState>
+      <ContextState
          contextName = "ScatterChartRenderer.drawValues(context:):ScatterChartRenderer.swift">
          <PersistentStrings>
             <PersistentString
@@ -672,10 +675,26 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "PremiumViewController.getContentHeight():PremiumViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.contentView.bounds">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CircularProgressView.draw(_:):CircularProgressView.swift">
          <PersistentStrings>
             <PersistentString
                value = "progress">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in AppDelegate.application(_:didFinishLaunchingWithOptions:):AppDelegate.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.navigationController">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -692,6 +711,14 @@
          <PersistentStrings>
             <PersistentString
                value = "timeInterval">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in StockDetailsVC.creditBalanceUpdated():StockDetailsVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Dataholder.getCreditBalance()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -920,6 +947,17 @@
             </PersistentString>
             <PersistentString
                value = "(data.yMin - data.yMax) * 0.9">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in static Dataholder.subscribeForCreditBalanceUpdates(_:):Dataholder.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sbd.title">
+            </PersistentString>
+            <PersistentString
+               value = "sub.title">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

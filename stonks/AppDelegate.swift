@@ -37,6 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
+        NetworkManager.getMyRestApi().getCreditsForCurrentUser { credits in
+            Dataholder.updateCreditBalance(credits)
+        }
+        
 //        let appleIDProvider = ASAuthorizationAppleIDProvider()
 //        appleIDProvider.getCredentialState(forUserID: KeychainItem.currentUserIdentifier) { (credentialState, error) in
 //            switch credentialState {

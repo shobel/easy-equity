@@ -81,7 +81,7 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+                        
         self.kavoutUpdateButton.delegate = self
         self.day21ReturnUpdateButton.delegate = self
         self.day30SentimentUpdateButton.delegate = self
@@ -136,7 +136,8 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
                 }
                 return
             }
-            self.stockDetailsDelegate.updateCredits(newCredits ?? 0)
+            Dataholder.updateCreditBalance(newCredits ?? 0)
+
             if premiumPackage.id == Constants.premiumPackageIds.PREMIUM_KAVOUT_KSCORE {
                 self.kscoreData = premiumData as? Kscore
             } else if premiumPackage.id == Constants.premiumPackageIds.PREMIUM_BRAIN_RANKING_21_DAYS {
@@ -398,9 +399,13 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
     
     func getContentHeight() -> CGFloat {
         if isLoaded {
-            return self.contentView.bounds.height
+            return self.contentView.bounds.height + 50
         }
         return 0.0
+    }
+    
+    func creditBalanceUpdated() {
+        return
     }
     
     /*

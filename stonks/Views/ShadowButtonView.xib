@@ -23,13 +23,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d32-tc-rkr" userLabel="Shadow">
-                    <rect key="frame" x="35.5" y="52.5" width="79" height="30"/>
+                    <rect key="frame" x="49" y="52.5" width="52" height="30"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3NE-Jp-kj7" userLabel="Container">
-                            <rect key="frame" x="0.0" y="0.0" width="79" height="30"/>
+                            <rect key="frame" x="0.0" y="0.0" width="52" height="30"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ciO-iu-igY">
-                                    <rect key="frame" x="0.0" y="0.0" width="79" height="30"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="52" height="30"/>
                                     <connections>
                                         <action selector="buttonTapped:" destination="-1" eventType="touchUpInside" id="4wp-Cu-3H4"/>
                                     </connections>
@@ -41,8 +41,8 @@
                                         <constraint firstAttribute="height" constant="20" id="ceL-nd-S8x"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WmR-uQ-yeB">
-                                    <rect key="frame" x="33" y="5.5" width="36" height="19.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WmR-uQ-yeB">
+                                    <rect key="frame" x="33" y="5.5" width="9" height="19.5"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
