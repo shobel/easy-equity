@@ -67,7 +67,7 @@ class CustomCombinedChartView: CombinedChartView {
         let numFormatter = PriceChartPriceFormatter()
         self.leftAxis.valueFormatter = numFormatter
         self.xAxis.enabled = false
-        //self.xAxis.axisMinimum = -1.5
+        self.xAxis.axisMinimum = -1.0
         
         self.drawOrder = [DrawOrder.scatter.rawValue, DrawOrder.bar.rawValue, DrawOrder.line.rawValue, DrawOrder.candle.rawValue]
     }
@@ -294,7 +294,7 @@ class CustomCombinedChartView: CombinedChartView {
                         data.barData = self.volumeChartData
                     }
                     data.candleData = self.candleChartData
-                    if timeInterval != .twenty_year && timeInterval != .five_year {
+                    if timeInterval != .five_year {
                         data.scatterData = earningsData
                     }
                 }
@@ -317,7 +317,7 @@ class CustomCombinedChartView: CombinedChartView {
                         lineDataSets.append(self.rsi14Current)
                         lineDataSets.append(self.rsi14Max)
                     }
-                    if timeInterval != .twenty_year && timeInterval != .five_year {
+                    if timeInterval != .five_year {
                         data.scatterData = earningsData
                     }
                 }
@@ -327,7 +327,7 @@ class CustomCombinedChartView: CombinedChartView {
             }
             let lineChartDatas:LineChartData = LineChartData(dataSets: lineDataSets)
             data.lineData = lineChartDatas
-            self.xAxis.axisMaximum = data.xMax
+            self.xAxis.axisMaximum = data.xMax + 1.0
             
             if self.stockDetailsDelegate!.showRsi && self.stockDetailsDelegate!.toggleRsiButton.isHidden == false {
                 self.rightAxis.axisMaximum = 400

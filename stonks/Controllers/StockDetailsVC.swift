@@ -38,9 +38,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
     @IBOutlet weak var loaderView: UIView!
     @IBOutlet weak var watchlistButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var slider52w: UISlider!
-    @IBOutlet weak var sliderMin: UILabel!
-    @IBOutlet weak var sliderMax: UILabel!
     
     @IBOutlet weak var smastack: UIStackView!
     @IBOutlet weak var sma20: UILabel!
@@ -138,12 +135,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         
         //setup general stock and price information
         
-        let rangeImage:UIImage? = UIImage(systemName: "circle.fill")
-        slider52w.setThumbImage(rangeImage, for: .normal)
-        slider52w.tintColor = Constants.darkPink
-        
         //setup chart buttons
-        timeButtons = [button1D, button1M, button3M, button1Y, button5Y, buttonMax]
+        timeButtons = [button1D, button1M, button3M, button1Y, button5Y]
         button1D.backgroundColor = UIColor.white
         button1D.setTitleColor(Constants.darkGrey, for: .normal)
         timeInterval = Constants.TimeIntervals.day
@@ -252,23 +245,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
                     self.setTopBarValues(startPrice: chartData[0].close!, endPrice: self.latestQuote.latestPrice!, selected: false)
                 }
             }
-            self.set52wSlider(quote: quote, price: quote.latestPrice!)
             if let pvc = self.predictionsVC as? PredictionsViewController {
                 if pvc.isViewLoaded {
                     pvc.updateData()
                 }
             }
         }
-    }
-    
-    private func set52wSlider(quote:Quote, price:Double){
-        let quoteHigh = quote.week52High ?? 0.0
-        let quoteLow = quote.week52Low ?? 0.0
-        let numerator = price - quoteLow
-        let denominator = quoteHigh - quoteLow
-        self.slider52w.value = Float(numerator / denominator)
-        self.sliderMin.text = String(quoteLow)
-        self.sliderMax.text = String(quoteHigh)
     }
     
     private func incrementLoadingProgress(){
@@ -357,7 +339,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
     
     //TODO-SAM: remove average volume argument and encorporate low/high volume into analysis
     public func setVolumeValues(averageVolume:Double, totalVol:Double){
-        self.totalVol.text = String("TODAY'S VOLUME: \(NumberFormatter.formatNumber(num: totalVol))")
+        self.totalVol.text = String("\(NumberFormatter.formatNumber(num: totalVol))")
     }
     
     private func handleAllData(generalInfo: GeneralInfo, peerQuotes:[Quote], keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], cashflowAnnual:[CashFlow], income: [Income], incomeAnnual: [Income], insiders: [Insider], priceTargetTopAnalysts: PriceTargetTopAnalysts?, allTipranksAnalystsForStock:[ExpertAndRatingForStock], priceTargetsOverTime:[SimpleTimeAndPrice], bestPriceTargetsOverTime:[SimpleTimeAndPrice]){
@@ -543,7 +525,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         } else {
             setTopBarValues(startPrice: chartData[0].close!, endPrice: candle.close!, selected: true)
         }
-        set52wSlider(quote: self.latestQuote, price: candle.close!)
         feedbackGenerator.selectionChanged()
     }
     
@@ -661,7 +642,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
     @IBOutlet weak var button1D: UIButton!
     @IBOutlet weak var button1M: UIButton!
     @IBOutlet weak var button3M: UIButton!
-    @IBOutlet weak var buttonMax: UIButton!
     @IBOutlet weak var button1Y: UIButton!
     @IBOutlet weak var button5Y: UIButton!
     
@@ -690,18 +670,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
             }
         }
     }
-    
-    @IBAction func TwentyYearButtonPressed(_ sender: Any) {
-        self.hideLoader(false)
-        NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.monthly) { (candles) in
-            self.company.monthlyData = candles
-            DispatchQueue.main.async {
-                self.hideLoader(true)
-                self.timeButtonPressed(sender, chartData: self.company.getMonthlyData(240), timeInterval: Constants.TimeIntervals.twenty_year)
-            }
-        }
-    }
-    
+
     @IBAction func OneYearButtonPressed(_ sender: Any) {
         self.hideLoader(false)
         if self.candleMode {
@@ -738,7 +707,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         if !(button is UIButton) {
             return
         }
-        let timeIntervals:[Constants.TimeIntervals] = [.day, .one_month, .three_month, .one_year, .five_year, .twenty_year]
+        let timeIntervals:[Constants.TimeIntervals] = [.day, .one_month, .three_month, .one_year, .five_year]
         let index = timeIntervals.firstIndex(of: timeInterval)
 
         self.timeInterval = timeInterval
@@ -780,10 +749,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
             self.OneYearButtonPressed(self)
         case .five_year:
             self.FiveYearButtonPressed(self)
-        case .twenty_year:
-            self.TwentyYearButtonPressed(self)
-        case .max:
-            return
         }
     }
     

@@ -14,10 +14,6 @@ class StockDetailsSummaryView: UIStackView {
     @IBOutlet var priceChangeAndPercent: ColoredPricePercentLabel!
     @IBOutlet var ahPriceChangeAndPercent: ColoredPricePercentLabel!
     
-    @IBOutlet var dateTimeLabel: UILabel!
-    @IBOutlet var ytdChange: UILabel!
-    @IBOutlet var yrHighChange: UILabel!
-    
     
     /*
     // Only override draw() if you perform custom drawing.
