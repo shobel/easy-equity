@@ -51,22 +51,23 @@ class CustomCombinedChartView: CombinedChartView {
         self.doubleTapToZoomEnabled = false
         self.autoScaleMinMaxEnabled = true
         self.maxVisibleCount = 1000
+        self.minOffset = 0
         
+        self.leftAxis.enabled = false
+        self.rightAxis.enabled = false
         self.leftAxis.labelFont = UIFont(name: "Charter", size: 12)!
         self.leftAxis.labelTextColor = UIColor.black
         self.leftAxis.drawGridLinesEnabled = false
-        self.leftAxis.labelPosition = .insideChart
         self.leftAxis.drawAxisLineEnabled = false
-//        self.leftAxis.labelCount = 2
+        self.leftAxis.labelPosition = .insideChart
         self.leftAxis.yOffset = -5
-        self.leftAxis.forceLabelsEnabled = true
+        //self.leftAxis.labelCount = 2
+        //self.leftAxis.forceLabelsEnabled = true
         
         let numFormatter = PriceChartPriceFormatter()
         self.leftAxis.valueFormatter = numFormatter
-        self.leftAxis.enabled = true
-        self.rightAxis.enabled = false
         self.xAxis.enabled = false
-        self.xAxis.axisMinimum = -1.5
+        //self.xAxis.axisMinimum = -1.5
         
         self.drawOrder = [DrawOrder.scatter.rawValue, DrawOrder.bar.rawValue, DrawOrder.line.rawValue, DrawOrder.candle.rawValue]
     }
@@ -326,7 +327,7 @@ class CustomCombinedChartView: CombinedChartView {
             }
             let lineChartDatas:LineChartData = LineChartData(dataSets: lineDataSets)
             data.lineData = lineChartDatas
-            self.xAxis.axisMaximum = data.xMax + 1.5
+            self.xAxis.axisMaximum = data.xMax
             
             if self.stockDetailsDelegate!.showRsi && self.stockDetailsDelegate!.toggleRsiButton.isHidden == false {
                 self.rightAxis.axisMaximum = 400
