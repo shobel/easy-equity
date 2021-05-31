@@ -718,6 +718,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in WatchlistVC.watchlistUpdated():WatchlistVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.watchlistManager.getWatchlistSymbols()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in StockDetailsVC.creditBalanceUpdated():StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -739,6 +747,9 @@
             </PersistentString>
             <PersistentString
                value = "company.quote!">
+            </PersistentString>
+            <PersistentString
+               value = "self.buyRating.text">
             </PersistentString>
             <PersistentString
                value = "company.quote?.changePercent ?? 0.0 * 100.0">
@@ -1753,6 +1764,14 @@
          <PersistentStrings>
             <PersistentString
                value = "sender as! UIButton">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WatchlistVC.watchlistUpdated():WatchlistVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "scores">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

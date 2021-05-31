@@ -252,11 +252,11 @@ class CustomCombinedChartView: CombinedChartView {
         self.setUpPreviousLineChart(previousCloseSet: previousCloseSet10min)
         
         let earningsSet = ScatterChartDataSet(entries: earningsEntries)
-        earningsSet.setColor(UIColor.clear)
-        earningsSet.setScatterShape(.square)
-        earningsSet.scatterShapeSize = CGFloat(8)
+        earningsSet.setColor(.blue)
+        earningsSet.setScatterShape(.circle)
+        earningsSet.scatterShapeSize = CGFloat(4)
         earningsSet.highlightEnabled = false
-        earningsSet.drawIconsEnabled = true
+        earningsSet.drawIconsEnabled = false
         earningsSet.drawValuesEnabled = false
         earningsSet.iconsOffset = CGPoint(x: 0, y: -12)
         let earningsData = ScatterChartData(dataSet: earningsSet)
@@ -294,9 +294,7 @@ class CustomCombinedChartView: CombinedChartView {
                         data.barData = self.volumeChartData
                     }
                     data.candleData = self.candleChartData
-                    if timeInterval != .five_year {
-                        data.scatterData = earningsData
-                    }
+                    data.scatterData = earningsData
                 }
             } else {
                 lineDataSets.append(self.lineChartData)
@@ -317,9 +315,7 @@ class CustomCombinedChartView: CombinedChartView {
                         lineDataSets.append(self.rsi14Current)
                         lineDataSets.append(self.rsi14Max)
                     }
-                    if timeInterval != .five_year {
-                        data.scatterData = earningsData
-                    }
+                    data.scatterData = earningsData
                 }
                 if !self.stockDetailsDelegate!.showRsi || self.stockDetailsDelegate!.toggleRsiButton.isHidden == true {
                     data.barData = self.volumeChartData

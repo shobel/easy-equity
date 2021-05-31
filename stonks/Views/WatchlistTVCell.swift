@@ -17,6 +17,8 @@ class WatchlistTVCell: UITableViewCell {
     @IBOutlet weak var priceChange: ColoredValueLabel!
     
     @IBOutlet weak var preAfterImage: UIImageView!
+    @IBOutlet weak var preAfterImageWidth: NSLayoutConstraint!
+    private var preAfterImageVisibleWidth:CGFloat = CGFloat(15.0)
     @IBOutlet weak var buyRating: RatingLabel!
     @IBOutlet weak var daysToEarnings: UILabel!
     
@@ -51,9 +53,10 @@ class WatchlistTVCell: UITableViewCell {
             daysToEarnings.text = String(company.daysToER) + "d"
         }
         
-        if let score = company.analystsRating?.overallScore {
-            buyRating.setRatingColor(score: score)
-            buyRating.text = String(format: "%.1f", score)
+        if let score = company.simpleScore, let percentile = score.percentile, let rank = score.rank {
+            self.buyRating.backgroundColor = self.getScoreTextColor(percentile).withAlphaComponent(0.2)
+            self.buyRating.textColor = self.getScoreTextColor(percentile)
+            self.buyRating.text = String(rank)
         } else {
             buyRating.setRatingColor(score: -1)
             buyRating.text = ""
@@ -63,8 +66,10 @@ class WatchlistTVCell: UITableViewCell {
             self.priceChartPreview.setData(quote)
             if quote.isUSMarketOpen {
                 preAfterImage.isHidden = true
+                preAfterImageWidth.constant = 0
             } else if (quote.extendedPrice != nil && quote.extendedChangePercent != nil){
                 preAfterImage.isHidden = false
+                preAfterImageWidth.constant = self.preAfterImageVisibleWidth
                 preAfterImage.image = UIImage(systemName: "moon.circle.fill")
                 preAfterImage.tintColor = .black
                 //preAfterImage.image = UIImage(systemName: "sunset")
@@ -80,6 +85,20 @@ class WatchlistTVCell: UITableViewCell {
                 preAfterImage.isHidden = true
             }
         }
+    }
+    
+    func getScoreTextColor(_ val:Double) -> UIColor {
+        let blue:CGFloat = 0.0
+        var red:CGFloat = 0.0
+        var green:CGFloat = 0.0
+        if val <= 0.5 {
+            red = 218.0
+            green = CGFloat((val/0.5) * 218.0)
+        } else {
+            green = 218.0
+            red = CGFloat(218.0 - ((val - 0.5)/0.5) * 218.0)
+        }
+        return UIColor(red: red/255.0, green: green/255.0, blue: blue/255.0, alpha: 1.0)
     }
     
 }

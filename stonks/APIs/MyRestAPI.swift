@@ -214,18 +214,6 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func getQuote(symbol:String, completionHandler: @escaping (Quote)->Void){
-        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/quote", params: ["symbol":symbol])
-        self.getRequest(queryURL: queryURL) { (data) in
-            let json = JSON(data)
-            var quote:Quote = Quote()
-            if let q = Mapper<Quote>().map(JSONString: json.string!){
-                quote = q
-            }
-            completionHandler(quote)
-        }
-    }
-    
     public func getQuoteAndIntradayChart(symbol:String, completionHandler: @escaping (Quote, [Candle])->Void){
         let queryURL = buildQuery(url: apiurl + stockEndpoint + "/charts/quote-and-intraday/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
@@ -554,6 +542,21 @@ class MyRestAPI: HTTPRequest {
     
     public func getScoresWithUserSettingsApplied(completionHandler: @escaping ([SimpleScore])->Void){
         let queryURL = buildQuery(url: apiurl + userEndpoint + "/scores-settings-applied", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var scores:[SimpleScore] = []
+            for i in 0..<json.count{
+                let JSONString:String = json[i].rawString()!
+                if let n = Mapper<SimpleScore>().map(JSONString: JSONString){
+                    scores.append(n)
+                }
+            }
+            completionHandler(scores)
+        }
+    }
+    
+    public func getScoresForSymbolsWithUserSettingsApplied(symbols:[String], completionHandler: @escaping ([SimpleScore])->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/scores-settings-applied-for-symbols", params: ["symbols":symbols.joined(separator: ",")])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
             var scores:[SimpleScore] = []

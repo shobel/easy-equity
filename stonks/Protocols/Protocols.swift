@@ -14,7 +14,7 @@ protocol LoadingProtocol {
 }
 
 protocol ShadowButtonDelegate {
-    
     func creditBalanceUpdated()
     func shadowButtonTapped(_ premiumPackage:PremiumPackage?)
 }
+
