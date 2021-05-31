@@ -51,22 +51,23 @@ class CustomCombinedChartView: CombinedChartView {
         self.doubleTapToZoomEnabled = false
         self.autoScaleMinMaxEnabled = true
         self.maxVisibleCount = 1000
+        self.minOffset = 0
         
+        self.leftAxis.enabled = false
+        self.rightAxis.enabled = false
         self.leftAxis.labelFont = UIFont(name: "Charter", size: 12)!
         self.leftAxis.labelTextColor = UIColor.black
         self.leftAxis.drawGridLinesEnabled = false
-        self.leftAxis.labelPosition = .insideChart
         self.leftAxis.drawAxisLineEnabled = false
-//        self.leftAxis.labelCount = 2
+        self.leftAxis.labelPosition = .insideChart
         self.leftAxis.yOffset = -5
-        self.leftAxis.forceLabelsEnabled = true
+        //self.leftAxis.labelCount = 2
+        //self.leftAxis.forceLabelsEnabled = true
         
         let numFormatter = PriceChartPriceFormatter()
         self.leftAxis.valueFormatter = numFormatter
-        self.leftAxis.enabled = true
-        self.rightAxis.enabled = false
         self.xAxis.enabled = false
-        self.xAxis.axisMinimum = -1.5
+        self.xAxis.axisMinimum = -1.0
         
         self.drawOrder = [DrawOrder.scatter.rawValue, DrawOrder.bar.rawValue, DrawOrder.line.rawValue, DrawOrder.candle.rawValue]
     }
@@ -251,11 +252,11 @@ class CustomCombinedChartView: CombinedChartView {
         self.setUpPreviousLineChart(previousCloseSet: previousCloseSet10min)
         
         let earningsSet = ScatterChartDataSet(entries: earningsEntries)
-        earningsSet.setColor(UIColor.clear)
-        earningsSet.setScatterShape(.square)
-        earningsSet.scatterShapeSize = CGFloat(8)
+        earningsSet.setColor(.blue)
+        earningsSet.setScatterShape(.circle)
+        earningsSet.scatterShapeSize = CGFloat(4)
         earningsSet.highlightEnabled = false
-        earningsSet.drawIconsEnabled = true
+        earningsSet.drawIconsEnabled = false
         earningsSet.drawValuesEnabled = false
         earningsSet.iconsOffset = CGPoint(x: 0, y: -12)
         let earningsData = ScatterChartData(dataSet: earningsSet)
@@ -293,9 +294,7 @@ class CustomCombinedChartView: CombinedChartView {
                         data.barData = self.volumeChartData
                     }
                     data.candleData = self.candleChartData
-                    if timeInterval != .twenty_year && timeInterval != .five_year {
-                        data.scatterData = earningsData
-                    }
+                    data.scatterData = earningsData
                 }
             } else {
                 lineDataSets.append(self.lineChartData)
@@ -316,9 +315,7 @@ class CustomCombinedChartView: CombinedChartView {
                         lineDataSets.append(self.rsi14Current)
                         lineDataSets.append(self.rsi14Max)
                     }
-                    if timeInterval != .twenty_year && timeInterval != .five_year {
-                        data.scatterData = earningsData
-                    }
+                    data.scatterData = earningsData
                 }
                 if !self.stockDetailsDelegate!.showRsi || self.stockDetailsDelegate!.toggleRsiButton.isHidden == true {
                     data.barData = self.volumeChartData
@@ -326,7 +323,7 @@ class CustomCombinedChartView: CombinedChartView {
             }
             let lineChartDatas:LineChartData = LineChartData(dataSets: lineDataSets)
             data.lineData = lineChartDatas
-            self.xAxis.axisMaximum = data.xMax + 1.5
+            self.xAxis.axisMaximum = data.xMax + 1.0
             
             if self.stockDetailsDelegate!.showRsi && self.stockDetailsDelegate!.toggleRsiButton.isHidden == false {
                 self.rightAxis.axisMaximum = 400

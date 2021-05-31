@@ -76,7 +76,14 @@ class PriceTargetChart: CombinedChartView {
         var allTipranksExpertsHigh:Double? = nil
         var allTipranksExpertsLow:Double? = nil
         
-        var avg = self.company.priceTarget?.priceTargetAverage ?? 0.0
+        var avg = 0.0
+        var highTarget:Double = -1.0
+        var lowTarget = Double(Int.max)
+        if self.company.priceTarget?.currency == "USD" {
+            avg = self.company.priceTarget?.priceTargetAverage ?? 0.0
+            highTarget = self.company.priceTarget?.priceTargetHigh ?? -1.0
+            lowTarget = self.company.priceTarget?.priceTargetLow ?? Double(Int.max)
+        }
         var numAnalysts =  self.company.priceTarget?.numberOfAnalysts ?? 0
         if self.allMode {
             if let ptta = self.company.priceTargetTopAnalysts {
@@ -114,7 +121,6 @@ class PriceTargetChart: CombinedChartView {
         averagePriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count), y: latestPrice))
         averagePriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count * 2), y: avg))
         
-        var highTarget = self.company.priceTarget?.priceTargetHigh ?? -1.0
         if self.allMode {
             if let ptta = self.company.priceTargetTopAnalysts {
                 highTarget = max(highTarget, ptta.highPriceTarget ?? -1.0)
@@ -131,7 +137,6 @@ class PriceTargetChart: CombinedChartView {
             self.lineChartDataSets.append(highPriceTargetDataSet)
         }
         
-        var lowTarget = self.company.priceTarget?.priceTargetLow ?? Double(Int.max)
         if self.allMode {
             if let ptta = self.company.priceTargetTopAnalysts {
                 lowTarget = min(lowTarget, ptta.lowPriceTarget ?? Double(Int.max))

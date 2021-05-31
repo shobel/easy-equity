@@ -16,7 +16,7 @@ struct Constants{
     public static var restorationIDs = (details: "companyDetails", watchlist: "watchlist", search: "companySearch")
     
     public enum TimeIntervals{
-        case day, one_month, three_month, six_month, one_year, five_year, twenty_year, max
+        case day, one_month, three_month, six_month, one_year, five_year
     }
     
     public enum RatingType {

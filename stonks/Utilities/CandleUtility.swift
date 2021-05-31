@@ -27,8 +27,6 @@ struct CandleUtility {
                 prevDate = Calendar.current.date(byAdding: .day, value: -8, to: date)!
             } else if timeInterval == Constants.TimeIntervals.five_year {
                 prevDate = Calendar.current.date(byAdding: .month, value: -1, to: date)!
-            } else if timeInterval == Constants.TimeIntervals.twenty_year {
-                prevDate = Calendar.current.date(byAdding: .month, value: -4, to: date)!
             }
             let compCurrCandle = earnings.getDate()?.compare(date)
             let prevComp = earnings.getDate()?.compare(prevDate)

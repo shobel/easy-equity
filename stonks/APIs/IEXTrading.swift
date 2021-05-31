@@ -46,8 +46,7 @@ class IEXTrading: HTTPRequest, StockDataApiProtocol {
         Constants.TimeIntervals.three_month: "3m",
         Constants.TimeIntervals.six_month: "6m",
         Constants.TimeIntervals.one_year: "1y",
-        Constants.TimeIntervals.five_year: "5y",
-        Constants.TimeIntervals.max: "max"
+        Constants.TimeIntervals.five_year: "5y"
     ]
     
     //iexendpoints: logo and company

@@ -232,7 +232,24 @@ class PredictionsViewController: UIViewController, StatsVC {
         if let dest = segue.destination as? ExpertsViewController {
             let topExperts = self.company.priceTargetTopAnalysts?.expertRatings ?? []
             let otherExperts = self.company.tipranksAllAnalysts ?? []
-            dest.experts = topExperts + otherExperts
+            var expertDic:[String:ExpertAndRatingForStock] = [:]
+            for expert in topExperts {
+                if expert.name != nil {
+                    let name = expert.name!.trimmingCharacters(in: .whitespaces)
+                    if expertDic[name] == nil {
+                        expertDic[name] = expert
+                    }
+                }
+            }
+            for expert in otherExperts {
+                if expert.name != nil {
+                    let name = expert.name!.trimmingCharacters(in: .whitespaces)
+                    if expertDic[name] == nil {
+                        expertDic[name] = expert
+                    }
+                }
+            }
+            dest.experts = Array(expertDic.values)
             
             dest.latestPrice = self.company.quote?.latestPrice ?? 0.0
             dest.symbol = self.company.symbol

@@ -14,14 +14,18 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
     
     @IBOutlet weak var creditBalanceView: ShadowButtonView!
     @IBOutlet weak var tableView: UITableView!
-    private var watchlistUpdater: WatchlistUpdater?
-    private var finvizAPI:FinvizAPI!
-    
-    private var watchlistManager:WatchlistManager!
     @IBOutlet weak var headerBgView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    private var watchlistUpdater: WatchlistUpdater?
+    private var watchlistManager:WatchlistManager!
+    private var firstUpdateDone:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.activityIndicator.startAnimating()
+        self.activityIndicator.isHidden = false
         
         Dataholder.subscribeForCreditBalanceUpdates(self)
         self.creditBalanceView.delegate = self
@@ -31,9 +35,6 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
         
         self.watchlistManager = Dataholder.watchlistManager
         self.loadWatchlist()
-        
-        finvizAPI = FinvizAPI()
-//        finvizAPI.getData(forTickers: , completionHandler: handleFinvizResponse)
         
         self.headerBgView.layer.shadowColor = UIColor.black.cgColor
         self.headerBgView.layer.shadowOpacity = 0.7
@@ -48,10 +49,12 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
         
         self.tableView.backgroundView = nil
         self.tableView.backgroundColor = UIColor.white
+        
     }
     
     /* helps the rating score colors stick better when moving from other views to this one */
     override func viewWillAppear(_ animated: Bool) {
+        self.watchlistUpdated()
         self.tableView.reloadData()
     }
     
@@ -66,6 +69,20 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
     
     private func loadWatchlist(){
         NetworkManager.getMyRestApi().getWatchlistForCurrentUser() {
+            
+            NetworkManager.getMyRestApi().getScoresForSymbolsWithUserSettingsApplied(symbols: self.watchlistManager.getWatchlistSymbols()) { scores in
+                for score in scores {
+                    for company in self.watchlistManager.getWatchlist() {
+                        if score.symbol == company.symbol {
+                            company.simpleScore = score
+                        }
+                    }
+                }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+            
             DispatchQueue.main.async {
                 if !self.watchlistManager.getWatchlist().isEmpty {
                     let marketOpen = self.watchlistManager.getWatchlist().first?.quote?.isUSMarketOpen
@@ -87,27 +104,39 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
         }
     }
     
-    private func updateFinvizData(){
-        var tickers:[String] = []
-        for c in watchlistManager.getWatchlist(){
-            if c.analystsRating == nil && c.getIsCompany(){
-                tickers.append(c.symbol)
+    public func updateFromScheduledTask(_ data:Any?){
+        if !self.firstUpdateDone {
+            self.firstUpdateDone = true
+            DispatchQueue.main.async {
+                self.activityIndicator.isHidden = true
             }
         }
-    }
-    
-    public func updateFromScheduledTask(_ data:Any?){
         let watchlist = self.watchlistManager.getWatchlist()
-        if watchlist.count > 0 && watchlist[0].quote != nil {
-            if watchlist[0].quote!.isUSMarketOpen {
-                self.watchlistUpdater?.changeTimeInterval(newTimeInterval: 5.0)
+        //all of this logic is about setting whether the watchlist updater is hibernating or not hibernating means the WU will not fetch quotes
+        //Checking for nil quotes is unnecessary if we force the WU to fetch quotes immediately after adding a stock to our WL
+        if watchlist.isEmpty {
+            self.watchlistUpdater?.hibernating = true
+        } else {
+            var anySymbolNeedsQuote = false
+            for symbol in watchlist {
+                if symbol.quote == nil {
+                    anySymbolNeedsQuote = true
+                }
+            }
+            if anySymbolNeedsQuote {
                 self.watchlistUpdater?.hibernating = false
             } else {
-                self.watchlistUpdater?.changeTimeInterval(newTimeInterval: 60.0) //60.0
-                if GeneralUtility.isPremarket() || GeneralUtility.isAftermarket(){
+                //no symbols need quote
+                if watchlist[0].quote!.isUSMarketOpen {
+                    self.watchlistUpdater?.changeTimeInterval(newTimeInterval: 5.0)
                     self.watchlistUpdater?.hibernating = false
                 } else {
-                    self.watchlistUpdater?.hibernating = true
+                    self.watchlistUpdater?.changeTimeInterval(newTimeInterval: 60.0) //60.0
+                    if GeneralUtility.isPremarket() || GeneralUtility.isAftermarket(){
+                        self.watchlistUpdater?.hibernating = false
+                    } else {
+                        self.watchlistUpdater?.hibernating = true
+                    }
                 }
             }
         }
@@ -129,6 +158,29 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
     public func creditBalanceUpdated() {
         DispatchQueue.main.async {
             self.creditBalanceView.credits.text = String("\(Dataholder.getCreditBalance())")
+        }
+    }
+    
+    public func watchlistUpdated() {
+        NetworkManager.getMyRestApi().getScoresForSymbolsWithUserSettingsApplied(symbols: self.watchlistManager.getWatchlistSymbols()) { scores in
+            for score in scores {
+                for company in self.watchlistManager.getWatchlist() {
+                    if score.symbol == company.symbol {
+                        company.simpleScore = score
+                    }
+                }
+            }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        
+        if let wu = self.watchlistUpdater {
+            wu.hibernating = false
+            wu.update()
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
     

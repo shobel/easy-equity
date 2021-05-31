@@ -793,7 +793,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
                 
                 delegate?.chartViewDidEndPanning?(self)
             }
-            
+            delegate?.chartViewDidEndPanning?(self)
             if _outerScrollView !== nil
             {
                 _outerScrollView?.nsuiIsScrollEnabled = true

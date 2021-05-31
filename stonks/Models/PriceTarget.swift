@@ -19,6 +19,7 @@ struct PriceTarget: Mappable {
     public var priceTargetHigh:Double? //245,
     public var priceTargetLow:Double? //140,
     public var numberOfAnalysts:Int? //34
+    public var currency:String? //USD
     
     init(){}
     init?(map: Map) {}
@@ -30,5 +31,6 @@ struct PriceTarget: Mappable {
         priceTargetHigh <- map["priceTargetHigh"]
         priceTargetLow <- map["priceTargetLow"]
         numberOfAnalysts <- map["numberOfAnalysts"]
+        currency <- map["currency"]
     }
 }
