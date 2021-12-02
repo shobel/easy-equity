@@ -175,6 +175,10 @@
 		1CD78204264EE9E6001DF387 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD78203264EE9E6001DF387 /* PaddingLabel.swift */; };
 		1CDA114C232B5C810028D00C /* FormattedNumberLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDA114B232B5C810028D00C /* FormattedNumberLabel.swift */; };
 		1CE755B823D7616900E77D6C /* StockUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE755B723D7616900E77D6C /* StockUpdater.swift */; };
+		1CEBC3512755F515004605DE /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBC3502755F515004605DE /* Receipt.swift */; };
+		1CEBC3532756CA3D004605DE /* PurchaseHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBC3522756CA3D004605DE /* PurchaseHistoryViewController.swift */; };
+		1CEBC35527580525004605DE /* PurchaseHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBC35427580525004605DE /* PurchaseHistoryTableViewCell.swift */; };
+		1CEBC35727598F93004605DE /* PremiumTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBC35627598F93004605DE /* PremiumTransaction.swift */; };
 		1CFE633D23FB665E00F81758 /* NewsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFE633C23FB665E00F81758 /* NewsWebViewController.swift */; };
 		1CFFAA0B2170337400D3E768 /* AnalystsRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFFAA0A2170337400D3E768 /* AnalystsRating.swift */; };
 		3190B5951A804D1D76815360 /* Pods_stonks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 851E076FA06779BF9AEB98FC /* Pods_stonks.framework */; };
@@ -374,6 +378,10 @@
 		1CD78203264EE9E6001DF387 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		1CDA114B232B5C810028D00C /* FormattedNumberLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormattedNumberLabel.swift; sourceTree = "<group>"; };
 		1CE755B723D7616900E77D6C /* StockUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockUpdater.swift; sourceTree = "<group>"; };
+		1CEBC3502755F515004605DE /* Receipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
+		1CEBC3522756CA3D004605DE /* PurchaseHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseHistoryViewController.swift; sourceTree = "<group>"; };
+		1CEBC35427580525004605DE /* PurchaseHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		1CEBC35627598F93004605DE /* PremiumTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumTransaction.swift; sourceTree = "<group>"; };
 		1CFE633C23FB665E00F81758 /* NewsWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWebViewController.swift; sourceTree = "<group>"; };
 		1CFFAA0A2170337400D3E768 /* AnalystsRating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalystsRating.swift; sourceTree = "<group>"; };
 		5265415BD1DB5B226DB13419 /* Pods-stonks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stonks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-stonks/Pods-stonks.debug.xcconfig"; sourceTree = "<group>"; };
@@ -610,6 +618,8 @@
 				1CABC483254691E000B37588 /* StocktwitsPost.swift */,
 				1CB4F1012647A84200AAD867 /* StocktwitsSentiment.swift */,
 				1C72F91124CA788200EC59F6 /* Top10s.swift */,
+				1CEBC3502755F515004605DE /* Receipt.swift */,
+				1CEBC35627598F93004605DE /* PremiumTransaction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -658,6 +668,7 @@
 				1C5EFE42263FD63300582599 /* ShadowButtonView.xib */,
 				1CD781FF264E39E9001DF387 /* ExpertAndRatingTableViewCell.swift */,
 				1CD78203264EE9E6001DF387 /* PaddingLabel.swift */,
+				1CEBC35427580525004605DE /* PurchaseHistoryTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -688,6 +699,7 @@
 				1C742C5C25B6C72000B88B74 /* PremiumStocksViewController.swift */,
 				1C7EA4582623C00A00AB873F /* CreditsViewController.swift */,
 				1CD78201264E4795001DF387 /* ExpertsViewController.swift */,
+				1CEBC3522756CA3D004605DE /* PurchaseHistoryViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -977,6 +989,7 @@
 				1C0BC4DB232D83B9007C117F /* CustomCombinedChartView.swift in Sources */,
 				1CB4F1022647A84200AAD867 /* StocktwitsSentiment.swift in Sources */,
 				1C8DD1C024C8DF9800333C90 /* CompanySearchTableViewCell.swift in Sources */,
+				1CEBC35527580525004605DE /* PurchaseHistoryTableViewCell.swift in Sources */,
 				1CD78200264E39E9001DF387 /* ExpertAndRatingTableViewCell.swift in Sources */,
 				1C62CF4A256E43E4009C27E3 /* SectorPerformance.swift in Sources */,
 				1C62CF59256E9E64009C27E3 /* EconomyTableViewCell.swift in Sources */,
@@ -1001,6 +1014,7 @@
 				1C4D2D8E24E797E000E54EB8 /* ColoredComparisonLabel.swift in Sources */,
 				1C0CE3662628BFE00099B72B /* PurchaseTableViewCell.swift in Sources */,
 				1C62FDDB24BC4B6F00BABDCB /* SignupViewController.swift in Sources */,
+				1CEBC3532756CA3D004605DE /* PurchaseHistoryViewController.swift in Sources */,
 				1CA608252659D6370039E894 /* PremiumDataBase.swift in Sources */,
 				1C4D2D8A24E6751000E54EB8 /* PriceTargetChart.swift in Sources */,
 				1CB257212172BBB6008E3D4D /* FinvizAPI.swift in Sources */,
@@ -1079,6 +1093,7 @@
 				1C4EF364232AACAF000299E6 /* NewsViewController.swift in Sources */,
 				1CD1194A216F35C3000AE02E /* MarkerView.swift in Sources */,
 				1C1421EB256CC00B006087BA /* MarketViewController.swift in Sources */,
+				1CEBC35727598F93004605DE /* PremiumTransaction.swift in Sources */,
 				1C6271372541327A00A4CC57 /* CompanyScoreTableViewCell.swift in Sources */,
 				1CCA7E3B2313A8E80033AC58 /* GeneralInfo.swift in Sources */,
 				1CCBD05B24CC326600B43C9D /* ActionData.swift in Sources */,
@@ -1107,6 +1122,7 @@
 				1C0A006124C2A7230030E1E4 /* NetworkManager.swift in Sources */,
 				1C6B5F1E24025F55008E2C22 /* CardView.swift in Sources */,
 				1C4D2D8624E3D75D00E54EB8 /* Income.swift in Sources */,
+				1CEBC3512755F515004605DE /* Receipt.swift in Sources */,
 				1C7B9871215EB09000C75014 /* StockDataApiProtocol.swift in Sources */,
 				1C754B0A24EF4432000AE379 /* CircularProgressView.swift in Sources */,
 			);

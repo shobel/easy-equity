@@ -36,6 +36,10 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
         self.watchlistManager = Dataholder.watchlistManager
         self.loadWatchlist()
         
+        NetworkManager.getMyRestApi().getCreditsForCurrentUser { credits in
+            Dataholder.updateCreditBalance(credits)
+        }
+        
         self.headerBgView.layer.shadowColor = UIColor.black.cgColor
         self.headerBgView.layer.shadowOpacity = 0.7
         self.headerBgView.layer.shadowOffset = .zero
@@ -98,6 +102,8 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
                     } else {
                         self.watchlistUpdater?.changeTimeInterval(newTimeInterval: timeInterval)
                     }
+                } else {
+                   self.activityIndicator.isHidden = true
                 }
                 self.tableView.refreshControl!.endRefreshing()
             }

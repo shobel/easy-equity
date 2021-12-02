@@ -28,7 +28,7 @@ target 'stonks' do
   pod 'TransitionButton'
   pod 'VisualEffectView'
   pod 'XLActionController'
-  pod 'EFCountingLabel'
+  pod 'EFCountingLabel', '>= 5.1.3'
   pod 'FCAlertView'
   pod 'Cosmos'
 end

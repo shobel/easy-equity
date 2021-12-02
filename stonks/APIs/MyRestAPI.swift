@@ -13,7 +13,7 @@ import Firebase
 
 class MyRestAPI: HTTPRequest {
     
-    private var apiurl = "http://192.168.1.65:3000/api"
+    private var apiurl = "http://192.168.4.53:3000/api"
     //private var apiurl = "http://localhost:3000/api"
     
     private var appEndpoint = "/app"
@@ -21,6 +21,8 @@ class MyRestAPI: HTTPRequest {
     private var stockEndpoint = "/stocks"
     private var marketEndpoint = "/market"
     private var authEndpoint = "/auth"
+        
+    public var networkDelegate:NetworkDelegate?
     
     public enum ChartTimeFrames : String {
         case daily, weekly, monthly
@@ -156,6 +158,34 @@ class MyRestAPI: HTTPRequest {
                 }
             }
             completionHandler(nil, nil, nil)
+        }
+    }
+    
+    public func getReceiptsForCurrentUser(completionHandler: @escaping([Receipt]) -> Void) {
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/getReceipts", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            var receipts:[Receipt] = []
+            let json = JSON(data)
+            for i in 0..<json.count{
+                if let r = Mapper<Receipt>().map(JSONString: json[i].rawString()!){
+                    receipts.append(r)
+                }
+            }
+            completionHandler(receipts)
+        }
+    }
+    
+    public func getPremiumTransactionsForCurrentUser(completionHandler: @escaping([PremiumTransaction]) -> Void) {
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/getPremiumTransactions", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            var trans:[PremiumTransaction] = []
+            let json = JSON(data)
+            for i in 0..<json.count{
+                if let r = Mapper<PremiumTransaction>().map(JSONString: json[i].rawString()!){
+                    trans.append(r)
+                }
+            }
+            completionHandler(trans)
         }
     }
     
@@ -715,6 +745,9 @@ class MyRestAPI: HTTPRequest {
                 } else if error == nil && data !=  nil {
                     completion(JSON(data!))
                 }
+            } else {
+                self.networkDelegate?.networkError()
+                completion(JSON())
             }
         }
     }
@@ -746,6 +779,9 @@ class MyRestAPI: HTTPRequest {
                 } else if error == nil && data !=  nil {
                     completion(JSON(data!))
                 }
+            } else {
+                self.networkDelegate?.networkError()
+                completion(JSON())
             }
         }
     }
@@ -763,6 +799,5 @@ class MyRestAPI: HTTPRequest {
             }
         }
     }
-    
 
 }

@@ -31,6 +31,9 @@ class PriceChartPreviewView: LineChartView {
         var lineEntries:[ChartDataEntry] = []
         var previousLineEntries:[ChartDataEntry] = []
         let data = quote.simplifiedChart
+        if data.count == 0 {
+            return
+        }
         var lastTime:String = ""
         for i in 0..<data.count {
             lineEntries.append(ChartDataEntry(x: Double(i), y: data[i].value))

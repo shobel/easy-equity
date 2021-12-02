@@ -67,7 +67,7 @@ class WatchlistTVCell: UITableViewCell {
             if quote.isUSMarketOpen {
                 preAfterImage.isHidden = true
                 preAfterImageWidth.constant = 0
-            } else if (quote.extendedPrice != nil && quote.extendedChangePercent != nil){
+            } else if (quote.extendedPrice != nil && quote.extendedPrice != 0.0 && quote.extendedChangePercent != nil && quote.extendedChangePercent != 0.0){
                 preAfterImage.isHidden = false
                 preAfterImageWidth.constant = self.preAfterImageVisibleWidth
                 preAfterImage.image = UIImage(systemName: "moon.circle.fill")
