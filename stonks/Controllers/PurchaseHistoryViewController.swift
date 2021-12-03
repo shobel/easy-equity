@@ -28,7 +28,6 @@ class PurchaseHistoryViewController: UIViewController, UITableViewDelegate, UITa
                 self.tableview.reloadData()
             }
         }
-        print()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
