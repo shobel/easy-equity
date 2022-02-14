@@ -144,7 +144,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     private var refreshControl:UIRefreshControl!
     
     private var itemsLoaded:Int = 0
-    private var numItems:Int = 4
+    private var numItems:Int = 5
     private var lastLoadedTimestamp:Double = 0.0
     
     override func viewDidLoad() {
@@ -177,17 +177,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         activityIndicatorView = UIActivityIndicatorView(style: .large)
         self.view.addSubview(activityIndicatorView)
         activityIndicatorView.center = self.view.center
-        
-        self.loadingStarted()
-        NetworkManager.getMyRestApi().getTop10s(completionHandler: handleTop10s)
-        NetworkManager.getMyRestApi().getMarketNews(completionHandler: handleMarketNews)
-        NetworkManager.getMyRestApi().getTiprankSymbols(completionHandler: handleTopAnalysts)
-        NetworkManager.getMyRestApi().getStocktwitsPostsTrending(summary: "false", completionHandler: handleStocktwitsPosts)
-        if Dataholder.allTickers.isEmpty {
-            self.numItems += 1
-            NetworkManager.getMyRestApi().listCompanies(completionHandler: handleListCompanies)
-        }
-        
+                
         self.scrollView.refreshControl = UIRefreshControl()
         self.scrollView.refreshControl!.attributedTitle = NSAttributedString(string: "refreshing...")
         self.scrollView.refreshControl!.addTarget(self, action: #selector(didPullToRefresh), for: UIControl.Event.valueChanged)
@@ -206,12 +196,16 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         if Date().timeIntervalSince1970 - self.lastLoadedTimestamp > (60*30){
             self.lastLoadedTimestamp = Date().timeIntervalSince1970
             self.itemsLoaded = 0
-            self.numItems = 4
+            self.numItems = 5
             self.loadingStarted()
             NetworkManager.getMyRestApi().getTop10s(completionHandler: handleTop10s)
             NetworkManager.getMyRestApi().getMarketNews(completionHandler: handleMarketNews)
             NetworkManager.getMyRestApi().getTiprankSymbols(completionHandler: handleTopAnalysts)
             NetworkManager.getMyRestApi().getStocktwitsPostsTrending(summary: "false", completionHandler: handleStocktwitsPosts)
+            if Dataholder.allTickers.isEmpty {
+                self.numItems += 1
+                NetworkManager.getMyRestApi().listCompanies(completionHandler: handleListCompanies)
+            }
         } else {
             self.stocktwitsTable.reloadData()
             self.scrollView.refreshControl!.endRefreshing()
@@ -219,7 +213,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     @IBAction func sortTop10List(_ sender: Any) {
-        self.top10CollectionView.scrollToItem(at: IndexPath(item: 0, section: 1), at: .left, animated: true)
+        self.top10CollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
         let actionController = SkypeActionController() //not really for skype
         actionController.addAction(Action("Top Gainers", style: .default, handler: { action in
             self.top10Title.text = "Top Gainers"
@@ -240,7 +234,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     @IBAction func sortTopAnalysts(_ sender: Any) {
-        self.topAnalystsCollection.scrollToItem(at: IndexPath(item: 0, section: 1), at: .left, animated: true)
+        self.topAnalystsCollection.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
         let actionController = SkypeActionController() //not really for skype
         actionController.addAction(Action("Upside Percentage", style: .default, handler: { action in
             self.priceTargetTopAnalysts = self.priceTargetTopAnalysts.sorted {
@@ -313,8 +307,31 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     private func handleTopAnalysts(_ topAnalystSymbols:[PriceTargetTopAnalysts]) {
         self.priceTargetTopAnalysts = topAnalystSymbols
         self.priceTargetTopAnalysts.sort { (p1, p2) -> Bool in
-            return p1.upsidePercent ?? Double(Int.min) > p2.upsidePercent ?? Double(Int.min)
+            return p1.numAnalysts ?? 0 > p2.numAnalysts ?? 0
         }
+        self.priceTargetTopAnalysts = self.priceTargetTopAnalysts.filter({ p in
+            p.numAnalysts ?? 0 > 2
+        })
+        self.itemsLoaded += 1
+        var symbolSet:Set<String> = []
+        for a in self.priceTargetTopAnalysts {
+            symbolSet.insert(a.symbol!)
+        }
+        NetworkManager.getMyRestApi().getQuotes(symbols: Array(symbolSet), completionHandler: handleLatestQuotes)
+    }
+    
+    private func handleLatestQuotes(quotes:[Quote]){
+        var newAnalystSymbolList:[PriceTargetTopAnalysts] = []
+        for var item in self.priceTargetTopAnalysts {
+            for quote in quotes {
+                if quote.symbol == item.symbol && item.avgPriceTarget != nil && quote.latestPrice != nil{
+                    item.upsidePercent = ((item.avgPriceTarget! - quote.latestPrice!) / quote.latestPrice!) * 100.0
+                    break
+                }
+            }
+            newAnalystSymbolList.append(item)
+        }
+        self.priceTargetTopAnalysts = newAnalystSymbolList
         self.itemsLoaded += 1
         if self.itemsLoaded >= self.numItems {
             self.loadingFinished()
@@ -328,9 +345,9 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.topAnalystsCollection.isHidden = false
             }
             self.currentTopAnalystSymbols = Array(self.priceTargetTopAnalysts.prefix(self.maxNumTopAnalystItems))
-            self.currentTopAnalystSymbols = self.currentTopAnalystSymbols.filter({ p in
-                p.upsidePercent != nil
-            })
+//            self.currentTopAnalystSymbols = self.currentTopAnalystSymbols.filter({ p in
+//                p.upsidePercent != nil
+//            })
             self.topAnalystsCollection.reloadData()
         }
     }

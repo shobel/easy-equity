@@ -110,7 +110,10 @@ class Company: Equatable, Comparable {
             prevCandle = entry
         }
         if !open && returnDataSet.count > 0 {
-            let numToAdd = 390 - returnDataSet.count
+            var numToAdd = 390 - returnDataSet.count
+            if numToAdd < 0 {
+                numToAdd = 0
+            }
             let lastEntry = returnDataSet[returnDataSet.count - 1]
             for x in 0..<numToAdd {
                 let prevDate = NumberFormatter.timeStringToDate(lastEntry.datetime!)

@@ -53,6 +53,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in closure #1 in AppDelegate.application(_:didFinishLaunchingWithOptions:):AppDelegate.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "KeychainItem.currentUserIdentifier">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CustomCombinedChartView.generateLineData():CustomCombinedChartView.swift">
          <PersistentStrings>
             <PersistentString
@@ -60,14 +68,6 @@
             </PersistentString>
             <PersistentString
                value = "set.yMax">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in AppDelegate.application(_:didFinishLaunchingWithOptions:):AppDelegate.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "KeychainItem.currentUserIdentifier">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -158,6 +158,9 @@
          contextName = "PurchaseViewController.getAppleProduct(_:):PurchaseViewController.swift">
       </ContextState>
       <ContextState
+         contextName = "PriceChartPreviewView.getElapsedFraction(_:):PriceChartPreviewView.swift">
+      </ContextState>
+      <ContextState
          contextName = "ScatterChartRenderer.drawValues(context:):ScatterChartRenderer.swift">
          <PersistentStrings>
             <PersistentString
@@ -199,10 +202,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "NewsViewController.collectionView(_:layout:sizeForItemAt:):NewsViewController.swift">
+         contextName = "NewsViewController.updateData():NewsViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "collectionView.frame.size">
+               value = "self.company.symbol">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -217,6 +220,22 @@
             </PersistentString>
             <PersistentString
                value = "dailyEntry.datetime">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "NewsViewController.collectionView(_:layout:sizeForItemAt:):NewsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "collectionView.frame.size">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "TopAnalystsViewController.tableView(_:cellForRowAt:):TopAnalystsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cell.totalScore.text">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -586,6 +605,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "TopAnalystsViewController.handleTopAnalysts(_:):TopAnalystsViewController.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in MyRestAPI.getNonIntradayChart(symbol:timeframe:completionHandler:):MyRestAPI.swift">
          <PersistentStrings>
             <PersistentString
@@ -880,13 +902,13 @@
          contextName = "CompanySearchVC.getCurrentTop10List():CompanySearchVC.swift">
       </ContextState>
       <ContextState
-         contextName = "PredictionsViewController.updateData():PredictionsViewController.swift">
+         contextName = "TopAnalystsViewController.handleLatestQuotes(quotes:):TopAnalystsViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "y/0.3">
+               value = "self.latestPriceMap[&quot;AVGO&quot;]">
             </PersistentString>
             <PersistentString
-               value = "((x - latestPrice!) / latestPrice!)*100.0">
+               value = "self.stockExtraData">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -907,21 +929,24 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CompanySearchVC.handleTop10s(_:):CompanySearchVC.swift">
+         contextName = "PredictionsViewController.updateData():PredictionsViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.itemsLoaded">
+               value = "y/0.3">
+            </PersistentString>
+            <PersistentString
+               value = "((x - latestPrice!) / latestPrice!)*100.0">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #2 in EmailVerificationViewController.sendResetCodeButtonTapped(_:):EmailVerificationViewController.swift">
+         contextName = "CompanySearchVC.handleTop10s(_:):CompanySearchVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "error.debugDescription">
+               value = "self.numItems">
             </PersistentString>
             <PersistentString
-               value = "error?.localizedDescription">
+               value = "self.itemsLoaded">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -933,6 +958,17 @@
          <PersistentStrings>
             <PersistentString
                value = "chartData">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in EmailVerificationViewController.sendResetCodeButtonTapped(_:):EmailVerificationViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "error.debugDescription">
+            </PersistentString>
+            <PersistentString
+               value = "error?.localizedDescription">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1025,6 +1061,17 @@
          contextName = "closure #2 in CustomCombinedChartView.updateChart():CustomCombinedChartView.swift">
       </ContextState>
       <ContextState
+         contextName = "closure #1 in CompanySearchVC.handleLatestQuotes(quotes:):CompanySearchVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.priceTargetTopAnalysts">
+            </PersistentString>
+            <PersistentString
+               value = "self.currentTopAnalystSymbols">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CompanySearchVC.handleMarketNews(_:):CompanySearchVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -1061,6 +1108,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "StockDetailsVC.handleDailyChartData(_:):StockDetailsVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "company.dailyData">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "String.shortDateUS.getter:NumberFormatter.swift">
          <PersistentStrings>
             <PersistentString
@@ -1088,14 +1143,6 @@
             </PersistentString>
             <PersistentString
                value = "self.pageVC.pageViewController.scrollView.contentSize.height">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "StockDetailsVC.handleDailyChartData(_:):StockDetailsVC.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "company.dailyData">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1357,6 +1404,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "PremiumHistoryViewController.tableView(_:cellForRowAt:):PremiumHistoryViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cell.transactionId.text">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in closure #1 in WatchlistUpdaterFMP.update():WatchlistUpdater.swift">
          <PersistentStrings>
             <PersistentString
@@ -1463,6 +1518,9 @@
                value = "date.description">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CompanySearchVC.fetchQuotesForTopAnalystsSubset():CompanySearchVC.swift">
       </ContextState>
       <ContextState
          contextName = "WatchlistManager.removeCompany(company:completion:):WatchlistManager.swift">
@@ -1872,6 +1930,9 @@
                value = "overweight*4.0">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CompanySearchVC.handleLatestQuotes(quotes:):CompanySearchVC.swift">
       </ContextState>
       <ContextState
          contextName = "StockDetailsVC.handleCompanyData(_:logo:):StockDetailsVC.swift">

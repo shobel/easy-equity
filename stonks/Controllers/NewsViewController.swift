@@ -110,7 +110,11 @@ class NewsViewController: UIViewController, StatsVC, UITableViewDelegate, UITabl
     
     func getContentHeight() -> CGFloat {
         if isLoaded {
-            return self.stocktwitsTableHeight.constant + self.newsCollectionView.frame.height + 50
+            if self.stocktwitsPosts.isEmpty {
+                return self.newsCollectionView.frame.height + 75
+            } else {
+                return self.stocktwitsTableHeight.constant + self.newsCollectionView.frame.height + 50
+            }
         }
         return 0.0
     }

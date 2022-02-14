@@ -213,7 +213,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
                 self.company.weeklyData = []
                 self.company.monthlyData = []
             }
-            self.dateOfLatestPriceData = intradayChart[0].dateLabel!
+            if intradayChart.count > 0 {
+                self.dateOfLatestPriceData = intradayChart[0].dateLabel!
+            }
 
             if quote.symbol == nil {
                 return
@@ -344,7 +346,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
     
     private func handleAllData(generalInfo: GeneralInfo, peerQuotes:[Quote], keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], cashflowAnnual:[CashFlow], income: [Income], incomeAnnual: [Income], insiders: [Insider], priceTargetTopAnalysts: PriceTargetTopAnalysts?, allTipranksAnalystsForStock:[ExpertAndRatingForStock], priceTargetsOverTime:[SimpleTimeAndPrice], bestPriceTargetsOverTime:[SimpleTimeAndPrice]){
         self.company.generalInfo = generalInfo
-        self.company.fullName = self.company.generalInfo!.companyName!
+        self.company.fullName = self.company.generalInfo!.companyName ?? ""
         self.company.peerQuotes = peerQuotes.filter({ (q) -> Bool in
             q.symbol != nil && q.symbol != ""
         })

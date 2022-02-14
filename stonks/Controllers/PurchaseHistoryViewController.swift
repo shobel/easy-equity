@@ -16,11 +16,17 @@ class PurchaseHistoryViewController: UIViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableview.tableFooterView = UIView()
         self.tableview.delegate = self
         self.tableview.dataSource = self
+        self.updateData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.updateData()
+    }
+    
+    private func updateData(){
         NetworkManager.getMyRestApi().getReceiptsForCurrentUser { receipts in
             self.receipts = receipts
             self.receipts = self.receipts.sorted(by: { $0.timestamp! > $1.timestamp! })

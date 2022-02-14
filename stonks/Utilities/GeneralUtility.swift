@@ -38,6 +38,15 @@ struct GeneralUtility {
         return localDate
     }
     
+    //format month/day/year
+    public static func stringToDate(_ dateString: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.locale = Locale.current
+        return dateFormatter.date(from: dateString)
+    }
+    
     /* iso string format example: 2020-10-27T17:09:22Z */
     public static func isoDateToTimestamp(isoString:String) -> Double {
         let formatter = DateFormatter()
@@ -109,4 +118,5 @@ struct GeneralUtility {
         }
         return false
     }
+    
 }

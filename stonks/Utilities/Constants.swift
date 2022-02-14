@@ -31,6 +31,14 @@ struct Constants{
         STOCKTWITS_SENTIMENT: "STOCKTWITS_SENTIMENT"
     )
     
+    public static var premiumPackageNames = [
+        "PREMIUM_KAVOUT_KSCORE": "Kavout Kscore",
+        "PREMIUM_BRAIN_LANGUAGE_METRICS_ALL": "BRAIN Language Metrics",
+        "PREMIUM_BRAIN_RANKING_21_DAYS": "21 Day BRAIN Ranking",
+        "PREMIUM_BRAIN_SENTIMENT_30_DAYS": "30 Day BRAIN Sentiment",
+        "STOCKTWITS_SENTIMENT": "Stocktwits Sentiment"
+    ]
+    
     public static var ratingColors:[RatingType:UIColor] = [
         RatingType.buy: lightGreen,
         RatingType.hold: lightOrange

@@ -13,7 +13,7 @@ import Firebase
 
 class MyRestAPI: HTTPRequest {
     
-    private var apiurl = "http://192.168.4.53:3000/api"
+    private var apiurl = "http://192.168.1.116:3000/api"
     //private var apiurl = "http://localhost:3000/api"
     
     private var appEndpoint = "/app"
@@ -540,6 +540,21 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
+    public func getFidelityAnalysts(completionHandler: @escaping ([FidelityScore])->Void){
+        let queryURL = buildQuery(url: apiurl + marketEndpoint + "/fidelity/scores", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var scores:[FidelityScore] = []
+            for i in 0..<json.count{
+                let JSONString:String = json[i].rawString()!
+                if let n = Mapper<FidelityScore>().map(JSONString: JSONString){
+                    scores.append(n)
+                }
+            }
+            completionHandler(scores)
+        }
+    }
+    
     public func getStocktwitsPostsTrending(summary:String, completionHandler: @escaping ([StocktwitsPost])->Void){
         let queryURL = buildQuery(url: apiurl + marketEndpoint + "/stocktwits-trending-symbols/" + summary, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
@@ -556,7 +571,7 @@ class MyRestAPI: HTTPRequest {
     }
     
     public func getStocktwitsPostsForSymbol(symbol:String, completionHandler: @escaping ([StocktwitsPost])->Void){
-        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/stocktwits-for-symbol/" + symbol, params: [:])
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/stocktwits-for-symbol/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
             var posts:[StocktwitsPost] = []
