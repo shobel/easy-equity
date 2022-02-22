@@ -10,6 +10,7 @@ target 'stonks' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Core'
   pod 'FirebaseUI/Auth'
+  pod 'Google-Mobile-Ads-SDK'
 
   # Essential UI
   pod 'Charts'

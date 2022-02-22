@@ -11,6 +11,7 @@ import Firebase
 import FirebaseCore
 import AuthenticationServices
 import FCAlertView
+import GoogleMobileAds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, NetworkDelegate {
@@ -26,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NetworkDelegate {
         }
         
         FirebaseApp.configure()
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+
         
 //        do {
 //            try KeychainItem(service: Bundle.main.bundleIdentifier!, account: "userIdentifier").deleteItem()

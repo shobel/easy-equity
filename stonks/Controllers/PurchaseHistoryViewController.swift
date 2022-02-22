@@ -48,6 +48,7 @@ class PurchaseHistoryViewController: UIViewController, UITableViewDelegate, UITa
         cell.date.text = GeneralUtility.timestampToDateString(receipt.timestamp! / 1000)
         let amount:Double = receipt.product?.usd ?? 0.0
         cell.amount.text = String(format: "$%.2f", amount)
+        cell.supportButton.tag = indexPath.row
         return cell
     }
     
@@ -55,14 +56,19 @@ class PurchaseHistoryViewController: UIViewController, UITableViewDelegate, UITa
         self.navigationController?.popViewController(animated: true)
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let s = sender as? UIButton {
+            let tag = s.tag
+            if let dest = segue.destination as? ContactUsViewController {
+                let si = self.receipts[tag]
+                dest.setTransactionId(si.transactionid!)
+            }
+        }
     }
-    */
+    
 
 }

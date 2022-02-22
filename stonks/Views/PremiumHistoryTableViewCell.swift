@@ -15,6 +15,7 @@ class PremiumHistoryTableViewCell: UITableViewCell {
     @IBOutlet weak var symbol: UILabel!
     @IBOutlet weak var credits: UILabel!
     @IBOutlet weak var packageName: UILabel!
+    @IBOutlet weak var supportButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

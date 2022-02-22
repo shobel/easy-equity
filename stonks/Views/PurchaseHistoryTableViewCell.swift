@@ -13,6 +13,7 @@ class PurchaseHistoryTableViewCell: UITableViewCell {
     @IBOutlet weak var transactionId: UILabel!
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var amount: UILabel!
+    @IBOutlet weak var supportButton: UIButton!
     @IBOutlet weak var status: UILabel!
     
     override func awakeFromNib() {

@@ -51,7 +51,7 @@ class TopAnalystsViewController: UIViewController, UITableViewDelegate, UITableV
         DispatchQueue.main.async {
             self.loader.isHidden = false
         }
-        NetworkManager.getMyRestApi().getTiprankSymbols(completionHandler: handleTopAnalysts)
+        NetworkManager.getMyRestApi().getTiprankSymbols(nil, completionHandler: handleTopAnalysts)
     }
     
     func clearData(){

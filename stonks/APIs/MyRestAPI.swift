@@ -13,7 +13,7 @@ import Firebase
 
 class MyRestAPI: HTTPRequest {
     
-    private var apiurl = "http://192.168.1.116:3000/api"
+    private var apiurl = "http://192.168.1.112:3000/api"
     //private var apiurl = "http://localhost:3000/api"
     
     private var appEndpoint = "/app"
@@ -355,9 +355,7 @@ class MyRestAPI: HTTPRequest {
             for i in 0..<newsJSON.count{
                 let s:String = newsJSON[i].rawString()!
                 if let n = Mapper<News>().map(JSONString: s){
-                    if Constants.demo || n.lang == "en" {
-                        newsList.append(n)
-                    }
+                    newsList.append(n)
                 }
             }
             let priceTargetJSON = json["priceTarget"].rawString()!
@@ -516,17 +514,17 @@ class MyRestAPI: HTTPRequest {
             for i in 0..<json.count{
                 let JSONString:String = json[i].rawString()!
                 if let n = Mapper<News>().map(JSONString: JSONString){
-                    if Constants.demo || n.lang == "en" {
-                        newsList.append(n)
-                    }
+                    newsList.append(n)
                 }
             }
             completionHandler(newsList)
         }
     }
     
-    public func getTiprankSymbols(completionHandler: @escaping ([PriceTargetTopAnalysts])->Void){
-        let queryURL = buildQuery(url: apiurl + marketEndpoint + "/tipranks/symbols", params: [:])
+    public func getTiprankSymbols(_ numAnalystThreshold:String?, completionHandler: @escaping ([PriceTargetTopAnalysts])->Void){
+        let queryURL = buildQuery(url: apiurl + marketEndpoint + "/tipranks/symbols", params: [
+            "numAnalystThreshold": numAnalystThreshold ?? ""
+            ])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
             var symbols:[PriceTargetTopAnalysts] = []
@@ -636,6 +634,26 @@ class MyRestAPI: HTTPRequest {
             let json = JSON(data)
             let success = json["result"].bool ?? false
             completionHandler(success)
+        }
+    }
+    
+    public func addUserIssue(message:String, email:String, completionHandler: @escaping ()->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/add-issue", params: [:])
+        let body = [
+            "issue": message,
+            "email": email
+        ]
+        self.postRequest(queryURL: queryURL, body: body) { (data) in
+            completionHandler()
+        }
+    }
+    
+    public func getEmailFromFirstUserIssue(completionHandler: @escaping (String)->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/get-email-from-latest-issue", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            let email = json["email"].string ?? ""
+            completionHandler(email)
         }
     }
     

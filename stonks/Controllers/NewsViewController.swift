@@ -19,11 +19,7 @@ extension NewsViewController: UICollectionViewDataSource, UICollectionViewDelega
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stockNewsCollectionCell", for: indexPath) as! StockNewsCollectionViewCell
         let news:News = self.stockNews[indexPath.row]
         cell.heading.text = news.headline
-        let date = Date(timeIntervalSince1970: Double(news.datetime! / 1000))
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, yy"
-        let localDate = dateFormatter.string(from: date)
-        cell.date.text = localDate
+        cell.date.text = news.date
         let url = URL(string: news.image!)
         DispatchQueue.global().async {
             if let data = try? Data(contentsOf: url!) {
@@ -34,7 +30,6 @@ extension NewsViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         cell.source.text = news.source
         cell.symbols.text = news.related
-        cell.paywall = news.hasPaywall!
         cell.url = news.url
         return cell
     }
@@ -95,7 +90,7 @@ class NewsViewController: UIViewController, StatsVC, UITableViewDelegate, UITabl
     func updateData() {
         self.company = Dataholder.selectedCompany!
         self.stockNews = self.company.news ?? []
-        NetworkManager.getMyRestApi().getStocktwitsPostsForSymbol(symbol: self.company.symbol, completionHandler: handleStocktwitsPosts)
+//        NetworkManager.getMyRestApi().getStocktwitsPostsForSymbol(symbol: self.company.symbol, completionHandler: handleStocktwitsPosts)
         DispatchQueue.main.async {
             self.newsCollectionView.reloadData()
         }

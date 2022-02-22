@@ -54,11 +54,7 @@ extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "marketNewsCollectionCell", for: indexPath) as! MarketNewsCollectionViewCell
             let news:News = self.marketNews[indexPath.row]
             cell.heading.text = news.headline
-            let date = Date(timeIntervalSince1970: Double(news.datetime! / 1000))
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMM d, yy"
-            let localDate = dateFormatter.string(from: date)
-            cell.date.text = localDate
+            cell.date.text = news.date!
             let url = URL(string: news.image!)
             DispatchQueue.global().async {
                 if let data = try? Data(contentsOf: url!) {
@@ -69,7 +65,6 @@ extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate 
             }
             cell.source.text = news.source
             cell.symbols.text = news.related
-            cell.paywall = news.hasPaywall!
             cell.url = news.url
             return cell
         } else if collectionView.restorationIdentifier == "topAnalysts"{
@@ -144,7 +139,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     private var refreshControl:UIRefreshControl!
     
     private var itemsLoaded:Int = 0
-    private var numItems:Int = 5
+    private var numItems:Int = 4
     private var lastLoadedTimestamp:Double = 0.0
     
     override func viewDidLoad() {
@@ -173,6 +168,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         stocktwitsTable.delegate = self
         stocktwitsTable.dataSource = self
+        self.stocktwitsTableHeight.constant = 0.0
         
         activityIndicatorView = UIActivityIndicatorView(style: .large)
         self.view.addSubview(activityIndicatorView)
@@ -191,17 +187,16 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         self.refreshAll()
     }
     
-    //TODO-SAM: auto refresh every 10 minutes during market hours
+    //refreshes no more often than every 10 min
     private func refreshAll(){
-        if Date().timeIntervalSince1970 - self.lastLoadedTimestamp > (60*30){
+        if Date().timeIntervalSince1970 - self.lastLoadedTimestamp > (60*10){
             self.lastLoadedTimestamp = Date().timeIntervalSince1970
             self.itemsLoaded = 0
-            self.numItems = 5
             self.loadingStarted()
             NetworkManager.getMyRestApi().getTop10s(completionHandler: handleTop10s)
             NetworkManager.getMyRestApi().getMarketNews(completionHandler: handleMarketNews)
-            NetworkManager.getMyRestApi().getTiprankSymbols(completionHandler: handleTopAnalysts)
-            NetworkManager.getMyRestApi().getStocktwitsPostsTrending(summary: "false", completionHandler: handleStocktwitsPosts)
+            NetworkManager.getMyRestApi().getTiprankSymbols("5", completionHandler: handleTopAnalysts)
+//            NetworkManager.getMyRestApi().getStocktwitsPostsTrending(summary: "false", completionHandler: handleStocktwitsPosts)
             if Dataholder.allTickers.isEmpty {
                 self.numItems += 1
                 NetworkManager.getMyRestApi().listCompanies(completionHandler: handleListCompanies)
@@ -310,7 +305,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             return p1.numAnalysts ?? 0 > p2.numAnalysts ?? 0
         }
         self.priceTargetTopAnalysts = self.priceTargetTopAnalysts.filter({ p in
-            p.numAnalysts ?? 0 > 2
+            p.numAnalysts ?? 0 > 5
         })
         self.itemsLoaded += 1
         var symbolSet:Set<String> = []

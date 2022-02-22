@@ -13,7 +13,6 @@ class StockNewsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var heading: UILabel!
     @IBOutlet weak var source: UILabel!
     @IBOutlet weak var date: UILabel!
-    @IBOutlet weak var paywallIcon: UIImageView!
     @IBOutlet weak var newImage: UIImageView!
     @IBOutlet weak var symbols: UILabel!
     
@@ -34,10 +33,5 @@ class StockNewsCollectionViewCell: UICollectionViewCell {
         newImage.layer.cornerRadius = 10.0
         //newImage.clipsToBounds = true
         newImage.layer.masksToBounds = true
-        if self.paywall {
-            paywallIcon.isHidden = false
-        } else {
-            paywallIcon.isHidden = true
-        }
     }
 }

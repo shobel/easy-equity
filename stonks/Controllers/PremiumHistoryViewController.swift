@@ -44,6 +44,7 @@ class PremiumHistoryViewController: UIViewController, UITableViewDelegate, UITab
         let credits:Int = transaction.credits ?? 0
         cell.credits.text = String(credits)
         cell.transactionId.text = "id: " + String(transaction.timestamp!)
+        cell.supportButton.tag = indexPath.row
         return cell
     }
     
@@ -55,14 +56,19 @@ class PremiumHistoryViewController: UIViewController, UITableViewDelegate, UITab
         self.navigationController?.popViewController(animated: true)
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let s = sender as? UIButton {
+            let tag = s.tag
+            if let dest = segue.destination as? ContactUsViewController {
+                let si = self.transactions[tag]
+                dest.setTransactionId(String(si.timestamp!))
+            }
+        }
     }
-    */
+    
 
 }
