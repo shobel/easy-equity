@@ -29,9 +29,7 @@ class CustomCombinedChartView: CombinedChartView {
     private var sma100:LineChartDataSet = LineChartDataSet()
     private var sma200:LineChartDataSet = LineChartDataSet()
     
-    private var rsi14:LineChartDataSet = LineChartDataSet()
-    private var rsi14Current:LineChartDataSet = LineChartDataSet()
-    private var rsi14Max:LineChartDataSet = LineChartDataSet()
+    private var vwap:LineChartDataSet = LineChartDataSet()
 
     private var dayEntryCount = 391
     private var previousCloseValue = 0.0
@@ -115,16 +113,9 @@ class CustomCombinedChartView: CombinedChartView {
         var volume10minEntries:[BarChartDataEntry] = []
         var prevCloseEntries:[ChartDataEntry] = []
         var prevClose10MinEntries:[ChartDataEntry] = []
-        var sma20Entries:[ChartDataEntry] = []
-        var sma50Entries:[ChartDataEntry] = []
-        var sma100Entries:[ChartDataEntry] = []
-        var sma200Entries:[ChartDataEntry] = []
         
-        var rsi14Entries:[ChartDataEntry] = []
-        var rsi14MaxEntries:[ChartDataEntry] = []
-        var rsiCurrentEntries:[ChartDataEntry] = []
+        var vwapEntries:[ChartDataEntry] = []
         
-        var earningsEntries:[ChartDataEntry] = []
         var entryCount = self.myCandleData!.count
 
         for i in 0..<self.myCandleData!.count{
@@ -136,23 +127,8 @@ class CustomCombinedChartView: CombinedChartView {
             let volume = candle.volume!
   
             candleEntries.append(CandleChartDataEntry(x: Double(i), shadowH: high, shadowL: low, open: open, close: close))
-            if candle.earnings ?? false {
-                earningsEntries.append(ChartDataEntry(x: Double(i), y: close, icon: UIImage(named: "earnings_with_line_small")))
-            }
-            if let sma20 = candle.sma20 {
-                sma20Entries.append(ChartDataEntry(x: Double(i), y: sma20))
-            }
-            if let sma50 = candle.sma50 {
-                sma50Entries.append(ChartDataEntry(x: Double(i), y: sma50))
-            }
-            if let sma100 = candle.sma100 {
-                sma100Entries.append(ChartDataEntry(x: Double(i), y: sma100))
-            }
-            if let sma200 = candle.sma200 {
-                sma200Entries.append(ChartDataEntry(x: Double(i), y: sma200))
-            }
-            if let rsi = candle.rsi14 {
-                rsi14Entries.append(ChartDataEntry(x: Double(i), y: rsi))
+            if let vwap = candle.vwap {
+                vwapEntries.append(ChartDataEntry(x: Double(i), y: vwap))
             }
             
             //line chart
@@ -173,40 +149,6 @@ class CustomCombinedChartView: CombinedChartView {
         let candleSet = CandleChartDataSet(entries: candleEntries)
         self.setUpCandleChart(set: candleSet)
         self.candleChartData = CandleChartData(dataSet: candleSet)
-
-        let sma20Set = LineChartDataSet(entries: sma20Entries)
-        self.sma20 = sma20Set
-        self.setUpSmaLine(set: sma20Set, color: Constants.fadedBlue)
-        let sma50Set = LineChartDataSet(entries: sma50Entries)
-        self.sma50 = sma50Set
-        self.setUpSmaLine(set: sma50Set, color: Constants.fadedOrange)
-        let sma100Set = LineChartDataSet(entries: sma100Entries)
-        self.sma100 = sma100Set
-        self.setUpSmaLine(set: sma100Set, color: Constants.fadedPurple)
-        let sma200Set = LineChartDataSet(entries: sma200Entries)
-        self.sma200 = sma200Set
-        self.setUpSmaLine(set: sma200Set, color: Constants.fadedDarkGrey)
-        
-        if rsi14Entries.count > 0 {
-            let lastCandle = self.myCandleData![self.myCandleData!.count - 1]
-            if let lastRsi = lastCandle.rsi14 {
-                rsiCurrentEntries.append(ChartDataEntry(x: 0.0, y: lastRsi))
-                rsiCurrentEntries.append(ChartDataEntry(x: Double(self.myCandleData!.count - 1), y: lastRsi))
-            }
-            rsi14MaxEntries.append(ChartDataEntry(x: 0.0, y: 100.0))
-            rsi14MaxEntries.append(ChartDataEntry(x: Double(self.myCandleData!.count - 1), y: 100.0))
-
-            let rsiSet = LineChartDataSet(entries: rsi14Entries)
-            let rsiMaxSet = LineChartDataSet(entries: rsi14MaxEntries)
-            let rsiCurrentSet = LineChartDataSet(entries: rsiCurrentEntries)
-            self.rsi14 = rsiSet
-            self.rsi14Max = rsiMaxSet
-            self.rsi14Current = rsiCurrentSet
-            self.setUpRsiLine(set: rsiSet, color: .brown, dashed: false, drawValues: false)
-            self.setUpRsiLine(set: rsiMaxSet, color: .darkGray, dashed: false, drawValues: true)
-            self.setUpRsiLine(set: rsiCurrentSet, color: Constants.fadedOrange, dashed: true, drawValues: true)
-            rsiMaxSet.lineWidth = 1            
-        }
         
         if self.stockDetailsDelegate!.candleMode{
             entryCount = self.myCandleDataTenMin!.count
@@ -251,16 +193,8 @@ class CustomCombinedChartView: CombinedChartView {
         self.setUpPreviousLineChart(previousCloseSet: previousCloseSet)
         self.setUpPreviousLineChart(previousCloseSet: previousCloseSet10min)
         
-        let earningsSet = ScatterChartDataSet(entries: earningsEntries)
-        earningsSet.setColor(.blue)
-        earningsSet.setScatterShape(.circle)
-        earningsSet.scatterShapeSize = CGFloat(4)
-        earningsSet.highlightEnabled = false
-        earningsSet.drawIconsEnabled = false
-        earningsSet.drawValuesEnabled = false
-        earningsSet.iconsOffset = CGPoint(x: 0, y: -12)
-        let earningsData = ScatterChartData(dataSet: earningsSet)
-        self.earningsData = earningsData
+        self.vwap = LineChartDataSet(entries: vwapEntries)
+        self.setUpVwapLine(set: self.vwap, color: Constants.fadedBlue)
         
         DispatchQueue.main.async {
             let timeInterval:Constants.TimeIntervals = self.stockDetailsDelegate!.timeInterval
@@ -280,21 +214,12 @@ class CustomCombinedChartView: CombinedChartView {
                         lineDataSets.append(previousCloseSet10min)
                     }
                 } else {
-                    if self.stockDetailsDelegate!.showSmas {
-                        lineDataSets.append(self.sma20)
-                        lineDataSets.append(self.sma50)
-                        lineDataSets.append(self.sma100)
-                        lineDataSets.append(self.sma200)
-                    }
-                    if self.stockDetailsDelegate!.showRsi && self.stockDetailsDelegate!.toggleRsiButton.isHidden == false {
-                        lineDataSets.append(self.rsi14)
-                        lineDataSets.append(self.rsi14Current)
-                        lineDataSets.append(self.rsi14Max)
+                    if self.stockDetailsDelegate!.showVwap {
+                        lineDataSets.append(self.vwap)
                     } else {
                         data.barData = self.volumeChartData
                     }
                     data.candleData = self.candleChartData
-                    data.scatterData = earningsData
                 }
             } else {
                 lineDataSets.append(self.lineChartData)
@@ -304,32 +229,18 @@ class CustomCombinedChartView: CombinedChartView {
                         lineDataSets.append(previousCloseSet)
                     }
                 } else {
-                    if self.stockDetailsDelegate!.showSmas {
-                        lineDataSets.append(self.sma20)
-                        lineDataSets.append(self.sma50)
-                        lineDataSets.append(self.sma100)
-                        lineDataSets.append(self.sma200)
+                    if self.stockDetailsDelegate!.showVwap {
+                        lineDataSets.append(self.vwap)
                     }
-                    if self.stockDetailsDelegate!.showRsi && self.stockDetailsDelegate!.toggleRsiButton.isHidden == false {
-                        lineDataSets.append(self.rsi14)
-                        lineDataSets.append(self.rsi14Current)
-                        lineDataSets.append(self.rsi14Max)
-                    }
-                    data.scatterData = earningsData
                 }
-                if !self.stockDetailsDelegate!.showRsi || self.stockDetailsDelegate!.toggleRsiButton.isHidden == true {
-                    data.barData = self.volumeChartData
-                }
+                data.barData = self.volumeChartData
             }
             let lineChartDatas:LineChartData = LineChartData(dataSets: lineDataSets)
             data.lineData = lineChartDatas
             self.xAxis.axisMaximum = data.xMax + 1.0
             
-            if self.stockDetailsDelegate!.showRsi && self.stockDetailsDelegate!.toggleRsiButton.isHidden == false {
-                self.rightAxis.axisMaximum = 400
-            } else {
-                self.rightAxis.axisMaximum = data.barData.yMax * 2
-            }
+            //to make volume max height only go up 1/2 the full height
+            self.rightAxis.axisMaximum = data.barData.yMax * 2
             self.rightAxis.axisMinimum = 0
 
             self.data = data
@@ -388,7 +299,7 @@ class CustomCombinedChartView: CombinedChartView {
         previousCloseSet.drawCirclesEnabled = false
     }
     
-    private func setUpSmaLine(set: LineChartDataSet, color: UIColor){
+    private func setUpVwapLine(set: LineChartDataSet, color: UIColor){
         set.setColor(color)
         set.lineWidth = 2
         set.drawCirclesEnabled = false
@@ -396,23 +307,6 @@ class CustomCombinedChartView: CombinedChartView {
         set.drawValuesEnabled = false
         set.axisDependency = .left
         set.highlightEnabled = false
-    }
-    
-    private func setUpRsiLine(set: LineChartDataSet, color:UIColor, dashed:Bool, drawValues: Bool){
-        set.setColor(color)
-        set.lineWidth = 2
-        set.drawCirclesEnabled = false
-        set.mode = .cubicBezier
-        set.axisDependency = .right
-        set.highlightEnabled = false
-        if dashed {
-            set.lineDashLengths = [5, 5]
-        }
-        if drawValues {
-            set.drawValuesEnabled = true
-        } else {
-            set.drawValuesEnabled = false
-        }
     }
     
     private func setUpLineChart(set: LineChartDataSet){

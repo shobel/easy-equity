@@ -16,4 +16,17 @@ struct AlertDisplay {
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: handler))
         return alert
     }
+    
+    public static func showAlert(_ title:String, message:String){
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        var rootViewController = UIApplication.shared.keyWindow?.rootViewController?.presentedViewController
+        if let navigationController = rootViewController as? UINavigationController {
+            rootViewController = navigationController.viewControllers.first
+        }
+        if let tabBarController = rootViewController as? UITabBarController {
+            rootViewController = tabBarController.selectedViewController
+        }
+        rootViewController?.present(alertController, animated: true, completion: nil)
+    }
 }

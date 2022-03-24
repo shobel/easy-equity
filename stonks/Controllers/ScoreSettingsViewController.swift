@@ -32,15 +32,10 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var healthHeight: NSLayoutConstraint!
     @IBOutlet weak var healthWeight: UITextField!
     
-    @IBOutlet weak var technicalTable: UITableView!
-    @IBOutlet weak var technicalHeight: NSLayoutConstraint!
-    @IBOutlet weak var technicalWeight: UITextField!
-    
     private var valuation = "valuation"
     private var future = "future"
     private var past = "past"
     private var health = "health"
-    private var technical = "technical"
     
     private var somethingChanged:Bool = false
     public var parentVC:UIViewController?
@@ -56,14 +51,10 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
         self.pastTable.dataSource = self
         self.healthTable.delegate = self
         self.healthTable.dataSource = self
-        self.technicalTable.delegate = self
-        self.technicalTable.dataSource = self
-        
         self.valuationTable.backgroundColor = .white
         self.futureTable.backgroundColor = .white
         self.pastTable.backgroundColor = .white
         self.healthTable.backgroundColor = .white
-        self.technicalTable.backgroundColor = .white
         
         NetworkManager.getMyRestApi().getSettingsAndVariables { (scoreSettings, variableNamesMap, variableMap) in
             self.scoreSettings = scoreSettings
@@ -74,14 +65,12 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
                 self.futureHeight.constant = CGFloat((self.variables[self.future]!).count) * 40
                 self.pastHeight.constant = CGFloat((self.variables[self.past]!).count) * 40
                 self.healthHeight.constant = CGFloat((self.variables[self.health]!).count) * 40
-                self.technicalHeight.constant = CGFloat((self.variables[self.technical]!).count) * 40
                 
                 if let w = self.scoreSettings.weightings {
                     self.valuationWeight.text = String(w[self.valuation]!)
                     self.futureWeight.text = String(w[self.future]!)
                     self.pastWeight.text = String(w[self.past]!)
                     self.healthWeight.text = String(w[self.health]!)
-                    self.technicalWeight.text = String(w[self.technical]!)
 
                 }
 
@@ -89,7 +78,6 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
                 self.futureTable.reloadData()
                 self.pastTable.reloadData()
                 self.healthTable.reloadData()
-                self.technicalTable.reloadData()
             }
         }
     }
@@ -152,10 +140,6 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
             if let t = self.variables[health] {
                 return t.count
             }
-        } else if tableView.restorationIdentifier == "technicalTable" {
-            if let t = self.variables[technical] {
-                return t.count
-            }
         }
         return 0
     }
@@ -188,12 +172,6 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
                 cell.variable = t[indexPath.row]
                 cell.onoff.isOn = !(self.scoreSettings.disabled ?? []).contains(t[indexPath.row])
             }
-        } else if tableView.restorationIdentifier == "technicalTable" {
-            if let t = self.variables[technical] {
-                variableName = self.variableNames[t[indexPath.row]] ?? ""
-                cell.variable = t[indexPath.row]
-                cell.onoff.isOn = !(self.scoreSettings.disabled ?? []).contains(t[indexPath.row])
-            }
         }
         cell.variableName.text = variableName
         return cell
@@ -214,10 +192,6 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
     
     @IBAction func healthWeightChanged(_ sender: Any) {
         self.weightingChanged(self.health, sender: sender)
-    }
-    
-    @IBAction func technicalWeightChanged(_ sender: Any) {
-        self.weightingChanged(self.technical, sender: sender)
     }
     
     private func weightingChanged(_ variable:String, sender:Any){

@@ -24,6 +24,7 @@ class TopAnalystsTableViewCell: UITableViewCell {
     @IBOutlet weak var numRatings: UILabel!
     @IBOutlet weak var latestPrice: UILabel!
     @IBOutlet weak var fidelityScore: UIImageView!
+    @IBOutlet weak var fidelityScoreVal: UILabel!
     
     @IBOutlet weak var numAnalystsIcon: UIImageView! //255 45 85
     @IBOutlet weak var avgRankIcon: UIImageView! //255 204 0

@@ -24,6 +24,8 @@ class Company: Equatable, Comparable {
     public var cashflowAnnual:[CashFlow]?
     public var income:[Income]?
     public var incomeAnnual:[Income]?
+    public var balanceSheets:[BalanceSheet]?
+    public var balanceSheetsAnnual:[BalanceSheet]?
     
     public var peerQuotes:[Quote]?
     
@@ -39,10 +41,12 @@ class Company: Equatable, Comparable {
     public var priceTargetsOverTime:[SimpleTimeAndPrice]?
     public var news:[News]?
     public var advancedStats: AdvancedStats?
-    public var insiders:[Insider]?
+    public var insiders:Insider?
     public var earningsDate:Date?
     public var scores:Scores?
     public var simpleScore:SimpleScore?
+    public var peFwd:Double?
+    public var estimatedEps:Double?
     
 //    public var quarterlyData:[Candle] = []
     public var monthlyData:[Candle] = []
@@ -132,11 +136,14 @@ class Company: Equatable, Comparable {
     }
     
     public func getWeeklyData(_ numWeeks: Int) -> [Candle]{
-        return getDataSubset(dataset: weeklyData, numDataPoints: numWeeks)
+//        return getDataSubset(dataset: weeklyData, numDataPoints: numWeeks)
+        return shrinkDataSet(dailyData, groupBy: 5)
+
     }
     
     public func getMonthlyData(_ numMonths: Int) -> [Candle] {
-        return getDataSubset(dataset: monthlyData, numDataPoints: numMonths)
+//        return getDataSubset(dataset: monthlyData, numDataPoints: numMonths)
+        return shrinkDataSet(dailyData, groupBy: 20)
     }
     
     public func getQuarterlyData(_ numQuarters: Int) -> [Candle] {
@@ -196,17 +203,6 @@ class Company: Equatable, Comparable {
             return Array(dataset.suffix(numDataPoints))
         }
         return []
-    }
-    
-    public func addTechnicalIndicatorsToDailyValues(_ technicals:[String:Double]){
-        for i in 0..<self.dailyData.count {
-            let dailyDataItem = self.dailyData[i]
-            let datestring = dailyDataItem.dateLabel
-            let rsi = technicals[datestring!]
-            if rsi != nil {
-                self.dailyData[i].rsi14 = rsi
-            }
-        }
     }
     
     static func == (lhs: Company, rhs: Company) -> Bool {

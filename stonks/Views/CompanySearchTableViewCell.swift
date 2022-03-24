@@ -35,8 +35,12 @@ class CompanySearchTableViewCell: UITableViewCell {
                 self.parentVC?.loadingFinished()
             }
         } else {
-            Dataholder.watchlistManager.addCompany(company: self.company){
-                self.addedToWatchlist(true)
+            Dataholder.watchlistManager.addCompany(company: self.company){ added in
+                if added {
+                    self.addedToWatchlist(true)
+                } else {
+                    AlertDisplay.showAlert("Error", message: "Watchlist limit reached")
+                }
                 self.parentVC?.loadingFinished()
             }
         }

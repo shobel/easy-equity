@@ -66,12 +66,12 @@ class PriceTargetsOverTimeChart: CombinedChartView, IAxisValueFormatter {
         for i in 0..<yearOfDailyPrices.count {
             let chartItem = yearOfDailyPrices[i]
             if allMode {
-                if let priceTargetMatch = self.findPriceTargetForChartEntry(self.company.priceTargetsOverTime, dateMatch: chartItem.dateLabel ?? "") {
+                if let priceTargetMatch = self.findPriceTargetForChartEntry(self.company.priceTargetsOverTime, dateMatch: chartItem.datetime ?? "") {
                     let chartEntry = ChartDataEntry(x: Double(i), y: priceTargetMatch)
                     averagePriceTargetEntries.append(chartEntry)
                 }
             } else {
-                if let priceTargetMatch = self.findPriceTargetForChartEntry(self.company.bestPriceTargetsOverTime, dateMatch: chartItem.dateLabel ?? "") {
+                if let priceTargetMatch = self.findPriceTargetForChartEntry(self.company.bestPriceTargetsOverTime, dateMatch: chartItem.datetime ?? "") {
                     let chartEntry = ChartDataEntry(x: Double(i), y: priceTargetMatch)
                     averagePriceTargetEntries.append(chartEntry)
                 }

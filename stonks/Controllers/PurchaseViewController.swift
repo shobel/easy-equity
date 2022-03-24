@@ -257,6 +257,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             
             NetworkManager.getMyRestApi().verifyReceipt(encodedReceipt, productid: (self.currentSelectedProduct?.id)!) { (credits) in
                 if credits != nil {
+                    Dataholder.updateCreditBalance(credits!)
                     self.currentCredits.countFromCurrentValueTo(CGFloat(credits!), withDuration: 1.0)
                     SKPaymentQueue.default().finishTransaction(transaction)
 //                    self.receiptRefreshRequest()

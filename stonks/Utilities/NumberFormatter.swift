@@ -43,6 +43,9 @@ class NumberFormatter {
     
     /* Formats a number to be an integer with the appropriate suffix */
     static func formatNumber(num:Double) -> String {
+        if abs(num) > 999999999999 {
+            return String(format: "%.1f", num/1000000000000) + "T"
+        }
         if abs(num) > 999999999 {
             return String(format: "%.1f", num/1000000000) + "B"
         }

@@ -11,6 +11,7 @@ import Foundation
 class WatchlistManager {
     
     private var watchlist:[Company]
+    private var limit:Int = 30
     
     init(){
         watchlist = []
@@ -33,11 +34,15 @@ class WatchlistManager {
         return watchlist.map{ $0.symbol }
     }
 
-    public func addCompany(company: Company, completion: @escaping () -> Void){
+    public func addCompany(company: Company, completion: @escaping (Bool) -> Void){
         if !watchlist.contains(company) {
-            watchlist.append(company)
-            NetworkManager.getMyRestApi().addToWatchlist(symbol: company.symbol) { (JSON) in
-                completion()
+            if (watchlist.count >= limit){
+                completion(false)
+            } else {
+                watchlist.append(company)
+                NetworkManager.getMyRestApi().addToWatchlist(symbol: company.symbol) { (JSON) in
+                    completion(true)
+                }
             }
         }
     }

@@ -21,6 +21,7 @@ struct Income: Mappable {
     public var grossProfit:Int?
     public var totalRevenue:Int?
     public var period:String?
+    public var ebitda:Int?
     
     init(){}
     init?(map: Map) {}
@@ -36,6 +37,8 @@ struct Income: Mappable {
         grossProfit <- map["grossProfit"]
         totalRevenue <- map["totalRevenue"]
         period <- map["period"]
+        ebitda <- map["ebitda"]
+
     }
     
 }

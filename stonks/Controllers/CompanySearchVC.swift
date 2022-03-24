@@ -97,11 +97,10 @@ extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate 
             let url = URL(string: marketNewsItem.url!)
             let config = SFSafariViewController.Configuration()
             config.entersReaderIfAvailable = true
-            var vc = SFSafariViewController(url: URL(string: "https://www.google.com")!)
-            if (marketNewsItem.url?.starts(with: "http"))! {
-                vc = SFSafariViewController(url: url!, configuration: config)
+            if url != nil && (marketNewsItem.url?.starts(with: "http"))! {
+                let vc = SFSafariViewController(url: url!, configuration: config)
+                present(vc, animated: true)
             }
-            present(vc, animated: true)
         }
     }
     
@@ -114,8 +113,6 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     //@IBOutlet weak var marketNewsTableView: MarketNewsTableView!
-    @IBOutlet weak var stocktwitsTable: UITableView!
-    @IBOutlet weak var stocktwitsTableHeight: NSLayoutConstraint!
     
     @IBOutlet weak var marketView: UIView!
     @IBOutlet weak var marketNewsCollection: UICollectionView!
@@ -132,10 +129,8 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     private var currentTopAnalystSymbols:[PriceTargetTopAnalysts] = []
     private var maxNumTopAnalystItems:Int = 10
     private var marketNews:[News] = []
-    private var stocktwitsPosts:[StocktwitsPost] = []
-    @IBOutlet weak var noTopAnalystsLabel: UILabel!
+    @IBOutlet weak var noTopAnalystsLabel: UIButton!
     
-    private var stocktwitsTableHeights:[CGFloat] = []
     private var refreshControl:UIRefreshControl!
     
     private var itemsLoaded:Int = 0
@@ -165,10 +160,6 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         //marketNewsTableView.dataSource = self
         marketNewsCollection.delegate = self
         marketNewsCollection.dataSource = self
-        
-        stocktwitsTable.delegate = self
-        stocktwitsTable.dataSource = self
-        self.stocktwitsTableHeight.constant = 0.0
         
         activityIndicatorView = UIActivityIndicatorView(style: .large)
         self.view.addSubview(activityIndicatorView)
@@ -202,7 +193,6 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 NetworkManager.getMyRestApi().listCompanies(completionHandler: handleListCompanies)
             }
         } else {
-            self.stocktwitsTable.reloadData()
             self.scrollView.refreshControl!.endRefreshing()
         }
     }
@@ -312,6 +302,9 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         for a in self.priceTargetTopAnalysts {
             symbolSet.insert(a.symbol!)
         }
+        if symbolSet.isEmpty {
+            self.handleLatestQuotes(quotes: [])
+        }
         NetworkManager.getMyRestApi().getQuotes(symbols: Array(symbolSet), completionHandler: handleLatestQuotes)
     }
     
@@ -347,33 +340,6 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         }
     }
     
-    private func handleStocktwitsPosts(_ posts:[StocktwitsPost]){
-        self.stocktwitsPosts = posts
-        self.itemsLoaded += 1
-        if self.itemsLoaded >= self.numItems {
-            self.loadingFinished()
-        }
-        DispatchQueue.main.async {
-            self.stocktwitsTable.reloadData()
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if tableView.restorationIdentifier == "stocktwitsTable" {
-            self.stocktwitsTableHeights.append(cell.frame.height)
-            if self.stocktwitsTableHeights.count == self.stocktwitsPosts.count {
-                let totalHeight = self.stocktwitsTableHeights.reduce(0, { x, y in
-                    x + y
-                })
-                DispatchQueue.main.async {
-                    self.stocktwitsTableHeights = []
-                    self.stocktwitsTableHeight.constant = totalHeight
-                    super.updateViewConstraints()
-                }
-            }
-        }
-    }
-    
     public func loadingStarted(){
         DispatchQueue.main.async {
             self.activityIndicatorView.startAnimating()
@@ -395,8 +361,6 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             return self.marketNews.count
         } else if tableView.restorationIdentifier == "searchTable" {
             return searchResults.count
-        } else if tableView.restorationIdentifier == "stocktwitsTable" {
-            return stocktwitsPosts.count
         }
         return 0
     }
@@ -416,50 +380,8 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 cell.addedToWatchlist(false)
             }
             return cell
-        } else { //if tableView.restorationIdentifier == "stocktwitsTable" 
-            let cell = stocktwitsTable.dequeueReusableCell(withIdentifier: "stocktwitsCell") as! StocktwitsTableViewCell
-            let post = self.stocktwitsPosts[indexPath.row]
-            cell.id = post.id
-            cell.username.setTitle(post.username, for: .normal)
-            cell.message.text = post.body
-            
-            if let body = post.body {
-                let string = NSMutableAttributedString(string: body)
-                string.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 16), range: NSRange(location: 0, length: string.length))
-                let words:[String] = body.components(separatedBy:" ")
-                for word in words {
-                    if word.count > 1 && word.hasPrefix("$"){
-                        let index = word.index(word.startIndex, offsetBy: 1)
-                        if String(word[index]).range(of: "[^a-zA-Z]", options: .regularExpression) == nil {
-                            let range:NSRange = (string.string as NSString).range(of: word)
-                            string.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 18), range: range)
-                            if let link = NSURL(string:String("http://www.stocktwits.com/\(word)")) {
-                                string.addAttribute(NSAttributedString.Key.link, value: link, range: range)
-                            }
-                        }
-                    }
-                }
-                cell.message.attributedText = string
-            }
-            
-            if let ts = post.timestamp {
-                cell.timeButton.setTitle(Date(timeIntervalSince1970: TimeInterval(ts / 1000)).timeAgoSinceDate(), for: .normal)
-            } else if let ca = post.createdAt {
-                let ts = GeneralUtility.isoDateToTimestamp(isoString: ca)
-                cell.timeButton.setTitle(Date(timeIntervalSince1970: TimeInterval(ts)).timeAgoSinceDate(), for: .normal)
-            }
-            if post.sentiment == "Bearish" {
-                cell.bullbear.text = "BEARISH"
-                cell.bullbear.textColor = Constants.darkPink
-            } else if post.sentiment == "Bullish" {
-                cell.bullbear.text = "BULLISH"
-                cell.bullbear.textColor = Constants.green
-            } else {
-                cell.bullbear.text = "NEUTRAL"
-                cell.bullbear.textColor = .lightGray
-            }
-            return cell
         }
+        return UITableViewCell()
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -485,16 +407,14 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
 
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if !(tableView is MarketNewsTableView) && tableView.restorationIdentifier != "stocktwitsTable" {
+        if !(tableView is MarketNewsTableView) {
             Dataholder.selectedCompany = searchResults[indexPath.row]
         }
         return indexPath
     }
 
-    @IBAction func stocktwitsTapped(_ sender: Any) {
-        if let url = URL(string: String("http://www.stocktwits.com")) {
-            UIApplication.shared.open(url)
-        }
+    @IBAction func topAnalystsSubButton(_ sender: Any) {
+        self.tabBarController?.selectedIndex = 3
     }
     /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

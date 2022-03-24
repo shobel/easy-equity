@@ -22,8 +22,6 @@ class QuoteAndIntradayChart {
 class StockUpdater: StockDataTask {
     
     private var company:Company!
-    private var fmpAPI:FinancialModelingPrepAPI = FinancialModelingPrepAPI()
-    private var chartUpdateTimeInterval:Double = 60.0
     var lastFire: Int = 0
 
     public init(caller: Updateable, company: Company, timeInterval: Double) {
@@ -37,20 +35,14 @@ class StockUpdater: StockDataTask {
         print(String("SU (hibernating: \(hibernating)): \(diff)"))
 
         if (!hibernating){
-            
-            let now:Int = Int(Date().timeIntervalSince1970)
-            if (now - lastFire) >= Int(self.chartUpdateTimeInterval) {
-                lastFire = now
-                print(String("SU (hibernating: \(hibernating)): \(diff), getting intraday"))
-                DispatchQueue.global(qos: .background).async {
-                    NetworkManager.getMyRestApi().getQuoteAndIntradayChart(symbol: self.company.symbol) { (quote, candles) in
-                        let quoteAndIntradayChart = QuoteAndIntradayChart(quote: quote, intradayChart: candles)
-                        self.caller.updateFromScheduledTask(quoteAndIntradayChart)
-                    }
+            DispatchQueue.global(qos: .background).async {
+                NetworkManager.getMyRestApi().getQuoteAndIntradayChart(symbol: self.company.symbol) { (quote, candles) in
+                    let quoteAndIntradayChart = QuoteAndIntradayChart(quote: quote, intradayChart: candles)
+                    self.caller.updateFromScheduledTask(quoteAndIntradayChart)
                 }
-            } else {
-                self.caller.updateFromScheduledTask(nil)
             }
+        } else {
+            self.caller.updateFromScheduledTask(nil)
         }
     }
     

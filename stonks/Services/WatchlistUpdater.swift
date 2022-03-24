@@ -23,7 +23,7 @@ class StockDataTask: RepeatingUpdate {
     
     var timer:Timer?
     var caller: Updateable!
-    var timeInterval: Double = 30.0
+    var timeInterval: Double = 60.0
     public var hibernating:Bool = false
     
     public init(caller: Updateable, timeInterval: Double){
@@ -66,8 +66,6 @@ class WatchlistUpdater: StockDataTask {
     
     var watchlistManager: WatchlistManager!
     var watchlist: [Company]!
-    var lastFire: Int?
-    var numUpdates = 0
     
     public override init(caller: Updateable, timeInterval: Double){
         super.init(caller: caller, timeInterval: timeInterval)
@@ -76,23 +74,16 @@ class WatchlistUpdater: StockDataTask {
     }
     
     @objc override func update(){
-        numUpdates += 1
-        let now:Int = Int(Date().timeIntervalSince1970)
-        if lastFire != nil {
-            let diff = (now - lastFire!)
-            print(String("WU (hibernating: \(hibernating)): \(diff)"))
-        }
-        lastFire = now
-
         if (!hibernating){
             DispatchQueue.global(qos: .background).async {
                 let tickers = self.watchlistManager.getTickers()
-                //print("watchlist updater fired!")
+                print("watchlist updater fired!")
                 NetworkManager.getMyRestApi().getQuotesAndSimplifiedCharts(symbols: tickers, completionHandler: { (quotes: [Quote])->Void in
                     for c in self.watchlistManager.getWatchlist() {
-                        for q in quotes {
+                        for var q in quotes {
                             if (c.symbol == q.symbol) {
                                 c.quote = q
+                                break
                             }
                         }
                     }

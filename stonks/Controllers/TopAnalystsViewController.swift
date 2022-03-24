@@ -45,13 +45,13 @@ class TopAnalystsViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.searchbar.delegate = self
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         DispatchQueue.main.async {
             self.loader.isHidden = false
         }
         NetworkManager.getMyRestApi().getTiprankSymbols(nil, completionHandler: handleTopAnalysts)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
     }
     
     func clearData(){
@@ -176,7 +176,18 @@ class TopAnalystsViewController: UIViewController, UITableViewDelegate, UITableV
             cell.numRatings.text = String("\((item.numRatings ?? 0)/(item.numAnalysts ?? 0))") + " ratings/analyst"
             let freshness:Double = self.stockExtraData[item.symbol!]!.freshness
             cell.freshness.text = String(format: "%.1f days ago", freshness)
-            cell.fidelityScore.isHidden = !self.fidelityScoreDic.keys.contains(item.symbol!)
+            
+            let fscore:FidelityScore? = self.fidelityScoreDic[item.symbol ?? ""]
+            if fscore != nil {
+                let value = fscore!.score
+                cell.fidelityScoreVal.text = (value ?? "0")
+                cell.fidelityScore.tintColor = self.getScoreTextColor((Double(value ?? "0.0") ?? 0.0) / 10.0)
+                cell.fidelityScoreVal.isHidden = false
+                cell.fidelityScore.isHidden = false
+            } else {
+                cell.fidelityScoreVal.isHidden = true
+                cell.fidelityScore.isHidden = true
+            }
             cell.totalScore.text = String(0)
             if self.stockExtraData.keys.contains(item.symbol!) {
                 cell.totalScore.text = String(format: "%.1f pts", self.stockExtraData[item.symbol!]!.totalScore)
@@ -364,6 +375,21 @@ class TopAnalystsViewController: UIViewController, UITableViewDelegate, UITableV
             s = 8
         }
         return s
+    }
+    
+    func getScoreTextColor(_ val:Double) -> UIColor {
+        let blue:CGFloat = 0.0
+        var red:CGFloat = 0.0
+        var green:CGFloat = 0.0
+        if val <= 0.5 {
+            red = 218.0
+            green = CGFloat((val/0.5) * 218.0)
+        } else {
+            green = 218.0
+            let subtract = ((val - 0.75)/0.25) * 218.0
+            red = CGFloat(218.0 - subtract)
+        }
+        return UIColor(red: red/255.0, green: green/255.0, blue: blue/255.0, alpha: 1.0)
     }
     
     @IBAction func backButtonAction(_ sender: Any) {

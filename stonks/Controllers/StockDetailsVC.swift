@@ -11,6 +11,7 @@ import Charts
 import Parchment
 import MaterialActivityIndicator
 import SPStorkController
+import FCAlertView
 
 class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
 
@@ -39,17 +40,10 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
     @IBOutlet weak var watchlistButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    @IBOutlet weak var smastack: UIStackView!
-    @IBOutlet weak var sma20: UILabel!
-    @IBOutlet weak var sma50: UILabel!
-    @IBOutlet weak var sma100: UILabel!
-    @IBOutlet weak var sma200: UILabel!
-    @IBOutlet weak var toggleSmasButton: UIButton!
-    @IBOutlet weak var toggleRsiButton: UIButton!
-    
-    public var showSmas:Bool = false
-    public var showRsi:Bool = false
-    
+    @IBOutlet weak var toggleVwap: UIButton!
+    public var showVwap:Bool = false
+    public var candleMode = false
+
     public var company:Company!
     public var latestQuote:Quote!
     private var isMarketOpen:Bool = true
@@ -57,20 +51,15 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
     private var volumeChartFormatter:VolumeChartFormatter!
     
     private var feedbackGenerator: UISelectionFeedbackGenerator!
-    public var candleMode = false
     public var timeInterval = Constants.TimeIntervals.day
     private var timeButtons:[UIButton]!
-    
-    private var alphaVantage = AlphaVantage()
-    
+        
     private var handlersDone = 0
     private var totalHandlers = 0
     
     private var pageVCList:[UIViewController] = []
     private var keyStatsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StatsVC")
-    
     private var newsVC2 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StockNewsVC") as! NewsViewController
-    
     private var scoresVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ScoresVC")
     private var financialsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FinVC")
     private var predictionsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PredictionsVC")
@@ -100,8 +89,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         self.creditBalanceButton.shadColor = UIColor(red: 100.0/255.0, green: 60.0/255.0, blue: 25.0/255.0, alpha: 1.0).cgColor
 
         self.scrollView.delegate = self
-        self.toggleRsiButton.layer.cornerRadius = 5
-        self.toggleSmasButton.layer.cornerRadius = 5
+        self.toggleVwap.layer.cornerRadius = 5
         
         self.premiumVC.stockDetailsDelegate = self
         chartTypeButton.imageView!.contentMode = UIView.ContentMode.scaleAspectFit
@@ -162,11 +150,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
                 
         updateChartHeight()
         company = Dataholder.selectedCompany
-        //let pageVC: StatsNewsPageViewController = self.children.first as! StatsNewsPageViewController
-        //pageVC.pageDelegate = self
                 
         self.stockUpdater?.hibernating = false
-        self.stockUpdater = StockUpdater(caller: self, company: company, timeInterval: 5.0)
+        self.stockUpdater = StockUpdater(caller: self, company: company, timeInterval: 60.0)
         self.stockUpdater?.startTask()
                 
         //watchlist button
@@ -180,10 +166,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         stockDetailsNavView.name.text = company.fullName
                 
         latestQuote = company.quote
-        //setup price info that will need to be updated each time quote is retreived
-        if (latestQuote != nil){
-            //setTopBarValues(startPrice: 0.0, endPrice: latestQuote.latestPrice!, selected: false)
-        }
                 
         //load charts
         setGlobalChartOptions()
@@ -193,7 +175,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
                 
         //start information retrieval processes
         self.totalHandlers = 2
-        NetworkManager.getMyRestApi().getAllFreeData(symbol: company.symbol, completionHandler: handleAllData)
+        NetworkManager.getMyRestApi().getFirstTabData(symbol: company.symbol, completionHandler: handleKeyStats)
         NetworkManager.getMyRestApi().getNonIntradayChart(symbol: company.symbol, timeframe: .daily, completionHandler: self.handleDailyChart)
                 
         self.adjustContentHeight(vc: self.keyStatsVC)
@@ -220,18 +202,25 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
             if quote.symbol == nil {
                 return
             }
+            self.company.quote = quote
+            if let latestPrice = self.company.quote?.latestPrice, self.company.estimatedEps != nil && self.company.estimatedEps != 0 {
+                let peFwd = latestPrice / self.company.estimatedEps!
+                self.company.peFwd = peFwd
+            }
+            let keystatsVC = self.keyStatsVC as! KeyStatsViewController
+            keystatsVC.updateQuoteData()
             print("updated " + String(quote.latestPrice!) + " " + String(intradayChart.count) + " values")
         } else if self.company.quote != nil {
             quote = self.company.quote!
         }
         
-        if quote.isUSMarketOpen {
+        if Dataholder.isUSMarketOpen {
             self.stockUpdater?.hibernating = false
         } else {
-            self.stockUpdater?.hibernating = true
+//            self.stockUpdater?.hibernating = true
         }
         
-        self.isMarketOpen = quote.isUSMarketOpen
+        self.isMarketOpen = Dataholder.isUSMarketOpen
         self.latestQuote = quote
         if latestQuote == nil || latestQuote.symbol == nil {
             return
@@ -281,8 +270,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
                 self.hideLoader(true)
             }
         } else {
-            Dataholder.watchlistManager.addCompany(company: self.company){
-                self.addedToWatchlist(true)
+            Dataholder.watchlistManager.addCompany(company: self.company){ added in
+                if added {
+                    self.addedToWatchlist(true)
+                } else {
+                    AlertDisplay.showAlert("Error", message: "Watchlist limit reached")
+                }
                 self.hideLoader(true)
             }
         }
@@ -316,7 +309,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         priceDetailsView.priceLabel.text = String(format: "%.2f", endPrice)
         
         if timeInterval == Constants.TimeIntervals.day && !selected {
-            priceDetailsView.priceChangeAndPercent.setPriceChange(price: latestQuote.change!, percent: latestQuote.changePercent!)
+            priceDetailsView.priceChangeAndPercent.setPriceChange(price: latestQuote.change!, percent: latestQuote.changePercent! / 100.0)
         } else {
             let priceChange = endPrice - startPrice
             let percentChange = (priceChange / startPrice)
@@ -329,12 +322,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
             datetext = "market open - "
             datetime.textColor = Constants.green
         }
-        if latestQuote != nil && latestQuote.latestTime != nil {
-            if latestQuote.latestTime!.contains(":") {
-                datetext += "last updated \(latestQuote.latestTime!) ET"
-            } else {
-                datetext += "last updated \(latestQuote.latestTime!)"
-            }
+        if latestQuote != nil && latestQuote.latestUpdate != nil {
+            datetext += " \(latestQuote.latestUpdate!)"
         }
         datetime.text = datetext
     }
@@ -344,7 +333,32 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         self.totalVol.text = String("\(NumberFormatter.formatNumber(num: totalVol))")
     }
     
-    private func handleAllData(generalInfo: GeneralInfo, peerQuotes:[Quote], keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], cashflowAnnual:[CashFlow], income: [Income], incomeAnnual: [Income], insiders: [Insider], priceTargetTopAnalysts: PriceTargetTopAnalysts?, allTipranksAnalystsForStock:[ExpertAndRatingForStock], priceTargetsOverTime:[SimpleTimeAndPrice], bestPriceTargetsOverTime:[SimpleTimeAndPrice]){
+    private func handleKeyStats(generalInfo: GeneralInfo, peerQuotes:[Quote], insiders: Insider, estimatedEps: Double, advancedStats:AdvancedStats) {
+        self.company.generalInfo = generalInfo
+        self.company.fullName = self.company.generalInfo!.companyName ?? ""
+        self.company.peerQuotes = peerQuotes.filter({ (q) -> Bool in
+            q.symbol != nil && q.symbol != ""
+        })
+        self.company.insiders = insiders
+        self.company.advancedStats = advancedStats
+        self.company.estimatedEps = estimatedEps
+        if let latestPrice = self.company.quote?.latestPrice, self.company.estimatedEps != nil && self.company.estimatedEps != 0 {
+            let peFwd = latestPrice / estimatedEps
+            self.company.peFwd = peFwd
+        }
+        
+        DispatchQueue.main.async {
+            self.stockDetailsNavView.ticker.text = self.company.symbol
+            self.stockDetailsNavView.name.text = self.company.fullName
+        }
+        
+        let keystatsVC = self.keyStatsVC as! StatsVC
+        keystatsVC.updateData()
+        
+        self.incrementLoadingProgress()
+    }
+    
+    private func handleAllData(generalInfo: GeneralInfo, peerQuotes:[Quote], keystats: KeyStats, news: [News], priceTarget: PriceTarget, earnings: [Earnings], recommendations: Recommendations, advancedStats: AdvancedStats, cashflow: [CashFlow], cashflowAnnual:[CashFlow], income: [Income], incomeAnnual: [Income], insiders: Insider, priceTargetTopAnalysts: PriceTargetTopAnalysts?, allTipranksAnalystsForStock:[ExpertAndRatingForStock], priceTargetsOverTime:[SimpleTimeAndPrice], bestPriceTargetsOverTime:[SimpleTimeAndPrice]){
         self.company.generalInfo = generalInfo
         self.company.fullName = self.company.generalInfo!.companyName ?? ""
         self.company.peerQuotes = peerQuotes.filter({ (q) -> Bool in
@@ -390,6 +404,13 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         }
     }
     
+    public func updateData(vc: UIViewController){
+        DispatchQueue.main.async{
+            let currentVC = vc as! StatsVC
+            currentVC.updateData()
+        }
+    }
+    
     private func handleDayChartNoProgress(_ chartData:[Candle]){
         self.handleDayChartMain(chartData, updateProgress: false)
     }
@@ -399,13 +420,15 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
     }
     
     private func handleDayChartMain(_ chartData:[Candle], updateProgress: Bool){
-        company.setMinuteData(chartData, open: self.isMarketOpen)
-        if self.timeInterval == Constants.TimeIntervals.day {
-            self.chartView.setChartData(chartData: company.minuteData)
-        }
-        print("\(self.handlersDone) day chart done")
-        if updateProgress {
-            self.incrementLoadingProgress()
+        DispatchQueue.main.async {
+            self.company.setMinuteData(chartData, open: self.isMarketOpen)
+            if self.timeInterval == Constants.TimeIntervals.day {
+                self.chartView.setChartData(chartData: self.company.minuteData)
+            }
+            print("\(self.handlersDone) day chart done")
+            if updateProgress {
+                self.incrementLoadingProgress()
+            }
         }
     }
     
@@ -483,31 +506,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         candlePricesView.closeLabel.text = "CLOSE: " + String(format: "%.2f", candle.close!)
         candlePricesWrapper.isHidden = false
         
-        if self.showSmas {
-            if let sma20val = candle.sma20 {
-                sma20.text = "MA20:\(String(format: "%.2f", sma20val))"
-            } else {
-                sma20.text = ""
-            }
-            if let sma50val = candle.sma50 {
-                sma50.text = "MA50:\(String(format: "%.2f", sma50val))"
-            } else {
-                sma50.text = ""
-            }
-            if let sma100val = candle.sma100 {
-                sma100.text = "MA100:\(String(format: "%.2f", sma100val))"
-            } else {
-                sma100.text = ""
-            }
-            if let sma200val = candle.sma200 {
-                sma200.text = "MA200:\(String(format: "%.2f", sma200val))"
-            } else {
-                sma200.text = ""
-            }
-            smastack.isHidden = false
-        } else {
-            smastack.isHidden = true
-        }
         totalDateAndVolumeView.isHidden = true
         
         // Adding top marker
@@ -547,7 +545,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         cv.showAxisLabels(showEarnings: self.timeInterval != Constants.TimeIntervals.day)
         candlePricesWrapper.isHidden = true
         candleMarkerView.isHidden = true
-        smastack.isHidden = true
         totalDateAndVolumeView.isHidden = false
         chartView.highlightValue(nil)
         let chartData = self.chartView.getChartData(candleMode: self.candleMode)
@@ -597,26 +594,14 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         self.hideShowRsiAndSmaButtons()
     }
     
-    @IBAction func toggleSmasButtonTapped(_ sender: Any) {
-        self.showSmas = !showSmas
-        if showSmas {
-            self.toggleSmasButton.backgroundColor = Constants.darkPink
-            self.toggleSmasButton.tintColor = .white
+    @IBAction func toggleVwapButtonTapped(_ sender: Any) {
+        self.showVwap = !showVwap
+        if showVwap {
+            self.toggleVwap.backgroundColor = Constants.darkPink
+            self.toggleVwap.tintColor = .white
         } else {
-            self.toggleSmasButton.backgroundColor = Constants.veryLightGrey
-            self.toggleSmasButton.tintColor = .darkGray
-        }
-        self.chartView.updateChart()
-    }
-    
-    @IBAction func toggleRsiButtonTapped(_ sender: Any) {
-        self.showRsi = !showRsi
-        if showRsi {
-            self.toggleRsiButton.backgroundColor = Constants.darkPink
-            self.toggleRsiButton.tintColor = .white
-        } else {
-            self.toggleRsiButton.backgroundColor = Constants.veryLightGrey
-            self.toggleRsiButton.tintColor = .darkGray
+            self.toggleVwap.backgroundColor = Constants.veryLightGrey
+            self.toggleVwap.tintColor = .darkGray
         }
         self.chartView.updateChart()
     }
@@ -756,11 +741,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
     
     private func hideShowRsiAndSmaButtons(){
         if self.timeInterval != .day {
-            self.toggleSmasButton.isHidden = false
-            self.toggleRsiButton.isHidden = false
+            self.toggleVwap.isHidden = false
         } else {
-            self.toggleSmasButton.isHidden = true
-            self.toggleRsiButton.isHidden = true
+            self.toggleVwap.isHidden = true
         }
     }
     
@@ -773,7 +756,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
     public func creditBalanceUpdated() {
         DispatchQueue.main.async {
             self.creditBalanceButton.credits.text = String("\(Dataholder.getCreditBalance())")
-            print()
         }
     }
     
@@ -841,6 +823,7 @@ extension StockDetailsVC: PagingViewControllerDelegate {
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) {
         if transitionSuccessful {
             self.adjustContentHeight(vc: destinationViewController)
+            self.updateData(vc: destinationViewController)
         }
     }
 }

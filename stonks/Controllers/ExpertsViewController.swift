@@ -50,7 +50,18 @@ class ExpertsViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "expertAndRatingCell") as! ExpertAndRatingTableViewCell
         let expert = experts[indexPath.row]
-        cell.analystNameLabel.text = expert.name
+        if let name = expert.name {
+            cell.analystNameLabel.text = expert.name
+            if name.contains(" "){
+                let firstName:String = String(name.split(separator: " ")[0])
+                let lastName:String = String(name.split(separator: " ")[1])
+                if let firstLetterLast = lastName.first {
+                    cell.analystNameLabel.text = firstName + " " + String(firstLetterLast)
+                } else {
+                    cell.analystNameLabel.text = firstName
+                }
+            }
+        }
         if let rank = expert.rank {
             cell.rankLabel.text = String("Rank #\(rank)")
         }

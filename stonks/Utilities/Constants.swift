@@ -28,7 +28,9 @@ struct Constants{
         PREMIUM_BRAIN_LANGUAGE_METRICS_ALL: "PREMIUM_BRAIN_LANGUAGE_METRICS_ALL",
         PREMIUM_BRAIN_RANKING_21_DAYS: "PREMIUM_BRAIN_RANKING_21_DAYS",
         PREMIUM_BRAIN_SENTIMENT_30_DAYS: "PREMIUM_BRAIN_SENTIMENT_30_DAYS",
-        STOCKTWITS_SENTIMENT: "STOCKTWITS_SENTIMENT"
+        STOCKTWITS_SENTIMENT: "STOCKTWITS_SENTIMENT",
+        PREMIUM_PRECISION_ALPHA_PRICE_DYNAMICS: "PREMIUM_PRECISION_ALPHA_PRICE_DYNAMICS",
+        TOP_ANALYSTS_SCORES: "TOP_ANALYSTS_SCORES"
     )
     
     public static var premiumPackageNames = [
@@ -36,7 +38,15 @@ struct Constants{
         "PREMIUM_BRAIN_LANGUAGE_METRICS_ALL": "BRAIN Language Metrics",
         "PREMIUM_BRAIN_RANKING_21_DAYS": "21 Day BRAIN Ranking",
         "PREMIUM_BRAIN_SENTIMENT_30_DAYS": "30 Day BRAIN Sentiment",
-        "STOCKTWITS_SENTIMENT": "Stocktwits Sentiment"
+        "STOCKTWITS_SENTIMENT": "Stocktwits Sentiment",
+        "PREMIUM_PRECISION_ALPHA_PRICE_DYNAMICS": "Precision Alpha Price Dynamics",
+        "TOP_ANALYSTS_SCORES": "Top Analyst Scoring System"
+    ]
+    
+    public static var nonPremiumScoreIds = [
+        "USER_CUSTOMIZED": "User customized",
+        "ANALYST_RECOMMENDATIONS": "Analyst Recommendations",
+        "ANALYST_PRICE_TARGET_UPSIDE": "Analyst Price Target Upside"
     ]
     
     public static var ratingColors:[RatingType:UIColor] = [

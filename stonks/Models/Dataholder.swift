@@ -15,6 +15,7 @@ class Dataholder {
     public static var selectedCompany:Company?
     public static var watchlistManager: WatchlistManager = WatchlistManager()
     public static var userScoreSettings: ScoreSettings = ScoreSettings()
+    public static var isUSMarketOpen:Bool = false
     private static var currentCredits:Int = 0
     
     public static var creditBalanceSubscribers:[ShadowButtonDelegate] = []

@@ -63,16 +63,40 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //updateFinvizData()
         self.tableView.reloadData()
         self.creditBalanceView.credits.text = String("\(Dataholder.getCreditBalance())")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        //do we stop the watchlist updater while not on the watchlist? or just always have it going for simplicity?
     }
     
     private func loadWatchlist(){
-        NetworkManager.getMyRestApi().getWatchlistForCurrentUser() {
+        NetworkManager.getMyRestApi().getWatchlistForCurrentUser() { quotes in
+            for c in self.watchlistManager.getWatchlist() {
+                for q in quotes {
+                    if (c.symbol == q.symbol) {
+                        c.quote = q
+                        break
+                    }
+                }
+            }
+
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+
+                if !self.watchlistManager.getWatchlist().isEmpty {
+                    if self.watchlistUpdater == nil {
+                        self.watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: 60.0)
+                        self.watchlistUpdater!.startTask()
+                    }
+                } else {
+                   self.activityIndicator.isHidden = true
+                }
+                self.tableView.refreshControl!.endRefreshing()
+            }
+            
+            NetworkManager.getMyRestApi().getAllPremiumDataForWatchlist(self.watchlistManager.getTickers(), completionHandler: self.savePremiumData)
             
             NetworkManager.getMyRestApi().getScoresForSymbolsWithUserSettingsApplied(symbols: self.watchlistManager.getWatchlistSymbols()) { scores in
                 for score in scores {
@@ -86,28 +110,12 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
                     self.tableView.reloadData()
                 }
             }
-            
-            DispatchQueue.main.async {
-                if !self.watchlistManager.getWatchlist().isEmpty {
-                    let marketOpen = self.watchlistManager.getWatchlist().first?.quote?.isUSMarketOpen
-                    var timeInterval = 5.0 //5.0
-                    if let mo = marketOpen {
-                        if !mo {
-                            timeInterval = 60.0 //60.0
-                        }
-                    }
-                    if self.watchlistUpdater == nil {
-                        self.watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: timeInterval)
-                        self.watchlistUpdater!.startTask()
-                    } else {
-                        self.watchlistUpdater?.changeTimeInterval(newTimeInterval: timeInterval)
-                    }
-                } else {
-                   self.activityIndicator.isHidden = true
-                }
-                self.tableView.refreshControl!.endRefreshing()
-            }
         }
+        
+    }
+    
+    private func savePremiumData(_ data:[String:[String:PremiumDataBase?]]){
+        print()
     }
     
     public func updateFromScheduledTask(_ data:Any?){
@@ -133,16 +141,10 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
                 self.watchlistUpdater?.hibernating = false
             } else {
                 //no symbols need quote
-                if watchlist[0].quote!.isUSMarketOpen {
-                    self.watchlistUpdater?.changeTimeInterval(newTimeInterval: 5.0)
+                if Dataholder.isUSMarketOpen {
                     self.watchlistUpdater?.hibernating = false
                 } else {
-                    self.watchlistUpdater?.changeTimeInterval(newTimeInterval: 60.0) //60.0
-                    if GeneralUtility.isPremarket() || GeneralUtility.isAftermarket(){
-                        self.watchlistUpdater?.hibernating = false
-                    } else {
-                        self.watchlistUpdater?.hibernating = true
-                    }
+//                    self.watchlistUpdater?.hibernating = true
                 }
             }
         }
@@ -206,8 +208,11 @@ extension WatchlistVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "watchListCell", for: indexPath) as! WatchlistTVCell
-        let company = watchlistManager.getWatchlist()[indexPath.row]
-        cell.displayData(company: company)
+        let watchlist = watchlistManager.getWatchlist()
+        if watchlist.count > indexPath.row {
+            let company = watchlist[indexPath.row]
+            cell.displayData(company: company)
+        }
         return cell
     }
     
@@ -234,16 +239,4 @@ extension WatchlistVC: UITableViewDelegate, UITableViewDataSource {
         return indexPath
     }
     
-    /*
-    func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
 }

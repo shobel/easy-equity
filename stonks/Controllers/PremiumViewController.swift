@@ -8,6 +8,8 @@
 
 import UIKit
 import FCAlertView
+import SwiftSoup
+import SafariServices
 
 class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
     
@@ -56,17 +58,30 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
     @IBOutlet weak var stPositiveLabel: UILabel!
     @IBOutlet weak var stNegativeLabel: UILabel!
     
+    //precision alpha
+    @IBOutlet weak var paDateLabel: UILabel!
+    @IBOutlet weak var paValueUp: UILabel!
+    @IBOutlet weak var paValueDown: UILabel!
+    @IBOutlet weak var paValueEmotion: UILabel!
+    @IBOutlet weak var paValuePower: UILabel!
+    @IBOutlet weak var paValueResist: UILabel!
+    @IBOutlet weak var paValueNoise: UILabel!
+    @IBOutlet weak var paValueTemp: UILabel!
+    @IBOutlet weak var paValueFreeEnergy: UILabel!
+    
     @IBOutlet weak var kavoutInfoView: UIView!
     @IBOutlet weak var sent30InfoView: UIView!
     @IBOutlet weak var stocktwitsInfoView: UIView!
     @IBOutlet weak var brain21InfoView: UIView!
     @IBOutlet weak var brainLanguageInfoView: UIView!
+    @IBOutlet weak var precisionAlphaInfoView: UIView!
     
     @IBOutlet weak var kavoutUpdateButton: ShadowButtonView!
     @IBOutlet weak var day30SentimentUpdateButton: ShadowButtonView!
     @IBOutlet weak var day21ReturnUpdateButton: ShadowButtonView!
     @IBOutlet weak var languageUpdateButton: ShadowButtonView!
     @IBOutlet weak var stocktwitsUpdateButton: ShadowButtonView!
+    @IBOutlet weak var precisionAlphaButton: ShadowButtonView!
     
     private var company:Company!
     private var isLoaded = false
@@ -76,6 +91,7 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
     private var brainLanguageData:BrainLanguage?
     private var brain21RankingData:Brain21DayRanking?
     private var stocktwitsSentimentData:StocktwitsSentiment?
+    private var precisionAlphaData:PrecisionAlphaDynamics?
     
     public var stockDetailsDelegate:StockDetailsVC!
     
@@ -87,6 +103,7 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
         self.day30SentimentUpdateButton.delegate = self
         self.languageUpdateButton.delegate = self
         self.stocktwitsUpdateButton.delegate = self
+        self.precisionAlphaButton.delegate = self
         
         self.setupOveralRatingView(self.overallRatingsView)
         self.setupOveralRatingView(self.brain21ratingsView)
@@ -101,7 +118,7 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
         //gets the cost of the different premium packages
         NetworkManager.getMyRestApi().getPremiumPackages(completionHandler: handlePremiumPackages)
         
-        self.stockDetailsDelegate.hideLoader(false)
+        //gets the saved premium data
         NetworkManager.getMyRestApi().getPremiumData(symbol: company.symbol, completionHandler: handlePremiumData)
 
     }
@@ -121,8 +138,20 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
     
     public func shadowButtonTapped(_ premiumPackage:PremiumPackage?){
         if premiumPackage != nil {
-            self.showInfoAlert(premiumPackage!)
+            if premiumPackage!.credits ?? 0 > Dataholder.getCreditBalance() {
+                self.showPurchaseController()
+            } else {
+                self.showInfoAlert(premiumPackage!)
+            }
+        } else {
+            self.showPurchaseController()
         }
+    }
+    
+    private func showPurchaseController(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let purchaseVC = storyboard.instantiateViewController(withIdentifier: "purchaseCreditsVC") as! PurchaseViewController
+        self.present(purchaseVC, animated: true, completion: nil)
     }
     
     public func buyUpdateAction(_ premiumPackage:PremiumPackage){
@@ -148,6 +177,8 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
                 self.brainLanguageData = premiumData as? BrainLanguage
             } else if premiumPackage.id == Constants.premiumPackageIds.STOCKTWITS_SENTIMENT {
                 self.stocktwitsSentimentData = premiumData as? StocktwitsSentiment
+            } else if premiumPackage.id == Constants.premiumPackageIds.PREMIUM_PRECISION_ALPHA_PRICE_DYNAMICS {
+                self.precisionAlphaData = premiumData as? PrecisionAlphaDynamics
             }
             self.updateData()
         }
@@ -172,6 +203,9 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
                     break
                 case Constants.premiumPackageIds.STOCKTWITS_SENTIMENT:
                     currentButton = self.stocktwitsUpdateButton
+                    break
+                case Constants.premiumPackageIds.PREMIUM_PRECISION_ALPHA_PRICE_DYNAMICS:
+                    currentButton = self.precisionAlphaButton
                     break
                 case .none:
                     break
@@ -206,6 +240,9 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
                     break
                 case Constants.premiumPackageIds.STOCKTWITS_SENTIMENT:
                     self.stocktwitsSentimentData = data as? StocktwitsSentiment
+                    break
+                case Constants.premiumPackageIds.PREMIUM_PRECISION_ALPHA_PRICE_DYNAMICS:
+                    self.precisionAlphaData = data as? PrecisionAlphaDynamics
                     break
                 default:
                     break
@@ -342,6 +379,20 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
                 } else {
                     self.stocktwitsInfoView.isHidden = false
                 }
+                
+                if let pa = self.precisionAlphaData {
+                    self.precisionAlphaInfoView.isHidden = true
+                    self.paDateLabel.text = pa.id
+                    self.paValueUp.text = String("\(pa.probabilityUp ?? 0.0)")
+                    self.paValueDown.text = String("\(pa.probabilityDown ?? 0.0)")
+                    self.paValueEmotion.text = String("\(pa.marketEmotion ?? 0.0)")
+                    self.paValueNoise.text = String("\(pa.marketNoise ?? 0.0)")
+                    self.paValueResist.text = String("\(pa.marketResistance ?? 0.0)")
+                    self.paValueTemp.text = String("\(pa.marketTemperature ?? 0.0)")
+                    self.paValueFreeEnergy.text = String("\(pa.marketFreeEnergy ?? 0.0)")
+                    self.paValuePower.text = String("\(pa.marketPower ?? 0.0)")
+
+                }
             }
         }
         self.stockDetailsDelegate.hideLoader(true)
@@ -408,6 +459,11 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
         return
     }
     
+    @IBAction func openLink(_ sender: Any) {
+        if let button = sender as? UIButton, let url = URL(string: button.titleLabel?.text ?? "https://google.com") {
+            UIApplication.shared.open(url)
+        }
+    }
     /*
      // MARK: - Navigation
      

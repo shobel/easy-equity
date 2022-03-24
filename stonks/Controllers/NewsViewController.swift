@@ -51,20 +51,17 @@ extension NewsViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 }
 
-class NewsViewController: UIViewController, StatsVC, UITableViewDelegate, UITableViewDataSource {
+class NewsViewController: UIViewController, StatsVC {
 
     private var company:Company!
-    private var isLoaded:Bool = false
     @IBOutlet weak var newsCollectionView: UICollectionView!
-    @IBOutlet weak var stocktwitsTableView: UITableView!
-    @IBOutlet weak var stocktwitsTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var sentimentChart: SimplestLineChart!
+    @IBOutlet weak var sentimentContainerHeight: NSLayoutConstraint!
     
     private var stockNews:[News] = []
-    private var stocktwitsPosts:[StocktwitsPost] = []
-    private var stocktwitsTableHeights:[CGFloat] = []
-
+    private var isLoaded:Bool = false
     var behavior: MSCollectionViewPeekingBehavior!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,111 +74,48 @@ class NewsViewController: UIViewController, StatsVC, UITableViewDelegate, UITabl
         behavior.numberOfItemsToShow = 1
         self.newsCollectionView.configureForPeekingBehavior(behavior: behavior)
         self.newsCollectionView.delegate = self
-
-        self.stocktwitsTableView.delegate = self
-        self.stocktwitsTableView.dataSource = self
         
-        self.isLoaded = true
         self.company = Dataholder.selectedCompany!
+        self.presentedViewController
         
-        updateData()
     }
     
     func updateData() {
-        self.company = Dataholder.selectedCompany!
-        self.stockNews = self.company.news ?? []
-//        NetworkManager.getMyRestApi().getStocktwitsPostsForSymbol(symbol: self.company.symbol, completionHandler: handleStocktwitsPosts)
-        DispatchQueue.main.async {
-            self.newsCollectionView.reloadData()
+        if (!isLoaded) {
+            if let p = self.parent?.parent?.parent as? StockDetailsVC {
+                p.hideLoader(false)
+            }
+            NetworkManager.getMyRestApi().getSecondTabData(symbol: self.company.symbol, completionHandler: handleNewsAndSentiment)
         }
     }
     
-    func handleStocktwitsPosts(posts:[StocktwitsPost]){
-        self.stocktwitsPosts = posts
+    func handleNewsAndSentiment(news: [News], ss: [SocialSentimentFMP], ns: NewsSentiment){
+        self.company.news = news
+        self.stockNews = self.company.news ?? []
+        
+        var twitterSentiment:[Double] = []
+        var stocktwitsSentiment:[Double] = []
+        for s in ss {
+            twitterSentiment.append(s.twitterSentiment ?? 0.0)
+            stocktwitsSentiment.append(s.stocktwitsSentiment ?? 0.0)
+        }
+
         DispatchQueue.main.async {
-            self.stocktwitsTableView.reloadData()
+            self.newsCollectionView.reloadData()
+            self.sentimentChart.setData([twitterSentiment, stocktwitsSentiment], colors: [Constants.blue, UIColor.black])
+            self.sentimentChart.setLabelPosition(outside: true)
+            if self.stockNews.count > 2 {
+                self.newsCollectionView.scrollToItem(at: IndexPath(row: 1, section: 0), at: .centeredHorizontally, animated: true)
+            }
+            if let p = self.parent?.parent?.parent as? StockDetailsVC {
+                p.adjustContentHeight(vc: self)
+                p.hideLoader(true)
+            }
         }
     }
     
     func getContentHeight() -> CGFloat {
-        if isLoaded {
-            if self.stocktwitsPosts.isEmpty {
-                return self.newsCollectionView.frame.height + 75
-            } else {
-                return self.stocktwitsTableHeight.constant + self.newsCollectionView.frame.height + 50
-            }
-        }
-        return 0.0
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.stocktwitsPosts.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = stocktwitsTableView.dequeueReusableCell(withIdentifier: "detailStocktwitsTableViewCell") as! DetailStocktwitsTableViewCell
-        let post = self.stocktwitsPosts[indexPath.row]
-        cell.id = post.id
-        cell.username.setTitle(post.username, for: .normal)
-        cell.message.text = post.body
-        
-        if let body = post.body {
-            let string = NSMutableAttributedString(string: body)
-            string.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 16), range: NSRange(location: 0, length: string.length))
-            let words:[String] = body.components(separatedBy:" ")
-            for word in words {
-                if word.count > 1 && word.hasPrefix("$"){
-                    let index = word.index(word.startIndex, offsetBy: 1)
-                    if String(word[index]).range(of: "[^a-zA-Z]", options: .regularExpression) == nil {
-                        let range:NSRange = (string.string as NSString).range(of: word)
-                        string.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 18), range: range)
-                        string.addAttribute(NSAttributedString.Key.link, value: NSURL(string: String("http://www.stocktwits.com/\(word)")) ?? "abcxyz", range: range)
-                    }
-                }
-            }
-            cell.message.attributedText = string
-        }
-        
-        if let ts = post.timestamp {
-            cell.timeButton.setTitle(Date(timeIntervalSince1970: TimeInterval(ts / 1000)).timeAgoSinceDate(), for: .normal)
-        } else if let ca = post.createdAt {
-            let ts = GeneralUtility.isoDateToTimestamp(isoString: ca)
-            cell.timeButton.setTitle(Date(timeIntervalSince1970: TimeInterval(ts)).timeAgoSinceDate(), for: .normal)
-        }
-        if post.sentiment == "Bearish" {
-            cell.bullbear.text = "BEARISH"
-            cell.bullbear.textColor = Constants.darkPink
-        } else if post.sentiment == "Bullish" {
-            cell.bullbear.text = "BULLISH"
-            cell.bullbear.textColor = Constants.green
-        } else {
-            cell.bullbear.text = "NEUTRAL"
-            cell.bullbear.textColor = .lightGray
-        }
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        self.stocktwitsTableHeights.append(cell.frame.height)
-        if self.stocktwitsTableHeights.count == self.stocktwitsPosts.count {
-            let totalHeight = self.stocktwitsTableHeights.reduce(0, { x, y in
-                x + y
-            })
-            DispatchQueue.main.async {
-                self.stocktwitsTableHeights = []
-                self.stocktwitsTableHeight.constant = totalHeight
-                super.updateViewConstraints()
-                if let p = self.parent?.parent?.parent as? StockDetailsVC {
-                    p.adjustContentHeight(vc: self)
-                }
-            }
-        }
-    }
-
-    @IBAction func stocktwitsTapped(_ sender: Any) {
-        if let url = URL(string: String("http://www.stocktwits.com")) {
-            UIApplication.shared.open(url)
-        }
+        return self.sentimentContainerHeight.constant + 50 +  self.newsCollectionView.frame.size.height + 50
     }
     
     /*

@@ -38,7 +38,7 @@ class WatchlistTVCell: UITableViewCell {
         ticker.text = company.symbol
         fullName.text = company.fullName
         
-        percentChange.setValue(value: (company.quote?.changePercent ?? 0.0) * 100.0, isPercent: true)
+        percentChange.setValue(value: company.quote?.changePercent ?? 0.0, isPercent: true)
         
         currentPrice.alpha = 0.0
         UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
@@ -64,7 +64,7 @@ class WatchlistTVCell: UITableViewCell {
         
         if let quote = company.quote {
             self.priceChartPreview.setData(quote)
-            if quote.isUSMarketOpen {
+            if Dataholder.isUSMarketOpen {
                 preAfterImage.isHidden = true
                 preAfterImageWidth.constant = 0
             } else if (quote.extendedPrice != nil && quote.extendedPrice != 0.0 && quote.extendedChangePercent != nil && quote.extendedChangePercent != 0.0){
