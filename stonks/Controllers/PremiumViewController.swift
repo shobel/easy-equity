@@ -307,9 +307,9 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
                     self.sent30InfoView.isHidden = true
                     if bsd.sentimentScore != nil {
                         if bsd.sentimentScore! > 0.0 {
-                            self.brainSentimentPositive.setProgress(Float(bsd.sentimentScore!)*5.0, animated: true)
+                            self.brainSentimentPositive.setProgress(Float(bsd.sentimentScore!), animated: true)
                         } else {
-                            self.brainSentimentNegative.setProgress(Float(bsd.sentimentScore! * -1)*5.0, animated: true)
+                            self.brainSentimentNegative.setProgress(Float(bsd.sentimentScore! * -1), animated: true)
                         }
                     }
                     if bsd.id != nil {
@@ -368,9 +368,9 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
                     self.sstDateLabel.text = std.id
                     if std.sentiment != nil {
                         if std.sentiment! > 0.0 {
-                            self.stSentimentPositive.setProgress(Float(std.sentiment!)*5.0, animated: true)
+                            self.stSentimentPositive.setProgress(Float(std.sentiment!), animated: true)
                         } else {
-                            self.stSentimentNegative.setProgress(Float(std.sentiment! * -1)*5.0, animated: true)
+                            self.stSentimentNegative.setProgress(Float(std.sentiment! * -1), animated: true)
                         }
                     }
                     self.stTotalScoreLabel.text = String("\(std.totalScores ?? 0)")

@@ -194,6 +194,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             }
         } else {
             self.scrollView.refreshControl!.endRefreshing()
+            self.loadingFinished()
         }
     }
     

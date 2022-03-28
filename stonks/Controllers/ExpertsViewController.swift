@@ -111,7 +111,6 @@ class ExpertsViewController: UIViewController, UITableViewDataSource, UITableVie
         if let stockNumRatings = expert.stockRating?.numRatings {
             cell.stockNumRatings.text = String("On \(self.symbol): \(stockNumRatings) ratings")
         }
-        cell.stars.rating = expert.stars ?? 5.0
         if let pos = expert.stockRating?.position {
             cell.positionLabel.text = pos.uppercased()
             cell.positionLabelContainer.backgroundColor = self.getColorForRating(value: pos)

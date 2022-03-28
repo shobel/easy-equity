@@ -116,7 +116,7 @@ class CustomCombinedChartView: CombinedChartView {
         
         var vwapEntries:[ChartDataEntry] = []
         
-        var entryCount = self.myCandleData!.count
+        var entryCount = self.myCandleData?.count ?? 0
 
         for i in 0..<self.myCandleData!.count{
             let candle:Candle = self.myCandleData![i]
@@ -150,28 +150,32 @@ class CustomCombinedChartView: CombinedChartView {
         self.setUpCandleChart(set: candleSet)
         self.candleChartData = CandleChartData(dataSet: candleSet)
         
-        if self.stockDetailsDelegate!.candleMode{
-            entryCount = self.myCandleDataTenMin!.count
-        }
-        for i in 0..<self.myCandleDataTenMin!.count{
-            let candle:Candle = self.myCandleDataTenMin![i]
-            let high = candle.high!
-            let low = candle.low!
-            let open = candle.open!
-            let close = candle.close!
+        if self.stockDetailsDelegate?.timeInterval == Constants.TimeIntervals.day {
+            if self.stockDetailsDelegate!.candleMode {
+                entryCount = self.myCandleDataTenMin!.count
+            }
+            for i in 0..<self.myCandleDataTenMin!.count{
+                let candle:Candle = self.myCandleDataTenMin![i]
+                let high = candle.high!
+                let low = candle.low!
+                let open = candle.open!
+                let close = candle.close!
 
-            if entryCount < 39 && i == entryCount - 1 {
-                candle10minEntries.append(CandleChartDataEntry(x: Double(40), shadowH: close, shadowL: close, open: close, close: close))
-                volume10minEntries.append(BarChartDataEntry(x: Double(40), y: 0))
-            } else {
-                candle10minEntries.append(CandleChartDataEntry(x: Double(i), shadowH: high, shadowL: low, open: open, close: close))
-                volume10minEntries.append(BarChartDataEntry(x: Double(i), y: candle.volume!))
+                if entryCount < 39 && i == entryCount - 1 {
+                    candle10minEntries.append(CandleChartDataEntry(x: Double(40), shadowH: close, shadowL: close, open: close, close: close))
+                    volume10minEntries.append(BarChartDataEntry(x: Double(40), y: 0))
+                } else {
+                    candle10minEntries.append(CandleChartDataEntry(x: Double(i), shadowH: high, shadowL: low, open: open, close: close))
+                    volume10minEntries.append(BarChartDataEntry(x: Double(i), y: candle.volume!))
+                }
+                if i == 0 {
+                    prevClose10MinEntries.append(ChartDataEntry(x: Double(i), y: previousCloseValue))
+                }
             }
-            if i == 0 {
-                prevClose10MinEntries.append(ChartDataEntry(x: Double(i), y: previousCloseValue))
-            }
+            
+            prevClose10MinEntries.append(ChartDataEntry(x: Double(self.myCandleDataTenMin!.count - 1), y: previousCloseValue))
         }
-        prevClose10MinEntries.append(ChartDataEntry(x: Double(self.myCandleDataTenMin!.count - 1), y: previousCloseValue))
+        
 
         let candleSet10min = CandleChartDataSet(entries: candle10minEntries)
         self.setUpCandleChart(set: candleSet10min)

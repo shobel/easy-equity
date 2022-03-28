@@ -56,7 +56,7 @@ class MarketViewController: UIViewController, UICollectionViewDelegate, UICollec
                 
                 self.ew = EconomyWeekly.getValueArrayFromEconomyWeeklies(weeklies: economyWeekly)
                 self.em = EconomyMonthly.getValueArrayFromEconomyMonthlies(monthlies: economyMonthly)
-                self.gdps = self.getRealGDPFromPercentChanges(gdps.reversed())
+                self.gdps = gdps.reversed()
                 
                 self.gdpStartDate.text = gdpStartDate
                 self.gdpEndDate.text = gdpEndDate

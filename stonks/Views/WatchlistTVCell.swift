@@ -32,7 +32,7 @@ class WatchlistTVCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    public func displayData(company: Company){
+    public func displayData(company: Company, score:String, percentile:Double){
         self.priceChartPreview.setup()
         
         ticker.text = company.symbol
@@ -53,14 +53,10 @@ class WatchlistTVCell: UITableViewCell {
             daysToEarnings.text = String(company.daysToER) + "d"
         }
         
-        if let score = company.simpleScore, let percentile = score.percentile, let rank = score.rank {
-            self.buyRating.backgroundColor = self.getScoreTextColor(percentile).withAlphaComponent(0.2)
-            self.buyRating.textColor = self.getScoreTextColor(percentile)
-            self.buyRating.text = String(rank)
-        } else {
-            buyRating.setRatingColor(score: -1)
-            buyRating.text = ""
-        }
+        //scores, arent necessarily the buy ratings
+        self.buyRating.backgroundColor = self.getScoreTextColor(percentile).withAlphaComponent(0.2)
+        self.buyRating.textColor = self.getScoreTextColor(percentile)
+        self.buyRating.text = score
         
         if let quote = company.quote {
             self.priceChartPreview.setData(quote)
@@ -87,7 +83,11 @@ class WatchlistTVCell: UITableViewCell {
         }
     }
     
+    //val is number between 0 and 1
     func getScoreTextColor(_ val:Double) -> UIColor {
+        if val == -1 {
+            return UIColor(red: 245.0/255.0, green: 245.0/255.0, blue: 245.0/255.0, alpha: 1.0)
+        }
         let blue:CGFloat = 0.0
         var red:CGFloat = 0.0
         var green:CGFloat = 0.0

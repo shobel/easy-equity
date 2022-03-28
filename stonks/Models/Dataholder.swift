@@ -17,6 +17,8 @@ class Dataholder {
     public static var userScoreSettings: ScoreSettings = ScoreSettings()
     public static var isUSMarketOpen:Bool = false
     private static var currentCredits:Int = 0
+    public static var currentScoringSystem:String = ""
+    public static var lastScoreConfigChange:Double = 0
     
     public static var creditBalanceSubscribers:[ShadowButtonDelegate] = []
     

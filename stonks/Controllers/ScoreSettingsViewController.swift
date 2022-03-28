@@ -84,6 +84,7 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidDisappear(_ animated: Bool) {
         if somethingChanged {
+            Dataholder.lastScoreConfigChange = Date().timeIntervalSince1970
             NetworkManager.getMyRestApi().setScoresSettings(scoreSettings: self.scoreSettings) { (result) in
                 if let p = self.parentVC as? AnalysisViewController {
                     p.fetchScores()

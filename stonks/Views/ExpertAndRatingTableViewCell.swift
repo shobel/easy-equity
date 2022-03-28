@@ -15,7 +15,6 @@ class ExpertAndRatingTableViewCell: UITableViewCell {
     @IBOutlet weak var rankLabelContainer: UIView!
     @IBOutlet weak var analystNameLabel: UILabel!
     @IBOutlet weak var typeAndFirmLabel: UILabel!
-    @IBOutlet weak var stars: CosmosView!
     @IBOutlet weak var overallSuccessRate: CircularProgressView!
     @IBOutlet weak var overallReturn: CircularProgressView!
     @IBOutlet weak var stockSuccessRate: CircularProgressView!

@@ -316,15 +316,15 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
             priceDetailsView.priceChangeAndPercent.setPriceChange(price: priceChange, percent: percentChange)
         }
         
-        var datetext = "market closed - "
+        var datetext = "market closed"
         datetime.textColor = UIColor.gray
         if self.isMarketOpen {
-            datetext = "market open - "
+            datetext = "market open"
             datetime.textColor = Constants.green
         }
-        if latestQuote != nil && latestQuote.latestUpdate != nil {
-            datetext += " \(latestQuote.latestUpdate!)"
-        }
+//        if latestQuote != nil && latestQuote.latestUpdate != nil {
+//            datetext += " \(latestQuote.latestUpdate!)"
+//        }
         datetime.text = datetext
     }
     
@@ -584,14 +584,14 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
                     self.company.weeklyData = candles
                     DispatchQueue.main.async {
                         self.hideLoader(true)
-                        self.chartView.setChartData(chartData: self.company.getWeeklyData(52))
+                        self.chartView.setChartData(chartData: self.company.getDailyData(260))
                     }
                 }
             } else {
                 self.optionTapped(.toggleShowCandleBar)
             }
         }
-        self.hideShowRsiAndSmaButtons()
+//        self.hideShowVwapButtons()
     }
     
     @IBAction func toggleVwapButtonTapped(_ sender: Any) {
@@ -706,7 +706,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
             }
         }
 
-        self.hideShowRsiAndSmaButtons()
+//        self.hideShowVwapButtons()
         
         for i in 0..<timeButtons.count {
             let button = timeButtons[i]
@@ -739,7 +739,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         }
     }
     
-    private func hideShowRsiAndSmaButtons(){
+    private func hideShowVwapButtons(){
         if self.timeInterval != .day {
             self.toggleVwap.isHidden = false
         } else {

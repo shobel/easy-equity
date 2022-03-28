@@ -53,8 +53,9 @@ class SettingsViewController: UIViewController {
         self.changeMade = false
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         if changeMade {
+            Dataholder.currentScoringSystem = self.selectedScore
             NetworkManager.getMyRestApi().setSelectedScore(self.selectedScore)
         }
     }

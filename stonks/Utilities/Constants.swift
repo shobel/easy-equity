@@ -40,7 +40,7 @@ struct Constants{
         "PREMIUM_BRAIN_SENTIMENT_30_DAYS": "30 Day BRAIN Sentiment",
         "STOCKTWITS_SENTIMENT": "Stocktwits Sentiment",
         "PREMIUM_PRECISION_ALPHA_PRICE_DYNAMICS": "Precision Alpha Price Dynamics",
-        "TOP_ANALYSTS_SCORES": "Top Analyst Scoring System"
+        "TOP_ANALYSTS_SCORES": "Top Analyst Upside"
     ]
     
     public static var nonPremiumScoreIds = [

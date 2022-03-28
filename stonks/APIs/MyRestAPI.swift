@@ -13,7 +13,7 @@ import Firebase
 
 class MyRestAPI: HTTPRequest {
     
-    private var apiurl = "http://192.168.1.104:3000/api"
+    private var apiurl = "http://192.168.1.101:3000/api"
     //private var apiurl = "http://localhost:3000/api"
     
     private var appEndpoint = "/app"
@@ -695,10 +695,14 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
-    public func getAllPremiumDataForWatchlist(_ symbols:[String], completionHandler: @escaping ([String:[String:PremiumDataBase?]])->Void) {
-        let queryURL = buildQuery(url: apiurl + userEndpoint + "/all-premium-for-symbols/", params: ["symbols":symbols.joined(separator: ",")])
+    public func getPackageDataForSymbols(_ symbols:[String], packageId:String, completionHandler: @escaping (JSON)->Void) {
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/premium-for-symbols/", params: [
+                "symbols":symbols.joined(separator: ","),
+                "premiumId": packageId
+            ])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
+            completionHandler(json)
         }
     }
                 

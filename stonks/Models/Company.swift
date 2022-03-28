@@ -29,13 +29,10 @@ class Company: Equatable, Comparable {
     
     public var peerQuotes:[Quote]?
     
-    public var recommendations:Recommendations?
     public var totalBuy:Int?
     public var totalHold:Int?
     public var totalSell:Int?
     
-    public var priceTarget:PriceTarget?
-    public var priceTargetTopAnalysts:PriceTargetTopAnalysts?
     public var tipranksAllAnalysts:[ExpertAndRatingForStock]?
     public var bestPriceTargetsOverTime:[SimpleTimeAndPrice]?
     public var priceTargetsOverTime:[SimpleTimeAndPrice]?
@@ -44,7 +41,6 @@ class Company: Equatable, Comparable {
     public var insiders:Insider?
     public var earningsDate:Date?
     public var scores:Scores?
-    public var simpleScore:SimpleScore?
     public var peFwd:Double?
     public var estimatedEps:Double?
     
@@ -53,11 +49,24 @@ class Company: Equatable, Comparable {
     public var weeklyData:[Candle] = []
     public var dailyData:[Candle] = [] //daily candles
     public var minuteData:[Candle] = [] //minute candles
-
-    public var analystsRating:AnalystsRating?
     
+    //scoring systems
+    public var simpleScore:SimpleScore?
+    public var recommendations:Recommendations?
+    public var priceTarget:PriceTarget?
+
     public var kscores:Kscore?
     public var brainSentiment:BrainSentiment?
+    public var brainRanking:Brain21DayRanking?
+    public var precisionAlpha:PrecisionAlphaDynamics?
+    public var stocktwitsSentiment:StocktwitsSentiment?
+    
+    public var priceTargetTopAnalysts:PriceTargetTopAnalysts?
+
+    
+    //unused
+    public var analystsRating:AnalystsRating? //finviz, not used anymore
+
     
     public var daysToER:Int {
         if let erDate = earningsDate {
