@@ -24,16 +24,16 @@
    - analyst recommendations
    - user-customizable scoring system based on fundamental metrics
    - premium data from IEX collaborators (users can get this data via the purchase of in-app credits)
-9. Market and Economy data ✔
+5. Market and Economy data ✔
    - fear and greed
    - sector performances
    - real gdp and other economic metrics
-10. Global rankings stocks based on different scoring systems
+6. Global rankings stocks based on different scoring systems
    - top performing analysts
    - user-customizable fundamental analysis
-12. Organized Tweets by stock mentions from Twitter Accounts ✔
-13. Support system ✔
+7. Organized Tweets by stock mentions from Twitter Accounts ✔
+8. Support system ✔
    - users can submit feedback and indicate problems with transaction items (purchasing credits, exchanging credits for data)
    - extensive documentation for each feature - how they work, calculations used, etc
    - faq
-14. Optional Ad viewing ✔
+9. Optional Ad viewing ✔
