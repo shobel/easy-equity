@@ -31,6 +31,7 @@ class TopAnalystsTableViewCell: UITableViewCell {
     @IBOutlet weak var targetIcon: UIImageView! //0 122 255
     @IBOutlet weak var freshnessIcon: UIImageView! //52 199 89
     @IBOutlet weak var numRatingsIcon: UIImageView! //175 82 222
+    @IBOutlet weak var companyName: UILabel!
     
     public enum IconName {
         case numAnalysts, avgRank, priceTarget, freshness, numRatings

@@ -13,7 +13,7 @@ struct StockExtraAnalystData {
     var freshness:Double
     var latestPrice:Double
     var totalScore:Double
-    
+    var companyName:String
 }
 
 class TopAnalystsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
@@ -137,7 +137,6 @@ class TopAnalystsViewController: UIViewController, UITableViewDelegate, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "topAnalystsCell", for: indexPath) as! TopAnalystsTableViewCell
         let item = self.topAnalystDataToShow[indexPath.row]
         if item.symbol != nil {
-            let latestQuote = self.stockExtraData[item.symbol!]!.latestPrice
             cell.symbol.text = item.symbol ?? "n/a"
             cell.numAnalysts.text = String("\(item.numAnalysts ?? 0)") + " analysts"
             cell.avgRank.text = String(format: "%.1f", item.avgAnalystRank ?? 0.0) + " avg rank"
@@ -156,6 +155,8 @@ class TopAnalystsViewController: UIViewController, UITableViewDelegate, UITableV
             cell.avgPriceTarget.text = ptText
             var lowPtText = String(format: "%.0f", item.lowPriceTarget ?? 0.0)
             var highPtText = String(format: "%.0f", item.highPriceTarget ?? 0.0)
+            cell.companyName.text = self.stockExtraData[item.symbol!]!.companyName ?? ""
+            let latestQuote = self.stockExtraData[item.symbol!]!.latestPrice
             if item.lowPriceTarget != nil && item.highPriceTarget != nil {
                 cell.latestPrice.text = String(format: "%.2f", latestQuote)
                 let pctLow = ((item.lowPriceTarget! - latestQuote) / latestQuote)*100.0
@@ -235,7 +236,7 @@ class TopAnalystsViewController: UIViewController, UITableViewDelegate, UITableV
     private func handleTopAnalysts(_ topAnalystSymbols:[PriceTargetTopAnalysts]) {
         self.topAnalystDataAll = topAnalystSymbols
         for tad in self.topAnalystDataAll {
-            self.stockExtraData[tad.symbol!] = StockExtraAnalystData(freshness: 0.0, latestPrice: 0.0, totalScore: 0.0)
+            self.stockExtraData[tad.symbol!] = StockExtraAnalystData(freshness: 0.0, latestPrice: 0.0, totalScore: 0.0, companyName: "")
             var totalDays:Double = 0.0
             var avgFreshness:Double = -1.0
             if (tad.expertRatings != nil && tad.expertRatings!.count > 0) {
@@ -276,6 +277,7 @@ class TopAnalystsViewController: UIViewController, UITableViewDelegate, UITableV
                         
                         if self.stockExtraData[quote.symbol!] != nil {
                             self.stockExtraData[quote.symbol!]!.latestPrice = quote.latestPrice!
+                            self.stockExtraData[quote.symbol!]!.companyName = quote.name ?? ""
                             self.computeTotalScore(quote.symbol!, mainDataObj: item, extraData: self.stockExtraData[quote.symbol!]!)
                         }
                         newAnalystSymbolList.append(item)
@@ -286,7 +288,16 @@ class TopAnalystsViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
         self.topAnalystDataAll = newAnalystSymbolList
-        NetworkManager.getMyRestApi().getFidelityAnalysts(completionHandler: handleFidelityScores)
+        
+        self.topAnalystDataAll.sort(by: { (a, b) -> Bool in
+            return self.stockExtraData[a.symbol!]!.totalScore > self.stockExtraData[b.symbol!]!.totalScore
+        })
+        self.topAnalystDataToShow = self.topAnalystDataAll
+        DispatchQueue.main.async {
+            self.loader.isHidden = true
+            self.tableView.reloadData()
+        }
+//        NetworkManager.getMyRestApi().getFidelityAnalysts(completionHandler: handleFidelityScores)
     }
     
     private func handleFidelityScores(_ scores:[FidelityScore]) {
@@ -298,14 +309,14 @@ class TopAnalystsViewController: UIViewController, UITableViewDelegate, UITableV
                 }
             }
         }
-        self.topAnalystDataAll.sort(by: { (a, b) -> Bool in
-            return self.stockExtraData[a.symbol!]!.totalScore > self.stockExtraData[b.symbol!]!.totalScore
-        })
-        self.topAnalystDataToShow = self.topAnalystDataAll
-        DispatchQueue.main.async {
-            self.loader.isHidden = true
-            self.tableView.reloadData()
-        }
+//        self.topAnalystDataAll.sort(by: { (a, b) -> Bool in
+//            return self.stockExtraData[a.symbol!]!.totalScore > self.stockExtraData[b.symbol!]!.totalScore
+//        })
+//        self.topAnalystDataToShow = self.topAnalystDataAll
+//        DispatchQueue.main.async {
+//            self.loader.isHidden = true
+//            self.tableView.reloadData()
+//        }
     }
     
     private func computeTotalScore(_ symbol:String, mainDataObj: PriceTargetTopAnalysts, extraData:StockExtraAnalystData) {
@@ -405,7 +416,7 @@ class TopAnalystsViewController: UIViewController, UITableViewDelegate, UITableV
             
                 dest.latestPrice = self.stockExtraData[ss.symbol!]!.latestPrice ?? 0.0
                 dest.symbol = ss.symbol?.uppercased() ?? ""
-                dest.companyName = ""
+                dest.companyName = self.stockExtraData[ss.symbol!]!.companyName ?? ""
                 dest.companyLogo = ""
             }
         }

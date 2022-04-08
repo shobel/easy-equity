@@ -95,9 +95,21 @@ class NewsViewController: UIViewController, StatsVC {
         
         var twitterSentiment:[Double] = []
         var stocktwitsSentiment:[Double] = []
+        var previousStSent:Double = 0.0
+        var previousTwSent:Double = 0.0
         for s in ss {
-            twitterSentiment.append(s.twitterSentiment ?? 0.0)
-            stocktwitsSentiment.append(s.stocktwitsSentiment ?? 0.0)
+            if s.stocktwitsSentiment == nil || s.stocktwitsSentiment == 0.0 && previousStSent != 0.0 {
+                stocktwitsSentiment.append(previousStSent)
+            } else {
+                stocktwitsSentiment.append(s.stocktwitsSentiment ?? 0.0)
+                previousStSent = s.stocktwitsSentiment ?? 0.0
+            }
+            if s.twitterSentiment == nil || s.twitterSentiment == 0.0 && previousTwSent != 0.0 {
+                twitterSentiment.append(previousTwSent)
+            } else {
+                twitterSentiment.append(s.twitterSentiment ?? 0.0)
+                previousTwSent = s.twitterSentiment ?? 0.0
+            }
         }
 
         DispatchQueue.main.async {

@@ -131,10 +131,20 @@
 		1C817BD02544935A003695F7 /* ScoreSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C817BCF2544935A003695F7 /* ScoreSettings.swift */; };
 		1C817BDA2544B604003695F7 /* ScoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C817BD92544B604003695F7 /* ScoreSettingsViewController.swift */; };
 		1C817BDF2544C8FB003695F7 /* VariableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C817BDE2544C8FB003695F7 /* VariableTableViewCell.swift */; };
+		1C84CCED27F4474D00CEE242 /* TopAnalystsInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C84CCEC27F4474C00CEE242 /* TopAnalystsInfoViewController.swift */; };
+		1C84CCEF27F9919600CEE242 /* Cashtag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C84CCEE27F9919600CEE242 /* Cashtag.swift */; };
+		1C84CCF127F9966200CEE242 /* TwitterAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C84CCF027F9966200CEE242 /* TwitterAccount.swift */; };
+		1C84CCF327F9984800CEE242 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C84CCF227F9984800CEE242 /* Tweet.swift */; };
+		1C84CCF527F9A2D400CEE242 /* TwitterAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C84CCF427F9A2D400CEE242 /* TwitterAccountsViewController.swift */; };
+		1C84CCF727F9F44B00CEE242 /* TwitterAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C84CCF627F9F44B00CEE242 /* TwitterAccountTableViewCell.swift */; };
+		1C84CCF927FAF5EA00CEE242 /* TwitterSymbolCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C84CCF827FAF5EA00CEE242 /* TwitterSymbolCollectionViewCell.swift */; };
+		1C84CCFB27FB332600CEE242 /* TweetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C84CCFA27FB332500CEE242 /* TweetViewController.swift */; };
+		1C84CCFD27FB33C000CEE242 /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C84CCFC27FB33C000CEE242 /* TweetTableViewCell.swift */; };
 		1C87391124BB90BC006B80AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C87391024BB90BC006B80AD /* GoogleService-Info.plist */; };
 		1C8CFFC427E9A5A1004D230F /* PrecisionAlphaDynamics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8CFFC327E9A5A1004D230F /* PrecisionAlphaDynamics.swift */; };
 		1C8CFFC627EAE714004D230F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8CFFC527EAE714004D230F /* SettingsViewController.swift */; };
 		1C8DD1C024C8DF9800333C90 /* CompanySearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8DD1BF24C8DF9800333C90 /* CompanySearchTableViewCell.swift */; };
+		1C979D4127F4171500288D1C /* CreditInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C979D4027F4171500288D1C /* CreditInfoViewController.swift */; };
 		1C9B952323E74F14004E95B1 /* PriceChartPriceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B952223E74F14004E95B1 /* PriceChartPriceFormatter.swift */; };
 		1C9B952523EE3958004E95B1 /* DatedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B952423EE3958004E95B1 /* DatedValue.swift */; };
 		1C9B95BE23FA2075004E95B1 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B95BD23FA2075004E95B1 /* NewsTableViewCell.swift */; };
@@ -347,10 +357,20 @@
 		1C817BCF2544935A003695F7 /* ScoreSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreSettings.swift; sourceTree = "<group>"; };
 		1C817BD92544B604003695F7 /* ScoreSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreSettingsViewController.swift; sourceTree = "<group>"; };
 		1C817BDE2544C8FB003695F7 /* VariableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableTableViewCell.swift; sourceTree = "<group>"; };
+		1C84CCEC27F4474C00CEE242 /* TopAnalystsInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAnalystsInfoViewController.swift; sourceTree = "<group>"; };
+		1C84CCEE27F9919600CEE242 /* Cashtag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cashtag.swift; sourceTree = "<group>"; };
+		1C84CCF027F9966200CEE242 /* TwitterAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterAccount.swift; sourceTree = "<group>"; };
+		1C84CCF227F9984800CEE242 /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		1C84CCF427F9A2D400CEE242 /* TwitterAccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterAccountsViewController.swift; sourceTree = "<group>"; };
+		1C84CCF627F9F44B00CEE242 /* TwitterAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterAccountTableViewCell.swift; sourceTree = "<group>"; };
+		1C84CCF827FAF5EA00CEE242 /* TwitterSymbolCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterSymbolCollectionViewCell.swift; sourceTree = "<group>"; };
+		1C84CCFA27FB332500CEE242 /* TweetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetViewController.swift; sourceTree = "<group>"; };
+		1C84CCFC27FB33C000CEE242 /* TweetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
 		1C87391024BB90BC006B80AD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1C8CFFC327E9A5A1004D230F /* PrecisionAlphaDynamics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecisionAlphaDynamics.swift; sourceTree = "<group>"; };
 		1C8CFFC527EAE714004D230F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1C8DD1BF24C8DF9800333C90 /* CompanySearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanySearchTableViewCell.swift; sourceTree = "<group>"; };
+		1C979D4027F4171500288D1C /* CreditInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditInfoViewController.swift; sourceTree = "<group>"; };
 		1C9B952223E74F14004E95B1 /* PriceChartPriceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceChartPriceFormatter.swift; sourceTree = "<group>"; };
 		1C9B952423EE3958004E95B1 /* DatedValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatedValue.swift; sourceTree = "<group>"; };
 		1C9B95BD23FA2075004E95B1 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
@@ -651,6 +671,9 @@
 				1C72F91124CA788200EC59F6 /* Top10s.swift */,
 				1C75537127DB8BB200472B18 /* BalanceSheet.swift */,
 				1C8CFFC327E9A5A1004D230F /* PrecisionAlphaDynamics.swift */,
+				1C84CCEE27F9919600CEE242 /* Cashtag.swift */,
+				1C84CCF027F9966200CEE242 /* TwitterAccount.swift */,
+				1C84CCF227F9984800CEE242 /* Tweet.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -702,6 +725,9 @@
 				1CEBC35427580525004605DE /* PurchaseHistoryTableViewCell.swift */,
 				1CEBC35A275A9B64004605DE /* PremiumHistoryTableViewCell.swift */,
 				1CAFEEF027B400A300B94B63 /* TopAnalystsTableViewCell.swift */,
+				1C84CCF627F9F44B00CEE242 /* TwitterAccountTableViewCell.swift */,
+				1C84CCF827FAF5EA00CEE242 /* TwitterSymbolCollectionViewCell.swift */,
+				1C84CCFC27FB33C000CEE242 /* TweetTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -739,6 +765,10 @@
 				1C47FE3327C28EA5003E2983 /* WatchAdsViewController.swift */,
 				1C7092CC27DC7C66002DD589 /* ScoringSystemsViewController.swift */,
 				1C8CFFC527EAE714004D230F /* SettingsViewController.swift */,
+				1C979D4027F4171500288D1C /* CreditInfoViewController.swift */,
+				1C84CCEC27F4474C00CEE242 /* TopAnalystsInfoViewController.swift */,
+				1C84CCF427F9A2D400CEE242 /* TwitterAccountsViewController.swift */,
+				1C84CCFA27FB332500CEE242 /* TweetViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1052,12 +1082,14 @@
 				1CD78200264E39E9001DF387 /* ExpertAndRatingTableViewCell.swift in Sources */,
 				1C62CF4A256E43E4009C27E3 /* SectorPerformance.swift in Sources */,
 				1C8CFFC427E9A5A1004D230F /* PrecisionAlphaDynamics.swift in Sources */,
+				1C84CCF527F9A2D400CEE242 /* TwitterAccountsViewController.swift in Sources */,
 				1C62CF59256E9E64009C27E3 /* EconomyTableViewCell.swift in Sources */,
 				1C6936C021D1CFB300E3FDC9 /* StatsNewsPageViewController.swift in Sources */,
 				1CB257272173A234008E3D4D /* HTTPRequest.swift in Sources */,
 				1C9B952523EE3958004E95B1 /* DatedValue.swift in Sources */,
 				1C6936B721CDC72200E3FDC9 /* VolumeChartFormatter.swift in Sources */,
 				1C1421D9256C5247006087BA /* FearGreedViewController.swift in Sources */,
+				1C84CCED27F4474D00CEE242 /* TopAnalystsInfoViewController.swift in Sources */,
 				1C754B1424F6EF32000AE379 /* PurchaseViewController.swift in Sources */,
 				1C62FDDD24BC4B9B00BABDCB /* AuthViewController.swift in Sources */,
 				1CB4F10026478FC100AAD867 /* BrainLanguage.swift in Sources */,
@@ -1097,6 +1129,7 @@
 				1C073026260A53390079D6A8 /* Protocols.swift in Sources */,
 				1CB3D620231DBE5A00D6F57C /* PriceTarget.swift in Sources */,
 				1C37D1EA25425F61003564BE /* SimpleScore.swift in Sources */,
+				1C84CCF727F9F44B00CEE242 /* TwitterAccountTableViewCell.swift in Sources */,
 				1CABC498254F634000B37588 /* ScoreSnowflakeChart.swift in Sources */,
 				1C8CFFC627EAE714004D230F /* SettingsViewController.swift in Sources */,
 				1CD781FE264D786B001DF387 /* StockRating.swift in Sources */,
@@ -1119,6 +1152,7 @@
 				1C67B18D261C2787007BB31A /* ShadowButton.swift in Sources */,
 				1CABC48E2548028F00B37588 /* StockNewsCollectionViewCell.swift in Sources */,
 				1C0CE36B262911FA0099B72B /* Product.swift in Sources */,
+				1C84CCF927FAF5EA00CEE242 /* TwitterSymbolCollectionViewCell.swift in Sources */,
 				1C9B95BE23FA2075004E95B1 /* NewsTableViewCell.swift in Sources */,
 				1CFFAA0B2170337400D3E768 /* AnalystsRating.swift in Sources */,
 				1C7092CD27DC7C66002DD589 /* ScoringSystemsViewController.swift in Sources */,
@@ -1137,14 +1171,18 @@
 				1C72349C230CF43200319D7F /* KeyStatsViewController.swift in Sources */,
 				1C62CF4F256E44E3009C27E3 /* EconomyWeekly.swift in Sources */,
 				1CB257292173B8A5008E3D4D /* Configuration.swift in Sources */,
+				1C979D4127F4171500288D1C /* CreditInfoViewController.swift in Sources */,
 				1CCBD05D24CC327200B43C9D /* Skype.swift in Sources */,
 				1CB2572B21765C3A008E3D4D /* StockDetailsNavView.swift in Sources */,
 				1C72F90C24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift in Sources */,
+				1C84CCF127F9966200CEE242 /* TwitterAccount.swift in Sources */,
 				1CCBE58823FE720600E57D49 /* PEChart.swift in Sources */,
 				1C5B96192404FDFD00E63316 /* GeneralUtility.swift in Sources */,
 				1C2AC8682183D7C500469941 /* LaunchVC.swift in Sources */,
+				1C84CCEF27F9919600CEE242 /* Cashtag.swift in Sources */,
 				1CCA7E392313853F0033AC58 /* PredictionsViewController.swift in Sources */,
 				1C7EA4592623C00A00AB873F /* CreditsViewController.swift in Sources */,
+				1C84CCFB27FB332600CEE242 /* TweetViewController.swift in Sources */,
 				1C6B5F2024026A7E008E2C22 /* ShadowView.swift in Sources */,
 				1C7B98862161949A00C75014 /* Dataholder.swift in Sources */,
 				1CB3D61A231DA0A400D6F57C /* Estimates.swift in Sources */,
@@ -1167,6 +1205,7 @@
 				1C4EF3612329598D000299E6 /* InterpolateColor.swift in Sources */,
 				1C627133253E232900A4CC57 /* ScoresViewController.swift in Sources */,
 				1C62712F253D5FCC00A4CC57 /* IntitutionalOwnership.swift in Sources */,
+				1C84CCF327F9984800CEE242 /* Tweet.swift in Sources */,
 				1C4D2D8824E3DA2400E54EB8 /* Insider.swift in Sources */,
 				1C817BDF2544C8FB003695F7 /* VariableTableViewCell.swift in Sources */,
 				1C4D2DA024EE33F800E54EB8 /* PriceTargetTopAnalysts.swift in Sources */,
@@ -1174,6 +1213,7 @@
 				1C75536E27D7591F00472B18 /* SocialSentimentFMP.swift in Sources */,
 				1CD11940216DC394000AE02E /* CandlePricesView.swift in Sources */,
 				1CA6082126503A760039E894 /* SimpleTimeAndPrice.swift in Sources */,
+				1C84CCFD27FB33C000CEE242 /* TweetTableViewCell.swift in Sources */,
 				1C72F90A24CA4FFD00EC59F6 /* UserAccountViewController.swift in Sources */,
 				1CDA114C232B5C810028D00C /* FormattedNumberLabel.swift in Sources */,
 				1C47FE3427C28EA5003E2983 /* WatchAdsViewController.swift in Sources */,

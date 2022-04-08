@@ -58,7 +58,7 @@ class AuthViewController: UIViewController, ASAuthorizationControllerDelegate, A
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
     }
-    
+        
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         self.loginButton.stopAnimation(animationStyle: .shake)
         print(error.localizedDescription)

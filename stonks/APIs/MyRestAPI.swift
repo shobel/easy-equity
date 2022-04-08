@@ -13,7 +13,7 @@ import Firebase
 
 class MyRestAPI: HTTPRequest {
     
-    private var apiurl = "http://192.168.1.101:3000/api"
+    private var apiurl = "http://192.168.1.124:3000/api"
     //private var apiurl = "http://localhost:3000/api"
     
     private var appEndpoint = "/app"
@@ -310,6 +310,93 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
+    public func getTweetsForTwitterAccountAndSymbol(_ username:String, symbol:String, completionHandler: @escaping ([Tweet])->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/get-tweets-for-twitter-account-and-symbol/" + username + "/" + symbol, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var arr:[Tweet] = []
+            for i in 0..<json.count{
+                let JSONString:String = json[i].rawString()!
+                if let q = Mapper<Tweet>().map(JSONString: JSONString){
+                    arr.append(q)
+                }
+            }
+            completionHandler(arr)
+        }
+    }
+    
+    public func getTwitterAccounts(completionHandler: @escaping ([(account: TwitterAccount, cashtags:[Cashtag])])->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/get-twitter-accounts", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var arr:[(account: TwitterAccount, cashtags:[Cashtag])] = []
+            for i in 0..<json.count{
+                let jsonItem = json[i]
+                var twitterAccount:TwitterAccount? = nil
+                let JSONString:String = jsonItem["account"].rawString()!
+                if let q = Mapper<TwitterAccount>().map(JSONString: JSONString){
+                    twitterAccount = q
+                }
+                var cashtags:[Cashtag] = []
+                let cashtagsJson = jsonItem["cashtags"]
+                for (_,vals):(String, JSON) in cashtagsJson {
+                    let JSONString:String = vals.rawString()!
+                    if let q = Mapper<Cashtag>().map(JSONString: JSONString){
+                        cashtags.append(q)
+                    }
+                }
+                if let ta = twitterAccount {
+                    let tuple = (account: ta, cashtags: cashtags)
+                    arr.append(tuple)
+                }
+            }
+            completionHandler(arr)
+        }
+    }
+    
+    public func removeTwitterAccount(_ username:String, completionHandler: @escaping ()->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/remove-twitter-account/" + username, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            completionHandler()
+        }
+    }
+    
+    public func getTwitterAccount(_ username:String, completionHandler: @escaping (TwitterAccount?, String?)->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/get-twitter-account/" + username, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            if let error = json["error"].string {
+                completionHandler(nil, error)
+            } else if let q = Mapper<TwitterAccount>().map(JSONString: json.rawString()!){
+                completionHandler(q, nil)
+            }
+            completionHandler(nil, nil)
+        }
+    }
+    
+    public func addTwitterAccount(_ username:String, completionHandler: @escaping (TwitterAccount?, [Cashtag])->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/add-twitter-account/" + username, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var twitterAccount:TwitterAccount? = nil
+            let JSONString:String = json["account"].rawString()!
+            if let q = Mapper<TwitterAccount>().map(JSONString: JSONString){
+                twitterAccount = q
+            }
+            var cashtags:[Cashtag] = []
+            let cashtagsJson = json["cashtags"]
+            for (_,vals):(String, JSON) in cashtagsJson {
+                let JSONString:String = vals.rawString()!
+                if let q = Mapper<Cashtag>().map(JSONString: JSONString){
+                    cashtags.append(q)
+                }
+            }
+            completionHandler(twitterAccount, cashtags)
+        }
+    }
+    
+    
     public func listCompanies(completionHandler: @escaping ([Company])->Void){
         let queryURL = buildQuery(url: apiurl + stockEndpoint + "/companies", params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
@@ -445,7 +532,7 @@ class MyRestAPI: HTTPRequest {
                 insiders = i
             }
             
-            let epsEstimate = json["estimates"]["estimatedEpsHigh"].doubleValue
+            let epsEstimate = json["estimates"]["estimatedEpsAvg"].doubleValue
             completionHandler(generalInfo, peerQuotes, insiders, epsEstimate, advancedStats)
         }
     }

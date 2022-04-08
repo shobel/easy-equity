@@ -31,6 +31,8 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
     
     private var lastRefresh:Double = 0
     private var watchlist:[Company] = []
+    private var currentSort:String = "CHANGE"
+    private var sortAsc:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,15 +98,25 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
     private func loadWatchlist(){
         NetworkManager.getMyRestApi().getWatchlistForCurrentUser() { quotes in
             self.watchlist = self.watchlistManager.getWatchlist()
-            for c in self.watchlist {
-                for q in quotes {
-                    if (c.symbol == q.symbol) {
-                        c.quote = q
-                        break
+            if self.watchlist.count == 0 {
+                if self.watchlistUpdater == nil {
+                    self.watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: 60.0)
+                    self.watchlistUpdater!.startWatchlistFetchingTimer()
+                }
+            } else {
+                for c in self.watchlist {
+                    for q in quotes {
+                        if (c.symbol == q.symbol) {
+                            c.quote = q
+                            break
+                        }
                     }
                 }
+                self.watchlist.sort { a, b in
+                    return (a.quote?.changePercent) ?? 0.0 > (b.quote?.changePercent) ?? 0.0
+                }
+                self.refreshData()
             }
-            self.refreshData()
         }
     }
     
@@ -305,7 +317,7 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
                         if symbol == company.symbol {
                             company.priceTargetTopAnalysts = n
                             if let avg = n.avgPriceTarget, let q = company.quote?.latestPrice {
-                                let upside = ((avg - q) / avg) * 100.0
+                                let upside = ((avg - q) / q) * 100.0
                                 self.scoreDict[symbol] = (String(format: "%.0f", upside) + "%", upside / 50.0)
                             }
                             break
@@ -330,6 +342,15 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
                 self.activityIndicator.isHidden = true
             }
         }
+        var watchlistRetrieved:Bool = false
+        if self.watchlist.count == 0 {
+            self.watchlist = self.watchlistManager.getWatchlist()
+            if self.watchlist.count > 0 {
+                watchlistRetrieved = true
+                self.watchlistUpdater?.stopWatchlistFetchingTimer()
+            }
+        }
+        
         let watchlist = self.watchlist
         //all of this logic is about setting whether the watchlist updater is hibernating or not hibernating means the WU will not fetch quotes
         //Checking for nil quotes is unnecessary if we force the WU to fetch quotes immediately after adding a stock to our WL
@@ -353,8 +374,24 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
                 }
             }
         }
+        
+        if self.currentSort == "CHANGE" {
+            if self.sortAsc {
+                self.watchlist.sort { a, b in
+                    return (a.quote?.changePercent) ?? 0.0 < (b.quote?.changePercent) ?? 0.0
+                }
+            } else {
+                self.watchlist.sort { a, b in
+                    return (a.quote?.changePercent) ?? 0.0 > (b.quote?.changePercent) ?? 0.0
+                }
+            }
+        }
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            if watchlistRetrieved {
+                self.refreshData()
+            } else {
+                self.tableView.reloadData()
+            }
         }
     }
      
@@ -379,6 +416,7 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
         }
     }
     
+    //isnt called currently
     public func watchlistUpdated() {
         self.watchlist = self.watchlistManager.getWatchlist()
         self.refreshData()
@@ -396,7 +434,52 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
         self.tabBarController?.selectedIndex = 1
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    @IBAction func symbolSort(_ sender: Any) {
+        if self.currentSort == "SYMBOL" {
+            if self.sortAsc {
+                self.watchlist.sort { a, b in
+                    return (a.quote?.symbol) ?? "" > (b.quote?.symbol) ?? ""
+                }
+            } else {
+                self.watchlist.sort { a, b in
+                    return (a.quote?.symbol) ?? "" < (b.quote?.symbol) ?? ""
+                }
+            }
+            self.sortAsc = !self.sortAsc
+        } else {
+            self.watchlist.sort { a, b in
+                return (a.quote?.symbol) ?? "" < (b.quote?.symbol) ?? ""
+            }
+            self.currentSort = "SYMBOL"
+            self.sortAsc = true
+        }
+        self.tableView.reloadData()
+    }
+    @IBAction func scoreSort(_ sender: Any) {
+        
+    }
+    @IBAction func changeSort(_ sender: Any) {
+        if self.currentSort == "CHANGE" {
+            if self.sortAsc {
+                self.watchlist.sort { a, b in
+                    return (a.quote?.changePercent) ?? 0.0 > (b.quote?.changePercent) ?? 0.0
+                }
+            } else {
+                self.watchlist.sort { a, b in
+                    return (a.quote?.changePercent) ?? 0.0 < (b.quote?.changePercent) ?? 0.0
+                }
+            }
+            self.sortAsc = !self.sortAsc
+        } else {
+            self.watchlist.sort { a, b in
+                return (a.quote?.changePercent) ?? 0.0 < (b.quote?.changePercent) ?? 0.0
+            }
+            self.currentSort = "CHANGE"
+            self.sortAsc = true
+        }
+        self.tableView.reloadData()
+    }
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //    }
 }
 

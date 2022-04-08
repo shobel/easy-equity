@@ -16,6 +16,7 @@ class WatchlistTVCell: UITableViewCell {
     @IBOutlet weak var percentChange: ColoredValueLabel!
     @IBOutlet weak var priceChange: ColoredValueLabel!
     
+    @IBOutlet weak var erImage: UIImageView!
     @IBOutlet weak var preAfterImage: UIImageView!
     @IBOutlet weak var preAfterImageWidth: NSLayoutConstraint!
     private var preAfterImageVisibleWidth:CGFloat = CGFloat(15.0)
@@ -47,10 +48,13 @@ class WatchlistTVCell: UITableViewCell {
         currentPrice.text = String(format: "%.2f", company.quote?.latestPrice ?? "--")
         priceChange.setValue(value: (company.quote?.change ?? 0.0), isPercent: false)
         
-        if company.daysToER < 0 {
-            daysToEarnings.text = ""
-        } else {
-            daysToEarnings.text = String(company.daysToER) + "d"
+        daysToEarnings.text = ""
+        erImage.isHidden = true
+        if let ea:Int = company.quote?.daysToEarnings {
+            if ea > 0 && ea < 6 {
+                erImage.isHidden = false
+                daysToEarnings.text = String(ea) + "d"
+            }
         }
         
         //scores, arent necessarily the buy ratings

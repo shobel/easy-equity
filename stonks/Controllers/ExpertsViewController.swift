@@ -53,8 +53,12 @@ class ExpertsViewController: UIViewController, UITableViewDataSource, UITableVie
         if let name = expert.name {
             cell.analystNameLabel.text = expert.name
             if name.contains(" "){
-                let firstName:String = String(name.split(separator: " ")[0])
-                let lastName:String = String(name.split(separator: " ")[1])
+                let split = name.split(separator: " ")
+                let firstName:String = String(split[0])
+                var lastName:String = ""
+                if split.count >= 2 {
+                    lastName = String(split[1])
+                }
                 if let firstLetterLast = lastName.first {
                     cell.analystNameLabel.text = firstName + " " + String(firstLetterLast)
                 } else {

@@ -50,7 +50,6 @@ class ScoresViewController: UIViewController, StatsVC {
     @IBOutlet weak var healthWeight: UILabel!
     @IBOutlet weak var overallHealthScore: UILabel!
     @IBOutlet weak var roeScore: UILabel!
-    @IBOutlet weak var assetsLiabilitiesScore: UILabel!
     @IBOutlet weak var debtEquityScore: UILabel!
     @IBOutlet weak var debtAssetsScore: UILabel!
     @IBOutlet weak var cashFlowDebtScore: UILabel!
@@ -77,7 +76,6 @@ class ScoresViewController: UIViewController, StatsVC {
     @IBOutlet weak var cashflowGrowthValue: UILabel!
     
     @IBOutlet weak var roeValue: UILabel!
-    @IBOutlet weak var assetLiabilityValue: UILabel!
     @IBOutlet weak var debtEquityValue: UILabel!
     @IBOutlet weak var debtAssetValue: UILabel!
     @IBOutlet weak var cashflowDebtValue: UILabel!
@@ -372,12 +370,6 @@ class ScoresViewController: UIViewController, StatsVC {
                                     self.tutesScore.textColor = scoreColor
                                     self.tutesValue.text = valueStringPercent
                                     self.tutesValue.textColor = valueColor
-                                    break
-                                case "assetsLiabilities":
-                                    self.assetsLiabilitiesScore.text = scoreString
-                                    self.assetsLiabilitiesScore.textColor = scoreColor
-                                    self.assetLiabilityValue.text = valueString
-                                    self.assetLiabilityValue.textColor = valueColor
                                     break
                                 case "cashflowDebt":
                                     self.cashFlowDebtScore.text = scoreString

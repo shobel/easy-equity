@@ -29,6 +29,7 @@ struct Quote: Mappable {
     var latestUpdate:Int? // epoch time
     var previousClose:Double? //227.99
     var earningsAnnouncement:String?
+    var daysToEarnings:Int?
     
     //extended - these fields will be null during market hours
     var extendedPrice:Double?
@@ -72,7 +73,8 @@ struct Quote: Mappable {
         latestUpdate <- map["timestamp"]
         previousClose <- map["previousClose"]
         earningsAnnouncement <- map["earningsAnnouncement"]
-        
+        daysToEarnings <- map["daysToEarnings"]
+
         extendedPrice <- map["extendedPrice"]
         extendedPriceTime <- map["extendedPriceTime"]
         extendedChangePercent <- map["extendedChangePercent"]

@@ -42,7 +42,6 @@ class ScoringSystemsViewController: UIViewController, ShadowButtonDelegate {
             if self.analystPackage != nil {
                 self.purchaseAnalystsButton.premiumPackage = self.analystPackage
                 self.purchaseAnalystsButton.credits.text = String(self.analystPackage!.credits ?? 0)
-                self.purchaseAnalystsButton.isHidden = false
                 NetworkManager.getMyRestApi().getTopAnalystsSubscription(completionHandler: self.handleCheckSub)
             } else {
                 self.purchaseAnalystsButton.isHidden = true

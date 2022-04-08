@@ -116,7 +116,11 @@ class PredictionsViewController: UIViewController, StatsVC {
         let analystString = numAnalysts > 1 ? "analysts" : "analyst"
         self.numAnalysts.text = String("\(numAnalysts) \(analystString)")
         
-        self.priceTargetChartView.setup(company: self.company, predictionsDelegate: self, allMode: self.allMode)
+        if let numA = self.company.priceTarget?.numberOfAnalysts {
+            if numA > 0 {
+                self.priceTargetChartView.setup(company: self.company, predictionsDelegate: self, allMode: self.allMode)
+            }
+        }
         
         if self.company.priceTargetsOverTime != nil && self.company.priceTargetsOverTime!.count > 0 {
             self.priceTargetsOverTimeChartView.setup(company: self.company, allMode: self.allMode)
