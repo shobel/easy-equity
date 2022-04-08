@@ -32,6 +32,8 @@ class PredictionsViewController: UIViewController, StatsVC {
     @IBOutlet weak var priceTargetLabelTop: NSLayoutConstraint!
     @IBOutlet weak var analystButtonView: UIView!
     
+    @IBOutlet weak var noPriceTargetsOverTime: UILabel!
+    
     private var company:Company!
     private var isLoaded = false
     
@@ -50,7 +52,6 @@ class PredictionsViewController: UIViewController, StatsVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.company = Dataholder.selectedCompany!
-        self.isLoaded = true
         self.overallRatingsView.layer.cornerRadius = self.overallRatingsView.frame.width/2
         self.overallRatingsView.layer.masksToBounds = true
         self.overallRatingsView.clipsToBounds = true
@@ -74,52 +75,87 @@ class PredictionsViewController: UIViewController, StatsVC {
         
         self.modeControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
         
-        updateData();
+    }
+    
+    func setData(){
+        self.ratingsChartView.setup(company: self.company, predictionsDelegate: self, allMode: self.allMode)
+        if let x = self.company.priceTarget?.updatedDate {
+            self.updateDate.text = NumberFormatter.formatDate(x)
+        }
+        var hasTipranksAnalysts:Bool = false
+        if let x = self.company.priceTargetTopAnalysts {
+            hasTipranksAnalysts = true
+            let sr = x.avgAnalystSuccessRate!
+            self.avgAnalystSuccessRate = sr
+            self.topAnalystSuccessRateView.setProgress(CGFloat(sr))
+            self.topAnalystSuccessRateView.setProgressColor(self.getTintColorForProgressValue(value: Float(sr)))
+
+            let r = x.avgAnalystReturn!
+            self.avgAnalystReturn = r
+            self.avgReturnView.setProgressAndLabel(CGFloat(r/0.3), label: String(Int((r*100).rounded())) + "%")
+            self.avgReturnView.setProgressColor(self.getTintColorForReturnValue(value: Float(r)))
+        }
+        if !hasTipranksAnalysts {
+            self.noTopAnalysts()
+        }
+        
+        var numAnalysts = 0
+        if self.allMode {
+            if let x = self.company.priceTarget?.numberOfAnalysts {
+                numAnalysts += x
+            }
+            if hasTipranksAnalysts {
+                numAnalysts += self.company.priceTargetTopAnalysts?.numAnalysts ?? 0
+            }
+            if let y = self.company.tipranksAllAnalysts {
+                numAnalysts += y.count
+            }
+        } else if !self.allMode && hasTipranksAnalysts {
+            numAnalysts += self.company.priceTargetTopAnalysts?.numAnalysts ?? 0
+        }
+        let analystString = numAnalysts > 1 ? "analysts" : "analyst"
+        self.numAnalysts.text = String("\(numAnalysts) \(analystString)")
+        
+        if let numA = self.company.priceTarget?.numberOfAnalysts {
+            if numA > 0 {
+                self.priceTargetChartView.setup(company: self.company, predictionsDelegate: self, allMode: self.allMode)
+            }
+        }
+        
+        if self.company.priceTargetsOverTime != nil && self.company.priceTargetsOverTime!.count > 0 {
+            self.priceTargetsOverTimeChartView.setup(company: self.company, allMode: self.allMode)
+            self.priceTargetsOverTimeChartView.isHidden = false
+            self.noPriceTargetsOverTime.isHidden = true
+        } else {
+            self.noPriceTargetsOverTime.isHidden = false
+            self.priceTargetsOverTimeChartView.isHidden = true
+        }
+
+        self.isLoaded = true
+        if let p = self.parent?.parent?.parent as? StockDetailsVC {
+            p.adjustContentHeight(vc: self)
+            p.hideLoader(true)
+        }
     }
     
     func updateData() {
-        self.company = Dataholder.selectedCompany!
-        if (isLoaded) {
-            self.ratingsChartView.setup(company: self.company, predictionsDelegate: self, allMode: self.allMode)
-            if let x = self.company.priceTarget?.updatedDate {
-                self.updateDate.text = NumberFormatter.formatDate(x)
+        if (!isLoaded) {
+            if let p = self.parent?.parent?.parent as? StockDetailsVC {
+                p.hideLoader(false)
             }
-            var hasTipranksAnalysts:Bool = false
-            if let x = self.company.priceTargetTopAnalysts {
-                hasTipranksAnalysts = true
-                let sr = x.avgAnalystSuccessRate!
-                self.avgAnalystSuccessRate = sr
-                self.topAnalystSuccessRateView.setProgress(CGFloat(sr))
-                self.topAnalystSuccessRateView.setProgressColor(self.getTintColorForProgressValue(value: Float(sr)))
+            NetworkManager.getMyRestApi().getFourthTabData(symbol: self.company.symbol, completionHandler: handlePredictions)
+        }
+    }
     
-                let r = x.avgAnalystReturn!
-                self.avgAnalystReturn = r
-                self.avgReturnView.setProgressAndLabel(CGFloat(r/0.3), label: String(Int((r*100).rounded())) + "%")
-                self.avgReturnView.setProgressColor(self.getTintColorForReturnValue(value: Float(r)))
-            }
-            if !hasTipranksAnalysts {
-                self.noTopAnalysts()
-            }
-            
-            var numAnalysts = 0
-            if self.allMode {
-                if let x = self.company.priceTarget?.numberOfAnalysts {
-                    numAnalysts += x
-                }
-                if hasTipranksAnalysts {
-                    numAnalysts += self.company.priceTargetTopAnalysts?.numAnalysts ?? 0
-                }
-                if let y = self.company.tipranksAllAnalysts {
-                    numAnalysts += y.count
-                }
-            } else if !self.allMode && hasTipranksAnalysts {
-                numAnalysts += self.company.priceTargetTopAnalysts?.numAnalysts ?? 0
-            }
-            let analystString = numAnalysts > 1 ? "analysts" : "analyst"
-            self.numAnalysts.text = String("\(numAnalysts) \(analystString)")
-            
-            self.priceTargetChartView.setup(company: self.company, predictionsDelegate: self, allMode: self.allMode)
-            self.priceTargetsOverTimeChartView.setup(company: self.company, allMode: self.allMode)
+    func handlePredictions(priceTarget: PriceTarget, recommendations: Recommendations, priceTargetTopAnalysts: PriceTargetTopAnalysts?, allTipranksAnalystsForStock: [ExpertAndRatingForStock], priceTargetsOverTime: [SimpleTimeAndPrice], bestPriceTargetsOverTime: [SimpleTimeAndPrice]){
+        self.company.priceTargetTopAnalysts = priceTargetTopAnalysts
+        self.company.tipranksAllAnalysts = allTipranksAnalystsForStock
+        self.company.priceTargetsOverTime = priceTargetsOverTime
+        self.company.bestPriceTargetsOverTime = bestPriceTargetsOverTime
+        self.company.priceTarget = priceTarget
+        self.company.recommendations = recommendations
+        DispatchQueue.main.async {
+            self.setData()
         }
     }
     
@@ -175,10 +211,7 @@ class PredictionsViewController: UIViewController, StatsVC {
     }
     
     func getContentHeight() -> CGFloat {
-        if isLoaded {
-            return self.contentView.bounds.height
-        }
-        return 0.0
+        return self.contentView.bounds.height
     }
     
     func noTopAnalysts(){
@@ -217,6 +250,7 @@ class PredictionsViewController: UIViewController, StatsVC {
             
                 self.priceTargetChartTopConstraint.constant = 110
             }
+            self.setData()
             if let p = self.parent?.parent?.parent as? StockDetailsVC {
                 p.adjustContentHeight(vc: self)
             }

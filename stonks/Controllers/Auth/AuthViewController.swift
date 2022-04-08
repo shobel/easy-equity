@@ -16,14 +16,12 @@ import AuthenticationServices
 class AuthViewController: UIViewController, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
 
     @IBOutlet weak var loginButton: TransitionButton!
-    var videoPlayer:AVPlayer?
-    var videoPlayerLayer:AVPlayerLayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         loginButton.layer.cornerRadius = 25
-        loginButton.layer.borderColor = UIColor.white.cgColor
+//        loginButton.layer.borderColor = UIColor.white.cgColor
         loginButton.layer.borderWidth = CGFloat(1)
         
     }
@@ -46,20 +44,6 @@ class AuthViewController: UIViewController, ASAuthorizationControllerDelegate, A
         self.handleAuthorization()
     }
     
-    private func signInToFirebase() {
-//        Auth.auth().signIn(withEmail: self.emailInput.text!, password: self.passwordInput.text!) { (result, err) in
-//            if err != nil {
-//                self.showError("Wrong username or password.")
-//                self.loginButton.stopAnimation(animationStyle: .shake, completion: nil)
-//            } else {
-//                self.hideError()
-//                self.loginButton.stopAnimation(animationStyle: .expand, completion: {
-//                    self.performSegue(withIdentifier: "toHome", sender: self)
-//                })
-//            }
-//        }
-    }
-    
     private func handleAuthorization(){
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
@@ -74,7 +58,7 @@ class AuthViewController: UIViewController, ASAuthorizationControllerDelegate, A
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
     }
-    
+        
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         self.loginButton.stopAnimation(animationStyle: .shake)
         print(error.localizedDescription)
@@ -114,6 +98,21 @@ class AuthViewController: UIViewController, ASAuthorizationControllerDelegate, A
             break
         }
     }
+    
+    
+    //    private func signInToFirebase() {
+    //        Auth.auth().signIn(withEmail: self.emailInput.text!, password: self.passwordInput.text!) { (result, err) in
+    //            if err != nil {
+    //                self.showError("Wrong username or password.")
+    //                self.loginButton.stopAnimation(animationStyle: .shake, completion: nil)
+    //            } else {
+    //                self.hideError()
+    //                self.loginButton.stopAnimation(animationStyle: .expand, completion: {
+    //                    self.performSegue(withIdentifier: "toHome", sender: self)
+    //                })
+    //            }
+    //        }
+    //    }
     
     
 //    func setBackground(){

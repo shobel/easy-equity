@@ -14,7 +14,6 @@ struct Scores: Mappable {
     public var financialHealth:[String:Double]?
     public var pastPerformance:[String:Double]?
     public var valuation:[String:Double]?
-    public var technical:[String:Double]?
     public var overallScore:Double?
     public var percentile:Double?
     public var rank:Int?
@@ -31,7 +30,6 @@ struct Scores: Mappable {
         financialHealth <- map["categories.health"]
         pastPerformance <- map["categories.past"]
         valuation <- map["categories.valuation"]
-        technical <- map["categories.technical"]
         overallScore <- map["overallScore"]
         percentile <- map["percentile"]
         rawValues <- map["rawValues"]

@@ -31,6 +31,9 @@ class PriceChartPreviewView: LineChartView {
         var lineEntries:[ChartDataEntry] = []
         var previousLineEntries:[ChartDataEntry] = []
         let data = quote.simplifiedChart
+        if data.count == 0 {
+            return
+        }
         var lastTime:String = ""
         for i in 0..<data.count {
             lineEntries.append(ChartDataEntry(x: Double(i), y: data[i].value))
@@ -55,20 +58,22 @@ class PriceChartPreviewView: LineChartView {
         
         DispatchQueue.main.async {
             self.data = LineChartData(dataSets: [previousLineChartDataSet, lineChartDataSet])
-            self.xAxis.axisMaximum = (self.data!.xMax / self.getElapsedFraction(lastTime))
+            //self.xAxis.axisMaximum = (self.data!.xMax / self.getElapsedFraction(lastTime))
+            self.xAxis.axisMaximum = 40
             self.notifyDataSetChanged()
         }
     }
     
-    private func getElapsedFraction(_ lastTime:String) -> Double{
-        let firstHour = 9
-        let firstMinute = 30
-        let lastHour = Int(lastTime.split(separator: ":")[0])!
-        let lastMinute = Int(lastTime.split(separator: ":")[1])!
-        let hourDiff = lastHour - firstHour
-        let minDiff = lastMinute - firstMinute
-        let totalMinDiff = hourDiff * 60 + minDiff
-        let elapsedFraction:Double = Double(totalMinDiff)/390.0
-        return elapsedFraction
-    }
+    //this code won't work currently because we aren't storing the time in EST minutes anymore in the simplified chart
+//    private func getElapsedFraction(_ lastTime:String) -> Double{
+//        let firstHour = 9
+//        let firstMinute = 30
+//        let lastHour = Int(lastTime.split(separator: ":")[0])!
+//        let lastMinute = Int(lastTime.split(separator: ":")[1])!
+//        let hourDiff = lastHour - firstHour
+//        let minDiff = lastMinute - firstMinute
+//        let totalMinDiff = hourDiff * 60 + minDiff
+//        let elapsedFraction:Double = Double(totalMinDiff)/390.0
+//        return elapsedFraction
+//    }
 }

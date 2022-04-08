@@ -24,36 +24,49 @@ class Company: Equatable, Comparable {
     public var cashflowAnnual:[CashFlow]?
     public var income:[Income]?
     public var incomeAnnual:[Income]?
+    public var balanceSheets:[BalanceSheet]?
+    public var balanceSheetsAnnual:[BalanceSheet]?
     
     public var peerQuotes:[Quote]?
     
-    public var recommendations:Recommendations?
     public var totalBuy:Int?
     public var totalHold:Int?
     public var totalSell:Int?
     
-    public var priceTarget:PriceTarget?
-    public var priceTargetTopAnalysts:PriceTargetTopAnalysts?
     public var tipranksAllAnalysts:[ExpertAndRatingForStock]?
     public var bestPriceTargetsOverTime:[SimpleTimeAndPrice]?
     public var priceTargetsOverTime:[SimpleTimeAndPrice]?
     public var news:[News]?
     public var advancedStats: AdvancedStats?
-    public var insiders:[Insider]?
+    public var insiders:Insider?
     public var earningsDate:Date?
     public var scores:Scores?
-    public var simpleScore:SimpleScore?
+    public var peFwd:Double?
+    public var estimatedEps:Double?
     
 //    public var quarterlyData:[Candle] = []
     public var monthlyData:[Candle] = []
     public var weeklyData:[Candle] = []
     public var dailyData:[Candle] = [] //daily candles
     public var minuteData:[Candle] = [] //minute candles
-
-    public var analystsRating:AnalystsRating?
     
+    //scoring systems
+    public var simpleScore:SimpleScore?
+    public var recommendations:Recommendations?
+    public var priceTarget:PriceTarget?
+
     public var kscores:Kscore?
     public var brainSentiment:BrainSentiment?
+    public var brainRanking:Brain21DayRanking?
+    public var precisionAlpha:PrecisionAlphaDynamics?
+    public var stocktwitsSentiment:StocktwitsSentiment?
+    
+    public var priceTargetTopAnalysts:PriceTargetTopAnalysts?
+
+    
+    //unused
+    public var analystsRating:AnalystsRating? //finviz, not used anymore
+
     
     public var daysToER:Int {
         if let erDate = earningsDate {
@@ -110,7 +123,10 @@ class Company: Equatable, Comparable {
             prevCandle = entry
         }
         if !open && returnDataSet.count > 0 {
-            let numToAdd = 390 - returnDataSet.count
+            var numToAdd = 390 - returnDataSet.count
+            if numToAdd < 0 {
+                numToAdd = 0
+            }
             let lastEntry = returnDataSet[returnDataSet.count - 1]
             for x in 0..<numToAdd {
                 let prevDate = NumberFormatter.timeStringToDate(lastEntry.datetime!)
@@ -129,11 +145,14 @@ class Company: Equatable, Comparable {
     }
     
     public func getWeeklyData(_ numWeeks: Int) -> [Candle]{
-        return getDataSubset(dataset: weeklyData, numDataPoints: numWeeks)
+//        return getDataSubset(dataset: weeklyData, numDataPoints: numWeeks)
+        return shrinkDataSet(dailyData, groupBy: 5)
+
     }
     
     public func getMonthlyData(_ numMonths: Int) -> [Candle] {
-        return getDataSubset(dataset: monthlyData, numDataPoints: numMonths)
+//        return getDataSubset(dataset: monthlyData, numDataPoints: numMonths)
+        return shrinkDataSet(dailyData, groupBy: 20)
     }
     
     public func getQuarterlyData(_ numQuarters: Int) -> [Candle] {
@@ -193,17 +212,6 @@ class Company: Equatable, Comparable {
             return Array(dataset.suffix(numDataPoints))
         }
         return []
-    }
-    
-    public func addTechnicalIndicatorsToDailyValues(_ technicals:[String:Double]){
-        for i in 0..<self.dailyData.count {
-            let dailyDataItem = self.dailyData[i]
-            let datestring = dailyDataItem.dateLabel
-            let rsi = technicals[datestring!]
-            if rsi != nil {
-                self.dailyData[i].rsi14 = rsi
-            }
-        }
     }
     
     static func == (lhs: Company, rhs: Company) -> Bool {

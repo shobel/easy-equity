@@ -18,3 +18,8 @@ protocol ShadowButtonDelegate {
     func shadowButtonTapped(_ premiumPackage:PremiumPackage?)
 }
 
+protocol NetworkDelegate {
+    
+    func networkError()
+}
+

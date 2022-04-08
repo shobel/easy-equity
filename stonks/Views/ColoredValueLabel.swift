@@ -48,7 +48,7 @@ class ColoredValueLabel: UILabel {
     public func setValue(value: Double, isPercent: Bool, prefix:String = ""){
         if value == Double(Int.min) {
             self.textColor = .gray
-            self.text = "-------"
+            self.text = "---"
         } else {
             self.changeValue = value
             self.isPercent = isPercent

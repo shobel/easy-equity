@@ -10,6 +10,7 @@ target 'stonks' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Core'
   pod 'FirebaseUI/Auth'
+  pod 'Google-Mobile-Ads-SDK'
 
   # Essential UI
   pod 'Charts'
@@ -28,7 +29,7 @@ target 'stonks' do
   pod 'TransitionButton'
   pod 'VisualEffectView'
   pod 'XLActionController'
-  pod 'EFCountingLabel'
+  pod 'EFCountingLabel', '>= 5.1.3'
   pod 'FCAlertView'
   pod 'Cosmos'
 end

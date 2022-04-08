@@ -56,11 +56,11 @@ class MarketViewController: UIViewController, UICollectionViewDelegate, UICollec
                 
                 self.ew = EconomyWeekly.getValueArrayFromEconomyWeeklies(weeklies: economyWeekly)
                 self.em = EconomyMonthly.getValueArrayFromEconomyMonthlies(monthlies: economyMonthly)
-                self.gdps = self.getRealGDPFromPercentChanges(gdps.reversed())
+                self.gdps = gdps.reversed()
                 
                 self.gdpStartDate.text = gdpStartDate
                 self.gdpEndDate.text = gdpEndDate
-                self.gdpChart.setData(self.gdps)
+                self.gdpChart.setData([self.gdps], colors: [])
                 self.gdpChart.setDrawZeroLine()
                 self.gdpChart.setHideLeftAxis()
                 self.industryCollection.reloadData()
@@ -102,7 +102,7 @@ class MarketViewController: UIViewController, UICollectionViewDelegate, UICollec
         if let cell = cell {
             cell.name.text = metric.name
             cell.latestValue.text = NumberFormatter.formatNumber(num: metric.latestValue ?? 0.0)
-            cell.lineChart.setData(metric.values)
+            cell.lineChart.setData([metric.values], colors: [])
         }
         return cell ?? UITableViewCell()
     }

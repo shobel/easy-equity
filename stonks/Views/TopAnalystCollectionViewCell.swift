@@ -10,7 +10,6 @@ import UIKit
 
 class TopAnalystCollectionViewCell: UICollectionViewCell {
  
-    @IBOutlet weak var segueButton: UIButton!
     @IBOutlet weak var symbol: UILabel!
     @IBOutlet weak var avgUpside: ColoredValueLabel!
     @IBOutlet weak var numAnalysts: UILabel!
@@ -19,6 +18,8 @@ class TopAnalystCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.layer.cornerRadius = 10
+        self.layer.borderWidth = 1.0
+        self.layer.borderColor = UIColor.lightGray.cgColor
+        self.layer.cornerRadius = 10.0
     }
 }

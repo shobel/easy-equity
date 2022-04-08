@@ -11,6 +11,9 @@ import Foundation
 class WatchlistManager {
     
     private var watchlist:[Company]
+    private var limit:Int = 30
+    
+    public var watchlistVC:WatchlistVC?
     
     init(){
         watchlist = []
@@ -26,18 +29,29 @@ class WatchlistManager {
     }
 
     public func getWatchlist() -> [Company] {
-        return watchlist
+        return watchlist.sorted { a, b in
+            a.symbol < b.symbol
+        }
     }
     
+    //these 2 do the same thing
     public func getWatchlistSymbols() -> [String] {
         return watchlist.map{ $0.symbol }
     }
-
-    public func addCompany(company: Company, completion: @escaping () -> Void){
+    public func getTickers() -> [String] {
+        return watchlist.map { (c) -> String in c.symbol }
+    }
+    
+    public func addCompany(company: Company, completion: @escaping (Bool) -> Void){
         if !watchlist.contains(company) {
-            watchlist.append(company)
-            NetworkManager.getMyRestApi().addToWatchlist(symbol: company.symbol) { (JSON) in
-                completion()
+            if (watchlist.count >= limit){
+                completion(false)
+            } else {
+                watchlist.append(company)
+                self.watchlistVC?.watchlistUpdated()
+                NetworkManager.getMyRestApi().addToWatchlist(symbol: company.symbol) { (JSON) in
+                    completion(true)
+                }
             }
         }
     }
@@ -47,6 +61,7 @@ class WatchlistManager {
             let c = watchlist[i]
             if c.symbol == company.symbol {
                 watchlist.remove(at: i)
+                self.watchlistVC?.watchlistUpdated()
                 NetworkManager.getMyRestApi().removeFromWatchlist(symbol: company.symbol) { (JSON) in
                     completion()
                 }
@@ -58,13 +73,10 @@ class WatchlistManager {
     public func removeCompanyByIndex(index: Int, completion: @escaping () -> Void){
         let company = watchlist[index]
         watchlist.remove(at: index)
+        self.watchlistVC?.watchlistUpdated()
         NetworkManager.getMyRestApi().removeFromWatchlist(symbol: company.symbol) { (JSON) in
             completion()
         }
-    }
-    
-    public func getTickers() -> [String] {
-        return watchlist.map { (c) -> String in c.symbol }
     }
     
 }

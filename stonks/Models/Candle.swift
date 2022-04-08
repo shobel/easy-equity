@@ -20,12 +20,7 @@ struct Candle: Mappable {
     public var open:Double?
     public var close:Double?
 
-    public var sma20:Double?
-    public var sma50:Double?
-    public var sma100:Double?
-    public var sma200:Double?
-    public var earnings:Bool?
-    public var rsi14:Double?
+    public var vwap:Double?
     
     init(){}
     
@@ -67,28 +62,15 @@ struct Candle: Mappable {
         candle.low = jsoncandle["low"].double ?? 0
         candle.volume = jsoncandle["volume"].double ?? 0
         candle.datetime = jsoncandle["date"].string ?? ""
-        candle.dateLabel = jsoncandle["date"].string ?? ""
-        candle.earnings = jsoncandle["earnings"].bool ?? false
+        candle.dateLabel = jsoncandle["label"].string ?? ""
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.date(from: jsoncandle["date"].string!)!
         candle.date = date
         
-        if let sma20 = jsoncandle["sma20"].double {
-            candle.sma20 = sma20
-        }
-        if let sma50 = jsoncandle["sma50"].double {
-            candle.sma50 = sma50
-        }
-        if let sma100 = jsoncandle["sma100"].double {
-            candle.sma100 = sma100
-        }
-        if let sma200 = jsoncandle["sma200"].double {
-            candle.sma200 = sma200
-        }
-        if let rsi14 = jsoncandle["rsi14"].double {
-            candle.rsi14 = rsi14
+        if let vwap = jsoncandle["vwap"].double {
+            candle.vwap = vwap
         }
         return candle
     }

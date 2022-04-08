@@ -138,6 +138,9 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    @IBAction func backButtonAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

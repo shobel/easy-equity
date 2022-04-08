@@ -50,7 +50,22 @@ class ExpertsViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "expertAndRatingCell") as! ExpertAndRatingTableViewCell
         let expert = experts[indexPath.row]
-        cell.analystNameLabel.text = expert.name
+        if let name = expert.name {
+            cell.analystNameLabel.text = expert.name
+            if name.contains(" "){
+                let split = name.split(separator: " ")
+                let firstName:String = String(split[0])
+                var lastName:String = ""
+                if split.count >= 2 {
+                    lastName = String(split[1])
+                }
+                if let firstLetterLast = lastName.first {
+                    cell.analystNameLabel.text = firstName + " " + String(firstLetterLast)
+                } else {
+                    cell.analystNameLabel.text = firstName
+                }
+            }
+        }
         if let rank = expert.rank {
             cell.rankLabel.text = String("Rank #\(rank)")
         }
@@ -100,7 +115,6 @@ class ExpertsViewController: UIViewController, UITableViewDataSource, UITableVie
         if let stockNumRatings = expert.stockRating?.numRatings {
             cell.stockNumRatings.text = String("On \(self.symbol): \(stockNumRatings) ratings")
         }
-        cell.stars.rating = expert.stars ?? 5.0
         if let pos = expert.stockRating?.position {
             cell.positionLabel.text = pos.uppercased()
             cell.positionLabelContainer.backgroundColor = self.getColorForRating(value: pos)

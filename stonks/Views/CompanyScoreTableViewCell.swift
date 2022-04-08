@@ -60,8 +60,12 @@ class CompanyScoreTableViewCell: UITableViewCell {
                     self.addedToWatchlist(false)
                 }
             } else {
-                Dataholder.watchlistManager.addCompany(company: c){
-                    self.addedToWatchlist(true)
+                Dataholder.watchlistManager.addCompany(company: c){ added in
+                    if added {
+                        self.addedToWatchlist(true)
+                    } else {
+                        AlertDisplay.showAlert("Error", message: "Watchlist limit reached")
+                    }
                 }
             }
         }

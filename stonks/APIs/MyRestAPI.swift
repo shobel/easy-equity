@@ -13,7 +13,7 @@ import Firebase
 
 class MyRestAPI: HTTPRequest {
     
-    private var apiurl = "http://192.168.1.65:3000/api"
+    private var apiurl = "http://192.168.1.124:3000/api"
     //private var apiurl = "http://localhost:3000/api"
     
     private var appEndpoint = "/app"
@@ -21,6 +21,8 @@ class MyRestAPI: HTTPRequest {
     private var stockEndpoint = "/stocks"
     private var marketEndpoint = "/market"
     private var authEndpoint = "/auth"
+        
+    public var networkDelegate:NetworkDelegate?
     
     public enum ChartTimeFrames : String {
         case daily, weekly, monthly
@@ -104,6 +106,46 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
+    public func getTopAnalystsSubscription(completionHandler: @escaping (Int?)->Void) {
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/top-analysts-subscription", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            let date = json["date"].int
+            completionHandler(date)
+        }
+    }
+    
+    public func subscribeTopAnalysts(completionHandler: @escaping (Int?, Int?, String?)->Void) {
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/subscribe-top-analysts", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            if json["error"].string != nil && json["credits"].int != nil {
+                completionHandler(nil, json["credits"].intValue, json["error"].stringValue)
+            } else if json["data"].int != nil && json["credits"].int != nil {
+                completionHandler(json["data"].int, json["credits"].intValue, nil)
+            }
+        }
+    }
+    
+    public func getSelectedScore(completionHandler: @escaping (String) -> Void) {
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/get-selected-score", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var selectedScore = ""
+            if json["selectedScore"].string != nil {
+                selectedScore = json["selectedScore"].string ?? ""
+            }
+            completionHandler(selectedScore)
+        }
+    }
+        
+    public func setSelectedScore(_ selectedScoreId:String) {
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/set-selected-score/" + selectedScoreId, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            print()
+        }
+    }
+    
     public func getPremiumPackages(completionHandler: @escaping ([PremiumPackage])->Void){
         let queryURL = buildQuery(url: apiurl + appEndpoint + "/premium-packages", params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
@@ -116,6 +158,20 @@ class MyRestAPI: HTTPRequest {
                 }
             }
             completionHandler(packages)
+        }
+    }
+    
+    public func getAnalystsPremiumPackage(completionHandler: @escaping (PremiumPackage?)->Void){
+        let queryURL = buildQuery(url: apiurl + appEndpoint + "/analysts-premium-package", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+
+            let JSONString:String = json.rawString()!
+            if let p = Mapper<PremiumPackage>().map(JSONString: JSONString){
+                completionHandler(p)
+            } else {
+                completionHandler(nil)
+            }
         }
     }
     
@@ -153,23 +209,78 @@ class MyRestAPI: HTTPRequest {
                         completionHandler(p, json["credits"].intValue, nil)
                         return
                     }
+                } else if packageId == Constants.premiumPackageIds.PREMIUM_PRECISION_ALPHA_PRICE_DYNAMICS {
+                    if let p = Mapper<PrecisionAlphaDynamics>().map(JSONString: JSONString){
+                        completionHandler(p, json["credits"].intValue, nil)
+                        return
+                    }
                 }
             }
             completionHandler(nil, nil, nil)
         }
     }
     
-    public func getWatchlistForCurrentUser(completionHandler: @escaping ()->Void){
+    public func getReceiptsForCurrentUser(completionHandler: @escaping([Receipt]) -> Void) {
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/getReceipts", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            var receipts:[Receipt] = []
+            let json = JSON(data)
+            for i in 0..<json.count{
+                if let r = Mapper<Receipt>().map(JSONString: json[i].rawString()!){
+                    receipts.append(r)
+                }
+            }
+            completionHandler(receipts)
+        }
+    }
+    
+    public func getPremiumTransactionsForCurrentUser(completionHandler: @escaping([PremiumTransaction]) -> Void) {
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/getPremiumTransactions", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            var trans:[PremiumTransaction] = []
+            let json = JSON(data)
+            for i in 0..<json.count{
+                if let r = Mapper<PremiumTransaction>().map(JSONString: json[i].rawString()!){
+                    trans.append(r)
+                }
+            }
+            completionHandler(trans)
+        }
+    }
+    
+    public func getWatchlistForCurrentUser(completionHandler: @escaping ([Quote])->Void){
         let queryURL = buildQuery(url: apiurl + userEndpoint + "/watchlist", params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             var companies:[Company] = []
             let json = JSON(data)
-            for i in 0..<json.count{
-                let company = Company(symbol: json[i]["symbol"].string!, fullName: json[i]["companyName"].string!)
-                companies.append(company)
+            var quotes:[Quote] = []
+            for (symbol,_):(String, JSON) in json {
+                if symbol == "isUSMarketOpen" {
+                    Dataholder.isUSMarketOpen = json[symbol].boolValue
+                } else {
+                    let quoteJSONString:String = json[symbol]["latestQuote"].rawString()!
+                    var quote:Quote = Quote()
+                    if let q = Mapper<Quote>().map(JSONString: quoteJSONString){
+                        quote = q
+                    }
+                    let simplifiedChartJSON = json[symbol]["simplifiedChart"]
+                    var simplifiedChart:[DatedValue] = []
+                    for i in 0..<simplifiedChartJSON.count {
+                        let minute:String = simplifiedChartJSON[i]["minute"].string!
+                        let value:Double = simplifiedChartJSON[i]["close"].double!
+                        let datedValue:DatedValue = DatedValue(date: Date(), datestring: minute, value: value)
+                        simplifiedChart.append(datedValue)
+                    }
+                    quote.simplifiedChart = simplifiedChart
+                    quotes.append(quote)
+                    
+                    let company:Company = Company(symbol: quote.symbol ?? "", fullName: quote.name ?? "")
+                    companies.append(company)
+                                        
+                }
             }
             Dataholder.watchlistManager.setWatchlist(companies)
-            completionHandler()
+            completionHandler(quotes)
         }
     }
     
@@ -199,6 +310,93 @@ class MyRestAPI: HTTPRequest {
         }
     }
     
+    public func getTweetsForTwitterAccountAndSymbol(_ username:String, symbol:String, completionHandler: @escaping ([Tweet])->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/get-tweets-for-twitter-account-and-symbol/" + username + "/" + symbol, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var arr:[Tweet] = []
+            for i in 0..<json.count{
+                let JSONString:String = json[i].rawString()!
+                if let q = Mapper<Tweet>().map(JSONString: JSONString){
+                    arr.append(q)
+                }
+            }
+            completionHandler(arr)
+        }
+    }
+    
+    public func getTwitterAccounts(completionHandler: @escaping ([(account: TwitterAccount, cashtags:[Cashtag])])->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/get-twitter-accounts", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var arr:[(account: TwitterAccount, cashtags:[Cashtag])] = []
+            for i in 0..<json.count{
+                let jsonItem = json[i]
+                var twitterAccount:TwitterAccount? = nil
+                let JSONString:String = jsonItem["account"].rawString()!
+                if let q = Mapper<TwitterAccount>().map(JSONString: JSONString){
+                    twitterAccount = q
+                }
+                var cashtags:[Cashtag] = []
+                let cashtagsJson = jsonItem["cashtags"]
+                for (_,vals):(String, JSON) in cashtagsJson {
+                    let JSONString:String = vals.rawString()!
+                    if let q = Mapper<Cashtag>().map(JSONString: JSONString){
+                        cashtags.append(q)
+                    }
+                }
+                if let ta = twitterAccount {
+                    let tuple = (account: ta, cashtags: cashtags)
+                    arr.append(tuple)
+                }
+            }
+            completionHandler(arr)
+        }
+    }
+    
+    public func removeTwitterAccount(_ username:String, completionHandler: @escaping ()->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/remove-twitter-account/" + username, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            completionHandler()
+        }
+    }
+    
+    public func getTwitterAccount(_ username:String, completionHandler: @escaping (TwitterAccount?, String?)->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/get-twitter-account/" + username, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            if let error = json["error"].string {
+                completionHandler(nil, error)
+            } else if let q = Mapper<TwitterAccount>().map(JSONString: json.rawString()!){
+                completionHandler(q, nil)
+            }
+            completionHandler(nil, nil)
+        }
+    }
+    
+    public func addTwitterAccount(_ username:String, completionHandler: @escaping (TwitterAccount?, [Cashtag])->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/add-twitter-account/" + username, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var twitterAccount:TwitterAccount? = nil
+            let JSONString:String = json["account"].rawString()!
+            if let q = Mapper<TwitterAccount>().map(JSONString: JSONString){
+                twitterAccount = q
+            }
+            var cashtags:[Cashtag] = []
+            let cashtagsJson = json["cashtags"]
+            for (_,vals):(String, JSON) in cashtagsJson {
+                let JSONString:String = vals.rawString()!
+                if let q = Mapper<Cashtag>().map(JSONString: JSONString){
+                    cashtags.append(q)
+                }
+            }
+            completionHandler(twitterAccount, cashtags)
+        }
+    }
+    
+    
     public func listCompanies(completionHandler: @escaping ([Company])->Void){
         let queryURL = buildQuery(url: apiurl + stockEndpoint + "/companies", params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
@@ -218,6 +416,7 @@ class MyRestAPI: HTTPRequest {
         let queryURL = buildQuery(url: apiurl + stockEndpoint + "/charts/quote-and-intraday/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
+            Dataholder.isUSMarketOpen = json["isUSMarketOpen"].boolValue
             var quote:Quote = Quote()
             if let q = Mapper<Quote>().map(JSONString: json["quote"].rawString()!){
                 quote = q
@@ -263,12 +462,16 @@ class MyRestAPI: HTTPRequest {
             let json = JSON(data)
             var quotes:[Quote] = []
             for (symbol,_):(String, JSON) in json {
-                let JSONString:String = json[symbol].rawString()!
-                var quote:Quote = Quote()
-                if let q = Mapper<Quote>().map(JSONString: JSONString){
-                    quote = q
+                if symbol == "isUSMarketOpen" {
+                    Dataholder.isUSMarketOpen = json[symbol].boolValue
+                } else {
+                    let JSONString:String = json[symbol].rawString()!
+                    var quote:Quote = Quote()
+                    if let q = Mapper<Quote>().map(JSONString: JSONString){
+                        quote = q
+                    }
+                    quotes.append(quote)
                 }
-                quotes.append(quote)
             }
             completionHandler(quotes)
         }
@@ -280,27 +483,194 @@ class MyRestAPI: HTTPRequest {
             let json = JSON(data)
             var quotes:[Quote] = []
             for (symbol,_):(String, JSON) in json {
-                let quoteJSONString:String = json[symbol]["latestQuote"].rawString()!
-                var quote:Quote = Quote()
-                if let q = Mapper<Quote>().map(JSONString: quoteJSONString){
-                    quote = q
+                if symbol == "isUSMarketOpen" {
+                    Dataholder.isUSMarketOpen = json[symbol].boolValue
+                } else {
+                    let quoteJSONString:String = json[symbol]["latestQuote"].rawString()!
+                    var quote:Quote = Quote()
+                    if let q = Mapper<Quote>().map(JSONString: quoteJSONString){
+                        quote = q
+                    }
+                    let simplifiedChartJSON = json[symbol]["simplifiedChart"]
+                    var simplifiedChart:[DatedValue] = []
+                    for i in 0..<simplifiedChartJSON.count {
+                        let minute:String = simplifiedChartJSON[i]["minute"].string!
+                        let value:Double = simplifiedChartJSON[i]["close"].double!
+                        let datedValue:DatedValue = DatedValue(date: Date(), datestring: minute, value: value)
+                        simplifiedChart.append(datedValue)
+                    }
+                    quote.simplifiedChart = simplifiedChart
+                    quotes.append(quote)
                 }
-                let simplifiedChartJSON = json[symbol]["simplifiedChart"]
-                var simplifiedChart:[DatedValue] = []
-                for i in 0..<simplifiedChartJSON.count {
-                    let minute:String = simplifiedChartJSON[i]["minute"].string!
-                    let value:Double = simplifiedChartJSON[i]["close"].double!
-                    let datedValue:DatedValue = DatedValue(date: Date(), datestring: minute, value: value)
-                    simplifiedChart.append(datedValue)
-                }
-                quote.simplifiedChart = simplifiedChart
-                quotes.append(quote)
             }
             completionHandler(quotes)
         }
     }
     
-    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [CashFlow], [Income], [Income], [Insider], PriceTargetTopAnalysts?, [ExpertAndRatingForStock], [SimpleTimeAndPrice], [SimpleTimeAndPrice])->Void){
+    public func getFirstTabData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], Insider, Double, AdvancedStats)->Void) {
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/statsPeersInsidersAndCompany/" + symbol, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            let companyLogoPeersJSON = json["companyLogoPeers"].rawString()!
+            let generalInfo:GeneralInfo = Mapper<GeneralInfo>().map(JSONString: companyLogoPeersJSON) ?? GeneralInfo()
+            let peerQuotesJson = json["peerQuotes"]
+            var peerQuotes:[Quote] = []
+            for (symbol,_):(String, JSON) in peerQuotesJson {
+                let JSONString:String = peerQuotesJson[symbol].rawString()!
+                var quote:Quote = Quote()
+                if let q = Mapper<Quote>().map(JSONString: JSONString){
+                    quote = q
+                }
+                peerQuotes.append(quote)
+            }
+            let advancedJSON = json["advanced"].rawString()!
+            let advancedStats:AdvancedStats = Mapper<AdvancedStats>().map(JSONString: advancedJSON) ?? AdvancedStats()
+            let insidersJSON = json["insiders"]
+            var insiders:Insider = Insider()
+            let s:String = insidersJSON.rawString()!
+            if let i = Mapper<Insider>().map(JSONString: s){
+                insiders = i
+            }
+            
+            let epsEstimate = json["estimates"]["estimatedEpsAvg"].doubleValue
+            completionHandler(generalInfo, peerQuotes, insiders, epsEstimate, advancedStats)
+        }
+    }
+    
+    public func getSecondTabData(symbol:String, completionHandler: @escaping ([News], [SocialSentimentFMP], NewsSentiment)->Void) {
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/newsAndSocial/" + symbol, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            let newsJSON = json["news"]
+            var newsList:[News] = []
+            for i in 0..<newsJSON.count{
+                let s:String = newsJSON[i].rawString()!
+                if let n = Mapper<News>().map(JSONString: s){
+                    newsList.append(n)
+                }
+            }
+            
+            let ssJSON = json["socialSentiment"]
+            var sslist:[SocialSentimentFMP] = []
+            for i in 0..<ssJSON.count{
+                let s:String = ssJSON[i].rawString()!
+                if let n = Mapper<SocialSentimentFMP>().map(JSONString: s){
+                    sslist.append(n)
+                }
+            }
+            let newsSentJson = json["newsSentiment"].rawString()!
+            let ns:NewsSentiment = Mapper<NewsSentiment>().map(JSONString: newsSentJson) ?? NewsSentiment()
+            completionHandler(newsList, sslist, ns)
+        }
+    }
+    
+    public func getThirdTabData(symbol:String, completionHandler: @escaping ([Earnings], [CashFlow], [CashFlow], [Income], [Income], [BalanceSheet], [BalanceSheet])->Void) {
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/financials/" + symbol, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            let earningsJSON = json["earnings"]
+            var earningsList:[Earnings] = []
+            for i in 0..<earningsJSON.count{
+                let s:String = earningsJSON[i].rawString()!
+                if let e = Mapper<Earnings>().map(JSONString: s){
+                    earningsList.append(e)
+                }
+            }
+            let incomeJSON = json["incomes"]
+            var incomeList:[Income] = []
+            for i in 0..<incomeJSON.count{
+                let s:String = incomeJSON[i].rawString()!
+                if let income = Mapper<Income>().map(JSONString: s){
+                    incomeList.append(income)
+                }
+            }
+            let incomeAnnualJSON = json["incomesAnnual"]
+            var incomeAnnualList:[Income] = []
+            for i in 0..<incomeAnnualJSON.count{
+                let s:String = incomeAnnualJSON[i].rawString()!
+                if let income = Mapper<Income>().map(JSONString: s){
+                    incomeAnnualList.append(income)
+                }
+            }
+            let cashFlowJSON = json["cashflows"]
+            var cashFlowList:[CashFlow] = []
+            for i in 0..<cashFlowJSON.count{
+                let s:String = cashFlowJSON[i].rawString()!
+                if let cf = Mapper<CashFlow>().map(JSONString: s){
+                    cashFlowList.append(cf)
+                }
+            }
+            let cashFlowAnnualJSON = json["cashflowsAnnual"]
+            var cashFlowAnnualList:[CashFlow] = []
+            for i in 0..<cashFlowAnnualJSON.count{
+                let s:String = cashFlowAnnualJSON[i].rawString()!
+                if let cf = Mapper<CashFlow>().map(JSONString: s){
+                    cashFlowAnnualList.append(cf)
+                }
+            }
+            
+            let bsJSON = json["balanceSheets"]
+            var bsList:[BalanceSheet] = []
+            for i in 0..<bsJSON.count{
+                let s:String = bsJSON[i].rawString()!
+                if let bs = Mapper<BalanceSheet>().map(JSONString: s){
+                    bsList.append(bs)
+                }
+            }
+            let bsaJSON = json["balanceSheetsAnnual"]
+            var bsaList:[BalanceSheet] = []
+            for i in 0..<bsaJSON.count{
+                let s:String = bsaJSON[i].rawString()!
+                if let bsa = Mapper<BalanceSheet>().map(JSONString: s){
+                    bsaList.append(bsa)
+                }
+            }
+            completionHandler(earningsList, cashFlowList, cashFlowAnnualList, incomeList, incomeAnnualList, bsList, bsaList)
+        }
+    }
+    
+    public func getFourthTabData(symbol:String, completionHandler: @escaping (PriceTarget, Recommendations, PriceTargetTopAnalysts?, [ExpertAndRatingForStock], [SimpleTimeAndPrice], [SimpleTimeAndPrice])->Void) {
+        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/analysts/" + symbol, params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            let priceTargetJSON = json["priceTarget"].rawString()!
+            let priceTarget:PriceTarget = Mapper<PriceTarget>().map(JSONString: priceTargetJSON) ?? PriceTarget()
+            let recommendationsJSON = json["recommendations"].rawString()!
+            let recommendations:Recommendations = Mapper<Recommendations>().map(JSONString: recommendationsJSON) ?? Recommendations()
+            let tipranksJSON = json["tipranksAnalysts"].rawString()!
+            let tipranks:PriceTargetTopAnalysts? = Mapper<PriceTargetTopAnalysts>().map(JSONString: tipranksJSON) ?? nil
+            
+            let tipranksAllJSON = json["tipranksAnalystsAll"]
+            var tipranksAllAnalystsList:[ExpertAndRatingForStock] = []
+            for i in 0..<tipranksAllJSON.count{
+                let s:String = tipranksAllJSON[i].rawString()!
+                if let expertAndRatings = Mapper<ExpertAndRatingForStock>().map(JSONString: s){
+                    tipranksAllAnalystsList.append(expertAndRatings)
+                }
+            }
+            
+            let priceTargetsOverTimeJSON = json["priceTargetsOverTime"]
+            var priceTargetsOverTime:[SimpleTimeAndPrice] = []
+            for i in 0..<priceTargetsOverTimeJSON.count{
+                let s:String = priceTargetsOverTimeJSON[i].rawString()!
+                if let pt = Mapper<SimpleTimeAndPrice>().map(JSONString: s){
+                    priceTargetsOverTime.append(pt)
+                }
+            }
+            
+            let bestPriceTargetsOverTimeJSON = json["bestPriceTargetsOverTime"]
+            var bestPriceTargetsOverTime:[SimpleTimeAndPrice] = []
+            for i in 0..<bestPriceTargetsOverTimeJSON.count{
+                let s:String = bestPriceTargetsOverTimeJSON[i].rawString()!
+                if let pt = Mapper<SimpleTimeAndPrice>().map(JSONString: s){
+                    bestPriceTargetsOverTime.append(pt)
+                }
+            }
+            completionHandler(priceTarget, recommendations, tipranks, tipranksAllAnalystsList, priceTargetsOverTime, bestPriceTargetsOverTime)
+        }
+    }
+    
+    public func getAllFreeData(symbol:String, completionHandler: @escaping (GeneralInfo, [Quote], KeyStats, [News], PriceTarget, [Earnings], Recommendations, AdvancedStats, [CashFlow], [CashFlow], [Income], [Income], Insider, PriceTargetTopAnalysts?, [ExpertAndRatingForStock], [SimpleTimeAndPrice], [SimpleTimeAndPrice])->Void){
         let queryURL = buildQuery(url: apiurl + stockEndpoint + "/allfree/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
@@ -325,9 +695,7 @@ class MyRestAPI: HTTPRequest {
             for i in 0..<newsJSON.count{
                 let s:String = newsJSON[i].rawString()!
                 if let n = Mapper<News>().map(JSONString: s){
-                    if Constants.demo || n.lang == "en" {
-                        newsList.append(n)
-                    }
+                    newsList.append(n)
                 }
             }
             let priceTargetJSON = json["priceTarget"].rawString()!
@@ -375,12 +743,10 @@ class MyRestAPI: HTTPRequest {
                 }
             }
             let insidersJSON = json["insiders"]
-            var insiderList:[Insider] = []
-            for i in 0..<insidersJSON.count{
-                let s:String = insidersJSON[i].rawString()!
-                if let insider = Mapper<Insider>().map(JSONString: s){
-                    insiderList.append(insider)
-                }
+            var insiders:Insider = Insider()
+            let s:String = insidersJSON.rawString()!
+            if let i = Mapper<Insider>().map(JSONString: s){
+                insiders = i
             }
             let tipranksJSON = json["tipranksAnalysts"].rawString()!
             let tipranks:PriceTargetTopAnalysts? = Mapper<PriceTargetTopAnalysts>().map(JSONString: tipranksJSON) ?? nil
@@ -412,10 +778,21 @@ class MyRestAPI: HTTPRequest {
                 }
             }
             
-            completionHandler(generalInfo, peerQuotes, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, cashFlowAnnualList, incomeList, incomeAnnualList, insiderList, tipranks, tipranksAllAnalystsList, priceTargetsOverTime, bestPriceTargetsOverTime)
+            completionHandler(generalInfo, peerQuotes, keystats, newsList, priceTarget, earningsList, recommendations, advancedStats, cashFlowList, cashFlowAnnualList, incomeList, incomeAnnualList, insiders, tipranks, tipranksAllAnalystsList, priceTargetsOverTime, bestPriceTargetsOverTime)
         }
     }
     
+    public func getPackageDataForSymbols(_ symbols:[String], packageId:String, completionHandler: @escaping (JSON)->Void) {
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/premium-for-symbols/", params: [
+                "symbols":symbols.joined(separator: ","),
+                "premiumId": packageId
+            ])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            completionHandler(json)
+        }
+    }
+                
     public func getPremiumData(symbol:String, completionHandler: @escaping ([String:PremiumDataBase?])->Void){
         let queryURL = buildQuery(url: apiurl + userEndpoint + "/premium/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
@@ -447,6 +824,11 @@ class MyRestAPI: HTTPRequest {
                         break
                     case Constants.premiumPackageIds.STOCKTWITS_SENTIMENT:
                         if let x = Mapper<StocktwitsSentiment>().map(JSONString: data.rawString()!){
+                            dic[id] = x as PremiumDataBase
+                        }
+                        break
+                    case Constants.premiumPackageIds.PREMIUM_PRECISION_ALPHA_PRICE_DYNAMICS:
+                        if let x = Mapper<PrecisionAlphaDynamics>().map(JSONString: data.rawString()!){
                             dic[id] = x as PremiumDataBase
                         }
                         break
@@ -486,17 +868,17 @@ class MyRestAPI: HTTPRequest {
             for i in 0..<json.count{
                 let JSONString:String = json[i].rawString()!
                 if let n = Mapper<News>().map(JSONString: JSONString){
-                    if Constants.demo || n.lang == "en" {
-                        newsList.append(n)
-                    }
+                    newsList.append(n)
                 }
             }
             completionHandler(newsList)
         }
     }
     
-    public func getTiprankSymbols(completionHandler: @escaping ([PriceTargetTopAnalysts])->Void){
-        let queryURL = buildQuery(url: apiurl + marketEndpoint + "/tipranks/symbols", params: [:])
+    public func getTiprankSymbols(_ numAnalystThreshold:String?, completionHandler: @escaping ([PriceTargetTopAnalysts])->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/tipranks/symbols", params: [
+            "numAnalystThreshold": numAnalystThreshold ?? ""
+            ])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
             var symbols:[PriceTargetTopAnalysts] = []
@@ -507,6 +889,21 @@ class MyRestAPI: HTTPRequest {
                 }
             }
             completionHandler(symbols)
+        }
+    }
+    
+    public func getFidelityAnalysts(completionHandler: @escaping ([FidelityScore])->Void){
+        let queryURL = buildQuery(url: apiurl + marketEndpoint + "/fidelity/scores", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var scores:[FidelityScore] = []
+            for i in 0..<json.count{
+                let JSONString:String = json[i].rawString()!
+                if let n = Mapper<FidelityScore>().map(JSONString: JSONString){
+                    scores.append(n)
+                }
+            }
+            completionHandler(scores)
         }
     }
     
@@ -526,7 +923,7 @@ class MyRestAPI: HTTPRequest {
     }
     
     public func getStocktwitsPostsForSymbol(symbol:String, completionHandler: @escaping ([StocktwitsPost])->Void){
-        let queryURL = buildQuery(url: apiurl + stockEndpoint + "/stocktwits-for-symbol/" + symbol, params: [:])
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/stocktwits-for-symbol/" + symbol, params: [:])
         self.getRequest(queryURL: queryURL) { (data) in
             let json = JSON(data)
             var posts:[StocktwitsPost] = []
@@ -591,6 +988,26 @@ class MyRestAPI: HTTPRequest {
             let json = JSON(data)
             let success = json["result"].bool ?? false
             completionHandler(success)
+        }
+    }
+    
+    public func addUserIssue(message:String, email:String, completionHandler: @escaping ()->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/add-issue", params: [:])
+        let body = [
+            "issue": message,
+            "email": email
+        ]
+        self.postRequest(queryURL: queryURL, body: body) { (data) in
+            completionHandler()
+        }
+    }
+    
+    public func getEmailFromFirstUserIssue(completionHandler: @escaping (String)->Void){
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/get-email-from-latest-issue", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            let email = json["email"].string ?? ""
+            completionHandler(email)
         }
     }
     
@@ -715,6 +1132,9 @@ class MyRestAPI: HTTPRequest {
                 } else if error == nil && data !=  nil {
                     completion(JSON(data!))
                 }
+            } else {
+                self.networkDelegate?.networkError()
+                completion(JSON())
             }
         }
     }
@@ -746,6 +1166,9 @@ class MyRestAPI: HTTPRequest {
                 } else if error == nil && data !=  nil {
                     completion(JSON(data!))
                 }
+            } else {
+                self.networkDelegate?.networkError()
+                completion(JSON())
             }
         }
     }
@@ -763,6 +1186,5 @@ class MyRestAPI: HTTPRequest {
             }
         }
     }
-    
 
 }

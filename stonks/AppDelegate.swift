@@ -10,11 +10,14 @@ import UIKit
 import Firebase
 import FirebaseCore
 import AuthenticationServices
+import FCAlertView
+import GoogleMobileAds
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, NetworkDelegate {
 
     var window: UIWindow?
+    var lastErrorAlertTimestamp = 0
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -24,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         FirebaseApp.configure()
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+
         
 //        do {
 //            try KeychainItem(service: Bundle.main.bundleIdentifier!, account: "userIdentifier").deleteItem()
@@ -31,15 +36,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            print("Unable to delete userIdentifier to keychain.")
 //        }
         
+        NetworkManager.getMyRestApi().networkDelegate = self
+        
         if !KeychainItem.currentUserIdentifier.isEmpty {
             DispatchQueue.main.async {
                 self.window?.rootViewController?.showHomeViewController()
             }
         }
-        
-        NetworkManager.getMyRestApi().getCreditsForCurrentUser { credits in
-            Dataholder.updateCreditBalance(credits)
-        }
+
         
 //        let appleIDProvider = ASAuthorizationAppleIDProvider()
 //        appleIDProvider.getCredentialState(forUserID: KeychainItem.currentUserIdentifier) { (credentialState, error) in
@@ -55,6 +59,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            }
 //        }
         return true        
+    }
+    
+    func networkError() {
+        let now = NSDate().timeIntervalSince1970
+        if Int(now) - self.lastErrorAlertTimestamp < 60000 {
+            return
+        }
+        DispatchQueue.main.async {
+            if var topController = self.window?.rootViewController?.presentedViewController {
+                self.lastErrorAlertTimestamp = Int(now)
+                let message = String("Could not contact server")
+                let alert = FCAlertView()
+                alert.colorScheme = Constants.darkPink
+                alert.dismissOnOutsideTouch = true
+                alert.detachButtons = true
+                print()
+                print()
+                print("showing alert in " + topController.title!)
+                print()
+                print()
+                alert.showAlert(inView: topController,
+                                withTitle: "Error",
+                                withSubtitle: message,
+                                withCustomImage: UIImage(systemName: "exclamationmark.triangle.fill"),
+                                withDoneButtonTitle: "Ok", andButtons: nil)
+            }
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

@@ -78,6 +78,19 @@ import UIKit
     override func awakeFromNib() {
     }
     
+    public func setProgressNoLabel(_ progress: CGFloat){
+        var p = progress
+        if p < 0 {
+            p = 0
+        }
+        if self.progress != p {
+            self.progress = p
+            self.progressValueLabel?.text = ""
+            self.addAnimation()
+            self.setNeedsDisplay()
+        }
+    }
+    
     public func setProgress(_ progress: CGFloat) {
         var p = progress
         if p < 0 {

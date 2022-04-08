@@ -80,11 +80,11 @@ class IncomeChart: BarChartView {
             }
       
             let incomeSet = BarChartDataSet(entries: incomeEntries)
-            self.configureDataSet(dataset: incomeSet, label: "Income", color: Constants.orange)
+            self.configureDataSet(dataset: incomeSet, label: "Income", color: Constants.green)
             let revSet = BarChartDataSet(entries: revEntries)
             self.configureDataSet(dataset: revSet, label: "Revenue", color: Constants.blue)
             let opSet = BarChartDataSet(entries: opIncEntries)
-            self.configureDataSet(dataset: opSet, label: "Operating Income", color: Constants.purple)
+            self.configureDataSet(dataset: opSet, label: "Operating Income", color: Constants.teal)
 
             DispatchQueue.main.async {
                 let data = BarChartData()

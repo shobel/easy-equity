@@ -23,7 +23,7 @@ class StockDataTask: RepeatingUpdate {
     
     var timer:Timer?
     var caller: Updateable!
-    var timeInterval: Double = 30.0
+    var timeInterval: Double = 60.0
     public var hibernating:Bool = false
     
     public init(caller: Updateable, timeInterval: Double){
@@ -66,8 +66,8 @@ class WatchlistUpdater: StockDataTask {
     
     var watchlistManager: WatchlistManager!
     var watchlist: [Company]!
-    var lastFire: Int?
-    var numUpdates = 0
+    
+    var watchlistFetchTimer:Timer?
     
     public override init(caller: Updateable, timeInterval: Double){
         super.init(caller: caller, timeInterval: timeInterval)
@@ -76,23 +76,16 @@ class WatchlistUpdater: StockDataTask {
     }
     
     @objc override func update(){
-        numUpdates += 1
-        let now:Int = Int(Date().timeIntervalSince1970)
-        if lastFire != nil {
-            let diff = (now - lastFire!)
-            print(String("WU (hibernating: \(hibernating)): \(diff)"))
-        }
-        lastFire = now
-
         if (!hibernating){
             DispatchQueue.global(qos: .background).async {
                 let tickers = self.watchlistManager.getTickers()
-                //print("watchlist updater fired!")
+                print("watchlist updater fired!")
                 NetworkManager.getMyRestApi().getQuotesAndSimplifiedCharts(symbols: tickers, completionHandler: { (quotes: [Quote])->Void in
                     for c in self.watchlistManager.getWatchlist() {
-                        for q in quotes {
+                        for var q in quotes {
                             if (c.symbol == q.symbol) {
                                 c.quote = q
+                                break
                             }
                         }
                     }
@@ -102,6 +95,45 @@ class WatchlistUpdater: StockDataTask {
             }
         } else {
             self.caller.updateFromScheduledTask(nil)
+        }
+    }
+    
+    public func startWatchlistFetchingTimer() {
+        DispatchQueue.main.async {
+            self.watchlistFetchTimer = Timer.scheduledTimer(timeInterval: TimeInterval(60.0), target: self, selector: #selector(self.watchlistFetchLoop), userInfo: nil, repeats: true)
+            print("\n new watchlist fetching timer created with interval 60s \n")
+            self.watchlistFetchTimer!.fire()
+        }
+    }
+    
+    public func stopWatchlistFetchingTimer(){
+        if self.watchlistFetchTimer != nil {
+            self.watchlistFetchTimer!.invalidate()
+        }
+    }
+    
+    @objc func watchlistFetchLoop(){
+        DispatchQueue.global(qos: .background).async {
+            NetworkManager.getMyRestApi().getCreditsForCurrentUser { credits in
+                Dataholder.updateCreditBalance(credits)
+            }
+            NetworkManager.getMyRestApi().getWatchlistForCurrentUser() { quotes in
+                self.watchlist = self.watchlistManager.getWatchlist()
+                if self.watchlist.count > 0 {
+                    for c in self.watchlist {
+                        for q in quotes {
+                            if (c.symbol == q.symbol) {
+                                c.quote = q
+                                break
+                            }
+                        }
+                    }
+                    self.watchlist.sort { a, b in
+                        return (a.quote?.changePercent) ?? 0.0 > (b.quote?.changePercent) ?? 0.0
+                    }
+                    self.caller.updateFromScheduledTask(nil)
+                }
+            }
         }
     }
     

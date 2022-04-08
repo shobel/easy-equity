@@ -54,11 +54,7 @@ extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "marketNewsCollectionCell", for: indexPath) as! MarketNewsCollectionViewCell
             let news:News = self.marketNews[indexPath.row]
             cell.heading.text = news.headline
-            let date = Date(timeIntervalSince1970: Double(news.datetime! / 1000))
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMM d, yy"
-            let localDate = dateFormatter.string(from: date)
-            cell.date.text = localDate
+            cell.date.text = news.date!
             let url = URL(string: news.image!)
             DispatchQueue.global().async {
                 if let data = try? Data(contentsOf: url!) {
@@ -69,7 +65,6 @@ extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate 
             }
             cell.source.text = news.source
             cell.symbols.text = news.related
-            cell.paywall = news.hasPaywall!
             cell.url = news.url
             return cell
         } else if collectionView.restorationIdentifier == "topAnalysts"{
@@ -102,11 +97,10 @@ extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate 
             let url = URL(string: marketNewsItem.url!)
             let config = SFSafariViewController.Configuration()
             config.entersReaderIfAvailable = true
-            var vc = SFSafariViewController(url: URL(string: "https://www.google.com")!)
-            if (marketNewsItem.url?.starts(with: "http"))! {
-                vc = SFSafariViewController(url: url!, configuration: config)
+            if url != nil && (marketNewsItem.url?.starts(with: "http"))! {
+                let vc = SFSafariViewController(url: url!, configuration: config)
+                present(vc, animated: true)
             }
-            present(vc, animated: true)
         }
     }
     
@@ -119,8 +113,6 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     //@IBOutlet weak var marketNewsTableView: MarketNewsTableView!
-    @IBOutlet weak var stocktwitsTable: UITableView!
-    @IBOutlet weak var stocktwitsTableHeight: NSLayoutConstraint!
     
     @IBOutlet weak var marketView: UIView!
     @IBOutlet weak var marketNewsCollection: UICollectionView!
@@ -137,10 +129,8 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     private var currentTopAnalystSymbols:[PriceTargetTopAnalysts] = []
     private var maxNumTopAnalystItems:Int = 10
     private var marketNews:[News] = []
-    private var stocktwitsPosts:[StocktwitsPost] = []
-    @IBOutlet weak var noTopAnalystsLabel: UILabel!
+    @IBOutlet weak var noTopAnalystsLabel: UIButton!
     
-    private var stocktwitsTableHeights:[CGFloat] = []
     private var refreshControl:UIRefreshControl!
     
     private var itemsLoaded:Int = 0
@@ -171,23 +161,10 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         marketNewsCollection.delegate = self
         marketNewsCollection.dataSource = self
         
-        stocktwitsTable.delegate = self
-        stocktwitsTable.dataSource = self
-        
         activityIndicatorView = UIActivityIndicatorView(style: .large)
         self.view.addSubview(activityIndicatorView)
         activityIndicatorView.center = self.view.center
-        
-        self.loadingStarted()
-        NetworkManager.getMyRestApi().getTop10s(completionHandler: handleTop10s)
-        NetworkManager.getMyRestApi().getMarketNews(completionHandler: handleMarketNews)
-        NetworkManager.getMyRestApi().getTiprankSymbols(completionHandler: handleTopAnalysts)
-        NetworkManager.getMyRestApi().getStocktwitsPostsTrending(summary: "false", completionHandler: handleStocktwitsPosts)
-        if Dataholder.allTickers.isEmpty {
-            self.numItems += 1
-            NetworkManager.getMyRestApi().listCompanies(completionHandler: handleListCompanies)
-        }
-        
+                
         self.scrollView.refreshControl = UIRefreshControl()
         self.scrollView.refreshControl!.attributedTitle = NSAttributedString(string: "refreshing...")
         self.scrollView.refreshControl!.addTarget(self, action: #selector(didPullToRefresh), for: UIControl.Event.valueChanged)
@@ -201,25 +178,28 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         self.refreshAll()
     }
     
-    //TODO-SAM: auto refresh every 10 minutes during market hours
+    //refreshes no more often than every 10 min
     private func refreshAll(){
-        if Date().timeIntervalSince1970 - self.lastLoadedTimestamp > (60*30){
+        if Date().timeIntervalSince1970 - self.lastLoadedTimestamp > (60*10){
             self.lastLoadedTimestamp = Date().timeIntervalSince1970
             self.itemsLoaded = 0
-            self.numItems = 4
             self.loadingStarted()
             NetworkManager.getMyRestApi().getTop10s(completionHandler: handleTop10s)
             NetworkManager.getMyRestApi().getMarketNews(completionHandler: handleMarketNews)
-            NetworkManager.getMyRestApi().getTiprankSymbols(completionHandler: handleTopAnalysts)
-            NetworkManager.getMyRestApi().getStocktwitsPostsTrending(summary: "false", completionHandler: handleStocktwitsPosts)
+            NetworkManager.getMyRestApi().getTiprankSymbols("5", completionHandler: handleTopAnalysts)
+//            NetworkManager.getMyRestApi().getStocktwitsPostsTrending(summary: "false", completionHandler: handleStocktwitsPosts)
+            if Dataholder.allTickers.isEmpty {
+                self.numItems += 1
+                NetworkManager.getMyRestApi().listCompanies(completionHandler: handleListCompanies)
+            }
         } else {
-            self.stocktwitsTable.reloadData()
             self.scrollView.refreshControl!.endRefreshing()
+            self.loadingFinished()
         }
     }
     
     @IBAction func sortTop10List(_ sender: Any) {
-        self.top10CollectionView.scrollToItem(at: IndexPath(item: 0, section: 1), at: .left, animated: true)
+        self.top10CollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
         let actionController = SkypeActionController() //not really for skype
         actionController.addAction(Action("Top Gainers", style: .default, handler: { action in
             self.top10Title.text = "Top Gainers"
@@ -240,7 +220,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     @IBAction func sortTopAnalysts(_ sender: Any) {
-        self.topAnalystsCollection.scrollToItem(at: IndexPath(item: 0, section: 1), at: .left, animated: true)
+        self.topAnalystsCollection.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
         let actionController = SkypeActionController() //not really for skype
         actionController.addAction(Action("Upside Percentage", style: .default, handler: { action in
             self.priceTargetTopAnalysts = self.priceTargetTopAnalysts.sorted {
@@ -313,8 +293,34 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     private func handleTopAnalysts(_ topAnalystSymbols:[PriceTargetTopAnalysts]) {
         self.priceTargetTopAnalysts = topAnalystSymbols
         self.priceTargetTopAnalysts.sort { (p1, p2) -> Bool in
-            return p1.upsidePercent ?? Double(Int.min) > p2.upsidePercent ?? Double(Int.min)
+            return p1.numAnalysts ?? 0 > p2.numAnalysts ?? 0
         }
+        self.priceTargetTopAnalysts = self.priceTargetTopAnalysts.filter({ p in
+            p.numAnalysts ?? 0 > 5
+        })
+        self.itemsLoaded += 1
+        var symbolSet:Set<String> = []
+        for a in self.priceTargetTopAnalysts {
+            symbolSet.insert(a.symbol!)
+        }
+        if symbolSet.isEmpty {
+            self.handleLatestQuotes(quotes: [])
+        }
+        NetworkManager.getMyRestApi().getQuotes(symbols: Array(symbolSet), completionHandler: handleLatestQuotes)
+    }
+    
+    private func handleLatestQuotes(quotes:[Quote]){
+        var newAnalystSymbolList:[PriceTargetTopAnalysts] = []
+        for var item in self.priceTargetTopAnalysts {
+            for quote in quotes {
+                if quote.symbol == item.symbol && item.avgPriceTarget != nil && quote.latestPrice != nil{
+                    item.upsidePercent = ((item.avgPriceTarget! - quote.latestPrice!) / quote.latestPrice!) * 100.0
+                    break
+                }
+            }
+            newAnalystSymbolList.append(item)
+        }
+        self.priceTargetTopAnalysts = newAnalystSymbolList
         self.itemsLoaded += 1
         if self.itemsLoaded >= self.numItems {
             self.loadingFinished()
@@ -328,37 +334,10 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.topAnalystsCollection.isHidden = false
             }
             self.currentTopAnalystSymbols = Array(self.priceTargetTopAnalysts.prefix(self.maxNumTopAnalystItems))
-            self.currentTopAnalystSymbols = self.currentTopAnalystSymbols.filter({ p in
-                p.upsidePercent != nil
-            })
+//            self.currentTopAnalystSymbols = self.currentTopAnalystSymbols.filter({ p in
+//                p.upsidePercent != nil
+//            })
             self.topAnalystsCollection.reloadData()
-        }
-    }
-    
-    private func handleStocktwitsPosts(_ posts:[StocktwitsPost]){
-        self.stocktwitsPosts = posts
-        self.itemsLoaded += 1
-        if self.itemsLoaded >= self.numItems {
-            self.loadingFinished()
-        }
-        DispatchQueue.main.async {
-            self.stocktwitsTable.reloadData()
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if tableView.restorationIdentifier == "stocktwitsTable" {
-            self.stocktwitsTableHeights.append(cell.frame.height)
-            if self.stocktwitsTableHeights.count == self.stocktwitsPosts.count {
-                let totalHeight = self.stocktwitsTableHeights.reduce(0, { x, y in
-                    x + y
-                })
-                DispatchQueue.main.async {
-                    self.stocktwitsTableHeights = []
-                    self.stocktwitsTableHeight.constant = totalHeight
-                    super.updateViewConstraints()
-                }
-            }
         }
     }
     
@@ -383,8 +362,6 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             return self.marketNews.count
         } else if tableView.restorationIdentifier == "searchTable" {
             return searchResults.count
-        } else if tableView.restorationIdentifier == "stocktwitsTable" {
-            return stocktwitsPosts.count
         }
         return 0
     }
@@ -404,50 +381,8 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 cell.addedToWatchlist(false)
             }
             return cell
-        } else { //if tableView.restorationIdentifier == "stocktwitsTable" 
-            let cell = stocktwitsTable.dequeueReusableCell(withIdentifier: "stocktwitsCell") as! StocktwitsTableViewCell
-            let post = self.stocktwitsPosts[indexPath.row]
-            cell.id = post.id
-            cell.username.setTitle(post.username, for: .normal)
-            cell.message.text = post.body
-            
-            if let body = post.body {
-                let string = NSMutableAttributedString(string: body)
-                string.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 16), range: NSRange(location: 0, length: string.length))
-                let words:[String] = body.components(separatedBy:" ")
-                for word in words {
-                    if word.count > 1 && word.hasPrefix("$"){
-                        let index = word.index(word.startIndex, offsetBy: 1)
-                        if String(word[index]).range(of: "[^a-zA-Z]", options: .regularExpression) == nil {
-                            let range:NSRange = (string.string as NSString).range(of: word)
-                            string.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 18), range: range)
-                            if let link = NSURL(string:String("http://www.stocktwits.com/\(word)")) {
-                                string.addAttribute(NSAttributedString.Key.link, value: link, range: range)
-                            }
-                        }
-                    }
-                }
-                cell.message.attributedText = string
-            }
-            
-            if let ts = post.timestamp {
-                cell.timeButton.setTitle(Date(timeIntervalSince1970: TimeInterval(ts / 1000)).timeAgoSinceDate(), for: .normal)
-            } else if let ca = post.createdAt {
-                let ts = GeneralUtility.isoDateToTimestamp(isoString: ca)
-                cell.timeButton.setTitle(Date(timeIntervalSince1970: TimeInterval(ts)).timeAgoSinceDate(), for: .normal)
-            }
-            if post.sentiment == "Bearish" {
-                cell.bullbear.text = "BEARISH"
-                cell.bullbear.textColor = Constants.darkPink
-            } else if post.sentiment == "Bullish" {
-                cell.bullbear.text = "BULLISH"
-                cell.bullbear.textColor = Constants.green
-            } else {
-                cell.bullbear.text = "NEUTRAL"
-                cell.bullbear.textColor = .lightGray
-            }
-            return cell
         }
+        return UITableViewCell()
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -473,16 +408,14 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
 
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if !(tableView is MarketNewsTableView) && tableView.restorationIdentifier != "stocktwitsTable" {
+        if !(tableView is MarketNewsTableView) {
             Dataholder.selectedCompany = searchResults[indexPath.row]
         }
         return indexPath
     }
 
-    @IBAction func stocktwitsTapped(_ sender: Any) {
-        if let url = URL(string: String("http://www.stocktwits.com")) {
-            UIApplication.shared.open(url)
-        }
+    @IBAction func topAnalystsSubButton(_ sender: Any) {
+        self.tabBarController?.selectedIndex = 3
     }
     /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -32,22 +32,43 @@ class SimplestLineChart: LineChartView {
         self.noDataText = ""
     }
     
-    public func setData(_ data: [Double]){
+    public func config(enableLeftAxis:Bool){
+        self.leftAxis.enabled = enableLeftAxis
+    }
+    public func setLabelPosition(outside:Bool) {
+        if outside {
+            self.leftAxis.labelPosition = .outsideChart
+        } else {
+            self.leftAxis.labelPosition = .insideChart
+        }
+    }
+    
+    public func setData(_ data: [[Double]], colors:[UIColor]){
         self.setup()
         
-        var lineEntries:[ChartDataEntry] = []
+        var datasets:[LineChartDataSet] = []
+        
         for i in 0..<data.count {
-            lineEntries.append(ChartDataEntry(x: Double(i), y: data[i]))
+            var lineEntries:[ChartDataEntry] = []
+            for j in 0..<data[i].count {
+                lineEntries.append(ChartDataEntry(x: Double(j), y: data[i][j]))
+            }
+            let lineChartDataSet = LineChartDataSet(entries: lineEntries)
+            lineChartDataSet.drawCirclesEnabled = false
+            lineChartDataSet.drawCircleHoleEnabled = false
+            lineChartDataSet.drawValuesEnabled = false
+            lineChartDataSet.drawFilledEnabled = false
+            
+            if colors.count > i {
+                lineChartDataSet.setColor(colors[i])
+            } else {
+                lineChartDataSet.setColor(Constants.blue)
+            }
+            datasets.append(lineChartDataSet)
         }
-        let lineChartDataSet = LineChartDataSet(entries: lineEntries)
-        lineChartDataSet.drawCirclesEnabled = false
-        lineChartDataSet.drawCircleHoleEnabled = false
-        lineChartDataSet.drawValuesEnabled = false
-        lineChartDataSet.drawFilledEnabled = false
-        lineChartDataSet.setColor(Constants.darkGrey)
         
         DispatchQueue.main.async {
-            self.data = LineChartData(dataSet: lineChartDataSet)
+            self.data = LineChartData(dataSets: datasets)
             self.notifyDataSetChanged()
         }
     }

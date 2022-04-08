@@ -1,4 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-stonks/Pods-stonks-frameworks.sh
+${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt
 ${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework
 ${BUILT_PRODUCTS_DIR}/Charts/Charts.framework
 ${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework
