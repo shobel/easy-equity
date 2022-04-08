@@ -36,4 +36,4 @@
    - users can submit feedback and indicate problems with transaction items (purchasing credits, exchanging credits for data)
    - extensive documentation for each feature - how they work, calculations used, etc
    - faq
-14. Optional Ad viewing
+14. Optional Ad viewing ✔
