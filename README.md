@@ -4,27 +4,36 @@
 
 ### Features of the project
 
-1. Create portfolio/watchlist
-   + Multiple lists?
-2. See stock charts and other important data
-   + Earnings date
-   + News
-   + Target prices and analyst info from tipranks
-   + Financial information and fundamental analysis
-3. Get daily recommended actions about your portfolio based on a variety of indicators
-   + Trends: long/medium/shorterm -> following and breaking trends
-   + Supports and resistances (failing to break through previous ATH or breaking above it)
-   + Gap-filling
-   + 20/50/100/200-day simple moving average proximity
-   + Earnings date proximity (mostly for selling covered calls)
-   + Dividend payout
-   + RSI/MACD/BB and deviation from normal trading ranges
-   + 3-day rule reminder after large price movements
-   + The Thursday rule
-   + Collars with optimal risk/reward ratios using analyst price targets: user can add a trade and be notified if/when the trade should be closed
-      + for collars: trade finding involves considering the smallest amount of money that could be used to execute the trade (cost of 100 shares - premium of sell 1 call + cost of buy 1 put) and that amount can be scaled up (x2, x3, x4, etc) as much as needed
-4. Consider adding an information page about proper investing mindset
-   + preservation of wealth above all
-   + importance of big early contributions and saving maximum amount of money
-   + optimal risk/reward setups (1:4 ratios)
-   + simulator??
+1. Watchlist ✔
+   - chart previews
+   - sorting methods
+2. Search stocks feature ✔
+   - top X lists and market news
+3. Charts on different time frames
+   - line and bar chart switching
+   - volume chart
+4. Individual stock details ✔
+   - company profile information
+   - peer lists
+   - lots of stats
+   - stock news
+   - social media sentiments
+   - earnings date
+   - financial (revenue, profit, etc) charts
+   - analyst price targets
+   - analyst recommendations
+   - user-customizable scoring system based on fundamental metrics
+   - premium data from IEX collaborators (users can get this data via the purchase of in-app credits)
+9. Market and Economy data ✔
+   - fear and greed
+   - sector performances
+   - real gdp and other economic metrics
+10. Global rankings stocks based on different scoring systems ✔
+   - top performing analysts
+   - user-customizable fundamental analysis
+12. Organized Tweets by stock mentions from Twitter Accounts ✔
+13. Support system ✔
+   - users can submit feedback and indicate problems with transaction items (purchasing credits, exchanging credits for data)
+   - extensive documentation for each feature - how they work, calculations used, etc
+   - faq
+14. Optional Ad viewing
