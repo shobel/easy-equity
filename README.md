@@ -28,7 +28,7 @@
    - fear and greed
    - sector performances
    - real gdp and other economic metrics
-10. Global rankings stocks based on different scoring systems ✔
+10. Global rankings stocks based on different scoring systems
    - top performing analysts
    - user-customizable fundamental analysis
 12. Organized Tweets by stock mentions from Twitter Accounts ✔
