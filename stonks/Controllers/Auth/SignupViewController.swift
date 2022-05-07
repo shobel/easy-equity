@@ -28,7 +28,10 @@ class SignupViewController: UIViewController {
         self.emailInput.becomeFirstResponder()
         self.registerButton.layer.cornerRadius = 25
 
-        // Do any additional setup after loading the view.
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [UIColor(red: 65.0/255.0, green: 22.0/255.0, blue: 91.0/255.0, alpha: 1.0).cgColor, UIColor(red: 28.0/255.0, green: 20.0/255.0, blue: 67.0/255.0, alpha: 1.0).cgColor]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     @IBAction func registerButtonClicked(_ sender: Any) {

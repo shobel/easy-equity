@@ -76,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NetworkDelegate {
                 alert.detachButtons = true
                 print()
                 print()
-                print("showing alert in " + topController.title!)
+                print("showing alert in " + (topController.title ?? "a controller with no title"))
                 print()
                 print()
                 alert.showAlert(inView: topController,

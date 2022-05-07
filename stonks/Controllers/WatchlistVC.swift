@@ -101,6 +101,7 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
             if self.watchlist.count == 0 {
                 if self.watchlistUpdater == nil {
                     self.watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: 60.0)
+                    Dataholder.watchlistUpdater = self.watchlistUpdater
                     self.watchlistUpdater!.startWatchlistFetchingTimer()
                 }
             } else {
@@ -136,6 +137,7 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
             if !self.watchlist.isEmpty {
                 if self.watchlistUpdater == nil {
                     self.watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: 60.0)
+                    Dataholder.watchlistUpdater = self.watchlistUpdater
                     self.watchlistUpdater!.startTask()
                 }
             }

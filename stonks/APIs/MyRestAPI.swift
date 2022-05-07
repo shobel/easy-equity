@@ -13,8 +13,8 @@ import Firebase
 
 class MyRestAPI: HTTPRequest {
     
-    private var apiurl = "http://192.168.1.124:3000/api"
-    //private var apiurl = "http://localhost:3000/api"
+    //private var apiurl = "https://stoccoon.com/api"
+    private var apiurl = "http://192.168.1.113:3000/api" //192.168.1.113
     
     private var appEndpoint = "/app"
     private var userEndpoint = "/user"
@@ -60,15 +60,28 @@ class MyRestAPI: HTTPRequest {
         }
     }
 
-    public func signInWithAppleToken(token:String, completionHandler: @escaping (JSON)->Void){
+    public func signInWithAppleToken(token:String, completionHandler: @escaping (JSON?)->Void){
         let body = [
             "token": token
         ]
         let queryURL = buildQuery(url: apiurl + authEndpoint + "/signinwithappletoken", params: [:])
         //this post request should always succeed, save tokens, and take u to landing
         self.postRequest(queryURL: queryURL, body: body) { (data) in
-            self.saveTokenObjInKeychain(data)
-            completionHandler(data)
+            if (data.dictionary == nil || data.dictionary!.isEmpty) {
+                completionHandler(nil)
+            } else {
+                self.saveTokenObjInKeychain(data)
+                completionHandler(data)
+            }
+        }
+    }
+    
+    public func createUser(_ withEmail:String, completionHandler: @escaping ()->Void) {
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/createUser/" + withEmail, params: [:])
+        //this post request should always succeed, save tokens, and take u to landing
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            completionHandler()
         }
     }
     
@@ -211,6 +224,16 @@ class MyRestAPI: HTTPRequest {
                     }
                 } else if packageId == Constants.premiumPackageIds.PREMIUM_PRECISION_ALPHA_PRICE_DYNAMICS {
                     if let p = Mapper<PrecisionAlphaDynamics>().map(JSONString: JSONString){
+                        completionHandler(p, json["credits"].intValue, nil)
+                        return
+                    }
+                } else if packageId == Constants.premiumPackageIds.EXTRACT_ALPHA_CROSS_ASSET_MODEL {
+                    if let p = Mapper<CrossAsset>().map(JSONString: JSONString){
+                        completionHandler(p, json["credits"].intValue, nil)
+                        return
+                    }
+                } else if packageId == Constants.premiumPackageIds.EXTRACT_ALPHA_TACTICAL_MODEL {
+                    if let p = Mapper<TacticalModel>().map(JSONString: JSONString){
                         completionHandler(p, json["credits"].intValue, nil)
                         return
                     }
@@ -829,6 +852,16 @@ class MyRestAPI: HTTPRequest {
                         break
                     case Constants.premiumPackageIds.PREMIUM_PRECISION_ALPHA_PRICE_DYNAMICS:
                         if let x = Mapper<PrecisionAlphaDynamics>().map(JSONString: data.rawString()!){
+                            dic[id] = x as PremiumDataBase
+                        }
+                        break
+                    case Constants.premiumPackageIds.EXTRACT_ALPHA_CROSS_ASSET_MODEL:
+                        if let x = Mapper<CrossAsset>().map(JSONString: data.rawString()!){
+                            dic[id] = x as PremiumDataBase
+                        }
+                        break
+                    case Constants.premiumPackageIds.EXTRACT_ALPHA_TACTICAL_MODEL:
+                        if let x = Mapper<TacticalModel>().map(JSONString: data.rawString()!){
                             dic[id] = x as PremiumDataBase
                         }
                         break

@@ -32,13 +32,7 @@ class WatchAdsViewController: UIViewController, GADFullScreenContentDelegate {
     }
     
     @IBAction func donateButton(_ sender: Any) {
-        if let url = URL(string: "https://cash.app/$SamHobel") {
-            UIApplication.shared.open(url)
-        }
-    }
-    
-    @IBAction func donateVenmo(_ sender: Any) {
-        if let url = URL(string: "https://venmo.com/code?user_id=1834400002080768409") {
+        if let url = URL(string: "https://sites.google.com/view/stoccoon/home") {
             UIApplication.shared.open(url)
         }
     }

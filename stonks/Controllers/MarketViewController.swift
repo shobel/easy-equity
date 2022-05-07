@@ -8,6 +8,8 @@
 
 import UIKit
 import GaugeKit
+import FCAlertView
+
 class MarketViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var overallFearGreed: UILabel!
@@ -120,7 +122,26 @@ class MarketViewController: UIViewController, UICollectionViewDelegate, UICollec
 
     }
     
-
+    @IBAction func fearAndGreedHelp(_ sender: Any) {
+        self.showInfoAlert("Market market emotion index is computed by analyzing what percentage of stocks in the market are in a uptrend and are above their 6 month exponential moving average (EMA)")
+    }
+    
+    func showInfoAlert(_ message:String){
+        let alert = FCAlertView()
+        alert.doneActionBlock {
+            //print()
+        }
+        alert.colorScheme = Constants.blue
+        alert.dismissOnOutsideTouch = true
+        alert.detachButtons = true
+        alert.showAlert(inView: self,
+                        withTitle: "Fear and Greed",
+                        withSubtitle: message,
+                        withCustomImage: UIImage(systemName: "questionmark.circle"),
+                        withDoneButtonTitle: "Ok",
+                        andButtons: [])
+    }
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? FearGreedViewController {

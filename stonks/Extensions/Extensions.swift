@@ -20,11 +20,12 @@ extension UIViewController {
     }
     
     func showAuthViewController(){
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let authVC = storyboard.instantiateViewController(withIdentifier: "Auth")
-        authVC.isModalInPresentation = false
-        authVC.modalPresentationStyle = .fullScreen
-        UIApplication.topViewController()?.present(authVC, animated: true, completion: nil)
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let authVC = storyboard.instantiateViewController(withIdentifier: "Auth")
+//        authVC.isModalInPresentation = false
+//        authVC.modalPresentationStyle = .fullScreen
+//        UIApplication.topViewController()?.present(authVC, animated: true, completion: nil)
+        self.navigationController?.popToRootViewController(animated: false)
     }
 }
 

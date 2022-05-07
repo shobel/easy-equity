@@ -28,8 +28,10 @@ class CompanyScoreTableViewCell: UITableViewCell {
         industryContainer.layer.cornerRadius = 10
         industryContainer.layer.backgroundColor = UIColor.gray.cgColor
         
-        rank.layer.cornerRadius = (rank.frame.width)/2
+        rank.layer.cornerRadius = (rank.frame.height)/2
         rank.layer.masksToBounds = true
+        rank.adjustsFontSizeToFitWidth = true
+        rank.minimumScaleFactor = 0.5
         
         score.layer.cornerRadius = (score.frame.width)/2
         score.layer.masksToBounds = true
@@ -45,7 +47,7 @@ class CompanyScoreTableViewCell: UITableViewCell {
     
     public func setData(industryColor: UIColor, rank:Int, industryRank:Int, industryTotal:Int, percentile:Double){
         self.industryContainer.layer.backgroundColor = industryColor.cgColor
-        self.score.backgroundColor = self.getScoreTextColor(percentile).withAlphaComponent(0.2)
+//        self.score.backgroundColor = self.getScoreTextColor(percentile).withAlphaComponent(0.2)
         self.score.textColor = self.getScoreTextColor(percentile)
         self.rank.backgroundColor = self.getScoreTextColor(percentile).withAlphaComponent(0.2)
         self.rank.textColor = self.getScoreTextColor(percentile)

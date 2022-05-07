@@ -30,7 +30,10 @@ struct Constants{
         PREMIUM_BRAIN_SENTIMENT_30_DAYS: "PREMIUM_BRAIN_SENTIMENT_30_DAYS",
         STOCKTWITS_SENTIMENT: "STOCKTWITS_SENTIMENT",
         PREMIUM_PRECISION_ALPHA_PRICE_DYNAMICS: "PREMIUM_PRECISION_ALPHA_PRICE_DYNAMICS",
-        TOP_ANALYSTS_SCORES: "TOP_ANALYSTS_SCORES"
+        TOP_ANALYSTS_SCORES: "TOP_ANALYSTS_SCORES",
+        EXTRACT_ALPHA_CROSS_ASSET_MODEL: "EXTRACT_ALPHA_CROSS_ASSET_MODEL",
+        EXTRACT_ALPHA_TACTICAL_MODEL: "EXTRACT_ALPHA_TACTICAL_MODEL"
+        
     )
     
     public static var premiumPackageNames = [
@@ -40,7 +43,9 @@ struct Constants{
         "PREMIUM_BRAIN_SENTIMENT_30_DAYS": "30 Day BRAIN Sentiment",
         "STOCKTWITS_SENTIMENT": "Stocktwits Sentiment",
         "PREMIUM_PRECISION_ALPHA_PRICE_DYNAMICS": "Precision Alpha Price Dynamics",
-        "TOP_ANALYSTS_SCORES": "Top Analyst Upside"
+        "TOP_ANALYSTS_SCORES": "Top Analyst Upside",
+        "EXTRACT_ALPHA_CROSS_ASSET_MODEL": "Extract Alpha Cross-Asset Model",
+        "EXTRACT_ALPHA_TACTICAL_MODEL": "Extract Alpha Tactical Model"
     ]
     
     public static var nonPremiumScoreIds = [

@@ -15,6 +15,7 @@ struct PremiumPackage: Mappable {
     public var name:String?
     public var credits:Int?
     public var weight:Int?
+    public var enabled:Bool?
     
     init(){}
     init?(map: Map) {}
@@ -24,6 +25,7 @@ struct PremiumPackage: Mappable {
         credits <- map["credits"]
         weight <- map["weight"]
         name <- map["name"]
+        enabled <- map["enabled"]
     }
 
 }
