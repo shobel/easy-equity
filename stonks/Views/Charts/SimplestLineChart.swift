@@ -29,7 +29,7 @@ class SimplestLineChart: LineChartView {
         self.leftAxis.valueFormatter = BigNumberAxisFormatter()
         self.rightAxis.enabled = false
         self.xAxis.enabled = false
-        self.noDataText = ""
+        self.noDataText = "No data"
     }
     
     public func config(enableLeftAxis:Bool){
@@ -64,11 +64,15 @@ class SimplestLineChart: LineChartView {
             } else {
                 lineChartDataSet.setColor(Constants.blue)
             }
-            datasets.append(lineChartDataSet)
+            if lineChartDataSet.count > 0 {
+                datasets.append(lineChartDataSet)
+            }
         }
         
         DispatchQueue.main.async {
-            self.data = LineChartData(dataSets: datasets)
+            if datasets.count > 0 {
+                self.data = LineChartData(dataSets: datasets)
+            }
             self.notifyDataSetChanged()
         }
     }

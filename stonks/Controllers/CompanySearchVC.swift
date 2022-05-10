@@ -308,8 +308,9 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         }
         if symbolSet.isEmpty {
             self.handleLatestQuotes(quotes: [])
+        } else {
+            NetworkManager.getMyRestApi().getQuotes(symbols: Array(symbolSet), completionHandler: handleLatestQuotes)
         }
-        NetworkManager.getMyRestApi().getQuotes(symbols: Array(symbolSet), completionHandler: handleLatestQuotes)
     }
     
     private func handleLatestQuotes(quotes:[Quote]){

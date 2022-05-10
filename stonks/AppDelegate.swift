@@ -43,7 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NetworkDelegate {
                 self.window?.rootViewController?.showHomeViewController()
             }
         }
-
         
 //        let appleIDProvider = ASAuthorizationAppleIDProvider()
 //        appleIDProvider.getCredentialState(forUserID: KeychainItem.currentUserIdentifier) { (credentialState, error) in

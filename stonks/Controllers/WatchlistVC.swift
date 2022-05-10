@@ -96,6 +96,10 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
     }
     
     private func loadWatchlist(){
+        NetworkManager.getMyRestApi().listCompanies { companies in
+            Dataholder.allTickers = companies
+        }
+        
         NetworkManager.getMyRestApi().getWatchlistForCurrentUser() { quotes in
             self.watchlist = self.watchlistManager.getWatchlist()
             if self.watchlist.count == 0 {
