@@ -39,6 +39,17 @@ class PriceChartPreviewView: LineChartView {
             lineEntries.append(ChartDataEntry(x: Double(i), y: data[i].value))
             lastTime = data[i].datestring!
         }
+        
+        if data.count < 39 && !Dataholder.isUSMarketOpen {
+            let missing = 39 - data.count
+            let lastChartEntry = lineEntries.last
+            for i in 0..<missing {
+                if lastChartEntry != nil {
+                    lineEntries.append(ChartDataEntry(x: Double(i+data.count), y: lastChartEntry!.y))
+                }
+            }
+        }
+        
         let lineChartDataSet = LineChartDataSet(entries: lineEntries)
         lineChartDataSet.drawCirclesEnabled = false
         lineChartDataSet.drawCircleHoleEnabled = false

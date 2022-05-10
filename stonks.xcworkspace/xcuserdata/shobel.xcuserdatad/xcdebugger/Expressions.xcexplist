@@ -66,6 +66,9 @@
          contextName = "closure #1 in FinancialsViewController.setData():FinancialsViewController.swift">
          <PersistentStrings>
             <PersistentString
+               value = "self.epsChart">
+            </PersistentString>
+            <PersistentString
                value = "dateformatter.date(from: nextReportDate)">
             </PersistentString>
             <PersistentString
@@ -125,6 +128,9 @@
          <PersistentStrings>
             <PersistentString
                value = "self.data!.xMax">
+            </PersistentString>
+            <PersistentString
+               value = "Dataholder.isUSMarketOpen">
             </PersistentString>
             <PersistentString
                value = "data.count">
@@ -204,10 +210,10 @@
          contextName = "PriceTargetChart.setChartData():PriceTargetChart.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.company">
+               value = "self.company.priceTarget">
             </PersistentString>
             <PersistentString
-               value = "self.company.priceTarget">
+               value = "self.company">
             </PersistentString>
             <PersistentString
                value = "Array(monthOfDailyPrices)">
@@ -840,10 +846,10 @@
                value = "statsVC.getContentHeight()">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
+               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
+               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -945,14 +951,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "static Company.== infix(_:_:):Company.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "lhs.generalInfo?.symbol == rhs.generalInfo?.symbol">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "closure #1 in closure #1 in MyRestAPI.getNewIdTokenWithRefreshToken(completionHandler:):MyRestAPI.swift">
          <PersistentStrings>
             <PersistentString
@@ -960,6 +958,14 @@
             </PersistentString>
             <PersistentString
                value = "UIApplication.shared.windows.first!.rootViewController!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static Company.== infix(_:_:):Company.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "lhs.generalInfo?.symbol == rhs.generalInfo?.symbol">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1197,6 +1203,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in AppDelegate.networkError():AppDelegate.swift">
+      </ContextState>
+      <ContextState
          contextName = "CompanySearchVC.handleTopAnalysts(_:):CompanySearchVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -1206,9 +1215,6 @@
                value = "self.itemsLoaded">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in AppDelegate.networkError():AppDelegate.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in EarningsViewController.updateData():EarningsViewController.swift">

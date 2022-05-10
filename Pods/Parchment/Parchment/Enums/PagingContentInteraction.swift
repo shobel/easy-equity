@@ -1,6 +1,6 @@
 import Foundation
 
 public enum PagingContentInteraction {
-  case scrolling
-  case none
+    case scrolling
+    case none
 }

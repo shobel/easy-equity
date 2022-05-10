@@ -16,10 +16,10 @@
 
 #import "FirebaseCore/Sources/FIRDiagnosticsData.h"
 
-#import "FirebaseCore/Sources/Public/FIRApp.h"
+#import "FirebaseCore/Sources/Public/FirebaseCore/FIRApp.h"
 
-#import "FirebaseCore/Sources/Private/FIRAppInternal.h"
-#import "FirebaseCore/Sources/Private/FIROptionsInternal.h"
+#import "FirebaseCore/Extension/FIRAppInternal.h"
+#import "FirebaseCore/Extension/FIROptionsInternal.h"
 
 @implementation FIRDiagnosticsData {
   /** Backing ivar for the diagnosticObjects property. */

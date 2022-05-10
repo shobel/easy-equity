@@ -332,7 +332,7 @@
 		1C75536D27D7591F00472B18 /* SocialSentimentFMP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSentimentFMP.swift; sourceTree = "<group>"; };
 		1C75536F27D790B400472B18 /* NewsSentiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSentiment.swift; sourceTree = "<group>"; };
 		1C75537127DB8BB200472B18 /* BalanceSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceSheet.swift; sourceTree = "<group>"; };
-		1C7B982C215B32D500C75014 /* Bullfrog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bullfrog.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C7B982C215B32D500C75014 /* Stoccoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stoccoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7B982F215B32D500C75014 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C7B9834215B32D500C75014 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1C7B9836215B32D700C75014 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -569,7 +569,7 @@
 		1C7B982D215B32D500C75014 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1C7B982C215B32D500C75014 /* Bullfrog.app */,
+				1C7B982C215B32D500C75014 /* Stoccoon.app */,
 				1C7B9840215B32D700C75014 /* stonksTests.xctest */,
 				1C7B984B215B32D700C75014 /* stonksUITests.xctest */,
 			);
@@ -845,12 +845,10 @@
 			buildConfigurationList = 1C7B9854215B32D700C75014 /* Build configuration list for PBXNativeTarget "stonks" */;
 			buildPhases = (
 				8E2FDE5546453462A8CFFF5F /* [CP] Check Pods Manifest.lock */,
-				7B8959ADE032DA6CA43BA559 /* [CP] Prepare Artifacts */,
 				1C7B9828215B32D500C75014 /* Sources */,
 				1C7B9829215B32D500C75014 /* Frameworks */,
 				1C7B982A215B32D500C75014 /* Resources */,
 				A64CFC099C8A558C769A3965 /* [CP] Embed Pods Frameworks */,
-				E9C63C24FA477C4C89C69B02 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -858,7 +856,7 @@
 			);
 			name = stonks;
 			productName = stonks;
-			productReference = 1C7B982C215B32D500C75014 /* Bullfrog.app */;
+			productReference = 1C7B982C215B32D500C75014 /* Stoccoon.app */;
 			productType = "com.apple.product-type.application";
 		};
 		1C7B983F215B32D700C75014 /* stonksTests */ = {
@@ -987,23 +985,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7B8959ADE032DA6CA43BA559 /* [CP] Prepare Artifacts */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-stonks/Pods-stonks-artifacts-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Prepare Artifacts";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-stonks/Pods-stonks-artifacts-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-stonks/Pods-stonks-artifacts.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8E2FDE5546453462A8CFFF5F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1037,23 +1018,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-stonks/Pods-stonks-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E9C63C24FA477C4C89C69B02 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-stonks/Pods-stonks-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-stonks/Pods-stonks-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-stonks/Pods-stonks-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1414,6 +1378,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = stonks/Bullfrog.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = BDZT3U3R7D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1431,7 +1396,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = shobel.stonks;
-				PRODUCT_NAME = Bullfrog;
+				PRODUCT_NAME = Stoccoon;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1444,6 +1409,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = stonks/Bullfrog.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = BDZT3U3R7D;
 				INFOPLIST_FILE = stonks/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
@@ -1452,7 +1418,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = shobel.stonks;
-				PRODUCT_NAME = Bullfrog;
+				PRODUCT_NAME = Stoccoon;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

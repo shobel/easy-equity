@@ -68,8 +68,8 @@ class WatchAdsViewController: UIViewController, GADFullScreenContentDelegate {
 //        self.dismiss(animated: true)
     }
 
-    func adDidPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-        print("Ad did present")
+    func adWillPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+        print("will present")
     }
 
     func wasLoadTimeLessThanNHoursAgo(thresholdN: Int) -> Bool {

@@ -49,6 +49,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FirebaseAuthUI-FirebaseAuthUI.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FirebaseAuthUI.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FirebaseCore.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -59,17 +69,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FirebaseCoreInternal.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FirebaseFirestore.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>FirebaseInstallations.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>FirebaseUI-FirebaseAuthUI.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -110,6 +120,11 @@
 			<false/>
 		</dict>
 		<key>GoogleUtilities.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Libuv-gRPC.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

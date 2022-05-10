@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseUI
 
 class LaunchVC: UIViewController {
 

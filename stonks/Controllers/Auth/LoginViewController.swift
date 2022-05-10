@@ -13,7 +13,7 @@ import TransitionButton
 import FirebaseAuth
 import FCAlertView
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, FCAlertViewDelegate {
     
     @IBOutlet weak var emailInput: UITextField!
     @IBOutlet weak var passwordInput: UITextField!
@@ -60,8 +60,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         } else {
             Auth.auth().signIn(withEmail: self.emailInput.text!, password: self.passwordInput.text!) { (result, err) in
                 if err != nil {
-                    if let errorCode:AuthErrorCode = AuthErrorCode(rawValue: err!._code) {
-                        switch errorCode {
+                    let errorCode:AuthErrorCode = AuthErrorCode(_nsError: err! as NSError)
+                    switch errorCode.code {
                         case.wrongPassword:
                             self.showError("Wrong username or password.")
                             self.loginButton.stopAnimation(animationStyle: .shake, completion: nil)
@@ -73,7 +73,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             break
                         default:
                             break
-                        }
                     }
                 } else {
                     self.getIdTokenAndLogin(createUser:false)
@@ -92,6 +91,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     private func signUp(){
         if self.emailInput.text != nil && self.passwordInput.text != nil {
+            self.loginButton.startAnimation()
             Auth.auth().createUser(withEmail: self.emailInput.text!, password: self.passwordInput.text!) { res, error in
                 if error == nil {
                     Auth.auth().signIn(withEmail: self.emailInput.text!, password: self.passwordInput.text!) { (result, err) in
@@ -126,9 +126,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
+    func fcAlertViewDismissed(_ alertView: FCAlertView!) {
+        self.loginButton.stopAnimation(animationStyle: .normal, completion: nil)
+    }
+    
     private func askIfSignUp(){
         let message = "The username " + self.emailInput.text! + " is available. Would you like to Sign Up for an Account with this email and the provided password?"
         let alert = FCAlertView()
+        alert.delegate = self
         alert.doneActionBlock {
             self.signUp()
         }
