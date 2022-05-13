@@ -56,6 +56,11 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
         self.pastTable.backgroundColor = .white
         self.healthTable.backgroundColor = .white
         
+        self.valuationWeight.text = "25.0"
+        self.futureWeight.text = "25.0"
+        self.pastWeight.text = "25.0"
+        self.healthWeight.text = "25.0"
+        
         NetworkManager.getMyRestApi().getSettingsAndVariables { (scoreSettings, variableNamesMap, variableMap) in
             self.scoreSettings = scoreSettings
             self.variableNames = variableNamesMap

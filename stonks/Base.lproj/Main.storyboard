@@ -1461,13 +1461,13 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credit Balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RdA-qk-oaZ">
-                                <rect key="frame" x="205.5" y="38" width="79.5" height="14"/>
+                                <rect key="frame" x="205.5" y="33" width="79.5" height="14"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lQ6-pm-Yqc" customClass="ShadowButtonView" customModule="Stoccoon" customModuleProvider="target">
-                                <rect key="frame" x="295" y="30" width="65" height="30"/>
+                                <rect key="frame" x="295" y="25" width="65" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="65" id="5gH-ty-3F3"/>
@@ -1475,7 +1475,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oy5-WK-54i" userLabel="Twitter">
-                                <rect key="frame" x="0.0" y="97.5" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="102.5" width="375" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F6V-Q8-p4j">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -1510,7 +1510,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oje-1I-kvX" userLabel="Purchase History">
-                                <rect key="frame" x="0.0" y="147.5" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="152.5" width="375" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jvq-rR-kO2">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -1545,7 +1545,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fzZ-5n-atq" userLabel="Support">
-                                <rect key="frame" x="0.0" y="297.5" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="302.5" width="375" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QUv-5J-v10">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -1580,7 +1580,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8rH-s9-Knf" userLabel="Settings">
-                                <rect key="frame" x="0.0" y="247.5" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="252.5" width="375" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cmw-ZZ-ZFE">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -1615,7 +1615,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="728-ob-6Ol" userLabel="Premium Data History">
-                                <rect key="frame" x="0.0" y="197.5" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="202.5" width="375" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pKQ-1g-1Jd">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -1650,7 +1650,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c8G-oT-AR8" userLabel="Contact">
-                                <rect key="frame" x="0.0" y="347.5" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="352.5" width="375" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldn-dH-bif" userLabel="Contact">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -1711,7 +1711,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="user" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rxP-EJ-GIB">
-                                <rect key="frame" x="25" y="58.5" width="31" height="19"/>
+                                <rect key="frame" x="25" y="63.5" width="31" height="19"/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                 <color key="textColor" red="0.12544705170000001" green="0.12544705170000001" blue="0.12544705170000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -1753,7 +1753,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pri-jP-Ite" userLabel="Buy Credits">
-                                <rect key="frame" x="0.0" y="398" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="403" width="375" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ex6-u6-7BB" userLabel="Credits">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -1788,7 +1788,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6xc-B1-LeP" userLabel="FAQ">
-                                <rect key="frame" x="0.0" y="456" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="461" width="375" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nU2-Q9-go3" userLabel="faq">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -1842,9 +1842,9 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                             <constraint firstItem="68f-IN-iyG" firstAttribute="bottom" secondItem="H8h-pb-4VD" secondAttribute="bottom" constant="10" id="Pht-3g-R3f"/>
                             <constraint firstItem="68f-IN-iyG" firstAttribute="trailing" secondItem="fzZ-5n-atq" secondAttribute="trailing" id="RAY-L2-FtN"/>
                             <constraint firstItem="8rH-s9-Knf" firstAttribute="leading" secondItem="68f-IN-iyG" secondAttribute="leading" id="SnX-4G-yDE"/>
-                            <constraint firstItem="lQ6-pm-Yqc" firstAttribute="top" secondItem="68f-IN-iyG" secondAttribute="top" constant="30" id="TWm-H9-1SY"/>
+                            <constraint firstItem="lQ6-pm-Yqc" firstAttribute="top" secondItem="68f-IN-iyG" secondAttribute="top" constant="25" id="TWm-H9-1SY"/>
                             <constraint firstItem="8rH-s9-Knf" firstAttribute="top" secondItem="728-ob-6Ol" secondAttribute="bottom" id="Tpd-Ma-Dxn"/>
-                            <constraint firstItem="rxP-EJ-GIB" firstAttribute="top" secondItem="JBU-qK-XU0" secondAttribute="bottom" id="UKz-5K-fpZ"/>
+                            <constraint firstItem="rxP-EJ-GIB" firstAttribute="top" secondItem="JBU-qK-XU0" secondAttribute="bottom" constant="5" id="UKz-5K-fpZ"/>
                             <constraint firstItem="Oy5-WK-54i" firstAttribute="top" secondItem="rxP-EJ-GIB" secondAttribute="bottom" constant="20" id="Wb7-dH-QQl"/>
                             <constraint firstItem="lQ6-pm-Yqc" firstAttribute="leading" secondItem="RdA-qk-oaZ" secondAttribute="trailing" constant="10" id="YUe-ab-IPi"/>
                             <constraint firstItem="68f-IN-iyG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rxP-EJ-GIB" secondAttribute="trailing" symbolic="YES" id="Ya1-16-ken"/>
@@ -2456,16 +2456,16 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="1451"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ib1-fB-4UC" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1696.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1747"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MARKET AND ECONOMY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zDN-6x-PLl">
-                                                <rect key="frame" x="70.5" y="20" width="234.5" height="25.5"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="22"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MARKET &amp; ECONOMY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zDN-6x-PLl">
+                                                <rect key="frame" x="81" y="20" width="213" height="26"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="30V-xB-byP" customClass="ShadowView" customModule="Stoccoon" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="55.5" width="375" height="150"/>
+                                                <rect key="frame" x="0.0" y="56" width="375" height="150"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="34l-a3-jJx" customClass="CardView" customModule="Stoccoon" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="0.0" width="335" height="150"/>
@@ -2554,17 +2554,6 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fDI-gN-6kB" userLabel="CNN">
-                                                                <rect key="frame" x="10" y="10" width="53.5" height="20"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" secondItem="fDI-gN-6kB" secondAttribute="height" multiplier="8:3" id="2Lf-h7-zru"/>
-                                                                    <constraint firstAttribute="height" constant="20" id="DUI-Vf-XFf"/>
-                                                                </constraints>
-                                                                <state key="normal" image="CNNMoney_Logo"/>
-                                                                <connections>
-                                                                    <action selector="cnnmoneyButtonTapped:" destination="MbZ-YI-l9g" eventType="touchUpInside" id="oOo-ce-Eo8"/>
-                                                                </connections>
-                                                            </button>
                                                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nf2-dS-942">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="150"/>
                                                                 <connections>
@@ -2587,7 +2576,6 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                             <constraint firstItem="LSO-Kk-YWJ" firstAttribute="centerX" secondItem="fgr-7c-QDZ" secondAttribute="centerX" id="6x4-lC-K4j"/>
                                                             <constraint firstItem="fgr-7c-QDZ" firstAttribute="centerX" secondItem="34l-a3-jJx" secondAttribute="centerX" id="8gA-xy-Hze"/>
                                                             <constraint firstItem="kjk-h9-dCe" firstAttribute="top" secondItem="a0j-9S-OmD" secondAttribute="bottom" id="9Qy-2U-PAb"/>
-                                                            <constraint firstItem="fDI-gN-6kB" firstAttribute="leading" secondItem="34l-a3-jJx" secondAttribute="leading" constant="10" id="Dbt-PG-RZa"/>
                                                             <constraint firstItem="a0j-9S-OmD" firstAttribute="centerY" secondItem="Jb3-wK-Tsu" secondAttribute="centerY" constant="20" id="IOI-Db-cly"/>
                                                             <constraint firstAttribute="trailing" secondItem="nf2-dS-942" secondAttribute="trailing" id="Lz9-vs-sdg"/>
                                                             <constraint firstItem="rvW-tc-1b5" firstAttribute="centerX" secondItem="C1H-5C-1hq" secondAttribute="centerX" id="MDD-Yf-WSi"/>
@@ -2600,7 +2588,6 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                             <constraint firstItem="nf2-dS-942" firstAttribute="leading" secondItem="34l-a3-jJx" secondAttribute="leading" id="dOT-OF-dyZ"/>
                                                             <constraint firstItem="r3V-Fa-Mu7" firstAttribute="centerX" secondItem="Jb3-wK-Tsu" secondAttribute="centerX" id="dpe-pH-66l"/>
                                                             <constraint firstItem="Jb3-wK-Tsu" firstAttribute="top" secondItem="34l-a3-jJx" secondAttribute="top" id="h4I-hA-5MK"/>
-                                                            <constraint firstItem="fDI-gN-6kB" firstAttribute="top" secondItem="34l-a3-jJx" secondAttribute="top" constant="10" id="hDd-tH-vl0"/>
                                                             <constraint firstItem="C1H-5C-1hq" firstAttribute="centerY" secondItem="Jb3-wK-Tsu" secondAttribute="centerY" constant="20" id="iM0-2w-IKm"/>
                                                             <constraint firstItem="Jb3-wK-Tsu" firstAttribute="leading" secondItem="a0j-9S-OmD" secondAttribute="trailing" constant="50" id="iq5-Za-3oi"/>
                                                             <constraint firstItem="LSO-Kk-YWJ" firstAttribute="top" secondItem="fgr-7c-QDZ" secondAttribute="bottom" id="kYn-KG-oPC"/>
@@ -2621,13 +2608,13 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="coB-oU-R9t" customClass="ShadowView" customModule="Stoccoon" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="215.5" width="335" height="732"/>
+                                                <rect key="frame" x="20" y="216" width="335" height="732"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YEA-Nv-VbJ" customClass="CardView" customModule="Stoccoon" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="732"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SECTOR PERFORMANCES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v35-IK-0dB">
-                                                                <rect key="frame" x="79" y="10" width="177.5" height="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SECTOR PERFORMANCE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v35-IK-0dB">
+                                                                <rect key="frame" x="73.5" y="10" width="168.5" height="17"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                                                 <color key="textColor" red="0.18830856679999999" green="0.19203343989999999" blue="0.20000121000000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <nil key="highlightedColor"/>
@@ -2644,7 +2631,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="700" id="2t5-gW-R0s"/>
                                                                 </constraints>
-                                                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sGW-K8-5Kq">
+                                                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="sGW-K8-5Kq">
                                                                     <size key="itemSize" width="128" height="128"/>
                                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -2652,25 +2639,25 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                                 </collectionViewFlowLayout>
                                                                 <cells>
                                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="sectorCell" id="D2h-e4-PlW" customClass="IndustryCollectionViewCell" customModule="Stoccoon" customModuleProvider="target">
-                                                                        <rect key="frame" x="10" y="10" width="120" height="100"/>
+                                                                        <rect key="frame" x="10" y="10" width="135" height="100"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="2zW-TA-ys9">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="120" height="100"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="135" height="100"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <subviews>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rYd-4s-gCx">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="100"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="135" height="100"/>
                                                                                     <subviews>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Consumer Discretionary" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZ3-Qh-wao">
-                                                                                            <rect key="frame" x="5" y="17.5" width="110" height="30.5"/>
-                                                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                                                                            <rect key="frame" x="5" y="13.5" width="125" height="38.5"/>
+                                                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0156" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6a7-UM-6wr">
-                                                                                            <rect key="frame" x="34" y="53" width="52" height="21"/>
+                                                                                            <rect key="frame" x="41.5" y="57" width="52" height="21"/>
                                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                            <nil key="textColor"/>
+                                                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                     </subviews>
@@ -2678,7 +2665,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                                                         <constraint firstItem="6a7-UM-6wr" firstAttribute="centerX" secondItem="rYd-4s-gCx" secondAttribute="centerX" id="Jlw-fn-hv5"/>
                                                                                         <constraint firstItem="yZ3-Qh-wao" firstAttribute="leading" secondItem="rYd-4s-gCx" secondAttribute="leading" constant="5" id="Sdp-hN-sGF"/>
                                                                                         <constraint firstAttribute="height" constant="100" id="VZU-fR-r83"/>
-                                                                                        <constraint firstAttribute="width" constant="120" id="aEZ-Mu-2Xp"/>
+                                                                                        <constraint firstAttribute="width" constant="135" id="aEZ-Mu-2Xp"/>
                                                                                         <constraint firstItem="6a7-UM-6wr" firstAttribute="top" secondItem="yZ3-Qh-wao" secondAttribute="bottom" constant="5" id="dWD-ra-Ts7"/>
                                                                                         <constraint firstItem="yZ3-Qh-wao" firstAttribute="centerX" secondItem="rYd-4s-gCx" secondAttribute="centerX" id="dhD-kS-KY8"/>
                                                                                         <constraint firstItem="yZ3-Qh-wao" firstAttribute="centerY" secondItem="rYd-4s-gCx" secondAttribute="centerY" multiplier="0.65" id="maK-mD-gnr"/>
@@ -2709,7 +2696,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                             <constraint firstItem="v35-IK-0dB" firstAttribute="top" secondItem="YEA-Nv-VbJ" secondAttribute="top" constant="10" id="RBc-RL-mVG"/>
                                                             <constraint firstAttribute="trailing" secondItem="02o-ma-Tlc" secondAttribute="trailing" constant="10" id="YnW-4U-5yQ"/>
                                                             <constraint firstItem="02o-ma-Tlc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="v35-IK-0dB" secondAttribute="trailing" constant="8" symbolic="YES" id="cqX-dE-OjM"/>
-                                                            <constraint firstItem="v35-IK-0dB" firstAttribute="centerX" secondItem="YEA-Nv-VbJ" secondAttribute="centerX" id="hKe-8O-2C8"/>
+                                                            <constraint firstItem="v35-IK-0dB" firstAttribute="centerX" secondItem="YEA-Nv-VbJ" secondAttribute="centerX" constant="-10" id="hKe-8O-2C8"/>
                                                             <constraint firstItem="02o-ma-Tlc" firstAttribute="centerY" secondItem="v35-IK-0dB" secondAttribute="centerY" id="iVI-CI-fNe"/>
                                                         </constraints>
                                                     </view>
@@ -2723,7 +2710,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BSt-IL-QZk" customClass="ShadowView" customModule="Stoccoon" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="957.5" width="335" height="205"/>
+                                                <rect key="frame" x="20" y="958" width="335" height="205"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aoa-Ph-KFx" customClass="CardView" customModule="Stoccoon" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="205"/>
@@ -2778,10 +2765,10 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sxi-v4-xVf" customClass="ShadowView" customModule="Stoccoon" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="1172.5" width="335" height="207"/>
+                                                <rect key="frame" x="20" y="1173" width="335" height="112"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QV9-q5-q49" customClass="CardView" customModule="Stoccoon" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="207"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="112"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ECONOMY (WEEKLY)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bp2-5l-x2d">
                                                                 <rect key="frame" x="97.5" y="10" width="140" height="17"/>
@@ -2790,10 +2777,10 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="weeklyEconomyTable" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JZU-Ch-3Is">
-                                                                <rect key="frame" x="0.0" y="32" width="335" height="165"/>
+                                                                <rect key="frame" x="0.0" y="32" width="335" height="70"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="165" id="fpw-Rw-jxU"/>
+                                                                    <constraint firstAttribute="height" constant="70" id="fpw-Rw-jxU"/>
                                                                 </constraints>
                                                                 <prototypes>
                                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="weeklyEconomyCell" id="ZQs-15-kwl" customClass="EconomyTableViewCell" customModule="Stoccoon" customModuleProvider="target">
@@ -2806,17 +2793,14 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TiV-Mb-fD4">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
                                                                                     <subviews>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yE2-Mi-H4Z">
-                                                                                            <rect key="frame" x="20" y="17.5" width="80" height="15.5"/>
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Initial Jobless Claims" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yE2-Mi-H4Z">
+                                                                                            <rect key="frame" x="20" y="10" width="82.5" height="30.5"/>
                                                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                                                                             <color key="textColor" red="0.18830856679999999" green="0.19203343989999999" blue="0.20000121000000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="12.5M" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xhe-Cf-TKR">
-                                                                                            <rect key="frame" x="110" y="17" width="70" height="22"/>
-                                                                                            <constraints>
-                                                                                                <constraint firstAttribute="width" constant="70" id="vRg-U6-CRk"/>
-                                                                                            </constraints>
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="200.0K" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xhe-Cf-TKR">
+                                                                                            <rect key="frame" x="112.5" y="17" width="60.5" height="22"/>
                                                                                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="18"/>
                                                                                             <color key="textColor" red="0.18830856679999999" green="0.19203343989999999" blue="0.20000121000000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                             <nil key="highlightedColor"/>
@@ -2837,7 +2821,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                                                         <constraint firstAttribute="trailing" secondItem="bQc-iS-gCi" secondAttribute="trailing" id="SxJ-j8-kns"/>
                                                                                         <constraint firstItem="yE2-Mi-H4Z" firstAttribute="centerY" secondItem="TiV-Mb-fD4" secondAttribute="centerY" id="YUi-jl-XoO"/>
                                                                                         <constraint firstItem="bQc-iS-gCi" firstAttribute="top" secondItem="TiV-Mb-fD4" secondAttribute="top" id="cyB-Cu-J8s"/>
-                                                                                        <constraint firstItem="bQc-iS-gCi" firstAttribute="leading" secondItem="Xhe-Cf-TKR" secondAttribute="trailing" constant="5" id="iXZ-Fr-WjZ"/>
+                                                                                        <constraint firstItem="bQc-iS-gCi" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Xhe-Cf-TKR" secondAttribute="trailing" constant="5" id="iXZ-Fr-WjZ"/>
                                                                                         <constraint firstAttribute="height" constant="50" id="kAU-Ra-Q5W"/>
                                                                                         <constraint firstItem="Xhe-Cf-TKR" firstAttribute="centerY" secondItem="yE2-Mi-H4Z" secondAttribute="centerY" constant="3" id="xH3-KY-E02"/>
                                                                                     </constraints>
@@ -2871,7 +2855,10 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                                     <constraint firstAttribute="width" constant="15" id="Rqy-EQ-xx9"/>
                                                                 </constraints>
                                                                 <color key="tintColor" red="0.91764705879999997" green="0.0" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <state key="normal" image="info.circle.fill" catalog="system"/>
+                                                                <state key="normal" image="questionmark.circle" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="weeklyHelpButton:" destination="MbZ-YI-l9g" eventType="touchUpInside" id="ejM-vS-dbU"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2898,10 +2885,10 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OxT-gG-Q7b" customClass="ShadowView" customModule="Stoccoon" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="1389.5" width="335" height="297"/>
+                                                <rect key="frame" x="20" y="1295" width="335" height="442"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gM6-uz-Ke0" customClass="CardView" customModule="Stoccoon" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="297"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="442"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0c1-VL-KE0">
                                                                 <rect key="frame" x="72" y="11" width="15" height="15"/>
@@ -2910,7 +2897,10 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                                     <constraint firstAttribute="width" constant="15" id="hhP-qL-OMn"/>
                                                                 </constraints>
                                                                 <color key="tintColor" red="0.91764705879999997" green="0.0" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <state key="normal" image="info.circle.fill" catalog="system"/>
+                                                                <state key="normal" image="questionmark.circle" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="monthlyHelpButton:" destination="MbZ-YI-l9g" eventType="touchUpInside" id="L7n-B2-Rbd"/>
+                                                                </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ECONOMY (MONTHLY)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AmW-jr-Fkw">
                                                                 <rect key="frame" x="92" y="10" width="151" height="17"/>
@@ -2925,10 +2915,10 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="monthlyEconomyTable" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GBH-pM-5ZS">
-                                                                <rect key="frame" x="0.0" y="32" width="335" height="255"/>
+                                                                <rect key="frame" x="0.0" y="32" width="335" height="400"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="255" id="mWH-5z-WHH"/>
+                                                                    <constraint firstAttribute="height" constant="400" id="mWH-5z-WHH"/>
                                                                 </constraints>
                                                                 <prototypes>
                                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="monthlyEconomyCell" id="Q9n-Oq-QdJ" customClass="EconomyTableViewCell" customModule="Stoccoon" customModuleProvider="target">
@@ -3093,22 +3083,22 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XPP-Eu-UDp">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="697"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="697.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SCORING SYSTEMS" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bn6-GC-KDb">
-                                                <rect key="frame" x="20" y="15" width="189.5" height="25.5"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="22"/>
+                                                <rect key="frame" x="20" y="20" width="194.5" height="26"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credit Balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N9k-IX-6Ck">
-                                                <rect key="frame" x="285.5" y="5" width="79.5" height="14"/>
+                                                <rect key="frame" x="280.5" y="5" width="79.5" height="14"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lpi-Z3-4Eu" customClass="ShadowButtonView" customModule="Stoccoon" customModuleProvider="target">
-                                                <rect key="frame" x="293" y="24" width="65" height="30"/>
+                                                <rect key="frame" x="288" y="24" width="65" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="Gmi-ZS-Bd6"/>
@@ -3116,11 +3106,21 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zmw-Uv-cp7" customClass="ShadowView" customModule="Stoccoon" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="70.5" width="345" height="306.5"/>
+                                                <rect key="frame" x="15" y="71" width="345" height="306.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2P4-Q0-f8y" customClass="CardView" customModule="Stoccoon" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="345" height="306.5"/>
                                                         <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="analysis_infographic1" translatesAutoresizingMaskIntoConstraints="NO" id="QEz-Qk-3Nb">
+                                                                <rect key="frame" x="5" y="91.5" width="335" height="220"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="220" id="syh-Jo-Tzz"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r1q-2Z-Pgu">
+                                                                <rect key="frame" x="0.0" y="0.0" width="345" height="306.5"/>
+                                                                <color key="backgroundColor" white="1" alpha="0.3088617387986341" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="enabled for 30 more days" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YkR-l8-GnX">
                                                                 <rect key="frame" x="193" y="21.5" width="137" height="14"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
@@ -3141,12 +3141,6 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                                 <color key="textColor" red="0.96684203909999999" green="0.21687440629999999" blue="0.41866993190000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="analysis_infographic1" translatesAutoresizingMaskIntoConstraints="NO" id="QEz-Qk-3Nb">
-                                                                <rect key="frame" x="5" y="91.5" width="335" height="220"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="220" id="syh-Jo-Tzz"/>
-                                                                </constraints>
-                                                            </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcb-Ga-4z9">
                                                                 <rect key="frame" x="15" y="52" width="315" height="114.5"/>
                                                                 <string key="text">This system aggregates predictions made by top performing Wall Street analysts to create ranked scores. Scores incoporate metrics such as the number of analysts taking actions on a stock, the quality of those analysts, the average predicted upside, and more. Enabling this sytem will give you score updates for 30 days.</string>
@@ -3178,11 +3172,15 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                             <constraint firstAttribute="bottom" secondItem="EVO-no-8bC" secondAttribute="bottom" constant="30" id="2dA-Y2-a4p"/>
                                                             <constraint firstItem="dEZ-Sr-dD0" firstAttribute="leading" secondItem="2P4-Q0-f8y" secondAttribute="leading" constant="15" id="7ub-2r-cev"/>
                                                             <constraint firstAttribute="trailing" secondItem="QKw-qS-lDB" secondAttribute="trailing" constant="20" id="9xs-Nq-9OJ"/>
+                                                            <constraint firstItem="r1q-2Z-Pgu" firstAttribute="top" secondItem="2P4-Q0-f8y" secondAttribute="top" id="AWN-j4-Pew"/>
                                                             <constraint firstAttribute="trailing" secondItem="dcb-Ga-4z9" secondAttribute="trailing" constant="15" id="Db1-uO-bpp"/>
+                                                            <constraint firstAttribute="trailing" secondItem="r1q-2Z-Pgu" secondAttribute="trailing" id="G3V-1m-gg8"/>
                                                             <constraint firstItem="QKw-qS-lDB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dEZ-Sr-dD0" secondAttribute="trailing" constant="8" symbolic="YES" id="GAs-IG-2qq"/>
                                                             <constraint firstItem="dEZ-Sr-dD0" firstAttribute="top" secondItem="2P4-Q0-f8y" secondAttribute="top" constant="20" id="Hsv-oD-6oj"/>
+                                                            <constraint firstAttribute="bottom" secondItem="r1q-2Z-Pgu" secondAttribute="bottom" id="IXa-Up-u5i"/>
                                                             <constraint firstAttribute="trailing" secondItem="QEz-Qk-3Nb" secondAttribute="trailing" constant="5" id="OIN-dR-loi"/>
                                                             <constraint firstItem="EVO-no-8bC" firstAttribute="centerX" secondItem="2P4-Q0-f8y" secondAttribute="centerX" id="PmP-Ty-17y"/>
+                                                            <constraint firstItem="r1q-2Z-Pgu" firstAttribute="leading" secondItem="2P4-Q0-f8y" secondAttribute="leading" id="S4L-Hc-iP2"/>
                                                             <constraint firstAttribute="trailing" secondItem="YkR-l8-GnX" secondAttribute="trailing" constant="15" id="S4d-Nx-keK"/>
                                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="dcb-Ga-4z9" secondAttribute="bottom" constant="10" id="S6a-1x-KT6"/>
                                                             <constraint firstItem="YkR-l8-GnX" firstAttribute="centerY" secondItem="dEZ-Sr-dD0" secondAttribute="centerY" id="Wgz-sC-dyF"/>
@@ -3203,7 +3201,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iBH-Ha-0TQ" customClass="ShadowView" customModule="Stoccoon" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="392" width="345" height="280"/>
+                                                <rect key="frame" x="15" y="392.5" width="345" height="280"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oz4-rX-iAJ" customClass="CardView" customModule="Stoccoon" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="345" height="280"/>
@@ -3216,7 +3214,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                             </imageView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pQl-Go-ghL">
                                                                 <rect key="frame" x="0.0" y="0.0" width="345" height="280"/>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="backgroundColor" white="1" alpha="0.30977524511072019" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="USER-CUSTOMIZED SCORES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qMS-uh-YUF">
                                                                 <rect key="frame" x="15" y="20" width="201.5" height="17"/>
@@ -3279,12 +3277,12 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="bn6-GC-KDb" firstAttribute="top" secondItem="XPP-Eu-UDp" secondAttribute="top" constant="15" id="0SC-SM-Yul"/>
-                                            <constraint firstItem="zmw-Uv-cp7" firstAttribute="top" secondItem="bn6-GC-KDb" secondAttribute="bottom" constant="30" id="4BX-qu-eWu"/>
+                                            <constraint firstItem="bn6-GC-KDb" firstAttribute="top" secondItem="XPP-Eu-UDp" secondAttribute="top" constant="20" id="0SC-SM-Yul"/>
+                                            <constraint firstItem="zmw-Uv-cp7" firstAttribute="top" secondItem="bn6-GC-KDb" secondAttribute="bottom" constant="25" id="4BX-qu-eWu"/>
                                             <constraint firstAttribute="trailing" secondItem="iBH-Ha-0TQ" secondAttribute="trailing" constant="15" id="4ej-5q-4ff"/>
                                             <constraint firstAttribute="trailing" secondItem="zmw-Uv-cp7" secondAttribute="trailing" constant="15" id="5Mv-2c-xbQ"/>
                                             <constraint firstItem="iBH-Ha-0TQ" firstAttribute="leading" secondItem="XPP-Eu-UDp" secondAttribute="leading" constant="15" id="PB6-PY-U7c"/>
-                                            <constraint firstAttribute="trailing" secondItem="N9k-IX-6Ck" secondAttribute="trailing" constant="10" id="UG0-sK-nTB"/>
+                                            <constraint firstAttribute="trailing" secondItem="N9k-IX-6Ck" secondAttribute="trailing" constant="15" id="UG0-sK-nTB"/>
                                             <constraint firstItem="lpi-Z3-4Eu" firstAttribute="top" secondItem="N9k-IX-6Ck" secondAttribute="bottom" constant="5" id="UG1-ce-yPQ"/>
                                             <constraint firstItem="iBH-Ha-0TQ" firstAttribute="top" secondItem="zmw-Uv-cp7" secondAttribute="bottom" constant="15" id="bcS-oL-X9j"/>
                                             <constraint firstItem="zmw-Uv-cp7" firstAttribute="leading" secondItem="XPP-Eu-UDp" secondAttribute="leading" constant="15" id="eGu-3t-XDx"/>
@@ -3941,9 +3939,9 @@ Why is data sometimes not retrieved?
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WATCHLIST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="txX-yk-84e">
-                                        <rect key="frame" x="133.5" y="12.5" width="108" height="25.5"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="22"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="132" y="12" width="111" height="26"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
+                                        <color key="textColor" red="0.1176470588" green="0.1292238832" blue="0.14117822050000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1fN-Hy-pRA" customClass="ShadowButtonView" customModule="Stoccoon" customModuleProvider="target">
@@ -4116,7 +4114,7 @@ Why is data sometimes not retrieved?
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rocket Companies, Inc." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rtu-Kh-hLP" userLabel="Subtitle">
-                                                    <rect key="frame" x="15" y="31.5" width="94" height="13"/>
+                                                    <rect key="frame" x="15" y="31.5" width="94" height="13.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -4133,11 +4131,11 @@ Why is data sometimes not retrieved?
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hv0-Q6-lXe" customClass="PriceChartPreviewView" customModule="Stoccoon" customModuleProvider="target">
-                                                    <rect key="frame" x="149" y="0.0" width="121" height="54.5"/>
+                                                    <rect key="frame" x="149" y="0.0" width="121" height="55"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="+0.00%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ff6-Io-5F0" userLabel="PriceChange" customClass="ColoredValueLabel" customModule="Stoccoon" customModuleProvider="target">
-                                                    <rect key="frame" x="270" y="10" width="85" height="21.5"/>
+                                                    <rect key="frame" x="270" y="10" width="85" height="22"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="85" id="rnf-5C-zpJ"/>
@@ -4147,7 +4145,7 @@ Why is data sometimes not retrieved?
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gnS-Zt-p5k">
-                                                    <rect key="frame" x="355" y="31.5" width="13" height="13"/>
+                                                    <rect key="frame" x="355" y="32" width="13" height="13"/>
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="13" id="5JU-zf-ASv"/>
@@ -4155,14 +4153,14 @@ Why is data sometimes not retrieved?
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="+0.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZRm-YO-NZU" userLabel="priceChange" customClass="ColoredValueLabel" customModule="Stoccoon" customModuleProvider="target">
-                                                    <rect key="frame" x="322" y="31" width="31" height="14"/>
+                                                    <rect key="frame" x="322" y="31.5" width="31" height="14"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxf-NI-WcT">
-                                                    <rect key="frame" x="300" y="31" width="17" height="14"/>
+                                                    <rect key="frame" x="300" y="31.5" width="17" height="14"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -4432,13 +4430,13 @@ Why is data sometimes not retrieved?
                                                 <rect key="frame" x="0.0" y="0.0" width="187.5" height="70"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's Volume" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufw-1e-Tdw">
-                                                        <rect key="frame" x="51.5" y="15" width="84.5" height="14"/>
+                                                        <rect key="frame" x="52" y="15" width="84" height="14.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
                                                         <color key="textColor" red="0.12544705170000001" green="0.12544705170000001" blue="0.12544705170000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0M" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXr-nr-AVK">
-                                                        <rect key="frame" x="78" y="29" width="32" height="26.5"/>
+                                                        <rect key="frame" x="78" y="29.5" width="32" height="26.5"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="22"/>
                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -5682,7 +5680,7 @@ Why is data sometimes not retrieved?
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wqs-sc-0iC">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="1055"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="1075"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jpl-No-NEZ">
                                         <rect key="frame" x="0.0" y="5" width="375" height="25"/>
@@ -5701,17 +5699,17 @@ Why is data sometimes not retrieved?
                                             <constraint firstItem="Jt2-rp-NF7" firstAttribute="centerX" secondItem="jpl-No-NEZ" secondAttribute="centerX" id="WgK-ci-sJA"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MARKET RANK:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="voI-jD-1Ms">
-                                        <rect key="frame" x="27.5" y="45" width="95" height="12"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MARKET" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="voI-jD-1Ms">
+                                        <rect key="frame" x="35" y="70" width="60" height="12"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="95" id="vLI-dx-2ZH"/>
+                                            <constraint firstAttribute="width" constant="60" id="vLI-dx-2ZH"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XL7-OB-v1W" customClass="ShadowView" customModule="Stoccoon" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="204" width="335" height="169.5"/>
+                                        <rect key="frame" x="20" y="224" width="335" height="169.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ikl-gy-40C" customClass="CardView" customModule="Stoccoon" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="169.5"/>
@@ -5871,7 +5869,7 @@ Why is data sometimes not retrieved?
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E2x-9b-Oav" customClass="ShadowView" customModule="Stoccoon" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="383.5" width="335" height="213"/>
+                                        <rect key="frame" x="20" y="403.5" width="335" height="213"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ON-k9-F6e" customClass="CardView" customModule="Stoccoon" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="213"/>
@@ -6075,7 +6073,7 @@ Why is data sometimes not retrieved?
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hoI-US-7mG" customClass="ShadowView" customModule="Stoccoon" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="606.5" width="335" height="214.5"/>
+                                        <rect key="frame" x="20" y="626.5" width="335" height="214.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTW-wK-b7O" customClass="CardView" customModule="Stoccoon" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="214.5"/>
@@ -6286,7 +6284,7 @@ Why is data sometimes not retrieved?
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ymb-IP-NNC" customClass="ShadowView" customModule="Stoccoon" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="831" width="335" height="204"/>
+                                        <rect key="frame" x="20" y="851" width="335" height="204"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bpH-M3-Tvc" customClass="CardView" customModule="Stoccoon" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="204"/>
@@ -6497,13 +6495,13 @@ Why is data sometimes not retrieved?
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PERCENTILE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zzw-O7-JCj">
-                                        <rect key="frame" x="278.5" y="187" width="61.5" height="12"/>
+                                        <rect key="frame" x="278.5" y="207" width="61.5" height="12"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="10"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VALUE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNI-qv-F4r">
-                                        <rect key="frame" x="222" y="187" width="31.5" height="12"/>
+                                        <rect key="frame" x="222" y="207" width="31.5" height="12"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="10"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -6524,25 +6522,25 @@ Why is data sometimes not retrieved?
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SCORE" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="een-WP-SXg">
-                                        <rect key="frame" x="40" y="113" width="35" height="12"/>
+                                        <rect key="frame" x="35" y="142.5" width="40" height="13.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="35" id="2DO-qS-IfX"/>
+                                            <constraint firstAttribute="width" constant="40" id="2DO-qS-IfX"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="10"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="11"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INDUSTRY RANK:" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tNd-1V-wlj">
-                                        <rect key="frame" x="27.5" y="62" width="95" height="12"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INDUSTRY" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tNd-1V-wlj">
+                                        <rect key="frame" x="35" y="87" width="60" height="12"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="95" id="aLw-KX-sGE"/>
+                                            <constraint firstAttribute="width" constant="60" id="aLw-KX-sGE"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hTy-vV-iRP" userLabel="Adj Score Container">
-                                        <rect key="frame" x="80" y="84" width="70" height="70"/>
+                                        <rect key="frame" x="80" y="114" width="70" height="70"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- - - -" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xt2-GK-JmC" userLabel="Adj Score">
                                                 <rect key="frame" x="13.5" y="22" width="43.5" height="26"/>
@@ -6561,10 +6559,10 @@ Why is data sometimes not retrieved?
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jNe-aP-qHq" customClass="ScoreSnowflakeChart" customModule="Stoccoon" customModuleProvider="target">
-                                        <rect key="frame" x="185" y="50" width="180" height="120"/>
+                                        <rect key="frame" x="185" y="60" width="180" height="120"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Future" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FlX-fS-AVL" customClass="DesignableLabel" customModule="Stoccoon" customModuleProvider="target">
-                                                <rect key="frame" x="135.88299064211611" y="34.382990642116134" width="33.234018715767746" height="33.234018715767725"/>
+                                                <rect key="frame" x="135" y="45" width="35" height="12"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="35" id="f0X-5Y-l6l"/>
                                                 </constraints>
@@ -6584,7 +6582,7 @@ Why is data sometimes not retrieved?
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Health" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADw-mz-lbs" customClass="DesignableLabel" customModule="Stoccoon" customModuleProvider="target">
-                                                <rect key="frame" x="13.079689783217027" y="19.079689783217027" width="43.840620433565945" height="43.840620433565938"/>
+                                                <rect key="frame" x="10" y="35" width="50" height="12"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="50" id="2wb-AY-uFH"/>
                                                 </constraints>
@@ -6610,30 +6608,39 @@ Why is data sometimes not retrieved?
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W0c-5l-8Wh">
-                                        <rect key="frame" x="122.5" y="43.5" width="14.5" height="15.5"/>
+                                        <rect key="frame" x="95" y="68.5" width="14.5" height="15.5"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
                                         <color key="textColor" red="0.18830856679999999" green="0.19203343989999999" blue="0.20000121000000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#2 of 250" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Be-M9-KFi">
-                                        <rect key="frame" x="122.5" y="60.5" width="56" height="15.5"/>
+                                        <rect key="frame" x="95" y="85.5" width="56" height="15.5"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
                                         <color key="textColor" red="0.18830856679999999" green="0.19203343989999999" blue="0.20000121000000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oRk-Ht-heA">
-                                        <rect key="frame" x="263" y="33" width="24.5" height="12"/>
+                                        <rect key="frame" x="263" y="43" width="24.5" height="12"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
                                         <color key="textColor" red="0.47451311349999997" green="0.47450375560000002" blue="0.47451013330000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RANKINGS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5w-2n-Ahr">
+                                        <rect key="frame" x="35" y="49.5" width="100" height="15.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="Rcp-Zf-agY"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="voI-jD-1Ms" firstAttribute="top" secondItem="jpl-No-NEZ" secondAttribute="bottom" constant="15" id="0Ui-MH-bSv"/>
+                                    <constraint firstItem="voI-jD-1Ms" firstAttribute="top" secondItem="jpl-No-NEZ" secondAttribute="bottom" constant="40" id="0Ui-MH-bSv"/>
                                     <constraint firstItem="tNd-1V-wlj" firstAttribute="leading" secondItem="voI-jD-1Ms" secondAttribute="leading" id="1KK-8L-Esh"/>
                                     <constraint firstAttribute="trailing" secondItem="hoI-US-7mG" secondAttribute="trailing" constant="20" symbolic="YES" id="1Tz-iG-h02"/>
-                                    <constraint firstItem="jNe-aP-qHq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8Be-M9-KFi" secondAttribute="trailing" constant="6.5" id="6IX-yQ-Cgt"/>
+                                    <constraint firstItem="jNe-aP-qHq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8Be-M9-KFi" secondAttribute="trailing" constant="5" id="6IX-yQ-Cgt"/>
                                     <constraint firstAttribute="trailing" secondItem="ymb-IP-NNC" secondAttribute="trailing" constant="20" symbolic="YES" id="8MU-HU-o0I"/>
                                     <constraint firstAttribute="trailing" secondItem="XL7-OB-v1W" secondAttribute="trailing" constant="20" symbolic="YES" id="9Tf-MH-4eW"/>
                                     <constraint firstItem="ymb-IP-NNC" firstAttribute="leading" secondItem="Wqs-sc-0iC" secondAttribute="leading" constant="20" symbolic="YES" id="9ZL-na-8tb"/>
@@ -6651,20 +6658,22 @@ Why is data sometimes not retrieved?
                                     <constraint firstItem="Ikl-gy-40C" firstAttribute="top" secondItem="zzw-O7-JCj" secondAttribute="bottom" constant="5" id="U7X-1Y-gVG"/>
                                     <constraint firstItem="zzw-O7-JCj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Wqs-sc-0iC" secondAttribute="leading" constant="20" symbolic="YES" id="USe-Fg-dTj"/>
                                     <constraint firstItem="een-WP-SXg" firstAttribute="centerY" secondItem="hTy-vV-iRP" secondAttribute="centerY" id="UqL-Yf-uRu"/>
+                                    <constraint firstItem="voI-jD-1Ms" firstAttribute="top" secondItem="c5w-2n-Ahr" secondAttribute="bottom" constant="5" id="VhW-JV-7cm"/>
                                     <constraint firstItem="E2x-9b-Oav" firstAttribute="top" secondItem="XL7-OB-v1W" secondAttribute="bottom" constant="10" id="VvY-Ha-G6h"/>
                                     <constraint firstItem="XL7-OB-v1W" firstAttribute="leading" secondItem="Wqs-sc-0iC" secondAttribute="leading" constant="20" symbolic="YES" id="Wft-wd-WEh"/>
-                                    <constraint firstItem="voI-jD-1Ms" firstAttribute="centerX" secondItem="Wqs-sc-0iC" secondAttribute="centerX" multiplier="0.4" id="bFc-4S-p4I"/>
+                                    <constraint firstItem="voI-jD-1Ms" firstAttribute="centerX" secondItem="Wqs-sc-0iC" secondAttribute="centerX" multiplier="0.4" constant="-10" id="bFc-4S-p4I"/>
                                     <constraint firstItem="iNI-qv-F4r" firstAttribute="centerY" secondItem="zzw-O7-JCj" secondAttribute="centerY" id="bQf-7B-bXz"/>
                                     <constraint firstItem="W0c-5l-8Wh" firstAttribute="leading" secondItem="voI-jD-1Ms" secondAttribute="trailing" id="bb6-pw-xfX"/>
                                     <constraint firstItem="gor-Da-7Xo" firstAttribute="trailing" secondItem="72L-is-uDI" secondAttribute="trailing" id="chS-Gq-wen"/>
-                                    <constraint firstItem="hTy-vV-iRP" firstAttribute="top" secondItem="tNd-1V-wlj" secondAttribute="bottom" constant="10" id="cpC-gr-ytj"/>
-                                    <constraint firstItem="een-WP-SXg" firstAttribute="leading" secondItem="Wqs-sc-0iC" secondAttribute="leading" constant="40" id="d4n-2h-1rC"/>
+                                    <constraint firstItem="hTy-vV-iRP" firstAttribute="top" secondItem="tNd-1V-wlj" secondAttribute="bottom" constant="15" id="cpC-gr-ytj"/>
+                                    <constraint firstItem="een-WP-SXg" firstAttribute="leading" secondItem="Wqs-sc-0iC" secondAttribute="leading" constant="35" id="d4n-2h-1rC"/>
+                                    <constraint firstItem="c5w-2n-Ahr" firstAttribute="leading" secondItem="voI-jD-1Ms" secondAttribute="leading" id="dUD-sY-Npz"/>
                                     <constraint firstItem="JGQ-Tv-Nbm" firstAttribute="centerX" secondItem="oRk-Ht-heA" secondAttribute="centerX" id="dtG-XJ-b9n"/>
                                     <constraint firstItem="iNI-qv-F4r" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Wqs-sc-0iC" secondAttribute="leading" constant="20" symbolic="YES" id="elD-Oj-gux"/>
                                     <constraint firstItem="tNd-1V-wlj" firstAttribute="top" secondItem="voI-jD-1Ms" secondAttribute="bottom" constant="5" id="elg-0i-iv4"/>
-                                    <constraint firstItem="jNe-aP-qHq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="W0c-5l-8Wh" secondAttribute="trailing" constant="8" symbolic="YES" id="gAo-GX-8EL"/>
+                                    <constraint firstItem="jNe-aP-qHq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="W0c-5l-8Wh" secondAttribute="trailing" constant="5" id="gAo-GX-8EL"/>
                                     <constraint firstAttribute="bottom" secondItem="ymb-IP-NNC" secondAttribute="bottom" constant="20" id="h2C-xS-EzT"/>
-                                    <constraint firstItem="XL7-OB-v1W" firstAttribute="top" secondItem="hTy-vV-iRP" secondAttribute="bottom" constant="50" id="hN1-7O-GWW"/>
+                                    <constraint firstItem="XL7-OB-v1W" firstAttribute="top" secondItem="hTy-vV-iRP" secondAttribute="bottom" constant="40" id="hN1-7O-GWW"/>
                                     <constraint firstItem="ymb-IP-NNC" firstAttribute="top" secondItem="hoI-US-7mG" secondAttribute="bottom" constant="10" id="iNL-QW-UYA"/>
                                     <constraint firstItem="fAg-gL-Tni" firstAttribute="trailing" secondItem="5da-rP-4u6" secondAttribute="trailing" id="iNe-Uw-QeO"/>
                                     <constraint firstItem="zzw-O7-JCj" firstAttribute="leading" secondItem="iNI-qv-F4r" secondAttribute="trailing" constant="25" id="iV7-F4-Y8W"/>
@@ -6672,7 +6681,7 @@ Why is data sometimes not retrieved?
                                     <constraint firstItem="lcB-zW-gui" firstAttribute="trailing" secondItem="72L-is-uDI" secondAttribute="trailing" id="khS-jH-B1x"/>
                                     <constraint firstAttribute="trailing" secondItem="jpl-No-NEZ" secondAttribute="trailing" id="lG8-UP-Keq"/>
                                     <constraint firstItem="E2c-wl-aeC" firstAttribute="trailing" secondItem="72L-is-uDI" secondAttribute="trailing" id="o76-1b-qqS"/>
-                                    <constraint firstItem="jNe-aP-qHq" firstAttribute="top" secondItem="jpl-No-NEZ" secondAttribute="bottom" constant="20" id="oW2-iP-Uwf"/>
+                                    <constraint firstItem="jNe-aP-qHq" firstAttribute="top" secondItem="jpl-No-NEZ" secondAttribute="bottom" constant="30" id="oW2-iP-Uwf"/>
                                     <constraint firstItem="8Be-M9-KFi" firstAttribute="centerY" secondItem="tNd-1V-wlj" secondAttribute="centerY" id="s5K-LM-Lej"/>
                                     <constraint firstItem="8Be-M9-KFi" firstAttribute="leading" secondItem="W0c-5l-8Wh" secondAttribute="leading" id="uHN-at-wZz"/>
                                     <constraint firstItem="E2x-9b-Oav" firstAttribute="leading" secondItem="Wqs-sc-0iC" secondAttribute="leading" constant="20" symbolic="YES" id="ugh-zG-19m"/>
@@ -7598,7 +7607,7 @@ Why is data sometimes not retrieved?
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="AAPL TSLA MSFT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Uz-nV-MqE">
-                                                            <rect key="frame" x="238.5" y="0.0" width="81.5" height="12"/>
+                                                            <rect key="frame" x="239.5" y="0.0" width="80.5" height="12"/>
                                                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="10"/>
                                                             <color key="textColor" red="0.91644194160000003" green="0.0" blue="0.3790128478" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -8947,8 +8956,8 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BROWSE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lOj-Zq-RIK">
-                                <rect key="frame" x="144" y="10" width="87.5" height="25.5"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="22"/>
+                                <rect key="frame" x="142.5" y="10" width="90" height="26"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -9974,7 +9983,7 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The predicted return over the next 21 days is 0.0%" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNj-jw-M05">
-                                                        <rect key="frame" x="145" y="64" width="169" height="63"/>
+                                                        <rect key="frame" x="145" y="64" width="170" height="63.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="18"/>
                                                         <color key="textColor" red="0.12544705170000001" green="0.12544705170000001" blue="0.12544705170000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
@@ -11427,7 +11436,7 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Long Company Name Inc" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDf-hz-bG8">
-                                        <rect key="frame" x="25" y="40" width="160.5" height="16.5"/>
+                                        <rect key="frame" x="25" y="40" width="157" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -11439,10 +11448,10 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CXM-k3-TUa">
-                                        <rect key="frame" x="215" y="20" width="80" height="29"/>
+                                        <rect key="frame" x="219" y="20" width="76" height="29"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZG-Dc-xF0">
-                                                <rect key="frame" x="10" y="0.0" width="60" height="29"/>
+                                                <rect key="frame" x="10" y="0.0" width="56" height="29"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
                                                 <state key="normal" title="SORT BY">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -11532,7 +11541,7 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                                                                     </constraints>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jason Helfstein" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AKL-7m-5WK" userLabel="analystName">
-                                                                    <rect key="frame" x="15" y="38" width="110" height="19"/>
+                                                                    <rect key="frame" x="15" y="38" width="113" height="19"/>
                                                                     <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
                                                                     <color key="textColor" red="0.12544705170000001" green="0.12544705170000001" blue="0.12544705170000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <nil key="highlightedColor"/>
@@ -11588,25 +11597,25 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Success Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fAO-XZ-cuX">
-                                                                    <rect key="frame" x="23" y="168" width="62" height="12"/>
+                                                                    <rect key="frame" x="23.5" y="168" width="60.5" height="12"/>
                                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="10"/>
                                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Success Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Si5-aO-eSi">
-                                                                    <rect key="frame" x="190.5" y="168" width="62" height="12"/>
+                                                                    <rect key="frame" x="191" y="168" width="60.5" height="12"/>
                                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="10"/>
                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Avg Return" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="20i-Cg-XJO">
-                                                                    <rect key="frame" x="89" y="168" width="50" height="12"/>
+                                                                    <rect key="frame" x="89.5" y="168" width="48.5" height="12"/>
                                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="10"/>
                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Avg Return" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MzR-Xb-BNy">
-                                                                    <rect key="frame" x="256.5" y="168" width="50" height="12"/>
+                                                                    <rect key="frame" x="257" y="168" width="48.5" height="12"/>
                                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="10"/>
                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
@@ -11619,19 +11628,19 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                                                                     </constraints>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O5a-sk-q7R">
-                                                                    <rect key="frame" x="201" y="17" width="14" height="13"/>
+                                                                    <rect key="frame" x="201.5" y="17" width="14" height="13"/>
                                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="11"/>
                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="425.65" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="diS-DF-ylM">
-                                                                    <rect key="frame" x="220" y="13" width="49" height="19"/>
+                                                                    <rect key="frame" x="220.5" y="13" width="50" height="19"/>
                                                                     <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(+21.2%)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="emy-E0-KVE">
-                                                                    <rect key="frame" x="271" y="15.5" width="49" height="14"/>
+                                                                    <rect key="frame" x="272.5" y="15.5" width="47.5" height="14"/>
                                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
@@ -11655,7 +11664,7 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                                                                     </constraints>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="01/24/2021" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e13-4L-NuN">
-                                                                    <rect key="frame" x="258.5" y="62" width="61.5" height="14"/>
+                                                                    <rect key="frame" x="256" y="62" width="64" height="14"/>
                                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
                                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
@@ -11793,6 +11802,17 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                                         <color key="textColor" red="0.91644194160000003" green="0.0" blue="0.3790128478" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Nf-0a-gF9">
+                                        <rect key="frame" x="325" y="5" width="45" height="31"/>
+                                        <color key="tintColor" red="0.96684203909999999" green="0.21687440629999999" blue="0.41866993190000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <imageReference key="image" image="questionmark.circle" catalog="system" symbolScale="large"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="helpAction:" destination="mff-xY-YUG" eventType="touchUpInside" id="9Uu-pu-NGt"/>
+                                        </connections>
+                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gfm-lU-fHw">
                                         <rect key="frame" x="87.5" y="38" width="200" height="30"/>
                                         <subviews>
@@ -12124,11 +12144,14 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                                     <constraint firstAttribute="trailing" secondItem="uWn-V6-IIh" secondAttribute="trailing" id="1ef-yL-VLZ"/>
                                     <constraint firstItem="EWs-75-EqF" firstAttribute="leading" secondItem="Xxy-S7-ouD" secondAttribute="leading" constant="20" symbolic="YES" id="2ZE-BF-T6N"/>
                                     <constraint firstAttribute="trailing" secondItem="EWs-75-EqF" secondAttribute="trailing" constant="20" symbolic="YES" id="47P-OJ-yDG"/>
+                                    <constraint firstItem="8Nf-0a-gF9" firstAttribute="top" secondItem="Xxy-S7-ouD" secondAttribute="top" constant="5" id="IHR-g7-SWg"/>
                                     <constraint firstItem="Gfm-lU-fHw" firstAttribute="top" secondItem="uWn-V6-IIh" secondAttribute="bottom" constant="8" symbolic="YES" id="PnE-4U-ugZ"/>
+                                    <constraint firstItem="8Nf-0a-gF9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Xxy-S7-ouD" secondAttribute="leading" constant="20" symbolic="YES" id="bG0-yA-uj5"/>
                                     <constraint firstItem="EWs-75-EqF" firstAttribute="top" secondItem="Gfm-lU-fHw" secondAttribute="bottom" constant="15" id="hh9-lA-q3H"/>
                                     <constraint firstItem="uWn-V6-IIh" firstAttribute="leading" secondItem="Xxy-S7-ouD" secondAttribute="leading" id="hxg-6c-aUU"/>
                                     <constraint firstItem="Gfm-lU-fHw" firstAttribute="centerX" secondItem="Xxy-S7-ouD" secondAttribute="centerX" id="jef-4L-mUb"/>
                                     <constraint firstItem="uWn-V6-IIh" firstAttribute="top" secondItem="Xxy-S7-ouD" secondAttribute="top" constant="5" id="oy3-FC-ozZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="8Nf-0a-gF9" secondAttribute="trailing" constant="5" id="wJm-Bp-0PD"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -16548,9 +16571,9 @@ The overall score of the tactical model, considering each of the 4 component fac
         <segue reference="0Nb-zI-dJw"/>
         <segue reference="glb-DT-AhN"/>
         <segue reference="jeT-5y-cAw"/>
-        <segue reference="Xgq-1i-9gK"/>
+        <segue reference="pDr-Wp-HVS"/>
         <segue reference="ib7-h5-ARA"/>
-        <segue reference="fj7-li-oQg"/>
+        <segue reference="I4y-CC-7PH"/>
         <segue reference="sOe-Hg-cQt"/>
     </inferredMetricsTieBreakers>
     <resources>
@@ -16588,8 +16611,8 @@ The overall score of the tactical model, considering each of the 4 component fac
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="exclamation" width="512" height="512"/>
         <image name="extract_alpha_logo" width="26" height="24.5"/>
-        <image name="eye" catalog="system" width="128" height="81"/>
         <image name="eye" width="28.5" height="21.5"/>
+        <image name="eye" catalog="system" width="128" height="81"/>
         <image name="feather" width="512" height="512"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="globe" width="25" height="25"/>
@@ -16599,7 +16622,6 @@ The overall score of the tactical model, considering each of the 4 component fac
         <image name="hand.thumbsdown.fill" catalog="system" width="128" height="121"/>
         <image name="hand.thumbsup.fill" catalog="system" width="128" height="121"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
-        <image name="info.circle.fill" catalog="system" width="128" height="121"/>
         <image name="kavout_ss" width="1125" height="993"/>
         <image name="language_metrics_ss" width="1125" height="980"/>
         <image name="leaf.fill" catalog="system" width="128" height="106"/>

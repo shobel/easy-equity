@@ -216,7 +216,7 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
                     if symbol == company.symbol {
                         company.priceTarget = priceTarget
                         if let q = company.quote?.latestPrice, let avg = priceTarget.priceTargetAverage {
-                            let upside = ((avg - q) / avg) * 100.0
+                            let upside = ((avg - q) / q) * 100.0
                             self.scoreDict[symbol] = (String(format: "%.0f", upside) + "%", upside / 50.0)
                         }
                         break

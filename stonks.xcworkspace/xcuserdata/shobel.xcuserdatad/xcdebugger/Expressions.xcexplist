@@ -210,10 +210,13 @@
          contextName = "PriceTargetChart.setChartData():PriceTargetChart.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.company.priceTarget">
+               value = "self.company.priceTargetsOverTime">
             </PersistentString>
             <PersistentString
                value = "self.company">
+            </PersistentString>
+            <PersistentString
+               value = "self.company.priceTarget">
             </PersistentString>
             <PersistentString
                value = "Array(monthOfDailyPrices)">
@@ -631,6 +634,9 @@
                value = "self.volumeView.rightAxis.valueFormatter">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WatchAdsViewController.loadRewardedAd():WatchAdsViewController.swift">
       </ContextState>
       <ContextState
          contextName = "LaunchVC.launchAuth():LaunchVC.swift">
@@ -1523,6 +1529,9 @@
                value = "icon.size">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CompanySearchVC.handleListCompanies(_:):CompanySearchVC.swift">
       </ContextState>
       <ContextState
          contextName = "WatchlistTVCell.displayData(company:score:percentile:):WatchlistTVCell.swift">

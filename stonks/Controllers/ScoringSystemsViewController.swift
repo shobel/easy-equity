@@ -21,6 +21,7 @@ class ScoringSystemsViewController: UIViewController, ShadowButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.purchaseAnalystsButton.delegate = self
         Dataholder.subscribeForCreditBalanceUpdates(self)
         

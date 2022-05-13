@@ -256,7 +256,6 @@
 		1C2AC8672183D7C500469941 /* LaunchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchVC.swift; sourceTree = "<group>"; };
 		1C37D1E925425F61003564BE /* SimpleScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleScore.swift; sourceTree = "<group>"; };
 		1C4335E524F772AF00D2628D /* KeychainItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItem.swift; sourceTree = "<group>"; };
-		1C4335E724F7748D00D2628D /* Bullfrog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bullfrog.entitlements; sourceTree = "<group>"; };
 		1C4335EE24F8AF2C00D2628D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1C47FE3327C28EA5003E2983 /* WatchAdsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAdsViewController.swift; sourceTree = "<group>"; };
 		1C4D2D8324E3D6F800E54EB8 /* CashFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashFlow.swift; sourceTree = "<group>"; };
@@ -582,7 +581,6 @@
 				1C0CE36F262D0D4F0099B72B /* Resources */,
 				1C073024260A53230079D6A8 /* Protocols */,
 				1C4335ED24F8AF1D00D2628D /* Extensions */,
-				1C4335E724F7748D00D2628D /* Bullfrog.entitlements */,
 				1C72F91C24CC22F700EC59F6 /* ActionSheets */,
 				1CB257222172C17B008E3D4D /* APIs */,
 				1C7B982F215B32D500C75014 /* AppDelegate.swift */,
@@ -1376,9 +1374,9 @@
 			baseConfigurationReference = 5265415BD1DB5B226DB13419 /* Pods-stonks.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = stonks/Bullfrog.entitlements;
+				CODE_SIGN_ENTITLEMENTS = stonks/Stoccoon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BDZT3U3R7D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1395,6 +1393,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = shobel.stonks;
 				PRODUCT_NAME = Stoccoon;
 				SWIFT_VERSION = 5.0;
@@ -1407,9 +1406,10 @@
 			baseConfigurationReference = 0D22008E39AAFEDD72A5E77D /* Pods-stonks.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = stonks/Bullfrog.entitlements;
+				CODE_SIGN_ENTITLEMENTS = stonks/Stoccoon.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BDZT3U3R7D;
 				INFOPLIST_FILE = stonks/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
@@ -1417,8 +1417,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = shobel.stonks;
 				PRODUCT_NAME = Stoccoon;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

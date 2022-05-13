@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FCAlertView
 
 class PredictionsViewController: UIViewController, StatsVC {
     
@@ -116,11 +117,7 @@ class PredictionsViewController: UIViewController, StatsVC {
         let analystString = numAnalysts > 1 ? "analysts" : "analyst"
         self.numAnalysts.text = String("\(numAnalysts) \(analystString)")
         
-        if let numA = self.company.priceTarget?.numberOfAnalysts {
-            if numA > 0 {
-                self.priceTargetChartView.setup(company: self.company, predictionsDelegate: self, allMode: self.allMode)
-            }
-        }
+        self.priceTargetChartView.setup(company: self.company, predictionsDelegate: self, allMode: self.allMode)
         
         if self.company.priceTargetsOverTime != nil && self.company.priceTargetsOverTime!.count > 0 {
             self.priceTargetsOverTimeChartView.setup(company: self.company, allMode: self.allMode)
@@ -258,6 +255,9 @@ class PredictionsViewController: UIViewController, StatsVC {
         }
     }
     
+    @IBAction func helpAction(_ sender: Any) {
+        self.showInfoAlert("Price targets shown are collected from information within public articles and represent the opinions of others. They should not be taken as investment advice and are for reference only.", title: "Price Target Data")
+    }
     
      // MARK: - Navigation
      
@@ -291,6 +291,22 @@ class PredictionsViewController: UIViewController, StatsVC {
             dest.companyLogo = self.company.generalInfo?.logo ?? ""
         }
      }
+    
+    func showInfoAlert(_ message:String, title:String){
+        let alert = FCAlertView()
+        alert.doneActionBlock {
+            //print()
+        }
+        alert.colorScheme = Constants.blue
+        alert.dismissOnOutsideTouch = true
+        alert.detachButtons = true
+        alert.showAlert(inView: self,
+                        withTitle: title,
+                        withSubtitle: message,
+                        withCustomImage: UIImage(systemName: "questionmark.circle"),
+                        withDoneButtonTitle: "Ok",
+                        andButtons: [])
+    }
      
     
 }

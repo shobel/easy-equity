@@ -11,14 +11,17 @@ import ObjectMapper
 struct EconomyMonthly: Mappable {
     
     private var date:String? // "2020-11-01",
-    private var recessionProbability:Int? // 101,
+    private var recessionProbability:Double? // 101,
     private var consumerPriceIndex:Double?// 265.911,
     private var unemploymentPercent:Double? // 8.1,
     private var fedFundsRate:Double? // 0.09,
     private var industrialProductionIndex:Double? //105.3354
+    private var retailSales:Double?
+    private var consumerSentiment:Double?
+    private var retailMoneyFunds:Double?
     
-    public static var fields:[String] = ["recessionProbability", "consumerPriceIndex", "unemploymentPercent", "fedFundsRate", "industrialProductionIndex"]
-    public static var names:[String] = ["Recession Probability", "Consumer Price Index", "Unemployment Percent", "Fed Funds Rate", "Industrial Production Index"]
+    public static var fields:[String] = ["recessionProbability", "consumerPriceIndex", "unemploymentPercent", "fedFundsRate", "industrialProductionIndex", "retailSales", "consumerSentiment", "retailMoneyFunds"]
+    public static var names:[String] = ["Recession Probability", "Consumer Price Index", "Unemployment Percent", "Fed Funds Rate", "Industrial Production Index", "Retail Sales", "Consumer Sentiment", "Retail Money Funds"]
     
     init(){}
     init?(map: Map) {}
@@ -30,6 +33,9 @@ struct EconomyMonthly: Mappable {
         unemploymentPercent <- map["unemploymentPercent"]
         fedFundsRate <- map["fedFundsRate"]
         industrialProductionIndex <- map["industrialProductionIndex"]
+        retailSales <- map["retailSales"]
+        consumerSentiment <- map["consumerSentiment"]
+        retailMoneyFunds <- map["retailMoneyFunds"]
     }
     
     public static func getValueArrayFromEconomyMonthlies(monthlies:[EconomyMonthly]) -> [EconomyMetric] {
@@ -80,6 +86,27 @@ struct EconomyMonthly: Mappable {
                             em.values.append(latestValue)
                         }
                         break
+                    case "retailSales":
+                        if monthly.retailSales != nil {
+                            foundValue = true
+                            latestValue = Double(monthly.retailSales ?? 0)
+                            em.values.append(latestValue)
+                        }
+                        break
+                    case "consumerSentiment":
+                    if monthly.consumerSentiment != nil {
+                        foundValue = true
+                        latestValue = Double(monthly.consumerSentiment ?? 0)
+                        em.values.append(latestValue)
+                    }
+                    break
+                    case "retailMoneyFunds":
+                    if monthly.retailMoneyFunds != nil {
+                        foundValue = true
+                        latestValue = Double(monthly.retailMoneyFunds ?? 0)
+                        em.values.append(latestValue)
+                    }
+                break
                     default:
                         break
                 }

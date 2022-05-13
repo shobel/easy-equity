@@ -109,15 +109,28 @@ class PriceTargetChart: CombinedChartView {
                             }
                         }
                     }
-                    let ptAvg = priceTargetSum / Double(numTipranksAnalystsWithPriceTargets)
-                    let newAvgPriceTarget = (avg*Double(numAnalysts)) + (ptAvg*Double(numTipranksAnalystsWithPriceTargets))
-                    numAnalysts += numTipranksAnalystsWithPriceTargets
-                    avg = newAvgPriceTarget / Double(numAnalysts)
+                    if numTipranksAnalystsWithPriceTargets > 0 {
+                        let ptAvg = priceTargetSum / Double(numTipranksAnalystsWithPriceTargets)
+                        let newAvgPriceTarget = (avg*Double(numAnalysts)) + (ptAvg*Double(numTipranksAnalystsWithPriceTargets))
+                        numAnalysts += numTipranksAnalystsWithPriceTargets
+                        avg = newAvgPriceTarget / Double(numAnalysts)
+                    }
                 }
             }
         } else if !self.allMode && self.company.priceTargetTopAnalysts != nil {
             avg = self.company.priceTargetTopAnalysts?.avgPriceTarget ?? 0.0
         }
+        
+        if self.company.priceTargetsOverTime != nil && self.company.priceTargetsOverTime!.count > 0 && avg == 0 {
+            let e = self.company.priceTargetsOverTime![self.company.priceTargetsOverTime!.count - 1]
+            if e.priceTarget != nil {
+                avg = e.priceTarget!
+            }
+        }
+        if avg == 0 {
+            return
+        }
+        
         averagePriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count), y: latestPrice))
         averagePriceTargetEntries.append(ChartDataEntry(x: Double(monthOfDailyPrices.count * 2), y: avg))
         
