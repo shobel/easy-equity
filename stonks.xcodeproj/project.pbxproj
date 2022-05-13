@@ -101,7 +101,6 @@
 		1C72F91024CA76C400EC59F6 /* SimpleQuote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F90F24CA76C400EC59F6 /* SimpleQuote.swift */; };
 		1C72F91224CA788200EC59F6 /* Top10s.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F91124CA788200EC59F6 /* Top10s.swift */; };
 		1C72F91624CBD4F300EC59F6 /* MarketNewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F91524CBD4F300EC59F6 /* MarketNewsTableViewCell.swift */; };
-		1C742C5D25B6C72400B88B74 /* PremiumStocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C742C5C25B6C72000B88B74 /* PremiumStocksViewController.swift */; };
 		1C742C6725B81E7A00B88B74 /* CompanySearchSimpleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C742C6625B81E7A00B88B74 /* CompanySearchSimpleTableViewCell.swift */; };
 		1C754B0A24EF4432000AE379 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C754B0924EF4432000AE379 /* CircularProgressView.swift */; };
 		1C754B0C24F0AB39000AE379 /* TopAnalystCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C754B0B24F0AB39000AE379 /* TopAnalystCollectionViewCell.swift */; };
@@ -144,6 +143,8 @@
 		1C8CFFC427E9A5A1004D230F /* PrecisionAlphaDynamics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8CFFC327E9A5A1004D230F /* PrecisionAlphaDynamics.swift */; };
 		1C8CFFC627EAE714004D230F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8CFFC527EAE714004D230F /* SettingsViewController.swift */; };
 		1C8DD1C024C8DF9800333C90 /* CompanySearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8DD1BF24C8DF9800333C90 /* CompanySearchTableViewCell.swift */; };
+		1C8F748B2805B9F600B8F4F6 /* CrossAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8F748A2805B9F600B8F4F6 /* CrossAsset.swift */; };
+		1C8F748D2805BB0B00B8F4F6 /* TacticalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8F748C2805BB0B00B8F4F6 /* TacticalModel.swift */; };
 		1C979D4127F4171500288D1C /* CreditInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C979D4027F4171500288D1C /* CreditInfoViewController.swift */; };
 		1C9B952323E74F14004E95B1 /* PriceChartPriceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B952223E74F14004E95B1 /* PriceChartPriceFormatter.swift */; };
 		1C9B952523EE3958004E95B1 /* DatedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B952423EE3958004E95B1 /* DatedValue.swift */; };
@@ -255,7 +256,6 @@
 		1C2AC8672183D7C500469941 /* LaunchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchVC.swift; sourceTree = "<group>"; };
 		1C37D1E925425F61003564BE /* SimpleScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleScore.swift; sourceTree = "<group>"; };
 		1C4335E524F772AF00D2628D /* KeychainItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItem.swift; sourceTree = "<group>"; };
-		1C4335E724F7748D00D2628D /* Bullfrog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bullfrog.entitlements; sourceTree = "<group>"; };
 		1C4335EE24F8AF2C00D2628D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1C47FE3327C28EA5003E2983 /* WatchAdsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAdsViewController.swift; sourceTree = "<group>"; };
 		1C4D2D8324E3D6F800E54EB8 /* CashFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashFlow.swift; sourceTree = "<group>"; };
@@ -321,7 +321,6 @@
 		1C72F90F24CA76C400EC59F6 /* SimpleQuote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleQuote.swift; sourceTree = "<group>"; };
 		1C72F91124CA788200EC59F6 /* Top10s.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top10s.swift; sourceTree = "<group>"; };
 		1C72F91524CBD4F300EC59F6 /* MarketNewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketNewsTableViewCell.swift; sourceTree = "<group>"; };
-		1C742C5C25B6C72000B88B74 /* PremiumStocksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumStocksViewController.swift; sourceTree = "<group>"; };
 		1C742C6625B81E7A00B88B74 /* CompanySearchSimpleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanySearchSimpleTableViewCell.swift; sourceTree = "<group>"; };
 		1C754B0924EF4432000AE379 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		1C754B0B24F0AB39000AE379 /* TopAnalystCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAnalystCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -332,7 +331,7 @@
 		1C75536D27D7591F00472B18 /* SocialSentimentFMP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSentimentFMP.swift; sourceTree = "<group>"; };
 		1C75536F27D790B400472B18 /* NewsSentiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSentiment.swift; sourceTree = "<group>"; };
 		1C75537127DB8BB200472B18 /* BalanceSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceSheet.swift; sourceTree = "<group>"; };
-		1C7B982C215B32D500C75014 /* Bullfrog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bullfrog.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C7B982C215B32D500C75014 /* Stoccoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stoccoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7B982F215B32D500C75014 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C7B9834215B32D500C75014 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1C7B9836215B32D700C75014 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -370,6 +369,8 @@
 		1C8CFFC327E9A5A1004D230F /* PrecisionAlphaDynamics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecisionAlphaDynamics.swift; sourceTree = "<group>"; };
 		1C8CFFC527EAE714004D230F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1C8DD1BF24C8DF9800333C90 /* CompanySearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanySearchTableViewCell.swift; sourceTree = "<group>"; };
+		1C8F748A2805B9F600B8F4F6 /* CrossAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossAsset.swift; sourceTree = "<group>"; };
+		1C8F748C2805BB0B00B8F4F6 /* TacticalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacticalModel.swift; sourceTree = "<group>"; };
 		1C979D4027F4171500288D1C /* CreditInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditInfoViewController.swift; sourceTree = "<group>"; };
 		1C9B952223E74F14004E95B1 /* PriceChartPriceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceChartPriceFormatter.swift; sourceTree = "<group>"; };
 		1C9B952423EE3958004E95B1 /* DatedValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatedValue.swift; sourceTree = "<group>"; };
@@ -567,7 +568,7 @@
 		1C7B982D215B32D500C75014 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1C7B982C215B32D500C75014 /* Bullfrog.app */,
+				1C7B982C215B32D500C75014 /* Stoccoon.app */,
 				1C7B9840215B32D700C75014 /* stonksTests.xctest */,
 				1C7B984B215B32D700C75014 /* stonksUITests.xctest */,
 			);
@@ -580,7 +581,6 @@
 				1C0CE36F262D0D4F0099B72B /* Resources */,
 				1C073024260A53230079D6A8 /* Protocols */,
 				1C4335ED24F8AF1D00D2628D /* Extensions */,
-				1C4335E724F7748D00D2628D /* Bullfrog.entitlements */,
 				1C72F91C24CC22F700EC59F6 /* ActionSheets */,
 				1CB257222172C17B008E3D4D /* APIs */,
 				1C7B982F215B32D500C75014 /* AppDelegate.swift */,
@@ -674,6 +674,8 @@
 				1C84CCEE27F9919600CEE242 /* Cashtag.swift */,
 				1C84CCF027F9966200CEE242 /* TwitterAccount.swift */,
 				1C84CCF227F9984800CEE242 /* Tweet.swift */,
+				1C8F748A2805B9F600B8F4F6 /* CrossAsset.swift */,
+				1C8F748C2805BB0B00B8F4F6 /* TacticalModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -755,7 +757,6 @@
 				1C817BD92544B604003695F7 /* ScoreSettingsViewController.swift */,
 				1C1421D8256C5247006087BA /* FearGreedViewController.swift */,
 				1C1421EA256CC00B006087BA /* MarketViewController.swift */,
-				1C742C5C25B6C72000B88B74 /* PremiumStocksViewController.swift */,
 				1C7EA4582623C00A00AB873F /* CreditsViewController.swift */,
 				1CD78201264E4795001DF387 /* ExpertsViewController.swift */,
 				1CEBC3522756CA3D004605DE /* PurchaseHistoryViewController.swift */,
@@ -842,12 +843,10 @@
 			buildConfigurationList = 1C7B9854215B32D700C75014 /* Build configuration list for PBXNativeTarget "stonks" */;
 			buildPhases = (
 				8E2FDE5546453462A8CFFF5F /* [CP] Check Pods Manifest.lock */,
-				7B8959ADE032DA6CA43BA559 /* [CP] Prepare Artifacts */,
 				1C7B9828215B32D500C75014 /* Sources */,
 				1C7B9829215B32D500C75014 /* Frameworks */,
 				1C7B982A215B32D500C75014 /* Resources */,
 				A64CFC099C8A558C769A3965 /* [CP] Embed Pods Frameworks */,
-				E9C63C24FA477C4C89C69B02 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -855,7 +854,7 @@
 			);
 			name = stonks;
 			productName = stonks;
-			productReference = 1C7B982C215B32D500C75014 /* Bullfrog.app */;
+			productReference = 1C7B982C215B32D500C75014 /* Stoccoon.app */;
 			productType = "com.apple.product-type.application";
 		};
 		1C7B983F215B32D700C75014 /* stonksTests */ = {
@@ -984,23 +983,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7B8959ADE032DA6CA43BA559 /* [CP] Prepare Artifacts */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-stonks/Pods-stonks-artifacts-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Prepare Artifacts";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-stonks/Pods-stonks-artifacts-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-stonks/Pods-stonks-artifacts.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8E2FDE5546453462A8CFFF5F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1034,23 +1016,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-stonks/Pods-stonks-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E9C63C24FA477C4C89C69B02 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-stonks/Pods-stonks-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-stonks/Pods-stonks-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-stonks/Pods-stonks-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1122,6 +1087,7 @@
 				1CB4F0FA2644AF0600AAD867 /* PremiumPackage.swift in Sources */,
 				1CE755B823D7616900E77D6C /* StockUpdater.swift in Sources */,
 				1CB3D618231D9A5600D6F57C /* Earnings.swift in Sources */,
+				1C8F748B2805B9F600B8F4F6 /* CrossAsset.swift in Sources */,
 				1C72F91024CA76C400EC59F6 /* SimpleQuote.swift in Sources */,
 				1C4D2D9624EB174500E54EB8 /* BigNumberAxisFormatter.swift in Sources */,
 				1C72F91624CBD4F300EC59F6 /* MarketNewsTableViewCell.swift in Sources */,
@@ -1156,7 +1122,6 @@
 				1C9B95BE23FA2075004E95B1 /* NewsTableViewCell.swift in Sources */,
 				1CFFAA0B2170337400D3E768 /* AnalystsRating.swift in Sources */,
 				1C7092CD27DC7C66002DD589 /* ScoringSystemsViewController.swift in Sources */,
-				1C742C5D25B6C72400B88B74 /* PremiumStocksViewController.swift in Sources */,
 				1C75537227DB8BB300472B18 /* BalanceSheet.swift in Sources */,
 				1C7B9863215DE1A800C75014 /* Constants.swift in Sources */,
 				1C75537027D790B400472B18 /* NewsSentiment.swift in Sources */,
@@ -1208,6 +1173,7 @@
 				1C84CCF327F9984800CEE242 /* Tweet.swift in Sources */,
 				1C4D2D8824E3DA2400E54EB8 /* Insider.swift in Sources */,
 				1C817BDF2544C8FB003695F7 /* VariableTableViewCell.swift in Sources */,
+				1C8F748D2805BB0B00B8F4F6 /* TacticalModel.swift in Sources */,
 				1C4D2DA024EE33F800E54EB8 /* PriceTargetTopAnalysts.swift in Sources */,
 				1C1421DE256C529A006087BA /* FearGreedTableViewCell.swift in Sources */,
 				1C75536E27D7591F00472B18 /* SocialSentimentFMP.swift in Sources */,
@@ -1408,8 +1374,9 @@
 			baseConfigurationReference = 5265415BD1DB5B226DB13419 /* Pods-stonks.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = stonks/Bullfrog.entitlements;
+				CODE_SIGN_ENTITLEMENTS = stonks/Stoccoon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BDZT3U3R7D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1426,10 +1393,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = shobel.stonks;
-				PRODUCT_NAME = Bullfrog;
+				PRODUCT_NAME = Stoccoon;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1438,8 +1406,10 @@
 			baseConfigurationReference = 0D22008E39AAFEDD72A5E77D /* Pods-stonks.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = stonks/Bullfrog.entitlements;
+				CODE_SIGN_ENTITLEMENTS = stonks/Stoccoon.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BDZT3U3R7D;
 				INFOPLIST_FILE = stonks/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
@@ -1447,10 +1417,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = shobel.stonks;
-				PRODUCT_NAME = Bullfrog;
+				PRODUCT_NAME = Stoccoon;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

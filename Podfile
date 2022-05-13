@@ -13,7 +13,7 @@ target 'stonks' do
   pod 'Google-Mobile-Ads-SDK'
 
   # Essential UI
-  pod 'Charts'
+  pod 'Charts', '<=3.5.0'
   pod 'SPStorkController'
   pod 'MSPeekCollectionViewDelegateImplementation'
 

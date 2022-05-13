@@ -100,8 +100,16 @@ class Company: Equatable, Comparable {
         var returnDataSet: [Candle] = []
         for i in 0..<dataSet.count {
             let entry = dataSet[i]
+            if entry.datetime == nil || entry.datetime!.isEmpty {
+                prevCandle = entry
+                continue
+            }
             let curDate = NumberFormatter.timeStringToDate(entry.datetime!)
             if (entry.datetime != startTime){
+                if prevCandle.datetime == nil || prevCandle.datetime!.isEmpty {
+                    prevCandle = entry
+                    continue
+                }
                 let prevDate = NumberFormatter.timeStringToDate(prevCandle.datetime!)
                 let numMins = Int(curDate.timeIntervalSince(prevDate)/60)
                 if numMins > 1 {

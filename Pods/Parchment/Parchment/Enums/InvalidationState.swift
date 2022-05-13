@@ -7,37 +7,36 @@ import UIKit
 /// much we need to invalidate by adding together the states each
 /// time a new context is invalidated.
 public enum InvalidationState {
-  case nothing
-  case everything
-  case sizes
-  
-  public init(_ invalidationContext: UICollectionViewLayoutInvalidationContext) {
-    if invalidationContext.invalidateEverything {
-      self = .everything
-    } else if invalidationContext.invalidateDataSourceCounts {
-      self = .everything
-    } else if let context = invalidationContext as? PagingInvalidationContext {
-      if context.invalidateSizes {
-        self = .sizes
-      } else {
-        self = .nothing
-      }
-    } else {
-      self = .nothing
-    }
-  }
-  
-  public static func +(lhs: InvalidationState, rhs: InvalidationState) -> InvalidationState {
-    switch (lhs, rhs) {
-    case (.everything, _), (_, .everything):
-      return .everything
-    case (.sizes, _), (_, .sizes):
-      return .sizes
-    case (.nothing, _), (_, .nothing):
-      return .nothing
-    default:
-      return .everything
-    }
-  }
-}
+    case nothing
+    case everything
+    case sizes
 
+    public init(_ invalidationContext: UICollectionViewLayoutInvalidationContext) {
+        if invalidationContext.invalidateEverything {
+            self = .everything
+        } else if invalidationContext.invalidateDataSourceCounts {
+            self = .everything
+        } else if let context = invalidationContext as? PagingInvalidationContext {
+            if context.invalidateSizes {
+                self = .sizes
+            } else {
+                self = .nothing
+            }
+        } else {
+            self = .nothing
+        }
+    }
+
+    public static func + (lhs: InvalidationState, rhs: InvalidationState) -> InvalidationState {
+        switch (lhs, rhs) {
+        case (.everything, _), (_, .everything):
+            return .everything
+        case (.sizes, _), (_, .sizes):
+            return .sizes
+        case (.nothing, _), (_, .nothing):
+            return .nothing
+        default:
+            return .everything
+        }
+    }
+}

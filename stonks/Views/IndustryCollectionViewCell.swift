@@ -19,22 +19,22 @@ class IndustryCollectionViewCell: UICollectionViewCell {
     }
     
     public func setPerformance(_ perf: Double){
-        self.performance.text = String(perf)
+        self.performance.text = String(format: "%.2f%%", perf*100.0)
         self.backgroundColor = self.getColor(perf)
     }
     
     private func getColor(_ perf: Double) -> UIColor {
-        if perf > 0.03 {
+        if perf > 0.02 {
             return Constants.bigGreen
-        } else if perf > 0.02 {
-            return Constants.mediumGreen
         } else if perf > 0.01 {
+            return Constants.mediumGreen
+        } else if perf > 0.005 {
             return Constants.smallGreen
-        } else if perf > -0.01 {
+        } else if perf > -0.005 {
             return Constants.neutralGrey
-        } else if perf > -0.02 {
+        } else if perf > -0.01 {
             return Constants.smallRed
-        } else if perf > -0.03 {
+        } else if perf > -0.02 {
             return Constants.mediumRed
         } else {
             return Constants.bigRed

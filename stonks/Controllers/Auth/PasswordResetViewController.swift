@@ -9,21 +9,39 @@
 import UIKit
 import FirebaseAuth
 import TransitionButton
+import FCAlertView
 
-class PasswordResetViewController: UIViewController {
+class PasswordResetViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailInput: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var sendResetCodeButton: TransitionButton!
+    @IBOutlet weak var close: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sendResetCodeButton.layer.cornerRadius = 25
         self.emailInput.becomeFirstResponder()
+        
+        sendResetCodeButton.layer.cornerRadius = 25
+        sendResetCodeButton.layer.borderColor = UIColor.white.cgColor
+        sendResetCodeButton.layer.borderWidth = CGFloat(1)
+        close.imageView?.contentMode = .scaleAspectFit
+        close.imageView?.layer.transform = CATransform3DMakeScale(1.5,1.5,1.5)
+        self.emailInput.delegate = self
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [UIColor(red: 65.0/255.0, green: 22.0/255.0, blue: 91.0/255.0, alpha: 1.0).cgColor, UIColor(red: 28.0/255.0, green: 20.0/255.0, blue: 67.0/255.0, alpha: 1.0).cgColor]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.hideErrorLabel()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
     
     @IBAction func sendResetCodeButtonTapped(_ sender: Any) {
@@ -51,6 +69,9 @@ class PasswordResetViewController: UIViewController {
                 }
             }
         }
+    }
+    @IBAction func closeAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     private func showErrorLabel(_ message:String){

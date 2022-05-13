@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 
 class UserAccountViewController: UIViewController, ShadowButtonDelegate {
 
@@ -45,6 +44,22 @@ class UserAccountViewController: UIViewController, ShadowButtonDelegate {
     }
     @IBAction func buyCredits(_ sender: Any) {
         self.openPurchaseView()
+    }
+    
+    @IBAction func pp(_ sender: Any) {
+        if let url = URL(string: "https://sites.google.com/view/stoccoon/privacy-policy") {
+            UIApplication.shared.open(url)
+        }
+    }
+    @IBAction func tc(_ sender: Any) {
+        if let url = URL(string: "https://sites.google.com/view/stoccoon/terms-and-conditions") {
+            UIApplication.shared.open(url)
+        }
+    }
+    @IBAction func eula(_ sender: Any) {
+        if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
+            UIApplication.shared.open(url)
+        }
     }
     /*
     // MARK: - Navigation

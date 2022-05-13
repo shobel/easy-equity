@@ -21,6 +21,7 @@ class ScoringSystemsViewController: UIViewController, ShadowButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.purchaseAnalystsButton.delegate = self
         Dataholder.subscribeForCreditBalanceUpdates(self)
         
@@ -36,12 +37,25 @@ class ScoringSystemsViewController: UIViewController, ShadowButtonDelegate {
         NetworkManager.getMyRestApi().getAnalystsPremiumPackage(completionHandler: handlePackage)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        NetworkManager.getMyRestApi().getAnalystsPremiumPackage(completionHandler: handlePackage)
+    }
+    
     func handlePackage(_ p: PremiumPackage?){
         DispatchQueue.main.async {
             self.analystPackage = p
             if self.analystPackage != nil {
                 self.purchaseAnalystsButton.premiumPackage = self.analystPackage
-                self.purchaseAnalystsButton.credits.text = String(self.analystPackage!.credits ?? 0)
+                if !(self.analystPackage?.enabled ?? true) {
+                    self.purchaseAnalystsButton.bgColor = Constants.lightGrey
+                    self.purchaseAnalystsButton.shadColor = Constants.darkGrey.cgColor
+                    self.purchaseAnalystsButton.credits.text = " ⃠"
+                } else {
+                    self.purchaseAnalystsButton.credits.text = String(self.analystPackage!.credits ?? 0)
+                    self.purchaseAnalystsButton.bgColor = UIColor(red: 48.0/255.0, green: 203.0/255.0, blue: 141.0/255.0, alpha: 1.0)
+                    self.purchaseAnalystsButton.shadColor = UIColor(red: 25.0/255.0, green: 105.0/255.0, blue: 75.0/255.0, alpha: 1.0).cgColor
+                }
+               
                 NetworkManager.getMyRestApi().getTopAnalystsSubscription(completionHandler: self.handleCheckSub)
             } else {
                 self.purchaseAnalystsButton.isHidden = true
@@ -84,7 +98,9 @@ class ScoringSystemsViewController: UIViewController, ShadowButtonDelegate {
     
     func shadowButtonTapped(_ premiumPackage: PremiumPackage?) {
         if premiumPackage != nil {
-            if premiumPackage!.credits ?? 0 > Dataholder.getCreditBalance() {
+            if !(premiumPackage!.enabled ?? true) {
+                self.showErrorAlert("This data is currently unavailable", credits: Dataholder.getCreditBalance())
+            } else if premiumPackage!.credits ?? 0 > Dataholder.getCreditBalance() {
                 self.showPurchaseController()
             } else {
                 self.showInfoAlert(premiumPackage!)

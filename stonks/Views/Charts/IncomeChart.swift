@@ -90,7 +90,7 @@ class IncomeChart: BarChartView {
                 let data = BarChartData()
                 data.addDataSet(revSet)
                 data.addDataSet(incomeSet)
-                data.addDataSet(opSet)
+//                data.addDataSet(opSet)
                 
                 let groupSpace = 2.0
                 let barSpace = 1.0

@@ -92,6 +92,10 @@ class ScoresViewController: UIViewController, StatsVC {
         self.overallScoreContainer.clipsToBounds = true
                 
         self.fetchScores()
+        self.valuationWeight.text = "25% weight"
+        self.futureWeight.text = "25% weight"
+        self.pastWeight.text = "25% weight"
+        self.healthWeight.text = "25% weight"
     }
     
     public func fetchScores(){

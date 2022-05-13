@@ -69,12 +69,30 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
     @IBOutlet weak var paValueTemp: UILabel!
     @IBOutlet weak var paValueFreeEnergy: UILabel!
     
+    //extract alpha cross-asset model
+    @IBOutlet weak var caDateLabel: UILabel!
+    @IBOutlet weak var caCam: CircularProgressView!
+    @IBOutlet weak var caCamMa: CircularProgressView!
+    @IBOutlet weak var caVolume: CustomProgressView!
+    @IBOutlet weak var caSkew: CustomProgressView!
+    @IBOutlet weak var caSpread: CustomProgressView!
+    
+    //extract alpha tactical
+    @IBOutlet weak var tacticalDate: UILabel!
+    @IBOutlet weak var tacticalLiquidity: CustomProgressView!
+    @IBOutlet weak var tacticalSeasonality: CustomProgressView!
+    @IBOutlet weak var tacticalFactor: CustomProgressView!
+    @IBOutlet weak var tacticalReversal: CustomProgressView!
+    @IBOutlet weak var tacticaloverall: CustomProgressView!
+    
     @IBOutlet weak var kavoutInfoView: UIView!
     @IBOutlet weak var sent30InfoView: UIView!
     @IBOutlet weak var stocktwitsInfoView: UIView!
     @IBOutlet weak var brain21InfoView: UIView!
     @IBOutlet weak var brainLanguageInfoView: UIView!
     @IBOutlet weak var precisionAlphaInfoView: UIView!
+    @IBOutlet weak var crossAssetInfoView: UIView!
+    @IBOutlet weak var tacticalInfoView: UIView!
     
     @IBOutlet weak var kavoutUpdateButton: ShadowButtonView!
     @IBOutlet weak var day30SentimentUpdateButton: ShadowButtonView!
@@ -82,6 +100,8 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
     @IBOutlet weak var languageUpdateButton: ShadowButtonView!
     @IBOutlet weak var stocktwitsUpdateButton: ShadowButtonView!
     @IBOutlet weak var precisionAlphaButton: ShadowButtonView!
+    @IBOutlet weak var crossAssetButton: ShadowButtonView!
+    @IBOutlet weak var tacticalButton: ShadowButtonView!
     
     private var company:Company!
     private var isLoaded = false
@@ -92,6 +112,8 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
     private var brain21RankingData:Brain21DayRanking?
     private var stocktwitsSentimentData:StocktwitsSentiment?
     private var precisionAlphaData:PrecisionAlphaDynamics?
+    private var crossAssetData:CrossAsset?
+    private var tacticalModelData:TacticalModel?
     
     public var stockDetailsDelegate:StockDetailsVC!
     
@@ -104,6 +126,8 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
         self.languageUpdateButton.delegate = self
         self.stocktwitsUpdateButton.delegate = self
         self.precisionAlphaButton.delegate = self
+        self.crossAssetButton.delegate = self
+        self.tacticalButton.delegate = self
         
         self.setupOveralRatingView(self.overallRatingsView)
         self.setupOveralRatingView(self.brain21ratingsView)
@@ -138,7 +162,9 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
     
     public func shadowButtonTapped(_ premiumPackage:PremiumPackage?){
         if premiumPackage != nil {
-            if premiumPackage!.credits ?? 0 > Dataholder.getCreditBalance() {
+            if !(premiumPackage!.enabled ?? true) {
+                self.showErrorAlert("This data is currently unavailable", credits: Dataholder.getCreditBalance())
+            } else if premiumPackage!.credits ?? 0 > Dataholder.getCreditBalance() {
                 self.showPurchaseController()
             } else {
                 self.showInfoAlert(premiumPackage!)
@@ -179,6 +205,10 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
                 self.stocktwitsSentimentData = premiumData as? StocktwitsSentiment
             } else if premiumPackage.id == Constants.premiumPackageIds.PREMIUM_PRECISION_ALPHA_PRICE_DYNAMICS {
                 self.precisionAlphaData = premiumData as? PrecisionAlphaDynamics
+            } else if premiumPackage.id == Constants.premiumPackageIds.EXTRACT_ALPHA_CROSS_ASSET_MODEL {
+                self.crossAssetData = premiumData as? CrossAsset
+            } else if premiumPackage.id == Constants.premiumPackageIds.EXTRACT_ALPHA_TACTICAL_MODEL {
+                self.tacticalModelData = premiumData as? TacticalModel
             }
             self.updateData()
         }
@@ -207,16 +237,28 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
                 case Constants.premiumPackageIds.PREMIUM_PRECISION_ALPHA_PRICE_DYNAMICS:
                     currentButton = self.precisionAlphaButton
                     break
+                case Constants.premiumPackageIds.EXTRACT_ALPHA_CROSS_ASSET_MODEL:
+                    currentButton = self.crossAssetButton
+                    break
+                case Constants.premiumPackageIds.EXTRACT_ALPHA_TACTICAL_MODEL:
+                    currentButton = self.tacticalButton
+                    break
                 case .none:
                     break
                 case .some(_):
                     break
                 }
                 if currentButton != nil {
-                    currentButton!.credits.text = String(package.credits!)
                     currentButton!.premiumPackage = package
-                    currentButton!.bgColor = UIColor(red: 48.0/255.0, green: 203.0/255.0, blue: 141.0/255.0, alpha: 1.0)
-                    currentButton!.shadColor = UIColor(red: 25.0/255.0, green: 105.0/255.0, blue: 75.0/255.0, alpha: 1.0).cgColor
+                    if !(package.enabled ?? true) {
+                        currentButton!.bgColor = Constants.lightGrey
+                        currentButton!.shadColor = Constants.darkGrey.cgColor
+                        currentButton!.credits.text = " ⃠"
+                    } else {
+                        currentButton!.credits.text = String(package.credits!)
+                        currentButton!.bgColor = UIColor(red: 48.0/255.0, green: 203.0/255.0, blue: 141.0/255.0, alpha: 1.0)
+                        currentButton!.shadColor = UIColor(red: 25.0/255.0, green: 105.0/255.0, blue: 75.0/255.0, alpha: 1.0).cgColor
+                    }
                 }
             }
         }
@@ -243,6 +285,12 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
                     break
                 case Constants.premiumPackageIds.PREMIUM_PRECISION_ALPHA_PRICE_DYNAMICS:
                     self.precisionAlphaData = data as? PrecisionAlphaDynamics
+                    break
+                case Constants.premiumPackageIds.EXTRACT_ALPHA_CROSS_ASSET_MODEL:
+                    self.crossAssetData = data as? CrossAsset
+                    break
+                case Constants.premiumPackageIds.EXTRACT_ALPHA_TACTICAL_MODEL:
+                    self.tacticalModelData = data as? TacticalModel
                     break
                 default:
                     break
@@ -392,6 +440,54 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
                     self.paValueFreeEnergy.text = String("\(pa.marketFreeEnergy ?? 0.0)")
                     self.paValuePower.text = String("\(pa.marketPower ?? 0.0)")
 
+                }
+                
+                if let ca = self.crossAssetData {
+                    self.crossAssetInfoView.isHidden = true
+                    self.caDateLabel.text = ca.subkey
+                    if let x = ca.skewComponent {
+                        self.caSkew.setProgress(Float(x)/100, animated: true)
+                        self.caSkew.tintColor = self.getTintColorForProgressValue(value: Float(x)/100)
+                    }
+                    if let x = ca.spreadComponent {
+                        self.caSpread.setProgress(Float(x)/100, animated: true)
+                        self.caSpread.tintColor = self.getTintColorForProgressValue(value: Float(x)/100)
+                    }
+                    if let x = ca.volumeComponent {
+                        self.caVolume.setProgress(Float(x)/100, animated: true)
+                        self.caVolume.tintColor = self.getTintColorForProgressValue(value: Float(x)/100)
+                    }
+                    if let x = ca.cam1 {
+                        self.caCam.setProgressAndLabel(CGFloat(x)/100, label: String(x))
+                    }
+                    if let x = ca.cam1Slow {
+                        self.caCamMa.setProgressAndLabel(CGFloat(x)/100, label: String(x))
+                    }
+                }
+                
+                if let tac = self.tacticalModelData {
+                    self.tacticalInfoView.isHidden = true
+                    self.tacticalDate.text = tac.subkey
+                    if let x = tac.factorMomentumComponent {
+                        self.tacticalFactor.setProgress(Float(x)/100, animated: true)
+                        self.tacticalFactor.tintColor = self.getTintColorForProgressValue(value: Float(x)/100)
+                    }
+                    if let x = tac.reversalComponent {
+                        self.tacticalReversal.setProgress(Float(x)/100, animated: true)
+                        self.tacticalReversal.tintColor = self.getTintColorForProgressValue(value: Float(x)/100)
+                    }
+                    if let x = tac.seasonalityComponent {
+                        self.tacticalSeasonality.setProgress(Float(x)/100, animated: true)
+                        self.tacticalSeasonality.tintColor = self.getTintColorForProgressValue(value: Float(x)/100)
+                    }
+                    if let x = tac.liquidityShockComponent {
+                        self.tacticalLiquidity.setProgress(Float(x)/100, animated: true)
+                        self.tacticalLiquidity.tintColor = self.getTintColorForProgressValue(value: Float(x)/100)
+                    }
+                    if let x = tac.tm1 {
+                        self.tacticaloverall.setProgress(Float(x)/100, animated: true)
+                        self.tacticaloverall.tintColor = self.getTintColorForProgressValue(value: Float(x)/100)
+                    }
                 }
             }
         }

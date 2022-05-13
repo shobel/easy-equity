@@ -15,28 +15,35 @@ import AuthenticationServices
 
 class AuthViewController: UIViewController, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
 
-    @IBOutlet weak var loginButton: TransitionButton!
+    @IBOutlet weak var loginButton: TransitionButton!//with apple
+    @IBOutlet weak var loginEmail: TransitionButton! //with email
+    @IBOutlet weak var logo: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         loginButton.layer.cornerRadius = 25
-//        loginButton.layer.borderColor = UIColor.white.cgColor
+        loginButton.layer.borderColor = UIColor.white.cgColor
         loginButton.layer.borderWidth = CGFloat(1)
+//        logo.layer.cornerRadius = logo.layer.bounds.width / 2
         
+        loginEmail.layer.cornerRadius = 25
+        loginEmail.layer.borderColor = UIColor.white.cgColor
+        loginEmail.layer.borderWidth = CGFloat(1)
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [UIColor(red: 65.0/255.0, green: 22.0/255.0, blue: 91.0/255.0, alpha: 1.0).cgColor, UIColor(red: 28.0/255.0, green: 20.0/255.0, blue: 67.0/255.0, alpha: 1.0).cgColor]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//        if Auth.auth().currentUser != nil {
-//            performSegue(withIdentifier: "toHome", sender: self)
-//        }
+        if Dataholder.watchlistUpdater != nil {
+            Dataholder.watchlistUpdater?.stopWatchlistFetchingTimer()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //setBackground()
-        //applyBlur()
-        //addOpaqueLayer()
-        //setUpVideo()
     }
     
     @IBAction func loginButtonClicked(_ sender: Any) {
@@ -80,10 +87,14 @@ class AuthViewController: UIViewController, ASAuthorizationControllerDelegate, A
                     print("Unable to save email to keychain.")
                 }
             }
-            NetworkManager.getMyRestApi().signInWithAppleToken(token: tokenStr!) { (JSON) in
-                self.loginButton.stopAnimation(animationStyle: .expand, completion: {
-                    self.performSegue(withIdentifier: "toHome", sender: self)
-                })
+            NetworkManager.getMyRestApi().signInWithAppleToken(token: tokenStr!) { json in
+                if json != nil {
+                    self.loginButton.stopAnimation(animationStyle: .expand, completion: {
+                        self.performSegue(withIdentifier: "toHome", sender: self)
+                    })
+                } else {
+                    self.loginButton.stopAnimation(animationStyle: .shake)
+                }
             }
         
         case let passwordCredential as ASPasswordCredential:
@@ -99,7 +110,23 @@ class AuthViewController: UIViewController, ASAuthorizationControllerDelegate, A
         }
     }
     
+    @IBAction func pp(_ sender: Any) {
+        if let url = URL(string: "https://sites.google.com/view/stoccoon/privacy-policy") {
+            UIApplication.shared.open(url)
+        }
+    }
     
+    @IBAction func tc(_ sender: Any) {
+        if let url = URL(string: "https://sites.google.com/view/stoccoon/terms-and-conditions") {
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    @IBAction func eula(_ sender: Any) {
+        if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
+            UIApplication.shared.open(url)
+        }
+    }
     //    private func signInToFirebase() {
     //        Auth.auth().signIn(withEmail: self.emailInput.text!, password: self.passwordInput.text!) { (result, err) in
     //            if err != nil {

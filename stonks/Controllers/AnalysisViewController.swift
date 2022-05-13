@@ -44,11 +44,8 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
         self.companyScoresTable.delegate = self
         self.companyScoresTable.dataSource = self
         self.searchbar.delegate = self
-    
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         self.fetchScores()
+
     }
     
     public func fetchScores() {
@@ -118,7 +115,7 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.companyName.text = score.companyName ?? "-"
         cell.industry.text = score.industry ?? "-"
         cell.rank.text = String(score.rank ?? 0)
-        cell.score.text = String(format: "%.1f", (score.percentile ?? 0) * 100.0) + "%"
+        cell.score.text = String(format: "%.0f", (score.percentile ?? 0) * 100.0) + "%"
         cell.setData(industryColor: self.colorMap[score.industry ?? ""] ?? UIColor.gray, rank: score.rank ?? 0, industryRank: score.industryRank ?? 0, industryTotal: score.industryTotal ?? 1, percentile: score.percentile ?? 0.0)
         cell.backgroundColor = UIColor.clear
         

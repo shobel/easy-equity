@@ -36,22 +36,6 @@ namespace core {
 /** Interface used for all query filters. All filters are immutable. */
 class Filter {
  public:
-  /**
-   * Operator is a value relation operator that can be used to filter documents.
-   * It is similar to NSPredicateOperatorType, but only has operators supported
-   * by Firestore.
-   */
-  enum class Operator {
-    LessThan,
-    LessThanOrEqual,
-    Equal,
-    GreaterThanOrEqual,
-    GreaterThan,
-    ArrayContains,
-    In,
-    ArrayContainsAny,
-  };
-
   // For lack of RTTI, all subclasses must identify themselves so that
   // comparisons properly take type into account.
   enum class Type {
@@ -59,8 +43,10 @@ class Filter {
     kArrayContainsFilter,
     kFieldFilter,
     kInFilter,
+    kNotInFilter,
     kKeyFieldFilter,
     kKeyFieldInFilter,
+    kKeyFieldNotInFilter,
   };
 
   Type type() const {

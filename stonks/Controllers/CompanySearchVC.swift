@@ -12,7 +12,7 @@ import XLActionController
 
 extension CompanySearchVC: UISearchBarDelegate, LoadingProtocol {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filterList(searchText: searchText)
+        filterList(searchText: searchText.uppercased())
         self.tableView.reloadData()
         if self.searchResults.count > 0 {
             DispatchQueue.main.async {
@@ -193,6 +193,9 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 NetworkManager.getMyRestApi().listCompanies(completionHandler: handleListCompanies)
             }
         } else {
+            if self.priceTargetTopAnalysts.count == 0 {
+                NetworkManager.getMyRestApi().getTiprankSymbols("5", completionHandler: handleTopAnalysts)
+            }
             self.scrollView.refreshControl!.endRefreshing()
             self.loadingFinished()
         }
@@ -305,8 +308,9 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         }
         if symbolSet.isEmpty {
             self.handleLatestQuotes(quotes: [])
+        } else {
+            NetworkManager.getMyRestApi().getQuotes(symbols: Array(symbolSet), completionHandler: handleLatestQuotes)
         }
-        NetworkManager.getMyRestApi().getQuotes(symbols: Array(symbolSet), completionHandler: handleLatestQuotes)
     }
     
     private func handleLatestQuotes(quotes:[Quote]){

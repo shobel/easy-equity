@@ -8,6 +8,8 @@
 
 import UIKit
 import GaugeKit
+import FCAlertView
+
 class MarketViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var overallFearGreed: UILabel!
@@ -48,6 +50,9 @@ class MarketViewController: UIViewController, UICollectionViewDelegate, UICollec
                 self.indicators = indicators
                 self.overallGauge.rate = CGFloat(overallFearGreed)
                 self.sectorPerformances = sectors
+                self.sectorPerformances.sort { a, b in
+                    return (a.performance ?? 0.0) > (b.performance ?? 0.0)
+                }
                 if self.sectorPerformances.count > 0, let updated = sectors[0].updated {
                     self.sectorPerfDate.text = NumberFormatter.timestampToDatestring(Double(updated))
                 } else {
@@ -120,7 +125,35 @@ class MarketViewController: UIViewController, UICollectionViewDelegate, UICollec
 
     }
     
-
+    @IBAction func fearAndGreedHelp(_ sender: Any) {
+        self.showInfoAlert("Market market emotion index is computed by analyzing what percentage of stocks in the market are in a uptrend and are above their 6 month exponential moving average (EMA)", title: "Fear and Greed")
+    }
+    
+    func showInfoAlert(_ message:String, title:String){
+        let alert = FCAlertView()
+        alert.doneActionBlock {
+            //print()
+        }
+        alert.colorScheme = Constants.blue
+        alert.dismissOnOutsideTouch = true
+        alert.detachButtons = true
+        alert.showAlert(inView: self,
+                        withTitle: title,
+                        withSubtitle: message,
+                        withCustomImage: UIImage(systemName: "questionmark.circle"),
+                        withDoneButtonTitle: "Ok",
+                        andButtons: [])
+    }
+    
+    @IBAction func weeklyHelpButton(_ sender: Any) {
+        self.showInfoAlert("This section shows weekly updated economic data metrics. For each metric, the name of the metric, the current value, and a chart of the values over the past 5 years is shown.", title: "Weekly Economic Data")
+    }
+    
+    @IBAction func monthlyHelpButton(_ sender: Any) {
+        self.showInfoAlert("This section shows monthly updated economic data metrics. For each metric, the name of the metric, the current value, and a chart of the values over the past 5 years is shown.", title: "Monthly Economic Data")
+    }
+    
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? FearGreedViewController {
@@ -128,10 +161,5 @@ class MarketViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
     }
     
-    @IBAction func cnnmoneyButtonTapped(_ sender: Any) {
-        if let url = URL(string: String("http://www.cnn.com")) {
-            UIApplication.shared.open(url)
-        }
-    }
     
 }

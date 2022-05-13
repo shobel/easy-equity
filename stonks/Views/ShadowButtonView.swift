@@ -19,8 +19,16 @@ class ShadowButtonView: UIView {
     public var delegate:ShadowButtonDelegate?
     public var premiumPackage:PremiumPackage?
     //container background color green: 48 203 141
-    public var bgColor:UIColor = UIColor(red: 48.0/255.0, green: 203.0/255.0, blue: 141.0/255.0, alpha: 1.0)
-    public var shadColor:CGColor = UIColor(red: 25.0/255.0, green: 105.0/255.0, blue: 75.0/255.0, alpha: 1.0).cgColor
+    public var bgColor:UIColor = UIColor(red: 48.0/255.0, green: 203.0/255.0, blue: 141.0/255.0, alpha: 1.0) {
+        didSet {
+            self.draw(self.frame)
+        }
+    }
+    public var shadColor:CGColor = UIColor(red: 25.0/255.0, green: 105.0/255.0, blue: 75.0/255.0, alpha: 1.0).cgColor {
+        didSet {
+            self.draw(self.frame)
+        }
+    }
     
     let nibName = "ShadowButtonView"
     
