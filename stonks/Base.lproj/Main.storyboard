@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TiA-Qj-Djo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TiA-Qj-Djo">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1102,51 +1102,51 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="premiumHistoryCell" id="cLQ-cE-FQv" customClass="PremiumHistoryTableViewCell" customModule="Stoccoon" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="375" height="75.5"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cLQ-cE-FQv" id="xbs-vA-BlT">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="75.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Transaction Id" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vl0-Md-lrc" userLabel="id">
-                                                    <rect key="frame" x="15" y="10" width="88" height="17.5"/>
+                                                    <rect key="frame" x="15" y="10" width="88" height="17"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" red="0.14781890249999999" green="0.14781890249999999" blue="0.14781890249999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4HY-YQ-bIf">
-                                                    <rect key="frame" x="15" y="27.5" width="33.5" height="19"/>
+                                                    <rect key="frame" x="15" y="27" width="33.5" height="19"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" red="0.14781890249999999" green="0.14781890249999999" blue="0.14781890249999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Symbol" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S41-wy-vKF">
-                                                    <rect key="frame" x="15" y="46.5" width="54.5" height="19"/>
+                                                    <rect key="frame" x="15" y="46" width="54.5" height="19"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" systemColor="systemPinkColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coin" translatesAutoresizingMaskIntoConstraints="NO" id="BaM-o4-I8J">
-                                                    <rect key="frame" x="113" y="28" width="20" height="20"/>
+                                                    <rect key="frame" x="113" y="27.5" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="SwS-qH-iME"/>
                                                         <constraint firstAttribute="width" constant="20" id="zD4-sN-PxO"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Credits" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Djb-t1-dm7">
-                                                    <rect key="frame" x="141" y="28.5" width="51" height="19"/>
+                                                    <rect key="frame" x="141" y="28" width="51" height="19"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" red="0.14781890249999999" green="0.14781890249999999" blue="0.14781890249999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BRAIN SENTIMENT 30 DAYS" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="oLe-n4-pPw">
-                                                    <rect key="frame" x="200" y="21.5" width="128.5" height="33"/>
+                                                    <rect key="frame" x="200" y="21" width="128.5" height="33"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" red="0.14781890249999999" green="0.14781890249999999" blue="0.14781890249999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufv-xm-eR5">
-                                                    <rect key="frame" x="328.5" y="0.0" width="46.5" height="75.5"/>
+                                                    <rect key="frame" x="328.5" y="0.0" width="46.5" height="75"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="bTh-NP-9qI"/>
                                                     </constraints>
@@ -4087,7 +4087,7 @@ Why is data sometimes not retrieved?
                                 <color key="separatorColor" red="0.89996508080000004" green="0.9063819541" blue="0.92563257379999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="watchListCell" translatesAutoresizingMaskIntoConstraints="NO" id="X3N-vF-qqs" customClass="WatchlistTVCell" customModule="Stoccoon" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="watchListCell" translatesAutoresizingMaskIntoConstraints="NO" id="X3N-vF-qqs" customClass="WatchlistTVCell" customModule="Stoccoon" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="375" height="54.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X3N-vF-qqs" id="SaX-TD-YGr">
@@ -16611,8 +16611,8 @@ The overall score of the tactical model, considering each of the 4 component fac
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="exclamation" width="512" height="512"/>
         <image name="extract_alpha_logo" width="26" height="24.5"/>
-        <image name="eye" width="28.5" height="21.5"/>
         <image name="eye" catalog="system" width="128" height="81"/>
+        <image name="eye" width="28.5" height="21.5"/>
         <image name="feather" width="512" height="512"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="globe" width="25" height="25"/>

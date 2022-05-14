@@ -13,8 +13,8 @@ import Firebase
 
 class MyRestAPI: HTTPRequest {
     
-    private var apiurl = "https://stoccoon.com/api"
-    //private var apiurl = "http://192.168.1.113:3000/api" //192.168.1.113
+    //private var apiurl = "https://stoccoon.com/api"
+    private var apiurl = "http://192.168.1.111:3000/api" //192.168.1.113
     
     private var appEndpoint = "/app"
     private var userEndpoint = "/user"
