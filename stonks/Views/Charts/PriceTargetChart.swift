@@ -32,7 +32,7 @@ class PriceTargetChart: CombinedChartView {
         self.autoScaleMinMaxEnabled = true
         
         self.leftAxis.labelFont = UIFont(name: "Futura", size: 12)!
-        self.leftAxis.labelTextColor = UIColor.gray
+        self.leftAxis.labelTextColor = Constants.lightGrey
         self.leftAxis.drawGridLinesEnabled = false
         self.leftAxis.labelPosition = .outsideChart
         self.leftAxis.drawAxisLineEnabled = false
@@ -43,7 +43,7 @@ class PriceTargetChart: CombinedChartView {
         self.xAxis.axisMinimum = -0.5
         self.xAxis.drawGridLinesEnabled = false
         self.xAxis.labelPosition = .bottom
-        self.xAxis.labelTextColor = .clear
+        self.xAxis.labelTextColor = .white
         self.xAxis.granularity = 1
         self.xAxis.drawAxisLineEnabled = false
 
@@ -168,8 +168,8 @@ class PriceTargetChart: CombinedChartView {
 
         let monthDataSet = LineChartDataSet(entries: monthDataEntries)
         let averagePriceTargetDataSet = LineChartDataSet(entries: averagePriceTargetEntries)
-        self.configureLineDataSet(set: monthDataSet, dashed: false, color: .gray)
-        self.configureLineDataSet(set: averagePriceTargetDataSet, dashed: true, color: .gray)
+        self.configureLineDataSet(set: monthDataSet, dashed: false, color: Constants.lightGrey.withAlphaComponent(0.5))
+        self.configureLineDataSet(set: averagePriceTargetDataSet, dashed: true, color: Constants.lightGrey)
         
         self.lineChartDataSets.append(monthDataSet)
         self.lineChartDataSets.append(averagePriceTargetDataSet)
@@ -215,7 +215,6 @@ class PriceTargetChart: CombinedChartView {
 
 extension PriceTargetChart: IValueFormatter {
     func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
-        //return NumberFormatter.formatNumberWithPossibleDecimal(value)
         if let latestPrice = self.company.quote?.latestPrice {
             let diff = value - latestPrice
             //self.textColor = getColor(diff)

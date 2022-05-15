@@ -95,6 +95,7 @@
 		1C7092CD27DC7C66002DD589 /* ScoringSystemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7092CC27DC7C66002DD589 /* ScoringSystemsViewController.swift */; };
 		1C72349A230CF34500319D7F /* PremiumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C723499230CF34500319D7F /* PremiumViewController.swift */; };
 		1C72349C230CF43200319D7F /* KeyStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72349B230CF43200319D7F /* KeyStatsViewController.swift */; };
+		1C7282402830B44600E86AC1 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72823F2830B44600E86AC1 /* CustomTabBarController.swift */; };
 		1C72F90A24CA4FFD00EC59F6 /* UserAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F90924CA4FFD00EC59F6 /* UserAccountViewController.swift */; };
 		1C72F90C24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F90B24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift */; };
 		1C72F91024CA76C400EC59F6 /* SimpleQuote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F90F24CA76C400EC59F6 /* SimpleQuote.swift */; };
@@ -314,6 +315,7 @@
 		1C7092CC27DC7C66002DD589 /* ScoringSystemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringSystemsViewController.swift; sourceTree = "<group>"; };
 		1C723499230CF34500319D7F /* PremiumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumViewController.swift; sourceTree = "<group>"; };
 		1C72349B230CF43200319D7F /* KeyStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyStatsViewController.swift; sourceTree = "<group>"; };
+		1C72823F2830B44600E86AC1 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		1C72F90924CA4FFD00EC59F6 /* UserAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountViewController.swift; sourceTree = "<group>"; };
 		1C72F90B24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top10CollectionViewCell.swift; sourceTree = "<group>"; };
 		1C72F90F24CA76C400EC59F6 /* SimpleQuote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleQuote.swift; sourceTree = "<group>"; };
@@ -767,6 +769,7 @@
 				1C84CCEC27F4474C00CEE242 /* TopAnalystsInfoViewController.swift */,
 				1C84CCF427F9A2D400CEE242 /* TwitterAccountsViewController.swift */,
 				1C84CCFA27FB332500CEE242 /* TweetViewController.swift */,
+				1C72823F2830B44600E86AC1 /* CustomTabBarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1197,6 +1200,7 @@
 				1C7B9871215EB09000C75014 /* StockDataApiProtocol.swift in Sources */,
 				1C754B0A24EF4432000AE379 /* CircularProgressView.swift in Sources */,
 				1CEBC35D275ABA0E004605DE /* PremiumHistoryViewController.swift in Sources */,
+				1C7282402830B44600E86AC1 /* CustomTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -42,8 +42,8 @@ class ScoreSnowflakeChart: RadarChartView {
         }
 
         let set = RadarChartDataSet(entries: entries)
-        set.fillColor = UIColor(red: 70.0/255.0, green: 188.0/255.0, blue: 242.0/255.0, alpha: 1.0)
-        set.setColor(UIColor(red: 70.0/255.0, green: 188.0/255.0, blue: 242.0/255.0, alpha: 1.0))
+        set.fillColor = Constants.lightPurple
+        set.setColor(Constants.lightPurple)
         set.drawFilledEnabled = true
         set.fillAlpha = 0.5
         set.lineWidth = 2

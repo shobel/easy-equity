@@ -62,6 +62,7 @@ struct Constants{
     //theme colors
     public static var themePurple = UIColor(red: 73.0/255.0, green: 22.0/255.0, blue: 91.0/255.0, alpha: 1.0)
     public static var themeBlue = UIColor(red: 28.0/255.0, green: 20.0/255.0, blue: 67.0/255.0, alpha: 1.0)
+    public static var lightPurple = UIColor(red: 171.0/255.0, green: 72.0/355.0, blue: 255.0/255.0, alpha: 1.0)
     
     public static var veryLightGrey = UIColor(red: 230.0/255.0, green: 230.0/255.0, blue: 230.0/255.0, alpha: 1.0)
     public static var lightGrey = UIColor(red: 200.0/255.0, green: 200.0/255.0, blue: 200.0/255.0, alpha: 1.0)

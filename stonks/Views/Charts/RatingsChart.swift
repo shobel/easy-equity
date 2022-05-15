@@ -45,7 +45,7 @@ class RatingsChart: BarChartView {
         self.xAxis.granularity = 1
         self.xAxis.drawAxisLineEnabled = true
         self.xAxis.wordWrapEnabled = true
-        self.xAxis.labelTextColor = .black
+        self.xAxis.labelTextColor = Constants.lightGrey
 
         self.drawBarShadowEnabled = true
         self.extraTopOffset = 10 //isnt doing anything
@@ -135,8 +135,8 @@ class RatingsChart: BarChartView {
             Constants.darkPink
         ]
         
-        set.barShadowColor = Constants.veryLightGrey
-        set.valueTextColor = Constants.darkGrey
+        set.barShadowColor = .clear
+        set.valueTextColor = Constants.lightGrey
         set.drawValuesEnabled = true
         set.highlightEnabled = false
         set.valueFormatter = self

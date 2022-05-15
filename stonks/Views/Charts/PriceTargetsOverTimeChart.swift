@@ -32,7 +32,7 @@ class PriceTargetsOverTimeChart: CombinedChartView, IAxisValueFormatter {
         self.autoScaleMinMaxEnabled = true
         
         self.leftAxis.labelFont = UIFont(name: "Futura", size: 12)!
-        self.leftAxis.labelTextColor = UIColor.gray
+        self.leftAxis.labelTextColor = Constants.lightGrey
         self.leftAxis.drawGridLinesEnabled = false
         self.leftAxis.labelPosition = .outsideChart
         self.leftAxis.drawAxisLineEnabled = false
@@ -43,7 +43,7 @@ class PriceTargetsOverTimeChart: CombinedChartView, IAxisValueFormatter {
         self.xAxis.axisMinimum = -0.5
         self.xAxis.drawGridLinesEnabled = false
         self.xAxis.labelPosition = .bottom
-        self.xAxis.labelTextColor = .darkGray
+        self.xAxis.labelTextColor = Constants.lightGrey
         self.xAxis.granularity = 1
         self.xAxis.drawAxisLineEnabled = false
         self.xAxis.valueFormatter = self
@@ -83,7 +83,7 @@ class PriceTargetsOverTimeChart: CombinedChartView, IAxisValueFormatter {
 
         let yearDataSet = LineChartDataSet(entries: yearEntries)
         let averagePriceTargetDataSet = LineChartDataSet(entries: averagePriceTargetEntries)
-        self.configureLineDataSet(set: yearDataSet, dashed: false, color: .gray)
+        self.configureLineDataSet(set: yearDataSet, dashed: false, color: Constants.lightGrey.withAlphaComponent(0.5))
         self.configureLineDataSet(set: averagePriceTargetDataSet, dashed: false, color: .orange)
         
         lineChartDataSets = []
@@ -168,7 +168,6 @@ class PriceTargetsOverTimeChart: CombinedChartView, IAxisValueFormatter {
 
 extension PriceTargetsOverTimeChart: IValueFormatter {
     func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
-        //return NumberFormatter.formatNumberWithPossibleDecimal(value)
         if let latestPrice = self.company.quote?.latestPrice {
             let diff = value - latestPrice
             //self.textColor = getColor(diff)

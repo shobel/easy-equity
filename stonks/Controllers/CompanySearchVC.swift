@@ -109,6 +109,7 @@ extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate 
 //TODO-SAM: when company search returns no results, might want to switch table views to show a message that says no results
 class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -139,6 +140,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mainView.addPurpleGradientBackground()
         
         top10CollectionView.delegate = self
         top10CollectionView.dataSource = self

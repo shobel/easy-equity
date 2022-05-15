@@ -57,14 +57,7 @@ class PredictionsViewController: UIViewController, StatsVC {
         self.overallRatingsView.layer.masksToBounds = true
         self.overallRatingsView.clipsToBounds = true
         
-        self.analystButtonView.layer.borderWidth = 1.0
-        self.analystButtonView.layer.borderColor = Constants.lightGrey.cgColor
-        self.analystButtonView.layer.cornerRadius = 5.0
-        self.analystButtonView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        self.analystButtonView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-        self.analystButtonView.layer.shadowOpacity = 1.0
-        self.analystButtonView.layer.shadowRadius = 0.0
-        self.analystButtonView.layer.masksToBounds = false
+        self.analystButtonView.layer.cornerRadius = 10.0
         
         self.accuracyLabel.alpha = 0
         self.avgReturnLabel.alpha = 0
@@ -185,25 +178,25 @@ class PredictionsViewController: UIViewController, StatsVC {
     }
     
     func getTintColorForReturnValue(value:Float) -> UIColor {
-        if value > 0.3 {
-            return UIColor(red: 80.0/255.0, green: 50.0/255.0, blue: 250.0/255.0, alpha: 1.0)
-        } else if value > 0.2 {
-            return UIColor(red: 120.0/255.0, green: 50.0/255.0, blue: 230.0/255.0, alpha: 1.0)
-        } else if value > 0.1 {
-            return UIColor(red: 160.0/255.0, green: 53.0/255.0, blue: 210.0/255.0, alpha: 1.0)
+        if value >= 0.3 {
+            return UIColor(red: 50.0/255.0, green: 250.0/255.0, blue: 130.0/255.0, alpha: 1.0)
+        } else if value >= 0.2 {
+            return UIColor(red: 128.0/255.0, green: 194.0/255.0, blue: 156.0/255.0, alpha: 1.0)
+        } else if value >= 0.1 {
+            return UIColor(red: 200.0/255.0, green: 35.0/255.0, blue: 95.0/255.0, alpha: 1.0)
         } else {
-            return UIColor(red: 200.0/255.0, green: 60.0/255.0, blue: 168.0/255.0, alpha: 1.0)
+            return UIColor(red: 143.0/255.0, green: 0.0/255.0, blue: 52.0/255.0, alpha: 1.0)
         }
     }
     func getTintColorForProgressValue(value:Float) -> UIColor {
-        if value > 0.75 {
-            return UIColor(red: 80.0/255.0, green: 50.0/255.0, blue: 250.0/255.0, alpha: 1.0)
-        } else if value > 0.5 {
-            return UIColor(red: 120.0/255.0, green: 50.0/255.0, blue: 230.0/255.0, alpha: 1.0)
-        } else if value > 0.25 {
-            return UIColor(red: 160.0/255.0, green: 53.0/255.0, blue: 210.0/255.0, alpha: 1.0)
+        if value >= 0.75 {
+            return UIColor(red: 50.0/255.0, green: 250.0/255.0, blue: 130.0/255.0, alpha: 1.0)
+        } else if value >= 0.5 {
+            return UIColor(red: 128.0/255.0, green: 194.0/255.0, blue: 156.0/255.0, alpha: 1.0)
+        } else if value >= 0.25 {
+            return UIColor(red: 200.0/255.0, green: 35.0/255.0, blue: 95.0/255.0, alpha: 1.0)
         } else {
-            return UIColor(red: 200.0/255.0, green: 60.0/255.0, blue: 168.0/255.0, alpha: 1.0)
+            return UIColor(red: 143.0/255.0, green: 0.0/255.0, blue: 52.0/255.0, alpha: 1.0)
         }
     }
     

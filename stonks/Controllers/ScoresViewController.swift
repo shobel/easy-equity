@@ -152,11 +152,11 @@ class ScoresViewController: UIViewController, StatsVC {
                         for (key, value) in valuationScores {
                             let scoreString = String(format: "%.1f", value * 100.0) + "%"
                             var scoreColor = self.getScoreTextColor(value)
-                            var valueColor = Constants.darkGrey
+                            var valueColor:UIColor = .white
                             if let settings = self.scoreSettings, let disabled = settings.disabled {
                                 if disabled.contains(key) {
-                                    scoreColor = Constants.veryLightGrey
-                                    valueColor = Constants.veryLightGrey
+                                    scoreColor = .lightGray.withAlphaComponent(0.5)
+                                    valueColor = .lightGray.withAlphaComponent(0.5)
                                 }
                                 if let ws = settings.weightings, let w = ws["valuation"] {
                                     let rounded = String(format: "%.0f", w)
@@ -204,11 +204,11 @@ class ScoresViewController: UIViewController, StatsVC {
                         for (key, value) in futureScores {
                             let scoreString = String(format: "%.1f", value * 100.0) + "%"
                             var scoreColor = self.getScoreTextColor(value)
-                            var valueColor = Constants.darkGrey
+                            var valueColor:UIColor = .white
                             if let settings = self.scoreSettings, let disabled = settings.disabled {
                                 if disabled.contains(key) {
-                                    scoreColor = Constants.veryLightGrey
-                                    valueColor = Constants.veryLightGrey
+                                    scoreColor = .lightGray.withAlphaComponent(0.5)
+                                    valueColor = .lightGray.withAlphaComponent(0.5)
                                 }
                                 if let ws = settings.weightings, let w = ws["future"] {
                                     let rounded = String(format: "%.0f", w)
@@ -269,11 +269,11 @@ class ScoresViewController: UIViewController, StatsVC {
                         for (key, value) in pastScores {
                             let scoreString = String(format: "%.1f", value * 100.0) + "%"
                             var scoreColor = self.getScoreTextColor(value)
-                            var valueColor = Constants.darkGrey
+                            var valueColor:UIColor = .white
                             if let settings = self.scoreSettings, let disabled = settings.disabled {
                                 if disabled.contains(key) {
-                                    scoreColor = Constants.veryLightGrey
-                                    valueColor = Constants.veryLightGrey
+                                    scoreColor = .lightGray.withAlphaComponent(0.5)
+                                    valueColor = .lightGray.withAlphaComponent(0.5)
                                 }
                                 if let ws = settings.weightings, let w = ws["past"] {
                                     let rounded = String(format: "%.0f", w)
@@ -335,11 +335,11 @@ class ScoresViewController: UIViewController, StatsVC {
                             var scoreColor = self.getScoreTextColor(value)
                             let valueString = String(format: "%.1f", rawValues[key] ?? 0.0)
                             let valueStringPercent = String(format: "%.1f", (rawValues[key] ?? 0.0) * 100.0) + "%"
-                            var valueColor = Constants.darkGrey
+                            var valueColor:UIColor = .white
                             if let settings = self.scoreSettings, let disabled = settings.disabled {
                                 if disabled.contains(key) {
-                                    scoreColor = Constants.veryLightGrey
-                                    valueColor = Constants.veryLightGrey
+                                    scoreColor = .lightGray.withAlphaComponent(0.5)
+                                    valueColor = .lightGray.withAlphaComponent(0.5)
                                 }
                                 if let ws = settings.weightings, let w = ws["health"] {
                                     let rounded = String(format: "%.0f", w)
