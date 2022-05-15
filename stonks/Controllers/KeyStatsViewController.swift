@@ -44,6 +44,7 @@ extension KeyStatsViewController: UICollectionViewDataSource, UICollectionViewDe
 
 class KeyStatsViewController: UIViewController, StatsVC {
     
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var marketCap: FormattedNumberLabel!
     @IBOutlet weak var beta: FormattedNumberLabel!
     @IBOutlet weak var dividend: FormattedNumberLabel!

@@ -58,16 +58,16 @@ class ShadowButtonView: UIView {
     }
     
     override func draw(_ rect:CGRect) {
-        self.containerView.backgroundColor = self.bgColor
-        self.containerView.layer.cornerRadius = 5.0
+        self.containerView.backgroundColor = self.bgColor.withAlphaComponent(0.5)
+        self.containerView.layer.cornerRadius = 10.0
         self.containerView.clipsToBounds = true
         
-        self.shadowView.layer.shadowColor = self.shadColor
-        self.shadowView.layer.cornerRadius = 6.0
-        self.shadowView.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
-        self.shadowView.layer.shadowOpacity = 1.0
-        self.shadowView.layer.shadowRadius = 0.0
-        self.shadowView.layer.masksToBounds = false
+//        self.shadowView.layer.shadowColor = self.shadColor
+//        self.shadowView.layer.cornerRadius = 6.0
+//        self.shadowView.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
+//        self.shadowView.layer.shadowOpacity = 1.0
+//        self.shadowView.layer.shadowRadius = 0.0
+//        self.shadowView.layer.masksToBounds = false
 
     }
     

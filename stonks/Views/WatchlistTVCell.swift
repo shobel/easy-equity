@@ -60,7 +60,7 @@ class WatchlistTVCell: UITableViewCell {
         //scores, arent necessarily the buy ratings
         self.buyRating.backgroundColor = self.getScoreTextColor(percentile).withAlphaComponent(0.2)
         self.buyRating.textColor = self.getScoreTextColor(percentile)
-        self.buyRating.text = score
+        self.buyRating.text = " " + score + "  "
         
         if let quote = company.quote {
             self.priceChartPreview.setData(quote)
@@ -71,7 +71,7 @@ class WatchlistTVCell: UITableViewCell {
                 preAfterImage.isHidden = false
                 preAfterImageWidth.constant = self.preAfterImageVisibleWidth
                 preAfterImage.image = UIImage(systemName: "moon.circle.fill")
-                preAfterImage.tintColor = .black
+                preAfterImage.tintColor = .white
                 //preAfterImage.image = UIImage(systemName: "sunset")
                 if GeneralUtility.isPremarket() {
                     preAfterImage.image = UIImage(systemName: "sun.max.fill")

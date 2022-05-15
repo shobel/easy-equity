@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NetworkDelegate {
         // Override point for customization after application launch.
         
         if #available(iOS 13.0, *) {
-            window!.overrideUserInterfaceStyle = .light
+            window!.overrideUserInterfaceStyle = .dark
         }
         
         FirebaseApp.configure()

@@ -74,7 +74,6 @@
 		1C62CF5E256E9F56009C27E3 /* SimplestLineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62CF5D256E9F56009C27E3 /* SimplestLineChart.swift */; };
 		1C62CF63256EA32E009C27E3 /* EconomyMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62CF62256EA32E009C27E3 /* EconomyMetric.swift */; };
 		1C62FDD624BC144D00BABDCB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDD524BC144D00BABDCB /* LoginViewController.swift */; };
-		1C62FDD924BC14D900BABDCB /* frog-on-a-log.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C62FDD824BC14D900BABDCB /* frog-on-a-log.mp4 */; };
 		1C62FDDB24BC4B6F00BABDCB /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDDA24BC4B6F00BABDCB /* SignupViewController.swift */; };
 		1C62FDDD24BC4B9B00BABDCB /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDDC24BC4B9B00BABDCB /* AuthViewController.swift */; };
 		1C62FDE224BD698C00BABDCB /* AlertDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDE124BD698C00BABDCB /* AlertDisplay.swift */; };
@@ -294,7 +293,6 @@
 		1C62CF5D256E9F56009C27E3 /* SimplestLineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplestLineChart.swift; sourceTree = "<group>"; };
 		1C62CF62256EA32E009C27E3 /* EconomyMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EconomyMetric.swift; sourceTree = "<group>"; };
 		1C62FDD524BC144D00BABDCB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		1C62FDD824BC14D900BABDCB /* frog-on-a-log.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "frog-on-a-log.mp4"; sourceTree = "<group>"; };
 		1C62FDDA24BC4B6F00BABDCB /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		1C62FDDC24BC4B9B00BABDCB /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		1C62FDE124BD698C00BABDCB /* AlertDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDisplay.swift; sourceTree = "<group>"; };
@@ -508,7 +506,6 @@
 		1C62FDD724BC14C200BABDCB /* Media */ = {
 			isa = PBXGroup;
 			children = (
-				1C62FDD824BC14D900BABDCB /* frog-on-a-log.mp4 */,
 			);
 			path = Media;
 			sourceTree = "<group>";
@@ -953,7 +950,6 @@
 				1C0CE38F262D0DA40099B72B /* Roboto-Bold.ttf in Resources */,
 				1C7B9837215B32D700C75014 /* Assets.xcassets in Resources */,
 				1C0CE393262D0DA40099B72B /* Roboto-BlackItalic.ttf in Resources */,
-				1C62FDD924BC14D900BABDCB /* frog-on-a-log.mp4 in Resources */,
 				1C0CE38B262D0DA40099B72B /* Roboto-Light.ttf in Resources */,
 				1C0CE395262D0DA40099B72B /* Roboto-ThinItalic.ttf in Resources */,
 				1C0CE390262D0DA40099B72B /* Roboto-Medium.ttf in Resources */,

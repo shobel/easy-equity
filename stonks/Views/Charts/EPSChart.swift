@@ -28,7 +28,7 @@ class EPSChart: CombinedChartView {
         self.autoScaleMinMaxEnabled = true
         
         self.leftAxis.labelFont = UIFont(name: "Charter", size: 12)!
-        self.leftAxis.labelTextColor = UIColor.gray
+        self.leftAxis.labelTextColor = Constants.lightGrey
         self.leftAxis.drawGridLinesEnabled = false
         self.leftAxis.labelPosition = .outsideChart
         self.leftAxis.drawAxisLineEnabled = false
@@ -42,7 +42,7 @@ class EPSChart: CombinedChartView {
         self.xAxis.valueFormatter = self.formatter
         self.xAxis.granularity = 1
         self.xAxis.drawAxisLineEnabled = false
-        self.xAxis.labelTextColor = .black
+        self.xAxis.labelTextColor = Constants.lightGrey
 
         self.drawOrder = [DrawOrder.bar.rawValue, DrawOrder.line.rawValue, DrawOrder.scatter.rawValue]
         self.setChartData(company: company)

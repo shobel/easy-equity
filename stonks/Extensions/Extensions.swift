@@ -30,13 +30,31 @@ extension UIViewController {
 }
 
 extension UIView {
-    func addGradientBackground(){
+    func addPinkGradientBackground(){
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [Constants.purple.cgColor, Constants.darkPink.cgColor]
         gradientLayer.frame = self.bounds
         gradientLayer.locations = [0.0, 0.8]
         gradientLayer.startPoint = CGPoint.zero
         gradientLayer.endPoint = CGPoint(x: 1, y: 0)
+        self.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    func addPurpleGradientBackground(){
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.bounds
+        //65, 22, 91 is darker
+        //73, 22, 91 is lighter
+        gradientLayer.colors = [UIColor(red: 65.0/255.0, green: 22.0/255.0, blue: 91.0/255.0, alpha: 1.0).cgColor, UIColor(red: 28.0/255.0, green: 20.0/255.0, blue: 67.0/255.0, alpha: 1.0).cgColor]
+        self.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    func addLightPurpleGradientBackground(){
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.bounds
+        //65, 22, 91 is darker
+        //73, 22, 91 is lighter
+        gradientLayer.colors = [UIColor(red: 112.0/255.0, green: 57.0/255.0, blue: 112.0/255.0, alpha: 1.0).cgColor, UIColor(red: 91.0/255.0, green: 57.0/255.0, blue: 112.0/255.0, alpha: 1.0).cgColor]
         self.layer.insertSublayer(gradientLayer, at: 0)
     }
     
@@ -128,4 +146,15 @@ extension Date {
 
            return end - start
        }
+}
+
+extension UIImage {
+
+    func alpha(_ value:CGFloat) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+    }
 }

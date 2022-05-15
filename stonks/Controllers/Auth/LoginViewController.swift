@@ -35,11 +35,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FCAlertViewDel
         loginButton.layer.borderWidth = CGFloat(1)
         closeButton.imageView?.layer.transform = CATransform3DMakeScale(1.5,1.5,1.5)
 
-        
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.view.bounds
-        gradientLayer.colors = [UIColor(red: 65.0/255.0, green: 22.0/255.0, blue: 91.0/255.0, alpha: 1.0).cgColor, UIColor(red: 28.0/255.0, green: 20.0/255.0, blue: 67.0/255.0, alpha: 1.0).cgColor]
-        self.view.layer.insertSublayer(gradientLayer, at: 0)
+        self.view.addPurpleGradientBackground()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -131,13 +127,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FCAlertViewDel
     }
     
     private func askIfSignUp(){
-        let message = "The username " + self.emailInput.text! + " is available. Would you like to Sign Up for an Account with this email and the provided password?"
+        let message = "The username " + self.emailInput.text! + " is available. Would you like to sign up for an account with this email?"
         let alert = FCAlertView()
         alert.delegate = self
         alert.doneActionBlock {
             self.signUp()
         }
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
         alert.colorScheme = Constants.green
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
         alert.dismissOnOutsideTouch = true
         alert.detachButtons = true
         alert.showAlert(inView: self,

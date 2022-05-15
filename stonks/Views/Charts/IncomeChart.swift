@@ -26,7 +26,8 @@ class IncomeChart: BarChartView {
                
         self.chartDescription?.enabled = false
         self.legend.enabled = true
-        self.legend.textColor = .black
+        self.legend.textColor = Constants.lightGrey
+        self.legend.form = .circle
         self.dragEnabled = false
         self.setScaleEnabled(false)
         self.pinchZoomEnabled = false
@@ -52,7 +53,7 @@ class IncomeChart: BarChartView {
         self.xAxis.wordWrapEnabled = false
         self.xAxis.centerAxisLabelsEnabled = true
         self.xAxis.valueFormatter = self
-        self.xAxis.labelTextColor = .black
+        self.xAxis.labelTextColor = Constants.lightGrey
 
         //self.drawBarShadowEnabled = true
 //        self.extraTopOffset = 0
@@ -94,7 +95,7 @@ class IncomeChart: BarChartView {
                 
                 let groupSpace = 2.0
                 let barSpace = 1.0
-                let barWidth = 5.0
+                let barWidth = 2.0
                 
                 data.barWidth = barWidth
                 let gg = data.groupWidth(groupSpace: groupSpace, barSpace: barSpace)
@@ -128,7 +129,7 @@ class IncomeChart: BarChartView {
     }
     
     func configureDataSet(dataset: BarChartDataSet, label:String, color: UIColor) {
-        dataset.valueTextColor = Constants.darkGrey
+        dataset.valueTextColor = Constants.lightGrey
         dataset.drawValuesEnabled = true
         dataset.highlightEnabled = false
         dataset.valueFormatter = self

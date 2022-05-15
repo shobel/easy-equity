@@ -15,6 +15,7 @@ import FCAlertView
 
 class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var creditBalanceButton: ShadowButtonView!
     @IBOutlet weak var stockDetailsNavView: StockDetailsNavView!
     @IBOutlet weak var priceDetailsView: StockDetailsSummaryView!
@@ -75,13 +76,14 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         "news",
         "wallet",
         "analysts",
-        "scores",
+        "scores_white",
         "star"
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
                 
+        mainView.addPurpleGradientBackground()
         Dataholder.subscribeForCreditBalanceUpdates(self)
         self.creditBalanceButton.credits.text = String("\(Dataholder.getCreditBalance())")
         self.creditBalanceButton.delegate = self
@@ -102,8 +104,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         pageVC.register(IconPagingCell.self, for: IconItem.self)
         pageVC.menuHorizontalAlignment = .center
         pageVC.menuItemSize = .sizeToFit(minWidth: 60, height: 60)
-        pageVC.menuBackgroundColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1)
-        pageVC.indicatorColor = Constants.darkPink
+        pageVC.menuBackgroundColor = .clear
+        pageVC.indicatorColor = .clear
+        pageVC.borderColor = .clear
         pageVC.dataSource = self
         pageVC.delegate = self
         pageVC.select(pagingItem: IconItem(icon: icons[0], index: 0))
@@ -119,12 +122,15 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
             pageVC.view.topAnchor.constraint(equalTo: pagingView.topAnchor)
         ])
         pageVC.selectedFont = UIFont(name: "HelveticaNeue-Thin", size: 12.0)!
-        pageVC.backgroundColor = UIColor.lightGray
+        pageVC.backgroundColor = .clear
         
         //setup general stock and price information
         
         //setup chart buttons
         timeButtons = [button1D, button1M, button3M, button1Y, button5Y]
+        for butt in timeButtons {
+            butt.layer.cornerRadius = butt.layer.frame.height / 2
+        }
         button1D.backgroundColor = UIColor.white
         button1D.setTitleColor(Constants.darkGrey, for: .normal)
         timeInterval = Constants.TimeIntervals.day
@@ -712,9 +718,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
             let button = timeButtons[i]
             if i == index {
                 button.backgroundColor = UIColor.white
-                button.setTitleColor(Constants.darkGrey, for: .normal)
+                button.setTitleColor(.darkGray, for: .normal)
             } else {
-                button.backgroundColor = Constants.darkPink
+                button.backgroundColor = .clear
                 button.setTitleColor(UIColor.white, for: .normal)
             }
         }

@@ -30,6 +30,7 @@ extension NewsViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         cell.source.text = news.source
         cell.symbols.text = news.related
+        cell.contentView.addLightPurpleGradientBackground()
         cell.url = news.url
         return cell
     }
@@ -114,7 +115,7 @@ class NewsViewController: UIViewController, StatsVC {
 
         DispatchQueue.main.async {
             self.newsCollectionView.reloadData()
-            self.sentimentChart.setData([twitterSentiment, stocktwitsSentiment], colors: [Constants.blue, UIColor.black])
+            self.sentimentChart.setData([twitterSentiment, stocktwitsSentiment], colors: [Constants.blue, UIColor.white])
             self.sentimentChart.setLabelPosition(outside: true)
             if self.stockNews.count > 2 {
                 self.newsCollectionView.scrollToItem(at: IndexPath(row: 1, section: 0), at: .centeredHorizontally, animated: true)

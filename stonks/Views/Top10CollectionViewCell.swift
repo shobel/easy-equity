@@ -18,7 +18,7 @@ class Top10CollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         self.layer.borderWidth = 1.0
         self.layer.cornerRadius = 10.0
-        self.layer.borderColor = UIColor.lightGray.cgColor
+        self.layer.borderColor = UIColor.black.cgColor
     }
     
 }

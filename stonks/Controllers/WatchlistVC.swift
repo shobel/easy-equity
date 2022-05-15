@@ -14,6 +14,7 @@ import ObjectMapper
 
 class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
     
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var creditBalanceView: ShadowButtonView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerBgView: UIView!
@@ -28,6 +29,7 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
     private var scoreDict:[String:(String, Double)] = [:]
     
     @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var emptyImage: UIImageView!
     
     private var lastRefresh:Double = 0
     private var watchlist:[Company] = []
@@ -44,16 +46,18 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
         self.creditBalanceView.delegate = self
         self.creditBalanceView.bgColor = Constants.orange
         self.creditBalanceView.shadColor = UIColor(red: 100.0/255.0, green: 60.0/255.0, blue: 25.0/255.0, alpha: 1.0).cgColor
-        self.headerBgView.addGradientBackground()
+        //self.headerBgView.addPinkGradientBackground()
         
         self.watchlistManager = Dataholder.watchlistManager
         self.watchlistManager.watchlistVC = self
         self.watchlist = watchlistManager.getWatchlist()
         
-        self.headerBgView.layer.shadowColor = UIColor.black.cgColor
-        self.headerBgView.layer.shadowOpacity = 0.7
-        self.headerBgView.layer.shadowOffset = .zero
-        self.headerBgView.layer.shadowRadius = 3
+//        self.headerBgView.layer.shadowColor = UIColor.white.cgColor
+//        self.headerBgView.layer.shadowOpacity = 0.7
+//        self.headerBgView.layer.shadowOffset = .zero
+//        self.headerBgView.layer.shadowRadius = 3
+        
+        self.mainView.addPurpleGradientBackground()
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -61,9 +65,10 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
         self.tableView.refreshControl = UIRefreshControl()
         self.tableView.refreshControl!.addTarget(self, action: #selector(handleRefresh), for: UIControl.Event.valueChanged)
         
-        self.tableView.backgroundView = nil
-        self.tableView.backgroundColor = UIColor.white
+//        self.tableView.backgroundView = nil
+//        self.tableView.backgroundColor = UIColor.white
         
+        self.emptyImage.image = UIImage(named: "abducted.png")!.alpha(0.7)
         NetworkManager.getMyRestApi().getCreditsForCurrentUser { credits in
             Dataholder.updateCreditBalance(credits)
         }
@@ -103,12 +108,18 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
         NetworkManager.getMyRestApi().getWatchlistForCurrentUser() { quotes in
             self.watchlist = self.watchlistManager.getWatchlist()
             if self.watchlist.count == 0 {
+                DispatchQueue.main.async {
+                    self.emptyView.isHidden = false
+                }
                 if self.watchlistUpdater == nil {
                     self.watchlistUpdater = WatchlistUpdater(caller: self, timeInterval: 60.0)
                     Dataholder.watchlistUpdater = self.watchlistUpdater
                     self.watchlistUpdater!.startWatchlistFetchingTimer()
                 }
             } else {
+                DispatchQueue.main.async {
+                    self.emptyView.isHidden = true
+                }
                 for c in self.watchlist {
                     for q in quotes {
                         if (c.symbol == q.symbol) {
@@ -509,6 +520,9 @@ extension WatchlistVC: UITableViewDelegate, UITableViewDataSource {
                 cell.displayData(company: company, score: "", percentile: -1)
             }
         }
+        cell.backgroundView?.backgroundColor = .clear
+        cell.backgroundColor = .clear
+        cell.layer.backgroundColor = UIColor.clear.cgColor
         return cell
     }
     

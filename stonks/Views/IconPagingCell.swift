@@ -19,8 +19,16 @@ struct IconPagingCellViewModel {
     init(image: UIImage?, selected: Bool, options: PagingOptions) {
         self.image = image
         self.selected = selected
-        self.tintColor = UIColor.darkGray//options.textColor
-        self.selectedTintColor = Constants.darkPink//options.selectedTextColor
+        let data1: NSData = image!.pngData()! as NSData
+        let data2: NSData = UIImage(named: "star")!.pngData()! as NSData
+        if data1.isEqual(data2) {
+            self.tintColor = UIColor.yellow.withAlphaComponent(0.5)//options.textColor
+            self.selectedTintColor = .yellow//options.selectedTextColor
+            
+        } else {
+            self.tintColor = UIColor.lightGray.withAlphaComponent(0.5)//options.textColor
+            self.selectedTintColor = .white//options.selectedTextColor
+        }
     }
 }
 
