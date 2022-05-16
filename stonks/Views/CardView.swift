@@ -18,13 +18,14 @@ class CardView: UIView {
     func layoutView() {
         layer.cornerRadius = 10
         layer.masksToBounds = true
+        layer.backgroundColor = Constants.themeDarkBlue.cgColor
     }
     
     
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
 //    override func draw(_ rect: CGRect) {
-//        self.layer.backgroundColor = UIColor.yellow.cgColor
+//       
 //    }
     
 

@@ -16,6 +16,7 @@ import FCAlertView
 class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
 
     @IBOutlet var mainView: UIView!
+    @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var creditBalanceButton: ShadowButtonView!
     @IBOutlet weak var stockDetailsNavView: StockDetailsNavView!
     @IBOutlet weak var priceDetailsView: StockDetailsSummaryView!
@@ -76,9 +77,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
     private var lastContentOffset: CGFloat = 0
 
     fileprivate let icons = [
-        "stats",
+        "bars",
         "news",
-        "wallet",
+        "dollarsign",
         "analysts",
         "scores",
         "star"
@@ -87,14 +88,14 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.pagingViewDummy.isHidden = true
-
         mainView.addPurpleGradientBackground()
         self.scrollView.delegate = self
         Dataholder.subscribeForCreditBalanceUpdates(self)
         self.creditBalanceButton.credits.text = String("\(Dataholder.getCreditBalance())")
         self.creditBalanceButton.delegate = self
-        self.creditBalanceButton.bgColor = Constants.orange
-        self.creditBalanceButton.shadColor = UIColor(red: 100.0/255.0, green: 60.0/255.0, blue: 25.0/255.0, alpha: 1.0).cgColor
+        self.creditBalanceButton.bgColor = .clear
+//        self.creditBalanceButton.shadColor = UIColor.clear.cgColor
+//        self.creditBalanceButton.shadColor = UIColor(red: 100.0/255.0, green: 60.0/255.0, blue: 25.0/255.0, alpha: 1.0).cgColor
 
         self.scrollView.delegate = self
         self.toggleVwap.layer.cornerRadius = 5
@@ -138,7 +139,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         pageVC.menuHorizontalAlignment = .center
         pageVC.menuInsets = UIEdgeInsets(top: -5.0, left: 10.0, bottom: -5.0, right: 10.0)
         pageVC.menuItemSize = .sizeToFit(minWidth: 60, height: 60)
-        pageVC.menuBackgroundColor = Constants.themePurple.withAlphaComponent(1.0)
+        pageVC.menuBackgroundColor = Constants.themeDarkBlue
         pageVC.indicatorColor = .clear
         pageVC.borderColor = .clear
         pageVC.dataSource = self
@@ -200,7 +201,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         volumeChartFormatter = VolumeChartFormatter()
         self.chartView.setup(delegate: self)
         self.chartView.delegate = self
-                
+        
         //start information retrieval processes
         self.totalHandlers = 2
         NetworkManager.getMyRestApi().getFirstTabData(symbol: company.symbol, completionHandler: handleKeyStats)
@@ -333,10 +334,10 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         DispatchQueue.main.async {
             if added {
                 self.watchlistButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
-                self.watchlistButton.tintColor = Constants.darkPink
+                self.watchlistButton.tintColor = .white
             } else {
                 self.watchlistButton.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
-                self.watchlistButton.tintColor = Constants.darkGrey
+                self.watchlistButton.tintColor = .white
             }
         }
     }
@@ -368,7 +369,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         datetime.textColor = UIColor.gray
         if self.isMarketOpen {
             datetext = "market open"
-            datetime.textColor = Constants.green
+            datetime.textColor = Constants.lightGrey
         }
 //        if latestQuote != nil && latestQuote.latestUpdate != nil {
 //            datetext += " \(latestQuote.latestUpdate!)"

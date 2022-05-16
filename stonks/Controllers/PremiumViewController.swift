@@ -136,6 +136,15 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
         self.setupSentimentBars(self.blSentimentNegative, pvp: self.blSentimentPositive, divider: self.blDivider)
         self.setupSentimentBars(self.stSentimentNegative, pvp: self.stSentimentPositive, divider: self.stDivider)
         
+        self.kavoutInfoView.backgroundColor = Constants.themeDarkBlue
+        self.sent30InfoView.backgroundColor = Constants.themeDarkBlue
+        self.brain21InfoView.backgroundColor = Constants.themeDarkBlue
+        self.tacticalInfoView.backgroundColor = Constants.themeDarkBlue
+        self.stocktwitsInfoView.backgroundColor = Constants.themeDarkBlue
+        self.crossAssetInfoView.backgroundColor = Constants.themeDarkBlue
+        self.brainLanguageInfoView.backgroundColor = Constants.themeDarkBlue
+        self.precisionAlphaInfoView.backgroundColor = Constants.themeDarkBlue
+
         self.isLoaded = true
         self.company = Dataholder.selectedCompany!
         
@@ -253,7 +262,7 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
                     if !(package.enabled ?? true) {
                         currentButton!.bgColor = Constants.lightGrey
                         currentButton!.shadColor = Constants.darkGrey.cgColor
-                        currentButton!.credits.text = "-"
+                        currentButton!.credits.text = "--"
                     } else {
                         currentButton!.credits.text = String(package.credits!)
                         currentButton!.bgColor = UIColor(red: 48.0/255.0, green: 203.0/255.0, blue: 141.0/255.0, alpha: 1.0)

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "coin.png",
+      "filename" : "round_eye.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "coin@2x.png",
+      "filename" : "round_eye@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "coin@3x.png",
+      "filename" : "round_eye@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

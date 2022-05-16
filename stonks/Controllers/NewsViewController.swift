@@ -30,7 +30,6 @@ extension NewsViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         cell.source.text = news.source
         cell.symbols.text = news.related
-        cell.contentView.addLightPurpleGradientBackground()
         cell.url = news.url
         return cell
     }

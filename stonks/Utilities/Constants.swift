@@ -60,9 +60,20 @@ struct Constants{
     ]
     
     //theme colors
-    public static var themePurple = UIColor(red: 73.0/255.0, green: 22.0/255.0, blue: 91.0/255.0, alpha: 1.0)
-    public static var themeBlue = UIColor(red: 28.0/255.0, green: 20.0/255.0, blue: 67.0/255.0, alpha: 1.0)
-    public static var lightPurple = UIColor(red: 171.0/255.0, green: 72.0/355.0, blue: 255.0/255.0, alpha: 1.0)
+    //blue 12, 8, 28 super dark
+    //blue 19, 13, 46 is dark
+    //blue is 28, 20, 67 lighter
+    //pink 51, 17, 71 is even darker
+    //pink 65, 22, 91 is darker
+    //pink 73, 22, 91 is lighter
+    
+    public static var themeBlue = UIColor(red: 19.0/255.0, green: 13.0/255.0, blue: 46.0/255.0, alpha: 1.0)
+    //bit lighter
+    public static var themeBlue2 = UIColor(red: 28.0/255.0, green: 18.0/255.0, blue: 64.0/255.0, alpha: 1.0)
+    public static var themeDarkBlue = UIColor(red: 17.0/255.0, green: 11.0/255.0, blue: 42.0/255.0, alpha: 1.0)
+    public static var themePurple = UIColor(red: 51.0/255.0, green: 17.0/255.0, blue: 71.0/255.0, alpha: 1.0)
+    public static var lightPurple = UIColor(red: 187.0/255.0, green: 105.0/355.0, blue: 255.0/255.0, alpha: 1.0)
+    public static var veryLightPurple = UIColor(red: 240.0/255.0, green: 227.0/355.0, blue: 250.0/255.0, alpha: 1.0)
     
     public static var veryLightGrey = UIColor(red: 230.0/255.0, green: 230.0/255.0, blue: 230.0/255.0, alpha: 1.0)
     public static var lightGrey = UIColor(red: 200.0/255.0, green: 200.0/255.0, blue: 200.0/255.0, alpha: 1.0)

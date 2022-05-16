@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable class CircularProgressView: UIView {
-    private var mainColor: UIColor = Constants.purple.withAlphaComponent(0.2)
+    private var mainColor: UIColor = Constants.themePurple.withAlphaComponent(0.2)
     private var forgroundColor: UIColor = Constants.green
     private var backLayerWidth: CGFloat = 10.0
     private var foreLayerWidth: CGFloat = 6.0

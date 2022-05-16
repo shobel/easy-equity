@@ -39,7 +39,7 @@ class PriceTargetChart: CombinedChartView {
         self.leftAxis.enabled = true
         self.rightAxis.enabled = false
         
-        self.xAxis.enabled = true
+        self.xAxis.enabled = false
         self.xAxis.axisMinimum = -0.5
         self.xAxis.drawGridLinesEnabled = false
         self.xAxis.labelPosition = .bottom
@@ -186,7 +186,7 @@ class PriceTargetChart: CombinedChartView {
       
     private func configureLineDataSet(set: LineChartDataSet, dashed: Bool, color: UIColor){
         if dashed{
-            set.lineDashLengths = [5, 5]
+            set.lineDashLengths = [2, 2]
             set.drawCirclesEnabled = true
             set.circleHoleColor = color
             set.setCircleColor(color)
@@ -196,7 +196,7 @@ class PriceTargetChart: CombinedChartView {
             set.drawValuesEnabled = false
         }
         set.lineWidth = 2.0
-        set.circleRadius = 5.0
+        set.circleRadius = 2.0
         set.setColor(color)
         set.highlightEnabled = false
         set.valueFont = UIFont(name: "Futura-Bold", size: 12)!

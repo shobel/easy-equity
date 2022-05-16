@@ -11,6 +11,7 @@ import XLActionController
 
 class ExpertsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var expertsTable: UITableView!
     @IBOutlet weak var symbolLabel: UILabel!
     @IBOutlet weak var latestPriceLabel: UILabel!
@@ -24,6 +25,8 @@ class ExpertsViewController: UIViewController, UITableViewDataSource, UITableVie
     public var companyLogo:String = ""
     
     override func viewDidLoad() {
+        self.mainView.addPurpleGradientBackground()
+        
         self.expertsTable.delegate = self
         self.expertsTable.dataSource = self
         self.sortByContainer.layer.cornerRadius = 5.0

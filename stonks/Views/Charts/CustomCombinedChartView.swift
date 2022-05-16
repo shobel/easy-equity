@@ -144,7 +144,7 @@ class CustomCombinedChartView: CombinedChartView {
         if self.myCandleData!.count > 0 {
             self.lastLineValue = self.myCandleData![self.myCandleData!.count - 1].close!
         }
-        prevCloseEntries.append(ChartDataEntry(x: Double(self.myCandleData!.count - 1), y: previousCloseValue))
+        prevCloseEntries.append(ChartDataEntry(x: Double(391), y: previousCloseValue))
         
         let candleSet = CandleChartDataSet(entries: candleEntries)
         self.setUpCandleChart(set: candleSet)
@@ -290,7 +290,7 @@ class CustomCombinedChartView: CombinedChartView {
     
     private func setUpVolumeChart(set: BarChartDataSet){
         set.axisDependency = .right
-        set.setColor(Constants.fadedOrange.withAlphaComponent(0.25))
+        set.setColor(.lightGray.withAlphaComponent(0.2))
         set.highlightEnabled = false
         set.drawValuesEnabled = false
     }

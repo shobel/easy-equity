@@ -44,7 +44,7 @@ class WatchlistVC: UIViewController, Updateable, ShadowButtonDelegate {
         
         Dataholder.subscribeForCreditBalanceUpdates(self)
         self.creditBalanceView.delegate = self
-        self.creditBalanceView.bgColor = Constants.orange
+        self.creditBalanceView.bgColor = .clear
         self.creditBalanceView.shadColor = UIColor(red: 100.0/255.0, green: 60.0/255.0, blue: 25.0/255.0, alpha: 1.0).cgColor
         //self.headerBgView.addPinkGradientBackground()
         

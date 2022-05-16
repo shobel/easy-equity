@@ -19,6 +19,7 @@ class Top10CollectionViewCell: UICollectionViewCell {
         self.layer.borderWidth = 1.0
         self.layer.cornerRadius = 10.0
         self.layer.borderColor = UIColor.black.cgColor
+        self.backgroundColor = Constants.themeDarkBlue
     }
     
 }

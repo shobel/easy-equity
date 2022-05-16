@@ -29,6 +29,7 @@ class PredictionsViewController: UIViewController, StatsVC {
     @IBOutlet weak var topAnalystSuccessRateView: CircularProgressView!
     @IBOutlet weak var avgReturnView: CircularProgressView!
 
+    @IBOutlet weak var priceTargetTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var priceTargetChartTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var priceTargetLabelTop: NSLayoutConstraint!
     @IBOutlet weak var analystButtonView: UIView!
@@ -211,6 +212,7 @@ class PredictionsViewController: UIViewController, StatsVC {
         topAnalystSuccessRateView.isHidden = true
         avgReturnView.isHidden = true
         priceTargetChartTopConstraint.constant = 15
+        priceTargetTopConstraint.constant = -20
         priceTargetLabelTop.constant = 15
         self.view.layoutIfNeeded()
     }

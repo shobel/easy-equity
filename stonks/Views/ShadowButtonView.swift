@@ -19,7 +19,7 @@ class ShadowButtonView: UIView {
     public var delegate:ShadowButtonDelegate?
     public var premiumPackage:PremiumPackage?
     //container background color green: 48 203 141
-    public var bgColor:UIColor = UIColor(red: 48.0/255.0, green: 203.0/255.0, blue: 141.0/255.0, alpha: 1.0) {
+    public var bgColor:UIColor = UIColor(red: 48.0/255.0, green: 203.0/255.0, blue: 141.0/255.0, alpha: 0.5) {
         didSet {
             self.draw(self.frame)
         }
@@ -58,7 +58,14 @@ class ShadowButtonView: UIView {
     }
     
     override func draw(_ rect:CGRect) {
-        self.containerView.backgroundColor = self.bgColor.withAlphaComponent(0.5)
+//        self.containerView.backgroundColor = .clear
+        self.backgroundColor = .clear
+        self.layer.backgroundColor = UIColor.clear.cgColor
+        if self.bgColor != .clear {
+            self.containerView.backgroundColor = self.bgColor.withAlphaComponent(0.75)
+        } else {
+            self.containerView.backgroundColor = self.bgColor
+        }
         self.containerView.layer.cornerRadius = 10.0
         self.containerView.clipsToBounds = true
         

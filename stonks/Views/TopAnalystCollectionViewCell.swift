@@ -19,5 +19,6 @@ class TopAnalystCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layer.cornerRadius = 10.0
+        self.backgroundColor = Constants.themeDarkBlue
     }
 }

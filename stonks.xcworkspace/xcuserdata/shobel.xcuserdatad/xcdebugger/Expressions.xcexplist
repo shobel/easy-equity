@@ -852,10 +852,10 @@
                value = "statsVC.getContentHeight()">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
+               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
+               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1171,7 +1171,10 @@
          contextName = "StockDetailsVC.loadDynamicData():StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "timeInterval">
+               value = "u">
+            </PersistentString>
+            <PersistentString
+               value = "Dataholder.selectedCompany">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
