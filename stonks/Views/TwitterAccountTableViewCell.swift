@@ -32,9 +32,11 @@ class TwitterAccountTableViewCell: UITableViewCell, UICollectionViewDelegate, UI
         super.awakeFromNib()
         self.cashtagCollectionView.delegate = self
         self.cashtagCollectionView.dataSource = self
+        self.cashtagCollectionView.backgroundColor = .clear
         imageUrl.layer.cornerRadius = imageUrl.frame.size.height/2
         imageUrl.layer.masksToBounds = true
         imageUrl.layer.borderWidth = 0;
+        self.backgroundColor = .clear
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -51,18 +53,14 @@ class TwitterAccountTableViewCell: UITableViewCell, UICollectionViewDelegate, UI
         cell.symbol.text = cashtag.symbol ?? ""
         if cashtag.symbol == "RECENT" {
             cell.symbol.font = cell.symbol.font.withSize(CGFloat(14.0))
-            cell.mainView.backgroundColor = Constants.lightblue
-            cell.mainView.layer.borderColor = Constants.blue.cgColor
-            cell.layer.borderColor = Constants.blue.cgColor
+            cell.mainView.backgroundColor = Constants.themePurple
             cell.tweetCount.textColor = .white
             cell.sentiment.isHidden = true
             cell.face.isHidden = true
         } else {
             cell.symbol.font = cell.symbol.font.withSize(CGFloat(16.0))
             cell.symbol.textColor = .white
-            cell.mainView.backgroundColor = UIColor(red: 30.0/255.0, green: 30.0/255.0, blue: 30.0/255.0, alpha: 1.0)
-            cell.mainView.layer.borderColor = UIColor(red: 30.0/255.0, green: 30.0/255.0, blue: 30.0/255.0, alpha: 1.0).cgColor
-            cell.layer.borderColor = UIColor(red: 30.0/255.0, green: 30.0/255.0, blue: 30.0/255.0, alpha: 1.0).cgColor
+            cell.mainView.backgroundColor = Constants.themeDarkBlue
             cell.sentiment.isHidden = false
             cell.tweetCount.textColor = Constants.lightblue
             cell.face.isHidden = false
@@ -72,7 +70,14 @@ class TwitterAccountTableViewCell: UITableViewCell, UICollectionViewDelegate, UI
         } else {
             cell.tweetCount.text = String("\(cashtag.count ?? 0) tweets")
         }
-        cell.sentiment.text = String(format: "%.2f", cashtag.overallSentiment ?? 0.0)
+        if cashtag.overallSentiment != nil {
+            if cashtag.overallSentiment! > 0 {
+                cell.sentiment.text = String(format: "+%.2f", cashtag.overallSentiment!)
+            } else if cashtag.overallSentiment! <= 0 {
+                cell.sentiment.text = String(format: "%.2f", cashtag.overallSentiment!)
+            }
+        }
+ 
         cell.sentiment.textColor = self.getColorForSentiment(cashtag.overallSentiment ?? 0.0)
         cell.face.image = UIImage(named: self.getImageNameForSentiment(cashtag.overallSentiment ?? 0.0))
         cell.parentView = self

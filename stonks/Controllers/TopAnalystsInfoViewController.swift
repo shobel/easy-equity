@@ -10,11 +10,12 @@ import UIKit
 
 class TopAnalystsInfoViewController: UIViewController {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var progressView: CircularProgressView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.mainView.addPurpleGradientBackground()
         self.progressView.setProgressNoLabel(CGFloat(0.50))
     }
     

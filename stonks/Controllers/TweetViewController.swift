@@ -10,6 +10,7 @@ import UIKit
 
 class TweetViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tit: UILabel!
     
@@ -19,8 +20,10 @@ class TweetViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mainView.addPurpleGradientBackground()
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.backgroundColor = .clear
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -43,6 +46,7 @@ class TweetViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.createdAt.text = tweet.createdAt
         cell.cashtags.text = tweet.cashtags?.joined(separator: ",")
         cell.tweet.text = tweet.text ?? ""
+        cell.backgroundColor = .clear
         return cell
     }
     

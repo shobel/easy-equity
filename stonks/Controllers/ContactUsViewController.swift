@@ -11,6 +11,7 @@ import FCAlertView
 
 class ContactUsViewController: UIViewController, UITextViewDelegate {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var message: UITextView!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var charCount: UILabel!
@@ -21,13 +22,18 @@ class ContactUsViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mainView.addPurpleGradientBackground()
+        self.email.attributedPlaceholder = NSAttributedString(
+            string: "email address",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        )
+        self.email.backgroundColor = .white
         self.message.delegate = self
         self.charCount.text = ""
         self.message.textColor = UIColor.lightGray
         self.message.font = UIFont(name: "System", size: 18)
-        self.message.layer.borderWidth = 1
-        self.message.layer.borderColor = UIColor.lightGray.cgColor
         self.message.layer.cornerRadius = 5
+        self.message.backgroundColor = .white
         NetworkManager.getMyRestApi().getEmailFromFirstUserIssue { email in
             DispatchQueue.main.async {
                 if email != nil {
@@ -101,6 +107,12 @@ class ContactUsViewController: UIViewController, UITextViewDelegate {
     func showErrorAlert(_ error:String){
         let message = String("\(error).")
         let alert = FCAlertView()
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
         alert.colorScheme = Constants.darkPink
         alert.dismissOnOutsideTouch = true
         alert.detachButtons = true
@@ -114,7 +126,13 @@ class ContactUsViewController: UIViewController, UITextViewDelegate {
     func showSuccessAlert(_ m:String){
         let message = String("\(m).")
         let alert = FCAlertView()
-        alert.colorScheme = Constants.green
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.colorScheme = Constants.lightPurple
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
         alert.dismissOnOutsideTouch = true
         alert.detachButtons = true
         alert.showAlert(inView: self,

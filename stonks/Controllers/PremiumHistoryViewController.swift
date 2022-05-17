@@ -10,14 +10,17 @@ import UIKit
 
 class PremiumHistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var tableview: UITableView!
     private var transactions:[PremiumTransaction] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mainView.addPurpleGradientBackground()
         self.tableview.tableFooterView = UIView() 
         self.tableview.delegate = self
         self.tableview.dataSource = self
+        self.tableview.backgroundColor = .clear
         self.updateData()
     }
     
@@ -45,6 +48,7 @@ class PremiumHistoryViewController: UIViewController, UITableViewDelegate, UITab
         cell.credits.text = String(credits)
         cell.transactionId.text = "id: " + String(transaction.timestamp!)
         cell.supportButton.tag = indexPath.row
+        cell.backgroundColor = .clear
         return cell
     }
     

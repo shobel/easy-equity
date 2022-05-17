@@ -19,6 +19,7 @@ class PurchaseTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setupPriceLabel()
+        self.backgroundColor = .clear
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -26,12 +27,6 @@ class PurchaseTableViewCell: UITableViewCell {
     }
     
     private func setupPriceLabel() {
-        self.price.layer.shadowColor = UIColor(red: 25.0/255.0, green: 105.0/255.0, blue: 75.0/255.0, alpha: 1.0).cgColor
-        self.price.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
-        self.price.layer.shadowOpacity = 1.0
-        self.price.layer.shadowRadius = 0.0
-        self.price.layer.masksToBounds = false
-//        self.price.clipsToBounds = true
-        self.price.layer.cornerRadius = 5.0
+        self.price.layer.cornerRadius = 10.0
     }
 }

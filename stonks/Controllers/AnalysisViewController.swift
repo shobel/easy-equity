@@ -23,6 +23,7 @@ extension AnalysisViewController: UISearchBarDelegate {
 
 class AnalysisViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var configureButton: UIButton!
     @IBOutlet weak var searchbar: UISearchBar!
     @IBOutlet weak var companyScoresTable: UITableView!
@@ -31,16 +32,13 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
     private var scoresOriginal:[SimpleScore] = []
     
     private var colorMap:[String:UIColor] = [:]
-    private var indicator = UIActivityIndicatorView()
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.activityIndicator()
-        
-        configureButton.layer.cornerRadius = 15
-        configureButton.layer.borderColor = UIColor.darkGray.cgColor
-        configureButton.layer.borderWidth = CGFloat(1)
-        
+        self.mainView.addPurpleGradientBackground()
+        self.configureButton.tintColor = Constants.veryLightPurple
         self.companyScoresTable.delegate = self
         self.companyScoresTable.dataSource = self
         self.searchbar.delegate = self
@@ -50,7 +48,7 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
     
     public func fetchScores() {
         DispatchQueue.main.async {
-            self.indicator.startAnimating()
+            self.activityIndicator.isHidden = false
         }
         NetworkManager.getMyRestApi().getScoresWithUserSettingsApplied { (scores) in
             self.scores = scores.sorted(by: { (a, b) -> Bool in
@@ -64,16 +62,9 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
             self.scoresOriginal = self.scores
             DispatchQueue.main.async {
                 self.companyScoresTable.reloadData()
-                self.indicator.stopAnimating()
+                self.activityIndicator.isHidden = true
             }
         }
-    }
-    
-    func activityIndicator() {
-        self.indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        self.indicator.style = .large
-        self.indicator.center = CGPoint(x: self.companyScoresTable.frame.width/2 + 20, y: 100)
-        self.companyScoresTable.addSubview(indicator)
     }
     
     private func filterList(searchText: String){

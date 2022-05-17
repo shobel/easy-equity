@@ -292,7 +292,13 @@ class PredictionsViewController: UIViewController, StatsVC {
         alert.doneActionBlock {
             //print()
         }
-        alert.colorScheme = Constants.blue
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.colorScheme = Constants.lightPurple
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
         alert.dismissOnOutsideTouch = true
         alert.detachButtons = true
         alert.showAlert(inView: self,

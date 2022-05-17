@@ -36,17 +36,11 @@ class CompanyScoreTableViewCell: UITableViewCell {
         score.layer.cornerRadius = (score.frame.width)/2
         score.layer.masksToBounds = true
         
-        cellView.backgroundColor = UIColor.white
         cellView.layer.cornerRadius = 8
-        cellView.layer.shadowColor = UIColor.black.cgColor
-        cellView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
-        cellView.layer.shadowOpacity = 0.2
-        cellView.layer.shadowRadius = 2.0
-        
     }
     
     public func setData(industryColor: UIColor, rank:Int, industryRank:Int, industryTotal:Int, percentile:Double){
-        self.industryContainer.layer.backgroundColor = industryColor.cgColor
+        self.industryContainer.layer.backgroundColor = industryColor.withAlphaComponent(0.5).cgColor
 //        self.score.backgroundColor = self.getScoreTextColor(percentile).withAlphaComponent(0.2)
         self.score.textColor = self.getScoreTextColor(percentile)
         self.rank.backgroundColor = self.getScoreTextColor(percentile).withAlphaComponent(0.2)
@@ -77,10 +71,10 @@ class CompanyScoreTableViewCell: UITableViewCell {
         DispatchQueue.main.async {
             if added {
                 self.watchlistButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
-                self.watchlistButton.tintColor = Constants.darkPink
+                self.watchlistButton.tintColor = Constants.veryLightPurple
             } else {
                 self.watchlistButton.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
-                self.watchlistButton.tintColor = Constants.darkGrey
+                self.watchlistButton.tintColor = .white
             }
         }
     }

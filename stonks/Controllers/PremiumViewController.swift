@@ -509,7 +509,13 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
         alert.doneActionBlock {
             self.buyUpdateAction(package)
         }
-        alert.colorScheme = Constants.green
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.colorScheme = Constants.lightPurple
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
         alert.dismissOnOutsideTouch = true
         alert.detachButtons = true
         alert.showAlert(inView: self,
@@ -523,6 +529,12 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
     func showErrorAlert(_ error:String, credits:Int){
         let message = String("\(error) No credits were used and your balance remains at \(credits).")
         let alert = FCAlertView()
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
         alert.colorScheme = Constants.darkPink
         alert.dismissOnOutsideTouch = true
         alert.detachButtons = true

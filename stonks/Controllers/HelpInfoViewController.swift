@@ -1,26 +1,20 @@
 //
-//  CreditInfoViewController.swift
+//  HelpInfoViewController.swift
 //  stonks
 //
-//  Created by Samuel Hobel on 3/29/22.
+//  Created by Samuel Hobel on 5/17/22.
 //  Copyright © 2022 Samuel Hobel. All rights reserved.
 //
 
 import UIKit
 
-class CreditInfoViewController: UIViewController {
+class HelpInfoViewController: UIViewController {
 
-    @IBOutlet weak var creditBalanceButton: ShadowButtonView!
-    @IBOutlet weak var spendCreditsButton: ShadowButtonView!
     @IBOutlet var mainView: UIView!
-    
+    @IBOutlet weak var header: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mainView.addPurpleGradientBackground()
-        self.creditBalanceButton.credits.text = "500"
-        self.creditBalanceButton.bgColor = .clear
-        self.spendCreditsButton.credits.text = "10"
-        self.spendCreditsButton.bgColor = Constants.green
     }
     
 

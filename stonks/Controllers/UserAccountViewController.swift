@@ -10,15 +10,16 @@ import UIKit
 
 class UserAccountViewController: UIViewController, ShadowButtonDelegate {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var userid: UILabel!
     @IBOutlet weak var creditBalanceButton: ShadowButtonView!
     
     override func viewDidLoad() {
+        self.mainView.addPurpleGradientBackground()
         Dataholder.subscribeForCreditBalanceUpdates(self)
         self.creditBalanceButton.credits.text = String("\(Dataholder.getCreditBalance())")
         self.creditBalanceButton.delegate = self
-        self.creditBalanceButton.bgColor = Constants.orange
-        self.creditBalanceButton.shadColor = UIColor(red: 100.0/255.0, green: 60.0/255.0, blue: 25.0/255.0, alpha: 1.0).cgColor
+        self.creditBalanceButton.bgColor = .clear
         userid.text = KeychainItem.currentEmail
         super.viewDidLoad()
     }

@@ -50,7 +50,7 @@ class CompanySearchTableViewCell: UITableViewCell {
         DispatchQueue.main.async {
             if added {
                 self.watchlistButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
-                self.watchlistButton.tintColor = Constants.themePurple
+                self.watchlistButton.tintColor = Constants.lightPurple
             } else {
                 self.watchlistButton.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
                 self.watchlistButton.tintColor = Constants.lightGrey

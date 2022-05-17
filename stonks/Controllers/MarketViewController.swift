@@ -12,6 +12,7 @@ import FCAlertView
 
 class MarketViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var overallFearGreed: UILabel!
     @IBOutlet weak var overallGauge: Gauge!
     private var indicators:[FearGreedIndicator] = []
@@ -32,16 +33,17 @@ class MarketViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.mainView.addPurpleGradientBackground()
         self.industryCollection.delegate = self
         self.industryCollection.dataSource = self
         self.weeklyEconomyTable.delegate = self
         self.weeklyEconomyTable.dataSource = self
         self.monthlyEconomyTable.delegate = self
         self.monthlyEconomyTable.dataSource = self
-        self.weeklyEconomyTable.backgroundColor
-            = .white
-        self.monthlyEconomyTable.backgroundColor = .white
+        
+        self.industryCollection.backgroundColor = .clear
+        self.weeklyEconomyTable.backgroundColor = .clear
+        self.monthlyEconomyTable.backgroundColor = .clear
         
         NetworkManager.getMyRestApi().getMarketAndEconomyData(completionHandler: { (overallFearGreed, indicators, sectors, economyWeekly, economyMonthly, gdps, gdpStartDate, gdpEndDate) in
             DispatchQueue.main.async {
@@ -134,7 +136,13 @@ class MarketViewController: UIViewController, UICollectionViewDelegate, UICollec
         alert.doneActionBlock {
             //print()
         }
-        alert.colorScheme = Constants.blue
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.colorScheme = Constants.lightPurple
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
         alert.dismissOnOutsideTouch = true
         alert.detachButtons = true
         alert.showAlert(inView: self,

@@ -13,6 +13,7 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
     var scoreSettings:ScoreSettings = ScoreSettings()
     var variableNames:[String:String] = [:]
     var variables:[String:[String]] = [:]
+    @IBOutlet var mainView: UIView!
     
     @IBOutlet weak var totalWeight: UILabel!
     
@@ -42,7 +43,7 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.mainView.addPurpleGradientBackground()
         self.valuationTable.delegate = self
         self.valuationTable.dataSource = self
         self.futureTable.delegate = self
@@ -51,10 +52,6 @@ class ScoreSettingsViewController: UIViewController, UITableViewDelegate, UITabl
         self.pastTable.dataSource = self
         self.healthTable.delegate = self
         self.healthTable.dataSource = self
-        self.valuationTable.backgroundColor = .white
-        self.futureTable.backgroundColor = .white
-        self.pastTable.backgroundColor = .white
-        self.healthTable.backgroundColor = .white
         
         self.valuationWeight.text = "25.0"
         self.futureWeight.text = "25.0"

@@ -120,6 +120,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var top10CollectionView: UICollectionView!
     @IBOutlet weak var topAnalystsCollection: UICollectionView!
     @IBOutlet weak var top10Title: UILabel!
+    @IBOutlet weak var analystSort: UIButton!
     
     private var searchResults:[Company] = []
     private var activityIndicatorView: UIActivityIndicatorView!
@@ -149,7 +150,6 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         tableView.isHidden = true
         marketView.isHidden = false
         
-        tableView.backgroundColor = .white
         tableView.tableFooterView = UIView(frame: .zero)
         //marketNewsTableView.tableFooterView = UIView(frame: .zero)
         
@@ -204,7 +204,9 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     @IBAction func sortTop10List(_ sender: Any) {
-        self.top10CollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+        if self.currentTop10List.count > 0 {
+            self.top10CollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+        }
         let actionController = SkypeActionController() //not really for skype
         actionController.addAction(Action("Top Gainers", style: .default, handler: { action in
             self.top10Title.text = "Top Gainers"
@@ -225,6 +227,9 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     @IBAction func sortTopAnalysts(_ sender: Any) {
+        if self.priceTargetTopAnalysts.count == 0 {
+            return
+        }
         self.topAnalystsCollection.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
         let actionController = SkypeActionController() //not really for skype
         actionController.addAction(Action("Upside Percentage", style: .default, handler: { action in
@@ -334,9 +339,11 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         DispatchQueue.main.async {
             if self.priceTargetTopAnalysts.count == 0 {
                 self.noTopAnalystsLabel.isHidden = false
+                self.analystSort.isHidden = true
                 self.topAnalystsCollection.isHidden = true
             } else {
                 self.noTopAnalystsLabel.isHidden = true
+                self.analystSort.isHidden = false
                 self.topAnalystsCollection.isHidden = false
             }
             self.currentTopAnalystSymbols = Array(self.priceTargetTopAnalysts.prefix(self.maxNumTopAnalystItems))
@@ -380,7 +387,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             cell.symbol?.text = searchResults[indexPath.row].symbol
             cell.companyName?.text = company.fullName
             cell.company = company
-            
+            cell.backgroundColor = .clear
             if Dataholder.watchlistManager.getWatchlist().contains(company) {
                 cell.addedToWatchlist(true)
             } else {

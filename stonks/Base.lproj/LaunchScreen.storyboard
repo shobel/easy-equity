@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,14 +16,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stoccoon_t" translatesAutoresizingMaskIntoConstraints="NO" id="Pzu-Rg-A68">
-                                <rect key="frame" x="87.5" y="158.5" width="200" height="200"/>
+                                <rect key="frame" x="87.5" y="143.5" width="200" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="II2-S5-BTi"/>
                                     <constraint firstAttribute="width" constant="200" id="x49-pt-9Aj"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stoccoon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h5h-Qn-D3w">
-                                <rect key="frame" x="127.5" y="338.5" width="120.5" height="30.5"/>
+                                <rect key="frame" x="127.5" y="323.5" width="120.5" height="30.5"/>
                                 <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="26"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -33,7 +33,7 @@
                         <color key="backgroundColor" red="0.13717056250056564" green="0.072112253910268931" blue="0.25390008483270199" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="h5h-Qn-D3w" firstAttribute="centerX" secondItem="Pzu-Rg-A68" secondAttribute="centerX" id="6te-Od-gBl"/>
-                            <constraint firstItem="Pzu-Rg-A68" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-75" id="FRc-GJ-mZs"/>
+                            <constraint firstItem="Pzu-Rg-A68" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-90" id="FRc-GJ-mZs"/>
                             <constraint firstItem="Pzu-Rg-A68" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="HAG-Eb-0fP"/>
                             <constraint firstItem="h5h-Qn-D3w" firstAttribute="top" secondItem="Pzu-Rg-A68" secondAttribute="bottom" constant="-20" id="UDr-ik-CZk"/>
                         </constraints>

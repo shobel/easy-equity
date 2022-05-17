@@ -136,7 +136,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FCAlertViewDel
         alert.alertBackgroundColor = Constants.themePurple
         alert.titleColor = .white
         alert.subTitleColor = .white
-        alert.colorScheme = Constants.green
+        alert.colorScheme = Constants.lightPurple
         alert.doneButtonTitleColor = .white
         alert.secondButtonTitleColor = .darkGray
         alert.firstButtonTitleColor = .darkGray
