@@ -57,7 +57,7 @@ open class SkypeActionController: ActionController<SkypeCell, String, UICollecti
 
     static let bottomPadding: CGFloat = 20.0
 
-    open var backgroundColor: UIColor = Constants.darkerGrey
+    open var backgroundColor: UIColor = Constants.themeDarkBlue
 
     fileprivate var contextView: ContextView!
     fileprivate var normalAnimationRect: UIView!
