@@ -20,10 +20,10 @@ struct IconPagingCellViewModel {
         self.image = image
         self.selected = selected
         let data1: NSData = image!.pngData()! as NSData
-        let data2: NSData = UIImage(named: "star")!.pngData()! as NSData
+        let data2: NSData = UIImage(named: "premium-icon")!.pngData()! as NSData
         if data1.isEqual(data2) {
-            self.tintColor = UIColor.yellow.withAlphaComponent(0.5)//options.textColor
-            self.selectedTintColor = .yellow//options.selectedTextColor
+            self.tintColor = Constants.orange.withAlphaComponent(0.5)//options.textColor
+            self.selectedTintColor = Constants.orange//options.selectedTextColor
             
         } else {
             self.tintColor = UIColor.lightGray.withAlphaComponent(0.5)//options.textColor

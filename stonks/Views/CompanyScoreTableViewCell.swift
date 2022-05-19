@@ -71,7 +71,7 @@ class CompanyScoreTableViewCell: UITableViewCell {
         DispatchQueue.main.async {
             if added {
                 self.watchlistButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
-                self.watchlistButton.tintColor = Constants.veryLightPurple
+                self.watchlistButton.tintColor = Constants.lightPurple
             } else {
                 self.watchlistButton.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
                 self.watchlistButton.tintColor = .white

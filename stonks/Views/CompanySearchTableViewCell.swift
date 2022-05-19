@@ -53,7 +53,7 @@ class CompanySearchTableViewCell: UITableViewCell {
                 self.watchlistButton.tintColor = Constants.lightPurple
             } else {
                 self.watchlistButton.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
-                self.watchlistButton.tintColor = Constants.lightGrey
+                self.watchlistButton.tintColor = .white
             }
         }
     }

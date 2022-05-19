@@ -520,9 +520,6 @@ extension WatchlistVC: UITableViewDelegate, UITableViewDataSource {
                 cell.displayData(company: company, score: "", percentile: -1)
             }
         }
-        cell.backgroundView?.backgroundColor = .clear
-        cell.backgroundColor = .clear
-        cell.layer.backgroundColor = UIColor.clear.cgColor
         return cell
     }
     

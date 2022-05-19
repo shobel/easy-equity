@@ -19,7 +19,7 @@ class ShadowButtonView: UIView {
     public var delegate:ShadowButtonDelegate?
     public var premiumPackage:PremiumPackage?
     //container background color green: 48 203 141
-    public var bgColor:UIColor = UIColor(red: 48.0/255.0, green: 203.0/255.0, blue: 141.0/255.0, alpha: 0.5) {
+    public var bgColor:UIColor = .white.withAlphaComponent(0.5){
         didSet {
             self.draw(self.frame)
         }

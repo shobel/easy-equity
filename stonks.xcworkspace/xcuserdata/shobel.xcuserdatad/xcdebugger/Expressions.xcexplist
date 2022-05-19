@@ -384,13 +384,16 @@
          contextName = "PEChart.setChartData(company:):PEChart.swift">
          <PersistentStrings>
             <PersistentString
-               value = "company.quote">
+               value = "dailyEntry.datetime">
             </PersistentString>
             <PersistentString
                value = "e.EPSReportDate">
             </PersistentString>
             <PersistentString
-               value = "dailyEntry.datetime">
+               value = "company.quote">
+            </PersistentString>
+            <PersistentString
+               value = "fwdPe.isInfinite">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -502,6 +505,17 @@
          <PersistentStrings>
             <PersistentString
                value = "self.parent?.parent?.parent">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CustomTabBarController.tabBar(_:didSelect:):CustomTabBarController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.selectedIndex">
+            </PersistentString>
+            <PersistentString
+               value = "tabBar.items?.index(of: item)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -691,9 +705,6 @@
          contextName = "Company.setMinuteData(_:open:):Company.swift">
          <PersistentStrings>
             <PersistentString
-               value = "dataSet">
-            </PersistentString>
-            <PersistentString
                value = "returnDataSet">
             </PersistentString>
          </PersistentStrings>
@@ -849,10 +860,10 @@
                value = "self.pagingView.bounds.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
+               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.scrollView.contentSize.height">
+               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
             </PersistentString>
             <PersistentString
                value = "statsVC.getContentHeight()">
@@ -1630,13 +1641,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in MyRestAPI.getFearGreedIndicators(completionHandler:):MyRestAPI.swift">
+         contextName = "ContactUsViewController.viewDidLoad():ContactUsViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "json[&quot;timeline&quot;][&quot;now&quot;].string!">
-            </PersistentString>
-            <PersistentString
-               value = "fearGreedJSON[&quot;timeline&quot;]">
+               value = "self.backButton.isEnabled">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1660,10 +1668,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ContactUsViewController.viewDidLoad():ContactUsViewController.swift">
+         contextName = "closure #1 in MyRestAPI.getFearGreedIndicators(completionHandler:):MyRestAPI.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.backButton.isEnabled">
+               value = "json[&quot;timeline&quot;][&quot;now&quot;].string!">
+            </PersistentString>
+            <PersistentString
+               value = "fearGreedJSON[&quot;timeline&quot;]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1752,6 +1763,9 @@
          <PersistentStrings>
             <PersistentString
                value = "candleDate.description">
+            </PersistentString>
+            <PersistentString
+               value = "self.myCandleData![522].datetime">
             </PersistentString>
             <PersistentString
                value = "close">

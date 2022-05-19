@@ -79,7 +79,18 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         cell.icon.image = UIImage(named: self.getCoinIconName(product.usd!))
         if product.usd! == 0.99 {
             cell.bonusIcon.isHidden = true
+            cell.preprice.isHidden = true
+            cell.moveCreditsToCoin()
         } else {
+            cell.preprice.isHidden = false
+            let prebonus = Double(product.credits!) / self.getBonusAmount(product.usd!)
+//            let attributeString: NSMutableAttributedString = NSMutableAttributedString(string: String(format: "%.0f", prebonus))
+//                attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSRange(location: 0, length: attributeString.length))
+            //cell.preprice.attributedText = attributeString
+            cell.preprice.text = String(format: "%.0f", prebonus)
+            //cell.preprice.sizeToFit()
+            cell.preprice.diagonalStrikeThrough()
+            
             cell.bonusIcon.isHidden = false
         }
         cell.bonusIcon.image = UIImage(named: self.getBonusIconName(product.usd!))
@@ -323,6 +334,19 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             return "bonus_50.png"
         }
         return ""
+    }
+    
+    func getBonusAmount(_ usd:Double) -> Double {
+        if usd <= 5.0 {
+            return 1.1
+        } else if usd <= 10.0 {
+            return 1.2
+        } else if usd <= 50.0 {
+            return 1.3
+        } else if usd <= 100.0 {
+            return 1.4
+        }
+        return 0.0
     }
     
     func getCoinIconName(_ usd:Double) -> String {

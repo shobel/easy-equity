@@ -9,7 +9,7 @@
 import UIKit
 
 class CustomTabBarController: UITabBarController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let tabBarAppearance = UITabBarAppearance()
@@ -17,6 +17,14 @@ class CustomTabBarController: UITabBarController {
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         UITabBar.appearance().standardAppearance = tabBarAppearance
     }
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        let movingTo = tabBar.items?.index(of: item)
+        if movingTo == 1 && selectedIndex != 1 {
+            print("moving to search tab")
+        }
+    }
+    
     
     /*
     // MARK: - Navigation

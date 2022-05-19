@@ -27,7 +27,7 @@ class EPSChart: CombinedChartView {
         self.doubleTapToZoomEnabled = false
         self.autoScaleMinMaxEnabled = true
         
-        self.leftAxis.labelFont = UIFont(name: "Charter", size: 12)!
+//        self.leftAxis.labelFont = UIFont(name: "Charter", size: 12)!
         self.leftAxis.labelTextColor = Constants.lightGrey
         self.leftAxis.drawGridLinesEnabled = false
         self.leftAxis.labelPosition = .outsideChart

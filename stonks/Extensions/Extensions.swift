@@ -63,6 +63,10 @@ extension UIView {
         self.layer.insertSublayer(gradientLayer, at: 0)
     }
     
+    func addOrangeYellowGradient(){
+        
+    }
+    
     @IBInspectable
     var rotation: Int {
         get {
@@ -103,6 +107,18 @@ extension UILabel {
         self.layer.shadowRadius = 1.0
         self.layer.shadowOpacity = 0.5
    }
+
+    func diagonalStrikeThrough(offsetPercent: CGFloat = 0.1) {
+        let linePath = UIBezierPath()
+        linePath.move(to: CGPoint(x: 0, y: bounds.height * (1 - offsetPercent)))
+        linePath.addLine(to: CGPoint(x: bounds.width, y: bounds.height * offsetPercent))
+
+        let lineLayer = CAShapeLayer()
+        lineLayer.path = linePath.cgPath
+        lineLayer.lineWidth = 2
+        lineLayer.strokeColor = textColor.withAlphaComponent(0.8).cgColor
+        layer.addSublayer(lineLayer)
+    }
 }
 
 extension Date {
@@ -161,5 +177,30 @@ extension UIImage {
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return newImage!
+    }
+    
+    func tintedWithLinearGradientColors(colorsArr: [CGColor]) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale);
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return UIImage()
+        }
+        context.translateBy(x: 0, y: self.size.height)
+        context.scaleBy(x: 1, y: -1)
+
+        context.setBlendMode(.normal)
+        let rect = CGRect.init(x: 0, y: 0, width: size.width, height: size.height)
+
+        // Create gradient
+        let colors = colorsArr as CFArray
+        let space = CGColorSpaceCreateDeviceRGB()
+        let gradient = CGGradient(colorsSpace: space, colors: colors, locations: nil)
+
+        // Apply gradient
+        context.clip(to: rect, mask: self.cgImage!)
+        context.drawLinearGradient(gradient!, start: CGPoint(x: 0, y: 0), end: CGPoint(x: 0, y: self.size.height), options: .drawsAfterEndLocation)
+        let gradientImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return gradientImage!
     }
 }

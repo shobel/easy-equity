@@ -172,7 +172,7 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
     public func shadowButtonTapped(_ premiumPackage:PremiumPackage?){
         if premiumPackage != nil {
             if !(premiumPackage!.enabled ?? true) {
-                self.showErrorAlert("This data is currently unavailable", credits: Dataholder.getCreditBalance())
+                self.showErrorAlert("This data is currently unavailable.", credits: Dataholder.getCreditBalance())
             } else if premiumPackage!.credits ?? 0 > Dataholder.getCreditBalance() {
                 self.showPurchaseController()
             } else {
@@ -260,13 +260,15 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
                 if currentButton != nil {
                     currentButton!.premiumPackage = package
                     if !(package.enabled ?? true) {
-                        currentButton!.bgColor = Constants.lightGrey
-                        currentButton!.shadColor = Constants.darkGrey.cgColor
+                        currentButton!.bgColor = .clear
                         currentButton!.credits.text = "--"
+                        currentButton!.containerView.layer.borderWidth = 1.0
+                        currentButton!.containerView.layer.borderColor = UIColor.white.cgColor
                     } else {
                         currentButton!.credits.text = String(package.credits!)
-                        currentButton!.bgColor = UIColor(red: 48.0/255.0, green: 203.0/255.0, blue: 141.0/255.0, alpha: 1.0)
-                        currentButton!.shadColor = UIColor(red: 25.0/255.0, green: 105.0/255.0, blue: 75.0/255.0, alpha: 1.0).cgColor
+                        currentButton!.bgColor = .clear
+                        currentButton!.containerView.layer.borderWidth = 1.0
+                        currentButton!.containerView.layer.borderColor = UIColor.white.cgColor
                     }
                 }
             }

@@ -82,7 +82,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         "dollarsign",
         "analysts",
         "scores",
-        "star"
+        "premium-icon"
     ]
     
     override func viewDidLoad() {
@@ -334,7 +334,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         DispatchQueue.main.async {
             if added {
                 self.watchlistButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
-                self.watchlistButton.tintColor = .white
+                self.watchlistButton.tintColor = Constants.lightPurple
             } else {
                 self.watchlistButton.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
                 self.watchlistButton.tintColor = .white
@@ -874,7 +874,6 @@ extension StockDetailsVC: PagingViewControllerDelegate {
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) {
-        print(pagingViewController.restorationIdentifier! + " scrolled")
         if transitionSuccessful && pagingViewController.restorationIdentifier == "pageVC" {
             self.adjustContentHeight(vc: destinationViewController)
             self.updateData(vc: destinationViewController)

@@ -99,18 +99,27 @@ class Company: Equatable, Comparable {
         prevCandle.datetime = oneBeforeStart
         var returnDataSet: [Candle] = []
         for i in 0..<dataSet.count {
-            let entry = dataSet[i]
+            var entry = dataSet[i]
             if entry.datetime == nil || entry.datetime!.isEmpty {
                 prevCandle = entry
                 continue
             }
-            let curDate = NumberFormatter.timeStringToDate(entry.datetime!)
+            
+            var curDate = NumberFormatter.timeStringToDate(entry.datetime!)
+            let prevDate = NumberFormatter.timeStringToDate(prevCandle.datetime!)
+            if entry.datetime == prevCandle.datetime {
+                let calendar = Calendar.current
+                let newDate = calendar.date(byAdding: .minute, value: 1, to: prevDate)!
+                let newDateString = dateFormatter.string(from: newDate)
+                entry.datetime = newDateString
+                curDate = NumberFormatter.timeStringToDate(entry.datetime!)
+            }
+            
             if (entry.datetime != startTime){
                 if prevCandle.datetime == nil || prevCandle.datetime!.isEmpty {
                     prevCandle = entry
                     continue
                 }
-                let prevDate = NumberFormatter.timeStringToDate(prevCandle.datetime!)
                 let numMins = Int(curDate.timeIntervalSince(prevDate)/60)
                 if numMins > 1 {
                     for j in 0..<numMins-1{

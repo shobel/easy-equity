@@ -69,7 +69,7 @@ class PredictionsViewController: UIViewController, StatsVC {
         self.avgReturnView.setProgress(0.0)
         
         self.modeControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
-        
+        self.priceTargetsOverTimeChartView.noDataText = ""
     }
     
     func setData(){

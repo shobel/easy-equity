@@ -1,8 +1,8 @@
 {
   "images" : [
     {
+      "filename" : "stoccoon_words_logo.png",
       "idiom" : "universal",
-      "filename" : "bullfrog_circle.png",
       "scale" : "1x"
     },
     {
@@ -15,7 +15,7 @@
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

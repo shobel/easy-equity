@@ -23,12 +23,6 @@ class MarketNewsCollectionViewCell: UICollectionViewCell {
         //self.layoutIfNeeded()
         
         self.backgroundColor = Constants.themeDarkBlue
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOffset = CGSize(width: 0, height: 1.0)
-        self.layer.shadowOpacity = 0.2
-        self.layer.shadowRadius = 2.0
-        self.layer.borderWidth = 1.0
-        self.layer.borderColor = UIColor.black.cgColor
         self.layer.cornerRadius = 10.0
         
         newImage.layer.cornerRadius = 10.0

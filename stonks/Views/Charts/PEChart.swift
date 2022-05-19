@@ -28,7 +28,7 @@ class PEChart: CombinedChartView {
         self.doubleTapToZoomEnabled = false
         self.autoScaleMinMaxEnabled = true
         
-        self.leftAxis.labelFont = UIFont(name: "Charter", size: 12)!
+//        self.leftAxis.labelFont = UIFont(name: "Charter", size: 12)!
         self.leftAxis.labelTextColor = Constants.lightGrey
         self.leftAxis.drawGridLinesEnabled = false
         self.leftAxis.labelPosition = .outsideChart
@@ -71,7 +71,7 @@ class PEChart: CombinedChartView {
                 }
                 let e = reversedEarnings[i]
                 if NumberFormatter.convertStringDateToInt(date: e.EPSReportDate!) > NumberFormatter.convertStringDateToInt(date: formattedToday){
-                    epsSum += e.consensusEPS!
+                    epsSum += e.consensusEPS ?? 0.0
                     forwardPeEntries.append(ChartDataEntry(x: Double(i), y: (company.quote?.latestPrice ?? 0.0) / epsSum))
                     fwdPe = (company.quote?.latestPrice ?? 0.0) / epsSum
                     let year = (e.EPSReportDate?.components(separatedBy: "-")[0])!
@@ -100,7 +100,9 @@ class PEChart: CombinedChartView {
         if let pe = company.quote?.peRatio {
             actualPe = pe
         }
-        self.earningsDelegate.updatePELegendValues(pe: String(format: "%.2f", Double(actualPe)), peFwd: String(format: "%.2f", Double(fwdPe)))
+        let actualPeString = actualPe.isNaN  || actualPe.isInfinite ? "-" : String(format: "%.2f", Double(actualPe))
+        let fwdPeString = fwdPe.isNaN || fwdPe.isInfinite ? "-" : String(format: "%.2f", Double(fwdPe))
+        self.earningsDelegate.updatePELegendValues(pe: actualPeString, peFwd: fwdPeString)
 
         let peDataSet = ScatterChartDataSet(entries: peEntries.suffix(5))
         self.configureScatterDataSet(set: peDataSet, color: Constants.blue)

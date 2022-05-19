@@ -90,7 +90,8 @@ class ScoresViewController: UIViewController, StatsVC {
         self.overallScoreContainer.layer.cornerRadius = self.overallScoreContainer.frame.width/2
         self.overallScoreContainer.layer.masksToBounds = true
         self.overallScoreContainer.clipsToBounds = true
-                
+        self.scoreSnowflakeChart.noDataText = ""
+        
         self.fetchScores()
         self.valuationWeight.text = "25% weight"
         self.futureWeight.text = "25% weight"
