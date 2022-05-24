@@ -30,13 +30,12 @@ class RatingsChart: BarChartView {
         self.pinchZoomEnabled = false
         self.doubleTapToZoomEnabled = false
         self.autoScaleMinMaxEnabled = true
-        
         self.leftAxis.drawGridLinesEnabled = false
         self.leftAxis.drawAxisLineEnabled = false
         self.leftAxis.enabled = false
         self.leftAxis.axisMinimum = 0.0
         self.rightAxis.enabled = false
-                
+         
         self.xAxis.valueFormatter = self
         self.xAxis.enabled = true
         self.xAxis.axisMinimum = -0.5
@@ -142,7 +141,7 @@ class RatingsChart: BarChartView {
         set.drawValuesEnabled = true
         set.highlightEnabled = false
         set.valueFormatter = self
-//        set.valueFont = UIFont(name: "Futura-Bold", size: 12)!
+        set.valueFont = set.valueFont.withSize(14.0)
         
         DispatchQueue.main.async {
             let data = BarChartData(dataSet: set)

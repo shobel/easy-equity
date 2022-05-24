@@ -36,6 +36,9 @@
 		1C2AC864217FB01D00469941 /* PriceChartFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2AC863217FB01D00469941 /* PriceChartFormatter.swift */; };
 		1C2AC8682183D7C500469941 /* LaunchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2AC8672183D7C500469941 /* LaunchVC.swift */; };
 		1C37D1EA25425F61003564BE /* SimpleScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C37D1E925425F61003564BE /* SimpleScore.swift */; };
+		1C385ADA2838DC0F0055BEDF /* AppReviewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C385AD92838DC0E0055BEDF /* AppReviewRequest.swift */; };
+		1C385ADC28392DC10055BEDF /* SocialSentimentChangeFMP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C385ADB28392DC00055BEDF /* SocialSentimentChangeFMP.swift */; };
+		1C385ADE2839396D0055BEDF /* TrendingSocialsChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C385ADD2839396D0055BEDF /* TrendingSocialsChart.swift */; };
 		1C4335E624F772AF00D2628D /* KeychainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4335E524F772AF00D2628D /* KeychainItem.swift */; };
 		1C4335EF24F8AF2C00D2628D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4335EE24F8AF2C00D2628D /* Extensions.swift */; };
 		1C47FE3427C28EA5003E2983 /* WatchAdsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C47FE3327C28EA5003E2983 /* WatchAdsViewController.swift */; };
@@ -257,6 +260,9 @@
 		1C2AC863217FB01D00469941 /* PriceChartFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceChartFormatter.swift; sourceTree = "<group>"; };
 		1C2AC8672183D7C500469941 /* LaunchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchVC.swift; sourceTree = "<group>"; };
 		1C37D1E925425F61003564BE /* SimpleScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleScore.swift; sourceTree = "<group>"; };
+		1C385AD92838DC0E0055BEDF /* AppReviewRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewRequest.swift; sourceTree = "<group>"; };
+		1C385ADB28392DC00055BEDF /* SocialSentimentChangeFMP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSentimentChangeFMP.swift; sourceTree = "<group>"; };
+		1C385ADD2839396D0055BEDF /* TrendingSocialsChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingSocialsChart.swift; sourceTree = "<group>"; };
 		1C4335E524F772AF00D2628D /* KeychainItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItem.swift; sourceTree = "<group>"; };
 		1C4335EE24F8AF2C00D2628D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1C47FE3327C28EA5003E2983 /* WatchAdsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAdsViewController.swift; sourceTree = "<group>"; };
@@ -677,6 +683,8 @@
 				1C84CCF227F9984800CEE242 /* Tweet.swift */,
 				1C8F748A2805B9F600B8F4F6 /* CrossAsset.swift */,
 				1C8F748C2805BB0B00B8F4F6 /* TacticalModel.swift */,
+				1C385AD92838DC0E0055BEDF /* AppReviewRequest.swift */,
+				1C385ADB28392DC00055BEDF /* SocialSentimentChangeFMP.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -816,6 +824,7 @@
 				1CABC497254F634000B37588 /* ScoreSnowflakeChart.swift */,
 				1C62CF5D256E9F56009C27E3 /* SimplestLineChart.swift */,
 				1CA6082226503EE70039E894 /* PriceTargetsOverTimeChart.swift */,
+				1C385ADD2839396D0055BEDF /* TrendingSocialsChart.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -1029,6 +1038,7 @@
 			files = (
 				1C7B9880215F396200C75014 /* WatchlistTVCell.swift in Sources */,
 				1C0BC4DD2331F144007C117F /* AlphaVantage.swift in Sources */,
+				1C385ADA2838DC0F0055BEDF /* AppReviewRequest.swift in Sources */,
 				1C7B986D215EAE8800C75014 /* IEXTrading.swift in Sources */,
 				1C75536C27D6300C00472B18 /* AnnualEstimates.swift in Sources */,
 				1C62FDD624BC144D00BABDCB /* LoginViewController.swift in Sources */,
@@ -1102,6 +1112,7 @@
 				1CABC498254F634000B37588 /* ScoreSnowflakeChart.swift in Sources */,
 				1C8CFFC627EAE714004D230F /* SettingsViewController.swift in Sources */,
 				1CD781FE264D786B001DF387 /* StockRating.swift in Sources */,
+				1C385ADC28392DC10055BEDF /* SocialSentimentChangeFMP.swift in Sources */,
 				1C545211216AA4B90064239E /* GradientButton.swift in Sources */,
 				1CABC484254691E000B37588 /* StocktwitsPost.swift in Sources */,
 				1CB3D61E231DBCF000D6F57C /* Recommendations.swift in Sources */,
@@ -1114,6 +1125,7 @@
 				1C62CF5E256E9F56009C27E3 /* SimplestLineChart.swift in Sources */,
 				1CABC493254803F700B37588 /* DetailStocktwitsTableViewCell.swift in Sources */,
 				1C817BDA2544B604003695F7 /* ScoreSettingsViewController.swift in Sources */,
+				1C385ADE2839396D0055BEDF /* TrendingSocialsChart.swift in Sources */,
 				1C62CF45256E078B009C27E3 /* IndustryCollectionViewCell.swift in Sources */,
 				1C7B9861215DDFBC00C75014 /* Company.swift in Sources */,
 				1CAFEEF327B7BD3D00B94B63 /* FidelityScore.swift in Sources */,
@@ -1397,7 +1409,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = shobel.stonks;
 				PRODUCT_NAME = Stoccoon;
 				SWIFT_VERSION = 5.0;
@@ -1421,7 +1433,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = shobel.stonks;
 				PRODUCT_NAME = Stoccoon;
 				PROVISIONING_PROFILE_SPECIFIER = "";

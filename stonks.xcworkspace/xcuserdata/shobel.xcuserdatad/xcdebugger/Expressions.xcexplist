@@ -339,6 +339,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in WatchlistVC.loadWatchlist():WatchlistVC.swift">
+      </ContextState>
+      <ContextState
          contextName = "Company.addSmaToCandleSets():Company.swift">
          <PersistentStrings>
             <PersistentString
@@ -706,6 +709,9 @@
          <PersistentStrings>
             <PersistentString
                value = "returnDataSet">
+            </PersistentString>
+            <PersistentString
+               value = "dataSet">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1198,8 +1204,19 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in MyRestAPI.getMarketSocials(completionHandler:):MyRestAPI.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "json[&quot;trending&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "StockDetailsVC.viewDidLoad():StockDetailsVC.swift">
          <PersistentStrings>
+            <PersistentString
+               value = "self.totalHeight">
+            </PersistentString>
             <PersistentString
                value = "self.keyStatsVC.contentView">
             </PersistentString>
@@ -1792,9 +1809,6 @@
             <PersistentString
                value = "scrollView.bounds">
             </PersistentString>
-            <PersistentString
-               value = "self.pageVC.view.frame">
-            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -2251,6 +2265,9 @@
                value = "self.itemsLoaded">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "PredictionsViewController.setData():PredictionsViewController.swift">
       </ContextState>
       <ContextState
          contextName = "PriceChartPreviewView.getElapsedFraction(_:):PriceChartPreviewView.swift">

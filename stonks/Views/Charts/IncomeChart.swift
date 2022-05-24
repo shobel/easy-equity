@@ -134,7 +134,7 @@ class IncomeChart: BarChartView {
         dataset.drawValuesEnabled = true
         dataset.highlightEnabled = false
         dataset.valueFormatter = self
-//        dataset.valueFont = UIFont(name: "Futura", size: 9)!
+        dataset.valueFont = dataset.valueFont.withSize(11.0)
         dataset.label = label
         dataset.setColor(color)
     }

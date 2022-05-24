@@ -87,11 +87,13 @@ class PredictionsViewController: UIViewController, StatsVC {
 
             let r = x.avgAnalystReturn!
             self.avgAnalystReturn = r
-            self.avgReturnView.setProgressAndLabel(CGFloat(r/0.3), label: String(Int((r*100).rounded())) + "%")
+            self.avgReturnView.setProgressAndLabel(CGFloat(r/0.4), label: String(Int((r*100).rounded())) + "%")
             self.avgReturnView.setProgressColor(self.getTintColorForReturnValue(value: Float(r)))
         }
         if !hasTipranksAnalysts {
             self.noTopAnalysts()
+        } else {
+            self.modeControl.isHidden = false
         }
         
         var numAnalysts = 0
@@ -180,10 +182,14 @@ class PredictionsViewController: UIViewController, StatsVC {
     
     func getTintColorForReturnValue(value:Float) -> UIColor {
         if value >= 0.3 {
-            return UIColor(red: 50.0/255.0, green: 250.0/255.0, blue: 130.0/255.0, alpha: 1.0)
+            return UIColor(red: 45.0/255.0, green: 220.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         } else if value >= 0.2 {
-            return UIColor(red: 128.0/255.0, green: 194.0/255.0, blue: 156.0/255.0, alpha: 1.0)
+            return UIColor(red: 80.0/255.0, green: 214.0/255.0, blue: 95.0/255.0, alpha: 1.0)
         } else if value >= 0.1 {
+            return UIColor(red: 122.0/255.0, green: 227.0/255.0, blue: 95.0/255.0, alpha: 1.0)
+        } else if value >= 0.0 {
+            return UIColor(red: 160.0/255.0, green: 232.0/255.0, blue: 142.0/255.0, alpha: 1.0)
+        } else if value >= -0.1 {
             return UIColor(red: 200.0/255.0, green: 35.0/255.0, blue: 95.0/255.0, alpha: 1.0)
         } else {
             return UIColor(red: 143.0/255.0, green: 0.0/255.0, blue: 52.0/255.0, alpha: 1.0)

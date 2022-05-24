@@ -75,7 +75,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
     private var dummyShowing:Bool = false
     private var dateOfLatestPriceData:String = ""
     private var lastContentOffset: CGFloat = 0
-
+    
     fileprivate let icons = [
         "bars",
         "news",
@@ -168,6 +168,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         if self.dateOfLatestPriceData != "" && self.dateOfLatestPriceData != NumberFormatter.formatDateToYearMonthDayDashesString(Date()){
             self.refetchCurrentChart()
         }
+        
+        AppReviewRequest.requestReviewIfNeeded()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -211,15 +213,20 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let h1 = self.candlePricesWrapper.bounds.height
+        let h2 = self.chartView.bounds.height
+        let h3 = self.chartTimeView.bounds.height
+        let h4 = 25.0
+        let totalHeight = h1 + h2 + h3 + h4
         if (self.lastContentOffset > scrollView.contentOffset.y) {
-            if scrollView.contentOffset.y <= 282 && self.dummyShowing{
+            if scrollView.contentOffset.y <= totalHeight && self.dummyShowing{
                 print("hiding dummy")
                 self.pagingViewDummy.isHidden = true
                 self.dummyShowing = false
             }
         }
         else if (self.lastContentOffset < scrollView.contentOffset.y) {
-            if scrollView.contentOffset.y >= 282 && !self.dummyShowing{
+            if scrollView.contentOffset.y >= totalHeight && !self.dummyShowing{
                 print("showing dummy")
                 self.pagingViewDummy.isHidden = false
                 self.dummyShowing = true
@@ -709,15 +716,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
 
     @IBAction func OneYearButtonPressed(_ sender: Any) {
         self.hideLoader(false)
-        if self.candleMode {
-            NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.weekly) { (candles) in
-                self.company.weeklyData = candles
-                DispatchQueue.main.async {
-                    self.hideLoader(true)
-                    self.timeButtonPressed(sender, chartData: self.company.getWeeklyData(52), timeInterval: Constants.TimeIntervals.one_year)
-                }
-            }
-        } else {
             NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
                 self.company.dailyData = candles
                 DispatchQueue.main.async {
@@ -725,7 +723,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
                     self.timeButtonPressed(sender, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_year)
                 }
             }
-        }
     }
     
     @IBAction func FiveYearButtonPressed(_ sender: Any) {
@@ -870,10 +867,11 @@ extension StockDetailsVC: PagingViewControllerDataSource {
 
 extension StockDetailsVC: PagingViewControllerDelegate {
     func pagingViewController(_: PagingViewController, willScrollToItem pagingItem: PagingItem, startingViewController: UIViewController, destinationViewController: UIViewController) {
-        self.pageVCDummy.select(pagingItem: pagingItem, animated: true)
+//        self.pageVCDummy.select(pagingItem: pagingItem, animated: true)
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) {
+        self.pageVCDummy.select(pagingItem: pagingItem, animated: true)
         if transitionSuccessful && pagingViewController.restorationIdentifier == "pageVC" {
             self.adjustContentHeight(vc: destinationViewController)
             self.updateData(vc: destinationViewController)

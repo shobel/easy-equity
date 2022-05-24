@@ -105,6 +105,12 @@ class Company: Equatable, Comparable {
                 continue
             }
             
+            if prevCandle.datetime == nil || prevCandle.datetime!.isEmpty {
+                returnDataSet.append(entry)
+                prevCandle = entry
+                continue
+            }
+            
             var curDate = NumberFormatter.timeStringToDate(entry.datetime!)
             let prevDate = NumberFormatter.timeStringToDate(prevCandle.datetime!)
             if entry.datetime == prevCandle.datetime {

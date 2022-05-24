@@ -9,6 +9,7 @@
 import UIKit
 import SafariServices
 import XLActionController
+import FCAlertView
 
 extension CompanySearchVC: UISearchBarDelegate, LoadingProtocol {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -119,6 +120,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var marketNewsCollection: UICollectionView!
     @IBOutlet weak var top10CollectionView: UICollectionView!
     @IBOutlet weak var topAnalystsCollection: UICollectionView!
+    @IBOutlet weak var trendingSocialsChart: TrendingSocialsChart!
     @IBOutlet weak var top10Title: UILabel!
     @IBOutlet weak var analystSort: UIButton!
     
@@ -131,12 +133,16 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     private var currentTopAnalystSymbols:[PriceTargetTopAnalysts] = []
     private var maxNumTopAnalystItems:Int = 10
     private var marketNews:[News] = []
+    private var trendingSocials:[SocialSentimentFMP] = []
+    private var socialChangeTwitter:[SocialSentimentChangeFMP] = []
+    private var socialChangeStocktwits:[SocialSentimentChangeFMP] = []
+    
     @IBOutlet weak var noTopAnalystsLabel: UIButton!
     
     private var refreshControl:UIRefreshControl!
     
     private var itemsLoaded:Int = 0
-    private var numItems:Int = 4
+    private var numItems:Int = 5
     private var lastLoadedTimestamp:Double = 0.0
     
     override func viewDidLoad() {
@@ -162,6 +168,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         //marketNewsTableView.dataSource = self
         marketNewsCollection.delegate = self
         marketNewsCollection.dataSource = self
+        self.trendingSocialsChart.setup()
         
         activityIndicatorView = UIActivityIndicatorView(style: .large)
         self.view.addSubview(activityIndicatorView)
@@ -189,6 +196,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             NetworkManager.getMyRestApi().getTop10s(completionHandler: handleTop10s)
             NetworkManager.getMyRestApi().getMarketNews(completionHandler: handleMarketNews)
             NetworkManager.getMyRestApi().getTiprankSymbols("5", completionHandler: handleTopAnalysts)
+            NetworkManager.getMyRestApi().getMarketSocials(completionHandler: handleMarketSocials)
 //            NetworkManager.getMyRestApi().getStocktwitsPostsTrending(summary: "false", completionHandler: handleStocktwitsPosts)
             if Dataholder.allTickers.isEmpty {
                 self.numItems += 1
@@ -354,6 +362,19 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         }
     }
     
+    public func handleMarketSocials(trending: [SocialSentimentFMP], twitChange: [SocialSentimentChangeFMP], stChange: [SocialSentimentChangeFMP]) -> Void{
+        self.trendingSocials = trending
+        self.socialChangeTwitter = twitChange
+        self.socialChangeStocktwits = stChange
+        self.itemsLoaded += 1
+        if self.itemsLoaded >= self.numItems {
+            self.loadingFinished()
+        }
+        DispatchQueue.main.async {
+            self.trendingSocialsChart.setChartData(data: self.trendingSocials)
+        }
+    }
+    
     public func loadingStarted(){
         DispatchQueue.main.async {
             self.activityIndicatorView.startAnimating()
@@ -429,6 +450,32 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 
     @IBAction func topAnalystsSubButton(_ sender: Any) {
         self.tabBarController?.selectedIndex = 3
+    }
+    
+    @IBAction func trendingSocialHelp(_ sender: Any) {
+        self.showInfoAlert("Shows stocks with the highest volume of posts and impressions on the social media platforms Twitter and Stocktwits sorted by most positive sentiment.", title:"Trending on Social Media")
+    }
+    
+    func showInfoAlert(_ message:String, title:String){
+        let alert = FCAlertView()
+        alert.doneActionBlock {
+            //print()
+        }
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.colorScheme = Constants.lightPurple
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
+        alert.dismissOnOutsideTouch = true
+        alert.detachButtons = true
+        alert.showAlert(inView: self,
+                        withTitle: title,
+                        withSubtitle: message,
+                        withCustomImage: UIImage(systemName: "questionmark.circle"),
+                        withDoneButtonTitle: "Ok",
+                        andButtons: [])
     }
     /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

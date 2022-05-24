@@ -14,7 +14,7 @@ import Firebase
 class MyRestAPI: HTTPRequest {
     
     private var apiurl = "https://stoccoon.com/api"
-    //private var apiurl = "http://192.168.1.111:3000/api" //192.168.1.113
+    //private var apiurl = "http://192.168.1.114:3000/api" //192.168.1.113
     
     private var appEndpoint = "/app"
     private var userEndpoint = "/user"
@@ -884,12 +884,46 @@ class MyRestAPI: HTTPRequest {
                 var quotes:[SimpleQuote] = []
                 let jsonList = json[key]
                 for i in 0..<jsonList.count{
-                    let simpleQuote =  SimpleQuote(symbol: jsonList[i]["symbol"].string!, companyName: jsonList[i]["companyName"].string!, latestPrice: jsonList[i]["latestPrice"].double!, changePercent: jsonList[i]["changePercent"].double!, change: jsonList[i]["change"].double!, volume: jsonList[i]["latestVolume"].double!)
+                    let simpleQuote = SimpleQuote(symbol: jsonList[i]["symbol"].string!, companyName: jsonList[i]["companyName"].string!, latestPrice: jsonList[i]["latestPrice"].double!, changePercent: jsonList[i]["changePercent"].double!, change: jsonList[i]["change"].double!, volume: jsonList[i]["latestVolume"].double!)
                      quotes.append(simpleQuote)
                  }
                 top10s.setList(key: key, quotes: quotes)
             }
             completionHandler(top10s)
+        }
+    }
+    
+    public func getMarketSocials(completionHandler: @escaping ([SocialSentimentFMP], [SocialSentimentChangeFMP], [SocialSentimentChangeFMP])->Void){
+        let queryURL = buildQuery(url: apiurl + marketEndpoint + "/socials", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            var trending:[SocialSentimentFMP] = []
+            var changeTwitter:[SocialSentimentChangeFMP] = []
+            var changeStocktwits:[SocialSentimentChangeFMP] = []
+            let trendingJson = json["trending"]
+            for i in 0..<trendingJson.count{
+                let s:String = trendingJson[i].rawString()!
+                if let pt = Mapper<SocialSentimentFMP>().map(JSONString: s){
+                    trending.append(pt)
+                }
+            }
+            
+            let twitterChangeJson = json["twitterChange"]
+            for i in 0..<twitterChangeJson.count{
+                let s:String = twitterChangeJson[i].rawString()!
+                if let pt = Mapper<SocialSentimentChangeFMP>().map(JSONString: s){
+                    changeTwitter.append(pt)
+                }
+            }
+
+            let stocktwitsChangeJson = json["stocktwitsChange"]
+            for i in 0..<stocktwitsChangeJson.count{
+                let s:String = stocktwitsChangeJson[i].rawString()!
+                if let pt = Mapper<SocialSentimentChangeFMP>().map(JSONString: s){
+                    changeStocktwits.append(pt)
+                }
+            }
+            completionHandler(trending, changeTwitter, changeStocktwits)
         }
     }
     
