@@ -16,7 +16,6 @@ class ScoringSystemsViewController: UIViewController, ShadowButtonDelegate {
     @IBOutlet weak var topAnalystsGoButton: UIButton!
     @IBOutlet weak var loader: UIActivityIndicatorView!
     @IBOutlet weak var daysRemaining: UILabel!
-    @IBOutlet weak var creditBalanceButton: ShadowButtonView!
     
     private var analystPackage:PremiumPackage?
     
@@ -24,11 +23,6 @@ class ScoringSystemsViewController: UIViewController, ShadowButtonDelegate {
         super.viewDidLoad()
         self.mainView.addPurpleGradientBackground()
         self.purchaseAnalystsButton.delegate = self
-        Dataholder.subscribeForCreditBalanceUpdates(self)
-        
-        self.creditBalanceButton.credits.text = String("\(Dataholder.getCreditBalance())")
-        self.creditBalanceButton.delegate = self
-        self.creditBalanceButton.bgColor = .clear
         
         self.loader.isHidden = false
         self.purchaseAnalystsButton.isHidden = true
@@ -123,12 +117,6 @@ class ScoringSystemsViewController: UIViewController, ShadowButtonDelegate {
         NetworkManager.getMyRestApi().subscribeTopAnalysts(completionHandler: handleSub)
     }
     
-    func creditBalanceUpdated() {
-        DispatchQueue.main.async {
-            self.creditBalanceButton.credits.text = String("\(Dataholder.getCreditBalance())")
-        }
-    }
-    
     func showInfoAlert(_ package:PremiumPackage){
         let message = "You are about to use " + String(package.credits!) + " credits to enable the " + package.name! + ". Once enabled, you will have access to regularly updated analyst data for 30 days."
         let alert = FCAlertView()
@@ -169,6 +157,10 @@ class ScoringSystemsViewController: UIViewController, ShadowButtonDelegate {
                         withSubtitle: message,
                         withCustomImage: UIImage(systemName: "exclamationmark.triangle.fill"),
                         withDoneButtonTitle: "Ok", andButtons: nil)
+    }
+    
+    func creditBalanceUpdated() {
+        
     }
     /*
     // MARK: - Navigation

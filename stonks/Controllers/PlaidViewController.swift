@@ -8,6 +8,7 @@
 
 import UIKit
 import LinkKit
+import FCAlertView
 
 class PlaidViewController: UIViewController {
 
@@ -217,6 +218,59 @@ class PlaidViewController: UIViewController {
         }
     }
     
+    @IBAction func info(_ sender: Any) {
+        self.showInfoAlert1()
+    }
+    
+    @IBAction func infoBalanceHistory(_ sender: Any) {
+        self.showInfoAlert2()
+    }
+    
+    func showInfoAlert1() {
+        let message = "Stoccoon uses Plaid to securely and safely receive data from financial institutions. You control what account to link with this app can unlink your account at any time. Only account balance and investment holdings information are received. Only common stock holdings are shown in the Watchlists tab. Options positions are not supported at this time."
+        let alert = FCAlertView()
+        alert.doneActionBlock {
+            //print()
+        }
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.colorScheme = Constants.lightPurple
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
+        alert.dismissOnOutsideTouch = true
+        alert.detachButtons = true
+        alert.showAlert(inView: self,
+                        withTitle: title,
+                        withSubtitle: message,
+                        withCustomImage: UIImage(systemName: "info.circle"),
+                        withDoneButtonTitle: "Ok",
+                        andButtons: [])
+    }
+    
+    func showInfoAlert2() {
+        let message = "Stoccoon does not receive balance history from your bank and therefore past account values are not graphed. However, the future evolution of your account balance will be graphed below."
+        let alert = FCAlertView()
+        alert.doneActionBlock {
+            //print()
+        }
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.colorScheme = Constants.lightPurple
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
+        alert.dismissOnOutsideTouch = true
+        alert.detachButtons = true
+        alert.showAlert(inView: self,
+                        withTitle: title,
+                        withSubtitle: message,
+                        withCustomImage: UIImage(systemName: "info.circle"),
+                        withDoneButtonTitle: "Ok",
+                        andButtons: [])
+    }
     /*
     // MARK: - Navigation
 

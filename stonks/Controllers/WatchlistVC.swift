@@ -11,7 +11,6 @@ import AuthenticationServices
 import SPStorkController
 import SwiftyJSON
 import ObjectMapper
-import SideMenu
 
 class WatchlistVC: UIViewController, Updateable {
     
@@ -124,7 +123,9 @@ class WatchlistVC: UIViewController, Updateable {
         //self.creditBalanceView.credits.text = String("\(Dataholder.getCreditBalance())")
         
         self.account = Dataholder.account
-        self.holdings = Dataholder.holdings
+        self.holdings = Dataholder.holdings.filter({ h in
+            h.symbol != nil && !h.symbol!.isEmpty && h.symbol!.count <= 5
+        })
         if holdings == nil || holdings.count == 0 {
             self.portfolioCompanies = []
             self.watchlistManager.setPortfolio(self.portfolioCompanies)
@@ -183,7 +184,9 @@ class WatchlistVC: UIViewController, Updateable {
             NetworkManager.getMyRestApi().getLinkedAccountAndHoldings { account, holdings in
                 if account != nil {
                     self.account = account
-                    self.holdings = holdings
+                    self.holdings = holdings.filter({ h in
+                        h.symbol != nil && !h.symbol!.isEmpty && h.symbol!.count <= 5
+                    })
                     var portfolioCompanies:[Company] = []
                     for i in 0..<holdings.count {
                         let h = holdings[i]
