@@ -792,6 +792,7 @@ PODS:
   - nanopb/encode (2.30908.0)
   - ObjectMapper (4.2.0)
   - Parchment (3.2.0)
+  - Plaid (3.0.0)
   - PromisesObjC (2.1.0)
   - SPStorkController (1.8.5)
   - SwiftSoup (2.4.2)
@@ -817,6 +818,7 @@ DEPENDENCIES:
   - MSPeekCollectionViewDelegateImplementation
   - ObjectMapper
   - Parchment
+  - Plaid
   - SPStorkController
   - SwiftSoup
   - SwiftyJSON
@@ -858,6 +860,7 @@ SPEC REPOS:
     - nanopb
     - ObjectMapper
     - Parchment
+    - Plaid
     - PromisesObjC
     - SPStorkController
     - SwiftSoup
@@ -899,6 +902,7 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   Parchment: a43c440b22c8a60f7e0196b74339446d4d1d18ea
+  Plaid: 673a49f093b4c44f9ff84b8bc219243a68ce4f3b
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
   SPStorkController: 68966ed3134de2be2a8bbd1475c7e81f3f7d01ee
   SwiftSoup: 7589ceac3b38cef742a96981cfe2b14ba55ce1e3
@@ -907,6 +911,6 @@ SPEC CHECKSUMS:
   VisualEffectView: 172fce132b8208da6c0b7c572e7f3987ad54546d
   XLActionController: 24140d835ab9e260270711afebc5efabebe9d392
 
-PODFILE CHECKSUM: 456421b47c3f70f2bc75658db3b6e5d8eb9c3222
+PODFILE CHECKSUM: ef31561239678d0fbe5e8bc9ba2d9515e373909b
 
 COCOAPODS: 1.11.3

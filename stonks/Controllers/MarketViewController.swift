@@ -128,7 +128,7 @@ class MarketViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     @IBAction func fearAndGreedHelp(_ sender: Any) {
-        self.showInfoAlert("Market market emotion index is computed by analyzing what percentage of stocks in the market are in a uptrend and are above their 6 month exponential moving average (EMA)", title: "Fear and Greed")
+        self.showInfoAlert("The Mmrket Emotion Index is computed by analyzing what percentage of stocks in the market are in a uptrend and are above their 6 month exponential moving average (EMA)", title: "Fear and Greed")
     }
     
     func showInfoAlert(_ message:String, title:String){

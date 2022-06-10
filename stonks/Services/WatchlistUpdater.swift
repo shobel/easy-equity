@@ -78,10 +78,18 @@ class WatchlistUpdater: StockDataTask {
     @objc override func update(){
         if (!hibernating){
             DispatchQueue.global(qos: .background).async {
-                let tickers = self.watchlistManager.getTickers()
+                let tickers = self.watchlistManager.getAllTickers()
                 print("watchlist updater fired!")
                 NetworkManager.getMyRestApi().getQuotesAndSimplifiedCharts(symbols: tickers, completionHandler: { (quotes: [Quote])->Void in
                     for c in self.watchlistManager.getWatchlist() {
+                        for var q in quotes {
+                            if (c.symbol == q.symbol) {
+                                c.quote = q
+                                break
+                            }
+                        }
+                    }
+                    for c in self.watchlistManager.getPortfolio() {
                         for var q in quotes {
                             if (c.symbol == q.symbol) {
                                 c.quote = q

@@ -10,6 +10,26 @@ import Foundation
 
 class NumberFormatter {
     
+    static func formatMonetaryValue(_ amount:Double, numDec:Int, addPlusMinus:Bool) -> String{
+        let absAmount = abs(amount)
+        let numberFormatter = Foundation.NumberFormatter()
+        numberFormatter.maximumFractionDigits = numDec
+        numberFormatter.numberStyle = .decimal
+        let formattedNumber = numberFormatter.string(from: NSNumber(value:absAmount))
+        var prefix = "$"
+        if addPlusMinus {
+            prefix = "+$"
+        }
+        if amount < 0 {
+            if addPlusMinus {
+                prefix = "-$"
+            }
+        }
+        return prefix + (formattedNumber ?? "")
+        //let result = String(format: "%0.2f", amount)
+        
+    }
+    
     /* formats a number to be a double if it has a decimal, otherwise an integer */
     static func formatNumberWithPossibleDecimal(_ value:Double) -> String {
         var dbl = value

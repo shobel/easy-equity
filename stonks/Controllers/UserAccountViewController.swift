@@ -43,9 +43,6 @@ class UserAccountViewController: UIViewController, ShadowButtonDelegate {
         let purchaseVC = storyboard.instantiateViewController(withIdentifier: "purchaseCreditsVC") as! PurchaseViewController
         self.present(purchaseVC, animated: true, completion: nil)
     }
-    @IBAction func buyCredits(_ sender: Any) {
-        self.openPurchaseView()
-    }
     
     @IBAction func pp(_ sender: Any) {
         if let url = URL(string: "https://sites.google.com/view/stoccoon/privacy-policy") {
@@ -61,6 +58,10 @@ class UserAccountViewController: UIViewController, ShadowButtonDelegate {
         if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
             UIApplication.shared.open(url)
         }
+    }
+    
+    @IBAction func back(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     /*
     // MARK: - Navigation

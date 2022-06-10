@@ -13,8 +13,8 @@ import Firebase
 
 class MyRestAPI: HTTPRequest {
     
-    private var apiurl = "https://stoccoon.com/api"
-    //private var apiurl = "http://192.168.1.114:3000/api" //192.168.1.113
+    //private var apiurl = "https://stoccoon.com/api"
+    private var apiurl = "http://192.168.1.104:3000/api" //192.168.1.113
     
     private var appEndpoint = "/app"
     private var userEndpoint = "/user"
@@ -30,6 +30,71 @@ class MyRestAPI: HTTPRequest {
     
     public override init(){
         super.init()
+    }
+    
+    public func getBalanceHistory(completionHandler: @escaping ([DateAndBalance])->Void) {
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/get-linked-account-balance-history", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            let balanceHistoryJson = json["balanceHistory"]
+            var balanceHistory:[DateAndBalance] = []
+            for i in 0..<balanceHistoryJson.count{
+                if let b = Mapper<DateAndBalance>().map(JSONString: balanceHistoryJson[i].rawString()!){
+                    balanceHistory.append(b)
+                }
+            }
+            completionHandler(balanceHistory)
+        }
+    }
+    
+    public func getLinkedAccountAndHoldings(completionHandler: @escaping (BrokerageAccount?, [Holding])->Void) {
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/get-linked-account-and-holdings", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            let accountJson = json["account"]
+            let JSONString:String? = accountJson.rawString()
+            if JSONString == nil {
+                completionHandler(nil, [])
+                return
+            }
+            let account = Mapper<BrokerageAccount>().map(JSONString: JSONString!)
+            let holdingsJson = json["holdings"]
+            var holdings:[Holding] = []
+            for i in 0..<holdingsJson.count{
+                if let h = Mapper<Holding>().map(JSONString: holdingsJson[i].rawString()!){
+                    holdings.append(h)
+                }
+            }
+            completionHandler(account, holdings)
+        }
+    }
+    
+    public func unlinkPlaidAccount(completionHandler: @escaping ()->Void) {
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/unlink-account", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            completionHandler()
+        }
+    }
+    
+    public func createPlaidLinkToken(completionHandler: @escaping (String?)->Void) {
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/create-link-token", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            completionHandler(json["linkToken"].rawString())
+        }
+    }
+    
+    public func handleLinkedAccount(_ publicToken:String, account: BrokerageAccount, completionHandler: @escaping ()->Void){
+        let body = [
+            "publicToken": publicToken,
+            "account": account.asDictionary()
+        ] as [String : Any]
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/set-linked-account", params: [:])
+        self.postRequest(queryURL: queryURL, body: body) { (data) in
+            let json = JSON(data)
+            completionHandler()
+        }
     }
     
     public func verifyReceipt(_ receipt:String, productid:String, completionHandler: @escaping (Int?)->Void){

@@ -14,6 +14,8 @@ class Dataholder {
     public static var allTickers: [Company] = []
     public static var selectedCompany:Company?
     public static var watchlistManager: WatchlistManager = WatchlistManager()
+    public static var account:BrokerageAccount?
+    public static var holdings:[Holding] = []
     public static var watchlistUpdater:WatchlistUpdater?
     public static var userScoreSettings: ScoreSettings = ScoreSettings()
     public static var isUSMarketOpen:Bool = false

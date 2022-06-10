@@ -64,7 +64,7 @@ class PriceChartPreviewView: LineChartView {
         previousLineChartDataSet.drawCircleHoleEnabled = false
         previousLineChartDataSet.drawValuesEnabled = false
         previousLineChartDataSet.drawFilledEnabled = false
-        previousLineChartDataSet.setColor(.lightGray)
+        previousLineChartDataSet.setColor(.gray)
         previousLineChartDataSet.lineDashLengths = [1, 4]
         
         DispatchQueue.main.async {

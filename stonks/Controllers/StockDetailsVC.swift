@@ -85,6 +85,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         "premium-icon"
     ]
     
+    public var goToPremium:Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.pagingViewDummy.isHidden = true
@@ -127,6 +129,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
 //        self.pagingViewDummy.addGestureRecognizer(tap)
         
         self.loadDynamicData()
+
     }
     
     @objc func handleDummyTap(_ sender: UITapGestureRecognizer? = nil) {
@@ -306,6 +309,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         if (self.handlersDone >= total){
             self.adjustContentHeight(vc: self.keyStatsVC)
             self.hideLoader(true)
+            if self.goToPremium {
+                DispatchQueue.main.async { [self] in
+                    self.pageVC.select(pagingItem: IconItem(icon: self.icons[self.icons.count - 1], index: self.icons.count - 1))
+                    self.adjustContentHeight(vc: premiumVC)
+                }
+            }
         }
     }
     
@@ -879,7 +888,7 @@ extension StockDetailsVC: PagingViewControllerDelegate {
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didSelectItem pagingItem: PagingItem) {
-        let i = pagingItem as! IconItem
+//        let i = pagingItem as! IconItem
         if pagingViewController.restorationIdentifier == "pageVC" {
             self.pageVCDummy.select(pagingItem: pagingItem, animated: true)
         } else {

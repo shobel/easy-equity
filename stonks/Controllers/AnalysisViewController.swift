@@ -110,7 +110,7 @@ class AnalysisViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.setData(industryColor: self.colorMap[score.industry ?? ""] ?? UIColor.gray, rank: score.rank ?? 0, industryRank: score.industryRank ?? 0, industryTotal: score.industryTotal ?? 1, percentile: score.percentile ?? 0.0)
         cell.backgroundColor = UIColor.clear
         
-        if Dataholder.watchlistManager.getTickers().contains(score.symbol ?? "") {
+        if Dataholder.watchlistManager.getWatchlistSymbols().contains(score.symbol ?? "") {
             cell.addedToWatchlist(true)
         } else {
             cell.addedToWatchlist(false)
