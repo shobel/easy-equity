@@ -17,10 +17,12 @@ class WatchAdsViewController: UIViewController, GADFullScreenContentDelegate {
     var realAdUnitIdRewarded = "ca-app-pub-8062944595412058/5058989059"
     var testAdUnitIdRewarded = "ca-app-pub-3940256099942544/1712485313"
     var testAdUnitIdInterstitial = "ca-app-pub-3940256099942544/4411468910"
+    @IBOutlet var mainView: UIView!
     private var rewardedAd: GADRewardedAd?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mainView.addPurpleGradientBackground()
         self.loadRewardedAd()
         
         // Do any additional setup after loading the view.

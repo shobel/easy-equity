@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NetworkDelegate {
         // Override point for customization after application launch.
         
         if #available(iOS 13.0, *) {
-            window!.overrideUserInterfaceStyle = .light
+            window!.overrideUserInterfaceStyle = .dark
         }
         
         FirebaseApp.configure()
@@ -70,7 +70,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NetworkDelegate {
                 self.lastErrorAlertTimestamp = Int(now)
                 let message = String("Could not contact server")
                 let alert = FCAlertView()
+                alert.alertBackgroundColor = Constants.themePurple
+                alert.titleColor = .white
+                alert.subTitleColor = .white
                 alert.colorScheme = Constants.darkPink
+                alert.doneButtonTitleColor = .white
+                alert.secondButtonTitleColor = .darkGray
+                alert.firstButtonTitleColor = .darkGray
                 alert.dismissOnOutsideTouch = true
                 alert.detachButtons = true
                 print()

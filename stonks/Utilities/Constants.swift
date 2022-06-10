@@ -58,13 +58,35 @@ struct Constants{
         RatingType.buy: lightGreen,
         RatingType.hold: lightOrange
     ]
+    
+    //theme colors
+    //blue 12, 8, 28 super dark
+    //blue 19, 13, 46 is dark
+    //blue is 28, 20, 67 lighter
+    //pink 51, 17, 71 is even darker
+    //pink 65, 22, 91 is darker
+    //pink 73, 22, 91 is lighter
+    
+    public static var themeBlue = UIColor(red: 19.0/255.0, green: 13.0/255.0, blue: 46.0/255.0, alpha: 1.0)
+    //bit lighter
+    public static var themeBlue2 = UIColor(red: 28.0/255.0, green: 18.0/255.0, blue: 64.0/255.0, alpha: 1.0)
+    public static var themeDarkBlue = UIColor(red: 17.0/255.0, green: 11.0/255.0, blue: 42.0/255.0, alpha: 1.0)
+    public static var themePurple = UIColor(red: 51.0/255.0, green: 17.0/255.0, blue: 71.0/255.0, alpha: 1.0)
+    public static var lightPurple = UIColor(red: 187.0/255.0, green: 105.0/355.0, blue: 255.0/255.0, alpha: 1.0)
+    public static var veryLightPurple = UIColor(red: 240.0/255.0, green: 227.0/355.0, blue: 250.0/255.0, alpha: 1.0)
+    public static var lightPurpWords = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 255.0/255.0, alpha: 1.0)
     public static var veryLightGrey = UIColor(red: 230.0/255.0, green: 230.0/255.0, blue: 230.0/255.0, alpha: 1.0)
     public static var lightGrey = UIColor(red: 200.0/255.0, green: 200.0/255.0, blue: 200.0/255.0, alpha: 1.0)
     public static var darkPink = UIColor(red: 234.0/255.0, green: 0.0/255.0, blue: 97.0/255.0, alpha: 1.0)
-    public static var fadedDarkPink = UIColor(red: 234.0/255.0, green: 0.0/255.0, blue: 97.0/255.0, alpha: 0.2)
+    public static var fadedDarkPink = UIColor(red: 234.0/255.0, green: 0.0/255.0, blue: 97.0/255.0, alpha: 0.5)
     public static var lightPink = UIColor(red: 255.0/255.0, green: 140.0/255.0, blue: 173.0/255.0, alpha: 1.0)
     public static var purple = UIColor(red: 199.0/255.0, green: 0.0/255.0, blue: 172.0/255.0, alpha: 1.0)
+    
+    //swapped
     public static var green = UIColor(red: 9.0/255.0, green: 196.0/255.0, blue: 122.0/255.0, alpha: 1.0)
+    public static var neonGreen = UIColor(red: 52.0/255.0, green: 200.0/255.0, blue: 90.0/255.0, alpha: 1.0)
+    
+    
     public static var yellow = UIColor(red: 230.0/255.0, green: 225.0/255.0, blue: 37.0/255.0, alpha: 1.0)
     public static var blue = UIColor(red: 0.0/255.0, green: 160.0/255.0, blue: 255.0/255.0, alpha: 1.0)
     public static var lightblue = UIColor(red: 86.0/255.0, green: 182.0/255.0, blue: 255.0/255.0, alpha: 1.0)

@@ -10,6 +10,7 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var loader: UIActivityIndicatorView!
     @IBOutlet weak var userCustomized: UISwitch!
     @IBOutlet weak var analystRecs: UISwitch!
@@ -30,6 +31,7 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mainView.addPurpleGradientBackground()
         self.allSwitches.append(userCustomized)
         self.allSwitches.append(analystRecs)
         self.allSwitches.append(avgUpside)

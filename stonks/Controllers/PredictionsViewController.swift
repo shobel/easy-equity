@@ -29,6 +29,7 @@ class PredictionsViewController: UIViewController, StatsVC {
     @IBOutlet weak var topAnalystSuccessRateView: CircularProgressView!
     @IBOutlet weak var avgReturnView: CircularProgressView!
 
+    @IBOutlet weak var priceTargetTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var priceTargetChartTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var priceTargetLabelTop: NSLayoutConstraint!
     @IBOutlet weak var analystButtonView: UIView!
@@ -57,14 +58,7 @@ class PredictionsViewController: UIViewController, StatsVC {
         self.overallRatingsView.layer.masksToBounds = true
         self.overallRatingsView.clipsToBounds = true
         
-        self.analystButtonView.layer.borderWidth = 1.0
-        self.analystButtonView.layer.borderColor = Constants.lightGrey.cgColor
-        self.analystButtonView.layer.cornerRadius = 5.0
-        self.analystButtonView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        self.analystButtonView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-        self.analystButtonView.layer.shadowOpacity = 1.0
-        self.analystButtonView.layer.shadowRadius = 0.0
-        self.analystButtonView.layer.masksToBounds = false
+        self.analystButtonView.layer.cornerRadius = 10.0
         
         self.accuracyLabel.alpha = 0
         self.avgReturnLabel.alpha = 0
@@ -75,7 +69,7 @@ class PredictionsViewController: UIViewController, StatsVC {
         self.avgReturnView.setProgress(0.0)
         
         self.modeControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
-        
+        self.priceTargetsOverTimeChartView.noDataText = ""
     }
     
     func setData(){
@@ -93,11 +87,13 @@ class PredictionsViewController: UIViewController, StatsVC {
 
             let r = x.avgAnalystReturn!
             self.avgAnalystReturn = r
-            self.avgReturnView.setProgressAndLabel(CGFloat(r/0.3), label: String(Int((r*100).rounded())) + "%")
+            self.avgReturnView.setProgressAndLabel(CGFloat(r/0.4), label: String(Int((r*100).rounded())) + "%")
             self.avgReturnView.setProgressColor(self.getTintColorForReturnValue(value: Float(r)))
         }
         if !hasTipranksAnalysts {
             self.noTopAnalysts()
+        } else {
+            self.modeControl.isHidden = false
         }
         
         var numAnalysts = 0
@@ -185,25 +181,29 @@ class PredictionsViewController: UIViewController, StatsVC {
     }
     
     func getTintColorForReturnValue(value:Float) -> UIColor {
-        if value > 0.3 {
-            return UIColor(red: 80.0/255.0, green: 50.0/255.0, blue: 250.0/255.0, alpha: 1.0)
-        } else if value > 0.2 {
-            return UIColor(red: 120.0/255.0, green: 50.0/255.0, blue: 230.0/255.0, alpha: 1.0)
-        } else if value > 0.1 {
-            return UIColor(red: 160.0/255.0, green: 53.0/255.0, blue: 210.0/255.0, alpha: 1.0)
+        if value >= 0.3 {
+            return UIColor(red: 45.0/255.0, green: 220.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        } else if value >= 0.2 {
+            return UIColor(red: 80.0/255.0, green: 214.0/255.0, blue: 95.0/255.0, alpha: 1.0)
+        } else if value >= 0.1 {
+            return UIColor(red: 122.0/255.0, green: 227.0/255.0, blue: 95.0/255.0, alpha: 1.0)
+        } else if value >= 0.0 {
+            return UIColor(red: 160.0/255.0, green: 232.0/255.0, blue: 142.0/255.0, alpha: 1.0)
+        } else if value >= -0.1 {
+            return UIColor(red: 200.0/255.0, green: 35.0/255.0, blue: 95.0/255.0, alpha: 1.0)
         } else {
-            return UIColor(red: 200.0/255.0, green: 60.0/255.0, blue: 168.0/255.0, alpha: 1.0)
+            return UIColor(red: 143.0/255.0, green: 0.0/255.0, blue: 52.0/255.0, alpha: 1.0)
         }
     }
     func getTintColorForProgressValue(value:Float) -> UIColor {
-        if value > 0.75 {
-            return UIColor(red: 80.0/255.0, green: 50.0/255.0, blue: 250.0/255.0, alpha: 1.0)
-        } else if value > 0.5 {
-            return UIColor(red: 120.0/255.0, green: 50.0/255.0, blue: 230.0/255.0, alpha: 1.0)
-        } else if value > 0.25 {
-            return UIColor(red: 160.0/255.0, green: 53.0/255.0, blue: 210.0/255.0, alpha: 1.0)
+        if value >= 0.75 {
+            return UIColor(red: 50.0/255.0, green: 250.0/255.0, blue: 130.0/255.0, alpha: 1.0)
+        } else if value >= 0.5 {
+            return UIColor(red: 128.0/255.0, green: 194.0/255.0, blue: 156.0/255.0, alpha: 1.0)
+        } else if value >= 0.25 {
+            return UIColor(red: 200.0/255.0, green: 35.0/255.0, blue: 95.0/255.0, alpha: 1.0)
         } else {
-            return UIColor(red: 200.0/255.0, green: 60.0/255.0, blue: 168.0/255.0, alpha: 1.0)
+            return UIColor(red: 143.0/255.0, green: 0.0/255.0, blue: 52.0/255.0, alpha: 1.0)
         }
     }
     
@@ -218,6 +218,7 @@ class PredictionsViewController: UIViewController, StatsVC {
         topAnalystSuccessRateView.isHidden = true
         avgReturnView.isHidden = true
         priceTargetChartTopConstraint.constant = 15
+        priceTargetTopConstraint.constant = -20
         priceTargetLabelTop.constant = 15
         self.view.layoutIfNeeded()
     }
@@ -297,7 +298,13 @@ class PredictionsViewController: UIViewController, StatsVC {
         alert.doneActionBlock {
             //print()
         }
-        alert.colorScheme = Constants.blue
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.colorScheme = Constants.lightPurple
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
         alert.dismissOnOutsideTouch = true
         alert.detachButtons = true
         alert.showAlert(inView: self,

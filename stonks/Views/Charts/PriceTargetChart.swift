@@ -31,19 +31,19 @@ class PriceTargetChart: CombinedChartView {
         self.doubleTapToZoomEnabled = false
         self.autoScaleMinMaxEnabled = true
         
-        self.leftAxis.labelFont = UIFont(name: "Futura", size: 12)!
-        self.leftAxis.labelTextColor = UIColor.gray
+//        self.leftAxis.labelFont = UIFont(name: "Futura", size: 12)!
+        self.leftAxis.labelTextColor = Constants.lightGrey
         self.leftAxis.drawGridLinesEnabled = false
         self.leftAxis.labelPosition = .outsideChart
         self.leftAxis.drawAxisLineEnabled = false
         self.leftAxis.enabled = true
         self.rightAxis.enabled = false
         
-        self.xAxis.enabled = true
+        self.xAxis.enabled = false
         self.xAxis.axisMinimum = -0.5
         self.xAxis.drawGridLinesEnabled = false
         self.xAxis.labelPosition = .bottom
-        self.xAxis.labelTextColor = .clear
+        self.xAxis.labelTextColor = .white
         self.xAxis.granularity = 1
         self.xAxis.drawAxisLineEnabled = false
 
@@ -168,8 +168,8 @@ class PriceTargetChart: CombinedChartView {
 
         let monthDataSet = LineChartDataSet(entries: monthDataEntries)
         let averagePriceTargetDataSet = LineChartDataSet(entries: averagePriceTargetEntries)
-        self.configureLineDataSet(set: monthDataSet, dashed: false, color: .gray)
-        self.configureLineDataSet(set: averagePriceTargetDataSet, dashed: true, color: .gray)
+        self.configureLineDataSet(set: monthDataSet, dashed: false, color: Constants.lightGrey.withAlphaComponent(0.5))
+        self.configureLineDataSet(set: averagePriceTargetDataSet, dashed: true, color: Constants.lightGrey)
         
         self.lineChartDataSets.append(monthDataSet)
         self.lineChartDataSets.append(averagePriceTargetDataSet)
@@ -186,7 +186,7 @@ class PriceTargetChart: CombinedChartView {
       
     private func configureLineDataSet(set: LineChartDataSet, dashed: Bool, color: UIColor){
         if dashed{
-            set.lineDashLengths = [5, 5]
+            set.lineDashLengths = [2, 2]
             set.drawCirclesEnabled = true
             set.circleHoleColor = color
             set.setCircleColor(color)
@@ -196,7 +196,7 @@ class PriceTargetChart: CombinedChartView {
             set.drawValuesEnabled = false
         }
         set.lineWidth = 2.0
-        set.circleRadius = 5.0
+        set.circleRadius = 2.0
         set.setColor(color)
         set.highlightEnabled = false
         set.valueFont = UIFont(name: "Futura-Bold", size: 12)!
@@ -215,7 +215,6 @@ class PriceTargetChart: CombinedChartView {
 
 extension PriceTargetChart: IValueFormatter {
     func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
-        //return NumberFormatter.formatNumberWithPossibleDecimal(value)
         if let latestPrice = self.company.quote?.latestPrice {
             let diff = value - latestPrice
             //self.textColor = getColor(diff)

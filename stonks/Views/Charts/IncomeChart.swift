@@ -26,7 +26,8 @@ class IncomeChart: BarChartView {
                
         self.chartDescription?.enabled = false
         self.legend.enabled = true
-        self.legend.textColor = .black
+        self.legend.textColor = Constants.lightGrey
+        self.legend.form = .circle
         self.dragEnabled = false
         self.setScaleEnabled(false)
         self.pinchZoomEnabled = false
@@ -38,11 +39,12 @@ class IncomeChart: BarChartView {
         self.leftAxis.enabled = true
         self.leftAxis.valueFormatter = BigNumberAxisFormatter()
         self.leftAxis.drawZeroLineEnabled = true
+        self.leftAxis.labelTextColor = Constants.lightGrey
         self.rightAxis.enabled = false
                     
         //self.xAxis.valueFormatter = self
         //self.xAxis.labelRotationAngle = CGFloat(45.0)
-        self.xAxis.labelFont = UIFont(name: "HelveticaNeue", size: 12.0)!
+//        self.xAxis.labelFont = UIFont(name: "HelveticaNeue", size: 12.0)!
         self.xAxis.enabled = true
         self.xAxis.axisMinimum = -0.5
         self.xAxis.drawGridLinesEnabled = false
@@ -52,7 +54,7 @@ class IncomeChart: BarChartView {
         self.xAxis.wordWrapEnabled = false
         self.xAxis.centerAxisLabelsEnabled = true
         self.xAxis.valueFormatter = self
-        self.xAxis.labelTextColor = .black
+        self.xAxis.labelTextColor = Constants.lightGrey
 
         //self.drawBarShadowEnabled = true
 //        self.extraTopOffset = 0
@@ -64,7 +66,7 @@ class IncomeChart: BarChartView {
         self.xLabels = []
         var revEntries:[BarChartDataEntry] = []
         var incomeEntries:[BarChartDataEntry] = []
-        var opIncEntries:[BarChartDataEntry] = []
+        var opExEntries:[BarChartDataEntry] = []
         var incomes = self.company.income
         if self.chartMode == ChartMode.ANNUAL {
             incomes = self.company.incomeAnnual
@@ -76,25 +78,25 @@ class IncomeChart: BarChartView {
                 self.xLabels.append(NumberFormatter.formatDateToMonthYearShort(incomeEntry.reportDate!))
                 incomeEntries.append(BarChartDataEntry(x: Double(i), y: Double(incomeEntry.netIncome!)))
                 revEntries.append(BarChartDataEntry(x: Double(i), y: Double(incomeEntry.totalRevenue!)))
-                opIncEntries.append(BarChartDataEntry(x: Double(i), y: Double(incomeEntry.operatingIncome!)))
+                opExEntries.append(BarChartDataEntry(x: Double(i), y: Double(incomeEntry.operatingIncome!)))
             }
       
             let incomeSet = BarChartDataSet(entries: incomeEntries)
             self.configureDataSet(dataset: incomeSet, label: "Income", color: Constants.green)
             let revSet = BarChartDataSet(entries: revEntries)
             self.configureDataSet(dataset: revSet, label: "Revenue", color: Constants.blue)
-            let opSet = BarChartDataSet(entries: opIncEntries)
-            self.configureDataSet(dataset: opSet, label: "Operating Income", color: Constants.teal)
+            let opSet = BarChartDataSet(entries: opExEntries)
+            self.configureDataSet(dataset: opSet, label: "OpEx", color: Constants.teal)
 
             DispatchQueue.main.async {
                 let data = BarChartData()
                 data.addDataSet(revSet)
                 data.addDataSet(incomeSet)
-//                data.addDataSet(opSet)
+                data.addDataSet(opSet)
                 
                 let groupSpace = 2.0
                 let barSpace = 1.0
-                let barWidth = 5.0
+                let barWidth = 2.0
                 
                 data.barWidth = barWidth
                 let gg = data.groupWidth(groupSpace: groupSpace, barSpace: barSpace)
@@ -128,11 +130,11 @@ class IncomeChart: BarChartView {
     }
     
     func configureDataSet(dataset: BarChartDataSet, label:String, color: UIColor) {
-        dataset.valueTextColor = Constants.darkGrey
+        dataset.valueTextColor = Constants.lightGrey
         dataset.drawValuesEnabled = true
         dataset.highlightEnabled = false
         dataset.valueFormatter = self
-        dataset.valueFont = UIFont(name: "Futura", size: 9)!
+        dataset.valueFont = dataset.valueFont.withSize(11.0)
         dataset.label = label
         dataset.setColor(color)
     }

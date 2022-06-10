@@ -11,13 +11,25 @@ import Foundation
 class WatchlistManager {
     
     private var watchlist:[Company]
+    private var portfolio:[Company]
     private var limit:Int = 30
     
     public var watchlistVC:WatchlistVC?
     
     init(){
         watchlist = []
+        portfolio = []
         sortWatchlist()
+    }
+    
+    public func getPortfolio() -> [Company]{
+        return portfolio.sorted { a, b in
+            a.symbol < b.symbol
+        }
+    }
+    
+    public func setPortfolio(_ companies: [Company]){
+        self.portfolio = companies
     }
     
     public func sortWatchlist(){
@@ -34,12 +46,21 @@ class WatchlistManager {
         }
     }
     
-    //these 2 do the same thing
     public func getWatchlistSymbols() -> [String] {
         return watchlist.map{ $0.symbol }
     }
-    public func getTickers() -> [String] {
-        return watchlist.map { (c) -> String in c.symbol }
+    public func getPortfolioSymbols() -> [String] {
+        return portfolio.map{ $0.symbol }
+    }
+    public func getAllTickers() -> [String] {
+        var tickers:[String] = []
+        for w in watchlist {
+            tickers.append(w.symbol)
+        }
+        for p in portfolio {
+            tickers.append(p.symbol)
+        }
+        return tickers
     }
     
     public func addCompany(company: Company, completion: @escaping (Bool) -> Void){

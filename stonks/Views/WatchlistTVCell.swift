@@ -27,6 +27,10 @@ class WatchlistTVCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundColor = .clear
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = .clear
+        self.selectedBackgroundView = bgColorView
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -58,9 +62,13 @@ class WatchlistTVCell: UITableViewCell {
         }
         
         //scores, arent necessarily the buy ratings
-        self.buyRating.backgroundColor = self.getScoreTextColor(percentile).withAlphaComponent(0.2)
+        if percentile == -1 {
+            self.buyRating.backgroundColor = .clear
+        } else {
+            self.buyRating.backgroundColor = self.getScoreTextColor(percentile).withAlphaComponent(0.2)
+        }
         self.buyRating.textColor = self.getScoreTextColor(percentile)
-        self.buyRating.text = score
+        self.buyRating.text = " " + score + "  "
         
         if let quote = company.quote {
             self.priceChartPreview.setData(quote)
@@ -71,7 +79,7 @@ class WatchlistTVCell: UITableViewCell {
                 preAfterImage.isHidden = false
                 preAfterImageWidth.constant = self.preAfterImageVisibleWidth
                 preAfterImage.image = UIImage(systemName: "moon.circle.fill")
-                preAfterImage.tintColor = .black
+                preAfterImage.tintColor = .white
                 //preAfterImage.image = UIImage(systemName: "sunset")
                 if GeneralUtility.isPremarket() {
                     preAfterImage.image = UIImage(systemName: "sun.max.fill")
@@ -90,7 +98,7 @@ class WatchlistTVCell: UITableViewCell {
     //val is number between 0 and 1
     func getScoreTextColor(_ val:Double) -> UIColor {
         if val == -1 {
-            return UIColor(red: 245.0/255.0, green: 245.0/255.0, blue: 245.0/255.0, alpha: 1.0)
+            return .clear
         }
         let blue:CGFloat = 0.0
         var red:CGFloat = 0.0

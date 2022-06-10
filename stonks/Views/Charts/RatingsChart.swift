@@ -30,13 +30,12 @@ class RatingsChart: BarChartView {
         self.pinchZoomEnabled = false
         self.doubleTapToZoomEnabled = false
         self.autoScaleMinMaxEnabled = true
-        
         self.leftAxis.drawGridLinesEnabled = false
         self.leftAxis.drawAxisLineEnabled = false
         self.leftAxis.enabled = false
         self.leftAxis.axisMinimum = 0.0
         self.rightAxis.enabled = false
-                
+         
         self.xAxis.valueFormatter = self
         self.xAxis.enabled = true
         self.xAxis.axisMinimum = -0.5
@@ -45,7 +44,7 @@ class RatingsChart: BarChartView {
         self.xAxis.granularity = 1
         self.xAxis.drawAxisLineEnabled = true
         self.xAxis.wordWrapEnabled = true
-        self.xAxis.labelTextColor = .black
+        self.xAxis.labelTextColor = Constants.lightGrey
 
         self.drawBarShadowEnabled = true
         self.extraTopOffset = 10 //isnt doing anything
@@ -117,7 +116,9 @@ class RatingsChart: BarChartView {
         
         let scoredSum = (buy*5) + (overweight*4) + (hold*3) + (underweight*2) + (sell*1)
         let maxScore = (buy + overweight + hold + underweight + sell)*5
-        self.predictionsDelegate.setOverallRecommendationScore(Double(scoredSum) / Double(maxScore))
+        if maxScore > 0 {
+            self.predictionsDelegate.setOverallRecommendationScore(Double(scoredSum) / Double(maxScore))
+        }
         
         var barChartEntries:[BarChartDataEntry] = []
         barChartEntries.append(BarChartDataEntry(x: 0, y: Double(buy)))
@@ -135,12 +136,12 @@ class RatingsChart: BarChartView {
             Constants.darkPink
         ]
         
-        set.barShadowColor = Constants.veryLightGrey
-        set.valueTextColor = Constants.darkGrey
+        set.barShadowColor = .clear
+        set.valueTextColor = Constants.lightGrey
         set.drawValuesEnabled = true
         set.highlightEnabled = false
         set.valueFormatter = self
-        set.valueFont = UIFont(name: "Futura-Bold", size: 12)!
+        set.valueFont = set.valueFont.withSize(14.0)
         
         DispatchQueue.main.async {
             let data = BarChartData(dataSet: set)

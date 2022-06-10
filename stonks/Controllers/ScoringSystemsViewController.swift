@@ -11,6 +11,7 @@ import FCAlertView
 
 class ScoringSystemsViewController: UIViewController, ShadowButtonDelegate {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var purchaseAnalystsButton: ShadowButtonView!
     @IBOutlet weak var topAnalystsGoButton: UIButton!
     @IBOutlet weak var loader: UIActivityIndicatorView!
@@ -21,14 +22,13 @@ class ScoringSystemsViewController: UIViewController, ShadowButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.mainView.addPurpleGradientBackground()
         self.purchaseAnalystsButton.delegate = self
         Dataholder.subscribeForCreditBalanceUpdates(self)
         
         self.creditBalanceButton.credits.text = String("\(Dataholder.getCreditBalance())")
         self.creditBalanceButton.delegate = self
-        self.creditBalanceButton.bgColor = Constants.orange
-        self.creditBalanceButton.shadColor = UIColor(red: 100.0/255.0, green: 60.0/255.0, blue: 25.0/255.0, alpha: 1.0).cgColor
+        self.creditBalanceButton.bgColor = .clear
         
         self.loader.isHidden = false
         self.purchaseAnalystsButton.isHidden = true
@@ -69,7 +69,7 @@ class ScoringSystemsViewController: UIViewController, ShadowButtonDelegate {
             if date != nil {
                 let diff = Calendar.current.dateComponents([.day], from: Date(timeIntervalSince1970: TimeInterval(date!/1000)), to: Date()).day
                 let daysLeft = 30 - (diff ?? 30)
-                self.daysRemaining.text = String("enabled for \(daysLeft) more days")
+                self.daysRemaining.text = String("enabled \(daysLeft) more days")
                 self.daysRemaining.isHidden = false
                 self.purchaseAnalystsButton.isHidden = true
                 self.topAnalystsGoButton.isHidden = false
@@ -135,7 +135,13 @@ class ScoringSystemsViewController: UIViewController, ShadowButtonDelegate {
         alert.doneActionBlock {
             self.buyUpdateAction(package)
         }
-        alert.colorScheme = Constants.green
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.colorScheme = Constants.lightPurple
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
         alert.dismissOnOutsideTouch = true
         alert.detachButtons = true
         alert.showAlert(inView: self,
@@ -149,6 +155,12 @@ class ScoringSystemsViewController: UIViewController, ShadowButtonDelegate {
     func showErrorAlert(_ error:String, credits:Int){
         let message = String("\(error) No credits were used and your balance remains at \(credits).")
         let alert = FCAlertView()
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
         alert.colorScheme = Constants.darkPink
         alert.dismissOnOutsideTouch = true
         alert.detachButtons = true

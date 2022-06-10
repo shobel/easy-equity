@@ -41,6 +41,7 @@ class CustomCombinedChartView: CombinedChartView {
         self.delegate = delegate
         self.stockDetailsDelegate = delegate
         
+        self.noDataText = "loading"
         self.chartDescription?.enabled = false
         self.legend.enabled = false
         self.dragEnabled = true
@@ -53,7 +54,7 @@ class CustomCombinedChartView: CombinedChartView {
         
         self.leftAxis.enabled = false
         self.rightAxis.enabled = false
-        self.leftAxis.labelFont = UIFont(name: "Charter", size: 12)!
+//        self.leftAxis.labelFont = UIFont(name: "Charter", size: 12)!
         self.leftAxis.labelTextColor = UIColor.black
         self.leftAxis.drawGridLinesEnabled = false
         self.leftAxis.drawAxisLineEnabled = false
@@ -118,6 +119,10 @@ class CustomCombinedChartView: CombinedChartView {
         
         var entryCount = self.myCandleData?.count ?? 0
 
+        if entryCount == 0 {
+            self.noDataText = "unavailable"
+        }
+        
         for i in 0..<self.myCandleData!.count{
             let candle:Candle = self.myCandleData![i]
             let high = candle.high!
@@ -144,7 +149,7 @@ class CustomCombinedChartView: CombinedChartView {
         if self.myCandleData!.count > 0 {
             self.lastLineValue = self.myCandleData![self.myCandleData!.count - 1].close!
         }
-        prevCloseEntries.append(ChartDataEntry(x: Double(self.myCandleData!.count - 1), y: previousCloseValue))
+        prevCloseEntries.append(ChartDataEntry(x: Double(391), y: previousCloseValue))
         
         let candleSet = CandleChartDataSet(entries: candleEntries)
         self.setUpCandleChart(set: candleSet)
@@ -290,7 +295,7 @@ class CustomCombinedChartView: CombinedChartView {
     
     private func setUpVolumeChart(set: BarChartDataSet){
         set.axisDependency = .right
-        set.setColor(Constants.fadedOrange.withAlphaComponent(0.25))
+        set.setColor(.lightGray.withAlphaComponent(0.2))
         set.highlightEnabled = false
         set.drawValuesEnabled = false
     }

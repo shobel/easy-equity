@@ -136,6 +136,15 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
         self.setupSentimentBars(self.blSentimentNegative, pvp: self.blSentimentPositive, divider: self.blDivider)
         self.setupSentimentBars(self.stSentimentNegative, pvp: self.stSentimentPositive, divider: self.stDivider)
         
+        self.kavoutInfoView.backgroundColor = Constants.themeDarkBlue
+        self.sent30InfoView.backgroundColor = Constants.themeDarkBlue
+        self.brain21InfoView.backgroundColor = Constants.themeDarkBlue
+        self.tacticalInfoView.backgroundColor = Constants.themeDarkBlue
+        self.stocktwitsInfoView.backgroundColor = Constants.themeDarkBlue
+        self.crossAssetInfoView.backgroundColor = Constants.themeDarkBlue
+        self.brainLanguageInfoView.backgroundColor = Constants.themeDarkBlue
+        self.precisionAlphaInfoView.backgroundColor = Constants.themeDarkBlue
+
         self.isLoaded = true
         self.company = Dataholder.selectedCompany!
         
@@ -163,7 +172,7 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
     public func shadowButtonTapped(_ premiumPackage:PremiumPackage?){
         if premiumPackage != nil {
             if !(premiumPackage!.enabled ?? true) {
-                self.showErrorAlert("This data is currently unavailable", credits: Dataholder.getCreditBalance())
+                self.showErrorAlert("This data is currently unavailable.", credits: Dataholder.getCreditBalance())
             } else if premiumPackage!.credits ?? 0 > Dataholder.getCreditBalance() {
                 self.showPurchaseController()
             } else {
@@ -251,13 +260,15 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
                 if currentButton != nil {
                     currentButton!.premiumPackage = package
                     if !(package.enabled ?? true) {
-                        currentButton!.bgColor = Constants.lightGrey
-                        currentButton!.shadColor = Constants.darkGrey.cgColor
-                        currentButton!.credits.text = " ⃠"
+                        currentButton!.bgColor = .clear
+                        currentButton!.credits.text = "--"
+                        currentButton!.containerView.layer.borderWidth = 1.0
+                        currentButton!.containerView.layer.borderColor = UIColor.white.cgColor
                     } else {
                         currentButton!.credits.text = String(package.credits!)
-                        currentButton!.bgColor = UIColor(red: 48.0/255.0, green: 203.0/255.0, blue: 141.0/255.0, alpha: 1.0)
-                        currentButton!.shadColor = UIColor(red: 25.0/255.0, green: 105.0/255.0, blue: 75.0/255.0, alpha: 1.0).cgColor
+                        currentButton!.bgColor = .clear
+                        currentButton!.containerView.layer.borderWidth = 1.0
+                        currentButton!.containerView.layer.borderColor = UIColor.white.cgColor
                     }
                 }
             }
@@ -500,7 +511,13 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
         alert.doneActionBlock {
             self.buyUpdateAction(package)
         }
-        alert.colorScheme = Constants.green
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.colorScheme = Constants.lightPurple
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
         alert.dismissOnOutsideTouch = true
         alert.detachButtons = true
         alert.showAlert(inView: self,
@@ -514,6 +531,12 @@ class PremiumViewController: UIViewController, StatsVC, ShadowButtonDelegate {
     func showErrorAlert(_ error:String, credits:Int){
         let message = String("\(error) No credits were used and your balance remains at \(credits).")
         let alert = FCAlertView()
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
         alert.colorScheme = Constants.darkPink
         alert.dismissOnOutsideTouch = true
         alert.detachButtons = true

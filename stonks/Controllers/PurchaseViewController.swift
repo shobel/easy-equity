@@ -22,6 +22,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     
     private var currentSelectedProduct:Product?
     
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var currentCredits: EFCountingLabel!
     @IBOutlet weak var purchaseTable: UITableView!
     @IBOutlet weak var containerView: UIView!
@@ -31,7 +32,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.containerView.addPurpleGradientBackground()
         Dataholder.subscribeForCreditBalanceUpdates(self)
         
         self.containerView.layer.cornerRadius = 15.0
@@ -42,6 +43,7 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         self.purchaseTable.delegate = self
         self.purchaseTable.dataSource = self
         self.purchaseTable.isHidden = true
+
         self.getProducts()
         self.currentCredits.counter.timingFunction = EFTimingFunction.linear
     }
@@ -77,7 +79,18 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
         cell.icon.image = UIImage(named: self.getCoinIconName(product.usd!))
         if product.usd! == 0.99 {
             cell.bonusIcon.isHidden = true
+            cell.preprice.isHidden = true
+            cell.moveCreditsToCoin()
         } else {
+            cell.preprice.isHidden = false
+            let prebonus = Double(product.credits!) / self.getBonusAmount(product.usd!)
+//            let attributeString: NSMutableAttributedString = NSMutableAttributedString(string: String(format: "%.0f", prebonus))
+//                attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSRange(location: 0, length: attributeString.length))
+            //cell.preprice.attributedText = attributeString
+            cell.preprice.text = String(format: "%.0f", prebonus)
+            //cell.preprice.sizeToFit()
+            cell.preprice.diagonalStrikeThrough()
+            
             cell.bonusIcon.isHidden = false
         }
         cell.bonusIcon.image = UIImage(named: self.getBonusIconName(product.usd!))
@@ -274,7 +287,13 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     
     func showSuccessAlert(_ credits:Int){
         let alert = FCAlertView()
-        alert.colorScheme = Constants.green
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.colorScheme = Constants.lightPurple
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
         alert.dismissOnOutsideTouch = true
         alert.detachButtons = true
         alert.showAlert(inView: self,
@@ -287,7 +306,13 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
     
     func showErrorAlert(message:String){
         let alert = FCAlertView()
-        alert.colorScheme = .red
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.colorScheme = Constants.darkPink
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
         alert.dismissOnOutsideTouch = true
         alert.detachButtons = true
         alert.showAlert(inView: self,
@@ -309,6 +334,19 @@ class PurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPay
             return "bonus_50.png"
         }
         return ""
+    }
+    
+    func getBonusAmount(_ usd:Double) -> Double {
+        if usd <= 5.0 {
+            return 1.1
+        } else if usd <= 10.0 {
+            return 1.2
+        } else if usd <= 50.0 {
+            return 1.3
+        } else if usd <= 100.0 {
+            return 1.4
+        }
+        return 0.0
     }
     
     func getCoinIconName(_ usd:Double) -> String {

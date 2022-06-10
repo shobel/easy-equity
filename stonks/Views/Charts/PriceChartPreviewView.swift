@@ -58,13 +58,13 @@ class PriceChartPreviewView: LineChartView {
         lineChartDataSet.setColor(data[data.count - 1].value > quote.previousClose! ? Constants.green : Constants.darkPink)
         
         previousLineEntries.append(ChartDataEntry(x: Double(0), y: quote.previousClose!))
-        previousLineEntries.append(ChartDataEntry(x: Double(data.count - 1), y: quote.previousClose!))
+        previousLineEntries.append(ChartDataEntry(x: Double(39), y: quote.previousClose!))
         let previousLineChartDataSet = LineChartDataSet(entries: previousLineEntries)
         previousLineChartDataSet.drawCirclesEnabled = false
         previousLineChartDataSet.drawCircleHoleEnabled = false
         previousLineChartDataSet.drawValuesEnabled = false
         previousLineChartDataSet.drawFilledEnabled = false
-        previousLineChartDataSet.setColor(.lightGray)
+        previousLineChartDataSet.setColor(.gray)
         previousLineChartDataSet.lineDashLengths = [1, 4]
         
         DispatchQueue.main.async {

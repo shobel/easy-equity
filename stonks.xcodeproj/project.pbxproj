@@ -31,10 +31,16 @@
 		1C1421EB256CC00B006087BA /* MarketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1421EA256CC00B006087BA /* MarketViewController.swift */; };
 		1C183F91216D59F90042F52C /* StockDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C183F90216D59F90042F52C /* StockDetailsVC.swift */; };
 		1C183F93216D5D2A0042F52C /* DemoBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C183F92216D5D2A0042F52C /* DemoBaseViewController.swift */; };
+		1C1959E72833E27D00CB1D20 /* HelpInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1959E62833E27D00CB1D20 /* HelpInfoViewController.swift */; };
 		1C2AC8622177B9A400469941 /* WatchlistVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2AC8612177B9A400469941 /* WatchlistVC.swift */; };
 		1C2AC864217FB01D00469941 /* PriceChartFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2AC863217FB01D00469941 /* PriceChartFormatter.swift */; };
 		1C2AC8682183D7C500469941 /* LaunchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2AC8672183D7C500469941 /* LaunchVC.swift */; };
 		1C37D1EA25425F61003564BE /* SimpleScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C37D1E925425F61003564BE /* SimpleScore.swift */; };
+		1C385ADA2838DC0F0055BEDF /* AppReviewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C385AD92838DC0E0055BEDF /* AppReviewRequest.swift */; };
+		1C385ADC28392DC10055BEDF /* SocialSentimentChangeFMP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C385ADB28392DC00055BEDF /* SocialSentimentChangeFMP.swift */; };
+		1C385ADE2839396D0055BEDF /* TrendingSocialsChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C385ADD2839396D0055BEDF /* TrendingSocialsChart.swift */; };
+		1C385AE0283F2A120055BEDF /* PremiumDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C385ADF283F2A110055BEDF /* PremiumDataTableViewCell.swift */; };
+		1C385AE2283F2CED0055BEDF /* PremiumDataMarketplaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C385AE1283F2CED0055BEDF /* PremiumDataMarketplaceViewController.swift */; };
 		1C4335E624F772AF00D2628D /* KeychainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4335E524F772AF00D2628D /* KeychainItem.swift */; };
 		1C4335EF24F8AF2C00D2628D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4335EE24F8AF2C00D2628D /* Extensions.swift */; };
 		1C47FE3427C28EA5003E2983 /* WatchAdsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C47FE3327C28EA5003E2983 /* WatchAdsViewController.swift */; };
@@ -74,7 +80,6 @@
 		1C62CF5E256E9F56009C27E3 /* SimplestLineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62CF5D256E9F56009C27E3 /* SimplestLineChart.swift */; };
 		1C62CF63256EA32E009C27E3 /* EconomyMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62CF62256EA32E009C27E3 /* EconomyMetric.swift */; };
 		1C62FDD624BC144D00BABDCB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDD524BC144D00BABDCB /* LoginViewController.swift */; };
-		1C62FDD924BC14D900BABDCB /* frog-on-a-log.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C62FDD824BC14D900BABDCB /* frog-on-a-log.mp4 */; };
 		1C62FDDB24BC4B6F00BABDCB /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDDA24BC4B6F00BABDCB /* SignupViewController.swift */; };
 		1C62FDDD24BC4B9B00BABDCB /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDDC24BC4B9B00BABDCB /* AuthViewController.swift */; };
 		1C62FDE224BD698C00BABDCB /* AlertDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62FDE124BD698C00BABDCB /* AlertDisplay.swift */; };
@@ -96,6 +101,7 @@
 		1C7092CD27DC7C66002DD589 /* ScoringSystemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7092CC27DC7C66002DD589 /* ScoringSystemsViewController.swift */; };
 		1C72349A230CF34500319D7F /* PremiumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C723499230CF34500319D7F /* PremiumViewController.swift */; };
 		1C72349C230CF43200319D7F /* KeyStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72349B230CF43200319D7F /* KeyStatsViewController.swift */; };
+		1C7282402830B44600E86AC1 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72823F2830B44600E86AC1 /* CustomTabBarController.swift */; };
 		1C72F90A24CA4FFD00EC59F6 /* UserAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F90924CA4FFD00EC59F6 /* UserAccountViewController.swift */; };
 		1C72F90C24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F90B24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift */; };
 		1C72F91024CA76C400EC59F6 /* SimpleQuote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72F90F24CA76C400EC59F6 /* SimpleQuote.swift */; };
@@ -196,6 +202,7 @@
 		1CD78202264E4795001DF387 /* ExpertsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD78201264E4795001DF387 /* ExpertsViewController.swift */; };
 		1CD78204264EE9E6001DF387 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD78203264EE9E6001DF387 /* PaddingLabel.swift */; };
 		1CDA114C232B5C810028D00C /* FormattedNumberLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDA114B232B5C810028D00C /* FormattedNumberLabel.swift */; };
+		1CDDF4432846FE84007DE0BF /* PlaidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDDF4422846FE84007DE0BF /* PlaidViewController.swift */; };
 		1CE755B823D7616900E77D6C /* StockUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE755B723D7616900E77D6C /* StockUpdater.swift */; };
 		1CEBC3512755F515004605DE /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBC3502755F515004605DE /* Receipt.swift */; };
 		1CEBC3532756CA3D004605DE /* PurchaseHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBC3522756CA3D004605DE /* PurchaseHistoryViewController.swift */; };
@@ -203,6 +210,12 @@
 		1CEBC35727598F93004605DE /* PremiumTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBC35627598F93004605DE /* PremiumTransaction.swift */; };
 		1CEBC35B275A9B64004605DE /* PremiumHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBC35A275A9B64004605DE /* PremiumHistoryTableViewCell.swift */; };
 		1CEBC35D275ABA0E004605DE /* PremiumHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBC35C275ABA0E004605DE /* PremiumHistoryViewController.swift */; };
+		1CF9EA782847516F005A67BC /* BrokerageAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF9EA772847516F005A67BC /* BrokerageAccount.swift */; };
+		1CF9EA7A2847C4C4005A67BC /* Holding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF9EA792847C4C4005A67BC /* Holding.swift */; };
+		1CF9EA7C284856C3005A67BC /* AccountBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF9EA7B284856C3005A67BC /* AccountBalance.swift */; };
+		1CF9EA7E2848BA0F005A67BC /* DateAndBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF9EA7D2848BA0F005A67BC /* DateAndBalance.swift */; };
+		1CF9EA802848FBD6005A67BC /* BalanceChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF9EA7F2848FBD6005A67BC /* BalanceChart.swift */; };
+		1CF9EA82284CC727005A67BC /* PortfolioGainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF9EA81284CC727005A67BC /* PortfolioGainTableViewCell.swift */; };
 		1CFE633D23FB665E00F81758 /* NewsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFE633C23FB665E00F81758 /* NewsWebViewController.swift */; };
 		1CFFAA0B2170337400D3E768 /* AnalystsRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFFAA0A2170337400D3E768 /* AnalystsRating.swift */; };
 		3190B5951A804D1D76815360 /* Pods_stonks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 851E076FA06779BF9AEB98FC /* Pods_stonks.framework */; };
@@ -251,10 +264,16 @@
 		1C1421EA256CC00B006087BA /* MarketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketViewController.swift; sourceTree = "<group>"; };
 		1C183F90216D59F90042F52C /* StockDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailsVC.swift; sourceTree = "<group>"; };
 		1C183F92216D5D2A0042F52C /* DemoBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoBaseViewController.swift; sourceTree = "<group>"; };
+		1C1959E62833E27D00CB1D20 /* HelpInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpInfoViewController.swift; sourceTree = "<group>"; };
 		1C2AC8612177B9A400469941 /* WatchlistVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistVC.swift; sourceTree = "<group>"; };
 		1C2AC863217FB01D00469941 /* PriceChartFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceChartFormatter.swift; sourceTree = "<group>"; };
 		1C2AC8672183D7C500469941 /* LaunchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchVC.swift; sourceTree = "<group>"; };
 		1C37D1E925425F61003564BE /* SimpleScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleScore.swift; sourceTree = "<group>"; };
+		1C385AD92838DC0E0055BEDF /* AppReviewRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewRequest.swift; sourceTree = "<group>"; };
+		1C385ADB28392DC00055BEDF /* SocialSentimentChangeFMP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSentimentChangeFMP.swift; sourceTree = "<group>"; };
+		1C385ADD2839396D0055BEDF /* TrendingSocialsChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingSocialsChart.swift; sourceTree = "<group>"; };
+		1C385ADF283F2A110055BEDF /* PremiumDataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumDataTableViewCell.swift; sourceTree = "<group>"; };
+		1C385AE1283F2CED0055BEDF /* PremiumDataMarketplaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumDataMarketplaceViewController.swift; sourceTree = "<group>"; };
 		1C4335E524F772AF00D2628D /* KeychainItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItem.swift; sourceTree = "<group>"; };
 		1C4335EE24F8AF2C00D2628D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1C47FE3327C28EA5003E2983 /* WatchAdsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAdsViewController.swift; sourceTree = "<group>"; };
@@ -294,7 +313,6 @@
 		1C62CF5D256E9F56009C27E3 /* SimplestLineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplestLineChart.swift; sourceTree = "<group>"; };
 		1C62CF62256EA32E009C27E3 /* EconomyMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EconomyMetric.swift; sourceTree = "<group>"; };
 		1C62FDD524BC144D00BABDCB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		1C62FDD824BC14D900BABDCB /* frog-on-a-log.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "frog-on-a-log.mp4"; sourceTree = "<group>"; };
 		1C62FDDA24BC4B6F00BABDCB /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		1C62FDDC24BC4B9B00BABDCB /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		1C62FDE124BD698C00BABDCB /* AlertDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDisplay.swift; sourceTree = "<group>"; };
@@ -316,6 +334,7 @@
 		1C7092CC27DC7C66002DD589 /* ScoringSystemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringSystemsViewController.swift; sourceTree = "<group>"; };
 		1C723499230CF34500319D7F /* PremiumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumViewController.swift; sourceTree = "<group>"; };
 		1C72349B230CF43200319D7F /* KeyStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyStatsViewController.swift; sourceTree = "<group>"; };
+		1C72823F2830B44600E86AC1 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		1C72F90924CA4FFD00EC59F6 /* UserAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountViewController.swift; sourceTree = "<group>"; };
 		1C72F90B24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top10CollectionViewCell.swift; sourceTree = "<group>"; };
 		1C72F90F24CA76C400EC59F6 /* SimpleQuote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleQuote.swift; sourceTree = "<group>"; };
@@ -422,6 +441,7 @@
 		1CD78201264E4795001DF387 /* ExpertsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpertsViewController.swift; sourceTree = "<group>"; };
 		1CD78203264EE9E6001DF387 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		1CDA114B232B5C810028D00C /* FormattedNumberLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormattedNumberLabel.swift; sourceTree = "<group>"; };
+		1CDDF4422846FE84007DE0BF /* PlaidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidViewController.swift; sourceTree = "<group>"; };
 		1CE755B723D7616900E77D6C /* StockUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockUpdater.swift; sourceTree = "<group>"; };
 		1CEBC3502755F515004605DE /* Receipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
 		1CEBC3522756CA3D004605DE /* PurchaseHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseHistoryViewController.swift; sourceTree = "<group>"; };
@@ -429,6 +449,12 @@
 		1CEBC35627598F93004605DE /* PremiumTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumTransaction.swift; sourceTree = "<group>"; };
 		1CEBC35A275A9B64004605DE /* PremiumHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		1CEBC35C275ABA0E004605DE /* PremiumHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumHistoryViewController.swift; sourceTree = "<group>"; };
+		1CF9EA772847516F005A67BC /* BrokerageAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerageAccount.swift; sourceTree = "<group>"; };
+		1CF9EA792847C4C4005A67BC /* Holding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Holding.swift; sourceTree = "<group>"; };
+		1CF9EA7B284856C3005A67BC /* AccountBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalance.swift; sourceTree = "<group>"; };
+		1CF9EA7D2848BA0F005A67BC /* DateAndBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAndBalance.swift; sourceTree = "<group>"; };
+		1CF9EA7F2848FBD6005A67BC /* BalanceChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceChart.swift; sourceTree = "<group>"; };
+		1CF9EA81284CC727005A67BC /* PortfolioGainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioGainTableViewCell.swift; sourceTree = "<group>"; };
 		1CFE633C23FB665E00F81758 /* NewsWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWebViewController.swift; sourceTree = "<group>"; };
 		1CFFAA0A2170337400D3E768 /* AnalystsRating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalystsRating.swift; sourceTree = "<group>"; };
 		5265415BD1DB5B226DB13419 /* Pods-stonks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stonks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-stonks/Pods-stonks.debug.xcconfig"; sourceTree = "<group>"; };
@@ -508,7 +534,6 @@
 		1C62FDD724BC14C200BABDCB /* Media */ = {
 			isa = PBXGroup;
 			children = (
-				1C62FDD824BC14D900BABDCB /* frog-on-a-log.mp4 */,
 			);
 			path = Media;
 			sourceTree = "<group>";
@@ -676,6 +701,12 @@
 				1C84CCF227F9984800CEE242 /* Tweet.swift */,
 				1C8F748A2805B9F600B8F4F6 /* CrossAsset.swift */,
 				1C8F748C2805BB0B00B8F4F6 /* TacticalModel.swift */,
+				1C385AD92838DC0E0055BEDF /* AppReviewRequest.swift */,
+				1C385ADB28392DC00055BEDF /* SocialSentimentChangeFMP.swift */,
+				1CF9EA772847516F005A67BC /* BrokerageAccount.swift */,
+				1CF9EA792847C4C4005A67BC /* Holding.swift */,
+				1CF9EA7B284856C3005A67BC /* AccountBalance.swift */,
+				1CF9EA7D2848BA0F005A67BC /* DateAndBalance.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -730,6 +761,8 @@
 				1C84CCF627F9F44B00CEE242 /* TwitterAccountTableViewCell.swift */,
 				1C84CCF827FAF5EA00CEE242 /* TwitterSymbolCollectionViewCell.swift */,
 				1C84CCFC27FB33C000CEE242 /* TweetTableViewCell.swift */,
+				1C385ADF283F2A110055BEDF /* PremiumDataTableViewCell.swift */,
+				1CF9EA81284CC727005A67BC /* PortfolioGainTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -770,6 +803,10 @@
 				1C84CCEC27F4474C00CEE242 /* TopAnalystsInfoViewController.swift */,
 				1C84CCF427F9A2D400CEE242 /* TwitterAccountsViewController.swift */,
 				1C84CCFA27FB332500CEE242 /* TweetViewController.swift */,
+				1C72823F2830B44600E86AC1 /* CustomTabBarController.swift */,
+				1C1959E62833E27D00CB1D20 /* HelpInfoViewController.swift */,
+				1C385AE1283F2CED0055BEDF /* PremiumDataMarketplaceViewController.swift */,
+				1CDDF4422846FE84007DE0BF /* PlaidViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -813,6 +850,8 @@
 				1CABC497254F634000B37588 /* ScoreSnowflakeChart.swift */,
 				1C62CF5D256E9F56009C27E3 /* SimplestLineChart.swift */,
 				1CA6082226503EE70039E894 /* PriceTargetsOverTimeChart.swift */,
+				1C385ADD2839396D0055BEDF /* TrendingSocialsChart.swift */,
+				1CF9EA7F2848FBD6005A67BC /* BalanceChart.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -953,7 +992,6 @@
 				1C0CE38F262D0DA40099B72B /* Roboto-Bold.ttf in Resources */,
 				1C7B9837215B32D700C75014 /* Assets.xcassets in Resources */,
 				1C0CE393262D0DA40099B72B /* Roboto-BlackItalic.ttf in Resources */,
-				1C62FDD924BC14D900BABDCB /* frog-on-a-log.mp4 in Resources */,
 				1C0CE38B262D0DA40099B72B /* Roboto-Light.ttf in Resources */,
 				1C0CE395262D0DA40099B72B /* Roboto-ThinItalic.ttf in Resources */,
 				1C0CE390262D0DA40099B72B /* Roboto-Medium.ttf in Resources */,
@@ -1027,13 +1065,16 @@
 			files = (
 				1C7B9880215F396200C75014 /* WatchlistTVCell.swift in Sources */,
 				1C0BC4DD2331F144007C117F /* AlphaVantage.swift in Sources */,
+				1C385ADA2838DC0F0055BEDF /* AppReviewRequest.swift in Sources */,
 				1C7B986D215EAE8800C75014 /* IEXTrading.swift in Sources */,
 				1C75536C27D6300C00472B18 /* AnnualEstimates.swift in Sources */,
 				1C62FDD624BC144D00BABDCB /* LoginViewController.swift in Sources */,
+				1CF9EA782847516F005A67BC /* BrokerageAccount.swift in Sources */,
 				1C7B9877215EEDE100C75014 /* StockAPIManager.swift in Sources */,
 				1C6FF9832328E26B005AE40D /* IconItem.swift in Sources */,
 				1CB3D622231DBF0E00D6F57C /* News.swift in Sources */,
 				1C7B9879215F071E00C75014 /* Candle.swift in Sources */,
+				1CF9EA7C284856C3005A67BC /* AccountBalance.swift in Sources */,
 				1C6B5F1C24015015008E2C22 /* CandleUtility.swift in Sources */,
 				1C545215216C31950064239E /* Quote.swift in Sources */,
 				1C72F91224CA788200EC59F6 /* Top10s.swift in Sources */,
@@ -1058,8 +1099,10 @@
 				1C754B1424F6EF32000AE379 /* PurchaseViewController.swift in Sources */,
 				1C62FDDD24BC4B9B00BABDCB /* AuthViewController.swift in Sources */,
 				1CB4F10026478FC100AAD867 /* BrainLanguage.swift in Sources */,
+				1C1959E72833E27D00CB1D20 /* HelpInfoViewController.swift in Sources */,
 				1C4D2D8C24E7911A00E54EB8 /* SimpleColoredLabel.swift in Sources */,
 				1C62FDE224BD698C00BABDCB /* AlertDisplay.swift in Sources */,
+				1C385AE0283F2A120055BEDF /* PremiumDataTableViewCell.swift in Sources */,
 				1C62CF63256EA32E009C27E3 /* EconomyMetric.swift in Sources */,
 				1C62FDF224C0C0E100BABDCB /* MyRestAPI.swift in Sources */,
 				1C183F93216D5D2A0042F52C /* DemoBaseViewController.swift in Sources */,
@@ -1098,7 +1141,9 @@
 				1C84CCF727F9F44B00CEE242 /* TwitterAccountTableViewCell.swift in Sources */,
 				1CABC498254F634000B37588 /* ScoreSnowflakeChart.swift in Sources */,
 				1C8CFFC627EAE714004D230F /* SettingsViewController.swift in Sources */,
+				1C385AE2283F2CED0055BEDF /* PremiumDataMarketplaceViewController.swift in Sources */,
 				1CD781FE264D786B001DF387 /* StockRating.swift in Sources */,
+				1C385ADC28392DC10055BEDF /* SocialSentimentChangeFMP.swift in Sources */,
 				1C545211216AA4B90064239E /* GradientButton.swift in Sources */,
 				1CABC484254691E000B37588 /* StocktwitsPost.swift in Sources */,
 				1CB3D61E231DBCF000D6F57C /* Recommendations.swift in Sources */,
@@ -1111,6 +1156,7 @@
 				1C62CF5E256E9F56009C27E3 /* SimplestLineChart.swift in Sources */,
 				1CABC493254803F700B37588 /* DetailStocktwitsTableViewCell.swift in Sources */,
 				1C817BDA2544B604003695F7 /* ScoreSettingsViewController.swift in Sources */,
+				1C385ADE2839396D0055BEDF /* TrendingSocialsChart.swift in Sources */,
 				1C62CF45256E078B009C27E3 /* IndustryCollectionViewCell.swift in Sources */,
 				1C7B9861215DDFBC00C75014 /* Company.swift in Sources */,
 				1CAFEEF327B7BD3D00B94B63 /* FidelityScore.swift in Sources */,
@@ -1137,6 +1183,7 @@
 				1C62CF4F256E44E3009C27E3 /* EconomyWeekly.swift in Sources */,
 				1CB257292173B8A5008E3D4D /* Configuration.swift in Sources */,
 				1C979D4127F4171500288D1C /* CreditInfoViewController.swift in Sources */,
+				1CF9EA7A2847C4C4005A67BC /* Holding.swift in Sources */,
 				1CCBD05D24CC327200B43C9D /* Skype.swift in Sources */,
 				1CB2572B21765C3A008E3D4D /* StockDetailsNavView.swift in Sources */,
 				1C72F90C24CA6C0C00EC59F6 /* Top10CollectionViewCell.swift in Sources */,
@@ -1144,6 +1191,7 @@
 				1CCBE58823FE720600E57D49 /* PEChart.swift in Sources */,
 				1C5B96192404FDFD00E63316 /* GeneralUtility.swift in Sources */,
 				1C2AC8682183D7C500469941 /* LaunchVC.swift in Sources */,
+				1CDDF4432846FE84007DE0BF /* PlaidViewController.swift in Sources */,
 				1C84CCEF27F9919600CEE242 /* Cashtag.swift in Sources */,
 				1CCA7E392313853F0033AC58 /* PredictionsViewController.swift in Sources */,
 				1C7EA4592623C00A00AB873F /* CreditsViewController.swift in Sources */,
@@ -1179,6 +1227,7 @@
 				1C75536E27D7591F00472B18 /* SocialSentimentFMP.swift in Sources */,
 				1CD11940216DC394000AE02E /* CandlePricesView.swift in Sources */,
 				1CA6082126503A760039E894 /* SimpleTimeAndPrice.swift in Sources */,
+				1CF9EA82284CC727005A67BC /* PortfolioGainTableViewCell.swift in Sources */,
 				1C84CCFD27FB33C000CEE242 /* TweetTableViewCell.swift in Sources */,
 				1C72F90A24CA4FFD00EC59F6 /* UserAccountViewController.swift in Sources */,
 				1CDA114C232B5C810028D00C /* FormattedNumberLabel.swift in Sources */,
@@ -1189,9 +1238,11 @@
 				1C4335E624F772AF00D2628D /* KeychainItem.swift in Sources */,
 				1C565DBD25191BB1002856D5 /* FinancialModelingPrepAPI.swift in Sources */,
 				1C4D2D8424E3D6F800E54EB8 /* CashFlow.swift in Sources */,
+				1CF9EA7E2848BA0F005A67BC /* DateAndBalance.swift in Sources */,
 				1CD78204264EE9E6001DF387 /* PaddingLabel.swift in Sources */,
 				1C754B0E24F20FB5000AE379 /* PriceChartPreviewView.swift in Sources */,
 				1CB4F0FE2647838E00AAD867 /* Brain21DayRanking.swift in Sources */,
+				1CF9EA802848FBD6005A67BC /* BalanceChart.swift in Sources */,
 				1CEBC35B275A9B64004605DE /* PremiumHistoryTableViewCell.swift in Sources */,
 				1C2AC864217FB01D00469941 /* PriceChartFormatter.swift in Sources */,
 				1C0A006124C2A7230030E1E4 /* NetworkManager.swift in Sources */,
@@ -1201,6 +1252,7 @@
 				1C7B9871215EB09000C75014 /* StockDataApiProtocol.swift in Sources */,
 				1C754B0A24EF4432000AE379 /* CircularProgressView.swift in Sources */,
 				1CEBC35D275ABA0E004605DE /* PremiumHistoryViewController.swift in Sources */,
+				1C7282402830B44600E86AC1 /* CustomTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1393,7 +1445,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = shobel.stonks;
 				PRODUCT_NAME = Stoccoon;
 				SWIFT_VERSION = 5.0;
@@ -1417,7 +1469,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = shobel.stonks;
 				PRODUCT_NAME = Stoccoon;
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -12,14 +12,15 @@ class CreditInfoViewController: UIViewController {
 
     @IBOutlet weak var creditBalanceButton: ShadowButtonView!
     @IBOutlet weak var spendCreditsButton: ShadowButtonView!
+    @IBOutlet var mainView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.mainView.addPurpleGradientBackground()
         self.creditBalanceButton.credits.text = "500"
-        self.creditBalanceButton.bgColor = Constants.orange
-        self.creditBalanceButton.shadColor = UIColor(red: 100.0/255.0, green: 60.0/255.0, blue: 25.0/255.0, alpha: 1.0).cgColor
+        self.creditBalanceButton.bgColor = .clear
         self.spendCreditsButton.credits.text = "10"
+        self.spendCreditsButton.bgColor = Constants.green
     }
     
 

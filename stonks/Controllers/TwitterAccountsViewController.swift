@@ -11,6 +11,7 @@ import FCAlertView
 
 class TwitterAccountsViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var searchbar: UISearchBar!
     @IBOutlet weak var helpText: UILabel!
     @IBOutlet weak var twitterAccountTableView: UITableView!
@@ -33,6 +34,7 @@ class TwitterAccountsViewController: UIViewController, UISearchBarDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mainView.addPurpleGradientBackground()
         self.searchbar.delegate = self
         self.twitterAccountTableView.delegate = self
         self.twitterAccountTableView.dataSource = self
@@ -184,6 +186,12 @@ class TwitterAccountsViewController: UIViewController, UISearchBarDelegate, UITa
             alert.doneActionBlock {
                 //
             }
+            alert.alertBackgroundColor = Constants.themePurple
+            alert.titleColor = .white
+            alert.subTitleColor = .white
+            alert.doneButtonTitleColor = .white
+            alert.secondButtonTitleColor = .darkGray
+            alert.firstButtonTitleColor = .darkGray
             alert.colorScheme = Constants.darkPink
             alert.dismissOnOutsideTouch = true
             alert.detachButtons = true

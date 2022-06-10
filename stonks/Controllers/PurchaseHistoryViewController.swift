@@ -12,13 +12,16 @@ class PurchaseHistoryViewController: UIViewController, UITableViewDelegate, UITa
 
     var receipts:[Receipt] = []
     
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var tableview: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mainView.addPurpleGradientBackground()
         self.tableview.tableFooterView = UIView()
         self.tableview.delegate = self
         self.tableview.dataSource = self
+        self.tableview.backgroundColor = .clear
         self.updateData()
     }
     
@@ -49,6 +52,7 @@ class PurchaseHistoryViewController: UIViewController, UITableViewDelegate, UITa
         let amount:Double = receipt.product?.usd ?? 0.0
         cell.amount.text = String(format: "$%.2f", amount)
         cell.supportButton.tag = indexPath.row
+        cell.backgroundColor = .clear
         return cell
     }
     

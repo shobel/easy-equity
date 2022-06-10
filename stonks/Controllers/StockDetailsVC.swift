@@ -15,6 +15,8 @@ import FCAlertView
 
 class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
 
+    @IBOutlet var mainView: UIView!
+    @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var creditBalanceButton: ShadowButtonView!
     @IBOutlet weak var stockDetailsNavView: StockDetailsNavView!
     @IBOutlet weak var priceDetailsView: StockDetailsSummaryView!
@@ -32,6 +34,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
     @IBOutlet weak var innerScroll: UIView!
     @IBOutlet weak var chartTimeView: UIStackView!
     @IBOutlet weak var pagingView: UIView!
+    @IBOutlet weak var pagingViewDummy: UIView!
     @IBOutlet weak var chartViewWrapperHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var timeViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pagingViewHeightConstraint: NSLayoutConstraint!
@@ -58,6 +61,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
     private var totalHandlers = 0
     
     private var pageVCList:[UIViewController] = []
+    private var pageVCDummyList:[UIViewController] = []
     private var keyStatsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StatsVC")
     private var newsVC2 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StockNewsVC") as! NewsViewController
     private var scoresVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ScoresVC")
@@ -66,27 +70,34 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
     private var premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumVC") as! PremiumViewController
     
     private var stockUpdater:StockDataTask?
-    private var pageVC: PagingViewController!
-    
+    private var pageVC: PagingViewController! = PagingViewController()
+    private var pageVCDummy: PagingViewController! = PagingViewController()
+    private var dummyShowing:Bool = false
     private var dateOfLatestPriceData:String = ""
+    private var lastContentOffset: CGFloat = 0
     
     fileprivate let icons = [
-        "stats",
+        "bars",
         "news",
-        "wallet",
+        "dollarsign",
         "analysts",
         "scores",
-        "star"
+        "premium-icon"
     ]
+    
+    public var goToPremium:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        self.pagingViewDummy.isHidden = true
+        mainView.addPurpleGradientBackground()
+        self.scrollView.delegate = self
         Dataholder.subscribeForCreditBalanceUpdates(self)
         self.creditBalanceButton.credits.text = String("\(Dataholder.getCreditBalance())")
         self.creditBalanceButton.delegate = self
-        self.creditBalanceButton.bgColor = Constants.orange
-        self.creditBalanceButton.shadColor = UIColor(red: 100.0/255.0, green: 60.0/255.0, blue: 25.0/255.0, alpha: 1.0).cgColor
+        self.creditBalanceButton.bgColor = .clear
+//        self.creditBalanceButton.shadColor = UIColor.clear.cgColor
+//        self.creditBalanceButton.shadColor = UIColor(red: 100.0/255.0, green: 60.0/255.0, blue: 25.0/255.0, alpha: 1.0).cgColor
 
         self.scrollView.delegate = self
         self.toggleVwap.layer.cornerRadius = 5
@@ -98,38 +109,59 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         self.pageVCList = [
             self.keyStatsVC, self.newsVC2, self.financialsVC, self.predictionsVC, self.scoresVC, self.premiumVC
         ]
-        pageVC = PagingViewController()
+        self.pageVCDummyList = [
+            UIViewController(), UIViewController(), UIViewController(), UIViewController(), UIViewController(), UIViewController()
+        ]
+        self.initPageVc(self.pagingViewDummy, pageVC: self.pageVCDummy, identifier: "pageVCDummy")
+        self.initPageVc(self.pagingView, pageVC: self.pageVC, identifier: "pageVC")
+        //setup general stock and price information
+        
+        //setup chart buttons
+        timeButtons = [button1D, button1M, button3M, button1Y, button5Y]
+        for butt in timeButtons {
+            butt.layer.cornerRadius = butt.layer.frame.height / 2
+        }
+        button1D.backgroundColor = UIColor.white
+        button1D.setTitleColor(Constants.darkGrey, for: .normal)
+        timeInterval = Constants.TimeIntervals.day
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleDummyTap(_:)))
+//        self.pagingViewDummy.addGestureRecognizer(tap)
+        
+        self.loadDynamicData()
+
+    }
+    
+    @objc func handleDummyTap(_ sender: UITapGestureRecognizer? = nil) {
+        print("tapped the fucking dummy")
+    }
+    
+    private func initPageVc(_ pagingView:UIView, pageVC: PagingViewController, identifier: String){
+        pageVC.restorationIdentifier = identifier
         pageVC.register(IconPagingCell.self, for: IconItem.self)
         pageVC.menuHorizontalAlignment = .center
+        pageVC.menuInsets = UIEdgeInsets(top: -5.0, left: 10.0, bottom: -5.0, right: 10.0)
         pageVC.menuItemSize = .sizeToFit(minWidth: 60, height: 60)
-        pageVC.menuBackgroundColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1)
-        pageVC.indicatorColor = Constants.darkPink
+        pageVC.menuBackgroundColor = Constants.themeDarkBlue
+        pageVC.indicatorColor = .clear
+        pageVC.borderColor = .clear
         pageVC.dataSource = self
         pageVC.delegate = self
         pageVC.select(pagingItem: IconItem(icon: icons[0], index: 0))
         self.addChild(pageVC)
-        self.pagingView.addSubview(pageVC.view)
+        pagingView.addSubview(pageVC.view)
+        self.mainView.bringSubviewToFront(pagingView)
         pageVC.didMove(toParent: self)
         pageVC.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             pageVC.view.leadingAnchor.constraint(equalTo: pagingView.leadingAnchor),
             pageVC.view.trailingAnchor.constraint(equalTo: pagingView.trailingAnchor),
             //pageVC.view.bottomAnchor.constraint(equalTo: pagingView.bottomAnchor),
-            self.pagingView.bottomAnchor.constraint(equalTo: pageVC.view.bottomAnchor),
+            pagingView.bottomAnchor.constraint(equalTo: pageVC.view.bottomAnchor),
             pageVC.view.topAnchor.constraint(equalTo: pagingView.topAnchor)
         ])
         pageVC.selectedFont = UIFont(name: "HelveticaNeue-Thin", size: 12.0)!
-        pageVC.backgroundColor = UIColor.lightGray
-        
-        //setup general stock and price information
-        
-        //setup chart buttons
-        timeButtons = [button1D, button1M, button3M, button1Y, button5Y]
-        button1D.backgroundColor = UIColor.white
-        button1D.setTitleColor(Constants.darkGrey, for: .normal)
-        timeInterval = Constants.TimeIntervals.day
-        
-        self.loadDynamicData()
+        pageVC.backgroundColor = .clear
     }
     
     
@@ -139,6 +171,8 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         if self.dateOfLatestPriceData != "" && self.dateOfLatestPriceData != NumberFormatter.formatDateToYearMonthDayDashesString(Date()){
             self.refetchCurrentChart()
         }
+        
+        AppReviewRequest.requestReviewIfNeeded()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -172,13 +206,38 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         volumeChartFormatter = VolumeChartFormatter()
         self.chartView.setup(delegate: self)
         self.chartView.delegate = self
-                
+        
         //start information retrieval processes
         self.totalHandlers = 2
         NetworkManager.getMyRestApi().getFirstTabData(symbol: company.symbol, completionHandler: handleKeyStats)
         NetworkManager.getMyRestApi().getNonIntradayChart(symbol: company.symbol, timeframe: .daily, completionHandler: self.handleDailyChart)
                 
         self.adjustContentHeight(vc: self.keyStatsVC)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let h1 = self.candlePricesWrapper.bounds.height
+        let h2 = self.chartView.bounds.height
+        let h3 = self.chartTimeView.bounds.height
+        let h4 = 25.0
+        let totalHeight = h1 + h2 + h3 + h4
+        if (self.lastContentOffset > scrollView.contentOffset.y) {
+            if scrollView.contentOffset.y <= totalHeight && self.dummyShowing{
+                print("hiding dummy")
+                self.pagingViewDummy.isHidden = true
+                self.dummyShowing = false
+            }
+        }
+        else if (self.lastContentOffset < scrollView.contentOffset.y) {
+            if scrollView.contentOffset.y >= totalHeight && !self.dummyShowing{
+                print("showing dummy")
+                self.pagingViewDummy.isHidden = false
+                self.dummyShowing = true
+            }
+        }
+
+        // update the new position acquired
+        self.lastContentOffset = scrollView.contentOffset.y
     }
     
     func updateFromScheduledTask(_ data:Any?) {
@@ -250,6 +309,12 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         if (self.handlersDone >= total){
             self.adjustContentHeight(vc: self.keyStatsVC)
             self.hideLoader(true)
+            if self.goToPremium {
+                DispatchQueue.main.async { [self] in
+                    self.pageVC.select(pagingItem: IconItem(icon: self.icons[self.icons.count - 1], index: self.icons.count - 1))
+                    self.adjustContentHeight(vc: premiumVC)
+                }
+            }
         }
     }
     
@@ -285,10 +350,10 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         DispatchQueue.main.async {
             if added {
                 self.watchlistButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
-                self.watchlistButton.tintColor = Constants.darkPink
+                self.watchlistButton.tintColor = Constants.lightPurple
             } else {
                 self.watchlistButton.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
-                self.watchlistButton.tintColor = Constants.darkGrey
+                self.watchlistButton.tintColor = .white
             }
         }
     }
@@ -320,7 +385,7 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
         datetime.textColor = UIColor.gray
         if self.isMarketOpen {
             datetext = "market open"
-            datetime.textColor = Constants.green
+            datetime.textColor = Constants.lightGrey
         }
 //        if latestQuote != nil && latestQuote.latestUpdate != nil {
 //            datetext += " \(latestQuote.latestUpdate!)"
@@ -660,15 +725,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
 
     @IBAction func OneYearButtonPressed(_ sender: Any) {
         self.hideLoader(false)
-        if self.candleMode {
-            NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.weekly) { (candles) in
-                self.company.weeklyData = candles
-                DispatchQueue.main.async {
-                    self.hideLoader(true)
-                    self.timeButtonPressed(sender, chartData: self.company.getWeeklyData(52), timeInterval: Constants.TimeIntervals.one_year)
-                }
-            }
-        } else {
             NetworkManager.getMyRestApi().getNonIntradayChart(symbol: self.company.symbol, timeframe: MyRestAPI.ChartTimeFrames.daily) { (candles) in
                 self.company.dailyData = candles
                 DispatchQueue.main.async {
@@ -676,7 +732,6 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
                     self.timeButtonPressed(sender, chartData: self.company.getDailyData(265), timeInterval: Constants.TimeIntervals.one_year)
                 }
             }
-        }
     }
     
     @IBAction func FiveYearButtonPressed(_ sender: Any) {
@@ -712,9 +767,9 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
             let button = timeButtons[i]
             if i == index {
                 button.backgroundColor = UIColor.white
-                button.setTitleColor(Constants.darkGrey, for: .normal)
+                button.setTitleColor(.darkGray, for: .normal)
             } else {
-                button.backgroundColor = Constants.darkPink
+                button.backgroundColor = .clear
                 button.setTitleColor(UIColor.white, for: .normal)
             }
         }
@@ -803,7 +858,11 @@ class StockDetailsVC: DemoBaseViewController, Updateable, ShadowButtonDelegate {
 extension StockDetailsVC: PagingViewControllerDataSource {
     
     func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
-        return self.pageVCList[index]
+        if pagingViewController.restorationIdentifier == "pageVC" {
+            return self.pageVCList[index]
+        } else {
+            return self.pageVCDummyList[index]
+        }
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, pagingItemAt index: Int) -> PagingItem {
@@ -817,13 +876,23 @@ extension StockDetailsVC: PagingViewControllerDataSource {
 
 extension StockDetailsVC: PagingViewControllerDelegate {
     func pagingViewController(_: PagingViewController, willScrollToItem pagingItem: PagingItem, startingViewController: UIViewController, destinationViewController: UIViewController) {
-        //self.adjustContentHeight(vc: destinationViewController)
+//        self.pageVCDummy.select(pagingItem: pagingItem, animated: true)
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) {
-        if transitionSuccessful {
+        self.pageVCDummy.select(pagingItem: pagingItem, animated: true)
+        if transitionSuccessful && pagingViewController.restorationIdentifier == "pageVC" {
             self.adjustContentHeight(vc: destinationViewController)
             self.updateData(vc: destinationViewController)
+        }
+    }
+    
+    func pagingViewController(_ pagingViewController: PagingViewController, didSelectItem pagingItem: PagingItem) {
+//        let i = pagingItem as! IconItem
+        if pagingViewController.restorationIdentifier == "pageVC" {
+            self.pageVCDummy.select(pagingItem: pagingItem, animated: true)
+        } else {
+            self.pageVC.select(pagingItem: pagingItem, animated: true)
         }
     }
 }

@@ -9,6 +9,7 @@
 import UIKit
 import SafariServices
 import XLActionController
+import FCAlertView
 
 extension CompanySearchVC: UISearchBarDelegate, LoadingProtocol {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -109,6 +110,7 @@ extension CompanySearchVC: UICollectionViewDataSource, UICollectionViewDelegate 
 //TODO-SAM: when company search returns no results, might want to switch table views to show a message that says no results
 class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -118,7 +120,9 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var marketNewsCollection: UICollectionView!
     @IBOutlet weak var top10CollectionView: UICollectionView!
     @IBOutlet weak var topAnalystsCollection: UICollectionView!
+    @IBOutlet weak var trendingSocialsChart: TrendingSocialsChart!
     @IBOutlet weak var top10Title: UILabel!
+    @IBOutlet weak var analystSort: UIButton!
     
     private var searchResults:[Company] = []
     private var activityIndicatorView: UIActivityIndicatorView!
@@ -129,16 +133,21 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     private var currentTopAnalystSymbols:[PriceTargetTopAnalysts] = []
     private var maxNumTopAnalystItems:Int = 10
     private var marketNews:[News] = []
+    private var trendingSocials:[SocialSentimentFMP] = []
+    private var socialChangeTwitter:[SocialSentimentChangeFMP] = []
+    private var socialChangeStocktwits:[SocialSentimentChangeFMP] = []
+    
     @IBOutlet weak var noTopAnalystsLabel: UIButton!
     
     private var refreshControl:UIRefreshControl!
     
     private var itemsLoaded:Int = 0
-    private var numItems:Int = 4
+    private var numItems:Int = 5
     private var lastLoadedTimestamp:Double = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mainView.addPurpleGradientBackground()
         
         top10CollectionView.delegate = self
         top10CollectionView.dataSource = self
@@ -147,7 +156,6 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         tableView.isHidden = true
         marketView.isHidden = false
         
-        tableView.backgroundColor = .white
         tableView.tableFooterView = UIView(frame: .zero)
         //marketNewsTableView.tableFooterView = UIView(frame: .zero)
         
@@ -160,6 +168,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         //marketNewsTableView.dataSource = self
         marketNewsCollection.delegate = self
         marketNewsCollection.dataSource = self
+        self.trendingSocialsChart.setup()
         
         activityIndicatorView = UIActivityIndicatorView(style: .large)
         self.view.addSubview(activityIndicatorView)
@@ -187,6 +196,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             NetworkManager.getMyRestApi().getTop10s(completionHandler: handleTop10s)
             NetworkManager.getMyRestApi().getMarketNews(completionHandler: handleMarketNews)
             NetworkManager.getMyRestApi().getTiprankSymbols("5", completionHandler: handleTopAnalysts)
+            NetworkManager.getMyRestApi().getMarketSocials(completionHandler: handleMarketSocials)
 //            NetworkManager.getMyRestApi().getStocktwitsPostsTrending(summary: "false", completionHandler: handleStocktwitsPosts)
             if Dataholder.allTickers.isEmpty {
                 self.numItems += 1
@@ -202,7 +212,9 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     @IBAction func sortTop10List(_ sender: Any) {
-        self.top10CollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+        if self.currentTop10List.count > 0 {
+            self.top10CollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+        }
         let actionController = SkypeActionController() //not really for skype
         actionController.addAction(Action("Top Gainers", style: .default, handler: { action in
             self.top10Title.text = "Top Gainers"
@@ -223,6 +235,9 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     @IBAction func sortTopAnalysts(_ sender: Any) {
+        if self.priceTargetTopAnalysts.count == 0 {
+            return
+        }
         self.topAnalystsCollection.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
         let actionController = SkypeActionController() //not really for skype
         actionController.addAction(Action("Upside Percentage", style: .default, handler: { action in
@@ -332,9 +347,11 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         DispatchQueue.main.async {
             if self.priceTargetTopAnalysts.count == 0 {
                 self.noTopAnalystsLabel.isHidden = false
+                self.analystSort.isHidden = true
                 self.topAnalystsCollection.isHidden = true
             } else {
                 self.noTopAnalystsLabel.isHidden = true
+                self.analystSort.isHidden = false
                 self.topAnalystsCollection.isHidden = false
             }
             self.currentTopAnalystSymbols = Array(self.priceTargetTopAnalysts.prefix(self.maxNumTopAnalystItems))
@@ -342,6 +359,19 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 //                p.upsidePercent != nil
 //            })
             self.topAnalystsCollection.reloadData()
+        }
+    }
+    
+    public func handleMarketSocials(trending: [SocialSentimentFMP], twitChange: [SocialSentimentChangeFMP], stChange: [SocialSentimentChangeFMP]) -> Void{
+        self.trendingSocials = trending
+        self.socialChangeTwitter = twitChange
+        self.socialChangeStocktwits = stChange
+        self.itemsLoaded += 1
+        if self.itemsLoaded >= self.numItems {
+            self.loadingFinished()
+        }
+        DispatchQueue.main.async {
+            self.trendingSocialsChart.setChartData(data: self.trendingSocials)
         }
     }
     
@@ -378,7 +408,7 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             cell.symbol?.text = searchResults[indexPath.row].symbol
             cell.companyName?.text = company.fullName
             cell.company = company
-            
+            cell.backgroundColor = .clear
             if Dataholder.watchlistManager.getWatchlist().contains(company) {
                 cell.addedToWatchlist(true)
             } else {
@@ -420,6 +450,32 @@ class CompanySearchVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 
     @IBAction func topAnalystsSubButton(_ sender: Any) {
         self.tabBarController?.selectedIndex = 3
+    }
+    
+    @IBAction func trendingSocialHelp(_ sender: Any) {
+        self.showInfoAlert("Shows stocks with the highest volume of posts and impressions on the social media platforms Twitter and Stocktwits sorted by most positive sentiment.", title:"Trending on Social Media")
+    }
+    
+    func showInfoAlert(_ message:String, title:String){
+        let alert = FCAlertView()
+        alert.doneActionBlock {
+            //print()
+        }
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.colorScheme = Constants.lightPurple
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
+        alert.dismissOnOutsideTouch = true
+        alert.detachButtons = true
+        alert.showAlert(inView: self,
+                        withTitle: title,
+                        withSubtitle: message,
+                        withCustomImage: UIImage(systemName: "questionmark.circle"),
+                        withDoneButtonTitle: "Ok",
+                        andButtons: [])
     }
     /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

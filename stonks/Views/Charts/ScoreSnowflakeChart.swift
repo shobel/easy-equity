@@ -33,8 +33,12 @@ class ScoreSnowflakeChart: RadarChartView {
         //let chartFormatter = RadarChartFormatter(labels: self.categories)
         //self.xAxis.valueFormatter = chartFormatter
         
-        self.webColor = .black
+        self.webColor = Constants.lightGrey
         self.innerWebColor = Constants.lightGrey
+//        self.skipWebLineCount = 5
+        self.innerWebLineWidth = 2
+        self.drawWeb = true
+        self.webAlpha = 0.2
         
         var entries:[RadarChartDataEntry] = []
         for score in scores {
@@ -42,8 +46,8 @@ class ScoreSnowflakeChart: RadarChartView {
         }
 
         let set = RadarChartDataSet(entries: entries)
-        set.fillColor = UIColor(red: 70.0/255.0, green: 188.0/255.0, blue: 242.0/255.0, alpha: 1.0)
-        set.setColor(UIColor(red: 70.0/255.0, green: 188.0/255.0, blue: 242.0/255.0, alpha: 1.0))
+        set.fillColor = Constants.lightPurple
+        set.setColor(Constants.lightPurple)
         set.drawFilledEnabled = true
         set.fillAlpha = 0.5
         set.lineWidth = 2

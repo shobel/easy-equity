@@ -18,6 +18,7 @@ struct StockExtraAnalystData {
 
 class TopAnalystsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loader: UIActivityIndicatorView!
     @IBOutlet weak var searchbar: UISearchBar!
@@ -42,8 +43,10 @@ class TopAnalystsViewController: UIViewController, UITableViewDelegate, UITableV
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mainView.addPurpleGradientBackground()
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        self.tableView.backgroundColor = .clear
         self.searchbar.delegate = self
         DispatchQueue.main.async {
             self.loader.isHidden = false
@@ -229,7 +232,7 @@ class TopAnalystsViewController: UIViewController, UITableViewDelegate, UITableV
                 cell.setIconColor(TopAnalystsTableViewCell.IconName.numRatings, percent: (score - min) / (max - min))
             }
         }
-        
+        cell.backgroundColor = .clear
         return cell
     }
 

@@ -150,8 +150,10 @@ class FinancialsViewController: UIViewController, StatsVC {
                 var hasYear:Bool = false
                 if latestPeriod != nil && latestPeriod!.contains(" ") {
                     let year = latestPeriod!.components(separatedBy: " ")[1]
-                    futureYear = Int(year)!
-                    hasYear = true
+                    if let intyear = Int(year) {
+                        futureYear = intyear
+                        hasYear = true
+                    }
                 }
                 let quarter = latestPeriod?.components(separatedBy: " ")[0]
                 let quarterNum = quarter?.components(separatedBy: "Q")[1]

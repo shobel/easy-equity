@@ -16,6 +16,7 @@ target 'stonks' do
   pod 'Charts', '<=3.5.0'
   pod 'SPStorkController'
   pod 'MSPeekCollectionViewDelegateImplementation'
+  pod 'Plaid'
 
   # Utilities
   pod 'SwiftyJSON'
@@ -32,4 +33,5 @@ target 'stonks' do
   pod 'EFCountingLabel', '>= 5.1.3'
   pod 'FCAlertView'
   pod 'Cosmos'
+
 end

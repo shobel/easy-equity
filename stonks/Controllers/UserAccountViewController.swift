@@ -10,15 +10,16 @@ import UIKit
 
 class UserAccountViewController: UIViewController, ShadowButtonDelegate {
 
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var userid: UILabel!
     @IBOutlet weak var creditBalanceButton: ShadowButtonView!
     
     override func viewDidLoad() {
+        self.mainView.addPurpleGradientBackground()
         Dataholder.subscribeForCreditBalanceUpdates(self)
         self.creditBalanceButton.credits.text = String("\(Dataholder.getCreditBalance())")
         self.creditBalanceButton.delegate = self
-        self.creditBalanceButton.bgColor = Constants.orange
-        self.creditBalanceButton.shadColor = UIColor(red: 100.0/255.0, green: 60.0/255.0, blue: 25.0/255.0, alpha: 1.0).cgColor
+        self.creditBalanceButton.bgColor = .clear
         userid.text = KeychainItem.currentEmail
         super.viewDidLoad()
     }
@@ -42,9 +43,6 @@ class UserAccountViewController: UIViewController, ShadowButtonDelegate {
         let purchaseVC = storyboard.instantiateViewController(withIdentifier: "purchaseCreditsVC") as! PurchaseViewController
         self.present(purchaseVC, animated: true, completion: nil)
     }
-    @IBAction func buyCredits(_ sender: Any) {
-        self.openPurchaseView()
-    }
     
     @IBAction func pp(_ sender: Any) {
         if let url = URL(string: "https://sites.google.com/view/stoccoon/privacy-policy") {
@@ -60,6 +58,10 @@ class UserAccountViewController: UIViewController, ShadowButtonDelegate {
         if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
             UIApplication.shared.open(url)
         }
+    }
+    
+    @IBAction func back(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     /*
     // MARK: - Navigation

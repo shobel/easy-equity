@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable class CircularProgressView: UIView {
-    private var mainColor: UIColor = Constants.veryLightGrey
+    private var mainColor: UIColor = Constants.themePurple.withAlphaComponent(0.2)
     private var forgroundColor: UIColor = Constants.green
     private var backLayerWidth: CGFloat = 10.0
     private var foreLayerWidth: CGFloat = 6.0
@@ -35,7 +35,7 @@ import UIKit
     lazy var progressValueLabel: UILabel? = {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         label.textAlignment = .center
-        label.textColor = .darkGray
+        label.textColor = .white
         label.font = UIFont(name: "Futura-bold", size: 14.0)
         label.text = "Test"
         return label

@@ -25,6 +25,7 @@ class TopAnalystsTableViewCell: UITableViewCell {
     @IBOutlet weak var latestPrice: UILabel!
     @IBOutlet weak var fidelityScore: UIImageView!
     @IBOutlet weak var fidelityScoreVal: UILabel!
+    @IBOutlet weak var rankborder: UIView!
     
     @IBOutlet weak var numAnalystsIcon: UIImageView! //255 45 85
     @IBOutlet weak var avgRankIcon: UIImageView! //255 204 0
@@ -56,6 +57,10 @@ class TopAnalystsTableViewCell: UITableViewCell {
             IconName.freshness: UIColor(red: 52.0/255.0, green: 199.9/255.0, blue: 89.0/255.0, alpha: 1.0),
             IconName.numRatings: UIColor(red: 52.0/255.0, green: 199.9/255.0, blue: 89.0/255.0, alpha: 1.0)
         ]
+        
+        self.rankborder.layer.borderWidth = 1.0
+        self.rankborder.layer.borderColor = UIColor.white.cgColor
+        self.rankborder.layer.cornerRadius = 10
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -64,6 +69,10 @@ class TopAnalystsTableViewCell: UITableViewCell {
     }
     
     public func setIconColor(_ iconName:IconName, percent:Double) {
+        var perc = percent
+        if perc.isNaN {
+            perc = 1.0
+        }
         let greyColor:Double = 170.0
         let icon = self.iconDict[iconName]
         let iconColor = self.iconColorDict[iconName]
@@ -73,14 +82,14 @@ class TopAnalystsTableViewCell: UITableViewCell {
             components.append(c*255.0)
         }
         let red = components[0] >= greyColor ?
-            ((Double(components[0]) - greyColor)*(percent)) + greyColor :
-            ((greyColor - Double(components[0]))*(1.0 - percent)) + Double(components[0])
+            ((Double(components[0]) - greyColor)*(perc)) + greyColor :
+            ((greyColor - Double(components[0]))*(1.0 - perc)) + Double(components[0])
         let green = components[1] >= greyColor ?
-            ((Double(components[1]) - greyColor)*(percent)) + greyColor :
-        ((greyColor - Double(components[1]))*(1.0 - percent)) + Double(components[1])
+            ((Double(components[1]) - greyColor)*(perc)) + greyColor :
+        ((greyColor - Double(components[1]))*(1.0 - perc)) + Double(components[1])
         let blue = components[2] >= greyColor ?
-            ((Double(components[2]) - greyColor)*(percent)) + greyColor :
-        ((greyColor - Double(components[2]))*(1.0 - percent)) + Double(components[2])
+            ((Double(components[2]) - greyColor)*(perc)) + greyColor :
+        ((greyColor - Double(components[2]))*(1.0 - perc)) + Double(components[2])
         icon?.tintColor = UIColor(red: red/255.0, green: green/255.0, blue: blue/255.0, alpha: 1.0)
     }
     
