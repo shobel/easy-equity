@@ -441,10 +441,6 @@ class PremiumDataMarketplaceViewController: UIViewController, UITableViewDelegat
                         withCustomImage: UIImage(systemName: "exclamationmark.triangle.fill"),
                         withDoneButtonTitle: "Ok", andButtons: nil)
     }
-
-    @IBAction func backAction(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
     
     @IBAction func helpAction(_ sender: Any) {
         self.showHelpAlert("Search for and select a stock, then tap any premium data item to exchange credits for the data. If the data exists, it will be immediately available on the details screen for the stock. You can then tap the 'VIEW DATA FOR...' button to be taken directly to the premium data section.")

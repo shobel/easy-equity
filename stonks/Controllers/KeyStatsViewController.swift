@@ -64,6 +64,7 @@ class KeyStatsViewController: UIViewController, StatsVC {
     @IBOutlet weak var de: FormattedNumberLabel!
     @IBOutlet weak var evrev: FormattedNumberLabel!
     
+    @IBOutlet weak var desc: UILabel!
     @IBOutlet weak var ceo: UILabel!
     @IBOutlet weak var hq: UILabel!
     @IBOutlet weak var website: UILabel!
@@ -143,6 +144,9 @@ class KeyStatsViewController: UIViewController, StatsVC {
                 }
                 if let x = self.company.advancedStats?.enterpriseValue {
                     self.evLabel.setValue(value: String(x), format: FormattedNumberLabel.Format.NUMBER)
+                }
+                if let x = self.company.generalInfo?.description {
+                    self.desc.text = x
                 }
                 if let x = self.company.generalInfo?.ceo {
                     self.ceo.text = x

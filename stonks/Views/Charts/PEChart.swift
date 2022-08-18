@@ -101,6 +101,12 @@ class PEChart: CombinedChartView {
             actualPe = pe
         }
         let actualPeString = actualPe.isNaN  || actualPe.isInfinite ? "-" : String(format: "%.2f", Double(actualPe))
+        if fwdPe == 0.0 && company.peFwd != nil {
+            fwdPe = company.peFwd!
+        }
+        if fwdPe != nil && fwdPe != 0.0 && forwardPeEntries.count == 0 {
+            forwardPeEntries.append(ChartDataEntry(x: Double(peEntries.count), y: fwdPe))
+        }
         let fwdPeString = fwdPe.isNaN || fwdPe.isInfinite ? "-" : String(format: "%.2f", Double(fwdPe))
         self.earningsDelegate.updatePELegendValues(pe: actualPeString, peFwd: fwdPeString)
 

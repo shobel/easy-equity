@@ -230,10 +230,10 @@
                value = "dateFormatter.string(from: date)">
             </PersistentString>
             <PersistentString
-               value = "Date(timeIntervalSince1970: news.datetime!)">
+               value = "dateFormatter.dateFormat = &quot;MMM d, yyyy&quot;">
             </PersistentString>
             <PersistentString
-               value = "dateFormatter.dateFormat = &quot;MMM d, yyyy&quot;">
+               value = "Date(timeIntervalSince1970: news.datetime!)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -532,10 +532,10 @@
          contextName = "CustomTabBarController.tabBar(_:didSelect:):CustomTabBarController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "tabBar.items?.index(of: item)">
+               value = "self.selectedIndex">
             </PersistentString>
             <PersistentString
-               value = "self.selectedIndex">
+               value = "tabBar.items?.index(of: item)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -727,13 +727,13 @@
          contextName = "closure #1 in CustomCombinedChartView.updateChart():CustomCombinedChartView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "data.scatterData">
+               value = "earningsData.count">
             </PersistentString>
             <PersistentString
                value = "data.lineData.yMax">
             </PersistentString>
             <PersistentString
-               value = "earningsData.count">
+               value = "data.scatterData">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -902,13 +902,13 @@
                value = "self.pagingView.bounds.height">
             </PersistentString>
             <PersistentString
-               value = "statsVC.getContentHeight()">
+               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
             </PersistentString>
             <PersistentString
                value = "self.pageVC.pageViewController.scrollView.contentSize.height">
             </PersistentString>
             <PersistentString
-               value = "self.pageVC.pageViewController.selectedViewController?.view.bounds.height">
+               value = "statsVC.getContentHeight()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -936,6 +936,14 @@
             </PersistentString>
             <PersistentString
                value = "JSONSerialization.data(withJSONObject: body)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "PlaidViewController.deriveStatsFromHoldings():PlaidViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataHolder">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1117,7 +1125,7 @@
          contextName = "WatchlistTVCell.displayData(company:):WatchlistTVCell.swift">
          <PersistentStrings>
             <PersistentString
-               value = "company.quote?.changePercent ?? 0.0 * 100.0">
+               value = "quote.extendedChangePercent!">
             </PersistentString>
             <PersistentString
                value = "company.quote?.changePercent">
@@ -1132,7 +1140,7 @@
                value = "self.buyRating.text">
             </PersistentString>
             <PersistentString
-               value = "quote.extendedChangePercent!">
+               value = "company.quote?.changePercent ?? 0.0 * 100.0">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1205,15 +1213,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "WatchlistVC.modeChanged(_:):WatchlistVC.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in MyRestAPI.postRequest(queryURL:body:completion:):MyRestAPI.swift">
          <PersistentStrings>
             <PersistentString
                value = "httpResponse.statusCode">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "WatchlistVC.modeChanged(_:):WatchlistVC.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in MyRestAPI.addTwitterAccount(_:completionHandler:):MyRestAPI.swift">
@@ -1262,16 +1270,24 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "PlaidViewController.fetchAccountData():PlaidViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Dataholder.watchlistManager">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "StockDetailsVC.viewDidLoad():StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.contentView.bottomAnchor.constraint">
+               value = "self.keyStatsVC.contentView">
             </PersistentString>
             <PersistentString
                value = "self.totalHeight">
             </PersistentString>
             <PersistentString
-               value = "self.keyStatsVC.contentView">
+               value = "self.contentView.bottomAnchor.constraint">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1373,7 +1389,7 @@
                value = "progress*100.0">
             </PersistentString>
             <PersistentString
-               value = "progress">
+               value = "Int((progress*100).rounded())">
             </PersistentString>
             <PersistentString
                value = "self.progressValueLabel">
@@ -1382,7 +1398,7 @@
                value = "self.progressValueLabel?.text">
             </PersistentString>
             <PersistentString
-               value = "Int((progress*100).rounded())">
+               value = "progress">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1501,10 +1517,10 @@
          contextName = "CompanySearchVC.tableView(_:numberOfRowsInSection:):CompanySearchVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.stocktwitsPosts">
+               value = "tableView.restorationIdentifier">
             </PersistentString>
             <PersistentString
-               value = "tableView.restorationIdentifier">
+               value = "self.stocktwitsPosts">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1704,13 +1720,13 @@
          contextName = "closure #2 in PremiumDataMarketplaceViewController.handlePremiumPackages(_:):PremiumDataMarketplaceViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "b.package?.name">
-            </PersistentString>
-            <PersistentString
                value = "(a.package?.name ?? &quot;&quot;) &lt; (b.package?.name ?? &quot;&quot;)">
             </PersistentString>
             <PersistentString
                value = "a.package?.name">
+            </PersistentString>
+            <PersistentString
+               value = "b.package?.name">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -1954,10 +1970,10 @@
          contextName = "closure #1 in ScoresViewController.updateData():ScoresViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "futureScores">
+               value = "Float((scores.industryRank ?? 0)/(scores.industryTotal ?? 0))">
             </PersistentString>
             <PersistentString
-               value = "Float((scores.industryRank ?? 0)/(scores.industryTotal ?? 0))">
+               value = "futureScores">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -2048,6 +2064,9 @@
             <PersistentString
                value = "holding.symbol">
             </PersistentString>
+            <PersistentString
+               value = "self.totalPortValue">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -2104,6 +2123,14 @@
       </ContextState>
       <ContextState
          contextName = "closure #2 in CustomCombinedChartView.updateChart():CustomCombinedChartView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "PlaidViewController.viewDidLoad():PlaidViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Dataholder">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "PurchaseViewController.paymentQueue(_:updatedTransactions:):PurchaseViewController.swift">
@@ -2224,10 +2251,10 @@
          contextName = "closure #2 in StockDetailsVC.handleCompanyData(_:logo:):StockDetailsVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.contentViewHeightConstraint.constant">
+               value = "self.contentViewHeightConstraint.multiplier">
             </PersistentString>
             <PersistentString
-               value = "self.contentViewHeightConstraint.multiplier">
+               value = "self.contentViewHeightConstraint.constant">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -2361,6 +2388,9 @@
       </ContextState>
       <ContextState
          contextName = "PredictionsViewController.setData():PredictionsViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in WatchlistVC.loadPortfolio():WatchlistVC.swift">
       </ContextState>
       <ContextState
          contextName = "PriceChartPreviewView.getElapsedFraction(_:):PriceChartPreviewView.swift">

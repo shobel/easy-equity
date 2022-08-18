@@ -1725,13 +1725,12 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v7F-eW-Yxg" userLabel="Sign Out">
                                 <rect key="frame" x="0.0" y="518" width="375" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AzM-qS-2Un">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AzM-qS-2Un">
+                                        <rect key="frame" x="20" y="0.0" width="335" height="50"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
-                                        <color key="tintColor" red="0.81751297460000005" green="0.81751297460000005" blue="0.81751297460000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <inset key="contentEdgeInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="  Sign Out" image="rectangle.portrait.and.arrow.right" catalog="system">
-                                            <color key="titleColor" red="0.81751297460000005" green="0.81751297460000005" blue="0.81751297460000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="tintColor" red="0.73333333329999995" green="0.41176470590000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" title=" Sign Out" image="rectangle.portrait.and.arrow.right" catalog="system">
+                                            <color key="titleColor" red="0.73333333329999995" green="0.41176470590000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
                                             <action selector="signoutButtonTapped:" destination="zAa-rv-UPA" eventType="touchUpInside" id="293-SX-jvB"/>
@@ -1741,8 +1740,8 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Duz-wT-gJx"/>
-                                    <constraint firstItem="AzM-qS-2Un" firstAttribute="leading" secondItem="v7F-eW-Yxg" secondAttribute="leading" id="OGO-bR-cSi"/>
-                                    <constraint firstAttribute="trailing" secondItem="AzM-qS-2Un" secondAttribute="trailing" id="T1V-4v-kFU"/>
+                                    <constraint firstItem="AzM-qS-2Un" firstAttribute="leading" secondItem="v7F-eW-Yxg" secondAttribute="leading" constant="20" id="OGO-bR-cSi"/>
+                                    <constraint firstAttribute="trailing" secondItem="AzM-qS-2Un" secondAttribute="trailing" constant="20" id="T1V-4v-kFU"/>
                                     <constraint firstItem="AzM-qS-2Un" firstAttribute="top" secondItem="v7F-eW-Yxg" secondAttribute="top" id="W0B-Fm-2hf"/>
                                     <constraint firstAttribute="bottom" secondItem="AzM-qS-2Un" secondAttribute="bottom" id="wef-ak-erX"/>
                                 </constraints>
@@ -1890,6 +1889,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                     <connections>
                         <outlet property="creditBalanceButton" destination="lQ6-pm-Yqc" id="QpV-q8-XPA"/>
                         <outlet property="mainView" destination="f1a-ve-boG" id="WGw-YE-jMH"/>
+                        <outlet property="signOutButton" destination="AzM-qS-2Un" id="NRV-1B-FYG"/>
                         <outlet property="userid" destination="rxP-EJ-GIB" id="Bnk-XE-yTv"/>
                     </connections>
                 </viewController>
@@ -2003,10 +2003,10 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="myt-8z-PvF">
-                                <rect key="frame" x="0.0" y="42.5" width="375" height="575.5"/>
+                                <rect key="frame" x="0.0" y="62.5" width="375" height="555.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jY6-1U-cgZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="645.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="735.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1w0-2F-jnh" customClass="ShadowView" customModule="Stoccoon" customModuleProvider="target">
                                                 <rect key="frame" x="15" y="20" width="345" height="605.5"/>
@@ -2303,12 +2303,30 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                                     <constraint firstItem="2JD-U0-p7p" firstAttribute="leading" secondItem="1w0-2F-jnh" secondAttribute="leading" id="uD7-DA-Fb4"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Blg-eX-C6o">
+                                                <rect key="frame" x="20" y="655.5" width="335" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="8xk-5q-yyr"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                                <color key="tintColor" red="0.73333333329999995" green="0.41176470590000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <state key="normal" title="Delete Account">
+                                                    <color key="titleColor" red="0.73333333329999995" green="0.41176470590000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="deleteAccountAction:" destination="Yrk-YE-P6v" eventType="touchUpInside" id="puu-wO-7iW"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="Blg-eX-C6o" secondAttribute="bottom" constant="30" id="CdU-fg-caM"/>
+                                            <constraint firstItem="Blg-eX-C6o" firstAttribute="leading" secondItem="jY6-1U-cgZ" secondAttribute="leading" constant="20" id="WeB-kr-wxF"/>
                                             <constraint firstAttribute="trailing" secondItem="1w0-2F-jnh" secondAttribute="trailing" constant="15" id="aN6-dg-cPG"/>
+                                            <constraint firstItem="Blg-eX-C6o" firstAttribute="centerX" secondItem="jY6-1U-cgZ" secondAttribute="centerX" id="dBb-lV-kvt"/>
                                             <constraint firstItem="1w0-2F-jnh" firstAttribute="leading" secondItem="jY6-1U-cgZ" secondAttribute="leading" constant="15" id="iSe-nx-92q"/>
                                             <constraint firstItem="1w0-2F-jnh" firstAttribute="top" secondItem="jY6-1U-cgZ" secondAttribute="top" constant="20" id="jlz-tE-VVg"/>
-                                            <constraint firstAttribute="bottom" secondItem="1w0-2F-jnh" secondAttribute="bottom" constant="20" id="uW6-bD-cZe"/>
+                                            <constraint firstAttribute="trailing" secondItem="Blg-eX-C6o" secondAttribute="trailing" constant="20" id="oXF-Sd-3sX"/>
+                                            <constraint firstItem="Blg-eX-C6o" firstAttribute="top" secondItem="1w0-2F-jnh" secondAttribute="bottom" constant="30" id="vxV-6e-IRh"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -2340,7 +2358,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                             <constraint firstItem="dDC-yc-OHQ" firstAttribute="centerY" secondItem="RZB-kh-gY4" secondAttribute="centerY" id="tOF-LG-usr"/>
                             <constraint firstItem="RZB-kh-gY4" firstAttribute="leading" secondItem="hc3-US-Tov" secondAttribute="leading" constant="5" id="uln-vj-sLo"/>
                             <constraint firstItem="NmO-wM-8vy" firstAttribute="centerY" secondItem="hc3-US-Tov" secondAttribute="centerY" id="xrR-gA-xXL"/>
-                            <constraint firstItem="myt-8z-PvF" firstAttribute="top" secondItem="dDC-yc-OHQ" secondAttribute="bottom" id="zdU-eC-IA4"/>
+                            <constraint firstItem="myt-8z-PvF" firstAttribute="top" secondItem="dDC-yc-OHQ" secondAttribute="bottom" constant="20" id="zdU-eC-IA4"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DJ1-r8-Gg3"/>
@@ -2349,6 +2367,7 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                         <outlet property="avgUpside" destination="fNf-Ld-Us9" id="2oG-2g-gl3"/>
                         <outlet property="brain21return" destination="ods-lp-GNJ" id="Lx3-au-ne1"/>
                         <outlet property="brain30sent" destination="nee-ic-6JL" id="u3V-v6-FnQ"/>
+                        <outlet property="deleteAccount" destination="Blg-eX-C6o" id="3Ga-4y-9p1"/>
                         <outlet property="kavout" destination="CxW-qC-e0r" id="p0k-45-Myk"/>
                         <outlet property="loader" destination="NmO-wM-8vy" id="6x6-Wf-awC"/>
                         <outlet property="mainView" destination="Gkw-rz-qLU" id="6om-oA-jAk"/>
@@ -2383,16 +2402,6 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                                 <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system" imagePlacement="trailing" title="VIEW DATA FOR SYMBOL"/>
                                 <connections>
                                     <segue destination="VCE-f9-Qth" kind="show" id="aKz-zH-2Sg"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0oT-qm-WDN" userLabel="back">
-                                <rect key="frame" x="5" y="15" width="37" height="31"/>
-                                <color key="tintColor" red="0.81751297460000005" green="0.81751297460000005" blue="0.81751297460000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="chevron.backward" catalog="system"/>
-                                <connections>
-                                    <action selector="back:" destination="d4q-lN-Xa8" eventType="touchUpInside" id="B5y-dd-DkM"/>
-                                    <action selector="backAction:" destination="uB2-Cu-P1c" eventType="touchUpInside" id="Bvb-xm-IFl"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjg-Zg-Ihb">
@@ -2618,20 +2627,17 @@ In the top left of the scorecard is the symbol and latest price. In the top righ
                         <color key="backgroundColor" red="0.1113397852" green="0.0809321031" blue="0.26276034120000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="ypC-Ao-CyP" firstAttribute="centerY" secondItem="PUw-Om-nH4" secondAttribute="centerY" id="01v-v8-OZ9"/>
-                            <constraint firstItem="0oT-qm-WDN" firstAttribute="leading" secondItem="PUw-Om-nH4" secondAttribute="leading" constant="5" id="0T5-l9-b0K"/>
                             <constraint firstItem="5Hs-SF-BbS" firstAttribute="top" secondItem="PUw-Om-nH4" secondAttribute="top" id="1qN-ax-upK"/>
                             <constraint firstItem="PUw-Om-nH4" firstAttribute="bottom" secondItem="tk3-YK-bWm" secondAttribute="bottom" constant="20" id="1yn-p0-rLs"/>
                             <constraint firstItem="TNj-cl-UoS" firstAttribute="leading" secondItem="PUw-Om-nH4" secondAttribute="leading" constant="5" id="4ga-uP-Gxi"/>
                             <constraint firstItem="gI0-my-EOO" firstAttribute="trailing" secondItem="tk3-YK-bWm" secondAttribute="trailing" id="5b7-Uq-yBc"/>
                             <constraint firstItem="GpW-e1-5cf" firstAttribute="top" secondItem="PUw-Om-nH4" secondAttribute="top" constant="15" id="82F-at-67x"/>
-                            <constraint firstItem="NoF-Uj-FKX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0oT-qm-WDN" secondAttribute="trailing" constant="8" symbolic="YES" id="86i-Wr-ycc"/>
                             <constraint firstItem="PUw-Om-nH4" firstAttribute="trailing" secondItem="cjg-Zg-Ihb" secondAttribute="trailing" constant="20" id="8bM-YE-Ivt"/>
                             <constraint firstItem="cjg-Zg-Ihb" firstAttribute="centerY" secondItem="FNO-ya-AFC" secondAttribute="centerY" id="Cky-KX-Z8R"/>
                             <constraint firstItem="NoF-Uj-FKX" firstAttribute="centerX" secondItem="PUw-Om-nH4" secondAttribute="centerX" id="Dcc-2I-JOb"/>
                             <constraint firstItem="gI0-my-EOO" firstAttribute="leading" secondItem="tk3-YK-bWm" secondAttribute="leading" id="GsK-wy-jYk"/>
                             <constraint firstItem="ypC-Ao-CyP" firstAttribute="width" secondItem="yhi-7C-DSz" secondAttribute="width" multiplier="0.6" constant="1" id="LG1-P9-7FF"/>
                             <constraint firstItem="tk3-YK-bWm" firstAttribute="top" secondItem="TNj-cl-UoS" secondAttribute="bottom" id="Nkp-4c-eJd"/>
-                            <constraint firstItem="0oT-qm-WDN" firstAttribute="top" secondItem="PUw-Om-nH4" secondAttribute="top" constant="15" id="OQz-Tp-d2J"/>
                             <constraint firstItem="PUw-Om-nH4" firstAttribute="trailing" secondItem="GpW-e1-5cf" secondAttribute="trailing" constant="15" id="Qou-bT-LZR"/>
                             <constraint firstItem="ypC-Ao-CyP" firstAttribute="centerX" secondItem="PUw-Om-nH4" secondAttribute="centerX" id="Vnc-S0-K8m"/>
                             <constraint firstItem="PUw-Om-nH4" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NoF-Uj-FKX" secondAttribute="trailing" constant="40" id="WJR-LT-jmg"/>
@@ -6624,6 +6630,7 @@ Why is data sometimes not retrieved?
                         <outlet property="contentView" destination="l6O-4a-Z5k" id="uMb-0A-Qbz"/>
                         <outlet property="dcf" destination="alf-fm-d8X" id="uRs-i6-zBI"/>
                         <outlet property="de" destination="quO-65-dLa" id="Qk5-hQ-jY2"/>
+                        <outlet property="desc" destination="YHi-Z6-cTb" id="TKY-Xc-gNL"/>
                         <outlet property="dividend" destination="Qsi-yL-mYc" id="QHV-wo-hg1"/>
                         <outlet property="employees" destination="soa-Oe-PqB" id="6aV-Qt-C9g"/>
                         <outlet property="eps" destination="fI9-Iu-qSh" id="rBg-uZ-YFq"/>
@@ -13198,21 +13205,6 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x6K-dO-uUW" customClass="CardView" customModule="Stoccoon" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="345" height="117"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9KJ-pu-0Io">
-                                                <rect key="frame" x="265" y="10" width="65" height="20"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="20" id="Kxf-TP-JBP"/>
-                                                </constraints>
-                                                <color key="tintColor" red="0.91644194160000003" green="0.0" blue="0.3790128478" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="tinted" title=" UNLINK">
-                                                    <fontDescription key="titleFontDescription" type="system" pointSize="10"/>
-                                                    <color key="baseBackgroundColor" red="0.91644194160000003" green="0.0" blue="0.3790128478" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </buttonConfiguration>
-                                                <connections>
-                                                    <action selector="unlinkAccount:" destination="sYA-nF-GIU" eventType="touchUpInside" id="Bga-XY-LeE"/>
-                                                </connections>
-                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Linked Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OcI-mW-Xnw">
                                                 <rect key="frame" x="120" y="10" width="105" height="17.5"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
@@ -13237,13 +13229,13 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                                                 <color key="textColor" red="0.81751297460000005" green="0.81751297460000005" blue="0.81751297460000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BALANCE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1BE-5g-bo6">
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BALANCE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1BE-5g-bo6">
                                                 <rect key="frame" x="231" y="49.5" width="55.5" height="14"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WsC-ms-HcO">
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WsC-ms-HcO">
                                                 <rect key="frame" x="228" y="68.5" width="61.5" height="24"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -13258,15 +13250,12 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                                             <constraint firstItem="OcI-mW-Xnw" firstAttribute="centerX" secondItem="x6K-dO-uUW" secondAttribute="centerX" id="M4A-xd-5HF"/>
                                             <constraint firstItem="bvY-UQ-lTF" firstAttribute="leading" secondItem="fs5-wv-SAq" secondAttribute="leading" id="OSA-fU-LIb"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="TUi-V3-XYI" secondAttribute="trailing" constant="20" symbolic="YES" id="QFX-e0-BmN"/>
-                                            <constraint firstItem="9KJ-pu-0Io" firstAttribute="top" secondItem="x6K-dO-uUW" secondAttribute="top" constant="10" id="Ryo-nL-lpa"/>
                                             <constraint firstItem="fs5-wv-SAq" firstAttribute="leading" secondItem="x6K-dO-uUW" secondAttribute="leading" constant="25" id="UBN-YF-aBa"/>
                                             <constraint firstItem="TUi-V3-XYI" firstAttribute="top" secondItem="bvY-UQ-lTF" secondAttribute="bottom" constant="2" id="WZB-jq-M2b"/>
-                                            <constraint firstItem="9KJ-pu-0Io" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OcI-mW-Xnw" secondAttribute="trailing" constant="8" symbolic="YES" id="YyO-Sr-lYJ"/>
                                             <constraint firstItem="TUi-V3-XYI" firstAttribute="leading" secondItem="fs5-wv-SAq" secondAttribute="leading" id="cAs-aL-c9k"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="bvY-UQ-lTF" secondAttribute="trailing" constant="20" symbolic="YES" id="dWP-Kw-XE7"/>
                                             <constraint firstItem="fs5-wv-SAq" firstAttribute="top" secondItem="OcI-mW-Xnw" secondAttribute="bottom" constant="20" id="joX-En-rQf"/>
                                             <constraint firstItem="WsC-ms-HcO" firstAttribute="centerX" secondItem="1BE-5g-bo6" secondAttribute="centerX" id="qCr-Av-OF4"/>
-                                            <constraint firstAttribute="trailing" secondItem="9KJ-pu-0Io" secondAttribute="trailing" constant="15" id="roF-DL-uRs"/>
                                             <constraint firstItem="bvY-UQ-lTF" firstAttribute="top" secondItem="fs5-wv-SAq" secondAttribute="bottom" constant="2" id="tSs-mE-WJT"/>
                                             <constraint firstItem="1BE-5g-bo6" firstAttribute="centerY" secondItem="fs5-wv-SAq" secondAttribute="centerY" id="uQk-eK-du3"/>
                                             <constraint firstAttribute="bottom" secondItem="TUi-V3-XYI" secondAttribute="bottom" constant="15" id="uY9-JK-bdy"/>
@@ -13329,7 +13318,7 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GjD-dD-vLd">
-                                                <rect key="frame" x="218.5" y="64.5" width="33.5" height="17"/>
+                                                <rect key="frame" x="223.5" y="64.5" width="33.5" height="17"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -13341,7 +13330,7 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                                             <constraint firstItem="F1l-wK-gvs" firstAttribute="top" secondItem="58O-8t-3Ji" secondAttribute="top" constant="10" id="7Me-gv-xgM"/>
                                             <constraint firstItem="njX-f3-43L" firstAttribute="leading" secondItem="58O-8t-3Ji" secondAttribute="leading" constant="25" id="DIx-4m-Z8g"/>
                                             <constraint firstItem="YFd-Tf-qZJ" firstAttribute="leading" secondItem="qQo-6I-Wha" secondAttribute="trailing" constant="8" symbolic="YES" id="DcO-Os-5gU"/>
-                                            <constraint firstAttribute="trailing" secondItem="GjD-dD-vLd" secondAttribute="trailing" constant="93" id="EnG-hA-mJt"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GjD-dD-vLd" secondAttribute="trailing" id="EnG-hA-mJt"/>
                                             <constraint firstItem="bsm-gD-cBf" firstAttribute="bottom" secondItem="lae-f0-8yj" secondAttribute="bottom" id="J1W-Pv-ssA"/>
                                             <constraint firstItem="GjD-dD-vLd" firstAttribute="centerY" secondItem="bsm-gD-cBf" secondAttribute="centerY" id="KJg-Cl-wsI"/>
                                             <constraint firstItem="lae-f0-8yj" firstAttribute="top" secondItem="njX-f3-43L" secondAttribute="bottom" constant="12" id="Kv5-Ee-3n2"/>
@@ -13349,7 +13338,7 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="bsm-gD-cBf" secondAttribute="trailing" constant="20" symbolic="YES" id="RJp-SK-9Lg"/>
                                             <constraint firstItem="bsm-gD-cBf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lae-f0-8yj" secondAttribute="trailing" constant="8" symbolic="YES" id="Siq-n2-iI5"/>
                                             <constraint firstItem="zTf-ar-NR1" firstAttribute="bottom" secondItem="njX-f3-43L" secondAttribute="bottom" id="Vxr-o9-XQM"/>
-                                            <constraint firstItem="GjD-dD-vLd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bsm-gD-cBf" secondAttribute="trailing" symbolic="YES" id="XRZ-Wn-jh7"/>
+                                            <constraint firstItem="GjD-dD-vLd" firstAttribute="leading" secondItem="bsm-gD-cBf" secondAttribute="trailing" constant="15" id="XRZ-Wn-jh7"/>
                                             <constraint firstItem="njX-f3-43L" firstAttribute="top" secondItem="F1l-wK-gvs" secondAttribute="bottom" constant="15" id="ZEA-BD-n3c"/>
                                             <constraint firstItem="lae-f0-8yj" firstAttribute="leading" secondItem="njX-f3-43L" secondAttribute="leading" id="aro-8G-AEl"/>
                                             <constraint firstItem="YFd-Tf-qZJ" firstAttribute="bottom" secondItem="qQo-6I-Wha" secondAttribute="bottom" id="bdZ-qt-Xh9"/>
@@ -13369,6 +13358,21 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                                     <constraint firstAttribute="bottom" secondItem="58O-8t-3Ji" secondAttribute="bottom" id="hM5-SQ-Ilz"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9KJ-pu-0Io">
+                                <rect key="frame" x="49.5" y="349.5" width="276" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Kxf-TP-JBP"/>
+                                </constraints>
+                                <color key="tintColor" red="0.91644194160000003" green="0.0" blue="0.3790128478" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title=" UNLINK">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
+                                    <color key="baseBackgroundColor" red="0.91644194160000003" green="0.0" blue="0.3790128478" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="unlinkAccount:" destination="sYA-nF-GIU" eventType="touchUpInside" id="Bga-XY-LeE"/>
+                                </connections>
+                            </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N10-Km-BxE" customClass="ShadowView" customModule="Stoccoon" customModuleProvider="target">
                                 <rect key="frame" x="15" y="349.5" width="345" height="218.5"/>
                                 <subviews>
@@ -13416,7 +13420,7 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                                     <constraint firstAttribute="trailing" secondItem="UEg-DG-eNH" secondAttribute="trailing" id="fWc-ay-dTd"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xOP-Ez-1aO">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xOP-Ez-1aO">
                                 <rect key="frame" x="15" y="69" width="345" height="360"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link your investment account to automatically import your portfolio and track it's performance with daily updates." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fJo-fg-wg6">
@@ -13486,6 +13490,8 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                             <constraint firstItem="xOP-Ez-1aO" firstAttribute="leading" secondItem="ifh-kT-j4S" secondAttribute="leading" constant="15" id="Qyz-R5-j2K"/>
                             <constraint firstItem="ILn-kn-uj6" firstAttribute="top" secondItem="4aP-F8-PFa" secondAttribute="bottom" constant="20" id="Ut0-RA-XZc"/>
                             <constraint firstItem="gNa-F6-82L" firstAttribute="top" secondItem="ifh-kT-j4S" secondAttribute="top" constant="20" id="WHm-ur-DyU"/>
+                            <constraint firstItem="9KJ-pu-0Io" firstAttribute="centerX" secondItem="ILn-kn-uj6" secondAttribute="centerX" id="Wxo-eV-i3Q"/>
+                            <constraint firstItem="9KJ-pu-0Io" firstAttribute="width" secondItem="ILn-kn-uj6" secondAttribute="width" multiplier="0.8" id="YtS-6N-eeb"/>
                             <constraint firstItem="N10-Km-BxE" firstAttribute="top" secondItem="ILn-kn-uj6" secondAttribute="bottom" constant="20" id="aj7-NS-bHa"/>
                             <constraint firstItem="xOP-Ez-1aO" firstAttribute="top" secondItem="gNa-F6-82L" secondAttribute="bottom" constant="25" id="dNh-4m-bCU"/>
                             <constraint firstItem="ifh-kT-j4S" firstAttribute="trailing" secondItem="4aP-F8-PFa" secondAttribute="trailing" constant="15" id="gXU-xY-tnf"/>
@@ -13500,6 +13506,7 @@ You can follow up to 5 Twitter users. Additionally, you may only add 5 Twitter u
                             <constraint firstItem="gNa-F6-82L" firstAttribute="centerY" secondItem="LBc-I4-uSM" secondAttribute="centerY" id="vlx-vh-g2h"/>
                             <constraint firstItem="LBc-I4-uSM" firstAttribute="leading" secondItem="ifh-kT-j4S" secondAttribute="leading" constant="5" id="wFN-RA-AEL"/>
                             <constraint firstItem="ifh-kT-j4S" firstAttribute="trailing" secondItem="xOP-Ez-1aO" secondAttribute="trailing" constant="15" id="zN6-7T-6Zi"/>
+                            <constraint firstItem="9KJ-pu-0Io" firstAttribute="top" secondItem="ILn-kn-uj6" secondAttribute="bottom" constant="20" id="zhP-JT-TwK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cDe-cn-uZu"/>
@@ -17970,10 +17977,10 @@ The overall score of the tactical model, considering each of the 4 component fac
         <segue reference="Ly5-k4-OeE"/>
         <segue reference="glb-DT-AhN"/>
         <segue reference="ueo-lW-qx1"/>
-        <segue reference="pDr-Wp-HVS"/>
+        <segue reference="csO-JB-Uvs"/>
         <segue reference="ib7-h5-ARA"/>
         <segue reference="fj7-li-oQg"/>
-        <segue reference="Pmb-ZO-qQ4"/>
+        <segue reference="urQ-jM-fnB"/>
         <segue reference="sOe-Hg-cQt"/>
     </inferredMetricsTieBreakers>
     <resources>

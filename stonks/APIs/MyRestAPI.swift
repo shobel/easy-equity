@@ -13,8 +13,8 @@ import Firebase
 
 class MyRestAPI: HTTPRequest {
     
-    //private var apiurl = "https://stoccoon.com/api"
-    private var apiurl = "http://192.168.1.104:3000/api" //192.168.1.113
+    private var apiurl = "https://stoccoon.com/api"
+    //private var apiurl = "http://192.168.4.53:3000/api" //192.168.1.113
     
     private var appEndpoint = "/app"
     private var userEndpoint = "/user"
@@ -30,6 +30,14 @@ class MyRestAPI: HTTPRequest {
     
     public override init(){
         super.init()
+    }
+    
+    public func deleteAccount(completionHandler: @escaping ()->Void) {
+        let queryURL = buildQuery(url: apiurl + userEndpoint + "/delete-account", params: [:])
+        self.getRequest(queryURL: queryURL) { (data) in
+            let json = JSON(data)
+            completionHandler()
+        }
     }
     
     public func getBalanceHistory(completionHandler: @escaping ([DateAndBalance])->Void) {
@@ -1156,7 +1164,7 @@ class MyRestAPI: HTTPRequest {
                     indicators.append(n)
                 }
             }
-            let nowValue = fearGreedJSON["timeline"]["now"].string!
+            let nowValue = fearGreedJSON["timeline"]["now"].string ?? ""
             
             let sectorJSON = json["sectorPerformance"]
             var sectorPerformances:[SectorPerformance] = []

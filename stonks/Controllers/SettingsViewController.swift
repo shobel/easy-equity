@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FCAlertView
 
 class SettingsViewController: UIViewController {
 
@@ -21,6 +22,8 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var brain21return: UISwitch!
     @IBOutlet weak var stocktwits: UISwitch!
     @IBOutlet weak var paProbUp: UISwitch!
+    
+    @IBOutlet weak var deleteAccount: UIButton!
     
     var premiumPackages:[PremiumPackage] = []
     var premiumData:[PremiumDataBase] = []
@@ -47,6 +50,9 @@ class SettingsViewController: UIViewController {
         self.packageIdToSwitch["ANALYST_PRICE_TARGET_UPSIDE"] = self.avgUpside
         
         self.loader.isHidden = false
+        self.deleteAccount.layer.cornerRadius = self.deleteAccount.bounds.height / 2.0
+        self.deleteAccount.layer.borderColor = Constants.lightPurple.cgColor
+        self.deleteAccount.layer.borderWidth = 1.0
         //gets the cost of the different premium packages
         NetworkManager.getMyRestApi().getPremiumPackages(completionHandler: handlePremiumPackages)
     }
@@ -176,6 +182,42 @@ class SettingsViewController: UIViewController {
                 sw1.isOn = false
             }
         }
+    }
+    
+    @IBAction func deleteAccountAction(_ sender: Any) {
+        self.showInfoAlert()
+    }
+    
+    func doDeleteAccount(){
+        NetworkManager.getMyRestApi().deleteAccount {
+            print("account deleted")
+        }
+        NetworkManager.getMyRestApi().signOutAndClearKeychain()
+        let root = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Auth") as! AuthViewController
+        self.present(root, animated: true)
+    }
+    
+    func showInfoAlert() {
+        let message = "Deleting your account will erase all account related data and is irreversible. Are you sure?"
+        let alert = FCAlertView()
+        alert.doneActionBlock {
+            self.doDeleteAccount()
+        }
+        alert.alertBackgroundColor = Constants.themePurple
+        alert.titleColor = .white
+        alert.subTitleColor = .white
+        alert.colorScheme = Constants.lightPurple
+        alert.doneButtonTitleColor = .white
+        alert.secondButtonTitleColor = .darkGray
+        alert.firstButtonTitleColor = .darkGray
+        alert.dismissOnOutsideTouch = true
+        alert.detachButtons = true
+        alert.showAlert(inView: self,
+                        withTitle: title,
+                        withSubtitle: message,
+                        withCustomImage: UIImage(systemName: "info.circle"),
+                        withDoneButtonTitle: "Ok",
+                        andButtons: ["Cancel"])
     }
     
     /*

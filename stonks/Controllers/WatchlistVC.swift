@@ -138,6 +138,7 @@ class WatchlistVC: UIViewController, Updateable {
         } else {
             self.noPortfolioView.isHidden = true
         }
+        self.gainSort()
         self.tableView.reloadData()
         self.portfolioTableChange.reloadData()
         self.portfolioTableGain.reloadData()
@@ -191,9 +192,10 @@ class WatchlistVC: UIViewController, Updateable {
                     for i in 0..<holdings.count {
                         let h = holdings[i]
                         let c = Company(symbol: h.symbol ?? "", fullName: h.name ?? "")
-                        self.totalPortValue += (h.close_price ?? 0.0) * (h.quantity ?? 0.0)
+//                        self.totalPortValue += (h.close_price ?? 0.0) * (h.quantity ?? 0.0)
                         portfolioCompanies.append(c)
                     }
+                    self.totalPortValue = (self.account?.balance?.current ?? 0.0) + (self.account?.balance?.available ?? 0.0)
                     self.portfolioCompanies = portfolioCompanies
                     Dataholder.account = account
                     Dataholder.holdings = holdings
@@ -632,10 +634,9 @@ class WatchlistVC: UIViewController, Updateable {
         
         var dayPLTotal = 0.0
         for h in self.holdings {
-            if let cp = self.portfolioQuoteLookup[h.symbol ?? ""]?.changePercent {
-                let yp = h.close_price ?? 0.0
-                let quant = h.quantity ?? 0.0
-                let dayGain = (cp/100.0) * (quant * yp)
+            if let quote = self.portfolioQuoteLookup[h.symbol ?? ""] {
+                let curVal = (h.quantity ?? 0.0) * (quote.latestPrice ?? 0.0)
+                let dayGain = curVal - (curVal/(1+(((quote.changePercent ?? 0.0)/100.0) ?? 0.0)))
                 dayPLTotal += dayGain
             }
         }
@@ -792,16 +793,16 @@ class WatchlistVC: UIViewController, Updateable {
                 self.holdings.sort { a, b in
                     let quoteA = self.portfolioQuoteLookup[a.symbol ?? ""]
                     let quoteB = self.portfolioQuoteLookup[b.symbol ?? ""]
-                    let dayGainA = (((quoteA?.changePercent ?? 0.0) / 100.0) ?? 0.0) * (a.quantity ?? 0.0) * (a.close_price ?? 0.0)
-                    let dayGainB = (((quoteB?.changePercent ?? 0.0) / 100.0) ?? 0.0) * (b.quantity ?? 0.0) * (b.close_price ?? 0.0)
+                    let dayGainA = (((quoteA?.changePercent ?? 0.0) / 100.0) ?? 0.0) * (a.quantity ?? 0.0) * (quoteA?.previousClose ?? 0.0)
+                    let dayGainB = (((quoteB?.changePercent ?? 0.0) / 100.0) ?? 0.0) * (b.quantity ?? 0.0) * (quoteB?.previousClose ?? 0.0)
                     return dayGainA < dayGainB
                 }
             } else {
                 self.holdings.sort { a, b in
                     let quoteA = self.portfolioQuoteLookup[a.symbol ?? ""]
                     let quoteB = self.portfolioQuoteLookup[b.symbol ?? ""]
-                    let dayGainA = (((quoteA?.changePercent ?? 0.0) / 100.0) ) * (a.quantity ?? 0.0) * (a.close_price ?? 0.0)
-                    let dayGainB = (((quoteB?.changePercent ?? 0.0) / 100.0) ) * (b.quantity ?? 0.0) * (b.close_price ?? 0.0)
+                    let dayGainA = (((quoteA?.changePercent ?? 0.0) / 100.0) ) * (a.quantity ?? 0.0) * (quoteA?.previousClose ?? 0.0)
+                    let dayGainB = (((quoteB?.changePercent ?? 0.0) / 100.0) ) * (b.quantity ?? 0.0) * (quoteB?.previousClose ?? 0.0)
                     return dayGainA > dayGainB
                 }
             }
@@ -982,10 +983,9 @@ extension WatchlistVC: UITableViewDelegate, UITableViewDataSource {
 //                        }
 //                    }
                     
-                    if let q = c.quote, let change = c.quote?.changePercent, let p = c.quote?.latestPrice, let cb = holding.cost_basis, let quant = holding.quantity, let cp = holding.close_price {
-                        let yestVal = quant * cp
+                    if let q = c.quote, let change = c.quote?.changePercent, let p = c.quote?.latestPrice, let cb = holding.cost_basis, let quant = holding.quantity {
                         let curVal = quant * p
-                        cell.dayGain.text = String(format: "%0.1f", (change/100.0) * yestVal)
+                        cell.dayGain.text = String(format: "%0.1f", curVal - (curVal/(1 + (change/100.0))))
                         cell.dayGainPercent.text = String(format: "%0.1f%%", change)
                         cell.totalGain.text = String(format: "%0.1f", curVal - cb)
                         cell.totalGainPercent.text = String(format: "%0.1f%%", ((curVal - cb)/cb) * 100.0)
@@ -998,7 +998,7 @@ extension WatchlistVC: UITableViewDelegate, UITableViewDataSource {
                         cell.numShares.text = String(format: "%0.1f", quant)
                         cell.cbs.text = String(format: "@ $%0.1f", cb / quant)
                         
-                        if ((change/100.0) * yestVal) >= 0 {
+                        if (curVal - (curVal/(1 + (change/100.0)))) >= 0 {
                             cell.dayGain.textColor = Constants.green
                             cell.dayGainPercent.textColor = Constants.green
                         } else {
@@ -1048,7 +1048,8 @@ extension WatchlistVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if tableView.restorationIdentifier == "watchlistTable" {
             if editingStyle == .delete {
-                self.watchlistManager.removeCompanyByIndex(index: indexPath.row){}
+                var c = self.watchlist[indexPath.row]
+                self.watchlistManager.removeCompanyBySymbol(symbol: c.symbol){}
             }
         }
     }

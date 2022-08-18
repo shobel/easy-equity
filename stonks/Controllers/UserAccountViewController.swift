@@ -13,6 +13,7 @@ class UserAccountViewController: UIViewController, ShadowButtonDelegate {
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var userid: UILabel!
     @IBOutlet weak var creditBalanceButton: ShadowButtonView!
+    @IBOutlet weak var signOutButton: UIButton!
     
     override func viewDidLoad() {
         self.mainView.addPurpleGradientBackground()
@@ -21,6 +22,9 @@ class UserAccountViewController: UIViewController, ShadowButtonDelegate {
         self.creditBalanceButton.delegate = self
         self.creditBalanceButton.bgColor = .clear
         userid.text = KeychainItem.currentEmail
+        self.signOutButton.layer.borderWidth = 1.0
+        self.signOutButton.layer.borderColor = Constants.lightPurple.cgColor
+        self.signOutButton.layer.cornerRadius = self.signOutButton.bounds.height / 2.0
         super.viewDidLoad()
     }
     

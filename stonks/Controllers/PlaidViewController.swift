@@ -42,6 +42,8 @@ class PlaidViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mainView.addPurpleGradientBackground()
+        self.chartContainer.isHidden = true
+        
         DispatchQueue.main.async {
             self.balanceChart.setup()
         }
@@ -125,7 +127,7 @@ class PlaidViewController: UIViewController {
             self.linkContainer.isHidden = true
             self.accountContainer.isHidden = false
             self.holdingSummaryContainer.isHidden = false
-            self.chartContainer.isHidden = false
+            //self.chartContainer.isHidden = false
         }
     }
     
@@ -134,17 +136,22 @@ class PlaidViewController: UIViewController {
             self.linkContainer.isHidden = false
             self.accountContainer.isHidden = true
             self.holdingSummaryContainer.isHidden = true
-            self.chartContainer.isHidden = true
+            //self.chartContainer.isHidden = true
         }
     }
     
     func deriveStatsFromHoldings() {
+        let portfolio = Dataholder.watchlistManager.getPortfolio()
         var total:Double = 0.0
         var totalPL:Double = 0.0
         for h in self.holdings {
-            let currenVal = (h.quantity ?? 0.0) * (h.close_price ?? 0.0)
-            total += currenVal
-            totalPL += currenVal - (h.cost_basis ?? 0.0)
+            for p in portfolio {
+                if h.symbol == p.symbol {
+                    let currenVal = (h.quantity ?? 0.0) * (p.quote?.latestPrice ?? 0.0)
+                    total += currenVal
+                    totalPL += currenVal - (h.cost_basis ?? 0.0)
+                }
+            }
         }
         self.totalInvested = total
         self.openPLValue = totalPL

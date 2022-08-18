@@ -59,10 +59,21 @@ class TrendingSocialsChart: BarChartView {
         var entries:[BarChartDataEntry] = []
         self.xLabels = []
 
+        var allZero:Bool = true
         for i in 0..<d.count {
             let entry = d[i]
             self.xLabels.append(entry.symbol ?? "")
             entries.append(BarChartDataEntry(x: Double(i) + 0.4, y: Double(entry.twitterSentiment ?? 0.0)))
+            if entry.twitterSentiment != nil && entry.twitterSentiment! != 0.0 {
+                allZero = false
+            }
+        }
+        if allZero {
+            for i in 0..<d.count {
+                let entry = d[i]
+                self.xLabels.append(entry.symbol ?? "")
+                entries.append(BarChartDataEntry(x: Double(i) + 0.4, y: Double(entry.twitterLikes ?? 0)))
+            }
         }
         self.xAxis.valueFormatter = IndexAxisValueFormatter(values: self.xLabels)
         let entryset = BarChartDataSet(entries: entries)

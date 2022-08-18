@@ -91,6 +91,20 @@ class WatchlistManager {
         }
     }
     
+    public func removeCompanyBySymbol(symbol: String, completion: @escaping () -> Void){
+        for i in 0..<self.watchlist.count {
+            let c = watchlist[i]
+            if c.symbol == symbol {
+                watchlist.remove(at: i)
+                self.watchlistVC?.watchlistUpdated()
+                NetworkManager.getMyRestApi().removeFromWatchlist(symbol: symbol) { (JSON) in
+                    completion()
+                }
+                break
+            }
+        }
+    }
+    
     public func removeCompanyByIndex(index: Int, completion: @escaping () -> Void){
         let company = watchlist[index]
         watchlist.remove(at: index)
