@@ -1,8 +1,7 @@
-# easy-equity
+# STOCCOON
+### iOS Mobile App for tracking and analyzing stocks and other investments 
 
 <img src="https://github.com/shobel/easy-equity/blob/master/screenshots/preview.gif" height="800" />
-
-### iOS Mobile App for tracking and analyzing stocks and other investments 
 
 Features:
 
