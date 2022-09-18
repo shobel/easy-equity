@@ -25,6 +25,7 @@ class PlaidViewController: UIViewController {
     @IBOutlet weak var accountName: UILabel!
     @IBOutlet weak var accountValue: UILabel!
     
+    @IBOutlet weak var unlinkButton: UIButton!
     @IBOutlet weak var holdingSummaryContainer: ShadowView!
     @IBOutlet weak var plPercent: UILabel!
     @IBOutlet weak var investedTotal: UILabel!
@@ -67,6 +68,7 @@ class PlaidViewController: UIViewController {
                     Dataholder.holdings = holdings
                     self.setData()
                 } else {
+                    self.hideAccountViews()
                     DispatchQueue.main.async {
                         self.loader.stopAnimating()
                     }
@@ -127,6 +129,7 @@ class PlaidViewController: UIViewController {
             self.linkContainer.isHidden = true
             self.accountContainer.isHidden = false
             self.holdingSummaryContainer.isHidden = false
+            self.unlinkButton.isHidden = false
             //self.chartContainer.isHidden = false
         }
     }
@@ -136,6 +139,7 @@ class PlaidViewController: UIViewController {
             self.linkContainer.isHidden = false
             self.accountContainer.isHidden = true
             self.holdingSummaryContainer.isHidden = true
+            self.unlinkButton.isHidden = true
             //self.chartContainer.isHidden = true
         }
     }
