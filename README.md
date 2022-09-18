@@ -1,7 +1,6 @@
 # easy-equity
 
-![Alt Text](https://github.com/shobel/easy-equity/blob/master/screenshots/preview.gif)
-
+<img src="https://github.com/shobel/easy-equity/blob/master/screenshots/preview.gif" height="800" />
 
 ### iOS Mobile App for tracking and analyzing stocks and other investments 
 
